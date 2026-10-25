@@ -1,4 +1,6 @@
 interface:
   display_name: "Python Docs"
   short_description: "Research python documentation"
+  icon_small: "./assets/python-original-wordmark.svg"
+  icon_large: "./assets/python-original-wordmark.svg"
   default_prompt: "Find version-specific primary documentation for python components."

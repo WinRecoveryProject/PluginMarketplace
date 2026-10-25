@@ -1,0 +1,7 @@
+interface:
+  display_name: "PowerShell Project Development"
+  short_description: "Develop PowerShell-centered projects"
+  icon_small: "./assets/skill-icon.png"
+  icon_large: "./assets/skill-icon.png"
+  brand_color: "#2671BE"
+  default_prompt: "Use $powershell-centered-project-development to develop this mixed-language PowerShell-centered project."

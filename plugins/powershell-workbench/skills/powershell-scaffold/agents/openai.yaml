@@ -1,0 +1,7 @@
+interface:
+  display_name: "PowerShell Scaffold"
+  short_description: "Compose registered PowerShell components"
+  icon_small: "./assets/skill-icon.png"
+  icon_large: "./assets/skill-icon.png"
+  brand_color: "#2671BE"
+  default_prompt: "Use $powershell-scaffold to generate or compose registered PowerShell components with a pre-execution checkpoint."

@@ -1,0 +1,7 @@
+interface:
+  display_name: "PowerShell Portfolio Discovery"
+  short_description: "Inventory scoped project portfolios"
+  icon_small: "./assets/skill-icon.png"
+  icon_large: "./assets/skill-icon.png"
+  brand_color: "#2671BE"
+  default_prompt: "Use $powershell-portfolio-discovery to inventory these explicitly scoped PowerShell project roots."

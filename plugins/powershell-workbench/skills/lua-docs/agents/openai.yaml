@@ -1,4 +1,6 @@
 interface:
   display_name: "Lua Docs"
   short_description: "Research lua documentation"
+  icon_small: "./assets/lua-original.svg"
+  icon_large: "./assets/lua-original.svg"
   default_prompt: "Find version-specific primary documentation for lua components."

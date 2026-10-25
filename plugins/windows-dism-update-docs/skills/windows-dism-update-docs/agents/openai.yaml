@@ -1,6 +1,9 @@
 interface:
   display_name: "Windows DISM Update Docs"
   short_description: "Verify Windows servicing sources and integration evidence"
+  icon_small: "./assets/windows-dism-update-docs.png"
+  icon_large: "./assets/windows-dism-update-docs.png"
+  brand_color: "#0078D4"
   default_prompt: "Use $windows-dism-update-docs to check our Windows integration documentation and record verified findings."
 policy:
   allow_implicit_invocation: true

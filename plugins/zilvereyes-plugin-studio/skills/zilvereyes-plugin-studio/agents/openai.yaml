@@ -1,0 +1,7 @@
+interface:
+  display_name: "Plugin Studio"
+  short_description: "Coordinate safe plugin work"
+  icon_small: "./assets/plugin-studio.svg"
+  icon_large: "./assets/plugin-studio.svg"
+  brand_color: "#635BFF"
+  default_prompt: "Use $zilvereyes-plugin-studio to coordinate creation, evaluation and portfolio work across these plugins."

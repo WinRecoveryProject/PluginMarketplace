@@ -1,0 +1,7 @@
+interface:
+  display_name: "Create Plugin"
+  short_description: "Create preserved plugin candidates"
+  icon_small: "./assets/plugin-studio.svg"
+  icon_large: "./assets/plugin-studio.svg"
+  brand_color: "#635BFF"
+  default_prompt: "Use $zilvereyes-create-plugin to create a new plugin candidate without overwriting existing sources."

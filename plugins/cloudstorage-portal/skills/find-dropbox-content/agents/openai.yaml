@@ -1,0 +1,7 @@
+interface:
+  display_name: "Find Dropbox Content"
+  short_description: "Search and locate Dropbox files and folders"
+  icon_small: "./assets/dropbox.png"
+  icon_large: "./assets/dropbox.png"
+  brand_color: "#0061FF"
+  default_prompt: "Use $find-dropbox-content to locate the relevant Dropbox file or folder before reading, sharing, organizing, or restoring it."

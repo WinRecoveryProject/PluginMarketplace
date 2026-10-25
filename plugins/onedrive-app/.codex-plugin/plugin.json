@@ -1,0 +1,26 @@
+{
+  "name": "onedrive-app",
+  "version": "1.0.1",
+  "description": "Package the registered OneDrive App, its connection surface and its bounded OneDrive skill.",
+  "author": {
+    "name": "Zilvereyes",
+    "email": "zilver.muhlig.hansen@gmail.com"
+  },
+  "license": "MIT",
+  "apps": "./.app.json",
+  "skills": "./skills",
+  "interface": {
+    "displayName": "OneDrive App",
+    "shortDescription": "Registered OneDrive connection",
+    "longDescription": "Package the registered OneDrive App and its bounded OneDrive skill. The App owns the Microsoft connection flow. CloudStorage Portal consumes the App alongside Dropbox and Google Drive, while CloudStorage Portal Local owns the separate local MCP runtime.",
+    "developerName": "Zilvereyes",
+    "category": "Productivity",
+    "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
+    "capabilities": [],
+    "defaultPrompt": "Vis min verificerede OneDrive-konto og indholdet i roden uden at ændre filer.",
+    "logo": "./assets/onedrive.png",
+    "composerIcon": "./assets/onedrive.png"
+  }
+}

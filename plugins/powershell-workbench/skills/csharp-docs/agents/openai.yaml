@@ -1,4 +1,6 @@
 interface:
   display_name: "Csharp Docs"
   short_description: "Research csharp documentation"
+  icon_small: "./assets/csharp-original.svg"
+  icon_large: "./assets/csharp-original.svg"
   default_prompt: "Find version-specific primary documentation for csharp components."

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Zilvereyes Plugin Studio</title>
+  <desc id="desc">Four connected plugin blocks with a magnifying lens and a central spark.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14162B"/>
+      <stop offset="1" stop-color="#28235B"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7B73FF"/>
+      <stop offset="1" stop-color="#39D9C5"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="104" fill="url(#bg)"/>
+  <g fill="none" stroke="url(#accent)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M140 164h92v92h-92zM280 164h92v92h-92zM140 304h92v68h-92z"/>
+    <path d="M232 210h48M186 256v48M326 256v34"/>
+    <circle cx="326" cy="334" r="54"/>
+    <path d="M365 373l43 43"/>
+  </g>
+  <path d="M256 72l13 35 35 13-35 13-13 35-13-35-35-13 35-13z" fill="#FFD166"/>
+</svg>

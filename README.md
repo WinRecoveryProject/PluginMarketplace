@@ -10,8 +10,9 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 
 | Plugin | Version | Installation |
 | --- | --- | --- |
-| CloudStorage Portal | `0.8.0-dev.24` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
-| OneDrive | `0.1.8` | `codex plugin add cloudstorage-onedrive@winrecoveryproject-digital` |
+| OneDrive App | `1.0.1` | `codex plugin add onedrive-app@winrecoveryproject-digital` |
+| CloudStorage Portal Local | `0.1.0` | `codex plugin add cloudstorage-portal-local@winrecoveryproject-digital` |
+| CloudStorage Portal | `0.8.0-dev.26` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Zilvereyes Plugin Studio | `0.2.1` | `codex plugin add zilvereyes-plugin-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.2` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
@@ -35,9 +36,9 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 
 ## App- og OAuth-identitet
 
-Codex App-ID'er som `asdk_app_...` og `connector_...` må kun komme fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er OAuth-identiteter og må ikke omdøbes til et opdigtet `asdk_app_...`-ID. CloudStorage Portal refererer til de verificerede Dropbox-, Google Drive- og OneDrive-apps. Det selvstændige OneDrive-plugin bruger den registrerede OneDrive App-binding; den tidligere hostede MCP/OAuth-kandidat er bevaret som en inaktiv reference.
+Codex App-ID'er som `asdk_app_...` og `connector_...` må kun komme fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er OAuth-identiteter og må ikke omdøbes til et opdigtet `asdk_app_...`-ID. OneDrive App pakker den registrerede OneDrive App-binding. CloudStorage Portal refererer til de verificerede Dropbox-, Google Drive- og OneDrive-apps og samler deres skills. CloudStorage Portal Local ejer alene den lokale MCP-runtime. Den tidligere hostede MCP/OAuth-kandidat er bevaret som en inaktiv reference.
 
-Installerede plugins migreres ikke automatisk fra ældre markedspladser. Det beskytter eksisterende plugin-data, OAuth-grants og rollback-muligheder.
+De ældre personlige pluginobjekter migreres med deres eksisterende `pluginId`, hvor platformen accepterer ejerskiftet til Git-markedspladsen. Det bevarer identitet og politikker. En forkert historisk CloudStorage OneDrive MCP-pakke migreres ikke; den skal slettes efter den korrekte OneDrive App-binding er verificeret.
 
 ## Konsolideringspolitik
 

@@ -1,4 +1,6 @@
 interface:
   display_name: "Javascript Docs"
   short_description: "Research javascript documentation"
+  icon_small: "./assets/javascript-original.svg"
+  icon_large: "./assets/javascript-original.svg"
   default_prompt: "Find version-specific primary documentation for javascript components."

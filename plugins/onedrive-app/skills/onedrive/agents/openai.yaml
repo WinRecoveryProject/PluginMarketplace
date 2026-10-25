@@ -1,0 +1,7 @@
+interface:
+  display_name: "OneDrive"
+  short_description: "Verify, browse, and read personal OneDrive files"
+  icon_small: "./assets/onedrive.png"
+  icon_large: "./assets/onedrive.png"
+  brand_color: "#0078D4"
+  default_prompt: "Use $onedrive to verify my connected Microsoft account and browse or read personal OneDrive files without changing them."

@@ -1,4 +1,6 @@
 interface:
   display_name: "Json Docs"
   short_description: "Research json documentation"
+  icon_small: "./assets/json-original.svg"
+  icon_large: "./assets/json-original.svg"
   default_prompt: "Find version-specific primary documentation for json components."

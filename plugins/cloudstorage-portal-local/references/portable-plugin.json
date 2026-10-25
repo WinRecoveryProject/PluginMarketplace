@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cloudstorage-portal-local",
+  "version": "0.1.0",
+  "description": "Run the local CloudStorage Portal MCP broker independently from provider App and skill packages.",
+  "author": {
+    "name": "Zilvereyes",
+    "email": "zilver.muhlig.hansen@gmail.com"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "mcpServers": "./mcp.json",
+      "interface": {
+        "displayName": "CloudStorage Portal Local",
+        "shortDescription": "Local cloud broker runtime",
+        "longDescription": "Run the local CloudStorage Portal MCP broker independently from OneDrive App and the CloudStorage Portal aggregation package.",
+        "developerName": "Zilvereyes",
+        "category": "Productivity"
+      }
+    }
+  }
+}

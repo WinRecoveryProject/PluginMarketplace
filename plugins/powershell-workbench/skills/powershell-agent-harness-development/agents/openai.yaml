@@ -1,0 +1,7 @@
+interface:
+  display_name: "PowerShell Agent Harness"
+  short_description: "Build safe AI agent harnesses"
+  icon_small: "./assets/skill-icon.png"
+  icon_large: "./assets/skill-icon.png"
+  brand_color: "#2671BE"
+  default_prompt: "Use $powershell-agent-harness-development to build or review this PowerShell agent harness."

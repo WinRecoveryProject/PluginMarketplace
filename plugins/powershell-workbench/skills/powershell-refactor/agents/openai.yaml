@@ -1,0 +1,7 @@
+interface:
+  display_name: "PowerShell Refactor"
+  short_description: "Refactor PowerShell compatibly"
+  icon_small: "./assets/skill-icon.png"
+  icon_large: "./assets/skill-icon.png"
+  brand_color: "#2671BE"
+  default_prompt: "Use $powershell-refactor to refactor this PowerShell code while preserving behavior and compatibility."

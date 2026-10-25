@@ -5,7 +5,7 @@
     "name": "Zilvereyes"
   },
   "license": "MIT",
-  "description": "Coordinate Dropbox, Google Drive and OneDrive accounts with preserved native provider bindings and a local OAuth/Graph MCP runtime.",
+  "description": "Coordinate Dropbox, Google Drive and OneDrive through three explicit App bindings and a unified skill layer.",
   "extensions": {
     "com.openai": {
       "apps": "./.app.json",
@@ -20,11 +20,11 @@
         "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
         "logo": "./assets/cloudstorage-portal.png",
         "composerIcon": "./assets/cloudstorage-portal.png",
-        "longDescription": "Samlet portal til Dropbox, Google Drive og OneDrive. Bevarer de eksisterende native Dropbox- og Google Drive-forbindelser og tilføjer en selvstændig lokal OAuth/Graph-runtime til OneDrive, separate grants og hurtigt kontoskift.",
+        "longDescription": "Samlet portal til Dropbox, Google Drive og OneDrive. Bevarer de native provider-forbindelser, samler deres skills og refererer OneDrive App uden at eje den separate lokale MCP-runtime.",
         "shortDescription": "Cloudfiler på tværs af konti"
       }
     }
   },
   "name": "cloudstorage-portal",
-  "version": "0.8.0-dev.24"
+  "version": "0.8.0-dev.26"
 }

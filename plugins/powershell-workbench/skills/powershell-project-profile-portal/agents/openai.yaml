@@ -1,0 +1,7 @@
+interface:
+  display_name: "Project Profile Portal"
+  short_description: "Manage portable project profiles"
+  icon_small: "./assets/skill-icon.png"
+  icon_large: "./assets/skill-icon.png"
+  brand_color: "#2671BE"
+  default_prompt: "Use $powershell-project-profile-portal to show or safely update this portable project profile."

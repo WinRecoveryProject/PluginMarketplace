@@ -1,0 +1,25 @@
+{
+  "name": "cloudstorage-portal-local",
+  "version": "0.1.0",
+  "description": "Run the local CloudStorage Portal MCP broker independently from the provider App and skill packages.",
+  "author": {
+    "name": "Zilvereyes",
+    "email": "zilver.muhlig.hansen@gmail.com"
+  },
+  "license": "MIT",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "CloudStorage Portal Local",
+    "shortDescription": "Local cloud broker runtime",
+    "longDescription": "Run the local CloudStorage Portal MCP broker as its own package. It remains separate from OneDrive App and from the CloudStorage Portal aggregation and skill package.",
+    "developerName": "Zilvereyes",
+    "category": "Productivity",
+    "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
+    "capabilities": [],
+    "defaultPrompt": "Kontrollér status for min lokale CloudStorage Portal-runtime uden at ændre filer.",
+    "logo": "./assets/cloudstorage-portal-local.png",
+    "composerIcon": "./assets/cloudstorage-portal-local.png"
+  }
+}

@@ -1,4 +1,6 @@
 interface:
   display_name: "Css Docs"
   short_description: "Research css documentation"
+  icon_small: "./assets/css3-original-wordmark.svg"
+  icon_large: "./assets/css3-original-wordmark.svg"
   default_prompt: "Find version-specific primary documentation for css components."

@@ -1,4 +1,7 @@
 interface:
   display_name: "Component Archive"
   short_description: "Extract and compose PowerShell components"
+  icon_small: "./assets/component-forge.png"
+  icon_large: "./assets/component-forge.png"
+  brand_color: "#36B37E"
   default_prompt: "Search the archive before generating PowerShell code and register component contracts."

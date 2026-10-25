@@ -1,0 +1,7 @@
+interface:
+  display_name: "WoW TOC Docs"
+  short_description: "Research WoW addon manifests"
+  icon_small: "./assets/skill-icon.svg"
+  icon_large: "./assets/skill-icon.svg"
+  brand_color: "#6B7280"
+  default_prompt: "Use $toc-docs to research branch-specific WoW TOC metadata and addon load behavior."
