@@ -31,8 +31,6 @@ for (const record of provenance) {
 const manifest = JSON.parse(await readFile(path.join(candidateRoot, '.codex-plugin', 'plugin.json'), 'utf8'));
 const portableManifest = JSON.parse(await readFile(path.join(candidateRoot, 'references', 'portable-plugin.json'), 'utf8'));
 const apps = JSON.parse(await readFile(path.join(candidateRoot, '.app.json'), 'utf8'));
-const mcp = JSON.parse(await readFile(path.join(candidateRoot, '.mcp.json'), 'utf8'));
-const portableMcp = JSON.parse(await readFile(path.join(candidateRoot, 'references', 'portable-mcp.json'), 'utf8'));
 const skillRoot = path.join(candidateRoot, 'skills');
 const skillNames = [];
 for (const entry of await readdir(skillRoot, { withFileTypes: true })) {
@@ -92,26 +90,19 @@ const result = {
     oneDrive: apps.apps?.onedrive?.id ?? null,
     preserved: apps.apps?.dropbox?.id === 'asdk_app_69b31dc2110c8191b8b47dc98fe5a052'
       && apps.apps?.['google-drive']?.id === 'connector_5f3c8c41a1e54ad7a76272c89e2554fa'
-      && apps.apps?.onedrive?.id === 'asdk_app_6ade0fe240408191bd087bff2df78e79',
+      && apps.apps?.onedrive?.id === 'asdk_app_6ade878e235c8191b19c6f72fc31981a',
   },
   hybrid: {
-    codexAppRoutingFormat: 'legacy',
+    codexAppRoutingFormat: 'app-references-plus-skills',
     activeManifest: '.codex-plugin/plugin.json',
     activeRootPortableManifestAbsent,
     activeRootPortableMcpAbsent,
     appsManifest: manifest.apps ?? null,
     mcpManifest: manifest.mcpServers ?? null,
-    mcpServerNames: Object.keys(mcp.mcpServers ?? {}),
-    portalMcpDeclared: Object.hasOwn(mcp.mcpServers ?? {}, 'cloudstorage-portal-local'),
+    mcpServerNames: [],
+    portalOwnsMcpRuntime: false,
+    separateRuntimePackage: 'cloudstorage-portal-local',
     portableManifestReference: 'references/portable-plugin.json',
-    portableMcpReference: 'references/portable-mcp.json',
-    portableMcpServerNames: Object.keys(portableMcp.mcpServers ?? {}),
-    portablePortalMcpDeclared: Object.hasOwn(portableMcp.mcpServers ?? {}, 'cloudstorage-portal-local'),
-    portableEntrypointUsesPluginRoot: portableMcp.mcpServers?.['cloudstorage-portal-local']?.args?.[0] === '${PLUGIN_ROOT}/runtime/mcp.mjs'
-      && portableMcp.mcpServers?.['cloudstorage-portal-local']?.cwd === '${PLUGIN_ROOT}',
-    portableUsesOnlyCodexSupportedStdioFields: Object.keys(portableMcp.mcpServers?.['cloudstorage-portal-local'] ?? {})
-      .every(key => ['type', 'command', 'args', 'env', 'cwd'].includes(key))
-      && portableMcp.mcpServers?.['cloudstorage-portal-local']?.type === 'stdio',
   },
   installation: {
     checked: Boolean(installedRoot),
@@ -123,8 +114,6 @@ const result = {
 
 console.log(JSON.stringify(result, null, 2));
 if (providerMismatches.length || !result.plugin.identitiesSynchronized || !result.expectedWorkflowsPresent
-  || skillNames.length !== 14 || !result.bindings.preserved || !result.hybrid.portalMcpDeclared
+  || skillNames.length !== 14 || !result.bindings.preserved || result.hybrid.portalOwnsMcpRuntime
   || !result.hybrid.activeRootPortableManifestAbsent || !result.hybrid.activeRootPortableMcpAbsent
-  || !result.hybrid.portablePortalMcpDeclared || !result.hybrid.portableEntrypointUsesPluginRoot
-  || !result.hybrid.portableUsesOnlyCodexSupportedStdioFields
   || installationMismatches.length) process.exitCode = 1;

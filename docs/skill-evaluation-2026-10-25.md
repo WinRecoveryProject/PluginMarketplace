@@ -66,7 +66,7 @@ The Zapier-derived `microsoft-onedrive(1)` package is the richest source of exec
 3. Refactor the three Portal routing skills for progressive disclosure before adding more capability prose.
 4. Add future OneDrive operations backend-first: implement and verify an MCP tool, then document it in the skill. Do not promise a capability merely because a candidate skill describes it.
 5. Treat the OAuth-app skills as research notes, not automation. Reverify volatile permissions, verification rules and portal behavior against primary provider documentation before changing permanent app configuration.
-6. Preserve the current ChatGPT App binding `asdk_app_6ade0fe240408191bd087bff2df78e79`; no Entra application/client ID should be converted into an `asdk_app_...` value.
+6. Preserve the current ChatGPT App binding `asdk_app_6ade878e235c8191b19c6f72fc31981a`; no Entra application/client ID should be converted into an `asdk_app_...` value. The earlier `asdk_app_6ade0fe240408191bd087bff2df78e79` binding was deleted and replaced on 25 October 2026.
 
 The provider packaging comparison and controlled simplification path are documented in `provider-architecture-comparison-2026-10-25.md`.
 

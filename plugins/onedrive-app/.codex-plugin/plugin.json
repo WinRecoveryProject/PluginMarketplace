@@ -1,7 +1,7 @@
 {
   "name": "onedrive-app",
-  "version": "1.0.1",
-  "description": "Package the registered OneDrive App, its connection surface and its bounded OneDrive skill.",
+  "version": "1.0.2",
+  "description": "Package the registered OneDrive connection surface and its bounded OneDrive skill.",
   "author": {
     "name": "Zilvereyes",
     "email": "zilver.muhlig.hansen@gmail.com"
@@ -10,9 +10,9 @@
   "apps": "./.app.json",
   "skills": "./skills",
   "interface": {
-    "displayName": "OneDrive App",
+    "displayName": "OneDrive",
     "shortDescription": "Registered OneDrive connection",
-    "longDescription": "Package the registered OneDrive App and its bounded OneDrive skill. The App owns the Microsoft connection flow. CloudStorage Portal consumes the App alongside Dropbox and Google Drive, while CloudStorage Portal Local owns the separate local MCP runtime.",
+    "longDescription": "Package the registered OneDrive connection and its bounded OneDrive skill. OneDrive owns the Microsoft connection flow. CloudStorage Portal consumes it alongside Dropbox and Google Drive, while CloudStorage Portal Local owns the separate local MCP runtime.",
     "developerName": "Zilvereyes",
     "category": "Productivity",
     "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",

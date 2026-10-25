@@ -211,7 +211,7 @@
   },
   {
     "version": "0.1.22",
-    "sha256": "BDA6A87D79D64D386334A79D4DC93963FD8053C2C8AF7C8632C16A1DF6DB295C",
+    "sha256": "FFF0196ED7C1E0F3CD9F67EFEC78730D06ED95B4C9A0CC9AEA28C3395ED4940D",
     "provider": "google-drive",
     "path": "skills/google-drive-comments/agents/openai.yaml"
   },

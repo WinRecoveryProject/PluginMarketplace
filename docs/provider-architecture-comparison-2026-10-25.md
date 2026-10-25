@@ -44,35 +44,39 @@ A package can technically contain multiple resources, but these mechanisms shoul
 
 The portable `mcp.json` and compatibility `.mcp.json` formats are not interchangeable names. A standalone portable package uses root `plugin.json` and root `mcp.json`; a Codex compatibility package uses `.codex-plugin/plugin.json` and `.mcp.json`.
 
-These formats must currently be published as separate package roots when the Codex marketplace package references Apps. Codex classifies a package with root `plugin.json` as an Agent Plugin and suppresses its App declarations for non-global marketplaces. CloudStorage therefore keeps the portable manifests under `references/` and leaves `.codex-plugin/plugin.json`, `.app.json` and `.mcp.json` as the only active manifests in the Git-marketplace packages.
+These formats must currently be published as separate package roots when the Codex marketplace package references Apps. Codex classifies a package with root `plugin.json` as an Agent Plugin and suppresses its App declarations for non-global marketplaces. CloudStorage therefore keeps the portable manifests under `references/`. The hosted OneDrive package actively uses only `.codex-plugin/plugin.json` and `.app.json`; the local MCP runtime is isolated in the separate CloudStorage Portal Local package.
 
 Official references:
 
 - <https://developers.openai.com/plugins/build/plugins>
 - <https://learn.chatgpt.com/docs/enterprise/plugin-management>
 
-## What the registered CloudStorage OneDrive App contains
+## Registered OneDrive App history
 
-The owned private plugin `plugin_asdk_app_6ade0fe240408191bd087bff2df78e79` was inspected read-only through Plugin Creator.
+The retired private plugin `plugin_asdk_app_6ade0fe240408191bd087bff2df78e79` was inspected read-only through Plugin Creator during the original comparison. It was later deleted and is retained here only as historical evidence; it is not an active dependency.
 
-- App ID: `asdk_app_6ade0fe240408191bd087bff2df78e79`
+- Retired App ID: `asdk_app_6ade0fe240408191bd087bff2df78e79`
 - Scope: personal/private
 - Version: `1.0.0`
 - Description: `OneDrive via the CloudStorage Portal MCP server`
 - Files: only `.app.json` and `.codex-plugin/plugin.json`
 
-Its `.app.json` points back to the same registered App ID. This confirms that the App-backed layer is already the current Dropbox/Google-style connection surface. The App's stored package does not need to expose the server URL or OAuth client configuration again.
+The replacement App was registered with the correct visible name `OneDrive` and the same hosted MCP endpoint:
 
-## Current duplication in CloudStorage OneDrive
+- Plugin ID: `plugin_asdk_app_6ade878e235c8191b19c6f72fc31981a`
+- Active App ID: `asdk_app_6ade878e235c8191b19c6f72fc31981a`
+- MCP endpoint: `https://cloudstorage-onedrive-mcp.vercel.app/mcp`
 
-The marketplace package currently has both:
+The marketplace package references the replacement App ID. The App-backed layer is the Dropbox/Google-style connection surface, so the marketplace package does not repeat the server URL or OAuth client configuration.
+
+## Resolved duplication in OneDrive
+
+The marketplace package now has:
 
 - `.app.json` referencing the registered OneDrive App; and
-- root `mcp.json` declaring `https://cloudstorage-onedrive-mcp.vercel.app/mcp` plus the Microsoft client ID, scope and OAuth method.
+- one focused OneDrive skill.
 
-If the registered App ID represents that same Vercel MCP endpoint—as the App description and the creation history indicate—these are two descriptions of the same provider route. The direct bundled definition can cause a second OAuth/connection surface and is not needed merely to add skills and branding.
-
-This is the architectural equivalent of reintroducing Dropbox's or Google Drive's old MCP file next to their current App binding.
+The duplicate root `mcp.json` route is no longer active. OAuth and the hosted server route belong to the registered App, while the Git-marketplace package supplies naming, branding and skills.
 
 ## Current duplication in CloudStorage Portal
 
@@ -90,10 +94,10 @@ The local runtime has functions that the three registered Apps do not necessaril
 CloudStorage Portal
 ├── App reference: Dropbox
 ├── App reference: Google Drive
-├── App reference: CloudStorage OneDrive
+├── App reference: OneDrive
 └── Portal routing skills
 
-CloudStorage OneDrive
+OneDrive
 ├── App reference: registered hosted OneDrive MCP
 └── focused OneDrive skills
 
@@ -104,23 +108,20 @@ CloudStorage Local Bridge (optional separate package)
 
 This model gives each provider one cloud connection surface. The Portal coordinates rather than reimplementing provider OAuth. Local-machine capabilities remain possible, but their package name, tool namespace and purpose make it clear that they are not a second cloud OneDrive connector.
 
-## Controlled migration test
+## Completed migration and remaining live test
 
-Do not delete either MCP definition first. Use this order:
+The package split and App replacement are complete. The remaining live test order is:
 
-1. Create a candidate copy of the standalone package without root `mcp.json`.
-2. Keep `.app.json` required and keep the focused skill.
-3. Install the candidate from the Git marketplace without removing the current working installation.
-4. Verify that the App dependency resolves to `asdk_app_6ade0fe240408191bd087bff2df78e79`.
-5. Verify that exactly the four hosted read-only tools remain discoverable and that authentication reuses the registered App connection.
-6. Verify account identity, root listing, folder listing and text reading against a harmless test folder.
-7. Only after that proof, remove the duplicate packaged `mcp.json` from the canonical standalone package.
-8. Separately decide whether the Portal's local stdio runtime should become `cloudstorage-local-bridge`; do not remove it until its unique local functions are inventoried and covered elsewhere.
+1. Import or refresh the Git marketplace package.
+2. Verify that the App dependency resolves to `asdk_app_6ade878e235c8191b19c6f72fc31981a`.
+3. Verify that the hosted read-only tools remain discoverable and that authentication uses the registered OneDrive connection.
+4. Verify account identity, root listing, folder listing and text reading against a harmless test folder.
+5. Keep the CloudStorage Portal Local runtime separate; do not fold it back into the hosted OneDrive package.
 
 ## Immediate decision
 
 - Learn from Dropbox and Google Drive by adopting their **App reference plus skills** separation.
 - Do not copy their private implementation or add old MCP manifests.
-- Treat the registered `asdk_app_...` OneDrive App as the likely canonical hosted connection surface.
-- Treat the marketplace's direct Vercel `mcp.json` as a duplicate candidate, not as confirmed removable until the controlled test succeeds.
+- Treat the registered `asdk_app_...` OneDrive App as the canonical hosted connection surface.
+- Keep the direct Vercel MCP definition out of the Git-marketplace OneDrive package.
 - Keep the local Portal bridge separate from provider-cloud identity in the eventual package layout.

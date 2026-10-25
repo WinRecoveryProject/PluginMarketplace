@@ -1,7 +1,7 @@
 {
   "apps": {
-    "onedrive-app": {
-      "id": "asdk_app_6ade0fe240408191bd087bff2df78e79",
+    "onedrive": {
+      "id": "asdk_app_6ade878e235c8191b19c6f72fc31981a",
       "required": true
     }
   }

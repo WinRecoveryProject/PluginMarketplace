@@ -61,7 +61,7 @@ Decision: keep the current App-backed Google Drive dependency and current `0.1.2
 
 `C:\Users\zilve\.agents\skills` contains many overlapping OneDrive implementations. Several reuse the exact internal names `add-onedrive`, `microsoft-onedrive` or `onedrive`, so installing them together would cause ambiguous routing. Others depend on Power Apps, direct tokens, m365 CLI, Zapier, Apideck, ClawLink or Refly.
 
-Decision: do not install those folders as plugins. Extract only capability and safety requirements that match the CloudStorage backend. Preserve the dedicated App ID `asdk_app_6ade0fe240408191bd087bff2df78e79` and the existing Microsoft OAuth identities.
+Decision: do not install those folders as plugins. Extract only capability and safety requirements that match the CloudStorage backend. Preserve the dedicated App ID `asdk_app_6ade878e235c8191b19c6f72fc31981a` and the existing Microsoft OAuth identities. The earlier App ID was deleted and replaced on 25 October 2026.
 
 ## Verified current OneDrive surfaces
 

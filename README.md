@@ -10,7 +10,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 
 | Plugin | Version | Installation |
 | --- | --- | --- |
-| OneDrive App | `1.0.1` | `codex plugin add onedrive-app@winrecoveryproject-digital` |
+| OneDrive | `1.0.2` | `codex plugin add onedrive-app@winrecoveryproject-digital` |
 | CloudStorage Portal Local | `0.1.0` | `codex plugin add cloudstorage-portal-local@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.8.0-dev.26` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
@@ -30,15 +30,15 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 - `docs/consolidation-audit-2026-10-25.md` fastlægger de kanoniske kilder og den sikre oprydningsrækkefølge.
 - `docs/skill-evaluation-2026-10-25.md` sammenligner Plugin Eval-resultater med den faktiske CloudStorage-arkitektur.
 - `docs/provider-architecture-comparison-2026-10-25.md` beskriver Dropbox/Google Drive-mønstret og en kontrolleret vej til færre OneDrive-grænseflader.
-- `docs/codex-mcp-config-audit-2026-10-25.md` skelner mellem den aktive Portal-runtime, den registrerede OneDrive App og den karantænerede, ufuldstændige Vercel-udviklingsrute.
+- `docs/codex-mcp-config-audit-2026-10-25.md` skelner mellem den aktive Portal-runtime, den registrerede OneDrive-forbindelse og den karantænerede, ufuldstændige Vercel-udviklingsrute.
 - `docs/plugin-worklist-2026-10-25.md` fastholder hele arbejdslisten og skelner mellem Codex-kilder, referencer, kandidater, installationer og publicering.
 - `docs/external-plugin-sources.md` dokumenterer eksterne `git-subdir`-poster og bevarer den oprindelige udgiver som kilde.
 
 ## App- og OAuth-identitet
 
-Codex App-ID'er som `asdk_app_...` og `connector_...` må kun komme fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er OAuth-identiteter og må ikke omdøbes til et opdigtet `asdk_app_...`-ID. OneDrive App pakker den registrerede OneDrive App-binding. CloudStorage Portal refererer til de verificerede Dropbox-, Google Drive- og OneDrive-apps og samler deres skills. CloudStorage Portal Local ejer alene den lokale MCP-runtime. Den tidligere hostede MCP/OAuth-kandidat er bevaret som en inaktiv reference.
+Codex App-ID'er som `asdk_app_...` og `connector_...` må kun komme fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er OAuth-identiteter og må ikke omdøbes til et opdigtet `asdk_app_...`-ID. OneDrive pakker den registrerede OneDrive-binding. CloudStorage Portal refererer til de verificerede Dropbox-, Google Drive- og OneDrive-apps og samler deres skills. CloudStorage Portal Local ejer alene den lokale MCP-runtime. Den tidligere hostede MCP/OAuth-kandidat er bevaret som en inaktiv reference.
 
-De ældre personlige pluginobjekter migreres med deres eksisterende `pluginId`, hvor platformen accepterer ejerskiftet til Git-markedspladsen. Det bevarer identitet og politikker. En forkert historisk CloudStorage OneDrive MCP-pakke migreres ikke; den skal slettes efter den korrekte OneDrive App-binding er verificeret.
+Den nye OneDrive-binding publiceres med sit faktiske `plugin_asdk_app_...`-ID i Git-markedspladsen. Den tidligere private binding og den forkerte historiske CloudStorage OneDrive MCP-pakke er slettet; deres gamle ID'er er kun bevaret som provenance og er ikke aktive afhængigheder.
 
 ## Konsolideringspolitik
 

@@ -14,7 +14,7 @@
       "interface": {
         "displayName": "CloudStorage Portal Local",
         "shortDescription": "Local cloud broker runtime",
-        "longDescription": "Run the local CloudStorage Portal MCP broker independently from OneDrive App and the CloudStorage Portal aggregation package.",
+        "longDescription": "Run the local CloudStorage Portal MCP broker independently from OneDrive and the CloudStorage Portal aggregation package.",
         "developerName": "Zilvereyes",
         "category": "Productivity"
       }

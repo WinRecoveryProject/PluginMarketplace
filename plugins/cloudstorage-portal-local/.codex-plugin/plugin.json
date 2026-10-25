@@ -11,7 +11,7 @@
   "interface": {
     "displayName": "CloudStorage Portal Local",
     "shortDescription": "Local cloud broker runtime",
-    "longDescription": "Run the local CloudStorage Portal MCP broker as its own package. It remains separate from OneDrive App and from the CloudStorage Portal aggregation and skill package.",
+    "longDescription": "Run the local CloudStorage Portal MCP broker as its own package. It remains separate from OneDrive and from the CloudStorage Portal aggregation and skill package.",
     "developerName": "Zilvereyes",
     "category": "Productivity",
     "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",

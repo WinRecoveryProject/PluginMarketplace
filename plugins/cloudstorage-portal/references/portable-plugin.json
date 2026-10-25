@@ -20,7 +20,7 @@
         "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
         "logo": "./assets/cloudstorage-portal.png",
         "composerIcon": "./assets/cloudstorage-portal.png",
-        "longDescription": "Samlet portal til Dropbox, Google Drive og OneDrive. Bevarer de native provider-forbindelser, samler deres skills og refererer OneDrive App uden at eje den separate lokale MCP-runtime.",
+        "longDescription": "Samlet portal til Dropbox, Google Drive og OneDrive. Bevarer de native provider-forbindelser, samler deres skills og refererer OneDrive uden at eje den separate lokale MCP-runtime.",
         "shortDescription": "Cloudfiler på tværs af konti"
       }
     }
