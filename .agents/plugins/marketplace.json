@@ -6,7 +6,6 @@
   "plugins": [
     {
       "name": "onedrive-app",
-      "pluginId": "plugin_asdk_app_6ade0fe240408191bd087bff2df78e79",
       "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/onedrive-app"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
       "category": "Productivity",
@@ -21,14 +20,12 @@
     },
     {
       "name": "cloudstorage-portal",
-      "pluginId": "plugins_6ad865b9d8908191af3ea467446eba15",
       "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/cloudstorage-portal"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
       "category": "Productivity"
     },
     {
       "name": "component-forge",
-      "pluginId": "plugins_6ad7896f82448191886f226ee19bd401",
       "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/component-forge"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
@@ -41,14 +38,12 @@
     },
     {
       "name": "powershell-workbench",
-      "pluginId": "Plugin_9726a42da2ac8191a31093df28537308",
       "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/powershell-workbench"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
     },
     {
       "name": "windows-dism-update-docs",
-      "pluginId": "Plugin_ff59bc3ed2108191b3fde58880ac63b8",
       "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/windows-dism-update-docs"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
