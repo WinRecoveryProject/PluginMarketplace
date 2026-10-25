@@ -1,4 +1,4 @@
-# CloudStorage OneDrive
+# OneDrive
 
 Private standalone plugin for the dedicated OneDrive component of CloudStorage Portal.
 

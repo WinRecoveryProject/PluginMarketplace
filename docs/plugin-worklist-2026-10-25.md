@@ -6,7 +6,7 @@ This is a preservation-first worklist. It is not an installation list, deletion 
 
 | Candidate | Purpose | Current state |
 | --- | --- | --- |
-| Zilvereyes Plugin Studio | Combine plugin creation/update, skill creation/installation, evaluation, comparison and portfolio management beyond the four selected standard sources | Independent `0.2.0` candidate; local validation required before publication |
+| Zilvereyes Plugin Studio | Combine plugin creation/update, skill creation/installation, evaluation, comparison and portfolio management beyond the four selected standard sources | Independent `0.2.1` candidate; local validation required before publication |
 
 ## Cloud and provider architecture
 

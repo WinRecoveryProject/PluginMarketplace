@@ -89,8 +89,10 @@ const result = {
   bindings: {
     dropbox: apps.apps?.dropbox?.id ?? null,
     googleDrive: apps.apps?.['google-drive']?.id ?? null,
+    oneDrive: apps.apps?.onedrive?.id ?? null,
     preserved: apps.apps?.dropbox?.id === 'asdk_app_69b31dc2110c8191b8b47dc98fe5a052'
-      && apps.apps?.['google-drive']?.id === 'connector_5f3c8c41a1e54ad7a76272c89e2554fa',
+      && apps.apps?.['google-drive']?.id === 'connector_5f3c8c41a1e54ad7a76272c89e2554fa'
+      && apps.apps?.onedrive?.id === 'asdk_app_6ade0fe240408191bd087bff2df78e79',
   },
   hybrid: {
     codexAppRoutingFormat: 'legacy',
@@ -100,16 +102,16 @@ const result = {
     appsManifest: manifest.apps ?? null,
     mcpManifest: manifest.mcpServers ?? null,
     mcpServerNames: Object.keys(mcp.mcpServers ?? {}),
-    oneDriveDeclared: Object.hasOwn(mcp.mcpServers ?? {}, 'onedrive'),
+    portalMcpDeclared: Object.hasOwn(mcp.mcpServers ?? {}, 'cloudstorage-portal-local'),
     portableManifestReference: 'references/portable-plugin.json',
     portableMcpReference: 'references/portable-mcp.json',
     portableMcpServerNames: Object.keys(portableMcp.mcpServers ?? {}),
-    portableOneDriveDeclared: Object.hasOwn(portableMcp.mcpServers ?? {}, 'onedrive'),
-    portableEntrypointUsesPluginRoot: portableMcp.mcpServers?.onedrive?.args?.[0] === '${PLUGIN_ROOT}/runtime/mcp.mjs'
-      && portableMcp.mcpServers?.onedrive?.cwd === '${PLUGIN_ROOT}',
-    portableUsesOnlyCodexSupportedStdioFields: Object.keys(portableMcp.mcpServers?.onedrive ?? {})
+    portablePortalMcpDeclared: Object.hasOwn(portableMcp.mcpServers ?? {}, 'cloudstorage-portal-local'),
+    portableEntrypointUsesPluginRoot: portableMcp.mcpServers?.['cloudstorage-portal-local']?.args?.[0] === '${PLUGIN_ROOT}/runtime/mcp.mjs'
+      && portableMcp.mcpServers?.['cloudstorage-portal-local']?.cwd === '${PLUGIN_ROOT}',
+    portableUsesOnlyCodexSupportedStdioFields: Object.keys(portableMcp.mcpServers?.['cloudstorage-portal-local'] ?? {})
       .every(key => ['type', 'command', 'args', 'env', 'cwd'].includes(key))
-      && portableMcp.mcpServers?.onedrive?.type === 'stdio',
+      && portableMcp.mcpServers?.['cloudstorage-portal-local']?.type === 'stdio',
   },
   installation: {
     checked: Boolean(installedRoot),
@@ -121,8 +123,8 @@ const result = {
 
 console.log(JSON.stringify(result, null, 2));
 if (providerMismatches.length || !result.plugin.identitiesSynchronized || !result.expectedWorkflowsPresent
-  || skillNames.length !== 14 || !result.bindings.preserved || !result.hybrid.oneDriveDeclared
+  || skillNames.length !== 14 || !result.bindings.preserved || !result.hybrid.portalMcpDeclared
   || !result.hybrid.activeRootPortableManifestAbsent || !result.hybrid.activeRootPortableMcpAbsent
-  || !result.hybrid.portableOneDriveDeclared || !result.hybrid.portableEntrypointUsesPluginRoot
+  || !result.hybrid.portablePortalMcpDeclared || !result.hybrid.portableEntrypointUsesPluginRoot
   || !result.hybrid.portableUsesOnlyCodexSupportedStdioFields
   || installationMismatches.length) process.exitCode = 1;

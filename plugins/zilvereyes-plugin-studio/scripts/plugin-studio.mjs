@@ -40,7 +40,7 @@ function componentSummary(pluginRoot) {
   return {
     skills: skills.sort(),
     appReference: fs.existsSync(path.join(pluginRoot, ".app.json")),
-    mcpServer: fs.existsSync(path.join(pluginRoot, "mcp.json"))
+    mcpServer: fs.existsSync(path.join(pluginRoot, "mcp.json")) || fs.existsSync(path.join(pluginRoot, ".mcp.json"))
   };
 }
 
@@ -96,8 +96,7 @@ export function validate(pluginRootInput) {
   let portable = null;
   let compatibility = null;
 
-  if (!fs.existsSync(portableFile)) findings.push(finding("error", "manifest.portable.missing", "Root plugin.json is required.", portableFile));
-  else {
+  if (fs.existsSync(portableFile)) {
     try { portable = readJson(portableFile); }
     catch (error) { findings.push(finding("error", "manifest.portable.invalid-json", error.message, portableFile)); }
   }
@@ -107,20 +106,24 @@ export function validate(pluginRootInput) {
     catch (error) { findings.push(finding("error", "manifest.compat.invalid-json", error.message, compatFile)); }
   }
 
-  if (portable) {
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(portable.name ?? "")) findings.push(finding("error", "manifest.name", "Plugin name must be lowercase kebab-case.", portableFile));
-    if (!/^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(portable.version ?? "")) findings.push(finding("error", "manifest.version", "Plugin version must be semantic versioning.", portableFile));
-    if (!portable.author?.name) findings.push(finding("error", "manifest.author", "Plugin author name is required.", portableFile));
-    if (!portable.license) findings.push(finding("warning", "manifest.license", "Declare the package license or proprietary status.", portableFile));
-    const ui = manifestInterface(portable);
-    if (!ui?.displayName) findings.push(finding("error", "interface.display-name", "Display name is required.", portableFile));
-    if (!ui?.shortDescription) findings.push(finding("error", "interface.short-description", "Short description is required.", portableFile));
-    else if ([...ui.shortDescription].length > 30) findings.push(finding("error", "interface.short-description-length", "Short description must be 30 characters or fewer.", portableFile));
+  const primary = portable ?? compatibility;
+  const primaryFile = portable ? portableFile : compatFile;
+  if (!primary) findings.push(finding("error", "manifest.missing", "Either root plugin.json or .codex-plugin/plugin.json is required.", pluginRoot));
+
+  if (primary) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(primary.name ?? "")) findings.push(finding("error", "manifest.name", "Plugin name must be lowercase kebab-case.", primaryFile));
+    if (!/^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(primary.version ?? "")) findings.push(finding("error", "manifest.version", "Plugin version must be semantic versioning.", primaryFile));
+    if (!primary.author?.name) findings.push(finding("error", "manifest.author", "Plugin author name is required.", primaryFile));
+    if (!primary.license) findings.push(finding("warning", "manifest.license", "Declare the package license or proprietary status.", primaryFile));
+    const ui = manifestInterface(primary);
+    if (!ui?.displayName) findings.push(finding("error", "interface.display-name", "Display name is required.", primaryFile));
+    if (!ui?.shortDescription) findings.push(finding("error", "interface.short-description", "Short description is required.", primaryFile));
+    else if ([...ui.shortDescription].length > 30) findings.push(finding("error", "interface.short-description-length", "Short description must be 30 characters or fewer.", primaryFile));
     for (const key of ["websiteURL", "privacyPolicyURL", "termsOfServiceURL"]) {
-      if (!ui?.[key]) findings.push(finding("error", `interface.${key}`, `${key} is required for a publishable candidate.`, portableFile));
+      if (!ui?.[key]) findings.push(finding("error", `interface.${key}`, `${key} is required for a publishable candidate.`, primaryFile));
       else {
         try { new URL(ui[key]); }
-        catch { findings.push(finding("error", `interface.${key}-invalid`, `${key} must be an absolute URL.`, portableFile)); }
+        catch { findings.push(finding("error", `interface.${key}-invalid`, `${key} must be an absolute URL.`, primaryFile)); }
       }
     }
     for (const key of ["logo", "composerIcon"]) {
@@ -177,11 +180,13 @@ export function validate(pluginRootInput) {
     } catch (error) { findings.push(finding("error", "app.invalid-json", error.message, appFile)); }
   }
 
-  const mcpFile = path.join(pluginRoot, "mcp.json");
+  const mcpFile = fs.existsSync(path.join(pluginRoot, ".mcp.json"))
+    ? path.join(pluginRoot, ".mcp.json")
+    : path.join(pluginRoot, "mcp.json");
   if (fs.existsSync(mcpFile)) {
     try {
       const mcp = readJson(mcpFile);
-      if (!mcp.mcpServers || typeof mcp.mcpServers !== "object") findings.push(finding("error", "mcp.servers", "mcp.json must declare mcpServers.", mcpFile));
+      if (!mcp.mcpServers || typeof mcp.mcpServers !== "object") findings.push(finding("error", "mcp.servers", "The MCP manifest must declare mcpServers.", mcpFile));
     } catch (error) { findings.push(finding("error", "mcp.invalid-json", error.message, mcpFile)); }
   }
 
@@ -190,7 +195,7 @@ export function validate(pluginRootInput) {
   for (const item of findings) counts[countKey[item.severity]] += 1;
   return {
     pluginRoot,
-    identity: portable ? { name: portable.name ?? null, version: portable.version ?? null, author: portable.author?.name ?? null, license: portable.license ?? null } : null,
+    identity: primary ? { name: primary.name ?? null, version: primary.version ?? null, author: primary.author?.name ?? null, license: primary.license ?? null } : null,
     components: componentSummary(pluginRoot),
     valid: counts.errors === 0,
     counts,

@@ -5,8 +5,8 @@ This audit separates the three OneDrive-facing integration routes currently visi
 ## Active routes
 
 1. `node_repl` is a Codex desktop runtime service pinned to the installed desktop build. Codex parses and starts it successfully. Its build-specific executable, Node path, trusted service map and native-pipe values should be maintained by the desktop installation rather than copied into a plugin.
-2. `onedrive` is the CloudStorage Portal local stdio broker. It owns the Portal's local sync-folder mode and its own provider grants. Fresh Codex discovery and execution were verified against installed Portal `0.8.0-dev.20` / runtime `0.8.0-dev.11`; the publication candidate is Portal `0.8.0-dev.23` / runtime `0.8.0-dev.12`.
-3. CloudStorage OneDrive `0.1.7` references the registered Codex App `asdk_app_6ade0fe240408191bd087bff2df78e79`. It does not register a second plugin MCP server.
+2. `cloudstorage-portal-local` is the CloudStorage Portal local stdio broker. It owns the Portal's local sync-folder mode and its own provider grants. Fresh Codex discovery and execution were verified against the historically installed Portal `0.8.0-dev.20` / runtime `0.8.0-dev.11`, whose server identity was `onedrive`; the publication candidate is Portal `0.8.0-dev.24` / runtime `0.8.0-dev.13`. The Portal broker name is intentionally distinct from the independent `onedrive` App declaration so Codex retains both routes.
+3. OneDrive `0.1.8` references the registered Codex App `asdk_app_6ade0fe240408191bd087bff2df78e79` under the explicit declaration name `onedrive`. It does not register a second plugin MCP server.
 
 ## Quarantined development route
 

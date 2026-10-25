@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "cloudstorage-local": {
+    "cloudstorage-portal-local": {
       "command": "node",
       "args": ["REPLACE_WITH_ABSOLUTE_PATH_TO_RUNTIME/mcp.mjs"]
     }

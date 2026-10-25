@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { createPortal, listenLoopback } from './server.mjs';
 import { localOneDriveStatus, readLocalOneDriveRoot, readLocalOneDriveFolder } from './local-onedrive.mjs';
 
-export const mcpServerIdentity = Object.freeze({ name: 'onedrive', version: '0.8.0-dev.11' });
+export const mcpServerIdentity = Object.freeze({ name: 'cloudstorage-portal-local', version: '0.8.0-dev.13' });
 
 const noArguments = z.strictObject({});
 const connectionArguments = z.strictObject({ connection_id: z.string().min(1).max(128) });

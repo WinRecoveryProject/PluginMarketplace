@@ -1,6 +1,6 @@
 # CloudStorage terms
 
-CloudStorage Portal and CloudStorage OneDrive are provided under the repository's MIT license.
+CloudStorage Portal and the standalone OneDrive plugin are provided under the repository's MIT license.
 
 The plugins help route user-authorized operations to Dropbox, Google Drive, Microsoft OneDrive and local OneDrive sync folders. Each provider account, App connection and OAuth grant remains governed by the applicable provider terms and by the permissions approved for that connection.
 

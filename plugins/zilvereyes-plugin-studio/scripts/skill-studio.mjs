@@ -202,7 +202,7 @@ export function installSkill(sourceInput, options = {}) {
       schemaVersion: 1,
       installedAt: new Date().toISOString(),
       installer: "zilvereyes-plugin-studio",
-      installerVersion: "0.2.0",
+      installerVersion: "0.2.1",
       source: materialized.provenance,
       target,
       files

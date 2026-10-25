@@ -1,10 +1,10 @@
 ---
-name: cloudstorage-onedrive
-description: Use when the user wants to verify, browse, or read their personal OneDrive through the dedicated CloudStorage OneDrive connection.
+name: onedrive
+description: Use when the user wants to verify, browse, or read their personal Microsoft OneDrive through the dedicated OneDrive App connection.
 ---
-# CloudStorage OneDrive
+# OneDrive
 
-Use only the `cloudstorage_onedrive` MCP server in this plugin. It is a dedicated, read-only Microsoft Graph path and is not the local Windows OneDrive sync folder, the Portal's local `onedrive` broker server, or a SharePoint site.
+Use the OneDrive App referenced by this plugin. Inspect the App's currently exposed Microsoft Graph tools before calling them; do not invent or require a separate plugin-owned MCP server. This is not the local Windows OneDrive sync folder, the Portal's `cloudstorage-portal-local` broker, or a SharePoint site.
 
 1. Call `onedrive_account` first and report the returned immutable Microsoft subject and drive label before file operations.
 2. Use `onedrive_list_root` for one bounded root page. Do not claim a complete inventory when more results exist.

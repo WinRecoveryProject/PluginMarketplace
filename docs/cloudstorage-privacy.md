@@ -1,6 +1,6 @@
 # CloudStorage privacy notice
 
-CloudStorage Portal and CloudStorage OneDrive coordinate access to cloud-storage providers selected by the user.
+CloudStorage Portal and the standalone OneDrive plugin coordinate access to cloud-storage providers selected by the user.
 
 The local Portal runtime stores connection metadata and refresh grants in its plugin data directory. Refresh grants are encrypted for the current Windows user with Windows Data Protection API; access tokens are held in memory and are not intentionally written to disk. The plugins do not package provider tokens, client secrets or copied credentials from another connector.
 

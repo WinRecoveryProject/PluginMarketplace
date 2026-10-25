@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "onedrive": {
+    "cloudstorage-portal-local": {
       "command": "node",
       "args": [
         "./runtime/mcp.mjs"
