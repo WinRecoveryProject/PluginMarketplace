@@ -1,0 +1,34 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cloudstorage-onedrive",
+  "version": "0.1.5",
+  "description": "Read personal OneDrive through the CloudStorage Portal hosted Microsoft Graph MCP with a separate delegated OAuth grant.",
+  "author": {
+    "name": "Zilvereyes",
+    "email": "zilver.muhlig.hansen@gmail.com"
+  },
+  "keywords": [
+    "onedrive",
+    "microsoft-graph",
+    "cloud-storage",
+    "files"
+  ],
+  "extensions": {
+    "com.openai": {
+      "apps": "./.app.json",
+      "interface": {
+        "displayName": "CloudStorage OneDrive",
+        "shortDescription": "OneDrive via CloudStorage",
+        "longDescription": "Connect a personal Microsoft OneDrive account through a dedicated CloudStorage Portal OAuth client and perform bounded, read-only account, root, folder and text-file operations. Local OneDrive sync folders remain separate from Microsoft Graph access.",
+        "developerName": "Zilvereyes",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Vis min verificerede OneDrive-konto og indholdet i roden uden at ændre filer.",
+        "logo": "./assets/onedrive.png",
+        "composerIcon": "./assets/onedrive.png",
+        "brandColor": "#0078D4",
+        "brandColorDark": "#4CC2FF"
+      }
+    }
+  }
+}

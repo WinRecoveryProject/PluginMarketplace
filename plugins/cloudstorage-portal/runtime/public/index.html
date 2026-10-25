@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CloudStorage Portal</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">LOKAL UDVIKLING</p>
+    <h1>Tre clouds. Ét overblik.</h1>
+    <p>Forbind Dropbox, Google Drive og OneDrive med dine egne appregistreringer.</p>
+    <p class="notice">Den lokale portal læser identitet og højst 25 elementer i roden. På Windows beskyttes refresh-grants med din brugers DPAPI; adgangstokens opbevares kun i hukommelsen.</p>
+    <p id="message" role="status" aria-live="polite"></p>
+    <section id="providers" aria-label="Cloudplatforme"></section>
+    <section id="local-onedrive" aria-label="Lokal OneDrive-adgang"></section>
+    <h2>Forbundne konti</h2>
+    <section id="connections" aria-label="Konti"></section>
+    <section aria-label="Læseresultat"><pre id="result"></pre></section>
+  </main>
+</body>
+</html>

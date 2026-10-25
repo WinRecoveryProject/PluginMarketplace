@@ -1,0 +1,428 @@
+[
+  {
+    "version": "0.1.22",
+    "sha256": "1C4F8E6477A61D45370731143FD926D2B8917594982F9CB39677909D645625C1",
+    "provider": "google-drive",
+    "path": "skills/google-docs/SKILL.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "07A3096D020B624D1246D411E6D81CC4686A77E8CB4F486D9B43C13BF4261F17",
+    "provider": "google-drive",
+    "path": "skills/google-docs/agents/openai.yaml"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "2A61BAAEF537798F02530BED0C41DC0B6FBF964134563F2811D1E0C6DEC8304C",
+    "provider": "google-drive",
+    "path": "skills/google-docs/assets/google-docs-small.svg"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "B416735B10FB7BC27FE80F72007EF957486D7C29AE603083E137CA689D6920D5",
+    "provider": "google-drive",
+    "path": "skills/google-docs/assets/google-docs.png"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "97F002CCA96055FC8EC5F1C032A89A2966BA2A0F96CA51567CF450CA66163B4A",
+    "provider": "google-drive",
+    "path": "skills/google-docs/host/docs-dropdown-executor.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "47CD11AE7872BF7CDA18CD5E78E7229BA6485045585838C93B9265117F38B878",
+    "provider": "google-drive",
+    "path": "skills/google-docs/host/docs-dropdown-file-bridge.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "A31A4A530AD61538385CE28D87D2BE5C44810095DF4DE1AC6EED84628C492DD4",
+    "provider": "google-drive",
+    "path": "skills/google-docs/host/docs-stdin-receiver.pl"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "8EE2B99C05D1ADCDD4A4AB71C4F904DBF4BEAD9CD1C4DAAB2DD2644B37C3FBD4",
+    "provider": "google-drive",
+    "path": "skills/google-docs/host/docs-trusted-read-file-bridge.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "C7C1AFFE5FD3E37924F005C27AA0D6FFBC10E1D2D7CA8FB55D8F38F288CA2EAD",
+    "provider": "google-drive",
+    "path": "skills/google-docs/host/docs-trusted-read-wrapper.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "AFF93372198D3DD36ECB33C777F82B5EA359600CACFC636BAE94102FD7BD3DA7",
+    "provider": "google-drive",
+    "path": "skills/google-docs/references/reference-direct-request-composition.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "070AF740894DCDA59B8A7CC1849689DF416EA92F255AB30BFF3FF0A52948E9E9",
+    "provider": "google-drive",
+    "path": "skills/google-docs/references/reference-meeting-notes-direct.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "96DEBF093BE85229F863694A3FB6D6023A88DC5ECD38E353891F23FE9602A7A5",
+    "provider": "google-drive",
+    "path": "skills/google-docs/references/reference-smart-chips-and-building-blocks.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "DEFDD8AC40E32C11C5AA65471CD7AE4078721076B1815A51078A027C7DF53B04",
+    "provider": "google-drive",
+    "path": "skills/google-docs/references/reference-trusted-read-wrapper.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "324DE06DEDC0476C91F7F3D2FE4B15C4CB992ACE2AFB9E57DF498A994020878A",
+    "provider": "google-drive",
+    "path": "skills/google-docs/runtime/docs-read-normalizer.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "F845319BD56C8BF07F74CC62CFDF10421D58464F0EFFCCF8A720319B091CFBA7",
+    "provider": "google-drive",
+    "path": "skills/google-docs/runtime/dropdown-common.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "2894E9B9EA6304BE097E0F8C67E96E7E9BD9A7181C38B95DABD6056CB8197536",
+    "provider": "google-drive",
+    "path": "skills/google-docs/runtime/dropdown-contract.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "5D4229FC4E37C21921A9E749C07239A9DAB36E00C4F6B57BAAA8466AF4130043",
+    "provider": "google-drive",
+    "path": "skills/google-docs/runtime/dropdown-inventory.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "92D39533DD1C908699B5DB941F170543BCFCCAA8EB8CED7A5D5D332A6D8F8939",
+    "provider": "google-drive",
+    "path": "skills/google-docs/runtime/dropdown-plan.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "2F1CA983FA3A8E21312E4FCAD392C8DABD443D3720706FAC8239E3DAB0B4F8DC",
+    "provider": "google-drive",
+    "path": "skills/google-docs/runtime/dropdown-routing.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "F7E08AD9AA36373043FF1B36FB81E1721B922B0CA6B44A9CB5EE5287535279E1",
+    "provider": "google-drive",
+    "path": "skills/google-docs/scripts/build_docs_dropdown_inventory.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "E439D12AD25F60049C15D8BBFABB9E29FA6B3233C42E653006049127414C2521",
+    "provider": "google-drive",
+    "path": "skills/google-docs/scripts/canonicalize_google_workspace_url.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "CF8C99D6D2D40409AB36CCEBBCC7C54A010178D7BF41E12F52CC12CC96F99ED5",
+    "provider": "google-drive",
+    "path": "skills/google-docs/scripts/create_docs_dropdown_execution_context.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "BB0FE83D265F2DB2EB47302514EEBB7FCA1B844D4BE247E63640FFDA6DD6E154",
+    "provider": "google-drive",
+    "path": "skills/google-docs/scripts/freeze_docs_dropdown_contract.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "1AB562784F52C3AEFEC0858B5134E5EFA0EC7B79B129B9E338576C068E6AFDAA",
+    "provider": "google-drive",
+    "path": "skills/google-docs/scripts/validate_docs_dropdown_plan.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "DABAE8A192C861B76CF7B5742BDF14F8ED35E67D8E6CACFD5F746FFBEFD6DA5C",
+    "provider": "google-drive",
+    "path": "skills/google-drive/SKILL.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "C78A0CFF8B8127845B3626AD2FE285BA2333268C5252B124EB3E2DDAA22BA2FB",
+    "provider": "google-drive",
+    "path": "skills/google-drive/agents/openai.yaml"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "A0DA54A5F966E876668AB59D8DF987DDAD1328846216578356E6C10B07791F6C",
+    "provider": "google-drive",
+    "path": "skills/google-drive/assets/app-icon.png"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "5B31886B56B95450F7B9763D9B2FEF49CB6076D52B69D35CCAD48F454BC03021",
+    "provider": "google-drive",
+    "path": "skills/google-drive/assets/google-drive-small.svg"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "A0DA54A5F966E876668AB59D8DF987DDAD1328846216578356E6C10B07791F6C",
+    "provider": "google-drive",
+    "path": "skills/google-drive/assets/google-drive.png"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "5B31886B56B95450F7B9763D9B2FEF49CB6076D52B69D35CCAD48F454BC03021",
+    "provider": "google-drive",
+    "path": "skills/google-drive/assets/google-drive.svg"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "0DDBD940CFBD379BEF232FC01E628EF02A3B7C2182E7D6983D281199B651F600",
+    "provider": "google-drive",
+    "path": "skills/google-drive/references/slides/chart-refresh-workflows.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "7FA958F5DD4E7575857C5E1FF8761646F650694A3BC3CC8ED302943332452C3D",
+    "provider": "google-drive",
+    "path": "skills/google-drive/references/slides/deck-scope-verification.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "601D323942D4A944D8EC84CB8BE149EC1D1865AB33EDE91BF25D3CA6DA3A978A",
+    "provider": "google-drive",
+    "path": "skills/google-drive/references/slides/sheets-chart-replacement.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "6AB9B64580FE2DCC9DEF5535DE9F549A4728EAE26D447FB1D7BA479D04BD25EB",
+    "provider": "google-drive",
+    "path": "skills/google-drive/references/slides/visual-change-loop.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "A3077375A8F7558B9E052C98047747B8A4A1A90A9A90B552009C28FCDADFE94A",
+    "provider": "google-drive",
+    "path": "skills/google-drive-comments/SKILL.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "BDA6A87D79D64D386334A79D4DC93963FD8053C2C8AF7C8632C16A1DF6DB295C",
+    "provider": "google-drive",
+    "path": "skills/google-drive-comments/agents/openai.yaml"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "1851109D8F2C182236D28DB136FB161D30C85287E5BC4FA79CF137673184C58D",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/SKILL.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "4D55928FC0F63AAE133F8C00219E3FD7DFDD3A49EF457CEEC6BCF0F014FFAE00",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/agents/openai.yaml"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "502B9FCFB51A6345D03DB408B36BE40676EE1483A4EFA24A2751AD65128C4945",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/assets/google-sheets-small.svg"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "E3775513BEF981E135ED001EE82BE2381E04C6361093628628360B565635E4FE",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/assets/google-sheets.png"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "18E645B4F05F4F399CEFF0C2EE62501A38609709B087E7140457EEF2C60C8E9E",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/references/reference-batch-update-recipes.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "F8428DB55E2CDDEE66BF1BF7CED1CBEFF75B06893F1477BF175AF56BB2026EAC",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/references/reference-chart-recipes.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "66C6845A16547D65AC3EAF2AE8B7762FB534F2ACFB5700716827B21CFF9B149A",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/references/reference-edit-workflow.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "749791A220C1E1AB18F99C0F0BE56DE106E9E4701D28B82385B673C8F9D1CC56",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/references/reference-formula-patterns.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "C0F78AAD392819AFF85A389CB04E4F560C54BDC4DA249E0BD2CBF24DF166F0FD",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/references/reference-import-spreadsheet-to-native-sheets.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "BD13045E10FD7F8CB5389512EAD5DC3482AA04BA328CD95DA87A9A09D0B3C981",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/references/reference-live-read-search-safety.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "989E30E41EC064712B45966DD88AEA8613631653FA981559038D4E0549338E47",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/references/reference-native-cell-structure.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "869601926708D005D8A9CE7E2EBAC859BD31D54D42150B0B8D6F1F2D01B93129",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/references/reference-visual-quality.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "A3AFA692E57BB2BCD91AA3EA540147FC0789CE576215D587B2EE55DF30E32C65",
+    "provider": "google-drive",
+    "path": "skills/google-sheets/references/style-profiles.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "F85BD1D7080BECF8C043A3646B6C3A53FBCD6D2A77C62A15112B8D89E01A4B83",
+    "provider": "google-drive",
+    "path": "skills/google-slides/SKILL.md"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "C93B66486CC6DF212D2EB3FABB57A3495EBA07E3AE900612C3C72A1CB2315605",
+    "provider": "google-drive",
+    "path": "skills/google-slides/agents/openai.yaml"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "702CB4708C85D38833F075BFBD2870E5CF07F934B2A06124E57A00EAFE68B486",
+    "provider": "google-drive",
+    "path": "skills/google-slides/assets/google-slides-small.svg"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "B9E27DE164F75478C181D2F2804B259F96BCD2D28B8AF4328F94AB20DD0CD71D",
+    "provider": "google-drive",
+    "path": "skills/google-slides/assets/google-slides.png"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "43D2436482267426BD48EC20E11787B7C2F84E72ADDE26E2FEE2D1A121AECEC4",
+    "provider": "google-drive",
+    "path": "skills/google-slides/host/export-and-render-slides.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "6BC4C07CDE3183BD40495A1D985862B432F3E5C1F110D2B309EA803096034CE8",
+    "provider": "google-drive",
+    "path": "skills/google-slides/host/export-and-render-slides.test.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "BDEB61186088AAB091F2F8C5330449A6AA5E9E3A1E1ABBFC0CF132DFC8B27484",
+    "provider": "google-drive",
+    "path": "skills/google-slides/host/read-template-to-file.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "95D9F2FFFD6B1EB02292F574370F6424DF8DAA45969AD1B5F0E617679E39159F",
+    "provider": "google-drive",
+    "path": "skills/google-slides/host/slides-stdin-receiver.pl"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "DA0497E25983D4CEA67F0F588F213D9F587C7F6A865DEE28E9D24A7E76B7733E",
+    "provider": "google-drive",
+    "path": "skills/google-slides/runtime/common.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "4E393F1486C2E7209FC833FDD2FCA4A2094AB3B0FF4E5CE20A83612B441CF0FB",
+    "provider": "google-drive",
+    "path": "skills/google-slides/runtime/design-system.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "4D0930A9D2BEC3ED29F10A19C430A319DC450BC087C96DBB47239CD5171666B6",
+    "provider": "google-drive",
+    "path": "skills/google-slides/runtime/media-geometry.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "3B7F5267F61335410B5AECCCA75271B7A810E4306EF9EDC5E28A3B7BE2D0D8FA",
+    "provider": "google-drive",
+    "path": "skills/google-slides/runtime/normalize.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "45F8A2F8C70C5356B050BA84C1C0A7E3D4B7B421DB3929C99AF73037D6D3198D",
+    "provider": "google-drive",
+    "path": "skills/google-slides/runtime/output-issues.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "1C516FAC28909B0C5F98B07A2CD9378885E9838182A9A0B907B5188C8324EB7E",
+    "provider": "google-drive",
+    "path": "skills/google-slides/runtime/result.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "095179A53E10EDAAEB1381E7A4A24C1B461C1C61E245B9E707881C8DE6A85B9C",
+    "provider": "google-drive",
+    "path": "skills/google-slides/scripts/check_output_issues.mjs"
+  },
+  {
+    "version": "0.1.22",
+    "sha256": "5985A2FBA34D769E7839A90FBA7745B070D82773B8DA4A2E1A77213C70E4C914",
+    "provider": "google-drive",
+    "path": "skills/google-slides/scripts/parse_template_design_system.mjs"
+  },
+  {
+    "version": "6.0.0",
+    "sha256": "0BEFED62B8DD03A7CD2A2CE56DF16331B64355D3362F136BFF289B8DD34A021B",
+    "provider": "dropbox",
+    "path": "skills/clean-up-dropbox-content/SKILL.md"
+  },
+  {
+    "version": "6.0.0",
+    "sha256": "F9DE5FD6848B363B189C860455702DB097EBAEAE51306D9D06183A362224687D",
+    "provider": "dropbox",
+    "path": "skills/collect-files-with-request/SKILL.md"
+  },
+  {
+    "version": "6.0.0",
+    "sha256": "6AFF4CA5C0FED3961AC5CC92E51C2FBD2405B46673558291F2836BB1021FC271",
+    "provider": "dropbox",
+    "path": "skills/find-dropbox-content/SKILL.md"
+  },
+  {
+    "version": "6.0.0",
+    "sha256": "DE44C9809C8D498823ED5130F49494DE9B161C85812BD741AAF709B0861DCF9F",
+    "provider": "dropbox",
+    "path": "skills/inspect-dropbox-file/SKILL.md"
+  },
+  {
+    "version": "6.0.0",
+    "sha256": "AC628ECB0FE11803011D4A2703CFC725D099546384FB023CE60B812DD3D362C8",
+    "provider": "dropbox",
+    "path": "skills/organize-dropbox-folder/SKILL.md"
+  },
+  {
+    "version": "6.0.0",
+    "sha256": "4B54A3D146D43E7A8F4BB909CF5F32F6BBC16B625B975F89BDDAE3856A8F18F7",
+    "provider": "dropbox",
+    "path": "skills/share-dropbox-content/SKILL.md"
+  }
+]

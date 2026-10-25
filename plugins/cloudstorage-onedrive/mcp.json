@@ -1,0 +1,29 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "cloudstorage_onedrive": {
+      "type": "streamable-http",
+      "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "provided",
+              "clientId": "c3943220-6e15-4d13-b397-ea0c1a1a639b",
+              "tokenEndpointAuthMethod": "none"
+            },
+            "baseScopes": [
+              "api://611e57ce-a334-46da-b172-98d03bf2bb9b/access_as_user",
+              "offline_access"
+            ],
+            "defaultScopes": [
+              "api://611e57ce-a334-46da-b172-98d03bf2bb9b/access_as_user",
+              "offline_access"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

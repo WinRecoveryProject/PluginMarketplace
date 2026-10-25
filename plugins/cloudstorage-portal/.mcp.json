@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "onedrive": {
+      "command": "node",
+      "args": [
+        "./runtime/mcp.mjs"
+      ],
+      "cwd": ".",
+      "env_vars": [
+        "LOCALAPPDATA",
+        "DROPBOX_CLIENT_ID",
+        "GOOGLE_CLIENT_ID",
+        "MICROSOFT_CLIENT_ID",
+        "ONEDRIVE_LOCAL_ROOT",
+        "OneDriveConsumer",
+        "OneDriveCommercial",
+        "OneDrive",
+        "PORTAL_PORT"
+      ],
+      "startup_timeout_sec": 60,
+      "tool_timeout_sec": 120
+    }
+  }
+}

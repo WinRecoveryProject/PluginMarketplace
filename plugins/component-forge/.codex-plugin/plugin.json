@@ -1,0 +1,22 @@
+{
+  "author": {
+    "email": "zilver.muhlig.hansen@gmail.com",
+    "name": "Zilvereyes"
+  },
+  "description": "Archive-first PowerShell component extraction, dependency contracts, composition and evidence-based documentation workflows.",
+  "interface": {
+    "capabilities": [],
+    "category": "Developer Tools",
+    "defaultPrompt": "Brug komponentarkivet f\u00f8rst. Unders\u00f8g afh\u00e6ngigheder, opret sporbare PowerShell-komponenter og registr\u00e9r afpr\u00f8vede varianter.",
+    "developerName": "Zilvereyes",
+    "displayName": "Component Forge",
+    "logo": "./assets/component-forge.png",
+    "composerIcon": "./assets/component-forge.png",
+    "longDescription": "Guide an agent through scoped source inventory, dependency-aware component extraction, archive-first generation and composition. Includes contracts and evaluation scenarios. Does not supply an automatic parser or servicing engine.",
+    "shortDescription": "PowerShell komponentbygges\u00e6t"
+  },
+  "keywords": [],
+  "name": "component-forge",
+  "skills": "./skills",
+  "version": "0.1.2"
+}

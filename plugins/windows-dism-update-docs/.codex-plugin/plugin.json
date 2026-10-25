@@ -1,0 +1,20 @@
+{
+  "name": "windows-dism-update-docs",
+  "version": "0.1.3",
+  "description": "Local Windows servicing knowledge assistant for DISM, .NET, Defender, ESU and Home/Pro integration evidence.",
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Windows Dism Update Docs",
+    "shortDescription": "Windows DISM and Update docs",
+    "longDescription": "Find and maintain the private Windows-Dism-Update-Docs library, verify Microsoft sources and distinguish documented methods from tested image results. Documentation only; no automatic servicing or activation.",
+    "developerName": "Zilvereyes",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Help me use Windows Dism Update Docs.",
+    "logo": "./assets/windows-dism-update-docs.png",
+    "composerIcon": "./assets/windows-dism-update-docs.png"
+  }
+}

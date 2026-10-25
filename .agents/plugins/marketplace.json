@@ -1,0 +1,15 @@
+{
+  "name": "winrecoveryproject-digital",
+  "interface": {
+    "displayName": "WinRecoveryProject Digital"
+  },
+  "plugins": [
+    {"name":"cloudstorage-portal","source":{"source":"local","path":"./plugins/cloudstorage-portal"},"policy":{"installation":"AVAILABLE","authentication":"ON_USE"},"category":"Productivity"},
+    {"name":"cloudstorage-onedrive","source":{"source":"local","path":"./plugins/cloudstorage-onedrive"},"policy":{"installation":"AVAILABLE","authentication":"ON_USE"},"category":"Productivity"},
+    {"name":"component-forge","source":{"source":"local","path":"./plugins/component-forge"},"policy":{"installation":"AVAILABLE","authentication":"ON_INSTALL"},"category":"Productivity"},
+    {"name":"plugin-eval","source":{"source":"local","path":"./plugins/plugin-eval"},"policy":{"installation":"AVAILABLE","authentication":"ON_INSTALL"},"category":"Productivity"},
+    {"name":"powershell-workbench","source":{"source":"local","path":"./plugins/powershell-workbench"},"policy":{"installation":"AVAILABLE","authentication":"ON_INSTALL"},"category":"Productivity"},
+    {"name":"windows-dism-update-docs","source":{"source":"local","path":"./plugins/windows-dism-update-docs"},"policy":{"installation":"AVAILABLE","authentication":"ON_INSTALL"},"category":"Productivity"},
+    {"name":"codex-security","source":{"source":"local","path":"./plugins/codex-security"},"policy":{"installation":"AVAILABLE","authentication":"ON_INSTALL"},"category":"Productivity"}
+  ]
+}

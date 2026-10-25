@@ -1,0 +1,4 @@
+interface:
+  display_name: "Component Docs"
+  short_description: "Research component documentation"
+  default_prompt: "Research version-specific documentation and link evidence to component IDs."

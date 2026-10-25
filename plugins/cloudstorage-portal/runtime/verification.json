@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-23",
+  "runtime": "Node.js 24.16.0 on Windows",
+  "pluginRelease": "0.8.0-dev.17",
+  "runtimeRelease": "0.8.0-dev.11",
+  "mcpImplementation": "@modelcontextprotocol/server 2.3.1",
+  "mcpWireTest": {
+    "protocolVersion": "2025-06-18",
+    "serverName": "onedrive",
+    "toolCount": 12,
+    "resources": 0,
+    "resourceTemplates": 0,
+    "stderrOnlyStartupNotice": true,
+    "cleanExit": true
+  },
+  "automatedTests": {
+    "passed": 62,
+    "failed": 0,
+    "providerResponses": "simulated for deterministic adapter tests",
+    "windowsDpapiRoundTrip": true,
+    "protectedProviderSecretStore": true,
+    "oauthPendingStateLifetimeSeconds": 1800,
+    "liveOAuthVerified": ["dropbox", "onedrive"]
+  },
+  "liveIntegration": {
+    "previousHostToolDiscoveryVerified": true,
+    "currentReleaseHostReloadVerified": false,
+    "dropbox": { "identity": true, "rootRead": true, "write": false, "restartRestore": false },
+    "onedrive": { "identity": true, "rootRead": true, "folderRead": true, "itemMetadataRead": false, "textRead": true, "searchRead": false, "write": false, "restartRestore": false },
+    "google": {
+      "projectCreated": true,
+      "driveApiEnabled": true,
+      "testAudienceConfigured": true,
+      "testUserConfigured": true,
+      "scope": "https://www.googleapis.com/auth/drive.readonly",
+      "oauthClientCreated": true,
+      "clientSecretProtectedByDpapi": true,
+      "consent": true,
+      "identity": true,
+      "rootRead": true,
+      "write": false,
+      "restartRestore": true,
+      "restartIdentityRevalidated": true,
+      "restartRootRead": true
+    },
+    "simultaneousConnections": ["dropbox", "onedrive"],
+    "evidence": ["outputs/OWN-OAUTH-LIVE-VERIFICATION.md", "outputs/GOOGLE-OWN-OAUTH-LIVE-VERIFICATION-2026-10-23.md"],
+    "credentialHandling": "Own app registrations only; no native connector credentials or tokens copied"
+  },
+  "credentialStore": {
+    "configured": true,
+    "protection": "windows-dpapi-current-user",
+    "loadError": null,
+    "saveError": null,
+    "accessTokensPersisted": false
+  },
+  "nativeProviderWorkflowAudit": {
+    "workflowCount": 11,
+    "readGroundingVerified": 11,
+    "mutationsPerformed": 0,
+    "dropboxIdentityVerified": true,
+    "googleIdentityVerified": true,
+    "evidence": "outputs/NATIVE-WORKFLOW-LIVE-AUDIT.md",
+    "scope": "Existing native Dropbox and Google Drive app connections; separate from the candidate broker's own OAuth grants"
+  },
+  "localOneDrive": {
+    "root": "C:\\Users\\zilve\\CloudStorage\\OneDrive",
+    "directItemsObserved": 18,
+    "fileContentRead": false,
+    "cloudIdentityVerified": false,
+    "cloudSyncVerified": false,
+    "emptyOrRelativeExplicitRootFallsBackToWindowsDiscovery": true
+  },
+  "packageVerification": {
+    "candidateFilesExcludingNodeModules": 127,
+    "candidateInstallMismatches": 0,
+    "trackedProviderFiles": 71,
+    "providerHashMismatches": 0,
+    "workflowCount": 11,
+    "totalSkillCount": 14,
+    "bindingsPreserved": true,
+    "evidence": "outputs/HYBRID-PACKAGE-VERIFICATION-0.8.0-dev.17.json"
+  },
+  "installedMcp": {
+    "verifiedDirectly": true,
+    "currentCodexHostReloadVerified": false,
+    "pluginId": "cloudstorage-portal@cloudstorage-local",
+    "installedVersion": "0.8.0-dev.17",
+    "installedRoot": "C:\\Users\\zilve\\.codex\\plugins\\cache\\cloudstorage-local\\cloudstorage-portal\\0.8.0-dev.17",
+    "serverName": "onedrive",
+    "runtimeVersion": "0.8.0-dev.11",
+    "toolCount": 12,
+    "resources": 0,
+    "resourceTemplates": 0,
+    "candidateInstallMismatches": 0,
+    "evidence": "outputs/INSTALLED-RUNTIME-VERIFICATION-0.8.0-dev.11.json"
+  },
+  "currentHost": {
+    "toolSchemasObserved": 12,
+    "obsoleteDev16PortalFailureObserved": "missing runtime/public caused internal_error",
+    "obsoleteDev16TransportStopped": true,
+    "transportRecreatedInCurrentChat": false,
+    "manualCloudstorageLocalDeclarationRemoved": true,
+    "pluginOwnedConfigurationPrepared": true,
+    "nextStartPortalPort": 53683,
+    "requiresCodexRestart": true
+  },
+  "cloudFilesModified": false,
+  "oneAuthContentsReadOrCopied": false
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Component Archive"
+  short_description: "Extract and compose PowerShell components"
+  default_prompt: "Search the archive before generating PowerShell code and register component contracts."

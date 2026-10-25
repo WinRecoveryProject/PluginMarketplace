@@ -1,0 +1,13 @@
+{
+  "apps": {
+    "dropbox": {
+      "id": "asdk_app_69b31dc2110c8191b8b47dc98fe5a052"
+    },
+    "google-drive": {
+      "id": "connector_5f3c8c41a1e54ad7a76272c89e2554fa"
+    },
+    "onedrive": {
+      "id": "asdk_app_6ade0fe240408191bd087bff2df78e79"
+    }
+  }
+}

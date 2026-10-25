@@ -1,0 +1,6 @@
+interface:
+  display_name: "Windows DISM Update Docs"
+  short_description: "Verify Windows servicing sources and integration evidence"
+  default_prompt: "Use $windows-dism-update-docs to check our Windows integration documentation and record verified findings."
+policy:
+  allow_implicit_invocation: true
