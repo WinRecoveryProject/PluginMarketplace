@@ -42,7 +42,9 @@ There are two distinct server-integration mechanisms:
 
 A package can technically contain multiple resources, but these mechanisms should not both describe the same provider endpoint and capability surface. That creates duplicate connection prompts, tools and account-routing paths instead of useful composition.
 
-The portable `mcp.json` and compatibility `.mcp.json` formats are not interchangeable names. A new portable package should use root `plugin.json` and root `mcp.json`; `.codex-plugin/plugin.json` and `.mcp.json` are compatibility-layer files.
+The portable `mcp.json` and compatibility `.mcp.json` formats are not interchangeable names. A standalone portable package uses root `plugin.json` and root `mcp.json`; a Codex compatibility package uses `.codex-plugin/plugin.json` and `.mcp.json`.
+
+These formats must currently be published as separate package roots when the Codex marketplace package references Apps. Codex classifies a package with root `plugin.json` as an Agent Plugin and suppresses its App declarations for non-global marketplaces. CloudStorage therefore keeps the portable manifests under `references/` and leaves `.codex-plugin/plugin.json`, `.app.json` and `.mcp.json` as the only active manifests in the Git-marketplace packages.
 
 Official references:
 

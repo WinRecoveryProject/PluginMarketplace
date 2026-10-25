@@ -44,7 +44,7 @@ test('OneDrive requires its own drive identity and is not passed off as a native
   assert.equal(oneDrive.cloudWritesImplemented, false);
   assert.equal(platformCapabilities('dropbox').nativeConnectionState, 'not-observed-by-local-runtime');
   assert.deepEqual(mcpServerIdentity, { name: 'onedrive', version: '0.8.0-dev.11' });
-  for (const manifest of ['../.mcp.json', '../mcp.json']) {
+  for (const manifest of ['../.mcp.json', '../references/portable-mcp.json']) {
     const document = JSON.parse(readFileSync(new URL(manifest, import.meta.url), 'utf8'));
     assert.deepEqual(Object.keys(document.mcpServers), ['onedrive']);
   }

@@ -15,7 +15,7 @@
     "shortDescription": "Cloudfiler p\u00e5 tv\u00e6rs af konti"
   },
   "name": "cloudstorage-portal",
-  "version": "0.8.0-dev.22",
+  "version": "0.8.0-dev.23",
   "description": "Coordinate Dropbox, Google Drive and OneDrive accounts with preserved native provider bindings and a local OAuth/Graph MCP runtime.",
   "author": {
     "name": "Zilvereyes",

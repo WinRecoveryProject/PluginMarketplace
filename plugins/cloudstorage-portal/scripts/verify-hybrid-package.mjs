@@ -29,10 +29,10 @@ for (const record of provenance) {
 }
 
 const manifest = JSON.parse(await readFile(path.join(candidateRoot, '.codex-plugin', 'plugin.json'), 'utf8'));
-const portableManifest = JSON.parse(await readFile(path.join(candidateRoot, 'plugin.json'), 'utf8'));
+const portableManifest = JSON.parse(await readFile(path.join(candidateRoot, 'references', 'portable-plugin.json'), 'utf8'));
 const apps = JSON.parse(await readFile(path.join(candidateRoot, '.app.json'), 'utf8'));
 const mcp = JSON.parse(await readFile(path.join(candidateRoot, '.mcp.json'), 'utf8'));
-const portableMcp = JSON.parse(await readFile(path.join(candidateRoot, 'mcp.json'), 'utf8'));
+const portableMcp = JSON.parse(await readFile(path.join(candidateRoot, 'references', 'portable-mcp.json'), 'utf8'));
 const skillRoot = path.join(candidateRoot, 'skills');
 const skillNames = [];
 for (const entry of await readdir(skillRoot, { withFileTypes: true })) {
@@ -45,6 +45,8 @@ for (const entry of await readdir(skillRoot, { withFileTypes: true })) {
 skillNames.sort();
 
 const candidateFiles = await relativeFiles(candidateRoot);
+const activeRootPortableManifestAbsent = !candidateFiles.includes('plugin.json');
+const activeRootPortableMcpAbsent = !candidateFiles.includes('mcp.json');
 const installationMismatches = [];
 if (installedRoot) {
   const installedFiles = await relativeFiles(installedRoot);
@@ -91,11 +93,16 @@ const result = {
       && apps.apps?.['google-drive']?.id === 'connector_5f3c8c41a1e54ad7a76272c89e2554fa',
   },
   hybrid: {
+    codexAppRoutingFormat: 'legacy',
+    activeManifest: '.codex-plugin/plugin.json',
+    activeRootPortableManifestAbsent,
+    activeRootPortableMcpAbsent,
     appsManifest: manifest.apps ?? null,
     mcpManifest: manifest.mcpServers ?? null,
     mcpServerNames: Object.keys(mcp.mcpServers ?? {}),
     oneDriveDeclared: Object.hasOwn(mcp.mcpServers ?? {}, 'onedrive'),
-    portableMcpFile: 'mcp.json',
+    portableManifestReference: 'references/portable-plugin.json',
+    portableMcpReference: 'references/portable-mcp.json',
     portableMcpServerNames: Object.keys(portableMcp.mcpServers ?? {}),
     portableOneDriveDeclared: Object.hasOwn(portableMcp.mcpServers ?? {}, 'onedrive'),
     portableEntrypointUsesPluginRoot: portableMcp.mcpServers?.onedrive?.args?.[0] === '${PLUGIN_ROOT}/runtime/mcp.mjs'
@@ -115,6 +122,7 @@ const result = {
 console.log(JSON.stringify(result, null, 2));
 if (providerMismatches.length || !result.plugin.identitiesSynchronized || !result.expectedWorkflowsPresent
   || skillNames.length !== 14 || !result.bindings.preserved || !result.hybrid.oneDriveDeclared
+  || !result.hybrid.activeRootPortableManifestAbsent || !result.hybrid.activeRootPortableMcpAbsent
   || !result.hybrid.portableOneDriveDeclared || !result.hybrid.portableEntrypointUsesPluginRoot
   || !result.hybrid.portableUsesOnlyCodexSupportedStdioFields
   || installationMismatches.length) process.exitCode = 1;

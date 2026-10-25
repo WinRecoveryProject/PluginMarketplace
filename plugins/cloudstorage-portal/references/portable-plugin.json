@@ -12,7 +12,7 @@
       "interface": {
         "capabilities": [],
         "category": "Productivity",
-        "defaultPrompt": "Vis mine tilg\u00e6ngelige cloudforbindelser og s\u00f8g p\u00e5 tv\u00e6rs af de tilsluttede konti.",
+        "defaultPrompt": "Vis mine tilgængelige cloudforbindelser og søg på tværs af de tilsluttede konti.",
         "developerName": "Zilvereyes",
         "displayName": "CloudStorage Portal",
         "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",
@@ -20,11 +20,11 @@
         "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
         "logo": "./assets/cloudstorage-portal.png",
         "composerIcon": "./assets/cloudstorage-portal.png",
-        "longDescription": "Samlet portal til Dropbox, Google Drive og OneDrive. Bevarer de eksisterende native Dropbox- og Google Drive-forbindelser og tilf\u00f8jer en selvst\u00e6ndig lokal OAuth/Graph-runtime til OneDrive, separate grants og hurtigt kontoskift.",
-        "shortDescription": "Cloudfiler p\u00e5 tv\u00e6rs af konti"
+        "longDescription": "Samlet portal til Dropbox, Google Drive og OneDrive. Bevarer de eksisterende native Dropbox- og Google Drive-forbindelser og tilføjer en selvstændig lokal OAuth/Graph-runtime til OneDrive, separate grants og hurtigt kontoskift.",
+        "shortDescription": "Cloudfiler på tværs af konti"
       }
     }
   },
   "name": "cloudstorage-portal",
-  "version": "0.8.0-dev.22"
+  "version": "0.8.0-dev.23"
 }

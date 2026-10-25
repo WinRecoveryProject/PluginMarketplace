@@ -10,8 +10,8 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 
 | Plugin | Version | Installation |
 | --- | --- | --- |
-| CloudStorage Portal | `0.8.0-dev.22` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
-| CloudStorage OneDrive | `0.1.6` | `codex plugin add cloudstorage-onedrive@winrecoveryproject-digital` |
+| CloudStorage Portal | `0.8.0-dev.23` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
+| CloudStorage OneDrive | `0.1.7` | `codex plugin add cloudstorage-onedrive@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Zilvereyes Plugin Studio | `0.2.0` | `codex plugin add zilvereyes-plugin-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.2` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
