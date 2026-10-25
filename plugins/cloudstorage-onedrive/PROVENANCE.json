@@ -2,11 +2,18 @@
   "schemaVersion": 1,
   "provider": "onedrive",
   "server": {
-    "pluginServerName": "cloudstorage_onedrive",
+    "status": "preserved-reference-not-active",
+    "referenceFile": "references/hosted-mcp-0.1.5.json",
+    "formerPluginServerName": "cloudstorage_onedrive",
     "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
     "deploymentId": "dpl_7RQUYXwGTf9PkPm8pBEYosbHhU7g",
     "sourceVersion": "0.1.1",
     "publicDiscoveryReceipt": "../../outputs/HOSTED-ONEDRIVE-PUBLIC-DISCOVERY-0.1.1.json"
+  },
+  "activeApp": {
+    "id": "asdk_app_6ade0fe240408191bd087bff2df78e79",
+    "referenceFile": ".app.json",
+    "credentialsIncluded": false
   },
   "microsoft": {
     "apiApplicationId": "611e57ce-a334-46da-b172-98d03bf2bb9b",

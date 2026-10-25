@@ -6,94 +6,53 @@
   "plugins": [
     {
       "name": "cloudstorage-portal",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/cloudstorage-portal"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_USE"
-      },
+      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/cloudstorage-portal"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
       "category": "Productivity"
     },
     {
       "name": "cloudstorage-onedrive",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/cloudstorage-onedrive"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_USE"
-      },
+      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/cloudstorage-onedrive"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
       "category": "Productivity"
     },
     {
       "name": "component-forge",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/component-forge"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
+      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/component-forge"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
     },
     {
-      "name": "plugin-eval",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/plugin-eval"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
+      "name": "zilvereyes-plugin-studio",
+      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/zilvereyes-plugin-studio"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
     },
     {
       "name": "powershell-workbench",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/powershell-workbench"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
+      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/powershell-workbench"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
     },
     {
       "name": "windows-dism-update-docs",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/windows-dism-update-docs"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
+      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/windows-dism-update-docs"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
     },
     {
       "name": "codex-security",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/codex-security"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Security"
+      "source": {"source": "git-subdir", "url": "https://github.com/openai/plugins.git", "path": "plugins/codex-security"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
+      "category": "Security",
+      "interface": {"displayName": "Codex Security"}
+    },
+    {
+      "name": "linear",
+      "source": {"source": "git-subdir", "url": "https://github.com/openai/plugins.git", "path": "plugins/linear"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "category": "Productivity",
+      "interface": {"displayName": "Linear"}
     }
   ]
 }

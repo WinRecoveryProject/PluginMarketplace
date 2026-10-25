@@ -4,6 +4,7 @@
     "email": "zilver.muhlig.hansen@gmail.com",
     "name": "Zilvereyes"
   },
+  "license": "MIT",
   "description": "Coordinate Dropbox, Google Drive and OneDrive accounts with preserved native provider bindings and a local OAuth/Graph MCP runtime.",
   "extensions": {
     "com.openai": {
@@ -14,6 +15,9 @@
         "defaultPrompt": "Vis mine tilg\u00e6ngelige cloudforbindelser og s\u00f8g p\u00e5 tv\u00e6rs af de tilsluttede konti.",
         "developerName": "Zilvereyes",
         "displayName": "CloudStorage Portal",
+        "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",
+        "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
+        "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
         "logo": "./assets/cloudstorage-portal.png",
         "composerIcon": "./assets/cloudstorage-portal.png",
         "longDescription": "Samlet portal til Dropbox, Google Drive og OneDrive. Bevarer de eksisterende native Dropbox- og Google Drive-forbindelser og tilf\u00f8jer en selvst\u00e6ndig lokal OAuth/Graph-runtime til OneDrive, separate grants og hurtigt kontoskift.",
@@ -22,5 +26,5 @@
     }
   },
   "name": "cloudstorage-portal",
-  "version": "0.8.0-dev.20"
+  "version": "0.8.0-dev.22"
 }

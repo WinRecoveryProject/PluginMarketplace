@@ -59,7 +59,10 @@ export function transformWithDpapi(operation, bytes, { executable = defaultPower
     input: Buffer.from(bytes).toString('base64'),
     encoding: 'utf8',
     windowsHide: true,
-    timeout: 15000,
+    // Windows PowerShell startup can exceed 15 seconds on a busy or freshly
+    // scanned Windows host. Keep the operation bounded without treating a
+    // slow shell startup as a failed DPAPI protection operation.
+    timeout: 30000,
     env: { ...process.env, CLOUDSTORAGE_DPAPI_OPERATION: operation },
     maxBuffer: 1024 * 1024,
   });
