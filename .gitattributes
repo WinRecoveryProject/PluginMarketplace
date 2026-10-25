@@ -1,0 +1,5 @@
+# Preserve the exact upstream bytes for provider skill snapshots. Their
+# provenance catalog hashes the official Codex package bytes, including CRLF.
+plugins/cloudstorage-portal/skills/google-*/** -text
+plugins/cloudstorage-portal/skills/*dropbox*/** -text
+plugins/cloudstorage-portal/skills/collect-files-with-request/** -text
