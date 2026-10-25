@@ -7,8 +7,9 @@
     {
       "name":"cloudstorage-portal",
       "source":{
-        "source":"local",
-        "path":"./plugins/cloudstorage-portal"
+        "source":"git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/cloudstorage-portal"
       },
       "policy":{
         "installation":"AVAILABLE",
@@ -19,8 +20,9 @@
     {
       "name":"cloudstorage-onedrive",
       "source":{
-        "source":"local",
-        "path":"./plugins/cloudstorage-onedrive"
+        "source":"git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/cloudstorage-onedrive"
       },
       "policy":{
         "installation":"AVAILABLE",
@@ -31,8 +33,9 @@
     {
       "name":"component-forge",
       "source":{
-        "source":"local",
-        "path":"./plugins/component-forge"
+        "source":"git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/component-forge"
       },
       "policy":{
         "installation":"AVAILABLE",
@@ -43,8 +46,9 @@
     {
       "name":"plugin-eval",
       "source":{
-        "source":"local",
-        "path":"./plugins/plugin-eval"
+        "source":"git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/plugin-eval"
       },
       "policy":{
         "installation":"AVAILABLE",
@@ -55,8 +59,9 @@
     {
       "name":"powershell-workbench",
       "source":{
-        "source":"local",
-        "path":"./plugins/powershell-workbench"
+        "source":"git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/powershell-workbench"
       },
       "policy":{
         "installation":"AVAILABLE",
@@ -67,8 +72,9 @@
     {
       "name":"windows-dism-update-docs",
       "source":{
-        "source":"local",
-        "path":"./plugins/windows-dism-update-docs"
+        "source":"git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/windows-dism-update-docs"
       },
       "policy":{
         "installation":"AVAILABLE",
@@ -79,8 +85,9 @@
     {
       "name":"codex-security",
       "source":{
-        "source":"local",
-        "path":"./plugins/codex-security"
+        "source":"git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/codex-security"
       },
       "policy":{
         "installation":"AVAILABLE",
