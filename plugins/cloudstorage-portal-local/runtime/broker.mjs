@@ -154,9 +154,14 @@ export class Broker {
       try { payload = await response.json(); } catch {}
       const code = typeof payload?.error === 'string' ? payload.error : payload?.error?.code;
       // Never return provider descriptions, URLs, request bodies, headers or tokens.
-      const allowedCodes = new Set(['invalid_grant', 'invalid_client', 'unauthorized_client', 'invalid_scope', 'invalid_request', 'access_denied', 'InvalidAuthenticationToken', 'accessDenied', 'itemNotFound']);
+      const allowedCodes = new Set(['invalid_grant', 'invalid_client', 'unauthorized_client', 'invalid_scope', 'invalid_request', 'access_denied', 'InvalidAuthenticationToken', 'accessDenied', 'itemNotFound', 'BadRequest', 'badRequest', 'invalidRequest', 'Request_BadRequest', 'notSupported', 'notAllowed', 'generalException', 'UnknownError', 'unknownError']);
+      const endpoint = new URL(url);
+      const operation = endpoint.hostname === 'login.microsoftonline.com' && endpoint.pathname.endsWith('/token') ? 'microsoft-token'
+        : endpoint.hostname === 'graph.microsoft.com' && endpoint.pathname === '/v1.0/me' ? 'microsoft-profile'
+        : endpoint.hostname === 'graph.microsoft.com' && endpoint.pathname === '/v1.0/me/drive' ? 'onedrive-drive' : undefined;
       const diagnostic = {
         httpStatus: response.status,
+        ...(operation ? { operation } : {}),
         ...(allowedCodes.has(code) ? { providerCode: code } : {}),
         ...(Array.isArray(payload?.error_codes) ? { microsoftErrorCodes: payload.error_codes.filter(value => Number.isSafeInteger(value) && value > 0).slice(0, 5) } : {}),
       };

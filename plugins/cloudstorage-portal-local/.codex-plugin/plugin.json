@@ -1,6 +1,6 @@
 {
   "name": "cloudstorage-portal-local",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Run the local CloudStorage Portal MCP broker independently from the provider App and skill packages.",
   "author": {
     "name": "Zilvereyes",

@@ -10,7 +10,16 @@ test('provider failures retain only bounded safe diagnostic codes', async () => 
   }, { status: 400 }) });
   await assert.rejects(broker.json('https://login.microsoftonline.com/common/oauth2/v2.0/token'), error => {
     assert.equal(error.code, 'provider_request_failed');
-    assert.deepEqual(error.diagnostic, { httpStatus: 400, providerCode: 'invalid_client', microsoftErrorCodes: [7000218] });
+    assert.deepEqual(error.diagnostic, { httpStatus: 400, operation: 'microsoft-token', providerCode: 'invalid_client', microsoftErrorCodes: [7000218] });
+    assert.ok(!JSON.stringify(error).includes('PRIVATE'));
+    return true;
+  });
+});
+
+test('Graph drive failure identifies the step without exposing provider messages or query values', async () => {
+  const broker = new Broker({ fetchImpl: async () => Response.json({ error: { code: 'BadRequest', message: 'PRIVATE_MESSAGE' } }, { status: 400 }) });
+  await assert.rejects(broker.json('https://graph.microsoft.com/v1.0/me/drive?private=PRIVATE_QUERY'), error => {
+    assert.deepEqual(error.diagnostic, { httpStatus: 400, operation: 'onedrive-drive', providerCode: 'BadRequest' });
     assert.ok(!JSON.stringify(error).includes('PRIVATE'));
     return true;
   });
