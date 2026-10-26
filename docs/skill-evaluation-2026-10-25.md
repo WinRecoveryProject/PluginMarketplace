@@ -2,7 +2,7 @@
 
 ## Scope and method
 
-This assessment compares the active CloudStorage Portal and CloudStorage OneDrive skills with the 18 OneDrive-, Graph- and cloud-OAuth-related candidates under `C:\Users\zilve\.agents\skills`. The generic `find-skills` helper is outside the CloudStorage scope and was not scored as a provider candidate.
+This assessment compares the active CloudStorage Portal and OneDrive skills with the 18 OneDrive-, Graph- and cloud-OAuth-related candidates under `C:\Users\zilve\.agents\skills`. The generic `find-skills` helper is outside the CloudStorage scope and was not scored as a provider candidate.
 
 Every candidate was analyzed with the installed Plugin Eval runner. The score measures structural quality, token cost, broken links and common skill conventions. It does **not** prove that a skill uses the correct backend, identity, OAuth grant, App ID or safety boundary. Architectural compatibility is therefore evaluated separately.
 
@@ -61,12 +61,12 @@ The Zapier-derived `microsoft-onedrive(1)` package is the richest source of exec
 
 ## Immediate recommendations
 
-1. Keep the existing standalone CloudStorage OneDrive skill as the dedicated OneDrive entry point.
+1. Keep the existing standalone OneDrive skill as the dedicated provider entry point.
 2. Keep CloudStorage Portal as the three-provider router; do not add any of the duplicate `onedrive` or `microsoft-onedrive` skill names.
 3. Refactor the three Portal routing skills for progressive disclosure before adding more capability prose.
 4. Add future OneDrive operations backend-first: implement and verify an MCP tool, then document it in the skill. Do not promise a capability merely because a candidate skill describes it.
 5. Treat the OAuth-app skills as research notes, not automation. Reverify volatile permissions, verification rules and portal behavior against primary provider documentation before changing permanent app configuration.
-6. Preserve the current ChatGPT App binding `asdk_app_6ade878e235c8191b19c6f72fc31981a`; no Entra application/client ID should be converted into an `asdk_app_...` value. The earlier `asdk_app_6ade0fe240408191bd087bff2df78e79` binding was deleted and replaced on 25 October 2026.
+6. Preserve the current workspace-owned ChatGPT App binding `asdk_app_6adee7aa468881a4940e6933f518ddaa`; no Entra application/client ID should be converted into an `asdk_app_...` value. The two earlier private bindings were deleted and remain only as replacement history.
 
 The provider packaging comparison and controlled simplification path are documented in `provider-architecture-comparison-2026-10-25.md`.
 

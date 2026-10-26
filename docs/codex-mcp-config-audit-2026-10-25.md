@@ -5,8 +5,8 @@ This audit separates the three OneDrive-facing integration routes currently visi
 ## Active routes
 
 1. `node_repl` is a Codex desktop runtime service pinned to the installed desktop build. Codex parses and starts it successfully. Its build-specific executable, Node path, trusted service map and native-pipe values should be maintained by the desktop installation rather than copied into a plugin.
-2. `cloudstorage-portal-local` is the CloudStorage Portal local stdio broker. It owns the Portal's local sync-folder mode and its own provider grants. Fresh Codex discovery and execution were verified against the historically installed Portal `0.8.0-dev.20` / runtime `0.8.0-dev.11`, whose server identity was `onedrive`; the publication candidate is Portal `0.8.0-dev.25` / runtime `0.8.0-dev.13`. The Portal broker name is intentionally distinct from the independent `onedrive` App declaration so Codex retains both routes.
-3. OneDrive references the registered Codex App `asdk_app_6ade878e235c8191b19c6f72fc31981a` under the explicit declaration name `onedrive`. It does not register a second plugin MCP server. The earlier App ID was deleted and replaced on 25 October 2026.
+2. `cloudstorage-portal-local` is the CloudStorage Portal local stdio broker. It owns the Portal's local sync-folder mode and its own provider grants. Fresh Codex discovery and execution were verified against the historically installed Portal `0.8.0-dev.20` / runtime `0.8.0-dev.11`, whose server identity was `onedrive`; the publication candidate is Portal `0.8.0-dev.27` / runtime `0.8.0-dev.13`. The Portal broker name is intentionally distinct from the independent `onedrive` App declaration so Codex retains both routes.
+3. OneDrive references the workspace-owned Codex App `asdk_app_6adee7aa468881a4940e6933f518ddaa` under the explicit declaration name `onedrive`. It does not register a second plugin MCP server. The earlier private App IDs were deleted and replaced; the current workspace App was registered on 26 October 2026.
 
 ## Quarantined development route
 

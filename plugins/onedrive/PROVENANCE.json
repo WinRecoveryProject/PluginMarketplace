@@ -11,18 +11,24 @@
     "publicDiscoveryReceipt": "../../outputs/HOSTED-ONEDRIVE-PUBLIC-DISCOVERY-0.1.1.json"
   },
   "activeApp": {
-    "id": "asdk_app_6ade878e235c8191b19c6f72fc31981a",
-    "pluginId": "plugin_asdk_app_6ade878e235c8191b19c6f72fc31981a",
-    "createdAt": "2026-10-25",
+    "id": "asdk_app_6adee7aa468881a4940e6933f518ddaa",
+    "pluginId": "plugin_asdk_app_6adee7aa468881a4940e6933f518ddaa",
+    "workspaceId": "13dd9826-ca61-4006-a842-f6cb02ddf7b9",
+    "createdAt": "2026-10-26",
     "callbackUrl": "https://chatgpt.com/connector/oauth/8km5JPM_K7ZN",
     "referenceFile": ".app.json",
     "credentialsIncluded": false
   },
-  "retiredApp": {
-    "id": "asdk_app_6ade0fe240408191bd087bff2df78e79",
-    "status": "deleted-and-replaced",
-    "replacedBy": "asdk_app_6ade878e235c8191b19c6f72fc31981a"
-  },
+  "retiredApps": [
+    {
+      "id": "asdk_app_6ade0fe240408191bd087bff2df78e79",
+      "status": "deleted-and-replaced"
+    },
+    {
+      "id": "asdk_app_6ade878e235c8191b19c6f72fc31981a",
+      "status": "deleted-and-replaced"
+    }
+  ],
   "microsoft": {
     "apiApplicationId": "611e57ce-a334-46da-b172-98d03bf2bb9b",
     "hostApplicationId": "c3943220-6e15-4d13-b397-ea0c1a1a639b",

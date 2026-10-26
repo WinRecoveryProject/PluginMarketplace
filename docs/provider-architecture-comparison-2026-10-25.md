@@ -63,8 +63,8 @@ The retired private plugin `plugin_asdk_app_6ade0fe240408191bd087bff2df78e79` wa
 
 The replacement App was registered with the correct visible name `OneDrive` and the same hosted MCP endpoint:
 
-- Plugin ID: `plugin_asdk_app_6ade878e235c8191b19c6f72fc31981a`
-- Active App ID: `asdk_app_6ade878e235c8191b19c6f72fc31981a`
+- Plugin ID: `plugin_asdk_app_6adee7aa468881a4940e6933f518ddaa`
+- Active App ID: `asdk_app_6adee7aa468881a4940e6933f518ddaa`
 - MCP endpoint: `https://cloudstorage-onedrive-mcp.vercel.app/mcp`
 
 The marketplace package references the replacement App ID. The App-backed layer is the Dropbox/Google-style connection surface, so the marketplace package does not repeat the server URL or OAuth client configuration.
@@ -113,7 +113,7 @@ This model gives each provider one cloud connection surface. The Portal coordina
 The package split and App replacement are complete. The remaining live test order is:
 
 1. Import or refresh the Git marketplace package.
-2. Verify that the App dependency resolves to `asdk_app_6ade878e235c8191b19c6f72fc31981a`.
+2. Verify that the App dependency resolves to `asdk_app_6adee7aa468881a4940e6933f518ddaa`.
 3. Verify that the hosted read-only tools remain discoverable and that authentication uses the registered OneDrive connection.
 4. Verify account identity, root listing, folder listing and text reading against a harmless test folder.
 5. Keep the CloudStorage Portal Local runtime separate; do not fold it back into the hosted OneDrive package.

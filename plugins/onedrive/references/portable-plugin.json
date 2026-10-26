@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "onedrive-app",
-  "version": "1.0.2",
-  "description": "Package the registered OneDrive connection surface and its bounded OneDrive skill.",
+  "name": "onedrive",
+  "version": "1.0.3",
+  "description": "Secure OneDrive access through the workspace-owned CloudStorage Portal connection.",
   "author": {
     "name": "Zilvereyes",
     "email": "zilver.muhlig.hansen@gmail.com"
@@ -23,7 +23,7 @@
         "longDescription": "Package the registered OneDrive connection and its bounded OneDrive skill. OneDrive owns the Microsoft connection flow. CloudStorage Portal consumes it alongside Dropbox and Google Drive, while CloudStorage Portal Local owns the separate local MCP runtime.",
         "developerName": "Zilvereyes",
         "category": "Productivity",
-        "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",
+        "websiteURL": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
         "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
         "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
         "capabilities": [],

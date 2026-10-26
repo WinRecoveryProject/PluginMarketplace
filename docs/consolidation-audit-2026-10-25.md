@@ -12,7 +12,7 @@ Maintain one Git-backed marketplace for the Zilvereyes packages without losing A
 - Manifest: `.agents/plugins/marketplace.json`
 - Developer identity: `Zilvereyes`
 
-The marketplace currently advertises seven packages: CloudStorage Portal, CloudStorage OneDrive, Component Forge, Plugin Eval, PowerShell Workbench, Windows DISM Update Docs and Codex Security.
+The marketplace currently advertises nine packages: OneDrive, CloudStorage Portal Local, CloudStorage Portal, Component Forge, Zilvereyes Plugin Studio, PowerShell Workbench, Windows DISM Update Docs, Codex Security and Linear.
 
 ## Current marketplace registrations
 
@@ -61,7 +61,7 @@ Decision: keep the current App-backed Google Drive dependency and current `0.1.2
 
 `C:\Users\zilve\.agents\skills` contains many overlapping OneDrive implementations. Several reuse the exact internal names `add-onedrive`, `microsoft-onedrive` or `onedrive`, so installing them together would cause ambiguous routing. Others depend on Power Apps, direct tokens, m365 CLI, Zapier, Apideck, ClawLink or Refly.
 
-Decision: do not install those folders as plugins. Extract only capability and safety requirements that match the CloudStorage backend. Preserve the dedicated App ID `asdk_app_6ade878e235c8191b19c6f72fc31981a` and the existing Microsoft OAuth identities. The earlier App ID was deleted and replaced on 25 October 2026.
+Decision: do not install those folders as plugins. Extract only capability and safety requirements that match the CloudStorage backend. Preserve the existing Microsoft OAuth identities. The dedicated OneDrive binding is now the workspace-owned App ID `asdk_app_6adee7aa468881a4940e6933f518ddaa`; the two earlier private App IDs are retained only as replacement history.
 
 ## Verified current OneDrive surfaces
 

@@ -6,7 +6,7 @@
     "defaultPrompt": "Vis mine tilg\u00e6ngelige cloudforbindelser og s\u00f8g p\u00e5 tv\u00e6rs af de tilsluttede konti.",
     "developerName": "Zilvereyes",
     "displayName": "CloudStorage Portal",
-    "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",
+    "websiteURL": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
     "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
     "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
     "logo": "./assets/cloudstorage-portal.png",
@@ -15,13 +15,14 @@
     "shortDescription": "Cloudfiler p\u00e5 tv\u00e6rs af konti"
   },
   "name": "cloudstorage-portal",
-  "version": "0.8.0-dev.26",
+  "version": "0.8.0-dev.27",
   "description": "Coordinate Dropbox, Google Drive and OneDrive through three explicit App bindings and a unified skill layer.",
   "author": {
     "name": "Zilvereyes",
     "email": "zilver.muhlig.hansen@gmail.com"
   },
   "license": "MIT",
+  "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
   "keywords": [],
   "skills": "./skills"
 }

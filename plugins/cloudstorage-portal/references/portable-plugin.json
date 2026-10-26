@@ -15,7 +15,7 @@
         "defaultPrompt": "Vis mine tilgængelige cloudforbindelser og søg på tværs af de tilsluttede konti.",
         "developerName": "Zilvereyes",
         "displayName": "CloudStorage Portal",
-        "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",
+        "websiteURL": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
         "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
         "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
         "logo": "./assets/cloudstorage-portal.png",
@@ -26,5 +26,6 @@
     }
   },
   "name": "cloudstorage-portal",
-  "version": "0.8.0-dev.26"
+  "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
+  "version": "0.8.0-dev.27"
 }

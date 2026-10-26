@@ -10,7 +10,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 
 | Plugin | Version | Installation |
 | --- | --- | --- |
-| OneDrive | `1.0.2` | `codex plugin add onedrive-app@winrecoveryproject-digital` |
+| OneDrive | `1.0.3` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal Local | `0.1.0` | `codex plugin add cloudstorage-portal-local@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.8.0-dev.26` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |

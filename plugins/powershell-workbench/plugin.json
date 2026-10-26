@@ -22,14 +22,14 @@
         "displayName": "PowerShell Workbench",
         "logo": "./assets/logo.png",
         "longDescription": "Generate reusable PowerShell artifacts, discover and refactor single or multi-project workspaces, diagnose toolchains and patch transport, build safe PowerShell agent harnesses, package the plugin for another machine, and run quality or security gates only when requested.",
-        "privacyPolicyUrl": "./assets/privacy-policy.html",
+        "privacyPolicyURL": "https://github.com/WinRecoveryProject/PowerShellWorkbench/blob/main/PRIVACY.md",
         "shortDescription": "Portable PowerShell tooling",
-        "termsofserviceURL": "./assets/terms-of-service.html",
-        "websiteURL": "https://github.com/Zilvereyes/powershell-workbench"
+        "termsOfServiceURL": "https://github.com/WinRecoveryProject/PowerShellWorkbench/blob/main/TERMS.md",
+        "websiteURL": "https://github.com/WinRecoveryProject/PowerShellWorkbench"
       }
     }
   },
-  "homepage": "https://github.com/Zilvereyes/powershell-workbench",
+  "homepage": "https://github.com/WinRecoveryProject/PowerShellWorkbench",
   "keywords": [
     "PowerShell",
     "Workbench",
@@ -37,6 +37,6 @@
   ],
   "license": "MIT",
   "name": "powershell-workbench",
-  "repository": "https://github.com/Zilvereyes/powershell-workbench.git",
+  "repository": "https://github.com/WinRecoveryProject/PowerShellWorkbench.git",
   "version": "0.9.0-beta.2"
 }

@@ -8,7 +8,7 @@
     "email": "zilver.muhlig.hansen@gmail.com"
   },
   "license": "MIT",
-  "repository": "https://github.com/WinRecoveryProject/PluginMarketplace",
+  "repository": "https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio",
   "keywords": [
     "plugin",
     "creator",
@@ -24,7 +24,7 @@
         "longDescription": "Create, inspect, install, evaluate and compare Codex plugins and skills without deleting upstream sources. Combines independent Zilvereyes workflows informed by the archived Skill Installer, Skill Creator, Plugin Eval and Plugin Creator sources while keeping provenance, licensing, App identities, MCP routes, marketplace state and rollback evidence separate.",
         "developerName": "Zilvereyes",
         "category": "Developer Tools",
-        "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace",
+        "websiteURL": "https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio",
         "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/zilvereyes-plugin-studio-privacy.md",
         "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/zilvereyes-plugin-studio-terms.md",
         "capabilities": [

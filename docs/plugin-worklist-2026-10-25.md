@@ -13,7 +13,7 @@ This is a preservation-first worklist. It is not an installation list, deletion 
 | Family | Intended work |
 | --- | --- |
 | CloudStorage Portal | Coordinate Dropbox, Google Drive and OneDrive while keeping provider identities and routes explicit |
-| CloudStorage OneDrive | Stabilize Microsoft Graph/MCP/OAuth architecture and verified Codex App identity |
+| OneDrive | Stabilize Microsoft Graph/MCP/OAuth architecture and the workspace-owned Codex App identity |
 | Dropbox | Learn from the current App-backed provider without republishing the official package as Zilvereyes |
 | Google Drive | Learn from the current connector-backed provider without reactivating old secret-based MCP configuration |
 

@@ -2,9 +2,9 @@
 
 Marketplace package for the registered OneDrive connection used by CloudStorage Portal.
 
-The active Codex package references OneDrive with ID `asdk_app_6ade878e235c8191b19c6f72fc31981a` through `.app.json`. OneDrive owns its connection flow and exposes the OneDrive tools. No token, refresh grant, client secret or copied connector credential is packaged.
+The active Codex package references the workspace-owned OneDrive App with ID `asdk_app_6adee7aa468881a4940e6933f518ddaa` through `.app.json`. OneDrive owns its connection flow and exposes the OneDrive tools. No token, refresh grant, client secret or copied connector credential is packaged.
 
-The earlier App ID `asdk_app_6ade0fe240408191bd087bff2df78e79` was deleted and is retained only in `PROVENANCE.json` as replacement history. It is not an active dependency.
+The earlier App IDs `asdk_app_6ade0fe240408191bd087bff2df78e79` and `asdk_app_6ade878e235c8191b19c6f72fc31981a` were deleted and are retained only in `PROVENANCE.json` as replacement history. Neither is an active dependency.
 
 The separate CloudStorage Portal Local package owns the local broker runtime. This package does not register a second MCP server and CloudStorage Portal remains the three-provider aggregation layer.
 

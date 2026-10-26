@@ -4,12 +4,17 @@
     "name": "Zilvereyes"
   },
   "description": "Archive-first PowerShell component extraction, dependency contracts, composition and evidence-based documentation workflows.",
+  "license": "MIT",
+  "repository": "https://github.com/WinRecoveryProject/Component-Forge",
   "interface": {
     "capabilities": [],
     "category": "Developer Tools",
     "defaultPrompt": "Brug komponentarkivet f\u00f8rst. Unders\u00f8g afh\u00e6ngigheder, opret sporbare PowerShell-komponenter og registr\u00e9r afpr\u00f8vede varianter.",
     "developerName": "Zilvereyes",
     "displayName": "Component Forge",
+    "websiteURL": "https://github.com/WinRecoveryProject/Component-Forge",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/Component-Forge/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/Component-Forge/blob/main/TERMS.md",
     "logo": "./assets/component-forge.png",
     "composerIcon": "./assets/component-forge.png",
     "longDescription": "Guide an agent through scoped source inventory, dependency-aware component extraction, archive-first generation and composition. Includes contracts and evaluation scenarios. Does not supply an automatic parser or servicing engine.",

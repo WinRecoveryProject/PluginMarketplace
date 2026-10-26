@@ -55,7 +55,7 @@ Their useful behavioral guidance may be rewritten as provider-neutral safety rul
 ## Packaging decision
 
 - None of the duplicate folders are copied into the marketplace as standalone plugins.
-- CloudStorage OneDrive remains the supported dedicated OneDrive plugin because it has an explicit MCP endpoint, a verified ChatGPT App ID and a unique skill name.
+- OneDrive remains the supported dedicated provider package because it has an explicit MCP endpoint, a workspace-owned ChatGPT App ID and a unique skill name.
 - CloudStorage Portal is the supported three-provider package. Its OneDrive skill may describe implemented operations and safely documented future gaps, but must not promise tools the current runtime does not expose.
 - Useful material from the local skill collection may only be merged into uniquely named references after provenance, command safety, licensing and provider compatibility review.
 - A Microsoft Entra application/client ID is not a Codex App ID. No `asdk_app_<Entra-ID>` binding is generated from this inventory.
