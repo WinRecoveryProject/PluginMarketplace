@@ -7,61 +7,128 @@
     {
       "name": "onedrive",
       "pluginId": "plugin_asdk_app_6adee7aa468881a4940e6933f518ddaa",
-      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/onedrive"},
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/onedrive"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
       "category": "Productivity",
-      "interface": {"displayName": "OneDrive"}
+      "interface": {
+        "displayName": "OneDrive"
+      }
     },
     {
       "name": "cloudstorage-portal-local",
-      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/cloudstorage-portal-local"},
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/cloudstorage-portal-local"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
       "category": "Productivity",
-      "interface": {"displayName": "CloudStorage Portal Local"}
+      "interface": {
+        "displayName": "CloudStorage Portal Local"
+      }
     },
     {
       "name": "cloudstorage-portal",
-      "source": {"source": "url", "url": "https://github.com/WinRecoveryProject/CloudStorage-Portal.git"},
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
+      "source": {
+        "source": "url",
+        "url": "https://github.com/WinRecoveryProject/CloudStorage-Portal.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
       "category": "Productivity"
     },
     {
       "name": "component-forge",
-      "source": {"source": "url", "url": "https://github.com/WinRecoveryProject/Component-Forge.git"},
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "source": {
+        "source": "url",
+        "url": "https://github.com/WinRecoveryProject/Component-Forge.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
       "category": "Developer Tools"
     },
     {
       "name": "zilvereyes-plugin-studio",
-      "source": {"source": "url", "url": "https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio.git"},
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "source": {
+        "source": "url",
+        "url": "https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
       "category": "Developer Tools"
     },
     {
       "name": "powershell-workbench",
-      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PowerShellWorkbench.git", "path": "./plugins/powershell-workbench"},
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PowerShellWorkbench.git",
+        "path": "./plugins/powershell-workbench"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
       "category": "Developer Tools"
     },
     {
       "name": "windows-dism-update-docs",
-      "source": {"source": "url", "url": "https://github.com/WinRecoveryProject/Windows-Dism-Update-Docs.git"},
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "source": {
+        "source": "url",
+        "url": "https://github.com/WinRecoveryProject/Windows-Dism-Update-Docs.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
       "category": "Developer Tools"
     },
     {
       "name": "codex-security",
-      "source": {"source": "git-subdir", "url": "https://github.com/openai/plugins.git", "path": "plugins/codex-security"},
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/codex-security"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
       "category": "Security",
-      "interface": {"displayName": "Codex Security"}
+      "interface": {
+        "displayName": "Codex Security"
+      }
     },
     {
       "name": "linear",
-      "source": {"source": "git-subdir", "url": "https://github.com/openai/plugins.git", "path": "plugins/linear"},
-      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/linear"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
       "category": "Productivity",
-      "interface": {"displayName": "Linear"}
+      "interface": {
+        "displayName": "Linear"
+      }
     }
   ]
 }

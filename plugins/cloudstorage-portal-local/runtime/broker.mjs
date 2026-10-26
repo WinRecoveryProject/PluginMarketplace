@@ -5,10 +5,11 @@ import { platformCapabilities, validatePlatformIdentity } from './platforms.mjs'
 import { accountDirectory } from './account-directory.mjs';
 
 export class BrokerError extends Error {
-  constructor(code, status = 400) {
+  constructor(code, status = 400, diagnostic) {
     super(code);
     this.code = code;
     this.status = status;
+    if (diagnostic) this.diagnostic = diagnostic;
   }
 }
 
@@ -149,13 +150,21 @@ export class Broker {
       throw new BrokerError('provider_unreachable', 502);
     }
     if (!response.ok) {
-      let code;
-      try { code = (await response.json()).error; } catch {}
-      if (code === 'invalid_grant') throw new BrokerError('reauthentication_required', 401);
-      if (response.status === 401) throw new BrokerError('reauthentication_required', 401);
-      if (response.status === 403) throw new BrokerError('provider_permission_denied', 403);
-      if (response.status === 429) throw new BrokerError('provider_rate_limited', 429);
-      throw new BrokerError('provider_request_failed', 502);
+      let payload;
+      try { payload = await response.json(); } catch {}
+      const code = typeof payload?.error === 'string' ? payload.error : payload?.error?.code;
+      // Never return provider descriptions, URLs, request bodies, headers or tokens.
+      const allowedCodes = new Set(['invalid_grant', 'invalid_client', 'unauthorized_client', 'invalid_scope', 'invalid_request', 'access_denied', 'InvalidAuthenticationToken', 'accessDenied', 'itemNotFound']);
+      const diagnostic = {
+        httpStatus: response.status,
+        ...(allowedCodes.has(code) ? { providerCode: code } : {}),
+        ...(Array.isArray(payload?.error_codes) ? { microsoftErrorCodes: payload.error_codes.filter(value => Number.isSafeInteger(value) && value > 0).slice(0, 5) } : {}),
+      };
+      if (code === 'invalid_grant') throw new BrokerError('reauthentication_required', 401, diagnostic);
+      if (response.status === 401) throw new BrokerError('reauthentication_required', 401, diagnostic);
+      if (response.status === 403) throw new BrokerError('provider_permission_denied', 403, diagnostic);
+      if (response.status === 429) throw new BrokerError('provider_rate_limited', 429, diagnostic);
+      throw new BrokerError('provider_request_failed', 502, diagnostic);
     }
     try { return await response.json(); } catch { throw new BrokerError('invalid_provider_response', 502); }
   }

@@ -134,7 +134,7 @@ export function createPortal({ port = 53682, env = process.env, fetchImpl = fetc
     } catch (error) {
       const status = error instanceof BrokerError ? error.status : 500;
       const code = error instanceof BrokerError ? error.code : 'internal_error';
-      return send(response, status, { error: code });
+      return send(response, status, { error: code, ...(error instanceof BrokerError && error.diagnostic ? { diagnostic: error.diagnostic } : {}) });
     }
   });
   server.requestTimeout = 30000;

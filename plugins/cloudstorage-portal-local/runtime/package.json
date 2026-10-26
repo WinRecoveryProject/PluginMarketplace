@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node server.mjs",
     "mcp": "node mcp.mjs",
-    "test": "node --test broker.test.mjs local-folder.test.mjs client-settings.test.mjs public-app.test.mjs onedrive-items.test.mjs platforms.test.mjs account-directory.test.mjs secure-connection-store.test.mjs"
+    "test": "node --test broker.test.mjs local-folder.test.mjs client-settings.test.mjs public-app.test.mjs onedrive-items.test.mjs platforms.test.mjs account-directory.test.mjs secure-connection-store.test.mjs provider-diagnostics.test.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.3.1",
