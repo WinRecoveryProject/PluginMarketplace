@@ -1,6 +1,0 @@
-interface:
-  display_name: "Typescript Docs"
-  short_description: "Research typescript documentation"
-  icon_small: "./assets/typescript-original.svg"
-  icon_large: "./assets/typescript-original.svg"
-  default_prompt: "Find version-specific primary documentation for typescript components."

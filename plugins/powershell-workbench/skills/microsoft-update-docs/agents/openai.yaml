@@ -1,7 +1,0 @@
-interface:
-  display_name: "Microsoft Update Docs"
-  short_description: "Research Windows Update documentation"
-  icon_small: "./assets/skill-icon.svg"
-  icon_large: "./assets/skill-icon.svg"
-  brand_color: "#0078D4"
-  default_prompt: "Use $microsoft-update-docs to research Windows Update, UUP and build history from official Microsoft sources."

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Checkpoint Resume Contract"
-  short_description: "Design fail-closed workflow checkpoints"
-  icon_small: "./assets/skill-icon.png"
-  icon_large: "./assets/skill-icon.png"
-  brand_color: "#2671BE"
-  default_prompt: "Use $powershell-checkpoint-resume-contract to create or validate this checkpoint and resume contract."

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Winget Downloader Development"
-  short_description: "Modernize WingetDownloader safely"
-  icon_small: "./assets/skill-icon.svg"
-  icon_large: "./assets/skill-icon.svg"
-  brand_color: "#0078D4"
-  default_prompt: "Use $winget-downloader-development to modernize WingetDownloader with explicit exports, tests and cache integrity."

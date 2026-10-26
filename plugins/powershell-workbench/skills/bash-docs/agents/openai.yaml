@@ -1,6 +1,0 @@
-interface:
-  display_name: "Bash Docs"
-  short_description: "Research bash documentation"
-  icon_small: "./assets/bash-original.svg"
-  icon_large: "./assets/bash-original.svg"
-  default_prompt: "Find version-specific primary documentation for bash components."

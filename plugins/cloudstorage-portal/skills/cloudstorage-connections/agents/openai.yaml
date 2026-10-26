@@ -1,7 +1,0 @@
-interface:
-  display_name: "CloudStorage Connections"
-  short_description: "Inspect cloud accounts, grants, and routing readiness"
-  icon_small: "./assets/cloudstorage-portal.png"
-  icon_large: "./assets/cloudstorage-portal.png"
-  brand_color: "#2557D6"
-  default_prompt: "Use $cloudstorage-connections to inspect Dropbox, Google Drive, and OneDrive connection readiness without changing an account or grant."

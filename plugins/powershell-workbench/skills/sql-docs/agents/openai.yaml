@@ -1,6 +1,0 @@
-interface:
-  display_name: "Sql Docs"
-  short_description: "Research sql documentation"
-  icon_small: "./assets/sqldeveloper-original.svg"
-  icon_large: "./assets/sqldeveloper-original.svg"
-  default_prompt: "Find version-specific primary documentation for sql components."

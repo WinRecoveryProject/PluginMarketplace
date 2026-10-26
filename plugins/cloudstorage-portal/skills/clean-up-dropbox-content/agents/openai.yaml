@@ -1,7 +1,0 @@
-interface:
-  display_name: "Clean up Dropbox Content"
-  short_description: "Review unwanted Dropbox content before deletion"
-  icon_small: "./assets/dropbox.png"
-  icon_large: "./assets/dropbox.png"
-  brand_color: "#0061FF"
-  default_prompt: "Use $clean-up-dropbox-content to review obsolete or duplicate Dropbox content and do not delete anything without my explicit approval."

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Batch Docs"
-  short_description: "Research batch documentation"
-  icon_small: "./assets/powershell.png"
-  icon_large: "./assets/powershell.png"
-  brand_color: "#2671BE"
-  default_prompt: "Find version-specific primary documentation for batch components."

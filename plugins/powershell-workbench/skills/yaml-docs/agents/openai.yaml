@@ -1,6 +1,0 @@
-interface:
-  display_name: "Yaml Docs"
-  short_description: "Research yaml documentation"
-  icon_small: "./assets/yaml-original.svg"
-  icon_large: "./assets/yaml-original.svg"
-  default_prompt: "Find version-specific primary documentation for yaml components."

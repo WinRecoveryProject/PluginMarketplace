@@ -1,7 +1,0 @@
-interface:
-  display_name: "Component Docs"
-  short_description: "Research component documentation"
-  icon_small: "./assets/component-forge.png"
-  icon_large: "./assets/component-forge.png"
-  brand_color: "#36B37E"
-  default_prompt: "Research version-specific documentation and link evidence to component IDs."

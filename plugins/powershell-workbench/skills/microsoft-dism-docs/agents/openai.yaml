@@ -1,7 +1,0 @@
-interface:
-  display_name: "Microsoft DISM Docs"
-  short_description: "Research official DISM documentation"
-  icon_small: "./assets/skill-icon.webp"
-  icon_large: "./assets/skill-icon.webp"
-  brand_color: "#0078D4"
-  default_prompt: "Use $microsoft-dism-docs to research version-specific DISM and Windows image servicing documentation."

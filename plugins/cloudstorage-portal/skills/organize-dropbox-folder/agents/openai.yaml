@@ -1,7 +1,0 @@
-interface:
-  display_name: "Organize Dropbox Folder"
-  short_description: "Organize Dropbox folders and content"
-  icon_small: "./assets/dropbox.png"
-  icon_large: "./assets/dropbox.png"
-  brand_color: "#0061FF"
-  default_prompt: "Use $organize-dropbox-folder to plan and perform the explicitly requested Dropbox folder organization."

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Share Dropbox Content"
-  short_description: "Inspect or create Dropbox shared links"
-  icon_small: "./assets/dropbox.png"
-  icon_large: "./assets/dropbox.png"
-  brand_color: "#0061FF"
-  default_prompt: "Use $share-dropbox-content to inspect sharing state or create the Dropbox shared link I explicitly requested."

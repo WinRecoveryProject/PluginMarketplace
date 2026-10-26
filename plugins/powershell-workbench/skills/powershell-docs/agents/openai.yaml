@@ -1,7 +1,0 @@
-interface:
-  display_name: "PowerShell Docs"
-  short_description: "Research official PowerShell documentation"
-  icon_small: "./assets/skill-icon.svg"
-  icon_large: "./assets/skill-icon.svg"
-  brand_color: "#2671BE"
-  default_prompt: "Use $powershell-docs to research version-specific PowerShell language, engine and module behavior."

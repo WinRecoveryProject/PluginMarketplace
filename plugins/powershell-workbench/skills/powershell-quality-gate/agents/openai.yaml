@@ -1,7 +1,0 @@
-interface:
-  display_name: "PowerShell Quality Gate"
-  short_description: "Run requested PowerShell quality checks"
-  icon_small: "./assets/skill-icon.png"
-  icon_large: "./assets/skill-icon.png"
-  brand_color: "#2671BE"
-  default_prompt: "Use $powershell-quality-gate to run the requested PowerShell quality checks and report unavailable gates."

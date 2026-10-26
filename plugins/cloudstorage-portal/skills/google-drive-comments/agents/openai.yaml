@@ -1,7 +1,0 @@
-interface:
-  display_name: "Google Drive Comments"
-  short_description: "Write, reply to, and resolve Drive comments"
-  icon_small: "./assets/google-drive.png"
-  icon_large: "./assets/google-drive.png"
-  brand_color: "#4285F4"
-  default_prompt: "Use $google-drive-comments to leave, reply to, or resolve comments on Google Docs, Sheets, Slides, or Drive files with precise evidence."

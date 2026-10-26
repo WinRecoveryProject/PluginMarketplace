@@ -21,31 +21,31 @@
     },
     {
       "name": "cloudstorage-portal",
-      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/cloudstorage-portal"},
+      "source": {"source": "url", "url": "https://github.com/WinRecoveryProject/CloudStorage-Portal.git"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
       "category": "Productivity"
     },
     {
       "name": "component-forge",
-      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/component-forge"},
+      "source": {"source": "url", "url": "https://github.com/WinRecoveryProject/Component-Forge.git"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
     },
     {
       "name": "zilvereyes-plugin-studio",
-      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/zilvereyes-plugin-studio"},
+      "source": {"source": "url", "url": "https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio.git"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
     },
     {
       "name": "powershell-workbench",
-      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/powershell-workbench"},
+      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PowerShellWorkbench.git", "path": "./plugins/powershell-workbench"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
     },
     {
       "name": "windows-dism-update-docs",
-      "source": {"source": "git-subdir", "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git", "path": "plugins/windows-dism-update-docs"},
+      "source": {"source": "url", "url": "https://github.com/WinRecoveryProject/Windows-Dism-Update-Docs.git"},
       "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
       "category": "Developer Tools"
     },
