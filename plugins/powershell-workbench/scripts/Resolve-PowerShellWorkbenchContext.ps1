@@ -138,8 +138,14 @@ function Get-PowerShellRuntimeInventory {
         $seen[$resolved] = $true
         $probe = '$PSVersionTable.PSEdition; $PSVersionTable.PSVersion.ToString(); if (''System.Runtime.InteropServices.RuntimeInformation'' -as [type]) { [System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture.ToString() } elseif ([Environment]::Is64BitProcess) { ''X64'' } else { ''X86'' }'
         $encodedProbe = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($probe))
-        $versionLines = @(& $resolved -NoProfile -EncodedCommand $encodedProbe 2>$null)
-        if ($LASTEXITCODE -ne 0 -or $versionLines.Count -lt 3) { $versionLines = @('Unknown', 'Unknown', 'Unknown') }
+        try {
+            $versionLines = @(& $resolved -NoProfile -EncodedCommand $encodedProbe 2>$null)
+            if ($LASTEXITCODE -ne 0 -or $versionLines.Count -lt 3) { return }
+        } catch {
+            # Runtime discovery is advisory. An inaccessible or incompatible
+            # executable must not abort context resolution for the project.
+            return
+        }
         $architecture = switch -Regex ([string]$versionLines[2]) {
             '^(?i)(x64|amd64)$' { 'x64'; break }
             '^(?i)x86$' { 'x86'; break }
