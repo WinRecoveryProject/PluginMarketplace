@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "onedrive",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Secure OneDrive access through the registered CloudStorage Portal connection.",
   "author": {
     "name": "Zilvereyes",
