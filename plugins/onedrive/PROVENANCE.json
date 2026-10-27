@@ -2,27 +2,29 @@
   "schemaVersion": 1,
   "provider": "onedrive",
   "server": {
-    "status": "selected-verified-personal-hosted-broker",
-    "url": "https://cloudstorage-onedrive-staging.vercel.app/mcp",
-    "deploymentId": "dpl_HSZnA7xBzPVGHLthRbnZKwEatmqF",
-    "runtimeEnvironment": "preview",
+    "status": "canonical-hosted-readwrite-runtime-live-operations-pending",
+    "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
+    "deploymentId": "dpl_9K8JGn5e7oMEyV9E8yKehZ6updax",
+    "runtimeEnvironment": "production",
     "registrationMethod": "DCR",
     "tokenEndpointAuthMethod": "none",
     "scopes": [
-      "onedrive.read"
+      "onedrive.read",
+      "onedrive.write"
     ],
     "pkce": "S256",
-    "note": "Existing personal App is the selected functional route. Staging is its technical name, not a claim of promotion to the separate production deployment."
+    "note": "OneDrive is the selected canonical App, not OneDrive Broker Staging. 28 tools discovered in the App UI. New write consent and live write verification are pending."
   },
   "activeApp": {
-    "id": "asdk_app_6adfe5cd5d9c81918d3e167643ddc0fd",
-    "pluginId": "plugin_asdk_app_6adfe5cd5d9c81918d3e167643ddc0fd",
+    "id": "asdk_app_6ae10ed9d63081a4be88686cc73078e9",
+    "pluginId": "plugin_asdk_app_6ae10ed9d63081a4be88686cc73078e9",
     "referenceFile": ".app.json",
-    "connectionLabel": "OneDrive Broker Staging",
-    "scope": "personal connection verified by current-host tools",
+    "connectionLabel": "OneDrive",
+    "scope": "current OneDrive App; no Business workspace requirement",
     "credentialsIncluded": false,
-    "accountAndRootVerified": true,
-    "refreshThenRootVerified": true
+    "accountAndRootVerified": false,
+    "refreshThenRootVerified": false,
+    "liveWritesVerified": false
   },
   "retiredApps": [
     {
@@ -62,17 +64,5 @@
     "deploymentId": "dpl_7RQUYXwGTf9PkPm8pBEYosbHhU7g",
     "sourceVersion": "0.1.1",
     "publicDiscoveryReceipt": "../../outputs/HOSTED-ONEDRIVE-PUBLIC-DISCOVERY-0.1.1.json"
-  },
-  "alternativeProductionApp": {
-    "id": "asdk_app_6ae10ed9d63081a4be88686cc73078e9",
-    "pluginId": "plugin_asdk_app_6ae10ed9d63081a4be88686cc73078e9",
-    "createdAt": "2026-10-27",
-    "versionId": "asdk_app_v_6ae10ed9d63c81a491b532825c2be7d5",
-    "referenceFile": ".app.json",
-    "callbackUrl": null,
-    "callbackSource": "managed by ChatGPT DCR; exact connector callback not exported",
-    "credentialsIncluded": false,
-    "connectedAccountVerified": true,
-    "primaryLabelVerified": true
   }
 }

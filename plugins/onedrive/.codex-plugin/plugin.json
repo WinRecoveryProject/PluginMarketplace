@@ -1,6 +1,6 @@
 {
   "name": "onedrive",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Secure OneDrive access through the registered CloudStorage Portal connection.",
   "author": {
     "name": "Zilvereyes",
@@ -12,7 +12,7 @@
   "interface": {
     "displayName": "OneDrive",
     "shortDescription": "Registered OneDrive connection",
-    "longDescription": "Package the registered OneDrive connection and its bounded OneDrive skill. OneDrive owns the Microsoft connection flow. CloudStorage Portal consumes it alongside Dropbox and Google Drive, while CloudStorage Portal Local owns the separate local MCP runtime.",
+    "longDescription": "Dropbox, Google Drive and OneDrive file workflows through the dedicated App connections. OneDrive supports read/write file tools; no separate Local runtime is required.",
     "developerName": "Zilvereyes",
     "category": "Productivity",
     "websiteURL": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
