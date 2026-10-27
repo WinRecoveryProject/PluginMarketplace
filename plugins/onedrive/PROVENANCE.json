@@ -2,22 +2,27 @@
   "schemaVersion": 1,
   "provider": "onedrive",
   "server": {
-    "status": "preserved-reference-not-active",
-    "referenceFile": "references/hosted-mcp-0.1.5.json",
-    "formerPluginServerName": "cloudstorage_onedrive",
+    "status": "active-production-broker",
     "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
-    "deploymentId": "dpl_7RQUYXwGTf9PkPm8pBEYosbHhU7g",
-    "sourceVersion": "0.1.1",
-    "publicDiscoveryReceipt": "../../outputs/HOSTED-ONEDRIVE-PUBLIC-DISCOVERY-0.1.1.json"
+    "deploymentId": "dpl_C7F9KVj8whsmzKDNudZumkbapBjC",
+    "registrationMethod": "DCR",
+    "tokenEndpointAuthMethod": "none",
+    "scopes": [
+      "onedrive.read"
+    ],
+    "pkce": "S256"
   },
   "activeApp": {
-    "id": "asdk_app_6adee7aa468881a4940e6933f518ddaa",
-    "pluginId": "plugin_asdk_app_6adee7aa468881a4940e6933f518ddaa",
-    "workspaceId": "13dd9826-ca61-4006-a842-f6cb02ddf7b9",
-    "createdAt": "2026-10-26",
-    "callbackUrl": "https://chatgpt.com/connector/oauth/8km5JPM_K7ZN",
+    "id": "asdk_app_6ae10ed9d63081a4be88686cc73078e9",
+    "pluginId": "plugin_asdk_app_6ae10ed9d63081a4be88686cc73078e9",
+    "createdAt": "2026-10-27",
+    "versionId": "asdk_app_v_6ae10ed9d63c81a491b532825c2be7d5",
     "referenceFile": ".app.json",
-    "credentialsIncluded": false
+    "callbackUrl": null,
+    "callbackSource": "managed by ChatGPT DCR; exact connector callback not exported",
+    "credentialsIncluded": false,
+    "connectedAccountVerified": true,
+    "primaryLabelVerified": true
   },
   "retiredApps": [
     {
@@ -27,6 +32,16 @@
     {
       "id": "asdk_app_6ade878e235c8191b19c6f72fc31981a",
       "status": "deleted-and-replaced"
+    },
+    {
+      "id": "asdk_app_6adee7aa468881a4940e6933f518ddaa",
+      "pluginId": "plugin_asdk_app_6adee7aa468881a4940e6933f518ddaa",
+      "workspaceId": "13dd9826-ca61-4006-a842-f6cb02ddf7b9",
+      "createdAt": "2026-10-26",
+      "callbackUrl": "https://chatgpt.com/connector/oauth/8km5JPM_K7ZN",
+      "referenceFile": ".app.json",
+      "credentialsIncluded": false,
+      "status": "renamed-OneDrive-Legacy; retained as history, not active dependency"
     }
   ],
   "microsoft": {
@@ -38,5 +53,14 @@
     "source": "C:/Admin/Tools/OneDriveIconer/OneDrive_1_501.ico",
     "derivedAsset": "assets/onedrive.png"
   },
-  "credentialsIncluded": false
+  "credentialsIncluded": false,
+  "historicalServer": {
+    "status": "preserved-reference-not-active",
+    "referenceFile": "references/hosted-mcp-0.1.5.json",
+    "formerPluginServerName": "cloudstorage_onedrive",
+    "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
+    "deploymentId": "dpl_7RQUYXwGTf9PkPm8pBEYosbHhU7g",
+    "sourceVersion": "0.1.1",
+    "publicDiscoveryReceipt": "../../outputs/HOSTED-ONEDRIVE-PUBLIC-DISCOVERY-0.1.1.json"
+  }
 }

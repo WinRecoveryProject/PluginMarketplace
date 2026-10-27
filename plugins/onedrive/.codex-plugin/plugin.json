@@ -1,7 +1,7 @@
 {
   "name": "onedrive",
-  "version": "1.0.3",
-  "description": "Secure OneDrive access through the workspace-owned CloudStorage Portal connection.",
+  "version": "1.0.4",
+  "description": "Secure OneDrive access through the registered CloudStorage Portal connection.",
   "author": {
     "name": "Zilvereyes",
     "email": "zilver.muhlig.hansen@gmail.com"

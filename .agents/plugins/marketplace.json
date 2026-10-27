@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "onedrive",
-      "pluginId": "plugin_asdk_app_6adee7aa468881a4940e6933f518ddaa",
+      "pluginId": "plugin_asdk_app_6ae10ed9d63081a4be88686cc73078e9",
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
