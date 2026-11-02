@@ -1,0 +1,7 @@
+interface:
+  display_name: "PowerShell Safe Editing"
+  short_description: "Make precise low-churn edits"
+  icon_small: "./assets/skill-icon.png"
+  icon_large: "./assets/skill-icon.png"
+  brand_color: "#2671BE"
+  default_prompt: "Use $powershell-safe-editing to make a precise, low-churn edit without executing the edited payload."

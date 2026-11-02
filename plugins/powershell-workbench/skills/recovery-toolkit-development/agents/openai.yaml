@@ -1,0 +1,7 @@
+interface:
+  display_name: "Recovery Toolkit Development"
+  short_description: "Develop RecoveryToolkit safely"
+  icon_small: "./assets/skill-icon.webp"
+  icon_large: "./assets/skill-icon.webp"
+  brand_color: "#0078D4"
+  default_prompt: "Use $recovery-toolkit-development to develop or review RecoveryToolkit within its non-executable safety boundaries."

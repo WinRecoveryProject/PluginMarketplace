@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Decision"
+  short_description: "Use when deciding which parts of a reviewed skill or plugin require human atten"
+  default_prompt: "Use $review-decision for this task."

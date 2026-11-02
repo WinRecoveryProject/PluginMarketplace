@@ -1,63 +1,93 @@
 ---
 name: onedrive
-description: "Read and manage OneDrive files through the OneDrive App: search, folders, download, upload, rename, move, copy, sharing, permissions, versions, restore and quota."
+description: "Manage the authenticated OneDrive account through the OneDrive App and associated MCP server: account, files, folders, search, transfers, sharing, versions and quota."
 ---
 # OneDrive
 
-Use the dedicated OneDrive App referenced by .app.json. CloudStorage Portal uses
-this same App. Never substitute OneDrive Broker Staging, SharePoint or a local
-Windows sync folder. No separate CloudStorage Portal Local installation is needed.
+This plugin combines one registered OneDrive App mapping (`.app.json`), one remote
+OneDrive MCP server (`mcp.json` and `.mcp.json`), and this OneDrive skill.
+The OpenAI App binding is declared at `extensions.com.openai.apps` in the root
+plugin manifest. It is not sufficient merely to include `.app.json` in the ZIP.
+Use the connected OneDrive App's account identity and associated tools as the
+authoritative session. Do not assume that the registered App and independently
+declared MCP URL share a login session until that has been proven end to end.
+Do not request a second OneDrive sign-in merely to demonstrate functionality.
+Do not present the unrelated OneDrive Broker Staging or SharePoint connector as
+proof that this plugin's own MCP server is operational.
 
-Discover actual host tools and call onedrive_account first. Bind all item, folder,
-permission and version IDs to that observed account and drive. Resolve duplicate
-names before a write. Package presence is not proof of loaded or working tools.
+## Authentication and identity
 
-## Workflows
+ChatGPT/App-to-MCP authorization and MCP-to-Microsoft Graph delegated authorization
+are distinct boundaries. Use the App's Microsoft login chain and provider-managed
+consent. The MCP configuration declares DCR (`client.mode: dcr`) and the broker
+scopes `onedrive.read`/`onedrive.write`; these are **not** Microsoft Graph scopes.
+Enforce read/write separation server-side; do not infer that a manifest scope
+causes Graph consent. Never log, output, transmit, or persist account tokens in
+plugin files. Validate audience, issuer, scopes, account/tenant binding, and
+expiration server-side. For fresh scopes, require the provider's authorization
+flow rather than treating a read-only grant as write authorization.
 
-All tools have prefix onedrive_:
-- account, get_drive: account identity and storage quota.
-- list_root, list_folder, search, get_item: discovery and exact metadata.
-- read_text, download_file, export_file: bounded file content and PDF/HTML export.
-- create_folder, upload_file, update_file_content: file/folder creation and updates.
-- create_upload_session, upload_chunk, get_upload_status, cancel_upload:
-  resumable larger new-file uploads.
-- rename_item, move_item, copy_item, get_copy_status: organization.
-- list_permissions, create_share_link, invite_to_item, revoke_permission:
-  sharing and access management.
-- list_versions, download_version, restore_version: history.
-- delete_item: recoverable deletion to the OneDrive recycle bin.
+Discover the actual available OneDrive tools. If they are not exposed by this
+plugin, report the connection limitation and do not substitute a different app.
+Call `onedrive_account` before item operations when that tool exists. Bind item,
+folder, permission and version IDs to the observed drive/account. Detect ambiguous
+names before writing. A package manifest is not a live connectivity test.
 
-Read actual tool schemas. Continue lists using the returned cursor with the same
-query/folder; partial pages are not complete inventories. Cursors and job/session
-handles are encrypted and account-bound; never edit or transfer them.
+## Intended MCP capabilities (verify before use)
 
-Modifying existing items requires current exact eTag. Never replay uncertain or
-conflicted writes automatically. Copy acceptance is not completion: poll the
-exact job and inspect the final item. Copies inherit destination permissions.
+The source package describes these `onedrive_` tools:
+- `account`, `get_drive`: account identity and quota.
+- `list_root`, `list_folder`, `search`, `get_item`: discovery and metadata.
+- `read_text`, `download_file`, `export_file`: file reads and conversion.
+- `create_folder`, `upload_file`, `update_file_content`: creation and edits.
+- `create_upload_session`, `upload_chunk`, `get_upload_status`, `cancel_upload`:
+  resumable transfers.
+- `rename_item`, `move_item`, `copy_item`, `get_copy_status`: organization.
+- `list_permissions`, `create_share_link`, `invite_to_item`, `revoke_permission`:
+  sharing.
+- `list_versions`, `download_version`, `restore_version`: file history.
+- `delete_item`: recycle-bin deletion.
 
-Reads require onedrive.read. Writes require onedrive.read + onedrive.write.
-Existing read grants cannot silently gain writes. An insufficient-scope challenge
-starts OAuth; obtain the required Microsoft consent instead of retrying a read
-token. New write grants use delegated User.Read, Files.ReadWrite and offline_access
-through the existing confidential host. Never print or copy credentials.
+These tools are specified by the archived source skill, **not confirmed** by
+live discovery here. Inspect each actual tool schema and response. Continue
+pagination until all requested pages are fetched. Do not edit opaque cursors,
+copy jobs or upload session identifiers. Changing existing files requires a
+current exact eTag where supported. Resolve version conflicts without silently
+replaying writes. For asynchronous copies, poll completion and verify result.
 
-Sharing requires explicit audience/recipient and role. Never send an invitation
-or publish a link just to demonstrate capability. Delete only requested items or
-explicitly disposable test items. No permanent-delete tool is provided.
+## Safe operation rules
 
-## Transfers and limits
+Reading metadata or content never implies user authorization to modify files.
+Creating, overwriting, moving, sharing, revoking, restoring, or deleting must
+follow user intent and any required host confirmation. Never share a file just
+to test sharing. Require an explicit audience/recipient and role for invitations
+and share links. Never permanently delete as part of verification. Avoid
+side-effecting tests on user data; test writes only against explicitly approved
+disposable fixtures. Respect the Microsoft Graph and broker rate limits.
 
-Simple uploads and binary download/export return at most 2 MiB per file.
-read_text supports selected UTF-8 types up to 64 KiB. Larger new uploads use
-sequential session chunks up to 1280 KiB: non-final chunks must be multiples of
-320 KiB. Check server ranges, then verify final item ID, parent and size.
-File storage/export does not mean native Word/Excel/PowerPoint editing.
+## Transfer and format boundaries
 
-For Portal transfers, fetch/export exact source bytes through that provider,
-verify size/hash where possible, upload to the exact destination folder and
-read back metadata/content. Keep the source. Never pass tokens or capability URLs
-between providers. Report unsupported file sizes/formats explicitly.
+The archived source specifies a 64 KiB UTF-8 `read_text` limit, a 2 MiB
+simple-transfer ceiling, and resumable upload chunks up to 1280 KiB with
+non-final chunks in multiples of 320 KiB. Treat these as source-claimed
+broker limits pending live verification. Verify uploaded item ID, parent, size
+and content/hash when available. Export is not native Office document editing.
 
-Runtime 0.3.0 implements 28 tools. Local tests, discovery and App bindings do not
-prove live writes for the current account. Report each actual operation and its
-readback independently; never present staging evidence as OneDrive success.
+CloudStorage Portal may invoke this OneDrive capability as a consumer but must
+not create an independent OneDrive login identity or exchange OAuth tokens with
+other cloud providers. For cross-provider transfers, read exact bytes from the
+source provider using its own approved connector, verify integrity, upload via
+the destination provider, and independently confirm completion. Do not delete
+the source automatically.
+
+## Required connection test sequence
+
+1. Confirm plugin manifest advertises the App mapping and the OneDrive MCP URL.
+2. Confirm the host actually exposes the registered OneDrive App and tools.
+3. Connect and authorize with Microsoft through the App's supported flow.
+4. Read authenticated account identity, drive details and root metadata.
+5. Read a user-chosen small text file without modifying it.
+6. Only after explicit approval, run isolated create/read/update/recycle-bin
+   fixture tests and restore checks where supported.
+7. Record each result separately as passed, failed or untested. Never infer
+   a live Microsoft Graph success from static manifests or staging connectors.

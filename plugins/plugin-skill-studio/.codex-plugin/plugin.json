@@ -1,0 +1,30 @@
+{
+  "name": "plugin-skill-studio",
+  "version": "0.3.0",
+  "description": "Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.",
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Plugin-Skill-Studio",
+    "shortDescription": "Byg og vurder plugins & skills",
+    "longDescription": "Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.",
+    "developerName": "Zilvereyes",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Byg eller udvid et plugin med lokale workflows.",
+      "Vurdér denne skill med Skill Eval og vis evidensen.",
+      "Find, importér og gennemgå mine plugin- og skill-kilder."
+    ],
+    "logo": "./assets/plugin-skill-studio.svg",
+    "composerIcon": "./assets/plugin-skill-studio.svg",
+    "brandColor": "#635BFF",
+    "brandColorDark": "#A7A2FF"
+  }
+}

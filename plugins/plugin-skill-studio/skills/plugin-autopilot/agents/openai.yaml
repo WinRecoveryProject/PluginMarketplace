@@ -1,0 +1,6 @@
+interface:
+  display_name: "Plugin Autopilot"
+  short_description: "Turn repos into plugins"
+  default_prompt: "Inspect this agentic repository, turn the right workflows into a production-ready ChatGPT/Codex Plugin, and use the python tool to execute verification when it is available."
+policy:
+  allow_implicit_invocation: true

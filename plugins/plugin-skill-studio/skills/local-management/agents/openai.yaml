@@ -1,0 +1,4 @@
+interface:
+  display_name: "Local Plugin Management"
+  short_description: "Use when inspecting local plugin identities, dependencies, declarations and ins"
+  default_prompt: "Use $local-management for this task."

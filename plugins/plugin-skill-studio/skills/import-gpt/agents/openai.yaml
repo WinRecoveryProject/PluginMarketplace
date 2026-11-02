@@ -1,0 +1,4 @@
+interface:
+  display_name: "GPT to Plugin"
+  short_description: "Use when converting user-supplied GPT instructions or an authorized export into"
+  default_prompt: "Use $import-gpt for this task."

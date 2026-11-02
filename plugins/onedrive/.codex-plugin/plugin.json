@@ -1,18 +1,13 @@
 {
-  "name": "onedrive",
-  "version": "1.1.0",
-  "description": "Secure OneDrive access through the registered CloudStorage Portal connection.",
-  "author": {
-    "name": "Zilvereyes",
-    "email": "zilver.muhlig.hansen@gmail.com"
-  },
-  "license": "MIT",
   "apps": "./.app.json",
-  "skills": "./skills",
+  "author": {
+    "name": "App developer"
+  },
+  "description": "OneDrive App and MCP server connection with Microsoft login through the existing authorized broker.",
   "interface": {
     "displayName": "OneDrive",
-    "shortDescription": "Registered OneDrive connection",
-    "longDescription": "Dropbox, Google Drive and OneDrive file workflows through the dedicated App connections. OneDrive supports read/write file tools; no separate Local runtime is required.",
+    "shortDescription": "Dine OneDrive-filer",
+    "longDescription": "Læs og administrér OneDrive-filer: mapper, søgning, download, upload, flytning, kopiering, versioner og deling gennem den eksisterende CloudStorage Portal-server.",
     "developerName": "Zilvereyes",
     "category": "Productivity",
     "websiteURL": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
@@ -21,6 +16,13 @@
     "capabilities": [],
     "defaultPrompt": "Vis min verificerede OneDrive-konto og indholdet i roden uden at ændre filer.",
     "logo": "./assets/onedrive.png",
-    "composerIcon": "./assets/onedrive.png"
-  }
+    "composerIcon": "./assets/onedrive.png",
+    "brandColor": "#0078D4",
+    "brandColorDark": "#4CC2FF"
+  },
+  "name": "onedrive",
+  "version": "1.1.5",
+  "skills": "./skills",
+  "mcpServers": "./.mcp.json",
+  "onboardingSkill": "./skills/setup/SKILL.md"
 }

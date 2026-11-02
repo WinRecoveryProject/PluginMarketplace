@@ -1,0 +1,2436 @@
+{
+  "schemaVersion": 1,
+  "package": "plugin-skill-studio",
+  "version": "0.3.0",
+  "sources": [
+    {
+      "id": "matt-skills-curated",
+      "sourcePath": "matt-skills-curated/1.1.0",
+      "role": "preserved reference",
+      "license": "MIT",
+      "integration": "adapt",
+      "files": {
+        ".codex-plugin/assets/composer-icon.svg": "e053088e7c09125c19c994661a4573da4803cc611f31377709686fe76428f733",
+        ".codex-plugin/assets/logo.svg": "e053088e7c09125c19c994661a4573da4803cc611f31377709686fe76428f733",
+        ".codex-plugin/plugin.json": "7c0f648699ccc24f4a931a18b1d8eea365cc058cbd2928e30d1a9ce5d6553be9",
+        ".github/workflows/ci.yml": "127d1a2c35abba6a3f04a6fad564b97e6eb22ff4a4e7deccdc62a87f8680359f",
+        ".github/workflows/release.yml": "73ce81a83de90d93a63272dae7e1a3ff8d57dc2f8e99424694289dc7174eec46",
+        ".gitignore": "44509b2d3ecaeea587c69a8b6450ecf9043002f534625bdfe10ac23dd0683cbf",
+        "AGENTS.md": "efa7c756cad534a96d60a0164f6beeef3fc95a7a535f4833ca66b944e67b0a9a",
+        "assets/mark.svg": "e053088e7c09125c19c994661a4573da4803cc611f31377709686fe76428f733",
+        "LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+        "PRIVACY.md": "76ccfd8543ebf066a57a7c7671e56d0f0b2bf42b8d9862e29d96d49b37f61ba8",
+        "README.md": "2a968be7de14cb23be32fd527b7c589a1c5244919590e0dea7f1123d863e7e69",
+        "scripts/package_plugin.py": "8d8007835e40ce357e072498c531d7b87ed1f330defa0116c54e1da0780b6cfd",
+        "scripts/route_skill.py": "423025b7913a4031b3f5a2e6db4c9d20d3662a8898b6276d9fe85b6ac0fe1712",
+        "scripts/test_git_safety_guardrails.py": "ed9700c9b5269120bdd2e6f0ff94bdec9c00f90148ca82e65c0f2b8bdd48c8a8",
+        "scripts/test_wizard_template.py": "df6cb9f0e716eed521766c6b1b3d226ff1ab4bb740b5d0189be0febe7c8ebab6",
+        "scripts/validate_plugin.py": "983a678c3e1ce25ba4a2d04c7bfdc90c828dc73b853e64a24b7b4e4c1fe644c3",
+        "skills/ai-data-remediation/agents/openai.yaml": "8876e33fc8b0b328e239fd7feaf59f1e8995e16bfaacb84ffeaf2b897ab0e510",
+        "skills/ai-data-remediation/SKILL.md": "d67703fe62855d2d49ce615f9a6971365b057717ddbb6238f6229cac74662d78",
+        "skills/ai-engineering/agents/openai.yaml": "b15856e38fe7cd0eb203c67a78d262f4d5c93f214e57e6b4053e7639e241b8a4",
+        "skills/ai-engineering/SKILL.md": "b256c5560a4eb1f34f9b3bca52d81bf73760a5561dcd28604d2660ae551175ac",
+        "skills/code-review/agents/openai.yaml": "8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352",
+        "skills/code-review/SKILL.md": "88c057d57f6c1fcc21e6ab234a46e43f1a0be4301d4d866fac797a5b116a4006",
+        "skills/codebase-design/agents/openai.yaml": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f",
+        "skills/codebase-design/DEEPENING.md": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1",
+        "skills/codebase-design/DESIGN-IT-TWICE.md": "8e740bf98446dbd4dfdc132ac4346d9a7eedaf93de6a495889171cf7f99f16bd",
+        "skills/codebase-design/SKILL.md": "308ae4c4f7896faef11c14f794676206dcdc6828c4bd534eb2fd7f63ca98212e",
+        "skills/diagnosing-bugs/agents/openai.yaml": "3e430dbe4334a87597488c060cb3dc3786bb00c9182877d6f5ec41f62490e90b",
+        "skills/diagnosing-bugs/scripts/hitl-loop.template.sh": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503",
+        "skills/diagnosing-bugs/SKILL.md": "e7a947205389b94d28e958a4578af2fdcdc7e588a3af40886391e3d892e122cc",
+        "skills/domain-modeling/ADR-FORMAT.md": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0",
+        "skills/domain-modeling/agents/openai.yaml": "f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b",
+        "skills/domain-modeling/CONTEXT-FORMAT.md": "17ab16ce783e4d2801ee52fd9acdf550cbf44de65ae76797a93943bbedf22a13",
+        "skills/domain-modeling/SKILL.md": "c06e3ea9d8bf60f2a4ba60a3ffd47c792fd0c63419603330f74caa6abc7da4f7",
+        "skills/engineering-workflow-guide/agents/openai.yaml": "4481aa904cabd5e0665dac2646e685f3395f48a02ef5e61a8f0e75e7f0a73614",
+        "skills/engineering-workflow-guide/PHASE-BOUNDARIES.md": "a8aa20158609ef39e2b308b6ba0660c91066838d07a867202e63a7744a88a3ed",
+        "skills/engineering-workflow-guide/references/catalog.md": "ad9c4653cb9dc1a3c53e1d84b9d4d666a24e1be55401b3ee2f88a22a42b3253d",
+        "skills/engineering-workflow-guide/references/chatgpt-routing-contract.md": "2896c4ab235078d566e72778a3aad6896b808a3ca44bdeb87f4eb936b80f2bce",
+        "skills/engineering-workflow-guide/references/routing-matrix.md": "7b1d4aaaf670b36e2041fb627ac2d6a46f9b55b2b68aa8da14988794f2d78c90",
+        "skills/engineering-workflow-guide/SKILL.md": "c246e259c92442023ff772b1ab9ac6d78efc72c43d9f25ca1a11cce55dcb8107",
+        "skills/git-safety-guardrails/agents/openai.yaml": "d0e4b5b151965140e132970e03ea5334893fde43712fbc05b028d302eaaff7ac",
+        "skills/git-safety-guardrails/scripts/block-dangerous-git.sh": "234922b83c0a1737ee7300806c21ac0f389b07aaeb65c2d71ccedafbc5e1ea4b",
+        "skills/git-safety-guardrails/scripts/classify_git_command.py": "8cc648fd81b454ab0660866362cf3aba35bbd0b3ecdaef0d2b3da414f06eb367",
+        "skills/git-safety-guardrails/SKILL.md": "e1aaa23cf3520e2fa6dba65a04a78815fab7b29f2194a78f449daf2ae002bb22",
+        "skills/goal/agents/openai.yaml": "498e71487ccc28a85a810e7badc4392d2096f110b9008f921afde0918fdaf888",
+        "skills/goal/SKILL.md": "eff6966e87a4deb5860dc701b66087ca875b883da1c373be6b8e811779578d90",
+        "skills/grill-me/agents/openai.yaml": "0f51f928c01f271dc82a5659d3d12f977924a4572980d9c1db20a8e15ca1fd14",
+        "skills/grill-me/SKILL.md": "f9464b77149c0fde4bfce6093c1289671f94767101984a3af22fe3c76f9e6e61",
+        "skills/grill-with-docs/agents/openai.yaml": "95ef80f1b0569a1effab2238df3562be298116a4f4bd63d65e0de3b7fadadb75",
+        "skills/grill-with-docs/SKILL.md": "c1c12562209b7b872aef1d9751d147767017c4188adc3db46780e82a5359360c",
+        "skills/grilling/agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
+        "skills/grilling/SKILL.md": "fd94dd70fc2dcaced5e7d02babc829129bf672f2a65b1e55ecbc03df6ecdb8ad",
+        "skills/handoff/agents/openai.yaml": "1ed1511246256ec55efcb673aa1f782e042be274155492a75e1cbb28a35eb0bf",
+        "skills/handoff/SKILL.md": "95a1e654e13baa349628c6c219b4559ed283289051ebcea5de1aa596321b5af3",
+        "skills/implement/agents/openai.yaml": "8ba5f1193a4ce3e1bc6c6c0fe465ef03361c38a232e02106f3acc765e2b82898",
+        "skills/implement/SKILL.md": "dda79d1c7a500138693c09288dd060420272dc28694866b5f018dbe4b5e81734",
+        "skills/implement-spec/agents/openai.yaml": "f6052924e2678e9bbeba6af74d22399f3915bddc21691849ed96606e8374f0a9",
+        "skills/implement-spec/SKILL.md": "9678d7605152c889cfb9e8d8bc95844ff048173073f24151465fc0ed87c79a2a",
+        "skills/improve-codebase-architecture/agents/openai.yaml": "030127e4eebcece7d2197002b25a1e7af3176a81792c276dcf81fa85a83d7800",
+        "skills/improve-codebase-architecture/HTML-REPORT.md": "581e8bb5a521e46bbda8ca7e19b15948bed882187108092ebb90c62513b77528",
+        "skills/improve-codebase-architecture/SKILL.md": "eaed6238b71d061c0947cd8d29869d89f7af01b698ef02c6432df7b6c24e4df1",
+        "skills/j-space/agents/openai.yaml": "5d66cb3bc2249c0d2de8d92517e6217fcb054ccb3ea964b5b68638785d2390fb",
+        "skills/j-space/SKILL.md": "3a856f4feb6835603b0e66238543d414f0072ed92e656068da3ed7c65a7787f0",
+        "skills/migrate-to-shoehorn/agents/openai.yaml": "395c2db852e66a199f1cd07f7ed92d66cb6f0787460c5475926f1a5e778b699d",
+        "skills/migrate-to-shoehorn/SKILL.md": "79ee07b2d7b49fe5e5ca61f4ce20f275e77bab10fcad734288ee652a8b66ad78",
+        "skills/ml-best-practices/agents/openai.yaml": "603e86620f39b368892f8f07b80a2071c373e270b4acf2591e2583d2296b6c0f",
+        "skills/ml-best-practices/SKILL.md": "09c9f13cb91c0eab763657e71645f6fc2287ea7ad9be8717f73493c27838ea05",
+        "skills/prototype/agents/openai.yaml": "5af65e43ab41a350436697b81e27b7f848d36782043b73c322bb2c9fa9cc55dc",
+        "skills/prototype/LOGIC.md": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9",
+        "skills/prototype/SKILL.md": "b7d2c00f777fccb8cab2af4771ec41d71e2a0e979d4b3e4e98c5f5f09256b789",
+        "skills/prototype/UI.md": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3",
+        "skills/research/agents/openai.yaml": "9b4c470d63221c1f68f22df70b83e2f12401b317babe0d1b7b5f24a974474d0d",
+        "skills/research/SKILL.md": "f7b953fe9f635d4a2d6d85b4bdbd1f4a6a8981bd4966e45325bc8303e1aa1510",
+        "skills/resolving-merge-conflicts/agents/openai.yaml": "a1f4f96838f2ed6282eb28abbbf99029cb8fadce552baf53da90a025b8bffddf",
+        "skills/resolving-merge-conflicts/SKILL.md": "0b1d70a324341e7bb68ab873f3f29a2416cb08958581da86c2dabdfbbc611d5d",
+        "skills/retro/agents/openai.yaml": "fd77269278a74d12c856453525228a8eda8008a85ae1d13ab14a6f3ac448c35b",
+        "skills/retro/SKILL.md": "e1470d89a18786b9bfb81eab66f9a82027f1b199d91b2e3d449be91b3472a0a8",
+        "skills/scaffold-exercises/agents/openai.yaml": "525b33913340bea7947ad2de17f2a7c5fb94be543345fe80ae753b9a44ba601d",
+        "skills/scaffold-exercises/SKILL.md": "67bd52eabe89736a6bb0a1534a8ac7dc9f9c44cc3ab926082c77a37a8553ba86",
+        "skills/setup-engineering-workflows/agents/openai.yaml": "d2b4fe29ad8536cd0539f0fad1bd269c3cd766c38ee447d8317ee41cd4530232",
+        "skills/setup-engineering-workflows/domain.md": "edc6d6131fdffc4b7135704f5262124fc43355c95f61b7399dc5a4db643e28ca",
+        "skills/setup-engineering-workflows/issue-tracker-github.md": "afd6852a80185217bd28aa5cbe456bef1e85be25be7bd1fba382d5b8ee428325",
+        "skills/setup-engineering-workflows/issue-tracker-gitlab.md": "ea175f73d193b3f55819c0ed9bbccf6ee0e70ad8f928e3d7607596c53380acd6",
+        "skills/setup-engineering-workflows/issue-tracker-local.md": "7dcda20a2eb4bdc89b95d1143423c0691309921cadae3132e6424f371030506e",
+        "skills/setup-engineering-workflows/SKILL.md": "67e227e243a035937631efcd36393e133974b9880e6c29ed77388d79ad052ee3",
+        "skills/setup-engineering-workflows/triage-labels.md": "4f53c9b40ce2651e3611aa090eaedbd6dbc9b71ef8c5f7e65eac0d8263190d0d",
+        "skills/setup-pre-commit/agents/openai.yaml": "acf41db398c5c43afe504008bb7d615a97b6498b0f1f6c5b2395254c0bfb57d1",
+        "skills/setup-pre-commit/SKILL.md": "4e7f27feae76409b167c6e42d39b5d3e95947c95db0ff1a84b6542f4afe3520f",
+        "skills/setup-ts-deep-modules/agents/openai.yaml": "be0edcc20840d275f378b50b9303682f71ff1baea24114474cf3c87a5665fb9d",
+        "skills/setup-ts-deep-modules/dependency-cruiser.config.cjs": "3c4973bec69f73b2117654abf9e666a7c28665b213be20e6d39869e29842428e",
+        "skills/setup-ts-deep-modules/SKILL.md": "43bbca9e590d22ef15ca301413c7ac7b6e9df6ed84f3d5e2debb68bb933cdfd4",
+        "skills/skill-conductor/agents/openai.yaml": "b6dabe204c1427cce7a8036bcf559a84c8248a9e871c68d2a685afb83abe39f0",
+        "skills/skill-conductor/SKILL.md": "969cea33d073cdd8ac63237e0a394fccc46edb84fc9c11430f3bf89e457e19ab",
+        "skills/tdd/agents/openai.yaml": "ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b",
+        "skills/tdd/mocking.md": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
+        "skills/tdd/SKILL.md": "8a026b19bf52a7152753299fdbffd76d75533105c8560a8ad6bcabb128ded604",
+        "skills/tdd/tests.md": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
+        "skills/teach/agents/openai.yaml": "ae66ccbac8cb8bf2441f1b1d6ce2b4f05ee5cdea4107ebe12ad8f6d9eb869c4d",
+        "skills/teach/GLOSSARY-FORMAT.md": "9b99859ec28437668130d8f2ce5a342938970f8a1ed4fd38c3eab4f4b5fff210",
+        "skills/teach/LEARNING-RECORD-FORMAT.md": "701fa34b6748aa89e6c960ffb815257f481a7d77fb2900f9028f7edf3fdd6052",
+        "skills/teach/MISSION-FORMAT.md": "8cacbb3c0644d3ae0ea4965564797099401a6930a23f7cf462918576587f2418",
+        "skills/teach/RESOURCES-FORMAT.md": "e9cacf34026e11a8d1c8f9de88abe5bcbf654f4ebdb25cae8c0de0d5f48f44ec",
+        "skills/teach/SKILL.md": "13b994e0f0931498386b17dc9a452acc979af28f9d6f25b9e396ca35369cce48",
+        "skills/to-questionnaire/agents/openai.yaml": "9116b4618928e3e173670ff9b64aeec7a71cf4e0149e51d6f7f50eaf4f709583",
+        "skills/to-questionnaire/SKILL.md": "fb86f46d098050b4bdb6d5f555b83fdcc82d5eaf7cbf94d22bd2ff01143ec344",
+        "skills/to-spec/agents/openai.yaml": "3d4c153c1caaa8e7d0475efc5de394be6d89e7b67ff597f0e3763d3fbc3011cb",
+        "skills/to-spec/SKILL.md": "9c86b96fa03e54c96cc9dbd8cb2087d55fa6ad5d0e2a1145318e40fc54d884e5",
+        "skills/to-tickets/agents/openai.yaml": "bbeaf365ccfa1760e1d4770ffcbb355a56da8da3279ce85ac1a52183a7fe23a0",
+        "skills/to-tickets/SKILL.md": "47de038b8585ba41afc4b5ed614517845eec76715c2072f30ffe60cb5059f890",
+        "skills/triage/AGENT-BRIEF.md": "7f5f87fed3033df1b06e083c480f3e847b1fbb0647746b8a4c6a50f9f26ef44f",
+        "skills/triage/agents/openai.yaml": "dc867e5ab454428359711d1efe195109b2f0ada053addb50e4be5cbe45b1a15d",
+        "skills/triage/OUT-OF-SCOPE.md": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d",
+        "skills/triage/SKILL.md": "e0279b2f7041117370b505c002a0bb473cea97f4c0360130ff19a32a4e149172",
+        "skills/wait-what/agents/openai.yaml": "0cf2cc798df3e0a60fe593593901b8c7484606df93784d3e64e562ae2fb2e9b5",
+        "skills/wait-what/SKILL.md": "77eccaa4503c1900346541f9b426d87ff78c1794ef49dd64aeee6e061f5d2a3c",
+        "skills/wayfinder/agents/openai.yaml": "02a06fec90dde339c53c322bc3ce0f4e33cbaa4b0327aea5fea6a858db7d2206",
+        "skills/wayfinder/SKILL.md": "9170f9b0b4a36ce5b233c41abb93f2655049eb5e1949d3cb2e073885bc95753e",
+        "skills/wizard/agents/openai.yaml": "98f44d682d58e262f160dc59a8befc365e0aa65820dd0261864af26aa8e59d83",
+        "skills/wizard/SKILL.md": "2dc0e56af5bb5d9254613389c14abcbaf20ddea16d9f78914216743098e3da9a",
+        "skills/wizard/template.sh": "04822e256a840e1845ca6b940f3f56875ea03b3957454d887ed326b333a329a7",
+        "skills/workflow-designer/agents/openai.yaml": "e435a5c295e1209b4359e9d41df5b320b46effb166327600fff1c207b9492164",
+        "skills/workflow-designer/SKILL.md": "8a9c7fb1d4659a38ddfbbd909dc9a4cdfb055dfa12baa6380d375baad8119216",
+        "skills/writing-beats/agents/openai.yaml": "003830a1dc7311a7b67afc9af0ef8cac6142e5d2214e10738ea328072272aea7",
+        "skills/writing-beats/SKILL.md": "9aa0cf5f82063ed46a708f5f9f065b56e651062bc72b337cce1d5356f72ef4dc",
+        "skills/writing-for-agents/agents/openai.yaml": "eacb24b2a618cfb81dacb0416f4fdd75ddf3a8060f8ddb99aae1b1e301907e4b",
+        "skills/writing-for-agents/SKILL-MECHANICS.md": "c768e6307c7c10728c401c213f2c4ba71c542127eeb7ad2956aabd15a0fa0059",
+        "skills/writing-for-agents/SKILL.md": "6167c9b3f83dd5d01594882f2275b93a7f2aebb23a1208d004b00bbbe7a1906b",
+        "skills/writing-fragments/agents/openai.yaml": "715a626aa43d78563d4895b3738768dac3b0e7c4fe24bfd6a4b92b947bb95d6a",
+        "skills/writing-fragments/SKILL.md": "58adff2d85802684e1df4b6ccc6eaeb65b68d4e539125239f31c9d6579852f0c",
+        "skills/writing-shape/agents/openai.yaml": "c30bb002326728a850db24b385441b12d9c389af59319226f120f20dee7b2faa",
+        "skills/writing-shape/SKILL.md": "578bc3ab46b9246f9bf2ffa3de613d261409cccd25a64453edd6e9d3d98c1adc",
+        "source-provenance.json": "53f8b02a533780538c4067da4d2e29e25cd5225ac6183641827284c16476389e",
+        "SUPPORT.md": "e07a6d514e2bc7aac622d29d7be01a1317b7178c55332178be5e488e71efb66e",
+        "TERMS.md": "96cd2678f1bf61cd8c5b8a95c73a84bcfa0be0bf86aa133e2313c2e6660d80a8",
+        "THIRD_PARTY_NOTICES.md": "92203ed7166bc3a094fae0d45adb370e55160ff1a34b4959636f66e8e1b7d852"
+      },
+      "skills": [
+        {
+          "sourceSkill": "ai-data-remediation",
+          "sourceFile": "skills/ai-data-remediation/SKILL.md",
+          "implementation": "skills/ai-data-remediation/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "ai-engineering",
+          "sourceFile": "skills/ai-engineering/SKILL.md",
+          "implementation": "skills/ai-engineering/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "code-review",
+          "sourceFile": "skills/code-review/SKILL.md",
+          "implementation": "skills/code-review/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "codebase-design",
+          "sourceFile": "skills/codebase-design/SKILL.md",
+          "implementation": "skills/codebase-design/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "diagnosing-bugs",
+          "sourceFile": "skills/diagnosing-bugs/SKILL.md",
+          "implementation": "skills/diagnosing-bugs/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "domain-modeling",
+          "sourceFile": "skills/domain-modeling/SKILL.md",
+          "implementation": "skills/domain-modeling/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "engineering-workflow-guide",
+          "sourceFile": "skills/engineering-workflow-guide/SKILL.md",
+          "implementation": "skills/engineering-workflow-guide/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "git-safety-guardrails",
+          "sourceFile": "skills/git-safety-guardrails/SKILL.md",
+          "implementation": "skills/git-safety-guardrails/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "goal",
+          "sourceFile": "skills/goal/SKILL.md",
+          "implementation": "skills/goal/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "grill-me",
+          "sourceFile": "skills/grill-me/SKILL.md",
+          "implementation": "skills/grill-me/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "grill-with-docs",
+          "sourceFile": "skills/grill-with-docs/SKILL.md",
+          "implementation": "skills/grill-with-docs/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "grilling",
+          "sourceFile": "skills/grilling/SKILL.md",
+          "implementation": "skills/grilling/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "handoff",
+          "sourceFile": "skills/handoff/SKILL.md",
+          "implementation": "skills/handoff/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "implement",
+          "sourceFile": "skills/implement/SKILL.md",
+          "implementation": "skills/implement/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "implement-spec",
+          "sourceFile": "skills/implement-spec/SKILL.md",
+          "implementation": "skills/implement-spec/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "improve-codebase-architecture",
+          "sourceFile": "skills/improve-codebase-architecture/SKILL.md",
+          "implementation": "skills/improve-codebase-architecture/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "j-space",
+          "sourceFile": "skills/j-space/SKILL.md",
+          "implementation": "skills/j-space/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "migrate-to-shoehorn",
+          "sourceFile": "skills/migrate-to-shoehorn/SKILL.md",
+          "implementation": "skills/migrate-to-shoehorn/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "ml-best-practices",
+          "sourceFile": "skills/ml-best-practices/SKILL.md",
+          "implementation": "skills/ml-best-practices/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "prototype",
+          "sourceFile": "skills/prototype/SKILL.md",
+          "implementation": "skills/prototype/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "research",
+          "sourceFile": "skills/research/SKILL.md",
+          "implementation": "skills/research/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "resolving-merge-conflicts",
+          "sourceFile": "skills/resolving-merge-conflicts/SKILL.md",
+          "implementation": "skills/resolving-merge-conflicts/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "retro",
+          "sourceFile": "skills/retro/SKILL.md",
+          "implementation": "skills/retro/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "scaffold-exercises",
+          "sourceFile": "skills/scaffold-exercises/SKILL.md",
+          "implementation": "skills/scaffold-exercises/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "setup-engineering-workflows",
+          "sourceFile": "skills/setup-engineering-workflows/SKILL.md",
+          "implementation": "skills/setup-engineering-workflows/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "setup-pre-commit",
+          "sourceFile": "skills/setup-pre-commit/SKILL.md",
+          "implementation": "skills/setup-pre-commit/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "setup-ts-deep-modules",
+          "sourceFile": "skills/setup-ts-deep-modules/SKILL.md",
+          "implementation": "skills/setup-ts-deep-modules/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "skill-conductor",
+          "sourceFile": "skills/skill-conductor/SKILL.md",
+          "implementation": "skills/skill-conductor/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "tdd",
+          "sourceFile": "skills/tdd/SKILL.md",
+          "implementation": "skills/tdd/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "teach",
+          "sourceFile": "skills/teach/SKILL.md",
+          "implementation": "skills/teach/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "to-questionnaire",
+          "sourceFile": "skills/to-questionnaire/SKILL.md",
+          "implementation": "skills/to-questionnaire/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "to-spec",
+          "sourceFile": "skills/to-spec/SKILL.md",
+          "implementation": "skills/to-spec/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "to-tickets",
+          "sourceFile": "skills/to-tickets/SKILL.md",
+          "implementation": "skills/to-tickets/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "triage",
+          "sourceFile": "skills/triage/SKILL.md",
+          "implementation": "skills/triage/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "wait-what",
+          "sourceFile": "skills/wait-what/SKILL.md",
+          "implementation": "skills/wait-what/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "wayfinder",
+          "sourceFile": "skills/wayfinder/SKILL.md",
+          "implementation": "skills/wayfinder/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "wizard",
+          "sourceFile": "skills/wizard/SKILL.md",
+          "implementation": "skills/wizard/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "workflow-designer",
+          "sourceFile": "skills/workflow-designer/SKILL.md",
+          "implementation": "skills/workflow-designer/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "writing-beats",
+          "sourceFile": "skills/writing-beats/SKILL.md",
+          "implementation": "skills/writing-beats/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "writing-for-agents",
+          "sourceFile": "skills/writing-for-agents/SKILL.md",
+          "implementation": "skills/writing-for-agents/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "writing-fragments",
+          "sourceFile": "skills/writing-fragments/SKILL.md",
+          "implementation": "skills/writing-fragments/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "writing-shape",
+          "sourceFile": "skills/writing-shape/SKILL.md",
+          "implementation": "skills/writing-shape/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        }
+      ],
+      "version": "1.1.0"
+    },
+    {
+      "id": "skills-evidence-matrix",
+      "sourcePath": "duopore-public-skills-evidence-matrix/1.0.1",
+      "role": "preserved reference",
+      "license": "not established",
+      "integration": "independent",
+      "files": {
+        ".app.json": "cccaef2883281e69a1adf7945acc07922f470c9b4629b084a25f8ce069b9628a",
+        "assets/icon.svg": "390b358cdff7e74c85b1469b345b6b071de57b0c848d8b96df1b99b030684ba7",
+        "assets/logo.svg": "390b358cdff7e74c85b1469b345b6b071de57b0c848d8b96df1b99b030684ba7",
+        "EXAMPLE.json": "55f7ce8cfb082e91c6e757e14454e99244ebf2305bf7257b0dcf31673595c53c",
+        "mcp.json": "fa3266307c22ad55e9da9c3c04d4925b2099248ad40ff7bda7209eb856ba0311",
+        "plugin.json": "d8b2275bea9c5800c7cfa1b5bf70b83c25c1667e836e3bd36fff8ac9d8cd3473",
+        "PUBLICATION-STATUS.md": "7be3cc2abaece4f19ab8d77d639174820af16984594e5358adc8d13ce45d404a",
+        "README.md": "39b24308011ba4dad4ef52abbf00e09815b8cfe3e42723c636dc05a8c8e21386",
+        "RELEASE-NOTES.md": "2f939bff13a2bcfcfa9d8a4bedb3204f175d23261f29afbedb583a53d5cdbdd5",
+        "REVIEW-EVIDENCE.md": "05569da8642c694c83c53793818ceab0aae52073772cae078ac9a0ca7635f1ec"
+      },
+      "skills": [
+        {
+          "sourceSkill": "hosted behavior",
+          "implementation": "skills/evidence-matrix/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/services*.test.mjs"
+        }
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "id": "skillquiver",
+      "sourcePath": "skillquiver/2.1.0",
+      "role": "preserved reference",
+      "license": "MIT",
+      "integration": "adapt",
+      "files": {
+        ".codex-plugin/assets/composer-icon.png": "324f9513e7c3732493e398129dec44e6cd32f7658c2c82637bec7954648c1599",
+        ".codex-plugin/assets/logo.png": "324f9513e7c3732493e398129dec44e6cd32f7658c2c82637bec7954648c1599",
+        ".codex-plugin/plugin.json": "af375d0343035ecef1f394abce46e7257b62732b4d42c0b05734b3f630cb3327",
+        "assets/plugin-logo.png": "324f9513e7c3732493e398129dec44e6cd32f7658c2c82637bec7954648c1599",
+        "LICENSE": "4bd8765678a270afbc9f1d061358ee07d02e35ec84b6b3d1d6b9ee9d34056026",
+        "skills/automate-ui/agents/openai.yaml": "4f8cb16400716fd72da7b6eb96854d5f7826c8356fcd11c6505c06c31555c897",
+        "skills/automate-ui/SKILL.md": "578eff565856125be627b78aa86459320d9a1468d38fa523b435cea0228432a2",
+        "skills/brainstorming/agents/openai.yaml": "6f0301e26b44bb42ccc7763b351f12f19341427f55be223e6ac28121f60253e3",
+        "skills/brainstorming/scripts/frame-template.html": "752771f8a0cb350f3d69aab99a0d9133aa8296d1e20d31428522816553b17d77",
+        "skills/brainstorming/scripts/helper.js": "54ebffaa3bd8b5b504c6912074d26ab392096e0569c31369317a48f00f20cde9",
+        "skills/brainstorming/scripts/server.cjs": "b78938b32e5b78d207129a6900558a3fd9c225acb9e4ea25a6df6fe6b8b67c72",
+        "skills/brainstorming/scripts/start-server.sh": "63120a4cf1805f6ec53a8b26470dfd15469cd107b35de7e252d64c00dff6ead1",
+        "skills/brainstorming/scripts/stop-server.sh": "e792434cac82ab6863b50bea95967e0e1811cacd89bac454827af8fcb4288c53",
+        "skills/brainstorming/SKILL.md": "7677bda6039163cbc63e6a42c563ee9b47ed77b3233ee1bd2639034fd3fef1e4",
+        "skills/brainstorming/visual-companion.md": "0ca6460344542bd8acdb6df7c0886c954c22918edf00ebc8ba10acf1b478bf3b",
+        "skills/communicate-clearly/agents/openai.yaml": "430e4e0ccbaeb4bc00379d37527d7467fec60ef804656999ebb143143bfdce8a",
+        "skills/communicate-clearly/SKILL.md": "33917618002374562dd92fec57cd5534010c0cd03948c0852fea5ff84556e990",
+        "skills/design-ui/agents/openai.yaml": "b1f252b14f7e11b8204402722afc0c43b84364b83d1df776af59d1f5270e2d7f",
+        "skills/design-ui/references/direction-plan.md": "bbe1ef2a8c48e07d0129ad9163b72b67c386a70c9d3c3f53782944b58d4ec57a",
+        "skills/design-ui/references/render-verification.md": "0456a5f96339832b016f24d5f8199e5fbd33a9bc485561977c2adf44d0964d55",
+        "skills/design-ui/references/ui-copy.md": "8b09dac6a2eeebb585112eb4941fc868054bdb2d506fab21335d0046a45abd45",
+        "skills/design-ui/scripts/capture-static-page.cjs": "0cb88e28bf78c908ee351a34a35da31de4d6f0bcaf6f758b77c4354e1c78af30",
+        "skills/design-ui/SKILL.md": "f3a0819dabd368de30ff07f6265890900e6f0c2b7022dd0473f91cbe46752553",
+        "skills/diagnose-systematically/agents/openai.yaml": "e4a75a3b1a75fa25e3ce06fb39878eb838b6b1450314cbad1e4e37bac37ca34b",
+        "skills/diagnose-systematically/condition-based-waiting.md": "aceaade1baa9272e41651a68a5d7e9146509128c9cf580fa000329123f9e31be",
+        "skills/diagnose-systematically/defense-in-depth.md": "667a2e741b3bb687bc6beafc51d93e5e2a8d962fbea8044350af5783139ba107",
+        "skills/diagnose-systematically/find-polluter.sh": "99a8878678dbd7bba64bd961ab79a8e442ed6ef6b2f246878bc1cf62fd803204",
+        "skills/diagnose-systematically/root-cause-tracing.md": "2377724ee62c797153390da5c4b794e4ab54cbdb0f96311f5bc28a6c0e5b28b9",
+        "skills/diagnose-systematically/SKILL.md": "1206b35f6360bbcfda9eb12c330968bdcfa49c75ec1fea202709e6a4b664edc9",
+        "skills/dispatching-parallel-agents/agents/openai.yaml": "023971b9ab930ac7a12d72de73b88ac6f2e321660ead58fdd90b5379f74f5893",
+        "skills/dispatching-parallel-agents/SKILL.md": "3ee451e89f9c354369e91881975a9116cfb90c8ae190c26dd6e9a3f26fb5dc46",
+        "skills/engineer-prompts/agents/openai.yaml": "17be3028fc3538d82fb4819d61369b1907d28ec7e07e12852900ef9edf6f4034",
+        "skills/engineer-prompts/SKILL.md": "2528ecb422eb90ae525ba20bfe732a1663c90b76036f5e2fef0c06cf143efad2",
+        "skills/execute-durably/agents/openai.yaml": "7847a211fd232d068561aacf40506ee371afcc7737e70e6ef911f0219ca84fe0",
+        "skills/execute-durably/SKILL.md": "e8929f5ea341580b7b54673f7901dbd42694729dfd7f7eba70dcff549c38753c",
+        "skills/executing-plans/agents/openai.yaml": "e47a53016854f00742fe77280bd63bf17badc2591f81b632252f2b0115bb023a",
+        "skills/executing-plans/SKILL.md": "cf48e5b018704c90286f87ca31b24b42444cbd6f730b370dcbf5f1e4e0b84b31",
+        "skills/finishing-a-development-branch/agents/openai.yaml": "9a77572d6619b2a3c769a6add8b932dccd0c831cb279ed013b8920af6494d48f",
+        "skills/finishing-a-development-branch/SKILL.md": "3dc8416c379807c8d3dcf327af62adfdfb52a069978f224dcc5acb573959ac15",
+        "skills/handle-host-boundaries/agents/openai.yaml": "9a17270caefc88d3632aed4d7bb4c5d2b6180a76347248916da0726934887eec",
+        "skills/handle-host-boundaries/SKILL.md": "c5f5b48cd5bdbfd3790892f7f569a577091b2e9cfa768da2eaabb962d1f42896",
+        "skills/receiving-code-review/agents/openai.yaml": "735a1abe7248fe76119d906002bc4df52fc4c1022f69c1bf8d660278df820338",
+        "skills/receiving-code-review/SKILL.md": "06159432f2232d81475ed73b2248a8d7156c832d4379c9c78dda504840ca7efd",
+        "skills/refactor-safely/agents/openai.yaml": "53979485990c2a11dd6e14dae645adecd9e1f35614ae761aeb39e6427c17d84d",
+        "skills/refactor-safely/SKILL.md": "fc5e596496bb885960daa85e5f3fdee8c309258d5f1bc3d1ab6705215154da9f",
+        "skills/requesting-code-review/agents/openai.yaml": "f0c2e6d73bfa2f9b73409331522b066f7557fb645c2e8c3363754abba091c8fb",
+        "skills/requesting-code-review/code-reviewer.md": "2980e3a0f7d549206e58d661234b75f53b3d01a9eb87b0dbf50c4332d3134d91",
+        "skills/requesting-code-review/SKILL.md": "03f917ffb9dd0b6ef18a481c16fbe5c64d403128f7319028a5cca2f1724fa60e",
+        "skills/research-systematically/agents/openai.yaml": "671623da4af30ad4d33999cd6caf8ba7dfd7d594b896eb79170e5908d84feb84",
+        "skills/research-systematically/SKILL.md": "1819c62d3021b03df4e85e33a023a9fe5c0a2d131140915bd7b19b7ecb16420c",
+        "skills/skillquiver-doctor/agents/openai.yaml": "2bb39ae15b3f09fd3c2991934bce1cb48ef8201072a658359dc0169b7943d715",
+        "skills/skillquiver-doctor/references/chatgpt.md": "cbafbdeeae2283a3cde1532f671c849e5029de511cf99ad5dca827d30a742724",
+        "skills/skillquiver-doctor/references/claude.md": "b01761a51faee2e567f816ed80f5b1567ed6504bcc6222ec430a23fb8ec5d3df",
+        "skills/skillquiver-doctor/references/codex.md": "e3d27fc8a7c1dec70f7947218475115b406995ac562d9d2a91fc4d6710524eaa",
+        "skills/skillquiver-doctor/SKILL.md": "ce2962e93d12e9e23a7df8aa1585418fecf9f8f71090d4e6b04fa9dffcdcb1f0",
+        "skills/solve-efficiently/agents/openai.yaml": "69c459def6446ad73cc40af69db774f92730bfd41b2032052c869d48829a73a3",
+        "skills/solve-efficiently/SKILL.md": "0fdb6d9406dbf09f0352fed915c2afbc06d5d07c099b034f5f4e77439798627b",
+        "skills/subagent-driven-development/agents/openai.yaml": "62f71ac9f47b7caa6946e83da402538b85ddc5c49ff04e68ddd18b5db0b486fb",
+        "skills/subagent-driven-development/implementer-prompt.md": "4b43a9e14efe68839e82b0a9e154145c0367b17a47bd43b27e3daad711b520f8",
+        "skills/subagent-driven-development/re-review-prompt.md": "d24124e2579a6493c5546bd754341761f89cc1c3ce8c17ad5de1af2aafcf2678",
+        "skills/subagent-driven-development/references/dispatch-and-model-selection.md": "285403c9c978695c9f63876d85829c258b15618d1fbaf6cf4bcc3a19a2b928d2",
+        "skills/subagent-driven-development/references/review-and-fix-loop.md": "70c3ebb8c0694e8f31c42ea893296905544ce48c7b02c17cfd695c625993a43c",
+        "skills/subagent-driven-development/references/workflow-example.md": "343193b1a66408eeacd146b53feeb28d7f353c2dde41b3c4739be1a725d8173c",
+        "skills/subagent-driven-development/scripts/review-package": "633d4d11af8570d741c4a9d189905becc9cc0107d9d3020dde028f2eeddabf66",
+        "skills/subagent-driven-development/scripts/sdd-workspace": "c90d82032fe3e42b679f9fcb9acf1df71a186ad1944642b251daad13216f1920",
+        "skills/subagent-driven-development/scripts/task-brief": "544146b5850e88a228ff849770f68487cdb5ebc85a410086ad12e709e3701c8b",
+        "skills/subagent-driven-development/SKILL.md": "ec9fccf0b8a121ad90842001e0d9bd922059291d36ce1432a5653822aa71defb",
+        "skills/subagent-driven-development/task-reviewer-prompt.md": "f6f6dd5c47dea5c408b0242ed42b2d2b98ede177c58b43b8925af80f6eb1b0e3",
+        "skills/test-driven-development/agents/openai.yaml": "719d7c2867036af0c78b84949d3dcadd4b5e600452dfc368004b167de0eed089",
+        "skills/test-driven-development/SKILL.md": "c35df5f6be28cde76c393ef2aeab3a20399f6b32c7d1cc609811c59380132a7a",
+        "skills/test-driven-development/writing-good-tests.md": "f3a2eb1b8739561b25074dc45f75de0d2745df16ebeb0ee2d266dc94b79a168e",
+        "skills/using-git-worktrees/agents/openai.yaml": "409df0528abbc4bfb7b9724fa23ffb709ac8afbfd24de35dc134c21e59ef09a2",
+        "skills/using-git-worktrees/SKILL.md": "3b63a0f1d57129a7219394964bf7aba2c90bf7b530464cc9873dd24fb6728caa",
+        "skills/verification-before-completion/agents/openai.yaml": "ecc045c6d3b7586aa3d97949bec4ac7e9408c9799307e55a9952c628c82f09d3",
+        "skills/verification-before-completion/SKILL.md": "11c99c0663763a3c48eea32b5ff9184c3b5eaf5317219e7856ede5869caf50b7",
+        "skills/verify-work/agents/openai.yaml": "1b8000db17ee81793af6468c24b47c1de7815f3cb8d486ecb6b0ee2445443913",
+        "skills/verify-work/SKILL.md": "a5fc76fc7c0969fb2d8c14e6eae56a444899c4d0aa48979a8cdd3c7df8e407c5",
+        "skills/writing-plans/agents/openai.yaml": "7a34f947b893f6298aa0ef052aadffc9773381e6eb180586a2dbf1664dc3617c",
+        "skills/writing-plans/references/full-plan.md": "05223fbeb73718d02ca81a503fbd9dc2bddf63ddd23a4466fba79741269dd8b3",
+        "skills/writing-plans/SKILL.md": "cea772ee4695b252258fb9a956dc813b091ad86b7b92e6748eebdd0902e98c36"
+      },
+      "skills": [
+        {
+          "sourceSkill": "automate-ui",
+          "sourceFile": "skills/automate-ui/SKILL.md",
+          "implementation": "skills/automate-ui/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "brainstorming",
+          "sourceFile": "skills/brainstorming/SKILL.md",
+          "implementation": "skills/brainstorming/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "communicate-clearly",
+          "sourceFile": "skills/communicate-clearly/SKILL.md",
+          "implementation": "skills/communicate-clearly/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "design-ui",
+          "sourceFile": "skills/design-ui/SKILL.md",
+          "implementation": "skills/design-ui/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "diagnose-systematically",
+          "sourceFile": "skills/diagnose-systematically/SKILL.md",
+          "implementation": "skills/diagnose-systematically/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "dispatching-parallel-agents",
+          "sourceFile": "skills/dispatching-parallel-agents/SKILL.md",
+          "implementation": "skills/dispatching-parallel-agents/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "engineer-prompts",
+          "sourceFile": "skills/engineer-prompts/SKILL.md",
+          "implementation": "skills/engineer-prompts/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "execute-durably",
+          "sourceFile": "skills/execute-durably/SKILL.md",
+          "implementation": "skills/execute-durably/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "executing-plans",
+          "sourceFile": "skills/executing-plans/SKILL.md",
+          "implementation": "skills/executing-plans/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "finishing-a-development-branch",
+          "sourceFile": "skills/finishing-a-development-branch/SKILL.md",
+          "implementation": "skills/finishing-a-development-branch/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "handle-host-boundaries",
+          "sourceFile": "skills/handle-host-boundaries/SKILL.md",
+          "implementation": "skills/handle-host-boundaries/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "receiving-code-review",
+          "sourceFile": "skills/receiving-code-review/SKILL.md",
+          "implementation": "skills/receiving-code-review/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "refactor-safely",
+          "sourceFile": "skills/refactor-safely/SKILL.md",
+          "implementation": "skills/refactor-safely/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "requesting-code-review",
+          "sourceFile": "skills/requesting-code-review/SKILL.md",
+          "implementation": "skills/requesting-code-review/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "research-systematically",
+          "sourceFile": "skills/research-systematically/SKILL.md",
+          "implementation": "skills/research-systematically/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "skillquiver-doctor",
+          "sourceFile": "skills/skillquiver-doctor/SKILL.md",
+          "implementation": "skills/skillquiver-doctor/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "solve-efficiently",
+          "sourceFile": "skills/solve-efficiently/SKILL.md",
+          "implementation": "skills/solve-efficiently/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "subagent-driven-development",
+          "sourceFile": "skills/subagent-driven-development/SKILL.md",
+          "implementation": "skills/subagent-driven-development/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "test-driven-development",
+          "sourceFile": "skills/test-driven-development/SKILL.md",
+          "implementation": "skills/test-driven-development/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "using-git-worktrees",
+          "sourceFile": "skills/using-git-worktrees/SKILL.md",
+          "implementation": "skills/using-git-worktrees/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "verification-before-completion",
+          "sourceFile": "skills/verification-before-completion/SKILL.md",
+          "implementation": "skills/verification-before-completion/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "verify-work",
+          "sourceFile": "skills/verify-work/SKILL.md",
+          "implementation": "skills/verify-work/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "writing-plans",
+          "sourceFile": "skills/writing-plans/SKILL.md",
+          "implementation": "skills/writing-plans/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        }
+      ],
+      "version": "2.1.0"
+    },
+    {
+      "id": "skill-craft",
+      "sourcePath": "skill-craft/1.3.0",
+      "role": "preserved reference",
+      "license": "MIT declared; full own notice absent",
+      "integration": "independent",
+      "files": {
+        ".codex-plugin/assets/composer-icon.png": "2883a5cb615590800131f9785d1dddeded887c433374e326fffd33b170a66b2f",
+        ".codex-plugin/assets/logo.png": "9d07c44293622c15b8d9ceeb0ab8d31f4f7c1a844595f7b865fac7a3b500d5cf",
+        ".codex-plugin/plugin.json": "e2fdc7792977c3a9d4ad028ef03c01fb964e6afe9c900196871442f144b7987b",
+        "assets/skill-craft-composer.png": "2883a5cb615590800131f9785d1dddeded887c433374e326fffd33b170a66b2f",
+        "assets/skill-craft-logo.png": "9d07c44293622c15b8d9ceeb0ab8d31f4f7c1a844595f7b865fac7a3b500d5cf",
+        "PRIVACY.md": "7672486061f33dfd47c5b52476e33ab424b6d74f376f2d1056ce320ad501afa4",
+        "README.md": "250c32de1cba7ab7825ccf9e90700966ff2340c4b902276c19b1083559ebdf23",
+        "skills/skill-approval-gate/attention-rules.md": "2c96850329098fdf3f4d83a3a5b38c5e7929d6d912c5d3f5d9590be68f52394c",
+        "skills/skill-approval-gate/gate-contract.md": "b2aab7e74c3604606d308675b613bed64aef5dcda5f7473cfffa85a18f9f2c19",
+        "skills/skill-approval-gate/SKILL.md": "31afc430adfd6f2228e22899ec17a56883ebce8d2fab13a5b35db4791b027d0b",
+        "skills/skill-craft-review/report-contract.md": "7c9f2ecb1c6370099ed05809f56d96b08ba76a008fc2ab864bccca77e9eeae4a",
+        "skills/skill-craft-review/review-checklist.md": "d5a31da3f82093e588d1643be04c84c89b24c3ec0c8a10ff5a31060a9ce6a1ac",
+        "skills/skill-craft-review/SKILL.md": "8727b0211fb9fef13ff065766e18482568617d0852c1f7f04dae4abc71ddab19",
+        "skills/skill-craft-review/THIRD_PARTY_NOTICES.md": "3a7de2af80ae1dac83f9754ed255fd77829ea6d593fae8e98ef6c38974997719",
+        "skills/skill-craft-review/writing-skills-upstream.md": "5cde26a1ecb2a26ebc8787ac18eeb567fd5e566ef9ea5997003b9a0b35eb9470",
+        "skills/skill-walkthrough/SKILL.md": "35a36bd1b7c4477638be1c942e8407b9d742b3310e24903169cd6854bcf14c04",
+        "SUPPORT.md": "9636d10a544c0ddaa16deb2a7a869c390cb5ea182cd5f5d2f1e30c0c9200b6cc",
+        "TERMS.md": "4fdb6dd8de1e50359d281514ad02a1af75716ea18d63549e6cfa781253840798"
+      },
+      "skills": [
+        {
+          "sourceSkill": "skill-approval-gate",
+          "sourceFile": "skills/skill-approval-gate/SKILL.md",
+          "implementation": "skills/review-decision/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "skill-craft-review",
+          "sourceFile": "skills/skill-craft-review/SKILL.md",
+          "implementation": "skills/skill-review/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "skill-walkthrough",
+          "sourceFile": "skills/skill-walkthrough/SKILL.md",
+          "implementation": "skills/skill-walkthrough/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        }
+      ],
+      "version": "1.3.0"
+    },
+    {
+      "id": "agent-skillguard",
+      "sourcePath": "agent-skillguard/0.1.5",
+      "role": "preserved reference",
+      "license": "MIT declared; full notice absent",
+      "integration": "independent",
+      "files": {
+        ".claude-plugin/plugin.json": "952e28cb4a03823013d9774d4066e862858b89784f4fca067c9d516b1eb499e1",
+        ".codex-plugin/assets/composer-icon.png": "274ad2cfdd1174998708249fcc66199fdc3d698af796d4f14e986941fdcdce92",
+        ".codex-plugin/assets/logo-dark.png": "3be321fae0ebb7bd500b06039fc85ea02cf65cc7b9e6e7e1b9e81d966483e4f6",
+        ".codex-plugin/assets/logo.png": "de621bfe996c4c6815c2b0cee971edcdff79e13453ca8611e067b11c9d362608",
+        ".codex-plugin/plugin.json": "b411fe8ead7a411692abee7ebf0e47f6d85443533dfa53e68c1556ec888587dd",
+        "assets/Agent SkillGuard Agent Smith Palette Source Receipt 210826.md": "b56d40b5952ac884b173b669469bfd78c0c2e63d57af893ee06cff54a909def5",
+        "assets/Agent SkillGuard Transparent Master 220826.png": "b67972d299813960e9331089788086c1beed435a9fbe5dcf5e3c1894810248d3",
+        "assets/icon.png": "274ad2cfdd1174998708249fcc66199fdc3d698af796d4f14e986941fdcdce92",
+        "assets/Logo Generation Manifest 140826.json": "9fd3c5953db015fbf6c09e7cc67633a99d504b315afbc11d610f762a2c45873f",
+        "assets/logo-dark.png": "3be321fae0ebb7bd500b06039fc85ea02cf65cc7b9e6e7e1b9e81d966483e4f6",
+        "assets/logo.png": "3be321fae0ebb7bd500b06039fc85ea02cf65cc7b9e6e7e1b9e81d966483e4f6",
+        "assets/screenshot1.png": "ecefc371eef4fdf8d11b640bb699d6a15e5853ee2d6af41f4a6ff46c8cd34ab4",
+        "assets/Silver Satin Background Master 240826.png": "5ef688ba56bd8e8b185903df3a73262400859f0bb0791009b437f5d13ff8a579",
+        "assets/Skill Risk Check Silver Satin Master 240826.png": "1293e1eb7960cf5ed12dc674868bad1c3afad0794e80453990a99bded7fa5180",
+        "assets/social-preview.png": "bf2e5520749c0dc83f3f0ac7bf64b3400d526abf74212232c1816f8ce47e9f48",
+        "examples/clean-skill/SKILL.md": "e72fe1b1c465fca4dfd4eb6e645a0925ef57047bf087003187c8912ef18189ba",
+        "examples/unsafe-skill/plugin.json": "f87c5ef51f065f81b78472d15d430269fed9b306cf2f891cece65dab2dc51c0a",
+        "examples/unsafe-skill/SKILL.md": "ca539996cf3ed0e8385cdf1051ee31d34685f30fab9e47cc79922ed75408fdfb",
+        "fixtures/fixture-manifest.json": "7fe085f26f8b1f58c5cf4483f01dc9c6938cff78015580e4566652e2ef561b43",
+        "fixtures/negative/hierarchy.md": "597b408a4bd88dccd912fcb28df243bc4359b45b3d380b0623ea95281f857aa2",
+        "fixtures/negative/least-privilege.json": "846cd97297f2f1b84dc88b6ce1b111d34a38935b8bf697cd7048237bee160e6f",
+        "fixtures/negative/narrow-delete.ps1": "dc403a5b7e2315a9e2b4401bf859356ec30e8d158fcdfb7b4f20df89606ed9f0",
+        "fixtures/negative/reviewed-download.md": "c5db39bfb6fa8a2b6f23c4a3d8ebdef996d20d014220c5a696066f1e9b7a81cb",
+        "fixtures/positive/sg001.md": "dc9b101158dba0fb5c5aa18ace53bfb656fffff09f5c8cc43a85422e3b394118",
+        "fixtures/positive/sg002.sh": "3732c54214730f15058529acef1ff3561104b38d4ff472f579a23ad1a01ca1d4",
+        "fixtures/positive/sg003.json": "0aea0eabb08964e8113a67a0dc3d98f60617106c3a9c240198b211fd3db8bcb4",
+        "fixtures/positive/sg004.md": "cc85d6f980824ec7798e440655f9a1ab8268534209130cdd26709525c9389381",
+        "fixtures/positive/sg005.ps1": "8032fceace857dd273be965bb8301c3f7df18077977803c7113bb94bd9e89fa4",
+        "fixtures/positive/sg006.ps1": "827565f18f3824afd601a38a6f11a9f1b78a2f4f7c248693758b7bb9092cde54",
+        "fixtures/positive/sg007.sh": "b996e0673572ef1b6d7926d1eb69dafafc5734730a5ed0607c1b9434720970d6",
+        "fixtures/positive/sg008.md": "b291079fedc6de0e3ea4488693b77162da841107504bd3b855b23889823112af",
+        "report.schema.json": "dd2ab5abf5a566fe7fa8a3f8ddc0eacb47d600a95c5b373b6a840dfc4b433585",
+        "rules/default-rules.json": "7b77ea3817aa4e66992a09cacdd8ca8b672b315524d4c26b8b49165702ef9ebf",
+        "rules/non-coverage.json": "f2cd5c69eb28a09b983d9ce72d7f997b5b228df97aea50c8456ae72bd95918e6",
+        "scripts/skillguard.py": "e958c180cb6859f64f66c452e218f566943734797a09f2a00ca6d5038ca3f967",
+        "skills/agent-skillguard/SKILL.md": "c15fbbe7ad85b183abf6bcf903af26325d99c37f0a2fbafd64d76194f14a1fbe",
+        "suppressions.schema.json": "726d26e29c7e91c3aa44aaa053f6abf0c495de1b351aca2c1d3a54fdd32c89f8"
+      },
+      "skills": [
+        {
+          "sourceSkill": "agent-skillguard",
+          "sourceFile": "skills/agent-skillguard/SKILL.md",
+          "implementation": "skills/risk-review/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/services*.test.mjs"
+        }
+      ],
+      "version": "0.1.5"
+    },
+    {
+      "id": "gpts-to-plugin",
+      "sourcePath": "gpts-to-plugin/0.1.2+codex.20260921090000",
+      "role": "preserved reference",
+      "license": "not established",
+      "integration": "independent",
+      "files": {
+        ".codex-plugin/asset-identity.json": "278ececd765cef366b03ec102bdcaa56b2e93b6a26e3c42ec2fb62df1cf3ccfb",
+        ".codex-plugin/assets/composer-icon-v2.png": "dc3fce2a002761afb7d4804ebdb49a969bec9441cff797e93de3987244f7418b",
+        ".codex-plugin/assets/composer-icon.png": "dc3fce2a002761afb7d4804ebdb49a969bec9441cff797e93de3987244f7418b",
+        ".codex-plugin/assets/logo-v2.png": "dc3fce2a002761afb7d4804ebdb49a969bec9441cff797e93de3987244f7418b",
+        ".codex-plugin/assets/logo.png": "dc3fce2a002761afb7d4804ebdb49a969bec9441cff797e93de3987244f7418b",
+        ".codex-plugin/plugin.json": "d78d4bb2267a46b16c574f33e463dfae29e17f115fdc08b82f7d349cc99ff0d2",
+        "assets/favicon.png": "de4c39807e31dd5e287dc79219e44d9964ed42e55a2859def0eea8b4cd9e8c02",
+        "assets/gpts-to-plugin.png": "de4c39807e31dd5e287dc79219e44d9964ed42e55a2859def0eea8b4cd9e8c02",
+        "chatgpt-app-submission.json": "5bfae9e1600a24772ecb9302bd5a3f3761ddb4293a3605571aa4b1155c76cdef",
+        "skills/branding-and-assets/SKILL.md": "868c8dfa3215da33bb66a2809a70e61f592d576c28ccabb9645753888004ee21",
+        "skills/compliance-and-final-submission/SKILL.md": "558e5bbdc0ceba6dcd23cb8ae47b2f18e91da0d5fc350033e9143f1b047f419f",
+        "skills/dashboard-upload-and-remediation/SKILL.md": "70bad67d786b8bce57f00ad21547936627946f4f1b9e354de94e4a00fa9e2732",
+        "skills/error-diagnosis-and-fixing/SKILL.md": "6541b6b91f671d9cc934aedc475a446e1101ae5f2d3e6e12e8e95caffe8ebb52",
+        "skills/gpts-to-plugin/SKILL.md": "63af6a900b7ab8704c80baafc7b7f59828b00007a21e6b5efb5facdbb7c304ee",
+        "skills/instruction-preservation-and-improvement/SKILL.md": "971dbbaee1179ac9876474868adba1b4c452cacd524f5ba6f80fabb0c7122917",
+        "skills/multi-skill-architecture/SKILL.md": "b577cdfbf872fe9f2ef399d714131ebae128eafa0e699f2f0e2a6f3a06406a98",
+        "skills/plugin-manifest-and-metadata/SKILL.md": "23415b904c63c550d0079d268561b44d2d7de55563c9a6e0c99dc57eeae2c620",
+        "skills/reliable-dashboard-recovery/SKILL.md": "408fe7bb60259578c45c137b0cbdd1a31072c0255fdeb1de51ad40d152675a41",
+        "skills/source-and-browser-extraction/SKILL.md": "d92e3827ca9239c7df6d3434e1113e890caee20c8b0057be5f07dd7f00b52a29",
+        "skills/submission-json-and-review/SKILL.md": "d1ec7777b6fb1d62f25035039b4d22d837a469356c7c9fecdb19aa3823257986",
+        "skills/submission-preflight/SKILL.md": "29506e8510c549a6be6ffd1eb8a417f4cba6167b5028a81fb3cf8226b6e25db2",
+        "skills/validation-and-packaging/SKILL.md": "be2cfbe57c185bf0a7c2befcef72ca8f128cd6a839ca7571cef3ce78b060df2c"
+      },
+      "skills": [
+        {
+          "sourceSkill": "branding-and-assets",
+          "sourceFile": "skills/branding-and-assets/SKILL.md",
+          "implementation": "skills/brand-designer/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "compliance-and-final-submission",
+          "sourceFile": "skills/compliance-and-final-submission/SKILL.md",
+          "implementation": "skills/release-workflow/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "dashboard-upload-and-remediation",
+          "sourceFile": "skills/dashboard-upload-and-remediation/SKILL.md",
+          "implementation": "skills/release-workflow/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "error-diagnosis-and-fixing",
+          "sourceFile": "skills/error-diagnosis-and-fixing/SKILL.md",
+          "implementation": "skills/release-workflow/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "gpts-to-plugin",
+          "sourceFile": "skills/gpts-to-plugin/SKILL.md",
+          "implementation": "skills/import-gpt/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "instruction-preservation-and-improvement",
+          "sourceFile": "skills/instruction-preservation-and-improvement/SKILL.md",
+          "implementation": "skills/import-gpt/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "multi-skill-architecture",
+          "sourceFile": "skills/multi-skill-architecture/SKILL.md",
+          "implementation": "skills/import-gpt/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "plugin-manifest-and-metadata",
+          "sourceFile": "skills/plugin-manifest-and-metadata/SKILL.md",
+          "implementation": "skills/create-plugin/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "reliable-dashboard-recovery",
+          "sourceFile": "skills/reliable-dashboard-recovery/SKILL.md",
+          "implementation": "skills/release-workflow/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "source-and-browser-extraction",
+          "sourceFile": "skills/source-and-browser-extraction/SKILL.md",
+          "implementation": "skills/import-gpt/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "submission-json-and-review",
+          "sourceFile": "skills/submission-json-and-review/SKILL.md",
+          "implementation": "skills/release-workflow/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "submission-preflight",
+          "sourceFile": "skills/submission-preflight/SKILL.md",
+          "implementation": "skills/release-workflow/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "validation-and-packaging",
+          "sourceFile": "skills/validation-and-packaging/SKILL.md",
+          "implementation": "skills/release-workflow/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        }
+      ],
+      "version": "0.1.2+codex.20260921090000"
+    },
+    {
+      "id": "universal-plugin-installer",
+      "sourcePath": "universal-plugin-installer/0.1.0",
+      "role": "preserved reference",
+      "license": "not established",
+      "integration": "independent",
+      "files": {
+        ".codex-plugin/assets/composer-icon.png": "f68ec772aed8ee0df2a250899a308025a3847d6b1c3c902c2ff7cbb2b91219db",
+        ".codex-plugin/assets/logo.png": "a24aa32a4d22e62960889c57444c9fc5df7a051358d2da8e413328004377ccae",
+        ".codex-plugin/plugin.json": "646553981ee223570ad6dcecc0ebdfef507b8985870b1082b3c7fae95111b6b1",
+        "assets/composer-icon.png": "f68ec772aed8ee0df2a250899a308025a3847d6b1c3c902c2ff7cbb2b91219db",
+        "assets/logo.png": "a24aa32a4d22e62960889c57444c9fc5df7a051358d2da8e413328004377ccae",
+        "docs/architecture.md": "2cf61d699f3ffb1bb02dedb7c39e34f9abf0bdafce58c85de462ae5855e23c3e",
+        "docs/publishing.md": "47de8e8ef2be6033a488b6be5768fb9c041607dc0fc2aa7ed7fdf97e429f1428",
+        "docs/usage.md": "708bbbabec2f7c4b75249e2bd57124b87c7f17d96ef2b4f5ede2a0eafc750006",
+        "README.md": "875475d5e24719207f39f25d63ff51e334f55a47d2b46836c1ff88b242a3c8fc",
+        "scripts/adapt_agent_skills_plugins.py": "20dc38186a7882b9d84352c873b063b0a5ea2b7771ee037338338d8d60d74a42",
+        "scripts/test_adapt_agent_skills_plugins.py": "a15e71361420ec662f174b3989f96ead99306abaa8cdb8c85223d373c87c678c",
+        "skills/universal-plugin-installer/SKILL.md": "3b3314f4a76b224f6db0ae3f1a5ee70b5b015d6e6b1a93ceac4bb604adaae3ef"
+      },
+      "skills": [
+        {
+          "sourceSkill": "universal-plugin-installer",
+          "sourceFile": "skills/universal-plugin-installer/SKILL.md",
+          "implementation": "skills/import-plugins/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        }
+      ],
+      "version": "0.1.0"
+    },
+    {
+      "id": "plugins-radar",
+      "sourcePath": "plugins-radar/1.0.3",
+      "role": "preserved reference",
+      "license": "not established; hosted implementation absent",
+      "integration": "independent",
+      "files": {
+        ".app.json": "6c96c5a8b15bfcff66825bef3bd11857294c6358c166ab70e60b2935a64b67b2",
+        "assets/icon.png": "447c94c13481a9881d2b8cc10ea72850c49787bc167a791c4373e375ed66ef10",
+        "assets/logo.png": "447c94c13481a9881d2b8cc10ea72850c49787bc167a791c4373e375ed66ef10",
+        "mcp.json": "c5914d89802eecf089eb67b9b13bcdd5ac1871fb0150193d5a75166b580cd27b",
+        "plugin.json": "02a0720de66629cc9264ee65dd42cbd45cb13cf85631cb775da29f468349084e"
+      },
+      "skills": [
+        {
+          "sourceSkill": "hosted behavior",
+          "implementation": "skills/catalog/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/services*.test.mjs"
+        }
+      ],
+      "version": "1.0.3"
+    },
+    {
+      "id": "plugin-eval",
+      "sourcePath": "plugin-eval/0.1.2",
+      "role": "preserved reference",
+      "license": "MIT declared; full notice absent",
+      "integration": "independent",
+      "files": {
+        ".codex-plugin/plugin.json": "72b434478d5008496d17d43b9b847121f47145f71177540ab47893b1559c5aed",
+        ".gitignore": "d28a5e1bf2e39e6bde3c828b13dc4ca8bb156a570592b65e0e08521ef54b1b8c",
+        "assets/plugin-eval.svg": "380b1c2dfbc55538d7ea0ad1fa86a3aab8e8ccf53d07cbd42f47e9a1a2fad9d5",
+        "fixtures/coverage-samples/coverage-final.json": "81735262592fbeafefd908c33e3df3f5ffb8a5b45e9fbaf6c61f4416f57f5cbe",
+        "fixtures/coverage-samples/coverage.xml": "b9fd119e892d614b3e9492e5e6d76a6bf6eb5194b4ee7ce332139dad3cf3a508",
+        "fixtures/coverage-samples/lcov.info": "000af92b94d7eeff092c06154a746a6faf57b8adffd73cb2e8b9f7aa61f8adcf",
+        "fixtures/metric-pack/emit-pack.js": "b2e94767d6ec8287ba0c67d8e2568b1b0d8ad9603e716c5bb5c6bf74f373ecc6",
+        "fixtures/metric-pack/manifest.json": "6c92da5e3cbaff46968def12c95903ff97adb31d3ee027a58f8bfdc91feaeccc",
+        "fixtures/minimal-plugin/.codex-plugin/plugin.json": "22506549f793aa9ccd189549312101f9bc06ffb61c0837e3a607532124570082",
+        "fixtures/minimal-plugin/assets/minimal.svg": "c67f46b29f1ab3063563fb37867a5c40eb934adc50d2d401732df42c08ed1841",
+        "fixtures/minimal-plugin/skills/minimal-plugin-skill/SKILL.md": "34ec920dc659a7b7a1c0ea0f5412c978c62ad8a6d7a5eb8821f64c869f61c38c",
+        "fixtures/minimal-skill/references/details.md": "f1f14ada3209b5a0d13ea628040750eb44b229c4af835c44a3639c36596f64d8",
+        "fixtures/minimal-skill/SKILL.md": "bd81c3bbb459d3e1bd6dec1d657a49aa6c53a0efd2943200bf81d4cd35f455f4",
+        "fixtures/multi-skill-plugin/.codex-plugin/plugin.json": "c777b2fb736d10c877f1023c2bfe1bbd60b4b50018e7b98d2f0f2455dc860494",
+        "fixtures/multi-skill-plugin/assets/multi.svg": "17b23f803ed656aeda44633a81a550bd47e21ece0ce0388370faebc9d2f666af",
+        "fixtures/multi-skill-plugin/skills/alpha/SKILL.md": "68699be779ee5d3e4a2f247fce6927238ec1d5656f254812725f8700b96c4298",
+        "fixtures/multi-skill-plugin/skills/beta/SKILL.md": "4a0439463565c4923fb6ca63d6ffca745c48215c9187f2f5c01eab71220b445c",
+        "fixtures/observed-usage/responses.jsonl": "dcd1fda00084818e63c598eee7f7ac03ea82820a7b443a985b6035fa98eeae4b",
+        "fixtures/ts-python-sample/src/sample.py": "398bba0dfa3671514d355a447f488e944d14c8e2a868b93695608baf488c245a",
+        "fixtures/ts-python-sample/src/sample.ts": "b75d7dff906987ae317e6613ce76b8a02ecbd6d1c1eb5a92a456db0d168dd829",
+        "fixtures/ts-python-sample/tests/sample.test.ts": "168d055a4c7466d89a789dcd689c41161dc9229a9f59612efa8c41a5358b098c",
+        "fixtures/ts-python-sample/tests/test_sample.py": "a0ddbe38bb1593519d5827924a4cb19090a6d94e88921423cd29e21c79a7642d",
+        "package.json": "92d67bf1492c8b4ddb50dadf579777682e3e10af5a7063d48b6753f4a8ac9f99",
+        "README.md": "a2edf44403872bc74c4cb4233d28c73e5d4e2c24a6703912ae4f3634dd2065a1",
+        "references/benchmark-harness.md": "e54ac0bbe02f8c3774c3cef540aaaa0278603c8c65441c77eb37c27ced6b64f3",
+        "references/chat-first-workflows.md": "97d8c6cfb03a33ff0c0b956e8c3d0e061c6eb5cc0074847621f8b3a8ad7a2746",
+        "references/evaluation-result-schema.md": "d28093191147b51c7a9d3d71715447f458229f0cb378e42b1ea7f6531db20245",
+        "references/metric-pack-manifest.md": "6984750130bcc59468a3f7f941a52610c6b9503cb7a27814567289a8895a82c4",
+        "references/observed-usage.md": "1fc5aadaaf65183b42a18d764dac579bb13cbd5f9dd27d46ea38394440b07783",
+        "references/technical-design.md": "22516fc42598cf2a8f42d96533d0b34d269622018f5681ed055f8ffc99fe5e0d",
+        "scripts/plugin-eval.js": "6013d9b280e3ca76de00f6269937650867d991ae6455fdd8d853b38c2382c563",
+        "skills/evaluate-plugin/agents/openai.yaml": "e41c985aa22339358f3342e052921f98c06e0b7d0f02688256c6246030779c5e",
+        "skills/evaluate-plugin/SKILL.md": "7941c0541ecdf57bae1846a783ddd11eb4bc3235b06a2b3ed5659380cf9b4c14",
+        "skills/evaluate-skill/agents/openai.yaml": "c009da732f4cf3daab6335e14044fd7a7b08f759b749280ec6dfd7ed2a730a8f",
+        "skills/evaluate-skill/SKILL.md": "92697228260f93c79967607822b0d998f68ce742de9440df51426fb71f2d4d64",
+        "skills/improve-skill/agents/openai.yaml": "e3c19d0ade75d2209e3d61c73be2f82096aa100bd6f1e56d5ee0d406131ee09f",
+        "skills/improve-skill/SKILL.md": "9b407623e1c1d64d918d05e6ec6430234f687ff14b28c4f17a693d07d7711d36",
+        "skills/metric-pack-designer/agents/openai.yaml": "0b2a6fd5aee1f711ccb0128329fdd894f0ccf65a25423f50b3f925abec14dcb5",
+        "skills/metric-pack-designer/SKILL.md": "cf1d5677a7308f24f3219b2132912f3d9859451b203f3086f3f87ff0e43c2e56",
+        "skills/plugin-eval/agents/openai.yaml": "dfee403cf88fc819f736de7df54907ab088636423599b5b3421d95b788d72dc4",
+        "skills/plugin-eval/SKILL.md": "07663cf8ef7c66d469d628bbca0de368d0578c8e7c7663a3dbc340d2cf6d772b",
+        "src/cli.js": "b71d954f4ef13e3c8d3bc6f660bd1e695354419d0954046408ac2d2b5c111746",
+        "src/core/analyze.js": "cba4973dfd65c273e647f7b390881378debb56b5216f8031d6153ecd597b0ee3",
+        "src/core/baseline.js": "1826575aa57f699f00a38023924daf3b409838affb873c89cd000c3b9b81c80e",
+        "src/core/benchmark-events.js": "eaa14f4f228edf76d0c66877a3e482a8273d624c48a01725493fdfb815ec7f90",
+        "src/core/benchmark-workspace.js": "ae3a2c8b686cdd6db3d56350629a47e36d83a6818a90ae36f96ef37245ea6d0f",
+        "src/core/benchmark.js": "61d9a840f798976660b75576a1fd24829403d080029f33b7f7d09a13539a9078",
+        "src/core/budget.js": "1bf96bc4f743a6822720a934c5a84180a05f2d3a7f5c929ef3949ee87c6165bb",
+        "src/core/compare.js": "c5104e9c0d0a57b1a47b327cb8351eca42f3feb44703591702c16d3d1a30f63a",
+        "src/core/improvement-brief.js": "3a7afbb6ed846470012fac1a656bae5ce690c97980a43db3c6681871fceb8d96",
+        "src/core/measurement-plan.js": "40dea776a26249dad0485af0b4b99093280cf2d8f03c83409d925267d69ba3e5",
+        "src/core/metric-packs.js": "06722780614e0bafcd84d1be128b81b47df2133b3f63f1820c6d5392060fad3b",
+        "src/core/observed-usage.js": "e4140122bfb68d8a3aa965f2a896fb4aec980eb50908e429f9ae44588c24dfc3",
+        "src/core/presentation.js": "274beb483bee0c9960c0fa22b61748917b445d1417f9bfb5d2bea74860a9c6de",
+        "src/core/schema.js": "dbafa3695bcd5843d8d8b29f506493b6936337989aa17d75c916512592af00c6",
+        "src/core/scoring.js": "b604b95df63392ce09da9d0764c25bd1274d96ea10295aa0c6c4bf0bb6f0c827",
+        "src/core/target.js": "35020e8232ed0e0508794de459064fe4a6edb2558065d6f4a8ca4a0f153af0cb",
+        "src/core/workflow-guide.js": "50a4e259eea67936041c729c3d6584472d429ae0ac9a358502822610ff8e74b1",
+        "src/evaluators/code.js": "33b66994a78a8bd9667b75792c538b82cc2968d053c7409bcc7adb07f11509bd",
+        "src/evaluators/coverage.js": "c07cd3d8691b37af1333f52d8501e1aef067a78b76f59cf22c381eeea87dbcd5",
+        "src/evaluators/plugin.js": "52acc1fdc7685f8fb10dca30b746ac3a4faf18ae7e421abbabf36fbd71d466b5",
+        "src/evaluators/python.js": "9bc1e367711430e258bed376e9ad472a0b9ae90125cbea1c5df27f21831ba3b0",
+        "src/evaluators/skill.js": "2900c16f0136c66bc713fa3dead3a5ca8f2810d628905c35834d25cd31785f19",
+        "src/evaluators/typescript.js": "7554a0b564f46023b93b5ec9a7bc2d30c3f1488e420ab75dee26080d23af4bd3",
+        "src/index.js": "2abde4b4d22c803a8c2bc57a26d54fd115214f37180f6c560c17ec370c1a36d9",
+        "src/lib/files.js": "624bad2cc090697160bee172bacb3715a7f8cc8843247a585e8b47673d2dec67",
+        "src/lib/frontmatter.js": "537c0adb94499f1bf91ecbb720fe9fe9b49c1ad08ce2c9bd5e823d7d1a67a611",
+        "src/lib/tokens.js": "2180d310200b8f139046b3a59deb4621e4617f9d4459bf74afd4ef34bd2eb1e3",
+        "src/renderers/html.js": "538cd6149a6699398f093769841ac3681bc9659a53936d35b6c84306bfb57c02",
+        "src/renderers/index.js": "272c5e199972f5c38a415ba25a0ea8b5c69e88574d0a8cd0f9b474176763bbbe",
+        "src/renderers/markdown.js": "5d146b3f6e1fd891ea7d7c40b90a96636098e1c61ce4af2ae9976ea37d2fa18a",
+        "tests/plugin-eval.test.js": "f101cce8d62a7c5b74ded546bc40cfb9337c7827477623b84a2b538507150c9d"
+      },
+      "skills": [
+        {
+          "sourceSkill": "evaluate-plugin",
+          "sourceFile": "skills/evaluate-plugin/SKILL.md",
+          "implementation": "skills/plugin-eval/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/eval*.test.mjs"
+        },
+        {
+          "sourceSkill": "evaluate-skill",
+          "sourceFile": "skills/evaluate-skill/SKILL.md",
+          "implementation": "skills/skill-eval/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/eval*.test.mjs"
+        },
+        {
+          "sourceSkill": "improve-skill",
+          "sourceFile": "skills/improve-skill/SKILL.md",
+          "implementation": "skills/improve-skill/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/eval*.test.mjs"
+        },
+        {
+          "sourceSkill": "metric-pack-designer",
+          "sourceFile": "skills/metric-pack-designer/SKILL.md",
+          "implementation": "skills/metric-pack/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/eval*.test.mjs"
+        },
+        {
+          "sourceSkill": "plugin-eval",
+          "sourceFile": "skills/plugin-eval/SKILL.md",
+          "implementation": "skills/plugin-eval/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/eval*.test.mjs"
+        }
+      ],
+      "version": "0.1.2"
+    },
+    {
+      "id": "plugin-creator-plus",
+      "sourcePath": "plugin-creator-plus/0.1.1",
+      "role": "preserved reference",
+      "license": "restricted redistribution",
+      "integration": "independent",
+      "files": {
+        ".codex-plugin/assets/composer-icon.png": "c12374a21e9a549f8c672ab4bcc4c47be8c10c886e5615c5cac4901aa04e25c4",
+        ".codex-plugin/assets/logo.png": "6d4044cc633498c5c06419d80ea93ba8722407d637071484a93517da6a1ba9b5",
+        ".codex-plugin/plugin.json": "eb246e9649410396fb01bcee47da52c999cbbab4231ae79bcb83a77e6537b17f",
+        "assets/icon.png": "c12374a21e9a549f8c672ab4bcc4c47be8c10c886e5615c5cac4901aa04e25c4",
+        "assets/logo.png": "6d4044cc633498c5c06419d80ea93ba8722407d637071484a93517da6a1ba9b5",
+        "docs/privacy.md": "464c6fb5d598fe14e3c3604ddefed01c268822c8a42da52e3700560df0d2ae3a",
+        "docs/terms.md": "7e747eb2415ffaf667cdb55b87b351f8e205f4a628994ebafa3ad3b1d2a9ebc3",
+        "LICENSE": "09c599556546fdad1173387569a4900a554ebfc56123e89f2d23fcdce2519e29",
+        "skills/plugin-creator-plus/references/publishing.md": "3f020c5d8e01fab780d0c18cb9785f62f19e6a11ceef3c9ee18c66d41a6ea9c0",
+        "skills/plugin-creator-plus/scripts/release.py": "2404faf00bdec7f314b0a967ff0735ad67bf07f79b2a11ca1179e723180c1369",
+        "skills/plugin-creator-plus/SKILL.md": "0332354b7b35a701b5b7c4722bf5c639fb79389083d0abf8deacbd7ec788d41d"
+      },
+      "skills": [
+        {
+          "sourceSkill": "plugin-creator-plus",
+          "sourceFile": "skills/plugin-creator-plus/SKILL.md",
+          "implementation": "skills/release-workflow/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        }
+      ],
+      "version": "0.1.1"
+    },
+    {
+      "id": "plugin-creator",
+      "sourcePath": "plugin-creator/0.1.28",
+      "role": "preserved reference",
+      "license": "Proprietary",
+      "integration": "independent",
+      "files": {
+        ".app.json": "36c7bf7aed614ef5e3d9f38fb5d981782db7498e0ed2142ac0f30a81fb5ba5ec",
+        ".codex-plugin/plugin.json": "4beecc79ded3949e712347fc1280fe13e4152321c83cd414a0f1eb593913f35d",
+        "assets/composer-icon.png": "ad3d5b05b0b004a7e4ce1de5b4648650f124afefc5ef23441ac69c427d52574c",
+        "assets/logo.png": "4ba3224335d123d5f53d9aab895a96b87f0d717cd51da22fb8f98a9a3b623d79",
+        "assets/openai-platform.png": "776310bcb0f0f191c616f31a13fcb8de8cc94d920c77625c271b3a034199ac43",
+        "assets/plugin-creator-icon.png": "ad3d5b05b0b004a7e4ce1de5b4648650f124afefc5ef23441ac69c427d52574c",
+        "assets/plugin-creator.png": "4ba3224335d123d5f53d9aab895a96b87f0d717cd51da22fb8f98a9a3b623d79",
+        "plugin.json": "97929553e2aafe1e2c050cdc881e74a119d31916b2e8f97afe9dc1057a552bac",
+        "skills/create-plugin/assets/starter-plugin/plugin.json": "a363e514a3fd950bc13cc518381c6ac92d31328f4aaa4bd0c799c056f0a09ee4",
+        "skills/create-plugin/assets/starter-plugin/README.md": "f200c6abeff607b6f854d34f89fec15c5d12cb2260aea15351c0c00392edf258",
+        "skills/create-plugin/assets/starter-plugin/skills/starter-workflow/SKILL.md": "b69d712258ce8a88203e911fc762bbc376da38f34851f2fc18ee978cfe0fc32f",
+        "skills/create-plugin/references/local-plugins.md": "316e068c2be27d42dfb6f53614330c705ccce7b8f767f501533c8b3f162edc85",
+        "skills/create-plugin/references/plugin-packages.md": "4e35921e01795ac6a106249d5a7950f9fbc2dbfe20993cc97092d914e824b4d8",
+        "skills/create-plugin/references/server-access.md": "3a7a61da4cdfcd39ac20b1403a94b78f16e8181c4423cf24cd2c99b37979c13c",
+        "skills/create-plugin/references/sites-mcp.md": "ba900c99da4c87efe311f62cde50441e2c4da9a7aa0ec6be4f88b2a0388eb098",
+        "skills/create-plugin/references/zip-requirements.md": "7963a980c09a87c8782691ea38cc3d29c6e0ae9934ce8b10312f63a90a614f7e",
+        "skills/create-plugin/SKILL.md": "38007567f009bcf9356bcc90312b9f47a3f0e48f02e5cebd4679d9ae7d6e2454",
+        "skills/prepare-plugin-submission/references/listing.md": "08115525491fd2a6c4a5530a25578051a4724b59a4376ab12f6f7e9c8b9996c9",
+        "skills/prepare-plugin-submission/references/review-materials.md": "637de2f86da9395db6f027162698b89ab3fadc7458eb5bb13692ea3bd81ca4b4",
+        "skills/prepare-plugin-submission/references/submission-lifecycle.md": "a2712bb9a3836594699edcea50e5b28aa0c727daab40091fed8a493869c17421",
+        "skills/prepare-plugin-submission/SKILL.md": "a393e017b0dcbd1446e76a4f292551015a8b504c4c89513b281a5e32da394576",
+        "skills/update-plugin/references/account-updates.md": "c8ec9b494ac4ced5d49870e9a6bc307b0b2a450f80968f12c18179138d4a8bb1",
+        "skills/update-plugin/references/legacy-manifest-migration.md": "dabf08d8467562b0e8f7abb095158d03b1081628399c9b1cb97499b4e61f6d84",
+        "skills/update-plugin/SKILL.md": "21ed40e828dd60584f6c2c55b2ceada1a6e5a9a15646edb4220ee4ce4558d527"
+      },
+      "skills": [
+        {
+          "sourceSkill": "create-plugin",
+          "sourceFile": "skills/create-plugin/SKILL.md",
+          "implementation": "skills/create-plugin/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "prepare-plugin-submission",
+          "sourceFile": "skills/prepare-plugin-submission/SKILL.md",
+          "implementation": "skills/release-workflow/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        },
+        {
+          "sourceSkill": "update-plugin",
+          "sourceFile": "skills/update-plugin/SKILL.md",
+          "implementation": "skills/update-plugin/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/conversion*.test.mjs"
+        }
+      ],
+      "version": "0.1.28"
+    },
+    {
+      "id": "plugin-management",
+      "sourcePath": "plugin-management/0.1.0",
+      "role": "preserved reference",
+      "license": "Proprietary",
+      "integration": "independent",
+      "files": {
+        ".app.json": "8392e042417a3de2db3a9f2e2385f4bd80f462c98ed2d8a6ef60dff002e2f06c",
+        ".codex-plugin/plugin.json": "5deb3b2f943fff03a928e1faed2b040bad7dabcf71c11f183fc67dcc0793e3c3",
+        "assets/plugin-management.svg": "6776a53774519dab5c8e338a6e9fa058932e0ef4dfcc053735f10683081d30ef",
+        "skills/plugin-management/SKILL.md": "653841cc21205269f08b0ce135891e1518dac616a766bcfb0b57d788d3f68b10"
+      },
+      "skills": [
+        {
+          "sourceSkill": "plugin-management",
+          "sourceFile": "skills/plugin-management/SKILL.md",
+          "implementation": "skills/local-management/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/services*.test.mjs"
+        }
+      ],
+      "version": "0.1.0"
+    },
+    {
+      "id": "find-skills",
+      "sourcePath": "local-user-skills/find-skills",
+      "role": "preserved reference",
+      "license": "not established",
+      "integration": "independent",
+      "files": {
+        "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
+      },
+      "skills": [
+        {
+          "sourceSkill": "find-skills",
+          "sourceFile": "SKILL.md",
+          "implementation": "skills/catalog/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/services*.test.mjs"
+        }
+      ],
+      "version": "local-unversioned"
+    },
+    {
+      "id": "zilvereyes-plugin-autopilot",
+      "sourcePath": "candidates/zilvereyes-plugin-autopilot",
+      "role": "preserved reference",
+      "license": "MIT",
+      "integration": "adapt",
+      "files": {
+        ".agents/plugins/marketplace.json": "349542f2d4776f8ce939065e0da4d0b25e4b6482fca68457bd979f1b92cc65b3",
+        ".codex-plugin/plugin.json": "ebf70d9ec9bf368002cee6da16d361b0ccebb8c72a3588a4b7d33f33c007ea27",
+        ".github/workflows/action-ci.yml": "7744034455ebe11bc1cdf49b4a1e2a78d0372a5649123d43b541014c54153b74",
+        ".github/workflows/anti-slop.yml": "2150d8b624720d49c8383544103e94de63e477133d966a9d765156097a012a94",
+        ".github/workflows/ci.yml": "a6babbcf24dde2b90997027f47ea4350f3d6a8e55428f625f3e555df97e37d96",
+        ".github/workflows/release.yml": "5b20ace1d5b3a36a87ca97b1d4266ca39e1c192633ee375a7b9d5c4d8a0d52f6",
+        ".gitignore": "65c8067438e918f0e2a14d8743855b20d6215c689749121e4723988b6d63f337",
+        ".skills.json": "bd762872077d3afc21ebd8dcce94f8d36df17f14a1337178df9c9b57b7b3ffb8",
+        "action.yml": "38bb94f8f3e606124df651912b0bbef4c5aab51de17c3f50c42a4c23b4273bae",
+        "AGENTS.md": "6ef460813bd368e46125cdef6e86b3909002508d91e61d570956180d1a956f84",
+        "assets/icon.svg": "31ca774c70b5c0bdd20e87d61feeec4c8f0681bc5b80bdbf8a58cd897221368a",
+        "assets/logo-dark.svg": "7ed8d35b5f83a460ba27f075e7e1ef1e65f2e7c669b6c443ca4d1a00d13fd868",
+        "assets/logo-light.svg": "5d1d5fd3b469305cd2e02c5c79ff58a76ee870d6bd626b36693f5a67d2605197",
+        "assets/mark.svg": "22ed85cc9132d2c4ed68bc736ea8ea79be6f9549ffbd6dbdfc00fbfe39eea10d",
+        "CONTRIBUTING.md": "73f06a77762b7590be20907f6058a24435c625233dbb5d9c83ce7ba80dcb31ea",
+        "docs/brand-system.md": "8b66d157db2bd983e7de2e2eed9a9dd37714d1eeff03e35a4be505ab784200ab",
+        "docs/omni-skill-profile.md": "85527172367c63dce22cbaaefa799333b9dd311a0b17141f7e80075d6826b335",
+        "docs/superpowers/plans/2026-08-09-self-hosting-plugin.md": "727c171d9979b33c3eb01c2d070086cf1a696cbcdbd5e89b352c0cc5df82f39f",
+        "docs/superpowers/plans/2026-08-13-plugin-contract-refresh.md": "c63cd8598ad4e45d69909dd8b5c4db808dc0517a0052e64d36c0388e34041594",
+        "docs/superpowers/specs/2026-08-09-self-hosting-plugin-design.md": "eec3981c0ea6df68ad07e52001973146ff9d79606c4020041457a1fbc6263f65",
+        "docs/superpowers/specs/2026-08-13-plugin-contract-refresh-design.md": "eb74eca164c75a249490af43d896c80c02d9f5319cc19f627b887d14087be9fa",
+        "init.sh": "3dee1e97416f7bda4ae02c5f668bcfb8eaf769d5fc3d06cc39a50369f74b975b",
+        "install.sh": "d5c92d89f1aedbdbc962d52815b14eac46d8c4735cf970db47b7780ac831fdd7",
+        "LICENSE": "e5901e7d78a8ac8ad41f07ad33c321c1be9bec96d2db7e585f062da4d07d5dd8",
+        "llms.txt": "639e60625fd8f9236494cb55f4f40493a80e23d3d1a1647de3b5a21b0dde73d4",
+        "package.json": "fcb28b87369753337d1049a0adfecaca447e6cc6a181b7128059b6aff1696fcf",
+        "plugin.json": "ebf70d9ec9bf368002cee6da16d361b0ccebb8c72a3588a4b7d33f33c007ea27",
+        "PRIVACY.md": "7ad21def6d082ba37ac7dbffbcc245fc69faa2fad37adbd72a19a22dfee90ff9",
+        "PROVENANCE.json": "61dfc5fa97eb9f3071e3d6c76c2b88c223cfe56cfbff1c9530f0a42fd744239f",
+        "README.md": "6ecf986ec4ca0086649aa295f2418621987b86c473f6040b00cf11184b98893e",
+        "scripts/action_entrypoint.py": "14a56b5e9645b56705f43c3e44f986cf3da55c93ddc204fe91f3da821801c24c",
+        "scripts/build_release.py": "e3f175a00ad0c4b6f3f1b894668d20c50cc461c7333f65822ffa00bbdc5b900c",
+        "scripts/self_check.py": "a46aaabb801afed33ab1db21032d981a117788941955a64cda351c06e6f5f764",
+        "SECURITY.md": "babeb7f55217d3066afd7fce6ee532b2baaf0b24c73f5edad4edd5660d31afda",
+        "skills/zilvereyes-agentic-repo-discovery/SKILL.md": "938ae0b5fba7903ff5d8b4451837c674cd2597adf9c70a24880aaa70b5ae03f4",
+        "skills/zilvereyes-brand-designer/SKILL.md": "94efd258138d8b9dd81aae78d99397ed0f05dfd1cc0982d4be7c56669d8a9ec9",
+        "skills/zilvereyes-experience-architect/SKILL.md": "118b299208b4613c6f1e36cfd4889a19f4bae92992a435b3e5a7c1250c8f3784",
+        "skills/zilvereyes-host-workspace-operator/agents/openai.yaml": "b2cce637eb53c67af71b68586fc1ed2266aa795275e2c9b6e8d5ce7bb37b4dc7",
+        "skills/zilvereyes-host-workspace-operator/SKILL.md": "49f98b90f377de51a9dea720c473cf473a908edc9ab184df26d11ef0fb29ad06",
+        "skills/zilvereyes-listing-writer/SKILL.md": "981ba588221b5670ab7412ea7780e4a28083fc4cab25d1590b54130cb96377be",
+        "skills/zilvereyes-plugin-autopilot/agents/openai.yaml": "b74085a770b9a5f45390260a961cf6db21232ac88d7b5b9aeba3673333d9860e",
+        "skills/zilvereyes-plugin-autopilot/references/architectures.md": "5d366bf3ff53b6557e266f3f05c3714cb824cf66c67d04a8b0d4f4978124be7f",
+        "skills/zilvereyes-plugin-autopilot/references/branding-and-listing.md": "0b5c916ea22747ecda97aa4891b05f5304cd87b5bc156f31959d720c148dbf75",
+        "skills/zilvereyes-plugin-autopilot/references/conformance-matrix.md": "06567405fa0091a08e0f13ab0042c77166e7b8090617f563af412741301487be",
+        "skills/zilvereyes-plugin-autopilot/references/conversion-pipeline.md": "b245b84d64906596b92149ae9a430afb97596549fb724ee3f49d0f746ce9b8d8",
+        "skills/zilvereyes-plugin-autopilot/references/host-python-sandbox.md": "8d3d74d056127b322cea438e9a99f725dd6348196ca865ec4111e9c16d7fcecc",
+        "skills/zilvereyes-plugin-autopilot/references/host-workspace-capabilities.md": "d4b9c7d6984b3c3ff60077f304bca64f11ed716508cb469f551300500bdf30e4",
+        "skills/zilvereyes-plugin-autopilot/references/official-contract.md": "78c4d30448b7cdea1b0b36b373ef8068c73626093c114922a5d1e5744ba80364",
+        "skills/zilvereyes-plugin-autopilot/references/release-playbook.md": "fe517c8b30ae652de8bf8ef6a4f39253df158c8d4e52b27ad6d4c63c7c0ad49e",
+        "skills/zilvereyes-plugin-autopilot/references/submission-checklist.md": "5ae87968adce5e514338838be2445e6a3e11a1343d5fbf575cac4957e972605b",
+        "skills/zilvereyes-plugin-autopilot/references/submission-errors.md": "c891ba7d85328ef73cc3f869effff71161484d3febf8d99d056ba2ee2b3ae463",
+        "skills/zilvereyes-plugin-autopilot/scripts/analyze_repo.py": "ce611beb41cb190dfe05962ebe398f798c7d74648827174383749ddb51113353",
+        "skills/zilvereyes-plugin-autopilot/scripts/build_directory_pack.py": "ee0e516d58dde9290fcfdeae6d80e5ac2e7efceb849e25a02bfd94f89f1f760f",
+        "skills/zilvereyes-plugin-autopilot/scripts/install_host_workspace_skill.py": "50a56e566e7cb6b19f97b50783a1abf53b801e12bf82bb900c0b12d0dfcc203e",
+        "skills/zilvereyes-plugin-autopilot/scripts/package_plugin.py": "17e7d0f9adf5e056eb2958bed60efb13d28968f4f3d19adedb4eed91f897b23e",
+        "skills/zilvereyes-plugin-autopilot/scripts/validate_plugin.py": "ffee4677726142acfa1dd51ca8809e42fa65f7492af1d94bdc39251aecd6b3be",
+        "skills/zilvereyes-plugin-autopilot/scripts/windows_directory.py": "e315ad9b735f00c4a3ace78ac891a3522e991b6ad458812e151710a83d4af6fa",
+        "skills/zilvereyes-plugin-autopilot/SKILL.md": "9fe558490e684db0702323c6c0a3fe3b4e16db2408d95dcb8e9ebac83f859ae0",
+        "skills/zilvereyes-sandbox-python-executor/agents/openai.yaml": "449aae8bba29bd238a67898e413b8ac856b62299d4602e25e479dca3fe5b4f07",
+        "skills/zilvereyes-sandbox-python-executor/SKILL.md": "13eee080ba9be5c8703300b36301b084c09b95d993bd191c6680829f94ea9bca",
+        "skills/zilvereyes-submission-pack-builder/SKILL.md": "bf9d44e32421c5769f1e7f4d809a54c929104736731dace9df7963f5a9dc700d",
+        "skills/zilvereyes-workflow-compiler/SKILL.md": "0b24f6ddf96f4de9641e8866c85b235886b920bf088084f4b6c7a2f38bda332c",
+        "submission/listing.json": "a1cae70f0a0121f5bd21289a6e3631f3eebd6106ab2f01aa34317a155bab5475",
+        "submission/reviewer-packet.json": "e91c404b00f512e4c38347bc4e049b827cb0f1379d2d2091b2c9b1a8b8383da7",
+        "SUPPORT.md": "22c92fb419496081a920c9cce110b99fe152dfdbeddfd229e1c65ba5ed8c712b",
+        "TERMS.md": "d238b93f00829846e0e12ec676fd15b14da444c1f7d9cfa3f2858b51e279f19a",
+        "test-results.log": "d99e84e4ee397200dfb80519c0004e4a7474777ffb248293c1e23a9c69a88948",
+        "tests/test_distribution_pack.py": "6972564e0ad6a020e07514a57f502f8c1257f1bf6b1c3a077cf23baddf260ea7",
+        "tests/test_github_action.py": "a86586be85f7f1c9f88c5eabb4ae8677b48093b2e6018ac4e17ec67961f52069",
+        "tests/test_host_workspace_skill.py": "99c12de2bb9ee1d8e1e186693012635998127590d99b5b370a04cb6b84dcc911",
+        "tests/test_plugin_contract.py": "76e3009fbfe09fc85226702da09f48237c8931a32b45621e882c27bf39451d0c",
+        "tests/test_repo_analyzer.py": "a56d96158ffc3214723fc01af324def45eae441b3f7f906aada0e0b37b7602a2",
+        "tests/test_sandbox_python_skill.py": "cda71189450ef66b4dbe887e3ddf20f838d94fa8d4507108425ae22732349c57",
+        "tests/test_self_hosting.py": "c5eabe239b8bfb033e4b280a4765970919ed121045c3c3648bef30327541740d",
+        "tests/test_skill_frontmatter_yaml.py": "8532eea911fdeec3d9d1e1f65d316fca8035522f04d51ba556ea8493008bc608",
+        "tests/test_skill_surface.py": "e1946653d7097eddcd93fe506884d15d245b0055c087649b83c38d35fe954bfb",
+        "tests/test_validator_regressions.py": "a3dfd5e4dda291931408f658b80210924afdf6d31ab25dc672b918e59fb9d188",
+        "tests/test_windows_directory.py": "6c74b887d2a6cbf02506dc031f2b0dddd28af6155e06fecf3819816d26ea1c3d",
+        "tests/test_workflows.py": "925cb05c960203a9b3b4536c9b95f927b8bb8d5855a6abba659d7473f78851bc",
+        "UPSTREAM-README.md": "52d31324e4fade611cb172849fcf592c2381c2ccccf0b6ff267d10178519c646",
+        "ZILVEREYES-POLICY.md": "c364838f7996cdf8103700370ba5ba4d2b30aa7f5ab0716066e0dc52ff214697"
+      },
+      "skills": [
+        {
+          "sourceSkill": "zilvereyes-agentic-repo-discovery",
+          "sourceFile": "skills/zilvereyes-agentic-repo-discovery/SKILL.md",
+          "implementation": "skills/repo-discovery/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "zilvereyes-brand-designer",
+          "sourceFile": "skills/zilvereyes-brand-designer/SKILL.md",
+          "implementation": "skills/brand-designer/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "zilvereyes-experience-architect",
+          "sourceFile": "skills/zilvereyes-experience-architect/SKILL.md",
+          "implementation": "skills/experience-architect/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "zilvereyes-host-workspace-operator",
+          "sourceFile": "skills/zilvereyes-host-workspace-operator/SKILL.md",
+          "implementation": "skills/workspace-operator/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "zilvereyes-listing-writer",
+          "sourceFile": "skills/zilvereyes-listing-writer/SKILL.md",
+          "implementation": "skills/listing-writer/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "zilvereyes-plugin-autopilot",
+          "sourceFile": "skills/zilvereyes-plugin-autopilot/SKILL.md",
+          "implementation": "skills/plugin-autopilot/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "zilvereyes-sandbox-python-executor",
+          "sourceFile": "skills/zilvereyes-sandbox-python-executor/SKILL.md",
+          "implementation": "skills/python-executor/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "zilvereyes-submission-pack-builder",
+          "sourceFile": "skills/zilvereyes-submission-pack-builder/SKILL.md",
+          "implementation": "skills/submission-builder/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        },
+        {
+          "sourceSkill": "zilvereyes-workflow-compiler",
+          "sourceFile": "skills/zilvereyes-workflow-compiler/SKILL.md",
+          "implementation": "skills/workflow-compiler/SKILL.md",
+          "mode": "adapted-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        }
+      ],
+      "version": "0.7.0+zilvereyes.1"
+    },
+    {
+      "id": "modern-web-guidance",
+      "version": "2026_10_16-6654652b",
+      "sourcePath": "local-user-skills/modern-web-guidance",
+      "role": "preserved research reference",
+      "license": "not established",
+      "integration": "independent",
+      "files": {
+        "SKILL.md": "1dd2c660dcf13191954dfe562c4f63d82a5a6c84198f5725b70965be51ea9a41",
+        "guides/accessibility/accessibility.md": "0d923486d02da0cdad5675a28fc0f1af3a6ff7e04acc23fbe0b50d445dde3cef",
+        "guides/accessibility/accessible-error-announcement.md": "6ad48387111aeae1e4b48a3f5efab707bc10d215ec8e69cae7c49e6d79a535f6",
+        "guides/accessibility/accessible-generated-content.md": "dd6fa96caf457c90b90e7d26b0105920c375e4ca20451c7984969b36aafa88b8",
+        "guides/accessibility/respect-os-text-scale.md": "6f07e66f5cae93ad5c9bd8ec4e81d992fbd6030aed1f217228bfa3f629ec8966",
+        "guides/built-in-ai/language-detection.md": "92c6b2f2273aaafa6c9dd22ca12bcda1a6952cefadf26c561f7529d471ee4e55",
+        "guides/built-in-ai/language-model.md": "0b2613c58c37f62e691ba7ee80477fcbd8923f7ec419070e104b150d90366741",
+        "guides/built-in-ai/prompt-api.md": "0b2613c58c37f62e691ba7ee80477fcbd8923f7ec419070e104b150d90366741",
+        "guides/built-in-ai/summarizer.md": "1135a7f3c9197b8489889e4da536669918170ca9fae9a434ad854469eb851284",
+        "guides/built-in-ai/translator.md": "f4eab3c81640405e5654bfccad97ecb09564fd3697b09d907a50282c0bb91e7e",
+        "guides/css/animate-to-intrinsic-sizes.md": "757d2e1fdc43afdb67ac019a8cdd5e47bbf75c3a4f166bb7a1c06cc53155be90",
+        "guides/css/atrule-support-conditionals.md": "ad51dc5b4e9a6c0318085b6e5aeb1b85bdb59dd72d07cb9a5711ce674309e79f",
+        "guides/css/calculate-with-intrinsic-sizes.md": "b248ea1f1c0e3a4b187d0d23209eb8d7663bcac832bccfdfd0d26d4b189da06a",
+        "guides/css/child-state-based-styling.md": "20ada08feb01af2c23605a3cf6b2ddccf10a1e1dace301135fdd577a76314967",
+        "guides/css/content-based-styling.md": "60333dadda47d7ba56d7bb9d3a35802efab862a2841b1e9dcf213d915aeacee2",
+        "guides/css/css-layout.md": "2c9db542a29bb09a52387ba773bb7889de77b216942e3aa212b3b3573208a811",
+        "guides/css/css.md": "8085a4c609eaa1ad5aadd40b3e6a7c75d7309a51d88df756e28f3cb3074d59a8",
+        "guides/css/design-token-reactivity.md": "f5642fac6ab10654f76f1b107261899f190e47c7a9c39c88d7a4ed27718dbe10",
+        "guides/css/dynamic-sibling-styling.md": "1e9ef2b3a6244dfe77b1aacea05451b1365827cf909c1e3d73ebdb1807c1d349",
+        "guides/css/fluid-scaling.md": "307187926391477dbc5b13f396b82c0f6e715e3d0f9a599e42662d07ca610c0f",
+        "guides/css/individual-transform-properties.md": "9ca7d8260b7a7a82db84bbcb085f525d4f902496194772d73a1578c15c25d1fc",
+        "guides/css/overflow-clipping-control.md": "dd27a1f503c4a01fe1f600efa419ff1e6943fad6d0ae191a9137a0f705f06e00",
+        "guides/css/reduce-style-repetition.md": "3834dd8c565263da42dad09a2c71a30f0d764b7c40c0601d27e4ae3b5b5157d8",
+        "guides/css/responsive-design.md": "72170bffc6e61d45247b62757e0cc5a9386c8df3184088174f578a34717e2bec",
+        "guides/css/selector-atrule-combinations.md": "9664abc7f4cc3e8f3195da540935dec1f6420096144b38c6d1740feba56af67d",
+        "guides/css/size-aware-styling.md": "33ff299de1d488b437d28769cb6b425d53e3c9fc157fd15c5b47d544538fe8ea",
+        "guides/css/style-parent-with-has.md": "df7496af655c7865e660720d92e04516619e00b1d6c286797feee5912841fce3",
+        "guides/css/usage-aware-component-variations.md": "005b8b6404cd46483123eb5af9d5b302d0051b629a1550a25aeaf7ab417b1d7d",
+        "guides/forms/animated-select-picker.md": "464edc32f165b795fd21cca29afc8c80426e5e2b0dec0282432d3fe74755dd95",
+        "guides/forms/autofill-address-form.md": "aecd548a84b5b10dcff37a88325e08f1c2a8bc503a5a3852b2a4b996d87e87d0",
+        "guides/forms/autofill-highlight-inputs.md": "7742849f4d2a3ead4e9408e02e0a41a435642ead25c5c2543e3d67d185412223",
+        "guides/forms/autofill-payment-form.md": "5a7340130718267b7d1f8669ac4240d3ef7dbaceb497437c5213934f8a7ddf22",
+        "guides/forms/autofill-sign-in-form.md": "33a627b823e494049d3fa447ee6009886fd77d640bf93a241205e2d7cfcf78f3",
+        "guides/forms/autofill-sign-up-form.md": "6db58f3059ba4f5cbcb0c9f8ea6dea1b69337de9d03fbc4a0a7dd0b593e5e172",
+        "guides/forms/brand-consistent-forms.md": "f7721c18f5b7ec2c8be3c9fd8801206f2c45287e5cd223afdd76c21d0a7aa450",
+        "guides/forms/branded-select-styling.md": "4e804f7315b937056c12638fd07b199f588b3ac7dc256d7994e5fe08dee234ab",
+        "guides/forms/custom-select-picker-layouts.md": "abbf02af25ecf1f11615727e485b57ccf23a09b1f0439d2576dcc88de9fb6f26",
+        "guides/forms/form-fields-automatically-fit-contents.md": "69df86adcddc64cdc030f03bb7b3cebbcc4c28a958dcb0855b14410315a509d7",
+        "guides/forms/forms.md": "53a7d26175cf55730471c1e59785dd7a76695f7bff4db72ebf62ea20c93c0df6",
+        "guides/forms/ime-safe-enter-submit.md": "8b8ab1fbbc571af1bec4a029fead8034215ec2b6f2340451f4d47ff9a3a85867",
+        "guides/forms/required-field-feedback.md": "840ddc5adc24602850e2e937945d53d98950dcb4632117541a165db9cfebec44",
+        "guides/forms/rich-media-picker.md": "0b7b1b05359ec6e7051c4713a05afffdcf674bd0af22512dbca89312567eaa89",
+        "guides/forms/select-menu-interaction.md": "cf239856a0211c9da4c4a470dd75242eefa118066cf593f408ef30df8860193b",
+        "guides/forms/slider.md": "ab38795f89ed3ffc8589b200c29120d6242dc042250571defec785ce9f5ce0a9",
+        "guides/forms/sms-otp-form.md": "a16672cf092f9a3a041e5c7b5d15e8bb9c91e43f2b7d3d1a634a0758bb56e3c0",
+        "guides/forms/switch.md": "f030da3388d228b2d373c477fd9146d9f86e230c3b269664cd1ddf41fd988724",
+        "guides/forms/validate-input-after-interaction.md": "f64b5202075e6019bfcc5eda327860868bc09df7787629c0b7ab97376b1dfb54",
+        "guides/html/accessible-web-components.md": "5bbe09d74f0a97fd2da43670809f2ec5fa2a58f5234a46166cca5dac14eba52b",
+        "guides/html/custom-elements.md": "ee3d9f18066f096d8ee184a1253eed5d0d5119822d458be9121fa15aa4194642",
+        "guides/html/form-associated-custom-elements.md": "7903c46d31f002ed394f52e68a62d5dbce015afd0cd5ef72d0aa2b42ad0fcce7",
+        "guides/html/html.md": "8836ff522fa63750138e0232b7ff64d45964f926cd3ec75a4631f9668a373595",
+        "guides/html/prerendering-custom-elements.md": "0b94f6feac8877e7e230e4dcfc8dc922a969336ea0f83390019dbb4cbd9835c0",
+        "guides/html/shadow-dom.md": "3c00c419a6eb71e30200d00a5d8b8377037c89617adebd818f15c81abd26c60b",
+        "guides/html/styling-web-components.md": "b5f7c0ef55f272ff2bf835cfb91a3409445c2c09e5cce06f023cab136cf6f01d",
+        "guides/html/web-components.md": "5a5b02777ffe85e4790f77dece18910100b6834f5f64dd2cb21593f74640b1fc",
+        "guides/js/calculate-event-differentials.md": "26ac1cf46efcb1e376f243a245e99f34be9d1cc9b46284df19786c21aaef41b2",
+        "guides/js/capture-location-agnostic-data.md": "c7914a8d6c18b68bb2a903239851f715aadf95ed2233d9cb5a08d666483555d4",
+        "guides/js/coordinate-global-events.md": "e71c8c77838fcc46248c6e42b2553b3682d2056baf6e937dd671110c406ee098",
+        "guides/js/format-human-readable-durations.md": "06cb83f8b85b5503bed2f4ac9aecdf162d3e09a867111141c3f486570572b518",
+        "guides/js/manage-recurring-intervals.md": "9390f8a01a8e64f35a5e9ba286c4ebc9dcf2f36ddd95e0c27641f00e19e5eb8e",
+        "guides/js/model-partial-time-concepts.md": "c9ec4507f89b3ca8e4e84fe9bbfceafec1baf547e0c4b0b9c6fdf23ecde9716c",
+        "guides/js/sequence-distributed-events.md": "8c1a4fba8baa34790c7250983a6346e5a83411dcec5ef877d721105700e4d0d8",
+        "guides/js/stabilize-reactive-state.md": "68c3bb9e8e06963fd4c15d2e021653652fa8d092a0f6d7c32d1d172cb5937be4",
+        "guides/js/support-global-calendar-systems.md": "df74605c6cdd8d8d89b6cf1a85188987bb8ae7ee96d4b1ca0bf0bb376dac5edc",
+        "guides/performance/batch-analytics-events.md": "452ebf1317a9b3d1cde45770c45a5fb334052e612ef9d56d8ea9be916ba766f0",
+        "guides/performance/break-up-long-tasks.md": "08f8c737dc9cf692431ee56691af1011b1fa2dede012a651b692f1ac0a94bdec",
+        "guides/performance/calculate-total-foreground-time.md": "2c6a95cc23d1989e7db7f42dc4eae89f83dce153640cd92259510c828b33edac",
+        "guides/performance/conditional-async-dependencies.md": "9488bde588f002aafe71f01b274d2c9c58426926680502eab0a6e635a6c6f5f5",
+        "guides/performance/defer-rendering-heavy-content.md": "dd0642d26a134b4e926e41b2ef5ff945c063823f1cbb12131a19f1e88e61a361",
+        "guides/performance/defer-work-until-scroll-ends.md": "e5dbd6b6a0a108370750eefda9d6c5091c50bd3041339f5fc7fba1d6264ceebf",
+        "guides/performance/deliver-optimized-decorative-images.md": "17937ac9debef692bfa9d32f1c19028126a863ac2287ae7fac35eddeaeeffca9",
+        "guides/performance/deprioritize-background-fetches.md": "dcbc027743436db0aeb9bbd750e8a1ee72bd2b6c2648aacd16a0090414805c9d",
+        "guides/performance/detect-initial-visibility-state.md": "5f7a116980ee7886c0367b53ff37b9bee27b9d8f316f3ae5806058a80fa90574",
+        "guides/performance/efficient-background-processing.md": "ce07b5e82e625b2283bca5240842a461271da8e87d29de9a24d0b7d44fc73cca",
+        "guides/performance/faster-spa-view-transitions.md": "348ec4d01b0f080c0bd748254f58a6251bb9b355c4642fc1df079849afd42bc8",
+        "guides/performance/flicker-free-client-side-ab-testing.md": "62f00a5a7e156d959c3d8d234bcb7af22d154263cac0343873b787fe95829145",
+        "guides/performance/full-session-analytics.md": "3b326432e9ec43249bba29c52effa5eba38e63551490e72b7daab1950f46ab43",
+        "guides/performance/identify-heavy-scripts.md": "5019e26aa9e0b0bf854071f905c11013579e06e7392c0ad9d2328859d0e4be5a",
+        "guides/performance/identify-inp-causes.md": "0ab47c39c55c05256e811da9122f2233a2b59809bde4188d990e9e7188a14d5b",
+        "guides/performance/improve-next-page-load-performance.md": "939000d84dddd06f8a1f70525a9d6dcaa8ea1db737f62583d8649fb53f52e294",
+        "guides/performance/interaction-paint-timing.md": "2f8990a985094d46a812e95a1caac39fd1b07da976415ca40125ac7f0bad163b",
+        "guides/performance/interactions-in-complex-layouts.md": "ce64a50d336a469513d0d6e39e73fd06ee8c5cd4520731949e68ae852f37e2fa",
+        "guides/performance/lazy-load-video-and-audio.md": "26509e238ee0609472197d2b0b053bc33d24109488b4051d8848c5f574e3303b",
+        "guides/performance/optimize-image-priority.md": "c0429ad98657fc8032370b78a581e00c876bec68dc52bb222547e3ff33465603",
+        "guides/performance/optimize-preload-priority.md": "1553c4881f37f536a41334164431b93d5d95727ebca9d7313527627cb702bae7",
+        "guides/performance/optimize-script-priority.md": "cfa6697003ead50398dfdd358e0a05b2f162c4258a82ffc095a822b9e9a59b6e",
+        "guides/performance/out-of-order-html-streaming.md": "c38a4f994d4bdd35c435438529c79019281b89c99e8dd2c08a2ffe7f6e2b339e",
+        "guides/performance/performance.md": "7dd96649e62e8e635bfe23a19466409d1c3be46fb9559cc70c4df275e21f5549",
+        "guides/performance/resolution-optimized-pseudo-elements.md": "fb7e981b4869f116d40532e4cf358ff55987b262f0265b229aa0f00778f83a15",
+        "guides/performance/schedule-tasks-by-priority.md": "3c98ef6a045014fa2332e54873a6c4cd49c6282110a15b9dde4cfc0fcd55ab2c",
+        "guides/privacy/privacy.md": "66a06e7df1da025dc3a47f4a105e168bff161bc7677a888f22e1c0e8ed7bf692",
+        "guides/pwa/migrate-web-app-origin.md": "d15b2515dbbe4bef74c5e15520a68c625fba5a82aa98a5111d6c6f6f87d5f621",
+        "guides/security/client-side-encryption.md": "a83105e9a8eea581c4c2bc90e768f5092c18369a4c361eaee28bd8c607c36179",
+        "guides/security/digital-signatures.md": "8f734d780ad7fca5ad2e15b1cd7684420a114e2bc0619734229b370fff6f5b5e",
+        "guides/security/local-network-access.md": "b2f836a86824ea9e7715d77fe958c4544c8d4605698229cbb026b25b449ec64f",
+        "guides/security/passkey-authentication.md": "1cd30b103b517cc63ade31aad9afdc0331e4713503a6e4ce96420eac8c3fe693",
+        "guides/security/passkey-conditional-create.md": "dfb1b8493f1727bb1f3b00741b33d5d3bc2dd7de8c37cc6f97596d020f5d6cd1",
+        "guides/security/passkey-management.md": "e9ee91525fd8bd867db07769fe6324484416517900dc2b85682af8b3372f117c",
+        "guides/security/passkey-reauthentication.md": "0fca33b2a0fb6e7d4959d0990773bd27b4e30bf6cb2c1fe154c917ec9b396135",
+        "guides/security/passkey-registration.md": "3a35f06bad350fe28010ec33aee2f520f797934f4cbf4a28d57043e783dd0176",
+        "guides/security/passkeys.md": "cd5d46d582f25ec2b0a8e1798f1602b8457874f0b72e186ea47b9c0998e048a1",
+        "guides/security/quick-sign-ins.md": "926e20d0edeaba36d1a0d1ba3ae43040e25ed4dc1fe80e180e1bee6d2d37b478",
+        "guides/security/restrict-outbound-connections.md": "f99aea16b568da7e4a15ccf4b3e2c1444f2ac958aee04dea768b0a3b2fdd60e5",
+        "guides/security/sanitize-untrusted-html.md": "3e65d67e62c2a838b48bfb9655429005564e04bb46d154e04b46ff50f1990f92",
+        "guides/security/security.md": "9618e5dcf7a349d8b032eac96af465f3953676db3fb60ddcfbabcd394fd2f35c",
+        "guides/security/trusted-types.md": "04b46cd8c60d7819e5cbf8fb837cf73c77ccc69a2267c397105c6fb93c399ac7",
+        "guides/security/validate-origins.md": "a4c8cf0323c011e1444ef9dbc62aefe88a264ded69fcce93e5758bb722eaca2a",
+        "guides/security/verify-email-ownership.md": "7fb33cccaa83c6612206c585da6b60a23488d81c2f2bf5505f21203031114831",
+        "guides/ui-atoms/carousel-slide-effects.md": "7789b432b72af7cb7fb970d40bd69f803619728e5ae300fe3a91056a32e7e725",
+        "guides/ui-atoms/component-specific-light-dark-theme.md": "0682da633553760bccc7c0911af773b98dfcf978f526decd87b643c00aa452db",
+        "guides/ui-atoms/icons.md": "381faf19342147a980d7d05f9504a6227e1ed165b9947f7206862a161e56f4ca",
+        "guides/ui-atoms/position-aware-tooltips.md": "780e61c86437bf7b1f97d491ccf6a3053dc88baa3fa768ea818dcdbe7e81b186",
+        "guides/ui-atoms/pull-to-reveal.md": "863fc181ebe63415f2e9e8ede1c5aa4d9b0de25b5338dde13897ac03867313c6",
+        "guides/ui-atoms/responsive-table.md": "2646b2db2674533a4bbec8ddbd8bdb3eeb51e086bb1cb944432305e57260fbab",
+        "guides/ui-atoms/scroll-position-aware-elements.md": "c73d081263903b56281228ba42b410138e9a3aaa3f67239e7f8356b4aeadbf82",
+        "guides/ui-atoms/scroll-progress-indicator.md": "4d7c500da631b54e6eda7fdbbf29005f317e3bca7d4dab8e91b1e9a07d447f21",
+        "guides/ui-atoms/scrollability-affordance-hints.md": "b6c77196244b7037edbcdde93644b0640a586d953c07a8734a879fe97fb6e469",
+        "guides/ui-atoms/shrinking-header-on-scroll.md": "09938cbcaa1c1927d0867b2b1c111215296fd4042e5a177b61a0a916fef5ba7a",
+        "guides/ui-atoms/state-aware-sticky-headers.md": "fe8775356b6f4a363487687f95e565257a6a01c8592cc7064708d7424ebe7168",
+        "guides/ui-atoms/viewport-aware-dropdowns.md": "ee51735ece526fa15fbca30077275bcd23af7dfcb47e0fccf339d87e0e74ab02",
+        "guides/ui-behaviors/2d-panning.md": "8631f87b53a7af69d432cefeffbd4833c629ca5f5b8e0f53905d6b991b6763c0",
+        "guides/ui-behaviors/anchor-positioning-tab-underline.md": "85460713331a665cfa9e46c62207d50002a1fb37f21f68b206179ec27cc298dd",
+        "guides/ui-behaviors/animate-element-entry-exit.md": "2e85f559802bc39f9e6ccf06b4289006844c77c4fe644ec5d09457e8ce9d64c8",
+        "guides/ui-behaviors/animate-to-from-top-layer.md": "4359b1d85915c656eebfcd5761f9dfbd42c95771e5b65c51890e8d3adcd32095",
+        "guides/ui-behaviors/carousel-snap-highlights.md": "bd165c8a1221ee458331729b658500c849dcda1561f5d9a20da337db019ad2ae",
+        "guides/ui-behaviors/consistent-cross-document-transitions.md": "6d5bbf4c5595d0e0e83d5595bc7cacdf03765176f3ed7842f69f64744c905d1b",
+        "guides/ui-behaviors/cross-document-transitions.md": "3558f6732d70257a97a4fee78fedecdaf9e188e039fb45b9f96503c615776cda",
+        "guides/ui-behaviors/custom-button-actions.md": "b3322e29a8421b8a2d1aa5d0c66d3654f29b2e7baa4545eb6b0f46e345abb8bf",
+        "guides/ui-behaviors/declarative-dialog-popover-control.md": "4adc4361c6e3c4265628a7894e7ea8181cc031907b8e75395a703b55d65ddbc0",
+        "guides/ui-behaviors/directional-navigation-transitions.md": "b462cf9026137436145f5185c22a164919640e080e7b93cf261d0130f0cfe2dd",
+        "guides/ui-behaviors/drag.md": "9abf9ad0559ca2439adfb291d82a6870795ef9b13f54ae06c2abfa8377635221",
+        "guides/ui-behaviors/dynamic-sibling-animations.md": "ce17b60d2999f437558967730badd0a2b3a3644f5f661f84af2c6e62f1a98951",
+        "guides/ui-behaviors/group-element-transitions.md": "2c28ae754314cb3d8d2c299ad9d8af37fc4cfaf9dfd2126e7bdfd30e920fd897",
+        "guides/ui-behaviors/highlight-text-ranges.md": "dd89984fcdc3d269da897ae54cd050d4020b7905105dfe5ead5743e098779e37",
+        "guides/ui-behaviors/interactive-content-reveal.md": "fd55d3dd342c6ccb42c84d6f3f818f0f4dd5ff6be9a433e43dbca4c468abb915",
+        "guides/ui-behaviors/interest-triggered-action-previews.md": "3178941f1cd4220e7b24a59edbb0a5dadfc9384f1d8819b01b0c8faf98b06822",
+        "guides/ui-behaviors/interest-triggered-tooltips.md": "337e32dd3c250b7d2559d25a005534128284930ecbbcfff4c9df2268a65501c7",
+        "guides/ui-behaviors/light-dismiss-a-dialog.md": "cf9c4724bbccad83c49f061c7102f80a7d46eec57e9d499de496c23ebd812b65",
+        "guides/ui-behaviors/motion.md": "33b5834a47c4fb906365b645d9003b5c6b9d2a157e8e53c35f2554f23215d808",
+        "guides/ui-behaviors/move-dom-element-without-losing-state.md": "0daeb2c003ae3b202eca3325f9d88884afd360a0d47e6428309f54afe0c4d399",
+        "guides/ui-behaviors/parallax-scroll-effects.md": "d51f139ee7dddb153a96f4c32fd58eedc063fc31d6a7c4aa3b6fa943c7e7aa0a",
+        "guides/ui-behaviors/persistent-top-layer-ui.md": "61ede2fecc4463db017ca8402046cc577e14e4df7bf49d11fffc201dca3573d5",
+        "guides/ui-behaviors/physics-based-easing.md": "eb1598d3552f7fafe72465a96719b17de277758c864809253c36c639b3190b45",
+        "guides/ui-behaviors/platform-controls-dismiss-dialog.md": "69f558d4d695edc63d03f9cb95497491b547c2f7f955b111baa37533dc6ec0e3",
+        "guides/ui-behaviors/prevent-page-scroll-under-modal-dialog.md": "6c9b4af8df97183359e250a102c3e04354d5fbb1c53ed491c78258a0ea384a9a",
+        "guides/ui-behaviors/same-document-transitions.md": "4f900d7adb9d8a3af03be79552a2337929b6521e5780bf0096297b09ef3b10e2",
+        "guides/ui-behaviors/scoped-component-transitions.md": "f39857d41550c4b09ed149edd4f662a5706367e780abce51191fb965d74f4236",
+        "guides/ui-behaviors/scroll-completion-effects.md": "f1d6cba558037b929e82c3ca9286c405cc3ad7149dcef599b5687a203506ae2a",
+        "guides/ui-behaviors/scroll-entry-exit-effects.md": "cfe0c5fb3c7ad2b4b38469b32cc47c0a77c6e2bd5a9bd1b81c60a267af0f4aca",
+        "guides/ui-behaviors/scroll-snap-realtime-feedback.md": "84f910a28dfc16fbb71e98f3f62fcf86838669c64024d950f8ec8cf5f581e4a0",
+        "guides/ui-behaviors/scroll-snap-state-sync.md": "608857b97927db47fb8f40a3fdf577e206800e79648cb6e9c91a1e88916e7041",
+        "guides/ui-behaviors/scroll-target-on-load.md": "16df2f274ff27cf1f8d322a13c99f256f0acda2a67e8e6dbc279581ace19ce54",
+        "guides/ui-behaviors/scrollytelling.md": "d2f3acb8bda0d4086d382a16bcfd134140a6441d098e58aabd98714ca2b9a76b",
+        "guides/ui-behaviors/search-hidden-content.md": "1d67c7feb76a8b05f7f1610861e421331efb648ec3daa8e3480177f25382f901",
+        "guides/ui-behaviors/spatial-navigation.md": "d51a745c4e5e046122f632daf4a9e77e2dfb1f0541add4165c24e1012bec627d",
+        "guides/ui-behaviors/swipe-to-remove.md": "60098ef0876829268f2e6427427b6a157ff6e57730ad633fbe529b7bb72bb189",
+        "guides/ui-behaviors/swipe-to-reveal.md": "3810fa034c09af71fd30c31c98f62a413b637eeb5b99a9dc8fb32a4ed03597c3",
+        "guides/ui-components/checkbox.md": "67c8a04bd1878fd4f9ffbb6474f3dcdffe94fa09cb4bf1ed89a50d09de5d5e57",
+        "guides/ui-components/dark-mode-toggle.md": "5406ce80306a66496372e880bc76f5b78e690aac5e55d33e794d836fd7593556",
+        "guides/ui-components/hovercard.md": "7f3882b005a1cc9243e5206311bd47ea062e4d70914fedd7e72725a6a16354cc",
+        "guides/ui-components/navigation-drawer.md": "1eb0deef46a28cda4c52f0c2a6ee7372766147e177c8ae54f8b0f689a6a34cb9",
+        "guides/ui-components/persistent-app-tours.md": "29b83b3d0bdf5908b3464fc6339b706aec9534dd75456ed3812a100ef4df55f5",
+        "guides/ui-components/persistent-toast-notifications.md": "81649189eb755d6572d18ec2ebc7f8819feb9b377309e70ce0a0f9d215c3f270",
+        "guides/ui-components/progress-ring.md": "8e55c6b5fa048f4935415726f445f33dd8e59cc09c52c96756a928180626a155",
+        "guides/ui-components/progress.md": "dfbf279c58c314f555fd902b72ae41055674345479376517bc7f4a19a17edd80",
+        "guides/ui-components/scrollspy.md": "3156e94f8fc7cfd962f07a254c90410eb7144c3826f0d6825268341d1474e51e",
+        "guides/ui-components/spinner.md": "19172ea2d766875b26af3dcd99e3cd6c82d2bc813e0b19883acad2d587f25e4a",
+        "guides/ui-components/stack-drill-down.md": "37e60efdc1650b8489e2c9d8693d039f31dac28eac13854d04424a41defeb407",
+        "guides/visual-design/adapt-scrollbar-to-contrast-preferences.md": "ce9a6d9831e1a4d46530b6ba4b974ff2b1671bef7cfea9ac5c8e237e5a595bc7",
+        "guides/visual-design/apply-webgl-shaders.md": "1a6952ca53fadc621980e2cb2ce1f2b3553ff43c7ae60daace66ce1ccb869fa6",
+        "guides/visual-design/browser-ui-theming.md": "2a307bf6f22485eee41a52dd1abb113f4a8709a80ba99d64cff3ca1bb4ee60ce",
+        "guides/visual-design/color.md": "35203bb2368989ee9d7fac28f7c4d2342d3bddb64f196f2f71dfeb7a2eb90ffe",
+        "guides/visual-design/complex-shapes.md": "7bc6694380363c37a6c4f5d31f8635ba3dc7716b5d0bd1596574fd36effe2476",
+        "guides/visual-design/contrast-color.md": "e2e3be4111fc0a0c969ce987775063d646209c32708cffc0ea2f18a4c3177a0e",
+        "guides/visual-design/customize-scrollbar-color-and-thickness.md": "edea858bc1f23cfb1cf21fd2a7de18842c9dfe9a0994e523540f2fe5779f0cb9",
+        "guides/visual-design/dark-mode.md": "7b419698383caf9ce37a04915a942bf4604f30d8d7915897f180d29407015d3e",
+        "guides/visual-design/equal-width-text-lines.md": "684d5da684c424ff3746f95f82a2119b6010f30c74fa1103eb69f24825c0983e",
+        "guides/visual-design/export-html-media-from-canvas.md": "b7e1ce9475c4fed33f0bddd54bfeea009d72863c55bdc40cc326d758b3dde526",
+        "guides/visual-design/expose-canvas-content-to-browser-features.md": "ff11b87245e350afd1bab765f15ae585a213bbe491c8a2900292bdaf51c75c19",
+        "guides/visual-design/improve-text-layout-and-legibility.md": "3e15c65b595535b9ab2c3edb41af08e698de3093529da9915a6bda584768dcc5",
+        "guides/visual-design/interactive-content-in-3d-scenes.md": "4b349eb25912dcb1b937adf8d8c5c7f87f2486c36a027b91d5ee330f33c69f1f",
+        "guides/visual-design/precise-text-alignment.md": "f85af2fe994f4256cfd8d26042cb252761e48071c19d0a02be29f6ea4c6d9529",
+        "guides/visual-design/shaped-cutouts.md": "37b8046ffb6d51ec41f5cb4310c78ac16caaa6a46b2c6dc7fb4e5b0ecd2905ef",
+        "guides/visual-design/soft-edge-content-fade.md": "d2c7a113bf44268968e6d4d6a736ce91fef1bd400920d3dcbc2dcf889b79f7e6",
+        "guides/visual-design/typography.md": "35c6c36095a586beef01182dec422b641866381b58d49cf283671fe8aed51326",
+        "guides/visual-design/visual-effects.md": "0fc50c5a5746127837bba724dfd491882160a27f574bf852a0351503b2192a44",
+        "guides/visual-design/visually-stable-font-fallbacks.md": "57053c3b7566b9a5f94ae8d534d531795cfd19b97d496eb41201f8ce500c7127",
+        "guides/visual-design/visually-stable-mixed-fonts.md": "df0a91719a72515c195d8b15e3794443d2d64bc0d2af3e852299e38cfee21475",
+        "guides/visual-design/visually-texture-content.md": "1c99ea6b58263e36ba66cffcbfdb6bf9a01c7037ddb7ff4fdc75d2d148f188a5",
+        "guides/wasm/cpp-on-the-web.md": "272a9af08216504b130b7acfdd2a8166b0df88a0f2e8dab4e651562eaa72b179",
+        "guides/webmcp/agentic-forms.md": "feded0d2ed113ca0b4452650a53008e796b80bf0ed0e8b329bd6f3e40eb17b94",
+        "guides/webmcp/agentic-javascript-tools.md": "ec0ce029395b9e1ec7b156a09fa0bae26b0259d85c9860536ca69acbc1f43760",
+        "guides/webmcp/webmcp.md": "8eb6ff96644be10d408fb7018cac84ffcd9ff7b6963190a3f2a9738de03f7aa8"
+      },
+      "skills": [
+        {
+          "sourceSkill": "modern-web-guidance",
+          "implementation": "skills/modern-web/SKILL.md",
+          "mode": "independent-local",
+          "acceptanceTest": "tests/integration.test.mjs"
+        }
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "ai-data-remediation",
+      "entrypoint": "skills/ai-data-remediation/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Self-healing data pipeline layer using semantic anomaly clustering, AST-validated lambda transformations, and zero-loss mathematical reconciliation. Use when data quality checks fail, anomalous records break ETL/ELT pipelines, you need automated data cleansing with sandboxed Python transformations, or you want to group data errors into semantic clusters — even if they don't explicitly say \\\"data remediation\\\". Do NOT use for standard database schema migrations, routine CRUD queries, or basic pipeline scheduling."
+    },
+    {
+      "id": "ai-engineering",
+      "entrypoint": "skills/ai-engineering/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Design, train, optimize, deploy, and evaluate production machine learning and LLM systems. Use when building ML models, training classifiers, fine-tuning LLMs with LoRA/PEFT, deploying low-latency inference endpoints, architecting vector RAG pipelines, or evaluating model bias and data leakage — even if they don't explicitly say \\\"AI engineering\\\". Do NOT use for standard backend CRUD development, basic SQL queries without ML, or simple UI styling."
+    },
+    {
+      "id": "automate-ui",
+      "entrypoint": "skills/automate-ui/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Automates web and desktop UIs while capturing evidence that separates navigation from verified behavior. Use when a task requires site navigation, browser reproduction, or native app operation. For one existing framework-free HTML page, use design-ui instead."
+    },
+    {
+      "id": "brainstorming",
+      "entrypoint": "skills/brainstorming/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Explores user intent, requirements, and design before implementation. Use when starting a new feature, component, or behavior change whose requirements or design are not yet agreed; skip for trivial single-file changes the user has already specified."
+    },
+    {
+      "id": "brand-designer",
+      "entrypoint": "skills/brand-designer/SKILL.md",
+      "sourceIds": [
+        "zilvereyes-plugin-autopilot"
+      ],
+      "description": "Use when a ChatGPT/Codex Plugin needs a production-ready visual identity and SVG logo system that clearly expresses the Plugin's job across light and dark surfaces."
+    },
+    {
+      "id": "catalog",
+      "entrypoint": "skills/catalog/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when finding local skills or analyzing public directory snapshots, listing coverage and observed changes."
+    },
+    {
+      "id": "code-review",
+      "entrypoint": "skills/code-review/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Review changed code against repository coding standards and original specification intent. Use when reviewing a branch, diff, PR, pull request, merge-base changes, or verifying code against documented standards — even if the user just says \\\"review this\\\". Do NOT use for authoring new code or diagnosing failing runtime bugs."
+    },
+    {
+      "id": "codebase-design",
+      "entrypoint": "skills/codebase-design/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Shared vocabulary and patterns for designing deep modules with narrow interfaces and clean seams. Use when designing module interfaces, finding deepening opportunities, deciding where seams go, or making code more testable and AI-navigable — even if the user says \\\"improve this module\\\". Do NOT use for whole-codebase architectural surveys."
+    },
+    {
+      "id": "communicate-clearly",
+      "entrypoint": "skills/communicate-clearly/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Controls report length while preserving evidence and explains external sources without overstating them. Use when a user requests concise handoffs, set verbosity, or plain-language explanations of dense material."
+    },
+    {
+      "id": "create-plugin",
+      "entrypoint": "skills/create-plugin/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when the user wants a new local or marketplace plugin candidate built from selected sources with provenance, compatibility and no-overwrite guarantees."
+    },
+    {
+      "id": "create-skill",
+      "entrypoint": "skills/create-skill/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when the user wants to create or update a Codex skill with scoped instructions, progressive disclosure, validation and no overwrite of upstream or installed sources."
+    },
+    {
+      "id": "design-ui",
+      "entrypoint": "skills/design-ui/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Builds accessible interfaces and verifies renders. Use when creating or redesigning a page, dashboard, or static HTML file."
+    },
+    {
+      "id": "diagnose-systematically",
+      "entrypoint": "skills/diagnose-systematically/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Finds root causes through reproduction and falsifiable experiments. Use when a failure, flaky behavior, or regression lacks a demonstrated cause."
+    },
+    {
+      "id": "diagnosing-bugs",
+      "entrypoint": "skills/diagnosing-bugs/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Diagnose hard bugs, intermittent flakes, and performance regressions using a tight feedback loop. Use when the user reports broken behavior, runtime exceptions, failing tests, flaky CI, or says \\\"debug this\\\" / \\\"diagnose this\\\" — even if no error message is provided. Do NOT use for routine test-driven feature development."
+    },
+    {
+      "id": "dispatching-parallel-agents",
+      "entrypoint": "skills/dispatching-parallel-agents/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Dispatches one subagent per independent problem. Use when two or more investigations or fixes can proceed concurrently without shared state or sequential dependencies."
+    },
+    {
+      "id": "domain-modeling",
+      "entrypoint": "skills/domain-modeling/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Build and sharpen a project's domain model, ubiquitous language, and architectural decision records. Use when establishing codebase terminology, challenging fuzzy concepts, writing ADRs, or updating CONTEXT.md — even if the user says \\\"define our terms\\\". Do NOT use for general code refactoring without domain shifts."
+    },
+    {
+      "id": "engineer-prompts",
+      "entrypoint": "skills/engineer-prompts/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Builds or audits testable prompt contracts with explicit outcomes, permissions, tools, evidence, and stop conditions. Use when writing reusable agent prompts, system prompts, or prompts with unclear success criteria."
+    },
+    {
+      "id": "engineering-workflow-guide",
+      "entrypoint": "skills/engineering-workflow-guide/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Route engineering, AI/ML, cognitive, or productivity tasks to the narrowest effective specialist skill. Use when a task spans planning, implementation, debugging, review, architecture, research, setup, AI modeling, data remediation, or autonomous goals, when the user asks what to do next, or when unsure which workflow fits — even if they don't explicitly name a skill. Do NOT use when the specific specialist skill is already obvious and unambiguous."
+    },
+    {
+      "id": "evidence-matrix",
+      "entrypoint": "skills/evidence-matrix/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when arranging explicitly supplied evidence by skill and source with an explicit snapshot date."
+    },
+    {
+      "id": "execute-durably",
+      "entrypoint": "skills/execute-durably/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Runs long or interruption-prone work from a durable state file with falsifiable criteria and evidence. Use when work spans turns, risks compaction, or must resume after interruption."
+    },
+    {
+      "id": "executing-plans",
+      "entrypoint": "skills/executing-plans/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Executes a written implementation plan inline, task by task, stopping only on blockers. Use when a plan exists and subagent dispatch is unavailable, or the user wants the plan executed in a separate session."
+    },
+    {
+      "id": "experience-architect",
+      "entrypoint": "skills/experience-architect/SKILL.md",
+      "sourceIds": [
+        "zilvereyes-plugin-autopilot"
+      ],
+      "description": "Use when a set of candidate Skills or app capabilities is technically valid but still needs to become a clear, useful ChatGPT/Codex Plugin that people can understand, discover, and invoke for real work."
+    },
+    {
+      "id": "finishing-a-development-branch",
+      "entrypoint": "skills/finishing-a-development-branch/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Guides integration of a finished branch: verify tests, present merge/PR/keep/discard options to the user, and clean up worktrees. Use when implementation is complete, all tests pass, and the work needs to be integrated."
+    },
+    {
+      "id": "git-safety-guardrails",
+      "entrypoint": "skills/git-safety-guardrails/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Safeguard repositories against destructive, irreversible, or history-rewriting Git operations. Use when running force pushes, hard resets, branch deletions, cleans, destructive restores, or history re-writes — even if the user says \\\"clean up git history\\\". Do NOT use for routine safe git status, fetch, diff, or branch queries."
+    },
+    {
+      "id": "goal",
+      "entrypoint": "skills/goal/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Design and synthesize high-leverage autonomous goal prompts and contracts for unattended execution. Use when crafting a /goal prompt, planning an overnight autonomous coding run, converting rambling specifications into a self-contained agentic mission, or setting up multi-agent autonomous loops — even if they don't explicitly say \\\"goal prompt\\\". Do NOT use when the user asks for immediate single-turn execution in the current conversation without an autonomous goal contract."
+    },
+    {
+      "id": "grill-me",
+      "entrypoint": "skills/grill-me/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Interview the user relentlessly to sharpen an idea, requirement, or decision before execution. Use when a plan, design, requirement, or decision needs a focused interview to expose ambiguity, missing constraints, trade-offs, or weak assumptions — even if the user just says \\\"grill me on this\\\". Do NOT use for repo-stateful domain modeling with doc generation."
+    },
+    {
+      "id": "grill-with-docs",
+      "entrypoint": "skills/grill-with-docs/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Interview the user to stress-test a design while simultaneously recording domain terms and architectural decisions in project documentation. Use when planning features in a codebase and wanting domain terms captured in CONTEXT.md and ADRs — even if the user says \\\"grill this feature\\\". Do NOT use when no codebase context or documentation trail is needed."
+    },
+    {
+      "id": "grilling",
+      "entrypoint": "skills/grilling/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Relentlessly interview the user round-by-round to stress-test thinking and expose unexamined assumptions. Use when the user requests a grilling interview, wants their idea challenged, or uses trigger phrases like \\\"grill me\\\" — even if they just say \\\"poke holes in my plan\\\". Do NOT use when the user asks for immediate implementation."
+    },
+    {
+      "id": "handle-host-boundaries",
+      "entrypoint": "skills/handle-host-boundaries/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Handles unavailable named capabilities and destructive filesystem roots. Use when a required tool, command, picker, dialog, gate, or form may be unavailable; apply before acting even if the prompt asks to assume consent."
+    },
+    {
+      "id": "handoff",
+      "entrypoint": "skills/handoff/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Compact current conversation context, decisions, evidence, and next actions into a portable markdown handoff for a fresh agent session. Use when ending a session, transferring work to another agent, switching workspaces, or preparing a resume point — even if the user just says \\\"save progress\\\". Do NOT use for committing code to git or creating branch PRs."
+    },
+    {
+      "id": "implement",
+      "entrypoint": "skills/implement/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Build scoped code changes and run verification from an approved specification or plan. Use when a concrete spec, approved plan, or set of tickets is ready to implement, when the user asks to build or code a planned feature, or when executing tasks — even if they don't explicitly say \\\"implement\\\". Do NOT use for initial architecture exploration or vague requirements."
+    },
+    {
+      "id": "implement-spec",
+      "entrypoint": "skills/implement-spec/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Execute a full specification across task tickets using isolated subagent branches into a unified PR. Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated worktrees, and the goal is a complete pull request on a single branch — even if the user says \\\"build the whole spec\\\". Do NOT use for single isolated bug fixes or exploratory coding without tickets."
+    },
+    {
+      "id": "import-gpt",
+      "entrypoint": "skills/import-gpt/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when converting user-supplied GPT instructions or an authorized export into a local plugin candidate."
+    },
+    {
+      "id": "import-plugins",
+      "entrypoint": "skills/import-plugins/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when adapting a selected folder of local skills or plugins into independent candidate packages."
+    },
+    {
+      "id": "improve-codebase-architecture",
+      "entrypoint": "skills/improve-codebase-architecture/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Survey codebases for shallow modules, weak seams, and deepening opportunities, producing a visual report. Use when conducting architectural reviews, identifying design debt, finding deepening opportunities, or preparing codebase refactors — even if the user says \\\"analyze our architecture\\\". Do NOT use for basic syntax linting or formatting."
+    },
+    {
+      "id": "improve-skill",
+      "entrypoint": "skills/improve-skill/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when the user wants to improve an existing Codex skill from evaluation evidence while preserving intent, invocation policy, provenance and rollback."
+    },
+    {
+      "id": "install-skill",
+      "entrypoint": "skills/install-skill/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when the user wants to inventory, preview or install a Codex skill from a local directory or GitHub URL with validation, hashes, receipts and no overwrite."
+    },
+    {
+      "id": "j-space",
+      "entrypoint": "skills/j-space/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Operate the agent's inner cognitive workspace for multi-step reasoning, long-horizon planning, deep debugging, and calibrated self-monitoring. Use when tackling complex multi-step problems, architecture design, long mechanical tasks requiring goal preservation, suspicious input audits, or when asked to think deeper or harder — even if they don't explicitly say \\\"J-space\\\". Do NOT use for single-step trivial lookups, basic formatting, or conversational small talk."
+    },
+    {
+      "id": "listing-writer",
+      "entrypoint": "skills/listing-writer/SKILL.md",
+      "sourceIds": [
+        "zilvereyes-plugin-autopilot"
+      ],
+      "description": "Use when a validated ChatGPT/Codex Plugin needs accurate Plugin Directory fields, discovery metadata, starter prompts, and reviewer-facing listing details grounded in the packaged product."
+    },
+    {
+      "id": "local-management",
+      "entrypoint": "skills/local-management/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when inspecting local plugin identities, dependencies, declarations and installation evidence."
+    },
+    {
+      "id": "metric-pack",
+      "entrypoint": "skills/metric-pack/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when adding task-specific verifiers and metrics to a plugin or skill evaluation."
+    },
+    {
+      "id": "migrate-to-shoehorn",
+      "entrypoint": "skills/migrate-to-shoehorn/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Migrate unsafe TypeScript test assertions to @total-typescript/shoehorn with explicit fixture intent. Use when test files contain unsafe `as` or `as unknown as` typecasts, when mock fixtures break under typechecking, or when modernizing test typing — even if the user says \\\"fix test type assertions\\\". Do NOT use for production code types."
+    },
+    {
+      "id": "ml-best-practices",
+      "entrypoint": "skills/ml-best-practices/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Statistical machine learning best practices, exploratory data analysis, feature engineering, and rigorous model evaluation. Use when analyzing tabular datasets, engineering features, training classifiers or regressors, forecasting time series, or computing 95% bootstrap confidence intervals — even if they don't explicitly say \\\"ml best practices\\\". Do NOT use for standard database queries without ML, basic spreadsheet formatting, or general application backend logic."
+    },
+    {
+      "id": "plugin-autopilot",
+      "entrypoint": "skills/plugin-autopilot/SKILL.md",
+      "sourceIds": [
+        "zilvereyes-plugin-autopilot"
+      ],
+      "description": "Use when converting an agentic repository into a ChatGPT/Codex Plugin or when building, repairing, validating, packaging, submitting, publishing, or auditing an existing Plugin."
+    },
+    {
+      "id": "plugin-eval",
+      "entrypoint": "skills/plugin-eval/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when assessing a plugin package, its skills, runtime declarations, budget or release readiness."
+    },
+    {
+      "id": "plugin-skill-studio",
+      "entrypoint": "skills/plugin-skill-studio/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when building, discovering, reviewing, importing or managing plugins and skills with the self-contained Studio."
+    },
+    {
+      "id": "portfolio",
+      "entrypoint": "skills/portfolio/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when the user wants to inspect a directory of plugins and skills, maintain the complete worklist, distinguish duplicates from references, or choose the next candidate."
+    },
+    {
+      "id": "prototype",
+      "entrypoint": "skills/prototype/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Build a throwaway prototype to answer a specific design, state model, or UI exploration question. Use when evaluating whether an interface feels right, exploring UI concepts, or testing logic before committing to a full spec — even if the user says \\\"mock this up\\\". Do NOT use for production implementation."
+    },
+    {
+      "id": "python-executor",
+      "entrypoint": "skills/python-executor/SKILL.md",
+      "sourceIds": [
+        "zilvereyes-plugin-autopilot"
+      ],
+      "description": "Use when a ChatGPT/Codex Plugin workflow needs deterministic computation, file processing, repository checks, package inspection, or other work that should be actually executed with host-native Python instead of answered from unverified reasoning."
+    },
+    {
+      "id": "receiving-code-review",
+      "entrypoint": "skills/receiving-code-review/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Verifies code review feedback before implementation and pushes back with evidence when a claim is wrong. Use when feedback is unclear, risky, or technically questionable."
+    },
+    {
+      "id": "refactor-safely",
+      "entrypoint": "skills/refactor-safely/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Refactors working or legacy code without changing observable behavior, using characterization tests when needed. Use when code is messy, nested, duplicated, or uncovered."
+    },
+    {
+      "id": "release-workflow",
+      "entrypoint": "skills/release-workflow/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when preparing, packaging or resuming a plugin release with evidence and bounded retries."
+    },
+    {
+      "id": "repo-discovery",
+      "entrypoint": "skills/repo-discovery/SKILL.md",
+      "sourceIds": [
+        "zilvereyes-plugin-autopilot"
+      ],
+      "description": "Use when an existing repository contains agents, prompts, workflows, playbooks, commands, or Skills and you need to identify which capabilities are worth converting into a ChatGPT/Codex Plugin."
+    },
+    {
+      "id": "requesting-code-review",
+      "entrypoint": "skills/requesting-code-review/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Dispatches a bounded reviewer and preserves verified findings. Use when completed work needs read-only review before merge."
+    },
+    {
+      "id": "research",
+      "entrypoint": "skills/research/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Investigate a technical question against high-trust primary sources and capture findings as a cited Markdown note. Use when gathering API facts, reading documentation, verifying library capabilities, or delegating reading legwork — even if the user says \\\"look into this library\\\". Do NOT use for writing production feature code."
+    },
+    {
+      "id": "research-systematically",
+      "entrypoint": "skills/research-systematically/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Runs source-bound research and version-matched documentation lookup. Use when comparisons, experiments, benchmarks, investigations, or external library, SDK, CLI, and API facts must be verified."
+    },
+    {
+      "id": "resolving-merge-conflicts",
+      "entrypoint": "skills/resolving-merge-conflicts/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Resolve in-progress git merge or rebase conflicts by intent traced to primary sources. Use when hit with merge conflicts, CONFLICT markers in files, rebase pauses, or when git prompts to resolve conflicted hunks — even if the user just says \\\"fix this merge\\\". Do NOT use for creating new branches or routine rebasing without conflicts."
+    },
+    {
+      "id": "retro",
+      "entrypoint": "skills/retro/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Conduct a retrospective on a coding session to systematically improve agent environment, navigation pointers, automated checks, coding standards, tool economy, or AGENTS.md instructions. Use when reflecting on completed work, auditing agent mistakes, or optimizing repository rules — even if the user says \\\"run a retro\\\". Do NOT use during active mid-task implementation."
+    },
+    {
+      "id": "review-decision",
+      "entrypoint": "skills/review-decision/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when deciding which parts of a reviewed skill or plugin require human attention."
+    },
+    {
+      "id": "risk-review",
+      "entrypoint": "skills/risk-review/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when reviewing skills or plugins for risky instructions, downloads, permissions or secret exposure before admitting them."
+    },
+    {
+      "id": "scaffold-exercises",
+      "entrypoint": "skills/scaffold-exercises/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Scaffold course, workshop, or tutorial exercises following repository conventions. Use when creating exercise folders, problem/solution/explainer variants, numbered lesson files, or workshop boilerplate — even if the user says \\\"add a new exercise\\\". Do NOT use for routine application feature scaffolding."
+    },
+    {
+      "id": "setup-engineering-workflows",
+      "entrypoint": "skills/setup-engineering-workflows/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Configure repository issue-tracking, triage-label, domain-doc, and agent-instruction conventions. Use when initializing engineering workflows in a repo, configuring GitHub/GitLab issue labels, or establishing CONTEXT.md conventions — even if the user says \\\"setup our workflows\\\". Do NOT use for general project package installs."
+    },
+    {
+      "id": "setup-pre-commit",
+      "entrypoint": "skills/setup-pre-commit/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Configure pre-commit quality checks with Husky and lint-staged while preserving package manager conventions. Use when setting up git pre-commit hooks, automated formatters, staged linters, or typecheck gates — even if the user says \\\"add pre-commit hooks\\\". Do NOT use for continuous integration (CI) pipeline setup."
+    },
+    {
+      "id": "setup-ts-deep-modules",
+      "entrypoint": "skills/setup-ts-deep-modules/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Enforce TypeScript package boundaries, entry points, and cyclic dependency rules with dependency-cruiser. Use when structuring monorepo packages, establishing public API entry points, or preventing circular imports — even if the user says \\\"fix TS package boundaries\\\". Do NOT use for non-TypeScript repositories."
+    },
+    {
+      "id": "skill-conductor",
+      "entrypoint": "skills/skill-conductor/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Author, refine, evaluate, and package agent skills across their full lifecycle. Use when building a new skill from scratch, improving an existing skill, fixing a skill that triggers unreliably, running skill evals, benchmarking skill performance, or packaging skills for distribution — even if they don't explicitly say \\\"skill conductor\\\". Do NOT use for general software coding tasks or using pre-existing skills."
+    },
+    {
+      "id": "skill-eval",
+      "entrypoint": "skills/skill-eval/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when evaluating an agent skill, testing its triggers or behavior, comparing revisions, or explaining its budget."
+    },
+    {
+      "id": "skill-review",
+      "entrypoint": "skills/skill-review/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when a skill needs a behavior-focused technical review beyond structural validation."
+    },
+    {
+      "id": "skill-walkthrough",
+      "entrypoint": "skills/skill-walkthrough/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when explaining what a skill does, what it can touch, and how to review it."
+    },
+    {
+      "id": "skillquiver-doctor",
+      "entrypoint": "skills/skillquiver-doctor/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Audits the current ChatGPT, Claude Code, or Codex host for conflicting skills, plugins, and persistent hooks, then offers reversible per-item repairs. Use when skills duplicate, shadow, double-fire, load at the wrong time, or when the user asks to doctor or clean up Skillquiver conflicts."
+    },
+    {
+      "id": "solve-efficiently",
+      "entrypoint": "skills/solve-efficiently/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Routes multi-module work with progressive discovery, matched effort, and context economy. Use when boundaries are unclear, context must stay small, or a durable project map is needed."
+    },
+    {
+      "id": "subagent-driven-development",
+      "entrypoint": "skills/subagent-driven-development/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Executes an implementation plan by dispatching one subagent per task with per-task review gates, keeping the orchestrator's context small. Use when executing plans with independent tasks in the current session."
+    },
+    {
+      "id": "submission-builder",
+      "entrypoint": "skills/submission-builder/SKILL.md",
+      "sourceIds": [
+        "zilvereyes-plugin-autopilot"
+      ],
+      "description": "Use when an exact ChatGPT/Codex Plugin artifact has passed local package, brand, and listing gates and you need reviewer-ready submission evidence without confusing preparation, submission, approval, and publication states."
+    },
+    {
+      "id": "tdd",
+      "entrypoint": "skills/tdd/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Implement features and bug fixes test-first using red-green-refactor cycles. Use when writing new functionality, adding regression tests, fixing bugs with test coverage, or designing behavior through test assertions — even if the user says \\\"write tests for this\\\". Do NOT use for throwaway exploratory prototypes."
+    },
+    {
+      "id": "teach",
+      "entrypoint": "skills/teach/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Teach a technical concept interactively using the workspace as an active learning lab with durable learning records. Use when the user asks to understand a codebase concept, learn a language feature, explore design patterns, or practice coding skills — even if they say \\\"explain how this works to me\\\". Do NOT use for silent autonomous code generation."
+    },
+    {
+      "id": "test-driven-development",
+      "entrypoint": "skills/test-driven-development/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Runs a recorded red-green-refactor cycle. Use when implementing a feature, bug fix, or behavior change."
+    },
+    {
+      "id": "to-questionnaire",
+      "entrypoint": "skills/to-questionnaire/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Transform unknown requirements and stakeholder dependencies into a structured questionnaire. Use when a plan or spec is blocked by external stakeholder decisions, business rules, or missing domain facts — even if the user says \\\"what should I ask them?\\\". Do NOT use when the user can answer the questions themselves."
+    },
+    {
+      "id": "to-spec",
+      "entrypoint": "skills/to-spec/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Synthesize conversation and codebase context into an unambiguous, buildable technical specification. Use when requirements and design decisions are settled and need to be formalized into a technical spec — even if the user says \\\"write a spec for this\\\". Do NOT use when the core idea is still fuzzy and ungrilled."
+    },
+    {
+      "id": "to-tickets",
+      "entrypoint": "skills/to-tickets/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Decompose an approved specification or plan into ordered, dependency-linked tracer-bullet implementation tickets. Use when turning a spec or architectural plan into actionable tracker issues with clear acceptance criteria — even if the user says \\\"break this into tickets\\\". Do NOT use for initial requirements gathering."
+    },
+    {
+      "id": "triage",
+      "entrypoint": "skills/triage/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Classify, verify, and prepare external bug reports and feature requests into agent-ready briefs. Use when processing incoming issues, validating bug reproductions, rejecting out-of-scope requests, or structuring contributor tickets — even if the user says \\\"triage these issues\\\". Do NOT use for internal tickets already produced by to-tickets."
+    },
+    {
+      "id": "update-plugin",
+      "entrypoint": "skills/update-plugin/SKILL.md",
+      "sourceIds": [
+        "studio"
+      ],
+      "description": "Use when the user wants to inspect or update an owned local or Git-managed plugin while preserving identity, App/MCP bindings, provenance and release boundaries."
+    },
+    {
+      "id": "using-git-worktrees",
+      "entrypoint": "skills/using-git-worktrees/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback"
+    },
+    {
+      "id": "verification-before-completion",
+      "entrypoint": "skills/verification-before-completion/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs; requires running verification commands and confirming output before making any success claims. Do not load at task start or separately when design-ui's bounded static-page capture applies."
+    },
+    {
+      "id": "verify-work",
+      "entrypoint": "skills/verify-work/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Independently audits finished work — verifies a delivery or completion claim against real evidence. Use when asked to double-check that something just finished actually works, confirm a completion claim, judge release readiness, or find unsupported claims."
+    },
+    {
+      "id": "wait-what",
+      "entrypoint": "skills/wait-what/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Re-pitch an explanation or proposal from a simpler angle with reset assumptions and plain English. Use when the previous explanation was confusing, jargon-heavy, or did not land — even if the user just says \\\"what?\\\" or \\\"I don't get it\\\". Do NOT use for general brainstorming or initial planning."
+    },
+    {
+      "id": "wayfinder",
+      "entrypoint": "skills/wayfinder/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Map and navigate large, uncertain multi-session efforts through a shared graph of decision tickets. Use when facing complex greenfield projects or massive architectural migrations that exceed a single session — even if the user says \\\"map out this massive project\\\". Do NOT use for small, well-scoped features."
+    },
+    {
+      "id": "wizard",
+      "entrypoint": "skills/wizard/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Generate an interactive bash wizard to guide humans through manual setup, dashboard, or credential steps. Use when setting up API keys, third-party dashboards, CI secrets, or infrastructure where human authentication is required — even if the user says \\\"create a setup wizard\\\". Do NOT use for steps the AI agent can execute autonomously."
+    },
+    {
+      "id": "workflow-compiler",
+      "entrypoint": "skills/workflow-compiler/SKILL.md",
+      "sourceIds": [
+        "zilvereyes-plugin-autopilot"
+      ],
+      "description": "Use when a repository has a valuable agentic workflow, prompt chain, playbook, command, or runbook that should become a portable ChatGPT/Codex Skill without losing its real decision logic."
+    },
+    {
+      "id": "workflow-designer",
+      "entrypoint": "skills/workflow-designer/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Specify recurring operational, review, or content workflows with explicit triggers, inputs, actions, and ownership. Use when designing repeatable team routines, approval loops, release checklists, or automated processes — even if the user says \\\"design a workflow for this\\\". Do NOT use for one-off coding tasks."
+    },
+    {
+      "id": "workspace-operator",
+      "entrypoint": "skills/workspace-operator/SKILL.md",
+      "sourceIds": [
+        "zilvereyes-plugin-autopilot"
+      ],
+      "description": "Use when a ChatGPT/Codex Plugin workflow needs to inspect, search, modify, or verify files in the host workspace using the safest native tools available."
+    },
+    {
+      "id": "writing-beats",
+      "entrypoint": "skills/writing-beats/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Develop long-form writing through an interactive progression of narrative and argumentative beats. Use when drafting essays, articles, documentation, or blog posts where structure evolves beat by beat — even if the user says \\\"write this post with me\\\". Do NOT use for quick single-sentence copy edits."
+    },
+    {
+      "id": "writing-for-agents",
+      "entrypoint": "skills/writing-for-agents/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Author and refine agent-facing instructions, skills, AGENTS.md files, and context pointers. Use when creating new agent skills, optimizing prompt guidelines, writing steerable docs, or organizing progressive disclosure — even if the user says \\\"write a skill for this\\\". Do NOT use for human-facing marketing copy."
+    },
+    {
+      "id": "writing-fragments",
+      "entrypoint": "skills/writing-fragments/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Capture and refine raw ideas, quotes, and observations before committing to an article outline. Use when collecting source material, brainstorming essay fragments, or exploring angles without structure pressure — even if the user says \\\"help me brainstorm notes\\\". Do NOT use for final draft formatting."
+    },
+    {
+      "id": "writing-plans",
+      "entrypoint": "skills/writing-plans/SKILL.md",
+      "sourceIds": [
+        "skillquiver"
+      ],
+      "description": "Creates implementation plans with interfaces, tests, and open decisions. Use when a multi-step change needs planning."
+    },
+    {
+      "id": "writing-shape",
+      "entrypoint": "skills/writing-shape/SKILL.md",
+      "sourceIds": [
+        "matt-skills-curated"
+      ],
+      "description": "Shape raw notes, transcript fragments, and research into a structured, coherent article draft. Use when assembling collected fragments into narrative sections, establishing flow, and building a draft block by block — even if the user says \\\"turn these notes into a draft\\\". Do NOT use for initial fragment generation."
+    },
+    {
+      "id": "modern-web",
+      "entrypoint": "skills/modern-web/SKILL.md",
+      "sourceIds": [
+        "modern-web-guidance"
+      ],
+      "description": "Local modern web report accessibility and source-safe rendering guidance."
+    }
+  ],
+  "baseline": {
+    "version": "0.2.1",
+    "files": {
+      ".codex-plugin/plugin.json": "90bd3a6c172750c7f185dabbd17854e2682ff8c82c0ad93c55ce7f4dd754ef95",
+      "assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+      "LICENSE": "a2b395dbbc2e33b60248c0fd232a815399337a7aff58cee4545aacfa5b46fe3a",
+      "package.json": "98dc568e0261df99cc218b504944ee95e39dc81a486f4d46e50347d89b25789c",
+      "plugin.json": "b2aedf76d67b16a72969c8c23480561a97dca5ece1b3ff9613a859ddf1acadd4",
+      "README.md": "5f9b1d596c599404d17d5af8ed47b33571f8f6751e94eb8107766e59a87524a4",
+      "references/evaluation-rubric.md": "85528a70c5a5fe012f939255b2683aff36a3314889b6e2e62efbd5630dd61fb5",
+      "references/preservation-policy.md": "8ec06e39da596c1087287070dda5c4e708c9d76de192e3f6807f8312a112e15d",
+      "references/source-integration.md": "156d3a3c927058845b2ad3377f9ed0be22807ba1e79f1d25a7b0734f997e90df",
+      "references/upstream-sources.md": "acc12de9969519a1dfb0f4787843fdae1cf3775c147bb561172d1db5194e4868",
+      "scripts/plugin-studio.mjs": "a254607ca7e3d8ef886490602241fbc8652e4a902b0bbb19e67bea490efbb239",
+      "scripts/skill-studio.mjs": "ea78e522ebe011757a9a72486bedc2c5a7713cdfd079d757423793cdc34a15f5",
+      "skills/zilvereyes-create-plugin/agents/openai.yaml": "70fbbc3c948ac9024084e31d05405991b97797788a35df431798bc52bc918289",
+      "skills/zilvereyes-create-plugin/assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+      "skills/zilvereyes-create-plugin/SKILL.md": "95c0011d95e012305f88a905c8d22653b6100a1e6afa068387a42a812c376694",
+      "skills/zilvereyes-create-skill/agents/openai.yaml": "9f8f396365bb6812e581224eec9e00eb4826f9bcec5f961ace6af6c32c031874",
+      "skills/zilvereyes-create-skill/assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+      "skills/zilvereyes-create-skill/SKILL.md": "5f8a3bcbb58bafc45a681570a9b3ad206d5aae8e04eed462a700817aab295bb9",
+      "skills/zilvereyes-evaluate-plugin/agents/openai.yaml": "ffd0200d6f01c14cd4ca3c188e0929d4bb4afa02e5148acf69f8ac0e87f747cb",
+      "skills/zilvereyes-evaluate-plugin/assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+      "skills/zilvereyes-evaluate-plugin/SKILL.md": "37e628e279146175f5e149086cb6ddb828bfbc2caf167489b8d066825a3c7146",
+      "skills/zilvereyes-improve-skill/agents/openai.yaml": "53ad37eeed1e5bc43a4631ee2c550ab3a8975491de959a3fcb63f1b1b1691e21",
+      "skills/zilvereyes-improve-skill/assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+      "skills/zilvereyes-improve-skill/SKILL.md": "e3f5a6f5eee347bb6b318fe7850a651aedd6addaac850df06a8efadbe5b101de",
+      "skills/zilvereyes-install-skill/agents/openai.yaml": "7fd2e9659d11ee7b6ebf96825889473f6455af1154852ed3b424603d799d13e4",
+      "skills/zilvereyes-install-skill/assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+      "skills/zilvereyes-install-skill/SKILL.md": "77dfed639511155c7faf8b899e1b2fcc9cc7ee8419a775f7ac38943a4d45da3c",
+      "skills/zilvereyes-plugin-portfolio/agents/openai.yaml": "7b9fb62ccf32ac117e07f7e88e19a45530849732eb6493b7c7e16936098dd9af",
+      "skills/zilvereyes-plugin-portfolio/assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+      "skills/zilvereyes-plugin-portfolio/SKILL.md": "7dd8d12cc7c7a34b0186d66294a62bc438d206f231a9704fa8150e43f3766acd",
+      "skills/zilvereyes-plugin-studio/agents/openai.yaml": "9c74cd8f5630277115ac288ad633b1d417503b9269d5ec7538a417082db57124",
+      "skills/zilvereyes-plugin-studio/assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+      "skills/zilvereyes-plugin-studio/SKILL.md": "e8dc068c4faf041b9c16c0ddac00e04f5b441596cef1000d0c30832a6e48456b",
+      "skills/zilvereyes-update-plugin/agents/openai.yaml": "fbd80b0cf8bd2456124fad6311b0a09d9df353938f2ac13b9fbe6a6f73b4d9d5",
+      "skills/zilvereyes-update-plugin/assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+      "skills/zilvereyes-update-plugin/SKILL.md": "3078bd00f46b99a8c1e7d9626dfde48a480c0f91e8dbc8ea3def80b5b750bef9",
+      "tests/plugin-studio.test.mjs": "da5d8d093e1d542a412a2805723123d215865f7e0761ea763e5af229a92a0db0",
+      "THIRD_PARTY_NOTICES.md": "db942cd0f2324498e3ed526e163342edcdf36583943892bc499a9a3758d488fd"
+    },
+    "license": "MIT"
+  }
+}

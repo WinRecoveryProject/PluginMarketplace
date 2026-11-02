@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "onedrive": {
+      "type": "streamable-http",
+      "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            },
+            "defaultScopes": [
+              "onedrive.read",
+              "onedrive.write"
+            ],
+            "baseScopes": [
+              "onedrive.read",
+              "onedrive.write"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

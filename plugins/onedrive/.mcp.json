@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "onedrive": {
+      "type": "streamable-http",
+      "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
+      "headers": {},
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            },
+            "defaultScopes": [
+              "onedrive.read",
+              "onedrive.write"
+            ],
+            "baseScopes": [
+              "onedrive.read",
+              "onedrive.write"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skills Evidence Matrix"
+  short_description: "Use when arranging explicitly supplied evidence by skill and source with an exp"
+  default_prompt: "Use $evidence-matrix for this task."

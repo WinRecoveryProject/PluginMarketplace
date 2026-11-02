@@ -1,0 +1,28 @@
+{
+  "apps": "./.app.json",
+  "interface": {
+    "capabilities": [],
+    "category": "Productivity",
+    "defaultPrompt": "Vis mine tilgængelige cloudforbindelser og søg på tværs af de tilsluttede konti.",
+    "developerName": "Zilvereyes",
+    "displayName": "CloudStorage Portal",
+    "websiteURL": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
+    "logo": "./assets/cloudstorage-portal.png",
+    "composerIcon": "./assets/cloudstorage-portal.png",
+    "longDescription": "Dropbox, Google Drive and OneDrive file workflows through the dedicated App connections. OneDrive supports read/write file tools; no separate Local runtime is required.",
+    "shortDescription": "Cloudfiler på tværs af konti"
+  },
+  "name": "cloudstorage-portal",
+  "version": "0.9.0",
+  "description": "Coordinate Dropbox, Google Drive and OneDrive through three explicit App bindings and a unified skill layer.",
+  "author": {
+    "name": "Zilvereyes",
+    "email": "zilver.muhlig.hansen@gmail.com"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
+  "keywords": [],
+  "skills": "./skills"
+}

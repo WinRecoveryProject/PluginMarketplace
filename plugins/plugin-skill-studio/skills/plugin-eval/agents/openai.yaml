@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plugin Eval"
+  short_description: "Use when assessing a plugin package, its skills, runtime declarations, budget o"
+  default_prompt: "Use $plugin-eval for this task."

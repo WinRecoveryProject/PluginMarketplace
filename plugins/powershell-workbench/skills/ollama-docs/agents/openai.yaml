@@ -1,0 +1,7 @@
+interface:
+  display_name: "Ollama Docs"
+  short_description: "Research official Ollama documentation"
+  icon_small: "./assets/skill-icon.svg"
+  icon_large: "./assets/skill-icon.svg"
+  brand_color: "#111111"
+  default_prompt: "Use $ollama-docs to research version-specific Ollama runtime and API behavior."

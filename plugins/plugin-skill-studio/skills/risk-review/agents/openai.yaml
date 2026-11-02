@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Risk Check"
+  short_description: "Use when reviewing skills or plugins for risky instructions, downloads, permiss"
+  default_prompt: "Use $risk-review for this task."

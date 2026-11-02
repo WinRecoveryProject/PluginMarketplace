@@ -1,68 +1,9 @@
 {
-  "schemaVersion": 1,
-  "provider": "onedrive",
-  "server": {
-    "status": "canonical-hosted-readwrite-runtime-live-operations-pending",
-    "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
-    "deploymentId": "dpl_9K8JGn5e7oMEyV9E8yKehZ6updax",
-    "runtimeEnvironment": "production",
-    "registrationMethod": "DCR",
-    "tokenEndpointAuthMethod": "none",
-    "scopes": [
-      "onedrive.read",
-      "onedrive.write"
-    ],
-    "pkce": "S256",
-    "note": "OneDrive is the selected canonical App, not OneDrive Broker Staging. 28 tools discovered in the App UI. New write consent and live write verification are pending."
-  },
-  "activeApp": {
-    "id": "asdk_app_6ae10ed9d63081a4be88686cc73078e9",
-    "pluginId": "plugin_asdk_app_6ae10ed9d63081a4be88686cc73078e9",
-    "referenceFile": ".app.json",
-    "connectionLabel": "OneDrive",
-    "scope": "current OneDrive App; no Business workspace requirement",
-    "credentialsIncluded": false,
-    "accountAndRootVerified": false,
-    "refreshThenRootVerified": false,
-    "liveWritesVerified": false
-  },
-  "retiredApps": [
-    {
-      "id": "asdk_app_6ade0fe240408191bd087bff2df78e79",
-      "status": "deleted-and-replaced"
-    },
-    {
-      "id": "asdk_app_6ade878e235c8191b19c6f72fc31981a",
-      "status": "deleted-and-replaced"
-    },
-    {
-      "id": "asdk_app_6adee7aa468881a4940e6933f518ddaa",
-      "pluginId": "plugin_asdk_app_6adee7aa468881a4940e6933f518ddaa",
-      "workspaceId": "13dd9826-ca61-4006-a842-f6cb02ddf7b9",
-      "createdAt": "2026-10-26",
-      "callbackUrl": "https://chatgpt.com/connector/oauth/8km5JPM_K7ZN",
-      "referenceFile": ".app.json",
-      "credentialsIncluded": false,
-      "status": "renamed-OneDrive-Legacy; retained as history, not active dependency"
-    }
-  ],
-  "microsoft": {
-    "apiApplicationId": "611e57ce-a334-46da-b172-98d03bf2bb9b",
-    "hostApplicationId": "c3943220-6e15-4d13-b397-ea0c1a1a639b",
-    "delegatedScope": "api://611e57ce-a334-46da-b172-98d03bf2bb9b/access_as_user"
-  },
-  "icon": {
-    "source": "C:/Admin/Tools/OneDriveIconer/OneDrive_1_501.ico",
-    "derivedAsset": "assets/onedrive.png"
-  },
-  "credentialsIncluded": false,
-  "historicalServer": {
-    "status": "preserved-reference-not-active",
-    "referenceFile": "references/hosted-mcp-0.1.5.json",
-    "formerPluginServerName": "cloudstorage_onedrive",
-    "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
-    "deploymentId": "dpl_7RQUYXwGTf9PkPm8pBEYosbHhU7g",
-    "sourceVersion": "0.1.1",
-    "publicDiscoveryReceipt": "../../outputs/HOSTED-ONEDRIVE-PUBLIC-DISCOVERY-0.1.1.json"
-  }
+  "sourceArchive": "OneDrive_unified_v1.1.5.zip",
+  "sha256": "1e72b800989c636eb1c0ead9eb9f049a5b77962249490a5cd73e3570a3c9e163",
+  "version": "1.1.5",
+  "canonicalMcp": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
+  "appBinding": "asdk_app_6ae10ed9d63081a4be88686cc73078e9",
+  "personalAccountAppAccess": "NOT_VERIFIED",
+  "liveFileOperations": "NOT_RUN"
 }

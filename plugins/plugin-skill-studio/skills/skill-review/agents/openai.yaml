@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Craft Review"
+  short_description: "Use when a skill needs a behavior-focused technical review beyond structural va"
+  default_prompt: "Use $skill-review for this task."

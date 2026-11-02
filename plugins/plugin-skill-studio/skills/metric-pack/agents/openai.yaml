@@ -1,0 +1,4 @@
+interface:
+  display_name: "Metric Pack Designer"
+  short_description: "Use when adding task-specific verifiers and metrics to a plugin or skill evalua"
+  default_prompt: "Use $metric-pack for this task."

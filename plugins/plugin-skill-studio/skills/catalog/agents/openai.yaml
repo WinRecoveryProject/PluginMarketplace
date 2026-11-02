@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plugin and Skill Discovery"
+  short_description: "Use when finding local skills or analyzing public directory snapshots, listing "
+  default_prompt: "Use $catalog for this task."

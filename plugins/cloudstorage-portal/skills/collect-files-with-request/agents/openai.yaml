@@ -1,0 +1,7 @@
+interface:
+  display_name: "Collect Files with Request"
+  short_description: "Create and manage Dropbox file requests"
+  icon_small: "./assets/dropbox.png"
+  icon_large: "./assets/dropbox.png"
+  brand_color: "#0061FF"
+  default_prompt: "Use $collect-files-with-request to create, inspect, or manage a Dropbox file request for collecting uploads."

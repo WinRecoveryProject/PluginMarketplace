@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cloudstorage Setup Docs"
+  short_description: "Explain and reproduce the documented zero-cost CloudStorage Portal setup, Micros"
+  default_prompt: "Use $cloudstorage-setup-docs to help with this task."

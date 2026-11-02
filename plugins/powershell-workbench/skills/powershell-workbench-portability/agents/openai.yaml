@@ -1,0 +1,7 @@
+interface:
+  display_name: "Workbench Portability"
+  short_description: "Package PowerShell Workbench portably"
+  icon_small: "./assets/skill-icon.png"
+  icon_large: "./assets/skill-icon.png"
+  brand_color: "#2671BE"
+  default_prompt: "Use $powershell-workbench-portability to prepare this PowerShell Workbench package for another machine or marketplace."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Eval"
+  short_description: "Use when evaluating an agent skill, testing its triggers or behavior, comparing"
+  default_prompt: "Use $skill-eval for this task."

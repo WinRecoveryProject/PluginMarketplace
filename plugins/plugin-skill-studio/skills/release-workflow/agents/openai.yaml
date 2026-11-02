@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plugin Release Workflow"
+  short_description: "Use when preparing, packaging or resuming a plugin release with evidence and bo"
+  default_prompt: "Use $release-workflow for this task."

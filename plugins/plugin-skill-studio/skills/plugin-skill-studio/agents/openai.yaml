@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plugin-Skill-Studio"
+  short_description: "Use when building, discovering, reviewing, importing or managing plugins and sk"
+  default_prompt: "Use $plugin-skill-studio for this task."
