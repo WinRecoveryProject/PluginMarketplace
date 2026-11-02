@@ -122,7 +122,7 @@ function riskLines(file,text,findings){
      // for test directories: executable commands and Markdown remain blocking.
      const script=/\.[cm]?[jt]s$/i.test(file);
      const fixture=script&&/(?:^|\/)(?:tests?|fixtures?)\/|\.(?:test|spec)\.[cm]?[jt]s$/i.test(file)
-       && /(?:\b(?:const|let|var)\s+\w+\s*=\s*['"`]|\b(?:fixture|writeFile|writeFileSync|res\.end)\s*\()/u.test(line);
+       && /(?:\b(?:const|let|var)\s+\w+\s*=\s*['"`]|\b(?:fixture|writeFile|writeFileSync|res\.end)\s*\(|^\s*(?:const|let|var)\s+\w+\s*=\s*await\s+skill\s*\(\s*['"`])/u.test(line);
      const ruleLiteral=script&&/(?:\[\s*['"]risk\.[\w.-]+['"]\s*,\s*\/|\brule\(\s*['"][A-Z_]+['"]\s*,\s*['"][a-z]+['"]\s*,\s*\/)/u.test(line);
      const context=ruleLiteral?'rule-definition':fixture?'test-fixture':'active-or-unclassified';
      add(findings,fixture||ruleLiteral?'warning':'error',code,'Review this concrete instruction or credential pattern; context is not proof of runtime safety or malicious intent.',file,i+1,line);
