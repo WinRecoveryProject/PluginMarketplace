@@ -1,14 +1,35 @@
 # Verifikation og næste mål
 
-## Faktisk status 27. oktober 2026
+## Faktisk status 2. november 2026
 
-Aktuel Desktop-pakke: OneDrive og Portal refererer nu udtrykkeligt til den eksisterende personlige App, hvis værktøjer faktisk er tilgængelige i hosten. Den tekniske forbindelse hedder OneDrive Broker Staging. Gentesten returnerede samme immutable identitet, 17 rod-elementer, host_refresh=200 og endnu en vellykket rodliste efter refresh. App-ID og workspace er ikke produktkrav; Google Drive og Dropbox er uændrede native App-referencer. De efterfølgende produktionsfund er separat historik og må ikke blandes sammen med denne valgte forbindelse.
+Den aktive personlige App hedder OneDrive og bruger produktionsbrokeren
+https://cloudstorage-onedrive-mcp.vercel.app/mcp med DCR, onedrive.read og
+onedrive.write. Connected accounts og Primary er bekræftet i UI. Det eksisterende
+ikon er bevaret. CloudStorage Portal opløser Dropbox, Google Drive og samme
+OneDrive-App; den har ingen selvstændig OneDrive-loginidentitet.
 
-Google Drive og Dropbox har svaret med de aktuelle kontoprofiler gennem deres native værktøjer. OneDrive Broker Staging er særskilt live verificeret med stabil personlig identitet, 17 rod-elementer og faktisk refresh efterfulgt af rodliste.
+Den registrerede App-rute er testet gennem Desktops officielle codex_apps-server
+i den eksisterende testchat: stabil personlig identitet, gyldig rodliste,
+oprettelse af isoleret testmappe, upload, read_text, indholdsopdatering og
+UTF-8-readback med SHA-256 samt oprydning til papirkurven. Runtime 0.3.2 annoncerer
+28 værktøjer. Det beviser ikke alle mulige operationer; deling og permanent
+sletning blev ikke brugt som test.
 
-Den nye OneDrive-App bruger produktionsbrokeren med DCR og onedrive.read. Den gennemførte personligt Microsoft-login og viste Connected accounts og Primary. Workspace-registeret bekræftede Enabled, Available og fire læseværktøjer. Produktionsloggen viste vellykket token/OBO-, profil-, drev- og autentificeret MCP-adgang. Separat identitet, rodliste og refresh skal stadig verificeres gennem netop den nye App i den opdaterede Codex-installation; staging-resultater må ikke bruges som erstatning for disse prøver.
+Native MCP blev separat testet med bl.a. download, omdøbning, flytning, kopiering,
+kopimonitor, versionsliste og download af historisk version. Bland ikke denne
+evidens sammen med den registrerede App-rute. Staging-resultater fra oktober er
+historik og må ikke stå som bevis for den aktive forbindelse.
 
-Et bestemt App-ID er ikke et produktkrav. Opdatér de relevante pakkereferencer, når en defekt registrering erstattes. Den gamle direkte Microsoft-konfiguration er historik, ikke en forudsætning for succes. Arbejds-/skolekontoens OneDrive, skrivning, deling og flere konti er særskilte prøver og er ikke bevist af den personlige loginprøve.
+Refresh gennem den nye App afventer en read-only kontinuitetstest efter den
+maksimale broker-access-tokenlevetid på 3600 sekunder. Et vellykket senere kald
+uden ny loginrunde er funktionel evidens for tavs adgang. Selve refresh-grantens
+HTTP-payload er ikke indsamlet. Rapportér resultatet fra den konkrete kvittering;
+lokale mocktests eller et ventende job er ikke et live-refresh-bevis.
+
+Lokale revisionskvitteringer i projektets outputs/: ONEDRIVE-APP-CREATION-20261102.json,
+ONEDRIVE-CONNECTED-APP-WRITE-20261102.json, ONEDRIVE-032-SOURCE-VERIFY-20261102.json
+og ONEDRIVE-SILENT-CONTINUITY-20261102.json. De kan indeholde brugeridentitet og
+filmetadata og skal ikke lægges ukritisk i en offentlig pluginpakke.
 
 ## Acceptance-tests
 
@@ -27,9 +48,9 @@ Brug PASS, FAIL eller NOT RUN. Stopper et tidligere led, er afhængige led NOT R
 | Root | Rodværktøj giver gyldigt resultat for samme drive; tom rod er gyldig |
 | Refresh | Fornyelse og ny rodliste med samme identitet/drive lykkes |
 
-## Næste mål: Entra-login
+## Særskilt kontrol: Entra-login
 
-Vælg Microsofts arbejds-/skolekonto gennem den eksisterende stagingforbindelse på personlig ChatGPT-konto. Det kræver ikke først at flytte connectoren til ChatGPT Business.
+Vælg Microsofts arbejds-/skolekonto gennem den aktive OneDrive-forbindelse på personlig ChatGPT-konto. Det kræver ikke først at flytte connectoren til ChatGPT Business.
 
 Registrér tenant, kontotype og immutable identitet uden tokens. En gæst/EXT-bruger er ikke automatisk en provisioneret OneDrive for Business-bruger. Hvis login accepteres men drive mangler, behold begge fund: login PASS, driveadgang FAIL med præcis fejl. Opret ingen betalte licenser som stiltiende del af 0 kr.-testen.
 

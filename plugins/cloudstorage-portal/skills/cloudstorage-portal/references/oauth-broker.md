@@ -1,6 +1,8 @@
 # Unified OAuth broker contract
 
-Status: the hosted broker remains a specification. Version 0.3.0 includes a local development implementation in runtime/, with provider-specific code exchange, in-memory tokens, refresh, account identity and bounded root reads. It exposes five optional local stdio MCP tools and loopback browser controls. Live provider OAuth is not verified and the MCP server is not installed in the host. An opt-in OneDrive local-sync adapter lists the existing sync root independently. The local implementation loses credentials on restart and must not be exposed as a hosted service.
+Current implementation, 2 November 2026: CloudStorage Portal routes to the existing native Dropbox and Google Drive Apps and the registered personal OneDrive App. OneDrive uses the hosted OAuth broker at https://cloudstorage-onedrive-mcp.vercel.app/mcp, runtime 0.3.2, DCR and onedrive.read plus onedrive.write. Connected-account UI, identity, root listing and isolated read/write operations through the App route are live verified. Refresh is a separate pending checkpoint. CloudStorage Portal Local has been retired; do not install it or route through its sync-folder adapter. For the deployed contract and field mapping, read [architecture](../../cloudstorage-setup-docs/references/architecture.md) and [setup](../../cloudstorage-setup-docs/references/setup-guide.md).
+
+The remaining sections are design requirements for a hypothetical independent multi-provider broker. They are not a description of the active Portal, and do not imply that native Google/Dropbox credentials can be extracted or reused. A broad multi-provider broker, persistent revocation and multi-instance replay protection are not proven by the OneDrive implementation.
 
 ## Identity and connection boundaries
 

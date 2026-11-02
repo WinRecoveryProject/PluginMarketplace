@@ -1,12 +1,12 @@
 # Opsætning med 0 kr. i ekstra budget
 
-Statusdato: 27. oktober 2026. Planvilkår, adgangskrav, UI-navne og kvoter skal genkontrolleres ved ny opsætning.
+Statusdato: 2. november 2026. Aktiv runtime: 0.3.2. Den aktuelle OneDrive-App bruger læse-/skrivekontrakten beskrevet nedenfor. Planvilkår, adgangskrav, UI-navne og kvoter skal genkontrolleres ved ny opsætning.
 
 ## 1. Tjenester og kilde
 
 Brug Microsoft Entra admin center til appregistreringer, Vercel til hosted broker/MCP og ChatGPT/Codex til klientforbindelsen. Google Drive og Dropbox forbliver separate native connectors.
 
-Eget domæne, betalt aggregator, ekstern database og OpenAI API-nøgle var ikke nødvendige for denne personlige staging-loginprøve. Et ChatGPT-abonnement og adgang til tjenesterne kan have egne krav. “0 kr.” betyder ingen ekstra køb her, ikke at alle produkter er gratis for alle.
+Eget domæne, betalt aggregator, ekstern database og OpenAI API-nøgle var ikke nødvendige for denne personlige loginprøve. Et ChatGPT-abonnement og adgang til tjenesterne kan have egne krav. “0 kr.” betyder ingen ekstra køb her, ikke at alle produkter er gratis for alle.
 
 Vercel-planen var Hobby. Kontroller Billing/planvisningen og de aktuelle anvendelsesvilkår før deployment. Brug ingen opgraderinger eller betalte tilvalg. Stop ved betalingskrav.
 
@@ -37,8 +37,8 @@ Vælg/opret den særskilte app, der repræsenterer brokerens Microsoft-klient.
 
 - Application (client) ID: dit HOST_APP_ID.
 - Supported account types: omfatter kontoen der skal testes; projektets app tillader både Entra og personlige Microsoft-konti.
-- API permissions: API-appens delegerede access_as_user; User.Read findes også i den observerede registrering.
-- Authentication → Redirect URI configuration → Add Redirect URI → Web: https://<STAGING_HOST>/oauth/callback.
+- API permissions for læse-/skrivegrenen: delegeret Microsoft Graph User.Read og Files.ReadWrite; brugeren skal give det konkrete samtykke. Den eksisterende access_as_user-tilladelse hører til læse-/OBO-grenen og må ikke forveksles med Files.ReadWrite.
+- Authentication → Redirect URI configuration → Add Redirect URI → Web: https://<MCP_HOST>/oauth/callback, hvor MCP_HOST er den konkrete brokers host. Projektets aktive callback er https://cloudstorage-onedrive-mcp.vercel.app/oauth/callback; staging bruger sit eget alias.
 - Certificates & secrets → Client secrets: host-appens egen credential.
 
 I broker-modellen sender Microsoft sin kode tilbage til brokeren. ChatGPT-callbacken ligger på det andet OAuth-ben og håndteres via brokerens klientregistrering. Brug den callback der faktisk sendes, og bevar eksisterende callbacks indtil deres fjernelse er konkret bestilt.
@@ -87,12 +87,12 @@ Observeret personlig UI: Plugins → Add → Add custom MCP server. UI kan siden
 
 | Felt | Værdi til din kopi |
 | --- | --- |
-| Name | Et tydeligt staging-navn |
-| Server URL | https://<STAGING_HOST>/mcp |
+| Name | OneDrive; separat tydeligt staging-navn kun ved en isoleret test |
+| Server URL | Din kanoniske HTTPS MCP-URL; projektets er https://cloudstorage-onedrive-mcp.vercel.app/mcp |
 | Authentication | OAuth |
 | Advanced OAuth settings | Brokerens discovery-endpoints |
 | Registreringsmetode | DCR |
-| Default/base scopes | onedrive.read |
+| Default/base scopes for denne læse-/skriveforbindelse | onedrive.read og onedrive.write, begge valgt |
 | Token endpoint auth method | none med PKCE S256 |
 
 Denne kandidat kan ikke direkte bruge ChatGPTs private_key_jwt-CIMD-klient: brokerens CIMD-validering accepterer kun none. Metadata-annonce om CIMD beviser ikke kompatibilitet. Den verificerede rute bruger DCR.
@@ -111,6 +111,6 @@ Stateless krypterede grants er ikke en varig revokeringsliste. Fuld flerinstans-
 
 Efter en verificeret staging-prøve skal produktionens eget alias, kanoniske publicUrl, Web-callback og credentialmål kontrolleres. Gemte Preview-variabler overføres ikke automatisk til Production. Ændr kun de konkret autoriserede mål og deploy det samme verificerede kildesæt med den korrekte publicUrl. Kontrollér discovery igen.
 
-Opret eller genkonfigurér OneDrive-forbindelsen mod produktionsbrokeren med DCR og onedrive.read. En gammel registrering kan beholde sine tidligere OAuth-endpoints, selv om serveren annoncerer nye. Bevar derfor ikke et defekt App-ID som et mål i sig selv. Genlæs den faktisk fungerende Apps ID og opdatér både OneDrive-pakkens og Portalens .app.json samt marketplace-reference og relevant proveniens.
+Opret eller genkonfigurér OneDrive-forbindelsen mod produktionsbrokeren med DCR og både onedrive.read og onedrive.write. En gammel registrering kan beholde sine tidligere OAuth-endpoints, selv om serveren annoncerer nye. Bevar derfor ikke et defekt App-ID som et mål i sig selv. Genlæs den faktisk fungerende Apps ID og opdatér både OneDrive-pakkens og Portalens .app.json samt marketplace-reference og relevant proveniens.
 
 Brug de eksisterende ikonfiler fra projektet. App-formularens Choose icon har en 10 KB-grænse, mens pakkens logo/composerIcon er separate filreferencer. Kontroller det synlige ikon efter upload og efter installation. Tilgængeliggørelse i et workspace er en særskilt publicering; hver bruger forbinder fortsat sin egen Microsoft-konto. Test til sidst Portalens tre Apps og den nye OneDrive-forbindelses identitet, rod og refresh i den aktuelle host.
