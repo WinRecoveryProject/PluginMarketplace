@@ -15,7 +15,7 @@
     "shortDescription": "Cloudfiler på tværs af konti"
   },
   "name": "cloudstorage-portal",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Coordinate Dropbox, Google Drive and OneDrive through three explicit App bindings and a unified skill layer.",
   "author": {
     "name": "Zilvereyes",

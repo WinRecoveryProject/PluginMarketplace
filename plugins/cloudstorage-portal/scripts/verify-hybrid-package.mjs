@@ -94,7 +94,7 @@ const result = {
     oneDrive: apps.apps?.onedrive?.id ?? null,
     preserved: apps.apps?.dropbox?.id === 'asdk_app_69b31dc2110c8191b8b47dc98fe5a052'
       && apps.apps?.['google-drive']?.id === 'connector_5f3c8c41a1e54ad7a76272c89e2554fa'
-      && apps.apps?.onedrive?.id === 'asdk_app_6ae10ed9d63081a4be88686cc73078e9',
+      && apps.apps?.onedrive?.id === 'asdk_app_6ae8b541a3d08191ae893ea0925a2fe5',
   },
   hybrid: {
     codexAppRoutingFormat: 'app-references-plus-skills',

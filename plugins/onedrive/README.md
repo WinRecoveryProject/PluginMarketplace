@@ -1,7 +1,7 @@
 # OneDrive — single unified plugin
 
-**Desktop package version:** 1.1.6  
-**Plugin:** https://chatgpt.com/plugins/plugins_6ae5eb90d3948191a5b94a8f93aca0d7
+**Desktop package version:** 1.1.7
+**Plugin:** https://chatgpt.com/plugins/plugin_asdk_app_6ae8b541a3d08191ae893ea0925a2fe5
 
 This package bundles the registered OneDrive App mapping in `.app.json`, the
 OneDrive MCP server in `mcp.json` / `.mcp.json`, the primary OneDrive skill in
@@ -20,7 +20,7 @@ neither. Account-hosted release versions must be checked separately.
 2. Run the **OneDrive Setup** onboarding flow.
 3. Connect the OneDrive App and complete Microsoft sign-in and consent in the
    authenticated connection dialog; **do not paste credentials into chat**.
-4. Verify the App and MCP server use the same Microsoft account/session.
+4. Verify the App and MCP server identify the same Microsoft account. Their host OAuth sessions can be separate; do not copy credentials between them.
 5. Confirm authenticated account, drive metadata and root contents via OneDrive
    plugin tools before performing any write operation.
 
