@@ -1,9 +1,15 @@
 {
   "sourceArchive": "OneDrive_unified_v1.1.5.zip",
   "sha256": "1e72b800989c636eb1c0ead9eb9f049a5b77962249490a5cd73e3570a3c9e163",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "canonicalMcp": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
   "appBinding": "asdk_app_6ae10ed9d63081a4be88686cc73078e9",
   "personalAccountAppAccess": "NOT_VERIFIED",
-  "liveFileOperations": "NOT_RUN"
+  "liveFileOperations": "NOT_RUN",
+  "sourceArchiveVersion": "1.1.5",
+  "changes": [
+    "Use native Codex manifest as Desktop entrypoint; preserve portable manifest as export reference.",
+    "Codex actual loader fixture: 1 App, 1 MCP, 2 skills."
+  ],
+  "loaderEvidence": "ONEDRIVE-MANIFEST-LOADER-TEST-20261102.json"
 }

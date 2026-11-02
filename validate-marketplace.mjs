@@ -38,7 +38,8 @@ if(registry){
       for(const d of readdirSync(skillBase,{withFileTypes:true}).filter(d=>d.isDirectory()))check(existsSync(join(skillBase,d.name,'SKILL.md')),`${name}: skill ${d.name}`);
     }
     if(name==='onedrive'){
-      const portable=json('plugins/onedrive/plugin.json'), apps=json('plugins/onedrive/.app.json');
+      const portable=json('plugins/onedrive/references/portable-plugin.json'), apps=json('plugins/onedrive/.app.json');
+      check(!existsSync(join(base,'plugin.json')),'OneDrive uses the runtime-tested native Desktop entrypoint');
       check(portable?.version===m.version&&portable?.name===m.name,'OneDrive portable/native identity match');
       check(portable?.extensions?.['com.openai']?.apps===m.apps,'OneDrive portable/native App declaration match');
       const ids=Object.values(apps?.apps??{}).map(a=>a.id);

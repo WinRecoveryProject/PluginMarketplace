@@ -19,6 +19,9 @@ https://cloudstorage-onedrive-mcp.vercel.app/mcp.
 1. Check whether this exact OneDrive plugin is installed and enabled for the
    current client. Discover available tools; do **not** interpret the presence
    of Microsoft SharePoint or `OneDrive_Broker_Staging` tools as confirmation.
+   In Desktop, inspect the host's parsed App and MCP declarations, not just JSON
+   files: the native entrypoint is `.codex-plugin/plugin.json`. A portable root
+   manifest shadows it; the export reference lives under `references/`.
 2. If the OneDrive plugin is not installed/enabled, direct the user to its
    private plugin page and ask them to install/enable it. Installation and
    Microsoft consent require user interaction. Do not claim to complete them.

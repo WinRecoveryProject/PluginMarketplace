@@ -1,12 +1,18 @@
 # OneDrive — single unified plugin
 
-**Version:** 1.1.5  
+**Desktop package version:** 1.1.6  
 **Plugin:** https://chatgpt.com/plugins/plugins_6ae5eb90d3948191a5b94a8f93aca0d7
 
 This package bundles the registered OneDrive App mapping in `.app.json`, the
 OneDrive MCP server in `mcp.json` / `.mcp.json`, the primary OneDrive skill in
 `skills/onedrive/SKILL.md`, and the guided onboarding skill in
 `skills/setup/SKILL.md`.
+
+Desktop uses `.codex-plugin/plugin.json` as its native entrypoint. The portable
+manifest is retained at `references/portable-plugin.json` for account export;
+do not copy it to the native package root. The actual Desktop loader test found
+one App and one MCP server with this layout; the original portable layout loaded
+neither. Account-hosted release versions must be checked separately.
 
 ## Connect
 
@@ -21,8 +27,8 @@ OneDrive MCP server in `mcp.json` / `.mcp.json`, the primary OneDrive skill in
 ## Endpoint and caveats
 
 - MCP endpoint: `https://cloudstorage-onedrive-mcp.vercel.app/mcp`.
-- The Vercel project has been observed as deployed to production, but external
-  OAuth/MCP reachability has not been confirmed.
+- Public OAuth discovery and an anonymous MCP 401 were verified on 2026-11-02.
+  This proves reachability and the authentication challenge, not a user login.
 - The source claims 28 MCP tools; discover their actual runtime availability.
 - ChatGPT App and MCP bearer credentials are separate from Microsoft Graph
   delegated credentials, even if onboarding appears as one user login.

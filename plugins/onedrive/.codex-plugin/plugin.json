@@ -1,28 +1,30 @@
 {
   "apps": "./.app.json",
   "author": {
-    "name": "App developer"
+    "name": "Zilvereyes",
+    "email": "zilver.muhlig.hansen@gmail.com"
   },
   "description": "OneDrive App and MCP server connection with Microsoft login through the existing authorized broker.",
   "interface": {
     "displayName": "OneDrive",
     "shortDescription": "Dine OneDrive-filer",
-    "longDescription": "Læs og administrér OneDrive-filer: mapper, søgning, download, upload, flytning, kopiering, versioner og deling gennem den eksisterende CloudStorage Portal-server.",
+    "longDescription": "LÃ¦s og administrÃ©r OneDrive-filer: mapper, sÃ¸gning, download, upload, flytning, kopiering, versioner og deling gennem den eksisterende CloudStorage Portal-server.",
     "developerName": "Zilvereyes",
     "category": "Productivity",
     "websiteURL": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
     "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
     "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
     "capabilities": [],
-    "defaultPrompt": "Vis min verificerede OneDrive-konto og indholdet i roden uden at ændre filer.",
+    "defaultPrompt": "Vis min verificerede OneDrive-konto og indholdet i roden uden at Ã¦ndre filer.",
     "logo": "./assets/onedrive.png",
     "composerIcon": "./assets/onedrive.png",
     "brandColor": "#0078D4",
     "brandColorDark": "#4CC2FF"
   },
   "name": "onedrive",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "skills": "./skills",
   "mcpServers": "./.mcp.json",
-  "onboardingSkill": "./skills/setup/SKILL.md"
+  "onboardingSkill": "./skills/setup/SKILL.md",
+  "license": "MIT"
 }

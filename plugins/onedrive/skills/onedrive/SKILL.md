@@ -6,8 +6,10 @@ description: "Manage the authenticated OneDrive account through the OneDrive App
 
 This plugin combines one registered OneDrive App mapping (`.app.json`), one remote
 OneDrive MCP server (`mcp.json` and `.mcp.json`), and this OneDrive skill.
-The OpenAI App binding is declared at `extensions.com.openai.apps` in the root
-plugin manifest. It is not sufficient merely to include `.app.json` in the ZIP.
+The native Desktop entrypoint `.codex-plugin/plugin.json` declares `apps` and
+`mcpServers`. The portable manifest is retained under `references/` for export;
+placing it at the Desktop package root shadows the native entrypoint. An App
+reference in a ZIP is not sufficient proof that the host activates that App.
 Use the connected OneDrive App's account identity and associated tools as the
 authoritative session. Do not assume that the registered App and independently
 declared MCP URL share a login session until that has been proven end to end.

@@ -26,10 +26,23 @@ mappe. Historiske omtaler i auditdokumenter er historik, ikke installationsposte
 
 ## OneDrive og testgrænsen
 
-OneDrive 1.1.5 er overført fra brugerens `OneDrive_unified_v1.1.5.zip`.
+OneDrive 1.1.6 bygger på brugerens `OneDrive_unified_v1.1.5.zip`.
 `plugins/onedrive/PROVENANCE.json` fastholder arkivets SHA256 og den eksisterende
 App-binding. Pakken indeholder App-reference, hosted MCP-forbindelse, ikon og to
 skills. Der er ikke oprettet en ny OneDrive-identitet eller en ny server.
+
+Den faktiske Desktop-loader indlæste den oprindelige portable pakke med 0 Apps og
+0 MCP-servere. Tre ikke-installerede fixtures viste: original 0/0; portable MCP
+uden `extensions` 0/1; native Desktop-format 1/1. Derfor ligger det portable
+manifest nu som eksportreference under `references/`, mens `.codex-plugin/plugin.json`
+er Desktop-entrypoint. Dette er parser-evidens, ikke en loginprøve.
+
+Primære implementeringskilder:
+- [App-/MCP-routing](https://github.com/openai/codex/blob/main/codex-rs/core-plugins/src/app_mcp_routing.rs)
+- [Portabel MCP-parser](https://github.com/openai/codex/blob/main/codex-rs/codex-mcp/src/agent_plugin_config.rs)
+
+Kilderne forklarer forskellen; fixturetesten blev udført med brugerens faktisk
+installerede Codex Desktop 0.166.0-alpha.5.1.
 
 En pakket App-reference, MCP-URL eller et vellykket mocktest beviser ikke, at en
 personlig konto og en Business-workspace deler adgang eller OAuth-session.
