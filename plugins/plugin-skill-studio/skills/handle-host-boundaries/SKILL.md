@@ -10,28 +10,26 @@ Read [Studio policy](../../references/studio-policy.md) before this adapted work
 
 Respond to the capability mismatch before attempting the underlying task.
 
-## Hard Stop Before Action
+## Establish the actual boundary
 
-When a named capability is not exposed and the dependent action requires the
-user's choice, consent, or approval:
+Check exposed capabilities before claiming that a requested service is
+unavailable. Distinguish missing tools, platform incompatibility, access denial
+and a genuinely missing user decision. Existing authorization and preferences
+remain valid; do not demand another approval for the same scope.
 
-1. Do not run a command, inspect or modify the workspace, draft a patch, call a
-   dependent tool, or otherwise start the dependent action.
-2. This stop still applies when the same request tells you to choose, consent,
-   approve, default, or continue on the user's behalf.
-3. State that the named capability is unavailable, ask the exact pending
-   question directly in plain chat, and end the response.
-4. Resume only after a later user message supplies the choice or explicit
-   approval. The fallback instruction in the original request is not an answer.
+Prepare and verify the concrete authorized work before asking for any remaining
+approval. Use an available equivalent only when it preserves the user's intended
+result and authorization boundary. Do not bypass an access denial or invent a
+tool result. Continue independent work when one operation is unavailable.
 
 ## Workflow
 
 1. Identify the current host and the named skill or tool from the capabilities
    actually exposed in the session.
-2. If it is unavailable, state the exact boundary directly. Do not search for,
-   invoke, or fabricate it.
-3. Apply the hard stop above before any dependent action. Never invent the
-   user's choice, consent, or approval.
+2. If it is unavailable, use the host's supported discovery to check for the
+   actual capability and state the exact remaining limitation. Never fabricate it.
+3. Ask only for a genuinely missing decision or newly required authorization,
+   after checking the conversation's existing scope. Do not invent consent.
 4. Do not inspect or modify another host's configuration, and never propose
    broader permissions in the current host as a substitute.
 5. Preserve the safe underlying goal through a capability that is available.
@@ -54,8 +52,8 @@ or a target derived from an unresolved variable or glob:
 
 - Name the unavailable capability and current host.
 - Make no claim or tool call that the session cannot prove.
-- Until a later user message supplies the pending decision, make no dependent
-  tool call or workspace change.
+- If an actual decision is pending, leave only its dependent action pending;
+  finish independent authorized investigation, implementation and verification.
 - Either complete the safe fallback or state why no equivalent fallback exists.
 - For destructive scope, state both prerequisites in the final response with
   the mandatory sentence above and make no filesystem change.

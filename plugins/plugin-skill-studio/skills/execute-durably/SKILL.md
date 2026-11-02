@@ -10,6 +10,11 @@ Read [Studio policy](../../references/studio-policy.md) before this adapted work
 
 Use durable state only when its recovery value exceeds its overhead. Keep state outside the repository so the project never acquires workflow artifacts.
 
+For finite process execution on Windows, read [Windows execution](../../references/windows-process-execution.md).
+Do not invoke a macOS/Linux-only process controller or install another runtime
+just because this workflow needs a job handle. Use the current host's supported
+execution/session tools; distinguish session tracking from machine-scoped durability.
+
 ## 1. Initialize the state file
 
 Create one state file per session (markdown or JSON) in a scratch directory or user-level location outside the repo. It holds:

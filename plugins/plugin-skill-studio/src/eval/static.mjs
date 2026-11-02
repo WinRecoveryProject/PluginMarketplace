@@ -5,7 +5,7 @@ import crypto from 'node:crypto';
 const MAX_FILES=5000, MAX_FILE=2*1024*1024, MAX_TOTAL=32*1024*1024;
 const TEXT=/\.(md|txt|json|ya?ml|m?js|cjs|ts|tsx|py|ps1|cmd|bat|sh|toml|xml|svg)$/i;
 const IGNORED=new Set(['.git','node_modules','__pycache__','.plugin-eval','.studio-eval']);
-export const scoringVersion='pss-eval-1';
+export const scoringVersion='pss-eval-2';
 export function contained(root,file){const rel=path.relative(root,file);return rel===''||(!rel.startsWith('..'+path.sep)&&rel!=='..'&&!path.isAbsolute(rel));}
 export function redact(text){return String(text).replace(/\b(?:sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9]{12,}|github_pat_[A-Za-z0-9_]{12,})\b/g,'[REDACTED]').replace(/\bBearer\s+[A-Za-z0-9._~+/=-]{12,}/gi,'Bearer [REDACTED]');}
 export async function safeText(root,file){
@@ -73,6 +73,15 @@ async function walk(root,findings){
  }
  await visit(root);return files;
 }
+function markdownProse(text){
+ let fence=null;
+ return text.replaceAll('\r\n','\n').split('\n').map(line=>{
+   const marker=line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+   if(fence){if(marker&&marker[1][0]===fence.char&&marker[1].length>=fence.length&&!marker[2].trim())fence=null;return ' '.repeat(line.length);}
+   if(marker){fence={char:marker[1][0],length:marker[1].length};return ' '.repeat(line.length);}
+   return line.replace(/(`+)(.*?)\1/g,m=>' '.repeat(m.length));
+ }).join('\n');
+}
 async function inspectSkill(root,file,findings,records){
  const rel=path.relative(root,file).split(path.sep).join('/');let text;
  try{text=await safeText(root,file);}catch(err){add(findings,'error','path.read',err.message,rel);return;}
@@ -86,10 +95,12 @@ async function inspectSkill(root,file,findings,records){
  if(!/^#\s+\S/m.test(meta.body))add(findings,'warning','structure.title','No clear Markdown title was found.',rel);
  if(!/\b(use when|when|if|for)\b/i.test(meta.description??''))add(findings,'warning','discovery.trigger','Description does not make a triggering condition explicit.',rel,3,meta.description);
  if(!/\b(do not|never|not for|out.of.scope|only|reject|refuse)\b/i.test(meta.body))add(findings,'info','behavior.boundary','No explicit scope or refusal boundary was found.',rel);
- for(let i=0;i<lines.length;i++){
-   const line=lines[i];
+ const proseLines=markdownProse('\n'.repeat(meta.headerLines)+meta.body).split('\n');
+ for(let i=0;i<proseLines.length;i++){
+   const line=proseLines[i];
    for(const m of line.matchAll(/\]\(([^)]+)\)/g)){
      let link=m[1].replace(/^<|>$/g,'').split('#')[0];if(!link||/^(https?:|mailto:)/i.test(link))continue;
+     if(/^(?:plugin|app|codex):\/\//i.test(link)){add(findings,'info','reference.host','Host capability reference; availability is not established by local file analysis.',rel,i+1,link);continue;}
      try{link=decodeURIComponent(link);}catch{add(findings,'error','reference.invalid','Invalid encoded reference.',rel,i+1,m[1]);continue;}
      const target=path.resolve(path.dirname(file),link);
      if(path.isAbsolute(link)||/^[A-Za-z]:|^[a-z]+:/i.test(link)||!contained(root,target)){add(findings,'error','reference.escape','Reference escapes the evaluated package.',rel,i+1,m[1]);continue;}
@@ -105,8 +116,36 @@ function riskLines(file,text,findings){
  ['risk.credential',/\b(?:sk-[A-Za-z0-9_-]{16,}|ghp_[A-Za-z0-9]{16,}|github_pat_[A-Za-z0-9_]{16,})\b/],
  ];
  for(const [i,line]of text.replaceAll('\r\n','\n').split('\n').entries())for(const[code,regex]of rules){
-   if(regex.test(line)&&!(code!=='risk.credential'&&/\b(do not|never|reject|detect|flag|must not)\b/i.test(line)))add(findings,'error',code,'Review this concrete instruction or credential pattern; it is not proof of malicious intent.',file,i+1,line);
+   if(regex.test(line)&&!(code!=='risk.credential'&&/\b(do not|never|reject|detect|flag|must not)\b/i.test(line))){
+     // Preserve evidence from examples; do not equate literal fixture data or
+     // scanner definitions with an active instruction. This is not an allowlist
+     // for test directories: executable commands and Markdown remain blocking.
+     const script=/\.[cm]?[jt]s$/i.test(file);
+     const fixture=script&&/(?:^|\/)(?:tests?|fixtures?)\/|\.(?:test|spec)\.[cm]?[jt]s$/i.test(file)
+       && /(?:\b(?:const|let|var)\s+\w+\s*=\s*['"`]|\b(?:fixture|writeFile|writeFileSync|res\.end)\s*\()/u.test(line);
+     const ruleLiteral=script&&/(?:\[\s*['"]risk\.[\w.-]+['"]\s*,\s*\/|\brule\(\s*['"][A-Z_]+['"]\s*,\s*['"][a-z]+['"]\s*,\s*\/)/u.test(line);
+     const context=ruleLiteral?'rule-definition':fixture?'test-fixture':'active-or-unclassified';
+     add(findings,fixture||ruleLiteral?'warning':'error',code,'Review this concrete instruction or credential pattern; context is not proof of runtime safety or malicious intent.',file,i+1,line);
+     findings.at(-1).context=context;
+   }
  }
+}
+async function declaredCapability(root,manifest,findings){
+ const ext=manifest.extensions?.['com.openai']??{};
+ let found=false;
+ for(const [kind,value]of [['apps',manifest.apps??ext.apps],['mcpServers',manifest.mcpServers??manifest.mcp??ext.mcpServers],['hooks',manifest.hooks]]){
+   if(!value)continue;
+   if(typeof value==='object'){found ||= Object.keys(value).length>0;continue;}
+   if(typeof value!=='string')continue;
+   const target=path.resolve(root,value);
+   if(path.isAbsolute(value)||!contained(root,target)){add(findings,'error','reference.escape','Capability manifest escapes the package.',value);continue;}
+   try{
+     const data=JSON.parse(await safeText(root,target));
+     const entries=kind==='apps'?data.apps:kind==='mcpServers'?data.mcpServers:data.hooks??data;
+     found ||= Boolean(entries&&typeof entries==='object'&&Object.keys(entries).length);
+   }catch(error){add(findings,'error','reference.missing','Capability manifest cannot be read: '+error.message,value);}
+ }
+ return found;
 }
 export async function analyze(target,options={}){
  let root=path.resolve(target),specific=null;const supplied=await fs.lstat(root);
@@ -129,7 +168,8 @@ export async function analyze(target,options={}){
  const entrypoints=kind==='skill'?[specific??path.join(root,'SKILL.md')]:files.filter(f=>/^skills\/[^/]+\/SKILL\.md$/i.test(f.rel)).map(f=>f.file);
  if(kind==='plugin'){
    if(!manifest.name||!manifest.version)add(findings,'error','manifest.required','Manifest name and version are required.','plugin.json');
-   if(!entrypoints.length&&!manifest.mcpServers&&!manifest.mcp)add(findings,'error','manifest.capability','No discoverable skills or declared MCP capability.','plugin.json');
+   const declared=await declaredCapability(root,manifest,findings);
+   if(!entrypoints.length&&!declared)add(findings,'error','manifest.capability','No discoverable skills, App, MCP or hook capability.','plugin.json');
  }
  for(const file of entrypoints)await inspectSkill(contextRoot,file,findings,skills);
  for(const f of files)if(TEXT.test(f.rel)&&f.bytes<=MAX_FILE){try{const text=await safeText(root,f.file);contentHashes.push([f.rel,crypto.createHash('sha256').update(text).digest('hex')]);riskLines(f.rel,text,findings);}catch(err){add(findings,'error','path.read',err.message,f.rel);}}

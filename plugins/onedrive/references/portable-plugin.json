@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "onedrive",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "OneDrive App and MCP server connection with Microsoft login through the existing authorized broker.",
   "author": {
     "name": "Zilvereyes",
@@ -33,7 +33,7 @@
         "brandColorDark": "#4CC2FF"
       },
       "apps": "./.app.json",
-      "onboardingSkill": "./skills/setup/SKILL.md"
+      "onboardingSkill": "./skills/onedrive-setup/SKILL.md"
     }
   }
 }

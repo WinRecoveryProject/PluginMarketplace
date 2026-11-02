@@ -61,7 +61,8 @@ def build(out):
                 'deterministic':True,'genericValidation':validation,'freshExtractionValidation':fresh,
                 'sourceCheck':check,'extractedCheck':isolated,'extractedSkillEval':{'valid':sample['valid'],'readiness':sample['readiness'],'observedUsage':sample['observedUsage']},
                 'sourceDependencyRequired':False,'installed':False,'published':False,
-                'publicationBlockers':['Verified own website URL','Verified own privacy-policy URL','Verified own terms URL']}
+                'publicationBlockers':['Public access to the configured repository/document URLs is not verified'],
+                'configuredMetadataURLs':{key:manifest['extensions']['com.openai']['interface'].get(key) for key in ['websiteURL','privacyPolicyURL','termsOfServiceURL']}}
         (out/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
         (out/'SHA256SUMS').write_text(f'{report["sha256"]}  {archive.name}\n',encoding='utf-8')
         print(json.dumps(report,ensure_ascii=False,indent=2))

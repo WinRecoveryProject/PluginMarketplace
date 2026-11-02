@@ -1,16 +1,17 @@
 {
   "sourceArchive": "OneDrive_unified_v1.1.5.zip",
   "sha256": "1e72b800989c636eb1c0ead9eb9f049a5b77962249490a5cd73e3570a3c9e163",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "canonicalMcp": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
   "appBinding": "asdk_app_6ae8b541a3d08191ae893ea0925a2fe5",
   "personalAccountAppAccess": "CONNECTED_PRIMARY_ACCOUNT_UI_VERIFIED",
-  "liveFileOperations": "NATIVE_MCP_VERIFIED_REGISTERED_APP_ROUTE_PENDING",
+  "liveFileOperations": "REGISTERED_APP_READ_WRITE_VERIFIED",
   "sourceArchiveVersion": "1.1.5",
   "changes": [
     "Use native Codex manifest as Desktop entrypoint; preserve portable manifest as export reference.",
     "Codex actual loader fixture: 1 App, 1 MCP, 2 skills.",
-    "Replace inaccessible historical App binding with the personally registered, connected OneDrive App; preserve server and icon."
+    "Replace inaccessible historical App binding with the personally registered, connected OneDrive App; preserve server and icon.",
+    "Correct setup link, align onboarding directory/name and distinguish App/native authentication routes."
   ],
   "loaderEvidence": "ONEDRIVE-MANIFEST-LOADER-TEST-20261102.json",
   "connectionEvidence": "ONEDRIVE-APP-CREATION-20261102.json"

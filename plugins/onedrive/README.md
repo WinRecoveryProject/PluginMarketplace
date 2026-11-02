@@ -1,12 +1,12 @@
 # OneDrive — single unified plugin
 
-**Desktop package version:** 1.1.7
+**Desktop package version:** 1.1.8
 **Plugin:** https://chatgpt.com/plugins/plugin_asdk_app_6ae8b541a3d08191ae893ea0925a2fe5
 
 This package bundles the registered OneDrive App mapping in `.app.json`, the
 OneDrive MCP server in `mcp.json` / `.mcp.json`, the primary OneDrive skill in
 `skills/onedrive/SKILL.md`, and the guided onboarding skill in
-`skills/setup/SKILL.md`.
+`skills/onedrive-setup/SKILL.md`.
 
 Desktop uses `.codex-plugin/plugin.json` as its native entrypoint. The portable
 manifest is retained at `references/portable-plugin.json` for account export;

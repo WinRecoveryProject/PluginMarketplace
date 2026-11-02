@@ -9,9 +9,11 @@ OneDrive App plus the bundled remote OneDrive MCP server). Use the supplied
 OneDrive logo in `assets/onedrive.png` wherever the client supports a plugin
 image. Do not ask the user to install another provider or copy OAuth secrets.
 
-The current OneDrive plugin is private. Its plugin URL is
-https://chatgpt.com/plugins/plugins_6ae5eb90d3948191a5b94a8f93aca0d7
-and its declared MCP endpoint is
+Install the OneDrive package from the configured WinRecoveryProject Digital
+marketplace (`onedrive@winrecoveryproject-digital`). Its registered personal
+OneDrive App is available at
+https://chatgpt.com/plugins/plugin_asdk_app_6ae8b541a3d08191ae893ea0925a2fe5.
+Its canonical MCP endpoint is
 https://cloudstorage-onedrive-mcp.vercel.app/mcp.
 
 ## Safe setup procedure
@@ -22,20 +24,22 @@ https://cloudstorage-onedrive-mcp.vercel.app/mcp.
    In Desktop, inspect the host's parsed App and MCP declarations, not just JSON
    files: the native entrypoint is `.codex-plugin/plugin.json`. A portable root
    manifest shadows it; the export reference lives under `references/`.
-2. If the OneDrive plugin is not installed/enabled, direct the user to its
-   private plugin page and ask them to install/enable it. Installation and
-   Microsoft consent require user interaction. Do not claim to complete them.
+2. If the OneDrive plugin is not installed/enabled, use the marketplace's
+   supported installation flow within the user's authorization. Microsoft
+   credentials and consent use the supported host/provider flow. Report the
+   actual result rather than inferring installation from a source directory.
 3. Verify the registered App entry is the existing OneDrive App; verify that
    the plugin advertises an MCP server called `onedrive`. A registered App
    mapping and a remote MCP declaration do not inherently share a login.
 4. Ask the user to connect **OneDrive** in the plugin's UI and follow the
    supported Microsoft authorization redirect. The app must perform the
    actual credential entry and consent. Never accept credentials in chat.
-5. Determine whether the App and MCP connection end up with the SAME signed-in
-   Microsoft identity. If the client initiates two independent OneDrive login
-   prompts, record **single-login acceptance FAILED**; do not pretend a
-   second prompt is the intended architecture. Inspect the remote broker's
-   session-binding capability before trying to consolidate auth.
+5. Prefer the registered App's existing session for App and Portal operations.
+   The independently declared native MCP is a separate client route to the same
+   server; a shared URL does not imply shared credentials. Do not request a
+   second sign-in merely to demonstrate functionality. If both routes are in
+   use, verify their identities separately and report that distinction; never
+   claim single sign-on or exchange tokens between them.
 6. After authorization, discover the *actual* OneDrive MCP tools. Do not infer
    availability from the source skill's 28 described operations.
 7. Read identity using `onedrive_account` if present, then request drive

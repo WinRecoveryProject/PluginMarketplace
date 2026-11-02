@@ -36,10 +36,23 @@ function minimalManifest(overrides = {}) {
   };
 }
 
-test("local candidate identifies its three unresolved publication URLs", () => {
-  const report = validate(pluginRoot);
+test("missing publication URLs remain explicit errors on a candidate", () => {
+  const root=tempRoot();const manifest=minimalManifest();
+  for(const key of ['websiteURL','privacyPolicyURL','termsOfServiceURL'])delete manifest.interface[key];
+  writeJson(path.join(root,'plugin.json'),manifest);
+  const report = validate(root);
   assert.deepEqual(report.findings.map(x=>x.code).sort(), ["interface.privacyPolicyURL", "interface.termsOfServiceURL", "interface.websiteURL"]);
   assert.equal(report.counts.warnings, 0);
+});
+
+test('own metadata links to actual repository documents without claiming public access',()=>{
+ const report=validate(pluginRoot);assert.equal(report.valid,true,JSON.stringify(report.findings));
+ const manifest=JSON.parse(fs.readFileSync(path.join(pluginRoot,'plugin.json'),'utf8'));
+ const ui=manifest.extensions['com.openai'].interface;
+ assert.equal(ui.websiteURL,'https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio');
+ for(const [key,file]of [['privacyPolicyURL','PRIVACY.md'],['termsOfServiceURL','TERMS.md']]){
+  assert.equal(ui[key],ui.websiteURL+'/blob/main/'+file);assert.ok(fs.existsSync(path.join(pluginRoot,file)));
+ }
 });
 
 test("short descriptions over 30 characters are blocking", () => {
