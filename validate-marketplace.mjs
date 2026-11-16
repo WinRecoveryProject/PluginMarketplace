@@ -45,14 +45,12 @@ if(registry){
       const ids=Object.values(apps?.apps??{}).map(a=>a.id);
       check(ids.length===1&&ids.every(id=>/^asdk_app_[a-z0-9]+$/i.test(id)),'OneDrive contains exactly one existing App identity');
       check(entry?.pluginId===`plugin_${ids[0]}`,'OneDrive registry and packaged App identity agree');
+      check(m.mcpServers==null,'OneDrive uses the registered App connection without a second native OAuth route');
       for(const file of ['mcp.json','.mcp.json']){
-        const servers=json(`plugins/onedrive/${file}`)?.mcpServers??{};
-        check(Object.keys(servers).join(',')==='onedrive',`OneDrive ${file}: one server`);
-        const server=servers.onedrive, auth=server?.extensions?.['com.openai']?.auth;
-        check(server?.url==='https://cloudstorage-onedrive-mcp.vercel.app/mcp',`OneDrive ${file}: canonical endpoint`);
-        check(auth?.client?.mode==='dcr',`OneDrive ${file}: DCR`);
-        check(JSON.stringify(auth?.defaultScopes)===JSON.stringify(['onedrive.read','onedrive.write']),`OneDrive ${file}: read/write scopes`);
+        check(!existsSync(join(base,file)),`OneDrive ${file}: no auto-discovered duplicate connection`);
       }
+      const portalApps=json('plugins/cloudstorage-portal/.app.json');
+      check(Object.values(portalApps?.apps??{}).some(a=>a.id===ids[0]),'OneDrive and Portal share the existing App identity');
     }
     const source=lock?.plugins?.[name];
     if(source){

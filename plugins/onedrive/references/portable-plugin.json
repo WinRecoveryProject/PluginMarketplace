@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "onedrive",
-  "version": "1.1.8",
-  "description": "OneDrive App and MCP server connection with Microsoft login through the existing authorized broker.",
+  "version": "1.2.0",
+  "description": "OneDrive files through the existing registered App and its hosted CloudStorage Portal MCP connection.",
   "author": {
     "name": "Zilvereyes",
     "email": "zilver.muhlig.hansen@gmail.com"

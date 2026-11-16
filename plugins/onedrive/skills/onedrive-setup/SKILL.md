@@ -1,96 +1,67 @@
 ---
 name: onedrive-setup
-description: "Configure and verify the OneDrive Plugin's registered App, Microsoft login, MCP connection, account identity and read-only Graph access; diagnose failures without altering user data."
+description: "Use when configuring, verifying or diagnosing the existing OneDrive App's Microsoft login, hosted MCP tools, account identity or drive access without creating another connection."
 ---
 # OneDrive Setup
 
-This skill is the onboarding entry point for the **OneDrive** plugin (the single
-OneDrive App plus the bundled remote OneDrive MCP server). Use the supplied
-OneDrive logo in `assets/onedrive.png` wherever the client supports a plugin
-image. Do not ask the user to install another provider or copy OAuth secrets.
+Use **OneDrive** from WinRecoveryProject Digital
+(`onedrive@winrecoveryproject-digital`). This package includes the existing
+registered OneDrive App, its original logo and two skills. The hosted MCP remains
+behind that App. There is no separately declared native MCP OAuth client.
 
-Install the OneDrive package from the configured WinRecoveryProject Digital
-marketplace (`onedrive@winrecoveryproject-digital`). Its registered personal
-OneDrive App is available at
+The existing registered App is
 https://chatgpt.com/plugins/plugin_asdk_app_6ae8b541a3d08191ae893ea0925a2fe5.
-Its canonical MCP endpoint is
+Its hosted MCP endpoint is
 https://cloudstorage-onedrive-mcp.vercel.app/mcp.
 
 ## Safe setup procedure
 
-1. Check whether this exact OneDrive plugin is installed and enabled for the
-   current client. Discover available tools; do **not** interpret the presence
-   of Microsoft SharePoint or `OneDrive_Broker_Staging` tools as confirmation.
-   In Desktop, inspect the host's parsed App and MCP declarations, not just JSON
-   files: the native entrypoint is `.codex-plugin/plugin.json`. A portable root
-   manifest shadows it; the export reference lives under `references/`.
-2. If the OneDrive plugin is not installed/enabled, use the marketplace's
-   supported installation flow within the user's authorization. Microsoft
-   credentials and consent use the supported host/provider flow. Report the
-   actual result rather than inferring installation from a source directory.
-3. Verify the registered App entry is the existing OneDrive App; verify that
-   the plugin advertises an MCP server called `onedrive`. A registered App
-   mapping and a remote MCP declaration do not inherently share a login.
-4. Ask the user to connect **OneDrive** in the plugin's UI and follow the
-   supported Microsoft authorization redirect. The app must perform the
-   actual credential entry and consent. Never accept credentials in chat.
-5. Prefer the registered App's existing session for App and Portal operations.
-   The independently declared native MCP is a separate client route to the same
-   server; a shared URL does not imply shared credentials. Do not request a
-   second sign-in merely to demonstrate functionality. If both routes are in
-   use, verify their identities separately and report that distinction; never
-   claim single sign-on or exchange tokens between them.
-6. After authorization, discover the *actual* OneDrive MCP tools. Do not infer
-   availability from the source skill's 28 described operations.
-7. Read identity using `onedrive_account` if present, then request drive
-   metadata/quota and root folder metadata using the actual tool schemas.
-   Never change files just to prove connectivity. Only access data that the
-   user has authorized for this test.
-8. Report a concise PASS/FAIL/UNTESTED matrix for installation, App presence,
-   MCP connectivity, OAuth completion, account consistency, tool discovery,
-   account read and root listing. Do not display tokens, share links or
-   private file names unless necessary for the user's requested work.
+1. Verify the exact installed package and the host's parsed declarations: one
+   existing App, two skills, zero extra native MCP declarations. Desktop uses
+   `.codex-plugin/plugin.json`; a root portable manifest can shadow it.
+2. Verify that the App is the existing OneDrive App. A cache directory or package
+   version does not prove a connected account. The generated remote App card can
+   have different menus from the Git Marketplace package.
+3. Reuse the current connected account. If none is connected, use **OneDrive**'s
+   supported Microsoft sign-in and consent flow. Credential entry belongs in the
+   provider's secure UI. Do not create another MCP connection, request copied
+   OAuth secrets or sign in again merely to demonstrate functionality.
+4. Discover the actual tools exposed by the registered OneDrive App. Never use
+   SharePoint or OneDrive Broker Staging as proof of this App's access.
+5. Read `onedrive_account` when available, then drive metadata. Bind subsequent
+   operations to the observed account and drive. Read root/file metadata only
+   within the user's requested scope. Never write files merely for onboarding.
+6. Record each stage separately: installed package, App connection, Microsoft
+   authorization, broker callback/token exchange, tool discovery, account identity
+   and Graph drive access. Separate observed success, failure and untested steps.
+   Never infer drive access from a successful login.
 
-## Authentication design and diagnostics
+## Diagnose sign-in and drive errors
 
-- Separate the ChatGPT/MCP access-token boundary from the server-to-Microsoft
-  Graph delegated-token boundary. The broker scopes `onedrive.read` and
-  `onedrive.write` are **not** Graph scopes. Never store access or refresh
-  tokens in skill files, logs, git, browser output or chat.
-- This release declares Dynamic Client Registration (`client.mode: dcr`) in
-  `mcp.json` / `.mcp.json`. Check the actual OAuth discovery and response
-  before concluding registration works.
-- The current manifests declare BOTH read and write scopes as `baseScopes`
-  and `defaultScopes`. Do not claim first-login grants read-only scopes. Any
-  future least-privilege adjustment requires a reviewed change to the
-  connection's OAuth configuration and broker authorization policy.
-- The Vercel project may have SSO Deployment Protection enabled. A production
-  deployment in `READY` does not imply that an external ChatGPT MCP client can
-  reach its OAuth discovery, registration, token and MCP endpoints. If the
-  connection fails due to Vercel SSO, use a reviewed host-level access design;
-  do NOT disable deployment protection or distribute bypass credentials on
-  the user's behalf without explicit authorization.
-- If tools do not load, check whether the App mapping refers to a valid
-  registered MCP App and whether plugin installation actually enabled it;
-  document the observed error, not a guessed cause.
-- If consent fails, record the Microsoft error code (excluding tokens),
-  callback mismatch or unsupported account type, and the step that failed.
-- If MCP discovery works but Graph access fails, inspect account-binding,
-  token audience/scope, tenant policy and Graph response codes using redacted
-  diagnostics. Do not retry authorization in an infinite loop.
-- If account identities disagree or are unavailable, do not perform a write.
+- The existing App owns its OAuth client, broker scopes and hosted MCP connection.
+  Package 1.2.0 reuses them; it does not change permissions or create a new client.
+  Broker scopes `onedrive.read`/`onedrive.write` are not Microsoft Graph scopes.
+  Never exchange tokens between providers or store credentials in files or chat.
+- If Microsoft completes sign-in but the host reports failure, identify the
+  failing stage from redacted broker responses and logs. Capture stable error
+  codes and Graph status, never authorization codes, tokens or secret values.
+- Personal and Entra access are independent tests. Check the actual account/tenant
+  binding and drive response. Do not label a drive permission/provisioning failure
+  as an invalid password or silently fall back to the personal account.
+- If tools are unavailable, verify the exact App binding, enabled state and public
+  discovery/authentication challenge. READY is not proof that a client can reach
+  protected discovery. Do not weaken deployment protection or change tenant/app
+  registrations without the corresponding user authorization.
+- If identities disagree or are unknown, stop writes and diagnose the mismatch.
+  Never disconnect a working personal account as a probe. Do not remove the
+  registered remote App as a duplicate: Marketplace and Portal depend on it.
 
-## Write tests only by explicit instruction
+## Controlled verification
 
-After read-only verification, propose a disposable test folder with explicit
-approval and the exact intended operations. Never create, update, share, move,
-revoke, restore or delete anything merely to finish onboarding. If approved,
-use current eTags for pre-existing items and verify each mutation by readback;
-recycle only specifically approved disposable fixtures.
+Use read-only checks first. Create/update/recycle only specifically authorized
+disposable fixtures; use current eTags, verify readback and reject stale-version
+overwrites. Never share, revoke or permanently delete merely to test a feature.
+Report a missing host capability and continue independent checks.
 
-## Branding
-
-All user-facing component labels are **OneDrive** (Plugin, App, MCP server).
-The shared plugin image is `assets/onedrive.png`. The onboarding skill's own
-technical identifier is `onedrive-setup` because skills require unique IDs;
-the skill should still display the OneDrive name in ordinary text.
+All user-facing labels are **OneDrive**. Use unchanged `assets/onedrive.png` where
+the host supports artwork. The setup skill identifier remains `onedrive-setup`.

@@ -1,28 +1,32 @@
 ---
 name: onedrive
-description: "Manage the authenticated OneDrive account through the OneDrive App and associated MCP server: account, files, folders, search, transfers, sharing, versions and quota."
+description: "Use when reading or managing the authenticated OneDrive account through its existing App: files, folders, search, transfers, sharing, versions and quota."
 ---
 # OneDrive
 
-This plugin combines one registered OneDrive App mapping (`.app.json`), one remote
-OneDrive MCP server (`mcp.json` and `.mcp.json`), and this OneDrive skill.
-The native Desktop entrypoint `.codex-plugin/plugin.json` declares `apps` and
-`mcpServers`. The portable manifest is retained under `references/` for export;
-placing it at the Desktop package root shadows the native entrypoint. An App
-reference in a ZIP is not sufficient proof that the host activates that App.
-Use the connected OneDrive App's account identity and associated tools as the
-authoritative session. Do not assume that the registered App and independently
-declared MCP URL share a login session until that has been proven end to end.
-Do not request a second OneDrive sign-in merely to demonstrate functionality.
-Do not present the unrelated OneDrive Broker Staging or SharePoint connector as
-proof that this plugin's own MCP server is operational.
+This plugin uses one registered OneDrive App mapping (`.app.json`) and the
+existing hosted MCP behind that App. The native Desktop entrypoint
+`.codex-plugin/plugin.json` declares the App and two skills. It does not create
+an independent native MCP OAuth client or request a second OneDrive login.
+Historical standalone MCP declarations are archived under `references/legacy`
+and must not be copied back to the package root. The portable manifest remains
+under `references/` for export; placing it at the Desktop package root shadows
+the native entrypoint.
+
+Use the connected OneDrive App's identity and tools as the authoritative session.
+CloudStorage Portal refers to this same App. A remote catalog card generated
+for the App and a Git Marketplace package can have different host menus; this
+does not make them different Microsoft applications. Do not uninstall the
+registered App as duplicate cleanup: that can break the shared connection.
+Never present OneDrive Broker Staging or SharePoint as proof of this App's access.
 
 ## Authentication and identity
 
 ChatGPT/App-to-MCP authorization and MCP-to-Microsoft Graph delegated authorization
 are distinct boundaries. Use the App's Microsoft login chain and provider-managed
-consent. The MCP configuration declares DCR (`client.mode: dcr`) and the broker
-scopes `onedrive.read`/`onedrive.write`; these are **not** Microsoft Graph scopes.
+consent. The existing App's broker scopes `onedrive.read`/`onedrive.write` are
+**not** Microsoft Graph scopes. This package reuses that App's existing OAuth
+configuration; it does not declare a second client or change consent scopes.
 Enforce read/write separation server-side; do not infer that a manifest scope
 causes Graph consent. Never log, output, transmit, or persist account tokens in
 plugin files. Validate audience, issuer, scopes, account/tenant binding, and
@@ -84,7 +88,8 @@ the source automatically.
 
 ## Required connection test sequence
 
-1. Confirm plugin manifest advertises the App mapping and the OneDrive MCP URL.
+1. Confirm the package has the existing App mapping and no extra native MCP
+   client; the registered App owns its hosted MCP connection.
 2. Confirm the host actually exposes the registered OneDrive App and tools.
 3. Connect and authorize with Microsoft through the App's supported flow.
 4. Read authenticated account identity, drive details and root metadata.

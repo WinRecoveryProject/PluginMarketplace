@@ -10,7 +10,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 
 | Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
-| OneDrive | `1.1.8` | `codex plugin add onedrive@winrecoveryproject-digital` |
+| OneDrive | `1.2.0` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.9.2` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Plugin-Skill-Studio | `0.3.2` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
@@ -72,7 +72,7 @@ Kontrollen kræver blandt andet, at `.agents/plugins/marketplace.json` er udfold
 
 ## App- og OAuth-identitet
 
-Codex App-ID'er som `asdk_app_...` og `connector_...` må kun komme fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er OAuth-identiteter og må ikke omdøbes til et opdigtet `asdk_app_...`-ID. OneDrive 1.1.6 pakker den eksisterende App-binding, den kanoniske hosted MCP-forbindelse, ikonet og to skills i det runtime-testede native Desktop-format. Det portable manifest er bevaret under `references/portable-plugin.json` til eksport; det må ikke skygge Desktop-manifestet i roden. CloudStorage Portal samler provider-skills og refererer til Dropbox-, Google Drive- og OneDrive-apps; den ejer ikke en ekstra Local-runtime. En pakket binding beviser ikke kontoens adgang eller en fælles OAuth-session. Login, faktisk værktøjsopdagelse, filoperationer og refresh skal verificeres i den valgte vært.
+Codex App-ID'er som `asdk_app_...` og `connector_...` kommer fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er separate OAuth-identiteter. OneDrive 1.2.0 samler den eksisterende registrerede App, ikonet og to skills; den hosted MCP-server ligger bag Appen. Pakken tilføjer ikke en ekstra native MCP-klient eller et ekstra Microsoft-login. Det portable manifest er bevaret under `references/portable-plugin.json` til eksport; det må ikke skygge Desktop-manifestet i roden. CloudStorage Portal refererer fortsat til samme Dropbox-, Google Drive- og OneDrive-apps. Marketplace-pakken og værtens remote App-kort er to visninger af samme registrerede OneDrive-app; deres versionsnumre og menuer behøver ikke være ens. Microsoft-login og faktisk adgang til et personligt eller Entra-tilknyttet drev verificeres hver for sig.
 
 OneDrive-bindingen er fastholdt fra den leverede ZIP; ingen ny App-identitet er opfundet. Personlig konto og Business-workspace er forskellige adgangsområder, og tidligere testresultater skal ikke fremstilles som aktuelle livekontroller.
 

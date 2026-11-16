@@ -1,43 +1,52 @@
-# OneDrive — single unified plugin
+# OneDrive — one App connection
 
-**Desktop package version:** 1.1.8
-**Plugin:** https://chatgpt.com/plugins/plugin_asdk_app_6ae8b541a3d08191ae893ea0925a2fe5
+**Desktop package version:** 1.2.0
+**Registered OneDrive App:** https://chatgpt.com/plugins/plugin_asdk_app_6ae8b541a3d08191ae893ea0925a2fe5
 
-This package bundles the registered OneDrive App mapping in `.app.json`, the
-OneDrive MCP server in `mcp.json` / `.mcp.json`, the primary OneDrive skill in
-`skills/onedrive/SKILL.md`, and the guided onboarding skill in
-`skills/onedrive-setup/SKILL.md`.
+OneDrive combines the existing registered App, its hosted CloudStorage Portal
+MCP connection, the original logo and two provider/setup skills. CloudStorage
+Portal refers to the same App. This package no longer declares a second native
+MCP OAuth client alongside the App, so it does not require a second sign-in.
 
-Desktop uses `.codex-plugin/plugin.json` as its native entrypoint. The portable
-manifest is retained at `references/portable-plugin.json` for account export;
-do not copy it to the native package root. The actual Desktop loader test found
-one App and one MCP server with this layout; the original portable layout loaded
-neither. Account-hosted release versions must be checked separately.
+The native Desktop entrypoint is `.codex-plugin/plugin.json`. The portable
+manifest is retained at `references/portable-plugin.json` for export and must
+not be placed at the package root. Historical standalone MCP declarations are
+archived under `references/legacy`; they are not active connection settings.
 
 ## Connect
 
-1. Open the private plugin page, install and enable **OneDrive**.
-2. Run the **OneDrive Setup** onboarding flow.
-3. Connect the OneDrive App and complete Microsoft sign-in and consent in the
-   authenticated connection dialog; **do not paste credentials into chat**.
-4. Verify the App and MCP server identify the same Microsoft account. Their host OAuth sessions can be separate; do not copy credentials between them.
-5. Confirm authenticated account, drive metadata and root contents via OneDrive
-   plugin tools before performing any write operation.
+1. Install or update **OneDrive** from WinRecoveryProject Digital.
+2. Reuse the existing connected OneDrive account. If none is connected, connect
+   **OneDrive** through its supported Microsoft sign-in flow.
+3. Discover the actual App tools, then verify account identity and drive metadata.
+4. Use read-only root/file checks when requested. Changes to cloud files require
+   the user's actual task or specifically approved disposable fixtures.
 
-## Endpoint and caveats
+Never paste credentials into chat, copy tokens between routes or reinstall the
+registered App merely to test sign-in. Microsoft sign-in, broker token exchange
+and access to a OneDrive drive are separate verification stages. A successful
+Microsoft login does not prove that Graph accepted the selected drive.
 
-- MCP endpoint: `https://cloudstorage-onedrive-mcp.vercel.app/mcp`.
-- Public OAuth discovery and an anonymous MCP 401 were verified on 2026-11-02.
-  This proves reachability and the authentication challenge, not a user login.
-- The source claims 28 MCP tools; discover their actual runtime availability.
-- ChatGPT App and MCP bearer credentials are separate from Microsoft Graph
-  delegated credentials, even if onboarding appears as one user login.
-- `onedrive.read` and `onedrive.write` are currently requested as base/default
-  broker scopes. Do not assume read-only-first consent.
-- No user cloud files should be modified as part of installation verification.
-- The official shared logo is `assets/onedrive.png` (unchanged original PNG).
+## Host presentation
 
-## Contact and support
+A Git Marketplace package and the host-generated remote App card are different
+presentations of the same registered App. The Marketplace carries provider
+skills, setup guidance and package branding; the App card carries connected
+accounts and the platform-managed hosted MCP connection. Their technical package
+IDs and menus need not be identical. Do not delete the App as duplicate cleanup.
+The existing name **OneDrive**, App identity, logo and connection are retained.
 
-Configuration source and existing OneDrive project: Zilvereyes/CloudStorage Portal.
-Do not expose OAuth secrets, Microsoft tokens, or personal file listings in logs.
+## Verification and limits
+
+- Canonical hosted MCP: `https://cloudstorage-onedrive-mcp.vercel.app/mcp`.
+- Native candidate contract: one existing App, zero extra native MCP servers,
+  two skills. Valid package files do not prove a user login.
+- Read/write capabilities remain behind the existing App. Discover the current
+  tool list rather than treating source descriptions as live proof.
+- This packaging update changes no account, consent scope, credential, server
+  deployment or cloud file. Entra and personal-account access need separate live
+  acceptance checks.
+- Original shared logo: `assets/onedrive.png`.
+
+Configuration source: Zilvereyes / CloudStorage Portal. Never include secrets,
+tokens, callback codes or private file listings in logs or published packages.
