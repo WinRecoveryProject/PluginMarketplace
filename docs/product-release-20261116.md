@@ -83,7 +83,26 @@ Each contains five positive and three negative submission examples as drafts;
 they do not claim public approval. MegaLinter is retained in source-reference
 metadata and existing installations; it is absent from the installable catalog.
 
-Marketplace publication, installed-cache checks and the authorized skill migration
-are recorded as a subsequent observed deployment receipt. Provider connections
-are preserved; no credentials are packaged, no account reset is required and the
-paid-service budget remains **0 kr**.
+The packages are now published and installed in Desktop. [The deployment receipt](product-deployment-20261116.json)
+records exact source versions and installed-file parity. The installed Linter
+checked all 15 language families across 17 controlled fixture files. It correctly
+found Batch line-ending/exit-code issues and the BAT extension advisory; explicit
+fixture repairs produced CLEAN without suppressing any rules. DevSuite's 21 tests
+also passed from its installed copy.
+
+OneDrive and Portal workflows created, read and updated separate files in an owned
+test folder through their same existing OneDrive App. Four repeated final reads
+and two independent downloads matched the expected content hashes. OneDrive,
+Google Drive and Dropbox identity reads remained unchanged without new login.
+
+[The final audit addendum](final-installed-audit-20261116.md) covers 55 current
+package roots: 33 catalog-installed plugins and 22 separately identified host
+extras. The final two-directory native inventory lists 553 skill paths, 37 disabled
+entrypoints and zero loader errors. There are 36 verified disabled overlap flags
+after DevSuite migration. One additional CodeRabbit 1.1.4 skill was disabled
+locally because it directs automatic remote installer execution; its upstream
+source remains unchanged and the installer was never run. Four installed package
+scan coverage limits remain explicit.
+
+Provider settings and unrelated configuration are preserved; no credentials are
+packaged, no account reset was performed and the paid-service budget remains **0 kr**.

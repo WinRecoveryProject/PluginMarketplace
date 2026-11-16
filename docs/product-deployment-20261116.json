@@ -1,0 +1,112 @@
+{
+  "observedAtUtc": "2026-11-16T19:38:33.779383+00:00",
+  "marketplacePackageCommit": "75ea5d944da6bc4906bfd36d9d73daf66400ca4c",
+  "products": [
+    {
+      "repository": "https://github.com/WinRecoveryProject/WinRecoveryProjectLinter.git",
+      "version": "0.1.0",
+      "commit": "e52c23005214aeb71c05949ef403e79616b272b1",
+      "name": "winrecoveryproject-linter",
+      "installed": true,
+      "releaseFileHashesMatch": true
+    },
+    {
+      "repository": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite.git",
+      "version": "0.1.0",
+      "commit": "85c49066d9b1f9abc43d158207bafde0d16b4fe1",
+      "name": "winrecoveryproject-devsuite",
+      "installed": true,
+      "releaseFileHashesMatch": true
+    },
+    {
+      "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal.git",
+      "version": "0.9.3",
+      "commit": "bb3d82c889bf84ce51a752305d6cdbad6d008bba",
+      "name": "cloudstorage-portal",
+      "installed": true,
+      "releaseFileHashesMatch": true
+    }
+  ],
+  "linter": {
+    "runtimeTestsPassed": 39,
+    "packagingRegressionsPassed": 5,
+    "actualNativeZipBootstrap": "PASS",
+    "installedFixtureFiles": 17,
+    "checkedLanguageFamilies": 15,
+    "finalStatus": "CLEAN",
+    "rulesSuppressed": false,
+    "initialFixtureFindingsPreserved": true
+  },
+  "devsuite": {
+    "installedTestsPassed": 21,
+    "doctor": "PASS",
+    "skills": 12,
+    "sourceSkillsMapped": 32,
+    "functionMappings": 207,
+    "externalProviderExecution": "Not established by local tests"
+  },
+  "portal": {
+    "hybridValidator": "PASS",
+    "negativeBoundarySuite": "PASS",
+    "existingAppIdsPreserved": true
+  },
+  "staticReadiness": {
+    "linter": {
+      "errors": 0,
+      "warnings": 0,
+      "info": 0
+    },
+    "devsuite": {
+      "errors": 0,
+      "warnings": 0,
+      "info": 0
+    },
+    "scope": "Static checks only, separate from practical receipts"
+  },
+  "nativeInventory": {
+    "installedPlugins": 33,
+    "catalogEnabled": 32,
+    "catalogLoadErrors": 0,
+    "twoCwdSkillPaths": 553,
+    "twoCwdDisabledSkillRows": 37,
+    "skillLoadErrors": 0,
+    "note": "Skill visibility depends on requested working directories; disabled config flags are also independently verified."
+  },
+  "configuration": {
+    "overlapFlagsDisabled": 36,
+    "unsafeCodeRabbitEntrypointDisabled": true,
+    "providerPluginFlagsPreserved": true,
+    "otherSettingsPreserved": true,
+    "newDuplicateHooksRegistered": false
+  },
+  "connections": {
+    "OneDriveIdentityPreserved": true,
+    "GoogleDriveIdentityPreserved": true,
+    "DropboxIdentityPreserved": true,
+    "newLoginPerformed": false,
+    "CodexSecurityAdvisoryAccessible": true
+  },
+  "cloudFunctionalTest": {
+    "separateOwnedTestFolder": true,
+    "OneDriveCreateReadUpdate": "PASS",
+    "PortalCreateReadUpdate": "PASS",
+    "repeatedFinalTextReads": 4,
+    "independentDownloads": 2,
+    "contentHashesMatch": true,
+    "sameExistingOneDriveApp": true,
+    "scope": "Manual workflow execution through shared App, not separate OAuth connections or an autonomous model benchmark."
+  },
+  "codeRabbit": {
+    "version": "1.1.4",
+    "status": "LOCALLY_MITIGATED",
+    "upstreamSourceChanged": false,
+    "remoteInstallerExecuted": false
+  },
+  "limits": [
+    "Four initially installed package scans have explicit evaluator size/coverage limits.",
+    "CloudConvert conversion, free quota and provisioned cloud/security scan execution are unverified.",
+    "The native App response omits required:false semantics; installation used ON_USE and no new consent.",
+    "Public OpenAI submission/attestations were not performed."
+  ],
+  "budgetDkk": 0
+}

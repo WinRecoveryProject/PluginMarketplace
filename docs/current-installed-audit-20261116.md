@@ -98,3 +98,7 @@ These roots were supplied by the earlier full host inventory and remain outside 
 Forty package fingerprints matched the previous audit. The newly installed marketplace guardrails root has no earlier root report; MegaLinter has no complete root fingerprint. The OneDrive App wrapper fingerprint changed, and a repeated fresh static scan was stable with zero findings. The initiating process and changed historical member were not attributed. No cache rewrite or package merge was performed.
 
 Snapshot limitation: installation state and provider availability can change after this dated catalog export. Any subsequent Portal or product release requires its own post-install delta.
+
+## Post-installation addendum
+
+This table is the initial snapshot. [Final discovery, remediations and retained limits](final-installed-audit-20261116.md) and [the deployment receipt](product-deployment-20261116.json) record the subsequent installed state.

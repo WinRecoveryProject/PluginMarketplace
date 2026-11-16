@@ -91,3 +91,5 @@ OneDrive-bindingen er fastholdt fra den leverede ZIP; ingen ny App-identitet er 
 WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Begge er 0.1.0 og har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
 
 [Udgivelse og testdækning](docs/product-release-20261116.md) · [Installeret plugin-gennemgang](docs/current-installed-audit-20261116.md).
+
+[Endelig installationskontrol og rettelser](docs/final-installed-audit-20261116.md) · [Verificeret deployment](docs/product-deployment-20261116.json).
