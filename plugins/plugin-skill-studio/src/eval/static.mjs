@@ -82,6 +82,38 @@ function markdownProse(text){
    return line.replace(/(`+)(.*?)\1/g,m=>' '.repeat(m.length));
  }).join('\n');
 }
+function boundaryProse(body){
+ let listContentIndent=null,indentedCode=false,blockStart=true,quoteDepth=0;
+ return markdownProse(body).split('\n').map(line=>{
+   let content=line,depth=0;
+   while(/^ {0,3}>/.test(content)){content=content.replace(/^ {0,3}>[ \t]?/,'');depth++;}
+   if(depth!==quoteDepth){listContentIndent=null;indentedCode=false;blockStart=true;quoteDepth=depth;}
+   const expanded=content.replace(/^[ \t]+/,space=>{
+     let column=0;for(const char of space)column+=char==='\t'?4-column%4:1;
+     return ' '.repeat(column);
+   });
+   if(!expanded.trim()){blockStart=true;return line;}
+   const indent=expanded.match(/^ */)[0].length;
+   const marker=expanded.match(/^( *)(?:[-+*]|\d+[.)])( +)/);
+   if(marker&&(indent<4||(listContentIndent!==null&&indent<listContentIndent+4))){
+     listContentIndent=marker[0].length;indentedCode=false;blockStart=false;return line;
+   }
+   const codeIndent=listContentIndent===null?4:listContentIndent+4;
+   if(indent>=codeIndent&&(indentedCode||blockStart)){
+     indentedCode=true;return ' '.repeat(line.length);
+   }
+   indentedCode=false;
+   if(indent===0)listContentIndent=null;
+   blockStart=/^ {0,3}(?:#{1,6}(?:\s|$)|(?:=+|-+)\s*$)/.test(expanded);
+   return line;
+ }).join('\n');
+}
+function hasExplicitBoundary(body){
+ if(/\b(do not|never|not for|out.of.scope|only|reject|refuse)\b/i.test(body))return true;
+ // Danish instructions need Unicode word edges; bare "ikke" or "kun" is not a boundary.
+ const prose=boundaryProse(body).normalize('NFC');
+ return /(?<![\p{L}\p{N}_])(?:(?:må|skal|brug|benyt|udfør)\s+(?:ikke|kun)|(?:bed|spørg|del|gem|send|opret|udfør|vis)\s+aldrig|(?:kun|udelukkende|ikke)\s+til|afvis\s+(?:anmodninger|forespørgsler|opgaver))(?![\p{L}\p{N}_])/iu.test(prose);
+}
 async function inspectSkill(root,file,findings,records){
  const rel=path.relative(root,file).split(path.sep).join('/');let text;
  try{text=await safeText(root,file);}catch(err){add(findings,'error','path.read',err.message,rel);return;}
@@ -94,7 +126,7 @@ async function inspectSkill(root,file,findings,records){
  if(lines.length>500)add(findings,'warning','budget.entrypoint','Entrypoint exceeds 500 lines; use progressive disclosure.',rel);
  if(!/^#\s+\S/m.test(meta.body))add(findings,'warning','structure.title','No clear Markdown title was found.',rel);
  if(!/\b(use when|when|if|for)\b/i.test(meta.description??''))add(findings,'warning','discovery.trigger','Description does not make a triggering condition explicit.',rel,3,meta.description);
- if(!/\b(do not|never|not for|out.of.scope|only|reject|refuse)\b/i.test(meta.body))add(findings,'info','behavior.boundary','No explicit scope or refusal boundary was found.',rel);
+ if(!hasExplicitBoundary(meta.body))add(findings,'info','behavior.boundary','No explicit scope or refusal boundary was found.',rel);
  const proseLines=markdownProse('\n'.repeat(meta.headerLines)+meta.body).split('\n');
  for(let i=0;i<proseLines.length;i++){
    const line=proseLines[i];
