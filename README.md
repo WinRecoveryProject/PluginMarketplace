@@ -30,8 +30,18 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | OpenAI Developers | `1.2.3` | `codex plugin add openai-developers@winrecoveryproject-digital` |
 | Dropbox | `5.0.1` | `codex plugin add dropbox@winrecoveryproject-digital` |
 | MegaLinter | `1.0.33` | `codex plugin add megalinter@winrecoveryproject-digital` |
+| Skill Risk Check | `0.1.5` | `codex plugin add agent-skillguard@winrecoveryproject-digital` |
+| Context Handoff | `0.3.7` | `codex plugin add context-handoff@winrecoveryproject-digital` |
+| Plugin Creator Plus | `0.1.2+codex.20260925002000` | `codex plugin add plugin-creator-plus@winrecoveryproject-digital` |
+| Skill Craft | `1.3.0` | `codex plugin add skill-craft@winrecoveryproject-digital` |
+| Plugin Autopilot | `0.8.0` | `codex plugin add chatgpt-codex-plugin-autopilot@winrecoveryproject-digital` |
+| Skillquiver | `2.2.0` | `codex plugin add skillquiver@winrecoveryproject-digital` |
+| Gmail | `0.1.9` | `codex plugin add gmail@winrecoveryproject-digital` |
+| Google Calendar | `1.2.6` | `codex plugin add google-calendar@winrecoveryproject-digital` |
+| Slack | `0.1.7` | `codex plugin add slack@winrecoveryproject-digital` |
+| Plugin Eval | `0.1.2` | `codex plugin add plugin-eval@winrecoveryproject-digital` |
 
-Samlingen dækker alle **24 produkter** fra den leverede liste: 20 Marketplace-poster og 4 officielle kataloglinks. [Se hele oversigten, kataloglinks og versionsforskelle](docs/full-plugin-list-check-20261116.md). Flere offentlige Git-pakker er ældre end de installerede katalogversioner. Ingen installerede pakker er ændret af denne katalogopdatering.
+Den samlede oversigt dækker **54 produkter**: 30 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se hele samlingen](docs/full-plugin-list-check-20261116.md) og [kontrollen af alle 52 aktuelle installationer](docs/installed-plugins-and-suppliers-20261116.md). Flere offentlige Git-pakker er ældre end de installerede katalogversioner. Ingen installerede pakker er ændret af katalogopdateringen.
 
 ## Struktur
 
@@ -39,7 +49,7 @@ Samlingen dækker alle **24 produkter** fra den leverede liste: 20 Marketplace-p
 - `plugins/` indeholder versionsfrosne, selvstændigt installerbare pluginpakker.
 - De selvstændige kilde-repositories bevares. `plugin-sources.lock.json` fastlåser commit og filhash for deres marketplace-snapshots; se [kildeoversigten](docs/marketplace-sources-20261102.md).
 - `cloudstorage-portal-local` er udgået og fjernet fra både kataloget og den publicerede pakkemappe. OneDrive og CloudStorage Portal er de to aktive cloudpakker.
-- `plugins/plugin-eval/` bevares som en ikke-publiceret OpenAI-reference til udvikling og sammenligning; den er ikke en post i markedspladsmanifestet.
+- `plugins/plugin-eval/` bevares som en lokal sammenligningsreference. Marketplace-posten peger direkte på OpenAIs originale Git-kilde; den bevarede mappe er ikke publiceringskilden.
 - OpenAI-ejede publiceringsposter bruger en direkte `git-subdir`-reference til `https://github.com/openai/plugins.git`; en bevaret lokal sammenligningsmappe er ikke publiceringskilden.
 - `docs/onedrive-skills-inventory.md` dokumenterer de lokale OneDrive-relaterede skills, som ikke automatisk er separate plugins.
 - `docs/consolidation-audit-2026-10-25.md` fastlægger de kanoniske kilder og den sikre oprydningsrækkefølge.

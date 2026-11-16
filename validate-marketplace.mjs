@@ -95,7 +95,22 @@ if(registry&&external){
     check(p.url===`https://chatgpt.com/plugins/${p.pluginId}`&&/^plugin_connector_1p_[a-z0-9]+$/.test(p.pluginId),`${p.name}: retained official catalog identity`);
   }
   const names=[...registry.plugins.map(p=>p.name),...external.catalogOnly.map(p=>p.name)];
-  check(names.length===24&&new Set(names).size===24,'complete supplied collection: 24 products without duplicates');
+  check(names.length>=24&&new Set(names).size===names.length,'original supplied collection retained without duplicate names');
+}
+const workspace=json('docs/workspace-plugin-collection-20261116.json');
+if(registry&&workspace){
+  for(const p of workspace.additionalGitSources){
+    const e=registry.plugins.find(e=>e.name===p.name);
+    check(e?.source?.source==='git-subdir'&&e.source.url===p.repository&&e.source.path===p.path,`${p.name}: verified original publisher source`);
+    check(p.manifest?.name===p.name&&/^[0-9a-f]{40}$/.test(p.observedCommit),`${p.name}: upstream manifest and observed revision`);
+    check(e?.interface?.displayName===p.manifest.interface?.displayName,`${p.name}: original publisher display name`);
+  }
+  const names=[...registry.plugins.map(p=>p.name),...workspace.catalogOnly.map(p=>p.name),...workspace.hostBundled.map(p=>p.name)];
+  check(new Set(names).size===names.length&&names.length===workspace.counts.collectionProducts,'extended collection has one record per product');
+  check(registry.plugins.length===workspace.counts.nativeMarketplaceEntries,'native Marketplace entry count');
+  check(workspace.catalogOnly.every(p=>p.url===`https://chatgpt.com/plugins/${p.pluginId}`),'original catalog links retain native identities');
+  check(workspace.hostBundled.every(p=>p.status==='HOST_BUNDLED'&&!registry.plugins.some(e=>e.name===p.name)),'host runtime packages not republished as personal file paths');
+  check(workspace.nativeLoaderRemoteSourceProbe.remoteEntryListed===false&&workspace.nativeLoaderRemoteSourceProbe.localControlListed===true,'remote source restriction checked with native positive control');
 }
 if(failures.length){console.error(JSON.stringify({ok:false,passed:checks.length,failures},null,2));process.exitCode=1;}
 else console.log(JSON.stringify({ok:true,checks:checks.length,managedPlugins:managed,scope:'Package structure and exact source snapshots; not a live connection test.'},null,2));

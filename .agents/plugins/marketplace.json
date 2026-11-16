@@ -327,6 +327,166 @@
       "interface": {
         "displayName": "MegaLinter"
       }
+    },
+    {
+      "name": "agent-skillguard",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/SpannDaMan/agent-skillguard.git",
+        "path": "plugins/agent-skillguard"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Security",
+      "interface": {
+        "displayName": "Skill Risk Check"
+      }
+    },
+    {
+      "name": "context-handoff",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/timyeou1234/context-handoff.git",
+        "path": "."
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Context Handoff"
+      }
+    },
+    {
+      "name": "plugin-creator-plus",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ailuntx/plugin-creator-plus.git",
+        "path": "plugins/plugin-creator-plus"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "Plugin Creator Plus"
+      }
+    },
+    {
+      "name": "skill-craft",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/MuhammadBahaa/majarrah-marketplace.git",
+        "path": "plugins/skill-craft"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "Skill Craft"
+      }
+    },
+    {
+      "name": "chatgpt-codex-plugin-autopilot",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/imMamdouhaboammar/chatgpt-codex-plugin-autopilot.git",
+        "path": "."
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "Plugin Autopilot"
+      }
+    },
+    {
+      "name": "skillquiver",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Drizzy07x/Skillquiver.git",
+        "path": "."
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Skillquiver"
+      }
+    },
+    {
+      "name": "gmail",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/gmail"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Communication",
+      "interface": {
+        "displayName": "Gmail"
+      }
+    },
+    {
+      "name": "google-calendar",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/google-calendar"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Google Calendar"
+      }
+    },
+    {
+      "name": "slack",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/slack"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Communication",
+      "interface": {
+        "displayName": "Slack"
+      }
+    },
+    {
+      "name": "plugin-eval",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/plugin-eval"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "Plugin Eval"
+      }
     }
   ]
 }

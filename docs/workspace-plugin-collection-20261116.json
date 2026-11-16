@@ -1,0 +1,851 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-16",
+  "counts": {
+    "installedRecords": 52,
+    "uniqueInstalledNames": 50,
+    "appBindings": 27,
+    "uniqueDeclaredApps": 21,
+    "mergedMcpServers": 4,
+    "nativeMarketplaceEntries": 30,
+    "catalogLinks": 15,
+    "hostBundledProducts": 9,
+    "collectionProducts": 54
+  },
+  "additionalGitSources": [
+    {
+      "schemaVersion": 1,
+      "name": "agent-skillguard",
+      "repository": "https://github.com/SpannDaMan/agent-skillguard.git",
+      "path": "plugins/agent-skillguard",
+      "observedCommit": "affd36ef237d1fb7ebd830cde630a7b4cc27aaba",
+      "manifest": {
+        "name": "agent-skillguard",
+        "version": "0.1.5",
+        "description": "Scan agent skills and plugins locally for reviewable risk patterns before installation.",
+        "author": {
+          "name": "Orbral",
+          "url": "https://github.com/SpannDaMan"
+        },
+        "homepage": "https://github.com/SpannDaMan/agent-skillguard",
+        "repository": "https://github.com/SpannDaMan/agent-skillguard",
+        "license": "MIT",
+        "keywords": [
+          "plugin-security",
+          "agent-skills",
+          "pre-install-scan",
+          "prompt-injection",
+          "supply-chain",
+          "sarif",
+          "codex",
+          "claude-code"
+        ],
+        "skills": "./skills/",
+        "interface": {
+          "displayName": "Skill Risk Check",
+          "shortDescription": "Scan before you install.",
+          "longDescription": "Use this before installing an agent skill or plugin. Skill Risk Check scans local files for hidden instructions, broad permissions, suspicious downloads, prompt-injection patterns, and possible secret exposure, then returns ranked findings with file-and-line evidence and remediation. Do not use it as a safety certification; it never runs, installs, enables, or uploads the target.",
+          "developerName": "Orbral",
+          "category": "Security",
+          "capabilities": [
+            "Scan local skills and plugins before install",
+            "Find risky instructions, permissions, and downloads",
+            "Show file-and-line evidence and remediation",
+            "Export JSON, Markdown, and SARIF",
+            "Never run or upload the target"
+          ],
+          "websiteURL": "https://github.com/SpannDaMan/agent-skillguard",
+          "privacyPolicyURL": "https://github.com/SpannDaMan/agent-skillguard/blob/main/PRIVACY.md",
+          "termsOfServiceURL": "https://github.com/SpannDaMan/agent-skillguard/blob/main/TERMS.md",
+          "defaultPrompt": [
+            "I found a viral skill repo on Twitter. Before I install it, audit the public repo and flag anything unsafe.",
+            "Audit this plugin's scripts, permissions, and external calls. Rank risks with file-and-line evidence.",
+            "Give me a go-or-no-go. List what blocks installation, what must be fixed, and what I still need to review."
+          ],
+          "brandColor": "#0183E0",
+          "composerIcon": "./assets/icon.png",
+          "logo": "./assets/logo.png",
+          "logoDark": "./assets/logo-dark.png"
+        }
+      },
+      "verifiedFiles": {
+        "nativeManifest": true,
+        "skills": true,
+        "logo": true,
+        "composerIcon": true
+      },
+      "treeTruncated": false,
+      "checkedAt": "2026-11-16",
+      "contextIdentity": null,
+      "installedVersion": "0.1.5"
+    },
+    {
+      "schemaVersion": 1,
+      "name": "context-handoff",
+      "repository": "https://github.com/timyeou1234/context-handoff.git",
+      "path": ".",
+      "observedCommit": "00f4ad1af40ecdcd3bad1c7c9a31423b0fa1b272",
+      "manifest": {
+        "name": "context-handoff",
+        "version": "0.3.7",
+        "description": "Detect context compaction and transfer long-running Codex work into a fresh verified thread without losing acceptance criteria or evidence.",
+        "author": {
+          "name": "Tim Yu",
+          "email": "timyeou1234@users.noreply.github.com",
+          "url": "https://github.com/timyeou1234"
+        },
+        "homepage": "https://github.com/timyeou1234/context-handoff",
+        "repository": "https://github.com/timyeou1234/context-handoff",
+        "license": "MIT",
+        "keywords": [
+          "codex",
+          "context",
+          "handoff",
+          "continuity",
+          "productivity"
+        ],
+        "skills": "./skills/",
+        "interface": {
+          "displayName": "Context Handoff",
+          "shortDescription": "Continue work in fresh threads",
+          "longDescription": "Detect context pressure with throttled local lifecycle checks, then safely continue work in a fresh verified thread. Preserve language, Goal state, scoped authorization, runtime permission checks and evidence. Verify destination visibility and opening without pinning before authorized source archival. Record exact-session token usage without assuming savings.",
+          "developerName": "Tim Yu",
+          "category": "Productivity",
+          "capabilities": [
+            "Workflow",
+            "Continuity",
+            "Lifecycle hooks"
+          ],
+          "websiteURL": "https://github.com/timyeou1234/context-handoff",
+          "privacyPolicyURL": "https://github.com/timyeou1234/context-handoff/blob/main/PRIVACY.md",
+          "termsOfServiceURL": "https://github.com/timyeou1234/context-handoff/blob/main/TERMS.md",
+          "defaultPrompt": [
+            "Checkpoint this task and continue it in a fresh verified thread.",
+            "Prepare a safe handoff packet for this long-running Codex task.",
+            "Check context health and hand off only if a fresh thread is warranted."
+          ],
+          "brandColor": "#315C8C",
+          "composerIcon": "./assets/icon.png",
+          "logo": "./assets/logo.png",
+          "supportURL": "https://github.com/timyeou1234/context-handoff/blob/main/SUPPORT.md"
+        }
+      },
+      "verifiedFiles": {
+        "nativeManifest": true,
+        "skills": true,
+        "logo": true,
+        "composerIcon": true
+      },
+      "treeTruncated": false,
+      "checkedAt": "2026-11-16",
+      "contextIdentity": "Original Tim Yu product; separate from branded zilvereyes-context-handoff",
+      "installedVersion": "0.3.4"
+    },
+    {
+      "schemaVersion": 1,
+      "name": "plugin-creator-plus",
+      "repository": "https://github.com/ailuntx/plugin-creator-plus.git",
+      "path": "plugins/plugin-creator-plus",
+      "observedCommit": "b9d4abd01f54d3c9e6b336a9d092f65883c55b34",
+      "manifest": {
+        "name": "plugin-creator-plus",
+        "version": "0.1.2+codex.20260925002000",
+        "description": "Create, test, package, and publish ChatGPT and Codex plugins using installed companion skills and the OpenAI publishing portal.",
+        "author": {
+          "name": "ailuntz",
+          "url": "https://www.ailuntz.com"
+        },
+        "skills": "./skills/",
+        "homepage": "https://github.com/ailuntx/plugin-creator-plus",
+        "license": "SEE LICENSE IN LICENSE",
+        "interface": {
+          "displayName": "Plugin Creator Plus",
+          "shortDescription": "创建、测试并发布 ChatGPT 与 Codex 插件",
+          "longDescription": "把插件从想法或现有项目推进到本地测试和公开发布。复用 Plugin Creator、OpenAI Developers、Keybook 和 ego-browser；提供发布前检查、ZIP 打包和发布状态记录。需要本地终端及另行安装的配套技能，发布依赖平台登录、已验证身份和审核。独立开发，与 OpenAI 无隶属关系。",
+          "developerName": "ailuntz",
+          "category": "Developer Tools",
+          "capabilities": [],
+          "defaultPrompt": [
+            "把当前项目做成插件并发布到 OpenAI 插件目录。",
+            "自行构思一个有用的小插件，完成测试并发布。",
+            "检查这个插件的发布准备情况，修复问题并更新已发布版本。"
+          ],
+          "brandColor": "#6541C8",
+          "logo": "./assets/logo.png",
+          "composerIcon": "./assets/icon.png",
+          "websiteURL": "https://www.ailuntz.com",
+          "privacyPolicyURL": "https://github.com/ailuntx/plugin-creator-plus/blob/main/docs/privacy.md",
+          "termsOfServiceURL": "https://github.com/ailuntx/plugin-creator-plus/blob/main/docs/terms.md"
+        },
+        "repository": "https://github.com/ailuntx/plugin-creator-plus"
+      },
+      "verifiedFiles": {
+        "nativeManifest": true,
+        "skills": true,
+        "logo": true,
+        "composerIcon": true
+      },
+      "treeTruncated": false,
+      "checkedAt": "2026-11-16",
+      "contextIdentity": null,
+      "installedVersion": "0.1.1",
+      "licenseText": "Copyright (c) 2026 沈阳霓虹星桥科技工作室（个人独资）. All rights reserved.\n\nPermission is granted to download, install, and execute this plugin for lawful, authorized personal or internal business use. Redistribution and sublicensing require written permission from the copyright holder, except distribution through platforms explicitly authorized by the publisher and copies required for authorized installation and execution.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, TO THE EXTENT PERMITTED BY APPLICABLE LAW. THE AUTHORS ARE NOT LIABLE FOR CLAIMS OR DAMAGES ARISING FROM ITS USE.\n",
+      "distributionNote": "Do not copy or redistribute package code. Original-publisher repository link only; license permits authorized install/execution and requires written permission for redistribution."
+    },
+    {
+      "schemaVersion": 1,
+      "name": "skill-craft",
+      "repository": "https://github.com/MuhammadBahaa/majarrah-marketplace.git",
+      "path": "plugins/skill-craft",
+      "observedCommit": "24c0388654b7bb60f788b703f38f8ee3c7e7294e",
+      "manifest": {
+        "name": "skill-craft",
+        "version": "1.3.0",
+        "description": "Technical review, guided walkthroughs, and a human-attention approval gate for agent skills, slash commands, and plugins — a fixed 10-dimension safety/severity audit, a clear five-part walkthrough, and a decision layer that says how much a human must read before approving. Custom-agent review and authoring are not included.",
+        "author": {
+          "name": "Muhammad Bahaa",
+          "email": "muhammadbahaa75@gmail.com"
+        },
+        "homepage": "https://github.com/MuhammadBahaa/majarrah-marketplace",
+        "repository": "https://github.com/MuhammadBahaa/majarrah-marketplace",
+        "license": "MIT",
+        "keywords": [
+          "skill-review",
+          "plugin-review",
+          "agent-skills",
+          "approval-gate"
+        ],
+        "skills": "./skills/",
+        "interface": {
+          "displayName": "Skill Craft",
+          "shortDescription": "Review skills before release",
+          "longDescription": "Review agent skills as behavior before publishing. Skill Craft audits triggers, workflow safety, context cost, testing evidence, and approval readiness through a fixed ten-dimension report. It also provides a separate five-part walkthrough in the reader's language, and an approval gate that reads the review, tests, and diff and says how much a human must read before approving: none, a few pointed lines, or a deep read. Results support a human decision; they are not a security certification.",
+          "developerName": "Muhammad Bahaa",
+          "category": "Developer Tools",
+          "capabilities": [
+            "Review agent skill behavior",
+            "Explain skills in clear language",
+            "Decide how much a human must read before approving"
+          ],
+          "websiteURL": "https://majarrah-marketplace.hashnode.dev/i-built-skill-craft-because-a-skill-can-look-right-and-still-fail-at-work",
+          "privacyPolicyURL": "https://github.com/MuhammadBahaa/majarrah-marketplace/blob/main/plugins/skill-craft/PRIVACY.md",
+          "termsOfServiceURL": "https://github.com/MuhammadBahaa/majarrah-marketplace/blob/main/plugins/skill-craft/TERMS.md",
+          "defaultPrompt": [
+            "Review this agent skill and tell me whether it is ready to publish.",
+            "Walk me through this skill in Arabic and explain what it can touch.",
+            "Compare these two skill versions and explain what changed."
+          ],
+          "logo": "./assets/skill-craft-logo.png",
+          "composerIcon": "./assets/skill-craft-composer.png"
+        }
+      },
+      "verifiedFiles": {
+        "nativeManifest": true,
+        "skills": true,
+        "logo": true,
+        "composerIcon": true
+      },
+      "treeTruncated": false,
+      "checkedAt": "2026-11-16",
+      "contextIdentity": null,
+      "installedVersion": "1.3.0"
+    },
+    {
+      "schemaVersion": 1,
+      "name": "chatgpt-codex-plugin-autopilot",
+      "repository": "https://github.com/imMamdouhaboammar/chatgpt-codex-plugin-autopilot.git",
+      "path": ".",
+      "observedCommit": "a01ba2d048db98726e58dcccc19e56b9590d5c06",
+      "manifest": {
+        "name": "chatgpt-codex-plugin-autopilot",
+        "version": "0.8.0",
+        "description": "Convert agentic repositories into focused ChatGPT/Codex plugins, add host workspace operations, execute available Python verification, then validate, package, and prepare them for submission",
+        "author": {
+          "name": "Mamdouh Aboammar",
+          "url": "https://github.com/imMamdouhaboammar"
+        },
+        "license": "MIT",
+        "keywords": [
+          "chatgpt",
+          "codex",
+          "plugins",
+          "skills",
+          "agentic-workflows",
+          "workspace-tools",
+          "python-sandbox",
+          "developer-tools",
+          "release"
+        ],
+        "skills": "./skills/",
+        "interface": {
+          "displayName": "Plugin Autopilot",
+          "shortDescription": "Turn repos into plugins",
+          "longDescription": "Finds reusable agentic workflows inside repositories, decides what should become public Skills or runtime-backed capabilities, compiles portable Skill packages, installs a host-native workspace operations Skill for read/list/search/grep/write/patch/shell/Python workflows, designs the Plugin experience and SVG identity, prepares Plugin Directory metadata, executes host-native Python verification when available, validates the package, builds deterministic ZIPs, and prepares reviewer evidence without confusing local proof with public approval.",
+          "developerName": "Mamdouh Aboammar",
+          "category": "Developer Tools",
+          "capabilities": [
+            "Agentic repository discovery",
+            "Workflow-to-Skill conversion",
+            "Plugin architecture planning",
+            "Plugin experience design",
+            "Host workspace read/search/edit",
+            "Sandbox Python execution",
+            "SVG brand identity pack",
+            "Plugin Directory listing pack",
+            "Plugin validation",
+            "Submission preflight",
+            "Deterministic packaging",
+            "Reviewer evidence preparation"
+          ],
+          "websiteURL": "https://github.com/imMamdouhaboammar/chatgpt-codex-plugin-autopilot",
+          "defaultPrompt": [
+            "Turn this agentic repository into a clean ChatGPT/Codex Plugin.",
+            "Find the reusable workflows and add safe host workspace operations where they help.",
+            "Audit and package this Plugin, using the python tool to run verification when available."
+          ],
+          "brandColor": "#4F6FFF",
+          "composerIcon": "./assets/mark.svg",
+          "logo": "./assets/logo-light.svg",
+          "privacyPolicyURL": "https://github.com/imMamdouhaboammar/chatgpt-codex-plugin-autopilot/blob/main/PRIVACY.md",
+          "termsOfServiceURL": "https://github.com/imMamdouhaboammar/chatgpt-codex-plugin-autopilot/blob/main/TERMS.md"
+        },
+        "homepage": "https://github.com/imMamdouhaboammar/chatgpt-codex-plugin-autopilot",
+        "repository": "https://github.com/imMamdouhaboammar/chatgpt-codex-plugin-autopilot"
+      },
+      "verifiedFiles": {
+        "nativeManifest": true,
+        "skills": true,
+        "logo": true,
+        "composerIcon": true
+      },
+      "treeTruncated": false,
+      "checkedAt": "2026-11-16",
+      "contextIdentity": null,
+      "installedVersion": "0.7.0"
+    },
+    {
+      "schemaVersion": 1,
+      "name": "skillquiver",
+      "repository": "https://github.com/Drizzy07x/Skillquiver.git",
+      "path": ".",
+      "observedCommit": "58ff9af6185ebc19980d483a02d3d74a8d1227dd",
+      "manifest": {
+        "name": "skillquiver",
+        "version": "2.2.0",
+        "description": "Twenty-four reusable Agent Skills for planning, implementation, review, verification, UI, and system work in ChatGPT and Codex.",
+        "author": {
+          "name": "Drizzy07x",
+          "url": "https://github.com/Drizzy07x"
+        },
+        "homepage": "https://drizzy07x.github.io/Skillquiver/",
+        "repository": "https://github.com/Drizzy07x/Skillquiver",
+        "license": "MIT",
+        "keywords": [
+          "agent-skills",
+          "chatgpt",
+          "claude-code",
+          "codex",
+          "developer-tools"
+        ],
+        "skills": "./skills/",
+        "interface": {
+          "displayName": "Skillquiver",
+          "shortDescription": "Practical software workflows",
+          "longDescription": "Skillquiver is a collection of 24 reusable Agent Skills for planning, implementation, debugging, review, verification, UI, host boundaries, agent instructions, and safe environment maintenance. The skills-only package works in ChatGPT and Codex; the same source catalog also supports Claude Code. It has no hosted backend, account, authentication, MCP server, bundled hooks, or app UI, and runs only through host-approved tools.",
+          "developerName": "Drizzy07x",
+          "category": "Productivity",
+          "capabilities": [
+            "Read project files and relevant local context.",
+            "Write project files when the user's task authorizes changes.",
+            "Run host-approved local development commands and tests.",
+            "Use optional host-provided browser, UI automation, or subagent capabilities when available."
+          ],
+          "websiteURL": "https://drizzy07x.github.io/Skillquiver/",
+          "privacyPolicyURL": "https://drizzy07x.github.io/Skillquiver/privacy.html",
+          "termsOfServiceURL": "https://drizzy07x.github.io/Skillquiver/terms.html",
+          "defaultPrompt": [
+            "Turn this feature idea into a decision-complete implementation plan.",
+            "Diagnose this failing test systematically and verify the root cause.",
+            "Review this code change and report only evidence-backed findings."
+          ],
+          "brandColor": "#C87941",
+          "composerIcon": "./assets/plugin-logo.png",
+          "logo": "./assets/plugin-logo.png"
+        }
+      },
+      "verifiedFiles": {
+        "nativeManifest": true,
+        "skills": true,
+        "logo": true,
+        "composerIcon": true
+      },
+      "treeTruncated": false,
+      "checkedAt": "2026-11-16",
+      "contextIdentity": null,
+      "installedVersion": "2.1.0"
+    },
+    {
+      "name": "gmail",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/gmail",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "manifest": {
+        "name": "gmail",
+        "version": "0.1.9",
+        "description": "Work with Gmail using the configured Gmail app connector.",
+        "author": {
+          "name": "OpenAI",
+          "email": "support@openai.com",
+          "url": "https://openai.com/"
+        },
+        "homepage": "https://workspace.google.com/products/gmail/",
+        "repository": "https://github.com/openai/openai/tree/master/chatgpt/oai-maintained-plugins",
+        "license": "MIT",
+        "keywords": [
+          "gmail",
+          "email",
+          "google",
+          "google workspace",
+          "mail",
+          "inbox",
+          "threads",
+          "drafts"
+        ],
+        "apps": "./.app.json",
+        "interface": {
+          "displayName": "Gmail",
+          "shortDescription": "Read and manage Gmail",
+          "longDescription": "Use Gmail to summarize inbox activity, draft replies, and organize email threads through the connected Gmail app.",
+          "developerName": "OpenAI",
+          "category": "Communication",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "websiteURL": "https://workspace.google.com/products/gmail/",
+          "privacyPolicyURL": "https://policies.google.com/privacy",
+          "termsOfServiceURL": "https://policies.google.com/terms",
+          "defaultPrompt": [
+            "Summarize inbox, draft replies, or process email threads"
+          ],
+          "brandColor": "#EA4335",
+          "composerIcon": "./assets/gmail.png",
+          "logo": "./assets/gmail.png",
+          "screenshots": []
+        }
+      },
+      "apps": {
+        "apps": {
+          "gmail": {
+            "id": "connector_2128aebfecb84f64a069897515042a44"
+          }
+        }
+      }
+    },
+    {
+      "name": "google-calendar",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/google-calendar",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "manifest": {
+        "name": "google-calendar",
+        "version": "1.2.6",
+        "description": "Connect Google Calendar for scheduling, availability, daily briefs, and event management.",
+        "author": {
+          "name": "OpenAI",
+          "email": "support@openai.com",
+          "url": "https://openai.com/"
+        },
+        "homepage": "https://workspace.google.com/products/calendar/",
+        "repository": "https://github.com/openai/plugins",
+        "license": "MIT",
+        "keywords": [
+          "google-calendar",
+          "google",
+          "google workspace",
+          "calendar",
+          "events",
+          "meetings",
+          "availability",
+          "agenda",
+          "daily-brief",
+          "scheduling",
+          "productivity"
+        ],
+        "apps": "./.app.json",
+        "interface": {
+          "displayName": "Google Calendar",
+          "shortDescription": "Manage Google Calendar events",
+          "longDescription": "Use Google Calendar to summarize a day, check availability, list calendars, and create, update, or delete events directly from task prompts.",
+          "developerName": "OpenAI",
+          "category": "Productivity",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "websiteURL": "https://workspace.google.com/products/calendar/",
+          "privacyPolicyURL": "https://policies.google.com/privacy",
+          "termsOfServiceURL": "https://policies.google.com/terms",
+          "defaultPrompt": [
+            "Summarize my calendar, compare availability, prep meetings, or draft event details"
+          ],
+          "brandColor": "#4285F4",
+          "composerIcon": "./assets/icon.png",
+          "logo": "./assets/logo.png",
+          "screenshots": []
+        }
+      },
+      "apps": {
+        "apps": {
+          "google-calendar": {
+            "id": "connector_947e0d954944416db111db556030eea6"
+          }
+        }
+      }
+    },
+    {
+      "name": "slack",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/slack",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "manifest": {
+        "apps": "./.app.json",
+        "author": {
+          "email": "support@openai.com",
+          "name": "Slack",
+          "url": "https://openai.com/"
+        },
+        "description": "Work with Slack using the configured Slack integration.",
+        "homepage": "https://slack.com/",
+        "interface": {
+          "brandColor": "#611F69",
+          "brandColorDark": "#D896E0",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "category": "Communication",
+          "composerIcon": "./assets/composer-icon.png",
+          "defaultPrompt": [
+            "Summarize unread activity, draft replies, or prepare updates"
+          ],
+          "developerName": "Slack",
+          "displayName": "Slack",
+          "logo": "./assets/logo.png",
+          "longDescription": "Use Slack to summarize channels, draft messages, and organize team conversations through the connected Slack integration.",
+          "privacyPolicyURL": "https://slack.com/privacy-policy",
+          "screenshots": [],
+          "shortDescription": "Read and manage Slack",
+          "termsOfServiceURL": "https://slack.com/terms-of-service/user",
+          "websiteURL": "https://slack.com/"
+        },
+        "keywords": [
+          "slack",
+          "salesforce",
+          "chat",
+          "collaboration",
+          "messaging",
+          "channels",
+          "threads",
+          "workplace chat"
+        ],
+        "license": "MIT",
+        "name": "slack",
+        "repository": "https://github.com/openai/plugins",
+        "version": "0.1.7"
+      },
+      "apps": {
+        "apps": {
+          "slack": {
+            "id": "asdk_app_69a1d78e929881919bba0dbda1f6436d"
+          }
+        }
+      }
+    },
+    {
+      "name": "plugin-eval",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/plugin-eval",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "manifest": {
+        "name": "plugin-eval",
+        "version": "0.1.2",
+        "description": "Evaluate Codex skills and plugins from chat with a beginner-friendly start command, local-first reports, token budget explanations, and guided benchmarking.",
+        "author": {
+          "name": "OpenAI Codex",
+          "email": "support@openai.com",
+          "url": "https://openai.com/"
+        },
+        "homepage": "https://openai.com/",
+        "repository": "https://github.com/openai/plugins",
+        "license": "MIT",
+        "keywords": [
+          "codex",
+          "plugin",
+          "skill",
+          "evaluation",
+          "quality",
+          "budget"
+        ],
+        "skills": "./skills/",
+        "interface": {
+          "displayName": "Plugin Eval",
+          "shortDescription": "Start from chat, then evaluate or benchmark locally",
+          "longDescription": "Ask Codex to evaluate a plugin or skill, give you a full analysis of a named plugin such as game-studio, explain why it scored that way, show what to fix first, explain its token budget, measure real token usage, benchmark a plugin, or tell you what to run next. Plugin Eval keeps the path engineer-friendly: start with a natural chat request, then use the local `plugin-eval start` entrypoint or the routed workflow command it recommends.",
+          "developerName": "OpenAI",
+          "category": "Developer Tools",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "websiteURL": "https://openai.com/",
+          "privacyPolicyURL": "https://openai.com/policies/privacy-policy/",
+          "termsOfServiceURL": "https://openai.com/policies/terms-of-use/",
+          "defaultPrompt": [
+            "Give me an analysis of the game studio plugin.",
+            "Evaluate this plugin.",
+            "Why did this score that way?"
+          ],
+          "brandColor": "#0F766E",
+          "composerIcon": "./assets/plugin-eval.svg",
+          "logo": "./assets/plugin-eval.svg",
+          "screenshots": []
+        }
+      },
+      "apps": null
+    }
+  ],
+  "catalogOnly": [
+    {
+      "name": "plugin-creator",
+      "displayName": "Plugin Creator",
+      "pluginId": "plugin_connector_1p_e1a10c53223481918a42f1510ec46c1e",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_e1a10c53223481918a42f1510ec46c1e",
+      "installedVersion": "0.1.28",
+      "publisher": "OpenAI",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "cloud-environment",
+      "displayName": "Cloud Environment",
+      "pluginId": "plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d",
+      "installedVersion": "0.2.1",
+      "license": "UNDECLARED",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY",
+      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
+    },
+    {
+      "name": "defense-factory",
+      "displayName": "Daybreak Defense Factory",
+      "pluginId": "plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5",
+      "installedVersion": "0.1.11",
+      "publisher": "OpenAI",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "plugin-management",
+      "displayName": "Plugin Management",
+      "pluginId": "plugin_connector_1p_b3438d6beb9081918fba3625bc988128",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_b3438d6beb9081918fba3625bc988128",
+      "installedVersion": "0.1.0",
+      "publisher": "OpenAI",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "google-contacts",
+      "displayName": "Google Contacts",
+      "pluginId": "plugin_connector_1p_c97194162860819190a6f840a61b9889",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_c97194162860819190a6f840a61b9889",
+      "installedVersion": "1.0.0",
+      "publisher": "OpenAI",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "plugins-radar",
+      "displayName": "plugins-radar",
+      "pluginId": "plugin_asdk_app_6ac4e041744c8191a1329e62b1442b1a",
+      "url": "https://chatgpt.com/plugins/plugin_asdk_app_6ac4e041744c8191a1329e62b1442b1a",
+      "installedVersion": "1.0.3",
+      "publisher": "UNKNOWN",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "duopore-public-skills-evidence-matrix",
+      "displayName": "duopore-public-skills-evidence-matrix",
+      "pluginId": "plugin_asdk_app_6ad20f06791c819191b8436cc54f83b6",
+      "url": "https://chatgpt.com/plugins/plugin_asdk_app_6ad20f06791c819191b8436cc54f83b6",
+      "installedVersion": "1.0.4",
+      "publisher": "DUOPORE VENTURES PTE. LTD.",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "matt-skills-curated",
+      "displayName": "Matt Skills Curated",
+      "pluginId": "plugins_6a78e83987748191afc0c56e12172fce",
+      "url": "https://chatgpt.com/plugins/plugins_6a78e83987748191afc0c56e12172fce",
+      "installedVersion": "1.1.0",
+      "publisher": "Mamdouh Aboammar",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "universal-plugin-installer",
+      "displayName": "Universal Plugin Installer",
+      "pluginId": "plugins_6a929ba6c3048191a9d945bbeeccb242",
+      "url": "https://chatgpt.com/plugins/plugins_6a929ba6c3048191a9d945bbeeccb242",
+      "installedVersion": "0.1.0",
+      "publisher": "Ryan Shand",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "gpts-to-plugin",
+      "displayName": "GPTs to Plugin",
+      "pluginId": "plugins_6ab0aed0959c8191b18c646c14b0244c",
+      "url": "https://chatgpt.com/plugins/plugins_6ab0aed0959c8191b18c646c14b0244c",
+      "installedVersion": "0.1.2+codex.20260921090000",
+      "publisher": "The Doers Firm",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "openai-templates",
+      "displayName": "Default templates",
+      "pluginId": "plugin_connector_1p_2330815c823c8191941e5dc465bb899f",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_2330815c823c8191941e5dc465bb899f",
+      "installedVersion": "0.1.1",
+      "publisher": "OpenAI",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "pages",
+      "displayName": "Pages",
+      "pluginId": "plugin_connector_1p_4a72ddeef4c481918f92d8e8df18fb2c",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_4a72ddeef4c481918f92d8e8df18fb2c",
+      "installedVersion": "0.1.26",
+      "publisher": "OpenAI",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "sites",
+      "displayName": "Sites",
+      "pluginId": "plugin_connector_1p_689987207de08191979cf68eca2941c6",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_689987207de08191979cf68eca2941c6",
+      "installedVersion": "1.1.6",
+      "publisher": "OpenAI",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "work-pets",
+      "displayName": "Pets",
+      "pluginId": "plugin_connector_1p_bccf6c8660c08191ae4470d9ae4877fa",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_bccf6c8660c08191ae4470d9ae4877fa",
+      "installedVersion": "0.1.6",
+      "publisher": "OpenAI",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    },
+    {
+      "name": "visualize",
+      "displayName": "Visualize",
+      "pluginId": "plugin_connector_1p_e27075fa9af48191968b90b68ab08ba3",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_e27075fa9af48191968b90b68ab08ba3",
+      "installedVersion": "1.0.103",
+      "publisher": "OpenAI",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY"
+    }
+  ],
+  "hostBundled": [
+    {
+      "name": "documents",
+      "displayName": "Documents",
+      "version": "26.1112.11011",
+      "publisher": "OpenAI",
+      "namespace": "openai-primary-runtime",
+      "status": "HOST_BUNDLED"
+    },
+    {
+      "name": "pdf",
+      "displayName": "PDF",
+      "version": "26.1112.11011",
+      "publisher": "OpenAI",
+      "namespace": "openai-primary-runtime",
+      "status": "HOST_BUNDLED"
+    },
+    {
+      "name": "spreadsheets",
+      "displayName": "Spreadsheets",
+      "version": "26.1112.11011",
+      "publisher": "OpenAI",
+      "namespace": "openai-primary-runtime",
+      "status": "HOST_BUNDLED"
+    },
+    {
+      "name": "presentations",
+      "displayName": "Presentations",
+      "version": "26.1112.11011",
+      "publisher": "OpenAI",
+      "namespace": "openai-primary-runtime",
+      "status": "HOST_BUNDLED"
+    },
+    {
+      "name": "template-creator",
+      "displayName": "Template Creator",
+      "version": "26.1112.11011",
+      "publisher": "OpenAI",
+      "namespace": "openai-primary-runtime",
+      "status": "HOST_BUNDLED"
+    },
+    {
+      "name": "browser",
+      "displayName": "Browser",
+      "version": "26.1111.21308",
+      "publisher": "OpenAI",
+      "namespace": "openai-bundled",
+      "status": "HOST_BUNDLED"
+    },
+    {
+      "name": "unified-computer-use",
+      "displayName": "unified-computer-use",
+      "version": "26.1111.21308",
+      "publisher": "OpenAI (bundled runtime)",
+      "namespace": "openai-bundled",
+      "status": "HOST_BUNDLED"
+    },
+    {
+      "name": "chrome",
+      "displayName": "Chrome",
+      "version": "26.1111.21308",
+      "publisher": "OpenAI",
+      "namespace": "openai-bundled",
+      "status": "HOST_BUNDLED"
+    },
+    {
+      "name": "computer-use",
+      "displayName": "Computer Use",
+      "version": "26.1111.21308",
+      "publisher": "OpenAI",
+      "namespace": "openai-bundled",
+      "status": "HOST_BUNDLED"
+    }
+  ],
+  "nativeLoaderRemoteSourceProbe": {
+    "remoteEntryListed": false,
+    "localControlListed": true,
+    "registrationChanged": false,
+    "scope": "Read-only native plugin/list and plugin/read on an unregistered temporary marketplace. Remote source omitted, local control loaded."
+  }
+}

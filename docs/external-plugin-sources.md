@@ -1,5 +1,11 @@
 # External plugin sources
 
+## Workspace-wide continuation — 2026-11-16
+
+The current installed inventory covers 52 installation records. The [full collection](full-plugin-list-check-20261116.md) now includes 30 native Marketplace entries, 15 original catalog links and 9 host-bundled products. Ten more original Git sources were verified: Gmail, Google Calendar, Slack, Plugin Eval, Plugin Autopilot, Skill Risk Check, Context Handoff, Skillquiver, Skill Craft and Plugin Creator Plus.
+
+Authors, developers and repository owners are retained in [workspace source evidence](workspace-plugin-collection-20261116.json). Native loader testing with a local positive control confirmed that a local manifest's remote-ID source is silently omitted; catalog-only products are therefore kept as links. The earlier inclusion notes below describe the initial smaller collection.
+
 ## Collection update — 2026-11-16
 
 Seven additional original-publisher Git entries are now included: Dropbox, Google Drive, GitHub, SharePoint, Vercel, OpenAI Developers and MegaLinter. Package code is fetched directly from the verified publisher repository, not copied from the installation cache. Original names, authors, licenses and App bindings remain publisher-controlled.
