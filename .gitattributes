@@ -1,12 +1,4 @@
-# Preserve the exact upstream bytes for provider skill snapshots. Their
-# provenance catalog hashes the official Codex package bytes, including their original line endings.
-plugins/cloudstorage-portal/skills/google-*/** -text
-plugins/cloudstorage-portal/skills/*dropbox*/** -text
-plugins/cloudstorage-portal/skills/collect-files-with-request/** -text
-
-# Immutable source snapshots: preserve source bytes on Windows checkouts too.
-plugins/cloudstorage-portal/** -text
-plugins/powershell-workbench/** -text
-plugins/plugin-skill-studio/** -text
-plugins/component-forge/** -text
-plugins/windows-dism-update-docs/** -text
+# Plugin snapshots retain their exact source bytes and provenance hashes.
+# Apply to every package, including personal imports and future additions,
+# so Windows core.autocrlf cannot change their contents during checkout.
+plugins/** -text
