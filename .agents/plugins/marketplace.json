@@ -212,6 +212,121 @@
       "interface": {
         "displayName": "Zilvereyes Context Handoff"
       }
+    },
+    {
+      "name": "sharepoint",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/sharepoint"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "SharePoint"
+      }
+    },
+    {
+      "name": "vercel",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/vercel"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "Vercel"
+      }
+    },
+    {
+      "name": "github",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/github"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "GitHub"
+      }
+    },
+    {
+      "name": "google-drive",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/google-drive"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Google Drive"
+      }
+    },
+    {
+      "name": "openai-developers",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/openai-developers"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL",
+        "products": [
+          "CODEX"
+        ]
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "OpenAI Developers"
+      }
+    },
+    {
+      "name": "dropbox",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/dropbox"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Dropbox"
+      }
+    },
+    {
+      "name": "megalinter",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/oxsecurity/megalinter.git",
+        "path": "."
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Code Quality",
+      "interface": {
+        "displayName": "MegaLinter"
+      }
     }
   ]
 }

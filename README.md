@@ -8,7 +8,7 @@
 codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 ```
 
-| Plugin | Version | Installation |
+| Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
 | OneDrive | `1.1.8` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.9.2` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
@@ -23,6 +23,15 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
 | Codex Process Jobs | `0.5.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
+| SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
+| Vercel | `0.21.4` | `codex plugin add vercel@winrecoveryproject-digital` |
+| GitHub | `0.1.12` | `codex plugin add github@winrecoveryproject-digital` |
+| Google Drive | `0.1.15` | `codex plugin add google-drive@winrecoveryproject-digital` |
+| OpenAI Developers | `1.2.3` | `codex plugin add openai-developers@winrecoveryproject-digital` |
+| Dropbox | `5.0.1` | `codex plugin add dropbox@winrecoveryproject-digital` |
+| MegaLinter | `1.0.33` | `codex plugin add megalinter@winrecoveryproject-digital` |
+
+Samlingen dækker alle **24 produkter** fra den leverede liste: 20 Marketplace-poster og 4 officielle kataloglinks. [Se hele oversigten, kataloglinks og versionsforskelle](docs/full-plugin-list-check-20261116.md). Flere offentlige Git-pakker er ældre end de installerede katalogversioner. Ingen installerede pakker er ændret af denne katalogopdatering.
 
 ## Struktur
 

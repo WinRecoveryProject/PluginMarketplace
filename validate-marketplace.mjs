@@ -72,5 +72,30 @@ if(registry){
     }else check(name==='onedrive',`${name}: source provenance present`);
   }
 }
+const external=json('docs/external-plugin-collection-20261116.json');
+if(registry&&external){
+  const expected=['sharepoint','vercel','github','google-drive','openai-developers','dropbox','megalinter'];
+  check(JSON.stringify(external.gitPlugins.map(p=>p.name).sort())===JSON.stringify([...expected].sort()),'seven reviewed external Git sources');
+  for(const p of external.gitPlugins){
+    const entry=registry.plugins.find(e=>e.name===p.name);
+    check(entry?.source?.source==='git-subdir'&&entry.source.url===p.repository&&entry.source.path===p.path,`${p.name}: original upstream source`);
+    check(p.manifest?.name===p.name&&typeof p.manifest.version==='string',`${p.name}: observed upstream manifest identity`);
+    check(/^[0-9a-f]{40}$/.test(p.observedCommit),`${p.name}: observed upstream revision`);
+    check(entry?.interface?.displayName===p.manifest.interface?.displayName,`${p.name}: original display name`);
+    check(entry?.policy?.installation==='AVAILABLE',`${p.name}: installation policy`);
+    if(p.apps){
+      const ids=Object.values(p.apps.apps??{}).map(a=>a.id);
+      check(p.installedAppIds.length>0&&p.installedAppIds.every(id=>ids.includes(id)),`${p.name}: existing provider App identities preserved`);
+    }
+  }
+  const remote=['plugin-creator','cloud-environment','defense-factory','plugin-management'];
+  check(JSON.stringify(external.catalogOnly.map(p=>p.name).sort())===JSON.stringify([...remote].sort()),'four original-catalog-only entries');
+  for(const p of external.catalogOnly){
+    check(!registry.plugins.some(e=>e.name===p.name),`${p.name}: no invented Git or remote manifest source`);
+    check(p.url===`https://chatgpt.com/plugins/${p.pluginId}`&&/^plugin_connector_1p_[a-z0-9]+$/.test(p.pluginId),`${p.name}: retained official catalog identity`);
+  }
+  const names=[...registry.plugins.map(p=>p.name),...external.catalogOnly.map(p=>p.name)];
+  check(names.length===24&&new Set(names).size===24,'complete supplied collection: 24 products without duplicates');
+}
 if(failures.length){console.error(JSON.stringify({ok:false,passed:checks.length,failures},null,2));process.exitCode=1;}
 else console.log(JSON.stringify({ok:true,checks:checks.length,managedPlugins:managed,scope:'Package structure and exact source snapshots; not a live connection test.'},null,2));

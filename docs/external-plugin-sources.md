@@ -1,5 +1,15 @@
 # External plugin sources
 
+## Collection update — 2026-11-16
+
+Seven additional original-publisher Git entries are now included: Dropbox, Google Drive, GitHub, SharePoint, Vercel, OpenAI Developers and MegaLinter. Package code is fetched directly from the verified publisher repository, not copied from the installation cache. Original names, authors, licenses and App bindings remain publisher-controlled.
+
+The public Git versions for several OpenAI-curated packages are still older than their installed catalog versions. These differences are explicit in the [complete collection](full-plugin-list-check-20261116.md); adding a catalog reference does not update or downgrade an installed package. Use the official catalog when the newer catalog package is required.
+
+Plugin Creator, Cloud Environment, Daybreak Defense Factory and Plugin Management have verified original catalog links in that same collection. No public distributable Git package or supported local Marketplace manifest representation of a remote catalog ID was established. They are catalog links, not fictitious installable Git entries.
+
+Observed revisions, manifests, App identities and installed-version comparisons are retained in [source evidence](external-plugin-collection-20261116.json). The historical observations below are retained as history, not the current inclusion decision.
+
 The marketplace may curate a plugin without copying its package into the WinRecoveryProject publication path.
 
 ## OpenAI

@@ -1,0 +1,611 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-11-16",
+  "note": "Original upstream references; installed packages and account permissions were not changed.",
+  "gitPlugins": [
+    {
+      "name": "sharepoint",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/sharepoint",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "upstreamEntry": {
+        "name": "sharepoint",
+        "source": {
+          "source": "local",
+          "path": "./plugins/sharepoint"
+        },
+        "policy": {
+          "installation": "AVAILABLE",
+          "authentication": "ON_INSTALL"
+        },
+        "category": "Productivity"
+      },
+      "manifest": {
+        "name": "sharepoint",
+        "version": "0.1.7",
+        "description": "Work with SharePoint using the configured Microsoft SharePoint app connector.",
+        "author": {
+          "name": "OpenAI",
+          "email": "support@openai.com",
+          "url": "https://openai.com/"
+        },
+        "homepage": "https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration",
+        "repository": "https://github.com/openai/plugins",
+        "license": "MIT",
+        "keywords": [
+          "sharepoint",
+          "documents",
+          "microsoft",
+          "microsoft 365",
+          "office 365",
+          "onedrive",
+          "files",
+          "intranet",
+          "collaboration"
+        ],
+        "apps": "./.app.json",
+        "interface": {
+          "displayName": "SharePoint",
+          "shortDescription": "Summarize SharePoint content",
+          "longDescription": "Use SharePoint to summarize sites, pages, and files, extract owners and status, and plan safe content updates through the connected Microsoft SharePoint app.",
+          "developerName": "OpenAI",
+          "category": "Productivity",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "websiteURL": "https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration",
+          "privacyPolicyURL": "https://www.microsoft.com/en-us/privacy/privacystatement",
+          "termsOfServiceURL": "https://www.microsoft.com/en-us/servicesagreement/",
+          "defaultPrompt": [
+            "Summarize a SharePoint site or file, identify owners and status, or plan a safe update across documents, spreadsheets, or decks"
+          ],
+          "brandColor": "#038387",
+          "composerIcon": "./assets/logo.png",
+          "logo": "./assets/logo.png",
+          "screenshots": []
+        }
+      },
+      "apps": {
+        "apps": {
+          "sharepoint": {
+            "id": "connector_1e4f6a44acf14e3ca1d96672f8c945bc"
+          }
+        }
+      },
+      "installedVersion": "0.1.8",
+      "installedName": "sharepoint",
+      "installedAppIds": [
+        "connector_1e4f6a44acf14e3ca1d96672f8c945bc"
+      ],
+      "upstreamAppIds": [
+        "connector_1e4f6a44acf14e3ca1d96672f8c945bc"
+      ],
+      "sameAppBindings": true,
+      "installedAppIdsPreserved": true
+    },
+    {
+      "name": "vercel",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/vercel",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "upstreamEntry": {
+        "name": "vercel",
+        "source": {
+          "source": "local",
+          "path": "./plugins/vercel"
+        },
+        "policy": {
+          "installation": "AVAILABLE",
+          "authentication": "ON_INSTALL"
+        },
+        "category": "Developer Tools"
+      },
+      "manifest": {
+        "apps": "./.app.json",
+        "author": {
+          "name": "Vercel Labs",
+          "url": "https://github.com/vercel"
+        },
+        "description": "Build and deploy web apps and agents",
+        "homepage": "https://vercel.com/",
+        "interface": {
+          "brandColor": "#000000",
+          "brandColorDark": "#FFFFFF",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "category": "Developer Tools",
+          "composerIcon": "./assets/composer-icon.png",
+          "defaultPrompt": [
+            "Audit this repo for Vercel deployment risks",
+            "Which Vercel tools fit this app best",
+            "Help wire the Vercel app into this workflow"
+          ],
+          "developerName": "Vercel Labs",
+          "displayName": "Vercel",
+          "logo": "./assets/logo.png",
+          "longDescription": "Bring Vercel ecosystem guidance into Codex with curated skills and the connected Vercel app. Packages the upstream vercel/vercel-plugin skills, agents, and commands under the local `vercel` plugin identity for the Codex plugin marketplace.",
+          "privacyPolicyURL": "https://vercel.com/legal/privacy-policy",
+          "screenshots": [],
+          "shortDescription": "Build and deploy web apps and agents",
+          "termsOfServiceURL": "https://vercel.com/legal/terms",
+          "websiteURL": "https://vercel.com/"
+        },
+        "keywords": [
+          "vercel",
+          "nextjs",
+          "ai-sdk",
+          "turborepo",
+          "turbopack",
+          "workflow",
+          "deployment",
+          "edge-functions",
+          "serverless",
+          "ai-gateway",
+          "chat-sdk",
+          "chat-bot",
+          "slack-bot",
+          "discord-bot"
+        ],
+        "license": "Apache-2.0",
+        "name": "vercel",
+        "repository": "https://github.com/vercel/vercel-plugin",
+        "skills": "./skills/",
+        "version": "0.21.4"
+      },
+      "apps": {
+        "apps": {
+          "vercel": {
+            "id": "connector_690a90ec05c881918afb6a55dc9bbaa1"
+          }
+        }
+      },
+      "installedVersion": "0.54.1",
+      "installedName": "vercel",
+      "installedAppIds": [
+        "connector_690a90ec05c881918afb6a55dc9bbaa1"
+      ],
+      "upstreamAppIds": [
+        "connector_690a90ec05c881918afb6a55dc9bbaa1"
+      ],
+      "sameAppBindings": true,
+      "installedAppIdsPreserved": true
+    },
+    {
+      "name": "github",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/github",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "upstreamEntry": {
+        "name": "github",
+        "source": {
+          "source": "local",
+          "path": "./plugins/github"
+        },
+        "policy": {
+          "installation": "AVAILABLE",
+          "authentication": "ON_INSTALL"
+        },
+        "category": "Developer Tools"
+      },
+      "manifest": {
+        "name": "github",
+        "version": "0.1.12",
+        "description": "Inspect repositories, triage pull requests and issues, debug CI, and publish changes through a hybrid GitHub connector and CLI workflow.",
+        "author": {
+          "name": "OpenAI",
+          "email": "support@openai.com",
+          "url": "https://openai.com/"
+        },
+        "homepage": "https://github.com/",
+        "repository": "https://github.com/openai/plugins",
+        "license": "MIT",
+        "keywords": [
+          "github",
+          "microsoft",
+          "git",
+          "repositories",
+          "source control",
+          "pull requests",
+          "github actions",
+          "ci/cd",
+          "pull-request",
+          "code-review",
+          "issues",
+          "ci",
+          "actions"
+        ],
+        "apps": "./.app.json",
+        "mcpServers": "./.mcp.json",
+        "interface": {
+          "displayName": "GitHub",
+          "shortDescription": "Triage PRs, issues, CI, and publish flows",
+          "longDescription": "Use GitHub to inspect repositories, review pull requests, address feedback, debug failing Actions checks, and prepare code changes for review through a connector-first workflow with targeted CLI fallbacks.",
+          "developerName": "OpenAI",
+          "category": "Developer Tools",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "websiteURL": "https://github.com/",
+          "privacyPolicyURL": "https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement",
+          "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+          "defaultPrompt": [
+            "Inspect PRs, triage issues, debug failing checks, and prepare code changes for review"
+          ],
+          "composerIcon": "./assets/github-small.svg",
+          "logo": "./assets/github.png",
+          "logoDark": "./assets/github-dark.png",
+          "screenshots": [],
+          "brandColor": "#24292F"
+        }
+      },
+      "apps": {
+        "apps": {
+          "github": {
+            "id": "connector_76869538009648d5b282a4bb21c3d157",
+            "required": false
+          },
+          "github-enterprise": {
+            "id": "templated_apps_GitHubEnterprise",
+            "required": false
+          }
+        }
+      },
+      "installedVersion": "0.1.13-77c10e110b37",
+      "installedName": "github",
+      "installedAppIds": [
+        "connector_76869538009648d5b282a4bb21c3d157"
+      ],
+      "upstreamAppIds": [
+        "connector_76869538009648d5b282a4bb21c3d157",
+        "templated_apps_GitHubEnterprise"
+      ],
+      "sameAppBindings": false,
+      "installedAppIdsPreserved": true
+    },
+    {
+      "name": "google-drive",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/google-drive",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "upstreamEntry": {
+        "name": "google-drive",
+        "source": {
+          "source": "local",
+          "path": "./plugins/google-drive"
+        },
+        "policy": {
+          "installation": "AVAILABLE",
+          "authentication": "ON_INSTALL"
+        },
+        "category": "Productivity"
+      },
+      "manifest": {
+        "name": "google-drive",
+        "version": "0.1.15",
+        "description": "Use Google Drive as the single entrypoint for Drive, Docs, Sheets, and Slides work.",
+        "author": {
+          "name": "OpenAI",
+          "email": "support@openai.com",
+          "url": "https://openai.com/"
+        },
+        "homepage": "https://workspace.google.com/products/drive/",
+        "repository": "https://github.com/openai/plugins",
+        "license": "MIT",
+        "keywords": [
+          "google-drive",
+          "google",
+          "google workspace",
+          "drive",
+          "docs",
+          "sheets",
+          "slides",
+          "files",
+          "google-docs",
+          "google-sheets",
+          "google-slides",
+          "productivity"
+        ],
+        "skills": "./skills/",
+        "apps": "./.app.json",
+        "interface": {
+          "displayName": "Google Drive",
+          "shortDescription": "Drive, Docs, Sheets or Slides",
+          "longDescription": "Use Google Drive as one unified Google file plugin for search, file organization, sharing, and Google Docs, Google Sheets, and Google Slides workflows.",
+          "developerName": "OpenAI",
+          "category": "Productivity",
+          "capabilities": [
+            "Interactive",
+            "Write"
+          ],
+          "composerIcon": "./assets/logo.png",
+          "logo": "./assets/logo.png",
+          "websiteURL": "https://workspace.google.com/products/drive/",
+          "privacyPolicyURL": "https://policies.google.com/privacy",
+          "termsOfServiceURL": "https://policies.google.com/terms",
+          "defaultPrompt": [
+            "Find the right Drive file, then summarize a Doc, update a Sheet, or edit a Slides deck"
+          ],
+          "brandColor": "#0F9D58",
+          "screenshots": []
+        }
+      },
+      "apps": {
+        "apps": {
+          "google-drive": {
+            "id": "connector_5f3c8c41a1e54ad7a76272c89e2554fa"
+          }
+        }
+      },
+      "installedVersion": "0.1.23",
+      "installedName": "google-drive",
+      "installedAppIds": [
+        "connector_5f3c8c41a1e54ad7a76272c89e2554fa"
+      ],
+      "upstreamAppIds": [
+        "connector_5f3c8c41a1e54ad7a76272c89e2554fa"
+      ],
+      "sameAppBindings": true,
+      "installedAppIdsPreserved": true
+    },
+    {
+      "name": "openai-developers",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/openai-developers",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "upstreamEntry": {
+        "name": "openai-developers",
+        "source": {
+          "source": "local",
+          "path": "./plugins/openai-developers"
+        },
+        "policy": {
+          "installation": "AVAILABLE",
+          "authentication": "ON_INSTALL",
+          "products": [
+            "CODEX"
+          ]
+        },
+        "category": "Developer Tools"
+      },
+      "manifest": {
+        "name": "openai-developers",
+        "version": "1.2.3",
+        "description": "Build with OpenAI APIs, Agents SDK, and ChatGPT Apps, and create and save OpenAI API keys from Codex.",
+        "author": {
+          "name": "OpenAI",
+          "email": "support@openai.com",
+          "url": "https://openai.com/"
+        },
+        "homepage": "https://platform.openai.com/",
+        "repository": "https://github.com/openai/plugins/tree/main/plugins/openai-developers",
+        "license": "Proprietary",
+        "keywords": [
+          "openai-platform",
+          "api-key",
+          "agents-sdk",
+          "agents",
+          "chatgpt-apps",
+          "apps-sdk",
+          "mcp",
+          "submissions",
+          "codex"
+        ],
+        "skills": "./skills/",
+        "mcpServers": "./.mcp.json",
+        "apps": "./.app.json",
+        "interface": {
+          "displayName": "OpenAI Developers",
+          "shortDescription": "Develop AI apps, agents, and ChatGPT Apps with OpenAI best practices",
+          "longDescription": "Use OpenAI Developers in Codex to build AI applications, agents, and ChatGPT Apps with OpenAI docs, the OpenAI API, Apps SDK, and Agents SDK. Connect to the OpenAI Platform (platform.openai.com) and see your Codex-built apps work right out of the box with real OpenAI API keys. Run and locally deploy Agents SDK projects through the Deployment Manager, scaffold ChatGPT Apps, and prepare ChatGPT Apps submission artifacts.",
+          "developerName": "OpenAI",
+          "category": "Developer Tools",
+          "capabilities": [
+            "Interactive",
+            "Read",
+            "Write"
+          ],
+          "websiteURL": "https://platform.openai.com/",
+          "privacyPolicyURL": "https://openai.com/policies/privacy-policy/",
+          "termsOfServiceURL": "https://openai.com/policies/row-terms-of-use/",
+          "composerIcon": "./assets/logo.png",
+          "logo": "./assets/logo.png",
+          "defaultPrompt": [
+            "Create an OpenAI API key to use in this project",
+            "Build an agent with the Agents SDK",
+            "Build a ChatGPT app from my local MCP server and widget idea."
+          ],
+          "brandColor": "#10A37F",
+          "screenshots": []
+        }
+      },
+      "apps": {
+        "apps": {
+          "openai-platform": {
+            "id": "connector_2de447f3f15448ebab48783d7e4f5d81"
+          }
+        }
+      },
+      "installedVersion": "1.3.16",
+      "installedName": "openai-developers",
+      "installedAppIds": [
+        "connector_2de447f3f15448ebab48783d7e4f5d81"
+      ],
+      "upstreamAppIds": [
+        "connector_2de447f3f15448ebab48783d7e4f5d81"
+      ],
+      "sameAppBindings": true,
+      "installedAppIdsPreserved": true
+    },
+    {
+      "name": "dropbox",
+      "repository": "https://github.com/openai/plugins.git",
+      "path": "plugins/dropbox",
+      "observedCommit": "d420d13051bffe4543ed39e30fa46b87148e47dd",
+      "upstreamEntry": {
+        "name": "dropbox",
+        "source": {
+          "source": "local",
+          "path": "./plugins/dropbox"
+        },
+        "policy": {
+          "installation": "AVAILABLE",
+          "authentication": "ON_INSTALL"
+        },
+        "category": "Productivity"
+      },
+      "manifest": {
+        "apps": "./.app.json",
+        "author": {
+          "name": "Dropbox"
+        },
+        "description": "The Dropbox plugin for ChatGPT connects your Dropbox files directly to ChatGPT. You can access files, save ChatGPT-generated content to Dropbox, and create sharing links without switching tools. Everything respects your existing Dropbox permissions, and ChatGPT only works with files you already have access to.",
+        "interface": {
+          "capabilities": [],
+          "category": "Productivity",
+          "defaultPrompt": [
+            "save this proposal to my Dropbox",
+            "can you show me my vacation photo?",
+            "can you generate a Dropbox shareable link for this PDF?"
+          ],
+          "developerName": "Dropbox",
+          "displayName": "Dropbox",
+          "logo": "./assets/logo.png",
+          "logoDark": "./assets/logo-dark.png",
+          "longDescription": "The Dropbox plugin for ChatGPT connects your Dropbox files directly to ChatGPT. You can access files, save ChatGPT-generated content to Dropbox, and create sharing links without switching tools. Everything respects your existing Dropbox permissions, and ChatGPT only works with files you already have access to.",
+          "privacyPolicyURL": "https://www.dropbox.com/privacy",
+          "screenshots": [
+            "./assets/screenshot-1.png",
+            "./assets/screenshot-2.png",
+            "./assets/screenshot-3.png"
+          ],
+          "shortDescription": "Access, save and share files",
+          "supportURL": "https://www.dropbox.com/get_help",
+          "termsOfServiceURL": "https://www.dropbox.com/terms",
+          "websiteURL": "https://www.dropbox.com"
+        },
+        "name": "dropbox",
+        "skills": "./skills",
+        "version": "5.0.1"
+      },
+      "apps": {
+        "apps": {
+          "app-69b31dc2110c8191b8b47dc98fe5a052": {
+            "id": "asdk_app_69b31dc2110c8191b8b47dc98fe5a052"
+          }
+        }
+      },
+      "installedVersion": "6.1.0",
+      "installedName": "app-69b31dc2110c8191b8b47dc98fe5a052",
+      "installedAppIds": [
+        "asdk_app_69b31dc2110c8191b8b47dc98fe5a052"
+      ],
+      "upstreamAppIds": [
+        "asdk_app_69b31dc2110c8191b8b47dc98fe5a052"
+      ],
+      "sameAppBindings": true,
+      "installedAppIdsPreserved": true
+    },
+    {
+      "name": "megalinter",
+      "repository": "https://github.com/oxsecurity/megalinter.git",
+      "path": ".",
+      "observedCommit": "9f76bc113a3f8a0055b3c2cc3d27e84f861a470b",
+      "manifest": {
+        "name": "megalinter",
+        "version": "1.0.33",
+        "description": "Set up, run and fix MegaLinter on any repository: 100+ linters for 69+ languages, 23+ formats and 21+ tooling formats, from CI or locally.",
+        "author": {
+          "name": "OX Security",
+          "url": "https://megalinter.io"
+        },
+        "homepage": "https://megalinter.io",
+        "repository": "https://github.com/oxsecurity/megalinter",
+        "license": "AGPL-3.0",
+        "keywords": [
+          "linter",
+          "code-quality",
+          "formatter",
+          "security",
+          "ci"
+        ],
+        "skills": "./skills/",
+        "interface": {
+          "displayName": "MegaLinter",
+          "shortDescription": "Lint, fix and secure any repository with 100+ linters.",
+          "longDescription": "MegaLinter aggregates 100+ linters covering 69+ languages, 23+ formats and 21+ tooling formats. This plugin installs it on your repository, collects errors from a CI job or a local Docker run, and fixes them using per-linter fix guides.",
+          "developerName": "OX Security",
+          "category": "Code Quality",
+          "websiteURL": "https://megalinter.io",
+          "defaultPrompt": "Set up MegaLinter on this repository and fix the errors it reports",
+          "capabilities": [
+            "Install MegaLinter on a repository",
+            "Collect lint errors from a CI job or a local run",
+            "Fix lint errors with per-linter fix guides"
+          ]
+        }
+      },
+      "apps": null,
+      "upstreamEntry": {
+        "name": "megalinter",
+        "source": {
+          "source": "local",
+          "path": "./"
+        },
+        "description": "Set up, run and fix MegaLinter on any repository: 100+ linters for 69+ languages, 23+ formats and 21+ tooling formats, from CI or locally.",
+        "category": "Code Quality"
+      },
+      "installedVersion": "1.0.28",
+      "installedName": "megalinter"
+    }
+  ],
+  "catalogOnly": [
+    {
+      "name": "plugin-creator",
+      "displayName": "Plugin Creator",
+      "pluginId": "plugin_connector_1p_e1a10c53223481918a42f1510ec46c1e",
+      "installedVersion": "0.1.28",
+      "license": "Proprietary",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_e1a10c53223481918a42f1510ec46c1e",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY",
+      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
+    },
+    {
+      "name": "cloud-environment",
+      "displayName": "Cloud Environment",
+      "pluginId": "plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d",
+      "installedVersion": "0.2.1",
+      "license": "UNDECLARED",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY",
+      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
+    },
+    {
+      "name": "defense-factory",
+      "displayName": "Daybreak Defense Factory",
+      "pluginId": "plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5",
+      "installedVersion": "0.1.11",
+      "license": "Proprietary",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY",
+      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
+    },
+    {
+      "name": "plugin-management",
+      "displayName": "Plugin Management",
+      "pluginId": "plugin_connector_1p_b3438d6beb9081918fba3625bc988128",
+      "installedVersion": "0.1.0",
+      "license": "Proprietary",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_b3438d6beb9081918fba3625bc988128",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY",
+      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
+    }
+  ]
+}
