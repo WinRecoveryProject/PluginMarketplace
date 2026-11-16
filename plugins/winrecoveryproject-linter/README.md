@@ -21,8 +21,11 @@ node ./bin/wrp-lint.mjs scan "C:/path with spaces/project" --format json
 locked Node libraries into this product's own directory using npm ci with
 scripts disabled, the public registry and trusted empty npm config files.
 It never runs npm in the inspected project. Node must include npm.
-The npm distributable carries `npm-shrinkwrap.json`, identical to the source
-`package-lock.json`, because npm excludes package-lock from published packages.
+Marketplace distribution uses the owned native ZIP packager, which explicitly
+includes both `package-lock.json` and the identical `npm-shrinkwrap.json`.
+Actual npm 12.2.0 tarballs omitted both lockfiles despite the files whitelist;
+an npm pack dry run was insufficient evidence. Do not use that tarball as the
+Marketplace/native artifact or assume its dependency bootstrap is reproducible.
 For a development checkout, `npm ci --ignore-scripts` also prepares dependencies.
 No global install or global configuration change is needed. You may run the
 packaged `bin/wrp-lint.mjs` directly; npm also exposes the `wrp-lint` bin.
@@ -133,15 +136,28 @@ npm ci --ignore-scripts
 npm test
 npm run check
 npm run verify:runtime
-npm pack --ignore-scripts
+npm run package:native
 ```
 
 Tests exercise real parsers and installed external tools with positive/negative
 fixtures, CRLF, Danish names, paths with spaces, TOC tokens, dependency failures,
 fresh extraction, read-only behavior, process limits and symlink containment.
-`verify:runtime` performs a separate temporary fresh extraction, proves missing
-library failures, explicitly bootstraps its locked dependencies and then scans.
-It never borrows the original checkout's node_modules.
+`package:native` uses Python >=3.11 standard library only. The explicit file
+whitelist in `config/native-package.json` includes both locks, native metadata,
+skills, CLI, source, tests, branding and legal files. It rejects symlinks/reparse
+paths, path traversal, private user paths, changed files and inconsistent locks.
+ZIP members are sorted, timestamps/modes fixed, and storage uncompressed to
+avoid zlib-version-dependent output. It writes the native ZIP and a SHA-256
+file manifest into `outputs/`; dependencies, tools, receipts and unlisted files
+are excluded. Repeated packaging of identical source bytes produces identical
+ZIP bytes. Publish this native ZIP after reviewing its actual member manifest.
+
+`verify:runtime` builds the real native ZIP, validates its actual members,
+extracts that ZIP to a new directory, proves missing library failures, explicitly
+bootstraps its locked dependencies and then scans Lua/HTML/CSS fixtures. It never
+copies locks around a broken artifact or borrows the original node_modules.
+To prove a specific built ZIP, run
+`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.0.zip`.
 Unavailable external tools are explicitly skipped by the portable test suite;
 check the actual test receipt before claiming coverage for a machine.
 

@@ -16,6 +16,7 @@
   "scripts": {
     "test": "node --test",
     "verify:runtime": "node scripts/verify-fresh-runtime.mjs",
+    "package:native": "python -I scripts/package-native.py",
     "check": "node --check bin/wrp-lint.mjs && node --check src/engine.mjs && node --test"
   },
   "files": [

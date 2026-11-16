@@ -23,6 +23,13 @@ isolation, contained paths, process limits, missing tools and locked dependency
 graphs are tested. Independent clean extraction and explicit dependency bootstrap
 passed; a fresh Lua/HTML/CSS scan returned CLEAN.
 
+Five additional native-packaging regressions passed. The final **41-file native
+ZIP** contains both bootstrap lockfiles and was itself extracted and bootstrapped
+successfully. npm 12.2 omitted both locks during TAR packing on the build machine;
+that intermediate artifact was rejected before Marketplace publication. The native
+packager and Marketplace validator now require matching locks and exact dependency
+pins. Native ZIP delivery is used here.
+
 The distribution excludes installed dependencies and external tools. Explicit
 `setup` installs locked free dependencies in the product's own directory. Blinter
 and ShellCheck have separate hash-checked installations. Existing Node, Python,

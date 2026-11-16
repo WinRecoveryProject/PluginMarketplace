@@ -38,6 +38,20 @@ if(registry){
       const skillBase=resolve(base,m.skills);
       for(const d of readdirSync(skillBase,{withFileTypes:true}).filter(d=>d.isDirectory()))check(existsSync(join(skillBase,d.name,'SKILL.md')),`${name}: skill ${d.name}`);
     }
+    if(name==='winrecoveryproject-linter'){
+      const pkg=json(`plugins/${name}/package.json`);
+      const packageLock=json(`plugins/${name}/package-lock.json`);
+      const shrinkwrap=json(`plugins/${name}/npm-shrinkwrap.json`);
+      check(Boolean(pkg)&&Boolean(packageLock)&&Boolean(shrinkwrap),'Linter: native snapshot carries both bootstrap lockfiles');
+      if(pkg&&packageLock&&shrinkwrap){
+        check(JSON.stringify(packageLock)===JSON.stringify(shrinkwrap),'Linter: source and distribution lock graphs agree');
+        for(const [dependency,version] of Object.entries(pkg.dependencies??{})){
+          check(shrinkwrap.packages?.['']?.dependencies?.[dependency]===version&&shrinkwrap.packages?.[`node_modules/${dependency}`]?.version===version,`Linter: locked root dependency ${dependency}`);
+        }
+      }
+      check(contained(base,'bin/wrp-lint.mjs')&&contained(base,'src/setup.mjs'),'Linter: packaged CLI and explicit bootstrap entrypoints');
+      check(!existsSync(join(base,'node_modules'))&&!existsSync(join(base,'.tools')),'Linter: no runtime dependencies or downloaded tools bundled');
+    }
     if(name==='onedrive'){
       const portable=json('plugins/onedrive/references/portable-plugin.json'), apps=json('plugins/onedrive/.app.json');
       check(!existsSync(join(base,'plugin.json')),'OneDrive uses the runtime-tested native Desktop entrypoint');

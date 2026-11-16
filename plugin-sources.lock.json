@@ -1082,7 +1082,7 @@
     },
     "winrecoveryproject-linter": {
       "repository": "https://github.com/WinRecoveryProject/WinRecoveryProjectLinter.git",
-      "commit": "2b8aafa5c984c261cc365e2d7d6bf73929f0f1d5",
+      "commit": "e52c23005214aeb71c05949ef403e79616b272b1",
       "sourceSubdir": ".",
       "version": "0.1.0",
       "files": {
@@ -1107,12 +1107,16 @@
         "config/blinter-requirements.txt": "9050d5001327a82dac648a8d61c105d759100c5bbe7456dcae173e2a57795e6e",
         "config/global-npmrc": "e1921891819708e0e4a8ff4450f75b2b092509208a4dc6dd1bafc0698da90be7",
         "config/markdown.json": "e9358ed8acab234e7c4c658f555f1db8d7b70fd33262ded44ebf34d79b3546f7",
+        "config/native-package.json": "abe6cbd64e5bef138b2b4f22e89436ecf988205ae4f0751514ceb57f9f735a9b",
         "config/npmrc": "0f6137eb789fc1afe21b84a998bc1bf5e7608f2b22f2615acd97a1d2c4c89816",
         "LICENSE": "935fa5143c69974df878bc52256052bc92c65d3e73a84bfefd974c13f511ea97",
-        "package.json": "bcb43a9eff626eba0c6fe8240b309760e61df2ce5367c96f7ea12a4be11f68f6",
+        "npm-shrinkwrap.json": "92666730b8c7f638ddac99087bc66c3a96c8c2f5ac2a357b03594850d99d886e",
+        "package-lock.json": "92666730b8c7f638ddac99087bc66c3a96c8c2f5ac2a357b03594850d99d886e",
+        "package.json": "6a20b41b43a5c3f10e3673963bec49517672d2cea6a46146368a988eb5933a46",
         "PRIVACY.md": "29d20e2601d50e99cc427d0b5c2700079e622f6bf6176bcd09139b390fb051b6",
-        "README.md": "57e9f83b024bf1afbfaec87f85755e612af2b439a891be550c292121c19201da",
-        "scripts/verify-fresh-runtime.mjs": "c37fbb6f1ab4b4249b32e33f6d37bbf885e520d04b7cf9888754fab1a7c97f4c",
+        "README.md": "5edb0a04340e99d44af262449126c5166225beb4edb033114ec27b7ab9c8c72d",
+        "scripts/package-native.py": "2ffd2f8adcb035ad619e0e67256cb8c436051878ab4473fe3964e10c39209173",
+        "scripts/verify-fresh-runtime.mjs": "33dd9356fbb967e4181a30da3217b29c2456529b0d9e638e56295bef86dbce63",
         "skills/lint-project/SKILL.md": "e0e8be52590cd70b70baaba841e6f30dd8ec9b07e931676ddbc209c0448eed1c",
         "skills/setup-linters/SKILL.md": "868d098a3165c66fa67da03182d4eb0bcbb192e5a9daec3107b33a2c65a70985",
         "src/catalog.mjs": "96f4fa5179e284bdc10437ce4112bbf82b2e373febebdc12c2ad1c3df69b56e4",
@@ -1121,6 +1125,7 @@
         "src/setup.mjs": "cb9915b96a083cdf2f238ebe37a0d973fac19997b7204dc27be49745ea9801a7",
         "TERMS.md": "fe36b4aa3cf8d695517e4ce6b611fda537cd934bca32ea9f5a8d9739b348711d",
         "test/linter.test.mjs": "1c11cb1b7b07164063f12baf6de1c4ea046edc0308c6a7070217740b784fb9a6",
+        "test/package.test.mjs": "142b7d8713c2d2d18434561b6bb503c290341dbe738a57f9e788be1643aeebe0",
         "THIRD-PARTY-NOTICES.md": "e6b7defe14b8fa6e09c4ba53154a44679783b2ec0f5e397cb4cbc2b35f090984"
       }
     },
