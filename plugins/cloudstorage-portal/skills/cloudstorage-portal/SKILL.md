@@ -1,6 +1,6 @@
 ---
 name: cloudstorage-portal
-description: Coordinate Dropbox, Google Drive and OneDrive file search, reads, uploads, organization, sharing, history and transfers through their dedicated App connections.
+description: "Use when the user wants to search, read, upload, organize, share, inspect file history or transfer files across Dropbox, Google Drive and OneDrive through their existing App connections."
 ---
 # CloudStorage Portal
 

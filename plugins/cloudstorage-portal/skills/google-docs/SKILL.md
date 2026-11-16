@@ -1,6 +1,6 @@
 ---
 name: google-docs
-description: Create and edit native Google Docs through connected tools.
+description: "Use when the user wants to create, read or edit a native Google Docs document through a connected Google Drive account."
 ---
 
 # Google Docs

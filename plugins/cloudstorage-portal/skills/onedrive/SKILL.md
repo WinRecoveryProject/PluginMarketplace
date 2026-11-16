@@ -1,6 +1,6 @@
 ---
 name: onedrive
-description: "Read and manage OneDrive files through the OneDrive App: search, folders, download, upload, rename, move, copy, sharing, permissions, versions, restore and quota."
+description: "Use when the user wants to read or manage OneDrive files through the existing OneDrive App: search, folders, uploads, downloads, rename, move, copy, sharing, permissions, versions, restore and quota."
 ---
 # OneDrive
 
