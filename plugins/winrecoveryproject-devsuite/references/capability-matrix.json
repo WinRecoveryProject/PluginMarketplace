@@ -1,0 +1,4096 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "coverageStatement": "Every available original skill is enumerated with function-level rows; CloudConvert original skill source is UNKNOWN, not fabricated. Static workflow coverage is distinct from executable helper/provider evidence.",
+  "capabilities": [
+    {
+      "id": "codex-security/security-scan/1",
+      "source": "codex-security",
+      "originalSkill": "security-scan",
+      "function": "exact repository/path scope and inherited policy",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/security-scan/2",
+      "source": "codex-security",
+      "originalSkill": "security-scan",
+      "function": "standard single-pass source audit",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/security-scan/3",
+      "source": "codex-security",
+      "originalSkill": "security-scan",
+      "function": "real capability/configuration preflight",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/security-scan/4",
+      "source": "codex-security",
+      "originalSkill": "security-scan",
+      "function": "SDK/host scan ownership and resume",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/security-scan/5",
+      "source": "codex-security",
+      "originalSkill": "security-scan",
+      "function": "semantic checkpoint/progress/final draft",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/security-scan/6",
+      "source": "codex-security",
+      "originalSkill": "security-scan",
+      "function": "real canonical artifact sealing/report generation",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/security-scan/7",
+      "source": "codex-security",
+      "originalSkill": "security-scan",
+      "function": "honest coverage and measured usage",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/security-diff-scan/1",
+      "source": "codex-security",
+      "originalSkill": "security-diff-scan",
+      "function": "immutable PR/commit/branch/working-tree target",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/security-diff-scan/2",
+      "source": "codex-security",
+      "originalSkill": "security-diff-scan",
+      "function": "source-backed introduced-risk review",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/security-diff-scan/3",
+      "source": "codex-security",
+      "originalSkill": "security-diff-scan",
+      "function": "provider diff lifecycle and report",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/deep-security-scan/1",
+      "source": "codex-security",
+      "originalSkill": "deep-security-scan",
+      "function": "explicit deep versus standard/diff routing",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/deep-security-scan/2",
+      "source": "codex-security",
+      "originalSkill": "deep-security-scan",
+      "function": "concurrent scan guard",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/deep-security-scan/3",
+      "source": "codex-security",
+      "originalSkill": "deep-security-scan",
+      "function": "provider advisory access without forced auth",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/deep-security-scan/4",
+      "source": "codex-security",
+      "originalSkill": "deep-security-scan",
+      "function": "repeated independent whole-scope scans",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/deep-security-scan/5",
+      "source": "codex-security",
+      "originalSkill": "deep-security-scan",
+      "function": "resume and cancellation",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/deep-security-scan/6",
+      "source": "codex-security",
+      "originalSkill": "deep-security-scan",
+      "function": "semantic aggregate/deduplication",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/deep-security-scan/7",
+      "source": "codex-security",
+      "originalSkill": "deep-security-scan",
+      "function": "one parent completion",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/threat-model/1",
+      "source": "codex-security",
+      "originalSkill": "threat-model",
+      "function": "assets actors and trust boundaries",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/threat-model/2",
+      "source": "codex-security",
+      "originalSkill": "threat-model",
+      "function": "entry points and invariants",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/threat-model/3",
+      "source": "codex-security",
+      "originalSkill": "threat-model",
+      "function": "supplied context/current evidence",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/threat-model/4",
+      "source": "codex-security",
+      "originalSkill": "threat-model",
+      "function": "persist or update model within authorized lifecycle",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/finding-discovery/1",
+      "source": "codex-security",
+      "originalSkill": "finding-discovery",
+      "function": "inherited SECURITY.md scope gate",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/finding-discovery/2",
+      "source": "codex-security",
+      "originalSkill": "finding-discovery",
+      "function": "boundary-led candidate discovery",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/finding-discovery/3",
+      "source": "codex-security",
+      "originalSkill": "finding-discovery",
+      "function": "source-to-sink and caller tracing",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/finding-discovery/4",
+      "source": "codex-security",
+      "originalSkill": "finding-discovery",
+      "function": "candidate/counterevidence separation",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/finding-discovery/5",
+      "source": "codex-security",
+      "originalSkill": "finding-discovery",
+      "function": "workbench compact/diff phase artifacts",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/triage-finding/1",
+      "source": "codex-security",
+      "originalSkill": "triage-finding",
+      "function": "scanner/advisory/GitHub/Jira/Linear intake",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/triage-finding/2",
+      "source": "codex-security",
+      "originalSkill": "triage-finding",
+      "function": "current-source applicability and policy",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/triage-finding/3",
+      "source": "codex-security",
+      "originalSkill": "triage-finding",
+      "function": "separate historical/static/unproven states",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/triage-finding/4",
+      "source": "codex-security",
+      "originalSkill": "triage-finding",
+      "function": "structured triage result",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/triage-finding/5",
+      "source": "codex-security",
+      "originalSkill": "triage-finding",
+      "function": "no runtime validation or issue mutation implied",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/attack-path-analysis/1",
+      "source": "codex-security",
+      "originalSkill": "attack-path-analysis",
+      "function": "attacker-to-impact path and preconditions",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/attack-path-analysis/2",
+      "source": "codex-security",
+      "originalSkill": "attack-path-analysis",
+      "function": "counterevidence/mitigating controls",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/attack-path-analysis/3",
+      "source": "codex-security",
+      "originalSkill": "attack-path-analysis",
+      "function": "severity/confidence calibration",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/attack-path-analysis/4",
+      "source": "codex-security",
+      "originalSkill": "attack-path-analysis",
+      "function": "provider phase result persistence",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/validation/1",
+      "source": "codex-security",
+      "originalSkill": "validation",
+      "function": "isolated authorized reproduction",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/validation/2",
+      "source": "codex-security",
+      "originalSkill": "validation",
+      "function": "control cases and safe test limits",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/validation/3",
+      "source": "codex-security",
+      "originalSkill": "validation",
+      "function": "demonstrated/disproven/inconclusive outcomes",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/validation/4",
+      "source": "codex-security",
+      "originalSkill": "validation",
+      "function": "sanitized evidence",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/validation/5",
+      "source": "codex-security",
+      "originalSkill": "validation",
+      "function": "provider sandbox/artifact lifecycle",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-assessment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/fix-finding/1",
+      "source": "codex-security",
+      "originalSkill": "fix-finding",
+      "function": "vulnerable/already safe/unproven classification",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/fix-finding/2",
+      "source": "codex-security",
+      "originalSkill": "fix-finding",
+      "function": "shared enforcement boundary and compatibility",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/fix-finding/3",
+      "source": "codex-security",
+      "originalSkill": "fix-finding",
+      "function": "alternate representations and sibling bypasses",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/fix-finding/4",
+      "source": "codex-security",
+      "originalSkill": "fix-finding",
+      "function": "independent prepatch investigation",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/fix-finding/5",
+      "source": "codex-security",
+      "originalSkill": "fix-finding",
+      "function": "minimal complete patch and regression",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/fix-finding/6",
+      "source": "codex-security",
+      "originalSkill": "fix-finding",
+      "function": "independent patch candidate review",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/fix-finding/7",
+      "source": "codex-security",
+      "originalSkill": "fix-finding",
+      "function": "real remediation stage persistence",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/verify-fix/1",
+      "source": "codex-security",
+      "originalSkill": "verify-fix",
+      "function": "read-only current fix verification",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/verify-fix/2",
+      "source": "codex-security",
+      "originalSkill": "verify-fix",
+      "function": "repeat original and variant reproduction",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/verify-fix/3",
+      "source": "codex-security",
+      "originalSkill": "verify-fix",
+      "function": "legitimate behavior regression",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/verify-fix/4",
+      "source": "codex-security",
+      "originalSkill": "verify-fix",
+      "function": "fixed/partial/unproven outcome",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/propose-security-hardening/1",
+      "source": "codex-security",
+      "originalSkill": "propose-security-hardening",
+      "function": "validate source/incident/disclosure evidence",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/propose-security-hardening/2",
+      "source": "codex-security",
+      "originalSkill": "propose-security-hardening",
+      "function": "systemic opportunity inventory",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/propose-security-hardening/3",
+      "source": "codex-security",
+      "originalSkill": "propose-security-hardening",
+      "function": "current architecture and desired invariants",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/propose-security-hardening/4",
+      "source": "codex-security",
+      "originalSkill": "propose-security-hardening",
+      "function": "meaningfully different options",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/propose-security-hardening/5",
+      "source": "codex-security",
+      "originalSkill": "propose-security-hardening",
+      "function": "before/after views and engineering tradeoffs",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/propose-security-hardening/6",
+      "source": "codex-security",
+      "originalSkill": "propose-security-hardening",
+      "function": "ranked portfolio",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/propose-security-hardening/7",
+      "source": "codex-security",
+      "originalSkill": "propose-security-hardening",
+      "function": "selected implementation plan and rollback",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/define-security-policy/1",
+      "source": "codex-security",
+      "originalSkill": "define-security-policy",
+      "function": "inherited policy discovery",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/define-security-policy/2",
+      "source": "codex-security",
+      "originalSkill": "define-security-policy",
+      "function": "trust-boundary and invariants",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/define-security-policy/3",
+      "source": "codex-security",
+      "originalSkill": "define-security-policy",
+      "function": "scope/exclusions/accepted risk/severity",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/define-security-policy/4",
+      "source": "codex-security",
+      "originalSkill": "define-security-policy",
+      "function": "concrete SECURITY.md diff",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/define-security-policy/5",
+      "source": "codex-security",
+      "originalSkill": "define-security-policy",
+      "function": "authorized write and link verification",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/vulnerability-writeup/1",
+      "source": "codex-security",
+      "originalSkill": "vulnerability-writeup",
+      "function": "validated report evidence and affected revisions",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/vulnerability-writeup/2",
+      "source": "codex-security",
+      "originalSkill": "vulnerability-writeup",
+      "function": "root cause/path/reproduction/impact",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/vulnerability-writeup/3",
+      "source": "codex-security",
+      "originalSkill": "vulnerability-writeup",
+      "function": "severity rationale and limitations",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/vulnerability-writeup/4",
+      "source": "codex-security",
+      "originalSkill": "vulnerability-writeup",
+      "function": "remediation and verification",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/vulnerability-writeup/5",
+      "source": "codex-security",
+      "originalSkill": "vulnerability-writeup",
+      "function": "private draft and disclosure authority",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/track-findings/1",
+      "source": "codex-security",
+      "originalSkill": "track-findings",
+      "function": "source artifact validation",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/track-findings/2",
+      "source": "codex-security",
+      "originalSkill": "track-findings",
+      "function": "exact existing provider destination/access",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/track-findings/3",
+      "source": "codex-security",
+      "originalSkill": "track-findings",
+      "function": "conventions and duplicate detection",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/track-findings/4",
+      "source": "codex-security",
+      "originalSkill": "track-findings",
+      "function": "concrete per-item batch preview",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/track-findings/5",
+      "source": "codex-security",
+      "originalSkill": "track-findings",
+      "function": "authorized writes and reread verification",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/track-findings/6",
+      "source": "codex-security",
+      "originalSkill": "track-findings",
+      "function": "partial/uncertain retry safety",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/track-findings/7",
+      "source": "codex-security",
+      "originalSkill": "track-findings",
+      "function": "GitHub issues/draft advisories Linear and optional Jira",
+      "owner": "devsuite-security-fix",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "licensed Codex Security host for workbench/Deep/sandbox; existing GitHub/Linear/Atlassian for remote intake/tracking",
+      "references": [
+        "references/security-remediation.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "codex-security/assess-patch-risk/1",
+      "source": "codex-security",
+      "originalSkill": "assess-patch-risk",
+      "function": "immutable patch/hash binding",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/assess-patch-risk/2",
+      "source": "codex-security",
+      "originalSkill": "assess-patch-risk",
+      "function": "runtime impact and blast radius",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/assess-patch-risk/3",
+      "source": "codex-security",
+      "originalSkill": "assess-patch-risk",
+      "function": "contracts/tests/security/recoverability",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/assess-patch-risk/4",
+      "source": "codex-security",
+      "originalSkill": "assess-patch-risk",
+      "function": "auto-merge eligibility recommendation",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-security/assess-patch-risk/5",
+      "source": "codex-security",
+      "originalSkill": "assess-patch-risk",
+      "function": "read-only no apply/push/merge",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/1",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "opt-in schema2 marker/disabled/absent handling",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/2",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "primary checkout and project identity",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/3",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "per-owner bounded claims and revision safety",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/4",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "path warning versus exclusive action locking",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/5",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "three-default twelve-hard active limit",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/6",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "derived active-only CURRENT.md",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/7",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "compact release receipts",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/8",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "safe stale-owner recovery",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/9",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "dry-run init/deactivate/migrate/reactivate/purge",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/10",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "cooperative Git exact-path scope",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/11",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "reuse-first complete vertical decomposition",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/12",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "native task authority and sparse notices",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/13",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "goal-scoped no-background coordinator",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/14",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "manual read-only package doctor",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/15",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "optional bounded SessionStart marker hint",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-coordinator/codex-coordinator/16",
+      "source": "codex-coordinator",
+      "originalSkill": "codex-coordinator",
+      "function": "optional own-claim one-shot Stop guard",
+      "owner": "devsuite-planning",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/coordinator/state.py",
+        "runtime/coordinator/project.py",
+        "runtime/coordinator/session_start.py",
+        "runtime/coordinator/stop_guard.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/coordination.md"
+      ],
+      "tests": [
+        "tests/test_coordinator.py::test_board_claim_warning_conflict_revision_release",
+        "tests/test_coordinator.py::test_lifecycle_dry_run_optout_and_reactivate",
+        "tests/test_coordinator.py::test_hooks_are_bounded_and_manual"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-dev-workflows/new-project/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "new-project",
+      "function": "requirements/constraints/assumptions/non-goals",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/new-project/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "new-project",
+      "function": "first-release architecture/data flow",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/new-project/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "new-project",
+      "function": "documentation structure",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/new-project/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "new-project",
+      "function": "dependency-ordered milestones and acceptance",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/new-project/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "new-project",
+      "function": "planning does not imply implementation",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/create-agent-instructions/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "create-agent-instructions",
+      "function": "inspect authoritative project docs",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/create-agent-instructions/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "create-agent-instructions",
+      "function": "preserve useful policy",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/create-agent-instructions/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "create-agent-instructions",
+      "function": "thin AGENTS.md routing",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/create-agent-instructions/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "create-agent-instructions",
+      "function": "confirmed validation commands",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/create-agent-instructions/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "create-agent-instructions",
+      "function": "security and authority hierarchy",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/orchestrate-work/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "orchestrate-work",
+      "function": "independent package decomposition and acceptance",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/orchestrate-work/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "orchestrate-work",
+      "function": "exclusive write ownership and dependencies",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/orchestrate-work/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "orchestrate-work",
+      "function": "user/host-authorized collaboration only",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/orchestrate-work/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "orchestrate-work",
+      "function": "worker bounds and model constraints",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/orchestrate-work/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "orchestrate-work",
+      "function": "integration barrier and aggregate verification",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/orchestrate-work/6",
+      "source": "codex-dev-workflows",
+      "originalSkill": "orchestrate-work",
+      "function": "sequential fallback and actual delegation evidence",
+      "owner": "devsuite-planning",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-planning/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-development/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-development",
+      "function": "repository/requirements discovery",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-development/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-development",
+      "function": "small vertical increments",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-development/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-development",
+      "function": "compatibility and conventions",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-development/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-development",
+      "function": "focused regression and verification",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-development/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-development",
+      "function": "final behavior/evidence report",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/bug-investigation/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "bug-investigation",
+      "function": "expected/actual sanitized reproduction",
+      "owner": "devsuite-debug",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-debug/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/bug-investigation/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "bug-investigation",
+      "function": "hypothesis isolation and flow tracing",
+      "owner": "devsuite-debug",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-debug/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/bug-investigation/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "bug-investigation",
+      "function": "scope-authorized minimal fix",
+      "owner": "devsuite-debug",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-debug/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/bug-investigation/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "bug-investigation",
+      "function": "sibling/regression/original-path verification",
+      "owner": "devsuite-debug",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-debug/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/bug-investigation/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "bug-investigation",
+      "function": "unconfirmed outcome honesty",
+      "owner": "devsuite-debug",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-debug/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-testing/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-testing",
+      "function": "requirements-to-test mapping",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-testing/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-testing",
+      "function": "normal/boundary/error/state cases",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-testing/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-testing",
+      "function": "existing test commands",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-testing/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-testing",
+      "function": "read-only validation limits",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/feature-testing/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "feature-testing",
+      "function": "test results/gaps",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/comprehensive-qa/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "comprehensive-qa",
+      "function": "critical journey/state/persistence mapping",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/comprehensive-qa/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "comprehensive-qa",
+      "function": "invalid/repeated/retry/offline/cancel/restart",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/comprehensive-qa/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "comprehensive-qa",
+      "function": "UI/API/state agreement",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/comprehensive-qa/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "comprehensive-qa",
+      "function": "accessibility/localization/platform/performance",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/comprehensive-qa/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "comprehensive-qa",
+      "function": "game rules scores timers progression save sessions",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/comprehensive-qa/6",
+      "source": "codex-dev-workflows",
+      "originalSkill": "comprehensive-qa",
+      "function": "authorized repair loop",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/comprehensive-qa/7",
+      "source": "codex-dev-workflows",
+      "originalSkill": "comprehensive-qa",
+      "function": "manual and untested limits",
+      "owner": "devsuite-test",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-test/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/code-review/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "code-review",
+      "function": "diff and surrounding contract review",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/code-review/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "code-review",
+      "function": "correctness/regression/security/maintainability",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/code-review/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "code-review",
+      "function": "test independence and gaps",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/code-review/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "code-review",
+      "function": "actionable severity/location/trigger/impact findings",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/code-review/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "code-review",
+      "function": "read-only boundary",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/pre-release-review/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "pre-release-review",
+      "function": "acceptance/open defects",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/pre-release-review/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "pre-release-review",
+      "function": "configured automated checks",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/pre-release-review/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "pre-release-review",
+      "function": "security/migration/rollback/observability/docs",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/pre-release-review/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "pre-release-review",
+      "function": "release verdict and remaining manual checks",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/pre-release-review/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "pre-release-review",
+      "function": "no deployment implied",
+      "owner": "devsuite-review",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-review/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/resume-interrupted-task/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "resume-interrupted-task",
+      "function": "reconstruct goal/current repository evidence",
+      "owner": "devsuite-handoff",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-handoff/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/resume-interrupted-task/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "resume-interrupted-task",
+      "function": "preserve dirty/untracked work",
+      "owner": "devsuite-handoff",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-handoff/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/resume-interrupted-task/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "resume-interrupted-task",
+      "function": "small safe check separates complete/incomplete",
+      "owner": "devsuite-handoff",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-handoff/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/resume-interrupted-task/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "resume-interrupted-task",
+      "function": "narrow next milestone and conflict handling",
+      "owner": "devsuite-handoff",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-handoff/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/resume-interrupted-task/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "resume-interrupted-task",
+      "function": "precise recovery handoff",
+      "owner": "devsuite-handoff",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-handoff/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/session-handoff/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "session-handoff",
+      "function": "goal/current revision and changes",
+      "owner": "devsuite-handoff",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-handoff/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/session-handoff/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "session-handoff",
+      "function": "accepted decisions and validation",
+      "owner": "devsuite-handoff",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-handoff/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/session-handoff/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "session-handoff",
+      "function": "remaining ordered work/blockers",
+      "owner": "devsuite-handoff",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-handoff/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/session-handoff/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "session-handoff",
+      "function": "safe artifact paths and exact next action",
+      "owner": "devsuite-handoff",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-handoff/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/platform-guidance/1",
+      "source": "codex-dev-workflows",
+      "originalSkill": "platform-guidance",
+      "function": "JavaScript/TypeScript conventions",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/platform-guidance/2",
+      "source": "codex-dev-workflows",
+      "originalSkill": "platform-guidance",
+      "function": "Python conventions",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/platform-guidance/3",
+      "source": "codex-dev-workflows",
+      "originalSkill": "platform-guidance",
+      "function": "Flutter conventions",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/platform-guidance/4",
+      "source": "codex-dev-workflows",
+      "originalSkill": "platform-guidance",
+      "function": "Laravel/PHP conventions",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-dev-workflows/platform-guidance/5",
+      "source": "codex-dev-workflows",
+      "originalSkill": "platform-guidance",
+      "function": "load only applicable project-confirmed guidance",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/platforms.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-work/1",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-work",
+      "function": "scope and acceptance contract",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-work/2",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-work",
+      "function": "defect/feature/refactor/migration strategy",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-work/3",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-work",
+      "function": "failing evidence minimal coherent slices",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-work/4",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-work",
+      "function": "independent expected values and test levels",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-work/5",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-work",
+      "function": "adaptive independent parallelism within user authority",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-work/6",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-work",
+      "function": "shared surface serialization",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-work/7",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-work",
+      "function": "fresh narrow-to-broad integrated verification",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-work/8",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-work",
+      "function": "completion-to-evidence handoff",
+      "owner": "devsuite-implement",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-implement/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-verification/1",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-verification",
+      "function": "independent specification and quality verdicts",
+      "owner": "devsuite-quality",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-verification/2",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-verification",
+      "function": "test quality/tautology/mocking inspection",
+      "owner": "devsuite-quality",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-verification/3",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-verification",
+      "function": "correctness/security/performance/operability review",
+      "owner": "devsuite-quality",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-verification/4",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-verification",
+      "function": "proportionate executable check selection",
+      "owner": "devsuite-quality",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-verification/5",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-verification",
+      "function": "independent parallel review and contention control",
+      "owner": "devsuite-quality",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-verification/6",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-verification",
+      "function": "fresh evidence and classified failures",
+      "owner": "devsuite-quality",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-verification/7",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-verification",
+      "function": "PASS PARTIAL FAIL INCONCLUSIVE verdicts",
+      "owner": "devsuite-quality",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "codex-engineering-guardrails/code-verification/8",
+      "source": "codex-engineering-guardrails",
+      "originalSkill": "code-verification",
+      "function": "severity/confidence/actionable finding evidence",
+      "owner": "devsuite-quality",
+      "implementation": "owned merged workflow",
+      "runtime": [],
+      "externalProvider": null,
+      "references": [
+        "references/engineering-decisions.md",
+        "references/verification-matrix.md",
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "local owned instructions; actual task evidence required"
+    },
+    {
+      "id": "cloud-environment/runtime/1",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "selected environment identity and current status",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/2",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "matching repository/revision/access",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/3",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "project package/system helper routes",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/4",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "Docker socket/daemon/pull/build diagnostics",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/5",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "HTTP proxy CA TLS and policy enforcement",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/6",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "configured cloud identity aliases",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/7",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "VPN HTTP CONNECT/relay/grants/enrollment",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/8",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "replacement-style environment changes",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/9",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "running versus reusable promotion",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/10",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "bounded sanitized diagnostics",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/runtime/11",
+      "source": "cloud-environment",
+      "originalSkill": "runtime",
+      "function": "intended-format artifact delivery",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/cloud-desktop/1",
+      "source": "cloud-environment",
+      "originalSkill": "cloud-desktop",
+      "function": "named browser/session/native window selection",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/cloud-desktop/2",
+      "source": "cloud-environment",
+      "originalSkill": "cloud-desktop",
+      "function": "app start and readiness",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/cloud-desktop/3",
+      "source": "cloud-environment",
+      "originalSkill": "cloud-desktop",
+      "function": "interactive flow versus repeatable suite",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/cloud-desktop/4",
+      "source": "cloud-environment",
+      "originalSkill": "cloud-desktop",
+      "function": "real desktop first-call contract",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/cloud-desktop/5",
+      "source": "cloud-environment",
+      "originalSkill": "cloud-desktop",
+      "function": "pause takeover and inspect resumed state",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/cloud-desktop/6",
+      "source": "cloud-environment",
+      "originalSkill": "cloud-desktop",
+      "function": "recording playback without credentials",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/cloud-desktop/7",
+      "source": "cloud-environment",
+      "originalSkill": "cloud-desktop",
+      "function": "preview for user browser",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloud-environment/cloud-desktop/8",
+      "source": "cloud-environment",
+      "originalSkill": "cloud-desktop",
+      "function": "machine-bound capability diagnostics and unavailable paths",
+      "owner": "devsuite-environment",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing Cloud Environment managed host/runtime/desktop",
+      "references": [
+        "references/environment.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "static workflow contract; provider execution not demonstrated",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "cloudconvert/SOURCE_UNAVAILABLE/1",
+      "source": "cloudconvert",
+      "originalSkill": "SOURCE_UNAVAILABLE",
+      "function": "existing verified App metadata binding",
+      "owner": "devsuite-convert",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": "existing CloudConvert App; source/tool schemas unavailable",
+      "references": [
+        "references/conversion.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_conversion_budget_upload_and_plan_not_execution",
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "cloudconvert/SOURCE_UNAVAILABLE/2",
+      "source": "cloudconvert",
+      "originalSkill": "SOURCE_UNAVAILABLE",
+      "function": "format/settings/batch planning",
+      "owner": "devsuite-convert",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": "existing CloudConvert App; source/tool schemas unavailable",
+      "references": [
+        "references/conversion.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_conversion_budget_upload_and_plan_not_execution",
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "cloudconvert/SOURCE_UNAVAILABLE/3",
+      "source": "cloudconvert",
+      "originalSkill": "SOURCE_UNAVAILABLE",
+      "function": "authorized import/convert/export",
+      "owner": "devsuite-convert",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": "existing CloudConvert App; source/tool schemas unavailable",
+      "references": [
+        "references/conversion.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_conversion_budget_upload_and_plan_not_execution",
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "cloudconvert/SOURCE_UNAVAILABLE/4",
+      "source": "cloudconvert",
+      "originalSkill": "SOURCE_UNAVAILABLE",
+      "function": "0 kr included quota gate",
+      "owner": "devsuite-convert",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": "existing CloudConvert App; source/tool schemas unavailable",
+      "references": [
+        "references/conversion.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_conversion_budget_upload_and_plan_not_execution",
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "cloudconvert/SOURCE_UNAVAILABLE/5",
+      "source": "cloudconvert",
+      "originalSkill": "SOURCE_UNAVAILABLE",
+      "function": "actual job status/cancellation/retry",
+      "owner": "devsuite-convert",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": "existing CloudConvert App; source/tool schemas unavailable",
+      "references": [
+        "references/conversion.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_conversion_budget_upload_and_plan_not_execution",
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "cloudconvert/SOURCE_UNAVAILABLE/6",
+      "source": "cloudconvert",
+      "originalSkill": "SOURCE_UNAVAILABLE",
+      "function": "output signature/openability/content validation",
+      "owner": "devsuite-convert",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": "existing CloudConvert App; source/tool schemas unavailable",
+      "references": [
+        "references/conversion.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_conversion_budget_upload_and_plan_not_execution",
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "cloudconvert/SOURCE_UNAVAILABLE/7",
+      "source": "cloudconvert",
+      "originalSkill": "SOURCE_UNAVAILABLE",
+      "function": "honest unavailable source/tools/provider state",
+      "owner": "devsuite-convert",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": "existing CloudConvert App; source/tool schemas unavailable",
+      "references": [
+        "references/conversion.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_conversion_budget_upload_and_plan_not_execution",
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "devsuite-original/quality-integration/1",
+      "source": "devsuite-original",
+      "originalSkill": "quality-integration",
+      "function": "existing optional Linter/MegaLinter reuse",
+      "owner": "devsuite-quality",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing project runner or CI",
+      "references": [
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "devsuite-original/quality-integration/2",
+      "source": "devsuite-original",
+      "originalSkill": "quality-integration",
+      "function": "no runner download or extra auth",
+      "owner": "devsuite-quality",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing project runner or CI",
+      "references": [
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "devsuite-original/quality-integration/3",
+      "source": "devsuite-original",
+      "originalSkill": "quality-integration",
+      "function": "missing layer not PASS",
+      "owner": "devsuite-quality",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing project runner or CI",
+      "references": [
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "devsuite-original/quality-integration/4",
+      "source": "devsuite-original",
+      "originalSkill": "quality-integration",
+      "function": "fresh requirement-to-evidence gate",
+      "owner": "devsuite-quality",
+      "implementation": "owned workflow + existing external provider",
+      "runtime": [],
+      "externalProvider": "existing project runner or CI",
+      "references": [
+        "skills/devsuite-quality/SKILL.md"
+      ],
+      "tests": [
+        "tests/test_contracts.py::test_workflow_contracts"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+    },
+    {
+      "id": "devsuite-original/local-evidence/1",
+      "source": "devsuite-original",
+      "originalSkill": "local-evidence",
+      "function": "contained own-schema evidence validation",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/security-assessment.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_assessment_evidence_coverage_and_safe_render",
+        "tests/test_runtime.py::test_assessment_cannot_hide_limits_or_escape"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "devsuite-original/local-evidence/2",
+      "source": "devsuite-original",
+      "originalSkill": "local-evidence",
+      "function": "reject unsupported PASS and Deep emulation",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/security-assessment.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_assessment_evidence_coverage_and_safe_render",
+        "tests/test_runtime.py::test_assessment_cannot_hide_limits_or_escape"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "devsuite-original/local-evidence/3",
+      "source": "devsuite-original",
+      "originalSkill": "local-evidence",
+      "function": "safe new-directory report and digests",
+      "owner": "devsuite-security-assess",
+      "implementation": "owned workflow + bundled runtime",
+      "runtime": [
+        "runtime/evidence.py"
+      ],
+      "externalProvider": null,
+      "references": [
+        "references/security-assessment.md"
+      ],
+      "tests": [
+        "tests/test_runtime.py::test_assessment_evidence_coverage_and_safe_render",
+        "tests/test_runtime.py::test_assessment_cannot_hide_limits_or_escape"
+      ],
+      "evidenceType": "executable local behavior",
+      "availability": "local standard-library runtime",
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    }
+  ]
+}

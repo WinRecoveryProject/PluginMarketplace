@@ -508,7 +508,55 @@
       ],
       "sameAppBindings": true,
       "installedAppIdsPreserved": true
+    }
+  ],
+  "catalogOnly": [
+    {
+      "name": "plugin-creator",
+      "displayName": "Plugin Creator",
+      "pluginId": "plugin_connector_1p_e1a10c53223481918a42f1510ec46c1e",
+      "installedVersion": "0.1.28",
+      "license": "Proprietary",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_e1a10c53223481918a42f1510ec46c1e",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY",
+      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
     },
+    {
+      "name": "cloud-environment",
+      "displayName": "Cloud Environment",
+      "pluginId": "plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d",
+      "installedVersion": "0.2.1",
+      "license": "UNDECLARED",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY",
+      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
+    },
+    {
+      "name": "defense-factory",
+      "displayName": "Daybreak Defense Factory",
+      "pluginId": "plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5",
+      "installedVersion": "0.1.11",
+      "license": "Proprietary",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY",
+      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
+    },
+    {
+      "name": "plugin-management",
+      "displayName": "Plugin Management",
+      "pluginId": "plugin_connector_1p_b3438d6beb9081918fba3625bc988128",
+      "installedVersion": "0.1.0",
+      "license": "Proprietary",
+      "url": "https://chatgpt.com/plugins/plugin_connector_1p_b3438d6beb9081918fba3625bc988128",
+      "namespace": "openai-curated-remote",
+      "status": "OFFICIAL_CATALOG_ONLY",
+      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
+    }
+  ],
+  "referenceOnly": [
     {
       "name": "megalinter",
       "repository": "https://github.com/oxsecurity/megalinter.git",
@@ -559,53 +607,9 @@
         "category": "Code Quality"
       },
       "installedVersion": "1.0.28",
-      "installedName": "megalinter"
-    }
-  ],
-  "catalogOnly": [
-    {
-      "name": "plugin-creator",
-      "displayName": "Plugin Creator",
-      "pluginId": "plugin_connector_1p_e1a10c53223481918a42f1510ec46c1e",
-      "installedVersion": "0.1.28",
-      "license": "Proprietary",
-      "url": "https://chatgpt.com/plugins/plugin_connector_1p_e1a10c53223481918a42f1510ec46c1e",
-      "namespace": "openai-curated-remote",
-      "status": "OFFICIAL_CATALOG_ONLY",
-      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
-    },
-    {
-      "name": "cloud-environment",
-      "displayName": "Cloud Environment",
-      "pluginId": "plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d",
-      "installedVersion": "0.2.1",
-      "license": "UNDECLARED",
-      "url": "https://chatgpt.com/plugins/plugin_connector_1p_c5b7d5df5d7081918f2c4be5a633ed5d",
-      "namespace": "openai-curated-remote",
-      "status": "OFFICIAL_CATALOG_ONLY",
-      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
-    },
-    {
-      "name": "defense-factory",
-      "displayName": "Daybreak Defense Factory",
-      "pluginId": "plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5",
-      "installedVersion": "0.1.11",
-      "license": "Proprietary",
-      "url": "https://chatgpt.com/plugins/plugin_connector_1p_6317a32dbf5c81919acd66de6722daf5",
-      "namespace": "openai-curated-remote",
-      "status": "OFFICIAL_CATALOG_ONLY",
-      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
-    },
-    {
-      "name": "plugin-management",
-      "displayName": "Plugin Management",
-      "pluginId": "plugin_connector_1p_b3438d6beb9081918fba3625bc988128",
-      "installedVersion": "0.1.0",
-      "license": "Proprietary",
-      "url": "https://chatgpt.com/plugins/plugin_connector_1p_b3438d6beb9081918fba3625bc988128",
-      "namespace": "openai-curated-remote",
-      "status": "OFFICIAL_CATALOG_ONLY",
-      "reason": "No verified distributable Git package or supported remote-ID source in local Marketplace format."
+      "installedName": "megalinter",
+      "status": "REFERENCE_ONLY_NOT_INSTALLED_BY_THIS_CATALOG",
+      "reason": "Design reference for the independent WinRecoveryProjectLinter; existing installation preserved."
     }
   ]
 }

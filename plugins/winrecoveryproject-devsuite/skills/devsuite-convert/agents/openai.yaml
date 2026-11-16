@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Convert"
+  short_description: "Use for authorized file conversion through free/included CloudCo"
+  default_prompt: "Use $devsuite-convert to handle this request within its authorized scope."

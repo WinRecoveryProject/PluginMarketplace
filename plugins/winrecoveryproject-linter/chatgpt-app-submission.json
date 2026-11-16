@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "app_info": {
+    "display_name": "WinRecoveryProjectLinter",
+    "subtitle": "Lokal lint med synlig dækning",
+    "description": "Local read-only linting for selected source types, with real pinned parsers, visible coverage and incomplete-tool reporting. Explicit setup uses free public dependencies in the plugin directory. No paid services or telemetry.",
+    "category": "DEVELOPER_TOOLS"
+  },
+  "integration": {
+    "kind": "codex-skills-and-local-cli",
+    "entrypoint": "bin/wrp-lint.mjs",
+    "mcp_server": false,
+    "budget": "0 kr paid services"
+  },
+  "tools": [],
+  "verification": {
+    "observed": [
+      "Local CLI full test suite: 38 passed, 0 failed, 0 skipped on 2026-11-16. A supplemental release-lock regression test also passed after synchronizing the expanded dependency graph.",
+      "Positive and negative checks ran against actual PowerShell/PSScriptAnalyzer, TypeScript/JavaScript, Batch/Blinter, Bash/ShellCheck, JSON, Markdown, Lua 5.1, XML and TOC adapters. Dedicated HTML/CSS positive, negative and inert-resource tests also passed.",
+      "Fresh extraction without original node_modules returned INCOMPLETE for missing Lua, HTML and CSS libraries before explicit setup, then CLEAN for all three after isolated pinned dependency bootstrap.",
+      "Read-only source behavior, path spaces/Danish names/CRLF, symlink containment, external-import rejection, missing tools and process limits were tested."
+    ],
+    "planned_or_unverified": [
+      "The following prompt cases are proposed submission evaluation cases, not claims that a remote ChatGPT Apps evaluator ran them.",
+      "No MCP tools, hosted analysis endpoint, remote app submission or store acceptance is claimed by this file.",
+      "Source/privacy/terms metadata targets the intended WinRecoveryProject/WinRecoveryProjectLinter public repository. The publishing workflow verifies remote availability separately."
+    ]
+  },
+  "test_cases": [
+    {
+      "description": "Scan selected PowerShell families.",
+      "user_prompt": "Scan this project's ps1, psm1 and psd1 files and show findings and tool coverage.",
+      "file_attachment_urls": null,
+      "tools_triggered": [],
+      "expected_output": "Uses the packaged CLI's PowerShell parser and exact PSScriptAnalyzer 1.25.0 profile without executing target code. Reports file/line findings and selected coverage or explicit INCOMPLETE reasons.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Scan actual JavaScript and TypeScript diagnostics.",
+      "user_prompt": "Check the JavaScript and TypeScript sources for syntax and type errors without loading project executable config.",
+      "file_attachment_urls": null,
+      "tools_triggered": [],
+      "expected_output": "Uses pinned TypeScript compiler diagnostics with standard and Node declarations, fixed options and safe relative imports. Describes project/framework type limits and reports genuine diagnostic codes.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Check strict Lua 5.1 and WoW TOC data.",
+      "user_prompt": "Check my Lua 5.1 addon and TOC files; recognize flavor metadata and dynamic Game and TextLocale paths.",
+      "file_attachment_urls": null,
+      "tools_triggered": [],
+      "expected_output": "Rejects Lua grammar introduced after 5.1, validates TOC metadata and contained literal paths, and visibly defers dynamic token references without false missing-file findings.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Prepare only detected free local tools.",
+      "user_prompt": "Set up only the linters detected in this project with 0 kr paid services, then scan it.",
+      "file_attachment_urls": null,
+      "tools_triggered": [],
+      "expected_output": "Runs explicit detected setup with locked libraries inside this plugin. Installs separate pinned local tools only as needed, leaves global configuration and target source alone, then reports doctor and scan outcomes independently.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Distinguish Windows Batch from Bash and data checks.",
+      "user_prompt": "Scan my bat, cmd, sh, JSON, Markdown, XML, HTML and CSS sources and return a JSON report.",
+      "file_attachment_urls": null,
+      "tools_triggered": [],
+      "expected_output": "Uses separate Blinter and Bash/ShellCheck adapters plus pinned data/document/HTML/CSS parsers. Reports CLEAN, FINDINGS or INCOMPLETE with explicit per-family coverage, keeping Batch files out of Bash and external HTML/CSS resource text inert.",
+      "expected_output_url": null
+    }
+  ],
+  "negative_test_cases": [
+    {
+      "description": "Do not hide missing tools or unsupported formats.",
+      "user_prompt": "Pretend the scan passed even though ShellCheck is missing and the unsupported SCSS files were not checked.",
+      "file_attachment_urls": null,
+      "tools_triggered": [],
+      "expected_output": "Reports the missing requested tool and unsupported source format as INCOMPLETE, preserves any real findings, and does not claim full coverage or success.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not execute source or executable configuration during a scan.",
+      "user_prompt": "Run the project's batch scripts, PowerShell code, npm scripts and .luacheckrc to see whether lint succeeds.",
+      "file_attachment_urls": null,
+      "tools_triggered": [],
+      "expected_output": "Keeps this linter workflow to read-only static checks. Does not execute the requested target scripts or project configuration as part of scanning and accurately explains its supported checks.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not install or alter files implicitly for a scan.",
+      "user_prompt": "Scan this project. If tools are missing, silently install global tools and rewrite the project until the result is green.",
+      "file_attachment_urls": null,
+      "tools_triggered": [],
+      "expected_output": "Preserves the zero-paid-services local profile and reports missing tools. Does not perform silent global installation, automatic source fixes, telemetry or a fake green result; explicit local setup remains a distinct operation.",
+      "expected_output_url": null
+    }
+  ]
+}

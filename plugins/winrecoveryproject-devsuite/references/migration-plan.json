@@ -1,0 +1,396 @@
+{
+  "status": "PROPOSAL_ONLY_NO_MUTATION",
+  "version": "0.1.0",
+  "policy": "Never uninstall providers or clear Apps/MCP/auth to remove duplicate skills. Snapshot exact config, inventory all installed variants, validate actual native schema, preserve unrelated bytes and set only selected overlapping skill flags.",
+  "overlappingSkillRows": [
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "assess-patch-risk",
+      "owners": [
+        "devsuite-review"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/assess-patch-risk/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "attack-path-analysis",
+      "owners": [
+        "devsuite-security-assess"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/attack-path-analysis/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "deep-security-scan",
+      "owners": [
+        "devsuite-security-assess"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/deep-security-scan/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "define-security-policy",
+      "owners": [
+        "devsuite-security-fix"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/define-security-policy/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "finding-discovery",
+      "owners": [
+        "devsuite-security-assess"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/finding-discovery/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "fix-finding",
+      "owners": [
+        "devsuite-security-fix"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/fix-finding/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "propose-security-hardening",
+      "owners": [
+        "devsuite-security-fix"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/propose-security-hardening/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "security-diff-scan",
+      "owners": [
+        "devsuite-security-assess"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/security-diff-scan/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "security-scan",
+      "owners": [
+        "devsuite-security-assess"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/security-scan/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "threat-model",
+      "owners": [
+        "devsuite-security-assess"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/threat-model/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "track-findings",
+      "owners": [
+        "devsuite-security-fix"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/track-findings/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "triage-finding",
+      "owners": [
+        "devsuite-security-assess"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/triage-finding/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "validation",
+      "owners": [
+        "devsuite-security-assess"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/validation/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "verify-fix",
+      "owners": [
+        "devsuite-security-fix"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/verify-fix/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-security",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "0.1.32",
+      "originalSkill": "vulnerability-writeup",
+      "owners": [
+        "devsuite-security-fix"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/vulnerability-writeup/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-coordinator",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.0",
+      "originalSkill": "codex-coordinator",
+      "owners": [
+        "devsuite-planning"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/codex-coordinator/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "bug-investigation",
+      "owners": [
+        "devsuite-debug"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/bug-investigation/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "code-review",
+      "owners": [
+        "devsuite-review"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/code-review/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "comprehensive-qa",
+      "owners": [
+        "devsuite-test"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/comprehensive-qa/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "create-agent-instructions",
+      "owners": [
+        "devsuite-planning"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/create-agent-instructions/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "feature-development",
+      "owners": [
+        "devsuite-implement"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/feature-development/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "feature-testing",
+      "owners": [
+        "devsuite-test"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/feature-testing/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "new-project",
+      "owners": [
+        "devsuite-planning"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/new-project/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "orchestrate-work",
+      "owners": [
+        "devsuite-planning"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/orchestrate-work/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "platform-guidance",
+      "owners": [
+        "devsuite-implement"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/platform-guidance/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "pre-release-review",
+      "owners": [
+        "devsuite-review"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/pre-release-review/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "resume-interrupted-task",
+      "owners": [
+        "devsuite-handoff"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/resume-interrupted-task/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-dev-workflows",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "0.4.2",
+      "originalSkill": "session-handoff",
+      "owners": [
+        "devsuite-handoff"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/session-handoff/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-engineering-guardrails",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "1.1.1",
+      "originalSkill": "code-verification",
+      "owners": [
+        "devsuite-quality"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/code-verification/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-engineering-guardrails",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "1.1.1",
+      "originalSkill": "code-verification",
+      "owners": [
+        "devsuite-quality"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/code-verification/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-engineering-guardrails",
+      "catalog": "created-by-me-remote",
+      "versionInspected": "1.1.1",
+      "originalSkill": "code-work",
+      "owners": [
+        "devsuite-implement"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/code-work/SKILL.md"
+    },
+    {
+      "sourcePackage": "codex-engineering-guardrails",
+      "catalog": "winrecoveryproject-digital",
+      "versionInspected": "1.1.1",
+      "originalSkill": "code-work",
+      "owners": [
+        "devsuite-implement"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/code-work/SKILL.md"
+    },
+    {
+      "sourcePackage": "cloud-environment",
+      "catalog": "openai-curated-remote",
+      "versionInspected": "0.2.1",
+      "originalSkill": "cloud-desktop",
+      "owners": [
+        "devsuite-environment"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/cloud-desktop/SKILL.md"
+    },
+    {
+      "sourcePackage": "cloud-environment",
+      "catalog": "openai-curated-remote",
+      "versionInspected": "0.2.1",
+      "originalSkill": "runtime",
+      "owners": [
+        "devsuite-environment"
+      ],
+      "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
+      "sourceSkillRelativePath": "skills/runtime/SKILL.md"
+    }
+  ],
+  "cloudconvert": {
+    "sourceUnavailable": true,
+    "action": "retain canonical provider and existing connection; no unknown original skills disabled"
+  },
+  "hooks": {
+    "default": "DevSuite does not register hooks; old Coordinator hook behavior remains if its provider package is enabled",
+    "optional": "Replace old hook registration exactly once using hooks-blueprint.json after explicit migration review; never duplicate"
+  },
+  "retainedProviderPackages": [
+    "codex-security@winrecoveryproject-digital",
+    "cloud-environment@openai-curated-remote",
+    "app-6a5767a72d2881919c2f45a7d6206298@openai-curated-remote"
+  ],
+  "restore": "Restore exact config backup and previous enabled flags; no account disconnect/reconnect required",
+  "noCredentialMigration": true
+}

@@ -4,13 +4,13 @@ description: Configure or inspect unified connection management for Dropbox, Goo
 ---
 # CloudStorage connections
 
-The active Portal uses three native App bindings: Dropbox, Google Drive and OneDrive. It has no local MCP runtime dependency. Preserve these names and existing icons. OneDrive uses the canonical hosted broker and 28 discovered file tools; OneDrive Broker Staging is a historical test connection, not the Portal's selected OneDrive App.
+The Portal coordinates three providers: Dropbox, Google Drive and OneDrive. Preserve the existing App bindings for compatibility, while discovering the actual authorized App or MCP connection in the current account. An unavailable historical Dropbox App is not a reason to replace an already connected Dropbox MCP or request another login. Verify its identity through its current tools. The Portal does not own a separate MCP runtime. Preserve provider names, icons and account boundaries. Discover OneDrive's current file-tool inventory rather than relying on a historical count.
 
 For OneDrive, discover the actual App tools and verify the account before accessing files. Read-only grants use onedrive.read; writes require onedrive.read plus onedrive.write and explicit Microsoft Graph Files.ReadWrite consent through the host OAuth flow. A missing write grant must cause reauthorization, never credential extraction or a fallback to the local sync folder. Keep account/drive identifiers and continuation handles bound to the authenticated connection.
 
 Historical local runtime and staging receipts describe separate experiments. Do not start, install or select CloudStorage Portal Local for current Portal workflows. Tool discovery, consent, live reads, live writes and refresh are separate verification checkpoints.
 
-Present one portal connection list with three required providers: Dropbox, Google Drive and OneDrive. Reuse the existing authorized native connectors for supported operations. Read [the broker contract](../cloudstorage-portal/references/oauth-broker.md) before designing a separate OAuth service.
+Present one portal connection list with three providers: Dropbox, Google Drive and OneDrive. Record each provider's actual App or MCP route and readiness separately; a missing optional App declaration does not override a verified existing provider connection. Reuse authorized tools and never copy credentials between routes. Read [the broker contract](../cloudstorage-portal/references/oauth-broker.md) before designing a separate OAuth service.
 
 1. Discover current tools and supported account selectors. Record provider, connection reference, observed immutable account ID, tenant if applicable, granted capabilities when observable, and verification evidence. Unknown values remain unknown.
 2. Report registration, adapter availability, consent, identity verification, read verification and write verification separately for each provider. Three-provider completion requires all three identities and intended operations to be verified.

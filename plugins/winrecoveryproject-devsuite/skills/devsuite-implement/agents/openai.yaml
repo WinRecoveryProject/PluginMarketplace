@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Implement"
+  short_description: "Use when authorized to implement, refactor, migrate or maintain"
+  default_prompt: "Use $devsuite-implement to handle this request within its authorized scope."

@@ -1,0 +1,8 @@
+{
+  "status": "OPTIONAL_NOT_REGISTERED",
+  "condition": "Replace old Coordinator hooks exactly once; never activate both",
+  "hooks": {
+    "SessionStart": [{"matcher": "startup|resume|clear|compact", "hooks": [{"type": "command", "command": "python3 -I \"${PLUGIN_ROOT}/runtime/coordinator/session_start.py\"", "commandWindows": "python -I \"${PLUGIN_ROOT}/runtime/coordinator/session_start.py\"", "timeout": 5}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python3 -I \"${PLUGIN_ROOT}/runtime/coordinator/stop_guard.py\"", "commandWindows": "python -I \"${PLUGIN_ROOT}/runtime/coordinator/stop_guard.py\"", "timeout": 5}]}]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "apps": {
+    "github": {
+      "id": "connector_76869538009648d5b282a4bb21c3d157",
+      "required": false
+    },
+    "linear": {
+      "id": "asdk_app_69a089a326dc8191b32a3f2553f5be2c",
+      "required": false
+    },
+    "atlassian": {
+      "id": "connector_692de805e3ec8191834719067174a384",
+      "required": false
+    },
+    "cloud-environment": {
+      "id": "connector_openai_cloud_environment",
+      "required": false
+    },
+    "cloudconvert": {
+      "id": "asdk_app_6a5767a72d2881919c2f45a7d6206298",
+      "required": false
+    }
+  }
+}

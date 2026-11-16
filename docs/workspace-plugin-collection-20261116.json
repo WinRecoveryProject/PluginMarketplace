@@ -7,10 +7,10 @@
     "appBindings": 27,
     "uniqueDeclaredApps": 21,
     "mergedMcpServers": 4,
-    "nativeMarketplaceEntries": 30,
+    "nativeMarketplaceEntries": 31,
     "catalogLinks": 15,
     "hostBundledProducts": 9,
-    "collectionProducts": 54
+    "collectionProducts": 55
   },
   "additionalGitSources": [
     {
@@ -847,5 +847,8 @@
     "localControlListed": true,
     "registrationChanged": false,
     "scope": "Read-only native plugin/list and plugin/read on an unregistered temporary marketplace. Remote source omitted, local control loaded."
-  }
+  },
+  "referenceOnlyProducts": [
+    "megalinter"
+  ]
 }

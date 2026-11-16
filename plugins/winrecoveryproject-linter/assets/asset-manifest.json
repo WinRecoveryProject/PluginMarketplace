@@ -1,0 +1,230 @@
+{
+  "product": "WinRecoveryProjectLinter",
+  "generation": "built-in image_gen",
+  "generated_sources_inspected": true,
+  "alpha_cleanup": {
+    "rule": "Set only alpha values 1 through 15 to zero; preserve all remaining RGB and alpha values.",
+    "removed_near_invisible_pixels": 13101
+  },
+  "processing_helper": "Build-time Python asset preparation helper: trim alpha, pad and resize; not a runtime dependency",
+  "final_prompt": "Use case: logo-brand. Asset type: production software plugin icon, square transparent PNG. Create a unique polished minimal emblem for WinRecoveryProject Linter. Subject: two bold angular code brackets enclosing one confident lime green checkmark, in a compact cohesive silhouette. Dark graphite structural bracket bodies with bright teal edges, lime checkmark. Flat vector-like filled geometry, crisp clean edge, simple heavy strokes that remain recognizable at 16 pixels. Centered front view with generous transparent padding, design fills about 78% of canvas. No lettering, no text, no numbers, no third-party logos, no shadows, no gradients, no glow, no backdrop, no border square. Genuine transparent background. One single isolated emblem only.",
+  "qa": {
+    "dimensions": "pass",
+    "rgba_transparency": "pass",
+    "transparent_corners": "pass",
+    "favicon_frames": "16, 32, 48",
+    "visual_review": {
+      "contact_sheet": "branding-qa-contact-sheet.png",
+      "inspected": true,
+      "backgrounds": [
+        "white",
+        "graphite"
+      ],
+      "inspected_sizes": [
+        256,
+        64,
+        48,
+        32,
+        16
+      ],
+      "findings": "Distinct product silhouettes and accent colors remain visible; clean transparent edges; no letters or third-party marks. Tiny favicons necessarily retain less internal detail."
+    }
+  },
+  "files": [
+    {
+      "path": "composer-icon.png",
+      "sha256": "ce035a383607373fdae5a9141c7cc49ec438a6bdc6c1df3c6738bc8358f51148",
+      "bytes": 4204,
+      "width": 64,
+      "height": 64,
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 2952,
+      "partially_transparent_pixels": 1008,
+      "alpha_bbox": [
+        3,
+        13,
+        61,
+        51
+      ],
+      "corners_transparent": true
+    },
+    {
+      "path": "favicon-16.png",
+      "sha256": "817dc7c8ed6d94d61b7336f3888ca4f34cf0e8006af5d3fe928ea55963bce04d",
+      "bytes": 539,
+      "width": 16,
+      "height": 16,
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 133,
+      "partially_transparent_pixels": 117,
+      "alpha_bbox": [
+        0,
+        1,
+        16,
+        15
+      ],
+      "corners_transparent": true
+    },
+    {
+      "path": "favicon-32.png",
+      "sha256": "a90285792b15882e415cad2638d3e7c5992770ab14e5158e580ad5ea56ec1e9b",
+      "bytes": 1471,
+      "width": 32,
+      "height": 32,
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 655,
+      "partially_transparent_pixels": 318,
+      "alpha_bbox": [
+        0,
+        5,
+        32,
+        27
+      ],
+      "corners_transparent": true
+    },
+    {
+      "path": "favicon-48.png",
+      "sha256": "bfe3e9893c5b00313a8d68612d82bfa06d0304456a447d40e14a7fdd507d5daf",
+      "bytes": 2847,
+      "width": 48,
+      "height": 48,
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 1590,
+      "partially_transparent_pixels": 624,
+      "alpha_bbox": [
+        2,
+        9,
+        46,
+        39
+      ],
+      "corners_transparent": true
+    },
+    {
+      "path": "favicon.ico",
+      "sha256": "f363a11a2a86d04a7efd40c508f8f22ca49fc2fe1c31e7a6bcdc395bbc95f273",
+      "bytes": 4911,
+      "width": 48,
+      "height": 48,
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 1590,
+      "partially_transparent_pixels": 624,
+      "alpha_bbox": [
+        2,
+        9,
+        46,
+        39
+      ],
+      "corners_transparent": true,
+      "embedded_sizes": [
+        [
+          16,
+          16
+        ],
+        [
+          32,
+          32
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "path": "logo.png",
+      "sha256": "7a280262529d4e63c3abf4162fc883e361cdaf3cdd9b97770a8cb87618668fd4",
+      "bytes": 90991,
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 211910,
+      "partially_transparent_pixels": 49048,
+      "alpha_bbox": [
+        44,
+        124,
+        468,
+        387
+      ],
+      "corners_transparent": true
+    },
+    {
+      "path": "source/alpha-cleaned.png",
+      "sha256": "14e72f54298f10d9a6e3aa42bab89dae2ff90227681698a550e73f6167936ebd",
+      "bytes": 461871,
+      "width": 1263,
+      "height": 1246,
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 1200230,
+      "partially_transparent_pixels": 371182,
+      "alpha_bbox": [
+        49,
+        284,
+        1209,
+        1005
+      ],
+      "corners_transparent": true
+    },
+    {
+      "path": "source/generated-raw.png",
+      "sha256": "4a880c9d662bf3e0090286f669321b1974d653a0a18a34a039650b5b3061d746",
+      "bytes": 533496,
+      "width": 1263,
+      "height": 1246,
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 1187129,
+      "partially_transparent_pixels": 384283,
+      "alpha_bbox": [
+        0,
+        97,
+        1253,
+        1181
+      ],
+      "corners_transparent": true
+    },
+    {
+      "path": "source/logo-preparation.json",
+      "sha256": "ed892c6f1e37ef6b7d16ccaa2cd963fc1c1af26af1d695c90e7973abdfa5992e",
+      "bytes": 704
+    },
+    {
+      "path": "source/prompt.txt",
+      "sha256": "b0132e53d90c2df385b067675d29923e8f5e83b59d797ce2e9362d7651e77176",
+      "bytes": 752
+    },
+    {
+      "path": "thumbnail.png",
+      "sha256": "5780f187b30f99e99431946beb8d425954613952e4f568cf6eb12273f72d9988",
+      "bytes": 30161,
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 51640,
+      "partially_transparent_pixels": 13326,
+      "alpha_bbox": [
+        20,
+        59,
+        236,
+        196
+      ],
+      "corners_transparent": true
+    }
+  ]
+}

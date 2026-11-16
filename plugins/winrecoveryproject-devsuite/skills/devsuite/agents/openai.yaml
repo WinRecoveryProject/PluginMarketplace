@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite"
+  short_description: "Use when development spans planning, implementation, security, v"
+  default_prompt: "Use $devsuite to handle this request within its authorized scope."

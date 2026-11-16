@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Security-Fix"
+  short_description: "Use when fixing security findings, verifying remediation, propos"
+  default_prompt: "Use $devsuite-security-fix to handle this request within its authorized scope."

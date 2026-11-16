@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Environment"
+  short_description: "Use for local/cloud development, repositories, packages, Docker,"
+  default_prompt: "Use $devsuite-environment to handle this request within its authorized scope."

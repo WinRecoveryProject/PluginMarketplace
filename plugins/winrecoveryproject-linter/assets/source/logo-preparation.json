@@ -1,0 +1,48 @@
+{
+  "source": "source/alpha-cleaned.png",
+  "source_size": [
+    1263,
+    1246
+  ],
+  "operations": {
+    "trim_alpha": true,
+    "padding": 120,
+    "resize": [
+      512,
+      512
+    ],
+    "fit": "contain",
+    "split_grid": null
+  },
+  "output": "logo.png",
+  "image": {
+    "input_size": [
+      1263,
+      1246
+    ],
+    "had_alpha": true,
+    "trim_bbox": [
+      49,
+      284,
+      1209,
+      1005
+    ],
+    "padding": 120,
+    "resize": [
+      512,
+      512
+    ],
+    "fit": "contain",
+    "output_size": [
+      512,
+      512
+    ],
+    "alpha_bbox": [
+      44,
+      124,
+      468,
+      387
+    ]
+  },
+  "path_base": "assets/"
+}

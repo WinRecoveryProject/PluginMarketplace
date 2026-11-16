@@ -4,7 +4,7 @@ description: "Use when the user wants to search, read, upload, organize, share, 
 ---
 # CloudStorage Portal
 
-Use the three App bindings in .app.json. OneDrive is the canonical hosted OneDrive App, not OneDrive Broker Staging. No separate CloudStorage Portal Local runtime is required. A specific App-ID or Business workspace is not a product requirement. Preserve the existing names and icons.
+Use the existing authorized connections for Dropbox, Google Drive and OneDrive. The App bindings in .app.json preserve compatibility; a declaration alone does not prove that its App is installed or connected in the current account. Dropbox may already be provided by the connected Dropbox MCP. Discover its actual tools and identity rather than requesting a second login because the historical Dropbox App is unavailable. OneDrive uses the canonical hosted OneDrive App. Preserve existing names, icons and connections; do not start a separate Local runtime.
 
 Discover the actual provider tools and confirm account identity before operations. Read the relevant provider skill. Tool discovery, OAuth consent, actual operations and successful readback are separate evidence; do not claim a complete integration from login or package validation alone. Missing write scopes require the host OAuth flow, not a silent token substitution.
 

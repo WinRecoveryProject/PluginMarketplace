@@ -1,0 +1,53 @@
+{
+  "name": "@winrecoveryproject/linter",
+  "version": "0.1.0",
+  "description": "Read-only local source linting with explicit coverage and zero paid services",
+  "type": "module",
+  "license": "MIT",
+  "author": "Zilvereyes",
+  "homepage": "https://github.com/WinRecoveryProject/WinRecoveryProjectLinter",
+  "repository": { "type": "git", "url": "git+https://github.com/WinRecoveryProject/WinRecoveryProjectLinter.git" },
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "wrp-lint": "bin/wrp-lint.mjs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "verify:runtime": "node scripts/verify-fresh-runtime.mjs",
+    "check": "node --check bin/wrp-lint.mjs && node --check src/engine.mjs && node --test"
+  },
+  "files": [
+    "bin",
+    "src",
+    "adapters",
+    "config",
+    "skills",
+    "test",
+    "scripts",
+    ".codex-plugin",
+    "assets",
+    "README.md",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md",
+    "PRIVACY.md",
+    "TERMS.md",
+    "package-lock.json",
+    "npm-shrinkwrap.json",
+    "chatgpt-app-submission.json"
+  ],
+  "dependencies": {
+    "@types/node": "24.10.1",
+    "css-tree": "3.1.0",
+    "js-yaml": "4.1.1",
+    "jsonc-parser": "3.3.1",
+    "luaparse": "0.3.1",
+    "markdownlint": "0.40.0",
+    "markdownlint-cli": "0.48.0",
+    "parse5": "8.0.0",
+    "saxes": "6.0.0",
+    "smol-toml": "1.6.0",
+    "typescript": "6.0.3"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Planning"
+  short_description: "Use for scoped project planning, architecture, concise AGENTS.md"
+  default_prompt: "Use $devsuite-planning to handle this request within its authorized scope."

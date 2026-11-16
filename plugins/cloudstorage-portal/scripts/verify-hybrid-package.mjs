@@ -23,9 +23,27 @@ async function relativeFiles(root, current = root) {
 const provenancePath = path.join(candidateRoot, 'skills', 'cloudstorage-portal', 'references', 'provider-provenance.json');
 const provenance = JSON.parse(await readFile(provenancePath, 'utf8'));
 const providerMismatches = [];
+const overridePath = path.join(path.dirname(provenancePath), 'provider-local-overrides.json');
+let overrides = [];
+try { overrides = JSON.parse(await readFile(overridePath, 'utf8')); }
+catch (error) { if (error.code !== 'ENOENT') throw error; }
+if (!Array.isArray(overrides)) throw new Error('Provider overrides must be a reviewed array');
+const seenOverrides = new Set();
+for (const override of overrides) {
+  const original = provenance.find(record => record.path === override.path);
+  if (!original || seenOverrides.has(override.path)
+    || override.originalSha256?.toUpperCase() !== original.sha256.toUpperCase()
+    || !/^[0-9a-f]{64}$/i.test(override.currentSha256 ?? '')
+    || typeof override.reason !== 'string' || !override.reason.trim()) {
+    providerMismatches.push({ path: override.path, reason: 'invalid_reviewed_override' });
+  }
+  seenOverrides.add(override.path);
+}
 for (const record of provenance) {
   const actual = await sha256(path.join(candidateRoot, ...record.path.split('/')));
-  if (actual !== record.sha256.toUpperCase()) providerMismatches.push({ path: record.path, expected: record.sha256, actual });
+  const override = overrides.find(item => item.path === record.path);
+  const expected = override?.currentSha256 ?? record.sha256;
+  if (actual !== expected.toUpperCase()) providerMismatches.push({ path: record.path, expected, actual });
 }
 
 const manifest = JSON.parse(await readFile(path.join(candidateRoot, '.codex-plugin', 'plugin.json'), 'utf8'));
@@ -83,6 +101,7 @@ const result = {
     identitiesSynchronized: manifest.name === portableManifest.name && manifest.version === portableManifest.version,
   },
   trackedProviderFiles: provenance.length,
+  reviewedProviderOverrides: overrides.length,
   providerHashMismatches: providerMismatches,
   expectedWorkflowCount: expectedWorkflows.length,
   expectedWorkflowsPresent: expectedWorkflows.every(name => skillNames.includes(name)),

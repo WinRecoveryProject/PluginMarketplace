@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Handoff"
+  short_description: "Resume interrupted work and prepare evidence-based handoffs."
+  default_prompt: "Use $devsuite-handoff to handle this request within its authorized scope."

@@ -15,6 +15,18 @@ test('package validator detects App and MCP routing regressions', async () => {
     const baseline = run();
     assert.equal(baseline.status, 0, baseline.stderr || baseline.stdout);
     assert.ok(!baseline.stdout.includes('.git/'));
+    const providerDoc = path.join(temporary, 'skills/google-docs/SKILL.md');
+    const providerText = await readFile(providerDoc, 'utf8');
+    await writeFile(providerDoc, providerText + '\nUnreviewed change.\n');
+    assert.equal(run().status, 1, 'unreviewed provider edits must fail');
+    await writeFile(providerDoc, providerText);
+    const overridePath = path.join(temporary, 'skills/cloudstorage-portal/references/provider-local-overrides.json');
+    const overrideText = await readFile(overridePath, 'utf8');
+    const badOverride = JSON.parse(overrideText);
+    badOverride[0].originalSha256 = '0'.repeat(64);
+    await writeFile(overridePath, JSON.stringify(badOverride));
+    assert.equal(run().status, 1, 'upstream provenance cannot be replaced by an override');
+    await writeFile(overridePath, overrideText);
     const appPath = path.join(temporary, '.app.json');
     const originalApps = await readFile(appPath, 'utf8');
     const apps = JSON.parse(originalApps);

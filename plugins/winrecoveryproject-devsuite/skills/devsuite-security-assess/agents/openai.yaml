@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Security-Assess"
+  short_description: "Use for repository or diff security audits, threat models, disco"
+  default_prompt: "Use $devsuite-security-assess to handle this request within its authorized scope."

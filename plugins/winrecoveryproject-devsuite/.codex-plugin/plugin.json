@@ -1,0 +1,45 @@
+{
+  "name": "winrecoveryproject-devsuite",
+  "version": "0.1.0",
+  "description": "Integrated development, security, coordination, quality, cloud and conversion workflows.",
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "license": "MIT",
+  "skills": "./skills/",
+  "apps": "./.app.json",
+  "keywords": [
+    "development",
+    "security",
+    "coordination",
+    "verification",
+    "cloud",
+    "conversion"
+  ],
+  "interface": {
+    "displayName": "WinRecoveryProject DevSuite",
+    "shortDescription": "Build, secure and verify code",
+    "longDescription": "One focused workflow for planning, implementation, security assessment and remediation, testing, review, coordination, local/cloud work and file conversion. Reuses existing App connections; provider availability and included free usage are verified before external work.",
+    "developerName": "Zilvereyes",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "brandColor": "#0B6E8E",
+    "logo": "./assets/logo.png",
+    "composerIcon": "./assets/composer-icon.png",
+    "defaultPrompt": [
+      "Plan and implement this change, then verify it.",
+      "Assess this repository and fix the authorized security findings.",
+      "Test this project and review its release readiness."
+    ],
+    "websiteURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/blob/main/TERMS.md",
+    "supportURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/blob/main/SUPPORT.md"
+  },
+  "homepage": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite",
+  "repository": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite"
+}

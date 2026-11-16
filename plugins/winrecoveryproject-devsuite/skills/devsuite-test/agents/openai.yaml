@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Test"
+  short_description: "Use for feature testing, broad QA, user journeys, regression che"
+  default_prompt: "Use $devsuite-test to handle this request within its authorized scope."

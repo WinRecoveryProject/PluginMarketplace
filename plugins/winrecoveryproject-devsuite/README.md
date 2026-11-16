@@ -1,0 +1,50 @@
+# WinRecoveryProject DevSuite 0.1.0
+
+One owned development workflow combines planning/coordination, implementation,
+debugging, testing, independent review, quality gates, security assessment/remediation,
+handoff, local/cloud development and conversions. Twelve focused skills replace
+overlapping instruction triggers. MIT board/lifecycle helpers and original evidence
+utilities are bundled; no old skill package is needed for local work.
+
+Licensed Security backends and managed Cloud/CloudConvert services remain external
+host capabilities. Their source is not redistributed. Existing provider packages and
+connections are preserved where required. App bindings do not prove authentication,
+tool availability or successful execution. Cost budget is 0 kr; no new keys, OAuth,
+MCP servers, purchases, subscriptions or billable infrastructure are introduced.
+
+Read [policy](references/policy.md), [provider boundaries](references/providers.md),
+[function coverage](references/capability-matrix.json),
+[source hashes](references/source-provenance.json) and
+[migration proposal](references/migration.md). All 32 available original skills map
+to 207 function-level rows, including the original source's non-triggered
+orchestrate-work workflow. CloudConvert source is unavailable; its actual App ID is
+verified and its original skill inventory remains UNKNOWN.
+
+```text
+python scripts/devsuite.py route "review this patch"
+python scripts/devsuite.py capabilities
+python scripts/devsuite.py doctor
+python -m unittest discover -s tests -v
+python scripts/package.py --out <new-archive.zip>
+python scripts/devsuite.py provider-check security-deep inventory.json
+python scripts/devsuite.py conversion-plan request.json
+python scripts/devsuite.py assessment-report assessment.json --source-root <repo> --out <new-directory>
+```
+
+The CLI never executes request text, uploads files, creates scans, installs packages
+or changes user settings. Provider checks only verify supplied observed tool names;
+Tool names present still returns NOT_VERIFIED and canExecute:false; access, consent
+and free quota are separate. Conversion plans return executed:false. Local
+assessment reports use a separate owned schema and never impersonate sealed provider
+artifacts. [Board operations](references/coordination.md) documents the optional local
+state/lifecycle helpers and unregistered hook replacement blueprint.
+
+The native `.codex-plugin/plugin.json` is authoritative; no root portable manifest
+shadows Apps. Original DevSuite code is MIT. Adapted MIT components retain upstream
+copyright/licenses in [notices](THIRD_PARTY_NOTICES.md). Codex Security and internal
+Cloud implementations retain their own provider licensing and are not bundled.
+
+Local tests cover meaningful helper behavior plus static workflow contracts. Provider
+scans/Deep workers, cloud sessions, conversions, auth/quota, live tracker writes and
+project Linter execution are conditional and are not claimed as demonstrated by those
+tests. Package tests, installation and publication are separate evidence states.

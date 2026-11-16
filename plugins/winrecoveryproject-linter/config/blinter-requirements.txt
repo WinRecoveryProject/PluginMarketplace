@@ -1,0 +1,3 @@
+# Isolated external tool, not bundled into MIT product. PyPI SHA-256 receipts, 2026-11-16.
+Blinter==1.1.66 --hash=sha256:e6f2a8207cc2a55458888018d372104d127542377eaac6ccb1f4e6abc7dec169
+charset-normalizer==3.5.2 --hash=sha256:b6b751274acb69d77b3323d6b7dbaa3c7fdfc1eb829b7eb61d262f32e1af9685

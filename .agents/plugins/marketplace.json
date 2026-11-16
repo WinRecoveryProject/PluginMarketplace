@@ -313,22 +313,6 @@
       }
     },
     {
-      "name": "megalinter",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/oxsecurity/megalinter.git",
-        "path": "."
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Code Quality",
-      "interface": {
-        "displayName": "MegaLinter"
-      }
-    },
-    {
       "name": "agent-skillguard",
       "source": {
         "source": "git-subdir",
@@ -486,6 +470,38 @@
       "category": "Developer Tools",
       "interface": {
         "displayName": "Plugin Eval"
+      }
+    },
+    {
+      "name": "winrecoveryproject-linter",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/winrecoveryproject-linter"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "WinRecoveryProjectLinter"
+      }
+    },
+    {
+      "name": "winrecoveryproject-devsuite",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/winrecoveryproject-devsuite"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "WinRecoveryProject DevSuite"
       }
     }
   ]

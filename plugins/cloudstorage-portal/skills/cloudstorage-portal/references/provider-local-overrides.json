@@ -1,0 +1,9 @@
+[
+  {
+    "path": "skills/google-docs/SKILL.md",
+    "originalSha256": "1c4f8e6477a61d45370731143fd926d2b8917594982f9cb39677909d645625c1",
+    "currentSha256": "f8a284bd10f292af86bd7073ddec36351b2406e572df94bf31ec083eef50188e",
+    "appliedInPortalVersion": "0.9.2",
+    "reason": "Reviewed discovery-trigger clarification; original upstream provenance remains unchanged."
+  }
+]

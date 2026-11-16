@@ -11,7 +11,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
 | OneDrive | `1.2.0` | `codex plugin add onedrive@winrecoveryproject-digital` |
-| CloudStorage Portal | `0.9.2` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
+| CloudStorage Portal | `0.9.3` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Plugin-Skill-Studio | `0.3.3` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.2` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
@@ -23,13 +23,14 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
 | Codex Process Jobs | `0.5.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
+| WinRecoveryProjectLinter | `0.1.0` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
+| WinRecoveryProject DevSuite | `0.1.0` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
 | Vercel | `0.21.4` | `codex plugin add vercel@winrecoveryproject-digital` |
 | GitHub | `0.1.12` | `codex plugin add github@winrecoveryproject-digital` |
 | Google Drive | `0.1.15` | `codex plugin add google-drive@winrecoveryproject-digital` |
 | OpenAI Developers | `1.2.3` | `codex plugin add openai-developers@winrecoveryproject-digital` |
 | Dropbox | `5.0.1` | `codex plugin add dropbox@winrecoveryproject-digital` |
-| MegaLinter | `1.0.33` | `codex plugin add megalinter@winrecoveryproject-digital` |
 | Skill Risk Check | `0.1.5` | `codex plugin add agent-skillguard@winrecoveryproject-digital` |
 | Context Handoff | `0.3.7` | `codex plugin add context-handoff@winrecoveryproject-digital` |
 | Plugin Creator Plus | `0.1.2+codex.20260925002000` | `codex plugin add plugin-creator-plus@winrecoveryproject-digital` |
@@ -41,7 +42,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Slack | `0.1.7` | `codex plugin add slack@winrecoveryproject-digital` |
 | Plugin Eval | `0.1.2` | `codex plugin add plugin-eval@winrecoveryproject-digital` |
 
-Den samlede oversigt dækker **54 produkter**: 30 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se hele samlingen](docs/full-plugin-list-check-20261116.md) og [kontrollen af alle 52 aktuelle installationer](docs/installed-plugins-and-suppliers-20261116.md). Flere offentlige Git-pakker er ældre end de installerede katalogversioner. Ingen installerede pakker er ændret af katalogopdateringen.
+Den samlede oversigt dækker **55 produkter**: 31 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se hele samlingen](docs/full-plugin-list-check-20261116.md) og [kontrollen af alle 52 aktuelle installationer](docs/installed-plugins-and-suppliers-20261116.md). Flere offentlige Git-pakker er ældre end de installerede katalogversioner. Denne historiske leverandøroversigt er bevaret. Se [den aktuelle gennemgang og udgivelse](docs/product-release-20261116.md) for nyere validerede pakker og de konkrete installationskontroller.
 
 ## Struktur
 
@@ -84,3 +85,9 @@ OneDrive-bindingen er fastholdt fra den leverede ZIP; ingen ny App-identitet er 
 - Mapper under `.codex/plugins/cache` er installationscache, ikke redigerbare kilder.
 - Ældre eksport- og sammenligningsmapper bevares som arkiv, men registreres ikke som markedspladser og installeres ikke parallelt.
 - En gammel markedsplads eller plugininstallation fjernes først, når den tilsvarende pakke fra denne markedsplads er installeret og dens App-, skill- og MCP-opdagelse er verificeret.
+
+## Egne udviklingsværktøjer
+
+WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Begge er 0.1.0 og har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
+
+[Udgivelse og testdækning](docs/product-release-20261116.md) · [Installeret plugin-gennemgang](docs/current-installed-audit-20261116.md).

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Review"
+  short_description: "Use for independent code review, immutable patch risk assessment"
+  default_prompt: "Use $devsuite-review to handle this request within its authorized scope."

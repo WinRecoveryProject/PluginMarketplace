@@ -15,13 +15,14 @@ function contained(base,value){
 const registry=json('.agents/plugins/marketplace.json');
 const lock=json('plugin-sources.lock.json');
 const ownRepo='https://github.com/WinRecoveryProject/PluginMarketplace.git';
-const managed=['onedrive','cloudstorage-portal','powershell-workbench','plugin-skill-studio','component-forge','windows-dism-update-docs','codex-coordinator','codex-dev-workflows','codex-engineering-guardrails','codex-process-jobs','zilvereyes-context-handoff'];
+const managed=['onedrive','cloudstorage-portal','powershell-workbench','plugin-skill-studio','component-forge','windows-dism-update-docs','codex-coordinator','codex-dev-workflows','codex-engineering-guardrails','codex-process-jobs','zilvereyes-context-handoff','winrecoveryproject-linter','winrecoveryproject-devsuite'];
 if(registry){
   check(readFileSync(join(root,'.agents/plugins/marketplace.json'),'utf8').replaceAll('\r\n','\n')===JSON.stringify(registry,null,2)+'\n','canonical registry formatting');
   const entries=registry.plugins??[], names=entries.map(e=>e.name);
   check(new Set(names).size===names.length,'unique marketplace names');
   check(!names.includes('cloudstorage-portal-local'),'obsolete Local package is not registered');
   check(!names.includes('zilvereyes-plugin-studio'),'Studio has one canonical marketplace name');
+  check(!names.includes('megalinter'),'MegaLinter is a reference, not an installable Marketplace entry');
   for(const name of managed){
     const entry=entries.find(e=>e.name===name);
     check(Boolean(entry),`${name}: registered`);
@@ -72,8 +73,11 @@ if(registry){
 }
 const external=json('docs/external-plugin-collection-20261116.json');
 if(registry&&external){
-  const expected=['sharepoint','vercel','github','google-drive','openai-developers','dropbox','megalinter'];
-  check(JSON.stringify(external.gitPlugins.map(p=>p.name).sort())===JSON.stringify([...expected].sort()),'seven reviewed external Git sources');
+  const expected=['sharepoint','vercel','github','google-drive','openai-developers','dropbox'];
+  check(JSON.stringify(external.gitPlugins.map(p=>p.name).sort())===JSON.stringify([...expected].sort()),'six installable reviewed external Git sources');
+  const reference=external.referenceOnly?.find(p=>p.name==='megalinter');
+  check(reference?.repository==='https://github.com/oxsecurity/megalinter.git'&&/^[0-9a-f]{40}$/.test(reference?.observedCommit??''),'MegaLinter original source provenance retained as reference only');
+  check(reference?.status==='REFERENCE_ONLY_NOT_INSTALLED_BY_THIS_CATALOG','MegaLinter reference cannot imply installation');
   for(const p of external.gitPlugins){
     const entry=registry.plugins.find(e=>e.name===p.name);
     check(entry?.source?.source==='git-subdir'&&entry.source.url===p.repository&&entry.source.path===p.path,`${p.name}: original upstream source`);

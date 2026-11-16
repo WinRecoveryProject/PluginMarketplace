@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Debug"
+  short_description: "Diagnose defects and apply only authorized fixes."
+  default_prompt: "Use $devsuite-debug to handle this request within its authorized scope."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devsuite Quality"
+  short_description: "Use for code quality, tests, lint/type/build gates, existing Meg"
+  default_prompt: "Use $devsuite-quality to handle this request within its authorized scope."

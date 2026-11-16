@@ -1,0 +1,67 @@
+{
+  "security-standard": {
+    "provider": "existing licensed Codex Security host",
+    "requiredToolGroups": [
+      [
+        "mcp__codex_security__start_codex_security_prompt_only_scan",
+        "mcp__codex_security__start_codex_security_standard_scan"
+      ],
+      [
+        "mcp__codex_security__record_codex_security_scan_draft"
+      ],
+      [
+        "mcp__codex_security__complete_codex_security_scan"
+      ]
+    ]
+  },
+  "security-deep": {
+    "provider": "existing licensed Codex Security Deep Scan host",
+    "requiredToolGroups": [
+      [
+        "mcp__codex_security__start_codex_security_deep_scan"
+      ],
+      [
+        "mcp__codex_security__complete_codex_security_scan"
+      ]
+    ]
+  },
+  "security-artifacts": {
+    "provider": "existing licensed Codex Security host",
+    "requiredToolGroups": [
+      [
+        "mcp__codex_security__save_codex_security_artifact"
+      ],
+      [
+        "mcp__codex_security__read_codex_security_artifact"
+      ]
+    ]
+  },
+  "security-remediation": {
+    "provider": "existing licensed Codex Security host",
+    "requiredToolGroups": [
+      [
+        "mcp__codex_security__set_codex_security_finding_remediation"
+      ]
+    ]
+  },
+  "cloud-environment": {
+    "provider": "existing Cloud Environment App",
+    "discoveryRequired": true,
+    "requiredToolGroups": []
+  },
+  "cloudconvert": {
+    "provider": "existing CloudConvert App",
+    "discoveryRequired": true,
+    "requiredToolGroups": []
+  },
+  "linter": {
+    "provider": "existing project Linter/MegaLinter or CI",
+    "discoveryRequired": true,
+    "requiredToolGroups": []
+  },
+  "tracking": {
+    "provider": "existing GitHub/Linear/optional Atlassian",
+    "discoveryRequired": true,
+    "requiredToolGroups": []
+  }
+}
