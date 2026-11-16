@@ -132,6 +132,86 @@
       "interface": {
         "displayName": "Linear"
       }
+    },
+    {
+      "name": "codex-coordinator",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/codex-coordinator"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Codex Coordinator"
+      }
+    },
+    {
+      "name": "codex-dev-workflows",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/codex-dev-workflows"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Codex Dev Workflows"
+      }
+    },
+    {
+      "name": "codex-engineering-guardrails",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/codex-engineering-guardrails"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "Codex Engineering Guardrails"
+      }
+    },
+    {
+      "name": "codex-process-jobs",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/codex-process-jobs"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "Codex Process Jobs"
+      }
+    },
+    {
+      "name": "zilvereyes-context-handoff",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/zilvereyes-context-handoff"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Zilvereyes Context Handoff"
+      }
     }
   ]
 }

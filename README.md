@@ -10,20 +10,25 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 
 | Plugin | Version | Installation |
 | --- | --- | --- |
-| OneDrive | `1.1.6` | `codex plugin add onedrive@winrecoveryproject-digital` |
-| CloudStorage Portal | `0.9.0` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
+| OneDrive | `1.1.8` | `codex plugin add onedrive@winrecoveryproject-digital` |
+| CloudStorage Portal | `0.9.2` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
-| Plugin-Skill-Studio | `0.3.0` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
+| Plugin-Skill-Studio | `0.3.2` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.2` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.3` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
-| Codex Security (OpenAI source) | `0.1.32` | `codex plugin add codex-security@winrecoveryproject-digital` |
-| Linear (OpenAI source) | `5.0.1` | `codex plugin add linear@winrecoveryproject-digital` |
+| Codex Security | `0.1.22` | `codex plugin add codex-security@winrecoveryproject-digital` |
+| Linear | `upstream` | `codex plugin add linear@winrecoveryproject-digital` |
+| Codex Coordinator | `0.4.0` | `codex plugin add codex-coordinator@winrecoveryproject-digital` |
+| Codex Dev Workflows | `0.4.2` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
+| Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
+| Codex Process Jobs | `0.5.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
+| Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
 
 ## Struktur
 
 - `.agents/plugins/marketplace.json` er det eneste markedspladsmanifest.
 - `plugins/` indeholder versionsfrosne, selvstændigt installerbare pluginpakker.
-- De fem selvstændige kilde-repositories bevares. `plugin-sources.lock.json` fastlåser commit og filhash for deres marketplace-snapshots; se [kildeoversigten](docs/marketplace-sources-20261102.md).
+- De selvstændige kilde-repositories bevares. `plugin-sources.lock.json` fastlåser commit og filhash for deres marketplace-snapshots; se [kildeoversigten](docs/marketplace-sources-20261102.md).
 - `cloudstorage-portal-local` er udgået og fjernet fra både kataloget og den publicerede pakkemappe. OneDrive og CloudStorage Portal er de to aktive cloudpakker.
 - `plugins/plugin-eval/` bevares som en ikke-publiceret OpenAI-reference til udvikling og sammenligning; den er ikke en post i markedspladsmanifestet.
 - OpenAI-ejede publiceringsposter bruger en direkte `git-subdir`-reference til `https://github.com/openai/plugins.git`; en bevaret lokal sammenligningsmappe er ikke publiceringskilden.

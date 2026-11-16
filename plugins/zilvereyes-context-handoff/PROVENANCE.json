@@ -1,0 +1,52 @@
+{
+  "derivative": "zilvereyes-context-handoff",
+  "version": "0.3.4+zilvereyes.1",
+  "sourceWorkspaceRelativePath": "context-handoff/0.3.4",
+  "sourceLicense": "MIT",
+  "sourceAuthor": {
+    "email": "timyeou1234@users.noreply.github.com",
+    "name": "Tim Yu",
+    "url": "https://github.com/timyeou1234"
+  },
+  "sourceRepository": "https://github.com/timyeou1234/context-handoff",
+  "sourceFileSHA256": {
+    ".agents/plugins/marketplace.json": "2a4edbfbab38c234b586816f173f55183e4fd0a5b7ab8822f3e458ad99ac2688",
+    ".codex-plugin/assets/composer-icon.png": "7049b50d3cf30e220e588f8561ea42048b1618bfccef044fceac25ed05f85d60",
+    ".codex-plugin/assets/logo.png": "62d24e532821d7cac7cf6d8908ce3eeec485d59763b47a7eb1b2175073dc599e",
+    ".codex-plugin/plugin.json": "7d2cc80d36552ee3e7e57edf35e11ca597be4625e5e20a4a63ad777f7eb99b47",
+    ".github/workflows/release.yml": "4c8150dab12750ef2286b078b2681de3a87257a8d7895db0880c87ae2fe7cfa7",
+    ".github/workflows/validate.yml": "123fa9a89fc9d86646b173a00cd359521ef779467e0a20ebc66bb5d62b9f4cdc",
+    ".gitignore": "fa5b2d4433b835933b22140e01833a4972a0ee8532d76951286e3dd071994af0",
+    "assets/icon.png": "7049b50d3cf30e220e588f8561ea42048b1618bfccef044fceac25ed05f85d60",
+    "assets/icon.svg": "5f1265a23788f5fefc3396cad77ce17f13f9cc17d3a777bc1a5a1216c2978062",
+    "assets/logo.png": "62d24e532821d7cac7cf6d8908ce3eeec485d59763b47a7eb1b2175073dc599e",
+    "assets/logo.svg": "19df2a292113e48b72f92b1e45872bfb42af0ae9b5c2ff1a078b9c434440e98b",
+    "docs/REVIEWER_TESTS.md": "c6f3028f1460bf24cd45aa5f0f232f13535c77ebd828c63cf06e83615d1cc0d4",
+    "docs/SUBMISSION.md": "0715adada8d33fa60ea00eb8fc2a05817bacabbb6c5b83984ddfd7413b1ca3fb",
+    "hooks/context_health.py": "9a3630413d25852b10512f2d3e170b0abff340cb77c560acf5ddf7d28d3e15a3",
+    "hooks/hooks.json": "989ecd9d4775faaf4c3816acdd18dbe7cc8dc30d732ce0bbc1f42bd4ae95fab7",
+    "LICENSE": "bb15f59523a82aea324cc43a123d86d5cbe98b617bbedfcfe9b37a0453f8b91b",
+    "PRIVACY.md": "0234fbbbe25b7ce95d5bef03e24622b80786cd441daade36cb36f9b0082d436f",
+    "README.md": "b9f545e9be834337c74851bbfd5fc23968e05f74ff1b6257634d78b41b7e2656",
+    "skills/context-handoff/agents/openai.yaml": "29e4fa0d7c6410b22ef1b39d18fdc062a6946585aa4a5d5ae677836ac9e3e863",
+    "skills/context-handoff/scripts/context_handoff.py": "9f48be0179d809a39cd5ebaaac6d2a10fc772e255807a0962abe52d4bdc735fa",
+    "skills/context-handoff/SKILL.md": "aeb2dc212c3af77667ded3c68bd55a7bfe15aa199152d9bce4f1edc658e52a64",
+    "SUPPORT.md": "c26a32740ce31e7b173e19b91090230cab41670c4d56f91a5e3a381764a7b105",
+    "TERMS.md": "e5d2225f9e95c5ff9e2466039e14349fd061840380aa1d20b866626c6a06ca86",
+    "tests/test_context_handoff.py": "f70531ab74f2d011badbbc176fec9ecbf6056b1e962fa8cc842b76034518be03"
+  },
+  "builtOn": "2026-11-02",
+  "classification": {
+    "source": "preserved upstream reference",
+    "output": "editable local candidate",
+    "installation": "not performed",
+    "publication": "not performed"
+  },
+  "changes": [
+    "Unique package and skill identities",
+    "Zilvereyes policy and SVG branding",
+    "Active-interpreter Windows subprocess support",
+    "Independent local legal/support text; no invented public URLs",
+    "Historical upstream docs retained; unrelated sample and submission snapshots excluded"
+  ]
+}

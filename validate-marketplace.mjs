@@ -15,7 +15,7 @@ function contained(base,value){
 const registry=json('.agents/plugins/marketplace.json');
 const lock=json('plugin-sources.lock.json');
 const ownRepo='https://github.com/WinRecoveryProject/PluginMarketplace.git';
-const managed=['onedrive','cloudstorage-portal','powershell-workbench','plugin-skill-studio','component-forge','windows-dism-update-docs'];
+const managed=['onedrive','cloudstorage-portal','powershell-workbench','plugin-skill-studio','component-forge','windows-dism-update-docs','codex-coordinator','codex-dev-workflows','codex-engineering-guardrails','codex-process-jobs','zilvereyes-context-handoff'];
 if(registry){
   check(readFileSync(join(root,'.agents/plugins/marketplace.json'),'utf8').replaceAll('\r\n','\n')===JSON.stringify(registry,null,2)+'\n','canonical registry formatting');
   const entries=registry.plugins??[], names=entries.map(e=>e.name);
@@ -56,7 +56,9 @@ if(registry){
     }
     const source=lock?.plugins?.[name];
     if(source){
-      check(/^[0-9a-f]{40}$/.test(source.commit),`${name}: immutable source commit`);
+      if(source.sourceKind==='personal-installed-snapshot'){
+        check(source.sourceNamespace==='created-by-me-remote'&&/^[0-9a-f]{64}$/.test(source.sourceHash),`${name}: hashed personal package provenance`);
+      }else check(/^[0-9a-f]{40}$/.test(source.commit),`${name}: immutable source commit`);
       check(source.version===m.version,`${name}: source version`);
       const actual=[];
       function walk(dir){for(const d of readdirSync(dir,{withFileTypes:true})){

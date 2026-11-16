@@ -1,0 +1,1 @@
+Local candidate: no telemetry or network service is added. Host tools may read workspace files and handoff packets; hooks store per-session compaction counts in host-provided PLUGIN_DATA. Do not put secrets in packets. External host/service policies still apply. No public privacy-policy URL is verified.

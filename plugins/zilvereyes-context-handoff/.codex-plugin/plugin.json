@@ -1,0 +1,37 @@
+{
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "description": "Zilvereyes Context Handoff: MIT-derived personal candidate with preserved provenance and evidence-led workflows.",
+  "interface": {
+    "brandColor": "#23786B",
+    "brandColorDark": "#23786B",
+    "capabilities": [
+      "Workflow",
+      "Continuity",
+      "Lifecycle hooks"
+    ],
+    "category": "Productivity",
+    "composerIcon": "./assets/icon.svg",
+    "defaultPrompt": [
+      "Lav et verificerbart checkpoint for denne opgave.",
+      "Forbered en handoff-pakke med alle accepterede krav."
+    ],
+    "developerName": "Zilvereyes",
+    "displayName": "Zilvereyes Context Handoff",
+    "logo": "./assets/logo-light.svg",
+    "longDescription": "Zilvereyes Context Handoff: MIT-derived personal candidate with preserved provenance and evidence-led workflows. Local validation, installation and publication are separate states.",
+    "shortDescription": "Bevar kontekst og evidens"
+  },
+  "keywords": [
+    "codex",
+    "context",
+    "handoff",
+    "continuity",
+    "productivity"
+  ],
+  "license": "MIT",
+  "name": "zilvereyes-context-handoff",
+  "skills": "./skills/",
+  "version": "0.3.4+zilvereyes.1"
+}

@@ -1,0 +1,1 @@
+Software is provided under the included MIT license, without warranty. This is an independent Zilvereyes derivative, not an upstream-author or OpenAI endorsement. Public listing terms and publisher identity require separate review.

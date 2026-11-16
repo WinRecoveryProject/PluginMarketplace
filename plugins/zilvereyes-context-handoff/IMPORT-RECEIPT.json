@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "installer": "plugin-skill-studio",
+  "source": "C:\\Users\\zilve\\.codex\\plugins\\cache\\created-by-me-remote\\zilvereyes-context-handoff\\0.3.4+zilvereyes.1",
+  "sourceHash": "482f3a8503b3d354b7ea35115a6a44024b196a5c1a481b84c21327ee30aa0c73",
+  "target": "C:\\Users\\zilve\\CloudStorage\\OneDrive\\Dokumenter\\ChatGPT\\WEB - OneDrive Module\\work\\PluginMarketplace\\plugins\\zilvereyes-context-handoff",
+  "files": [
+    {
+      "path": ".codex-plugin/plugin.json",
+      "bytes": 1181,
+      "sha256": "54ac787207c1a9302677f4342f7e566a32dc16cb0f1665bb4f02a51006f05cc1"
+    },
+    {
+      "path": "assets/icon.png",
+      "bytes": 9657,
+      "sha256": "7049b50d3cf30e220e588f8561ea42048b1618bfccef044fceac25ed05f85d60"
+    },
+    {
+      "path": "assets/icon.svg",
+      "bytes": 320,
+      "sha256": "94b934ccf5f3225b8049706fa450967ff5cf546f9e1a851ca4171d67121a4dd3"
+    },
+    {
+      "path": "assets/logo-dark.svg",
+      "bytes": 320,
+      "sha256": "c7019672f611b24a66bcea56c422b1e3f9040822497ee2f1d8e4b2dc3f93f2d4"
+    },
+    {
+      "path": "assets/logo-light.svg",
+      "bytes": 320,
+      "sha256": "49360392d1ca665dd6119f768fb227cc289a3384277f5c586515ceed19337cab"
+    },
+    {
+      "path": "assets/logo.png",
+      "bytes": 21261,
+      "sha256": "62d24e532821d7cac7cf6d8908ce3eeec485d59763b47a7eb1b2175073dc599e"
+    },
+    {
+      "path": "assets/logo.svg",
+      "bytes": 799,
+      "sha256": "19df2a292113e48b72f92b1e45872bfb42af0ae9b5c2ff1a078b9c434440e98b"
+    },
+    {
+      "path": "hooks/context_health.py",
+      "bytes": 5027,
+      "sha256": "70255308e21d6552e020ad13b6c2e2dceb4113e195dce717f53c33e4617ed753"
+    },
+    {
+      "path": "hooks/hooks.json",
+      "bytes": 1254,
+      "sha256": "989ecd9d4775faaf4c3816acdd18dbe7cc8dc30d732ce0bbc1f42bd4ae95fab7"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1063,
+      "sha256": "bb15f59523a82aea324cc43a123d86d5cbe98b617bbedfcfe9b37a0453f8b91b"
+    },
+    {
+      "path": "plugin.json",
+      "bytes": 1181,
+      "sha256": "54ac787207c1a9302677f4342f7e566a32dc16cb0f1665bb4f02a51006f05cc1"
+    },
+    {
+      "path": "PRIVACY.md",
+      "bytes": 305,
+      "sha256": "7ad21def6d082ba37ac7dbffbcc245fc69faa2fad37adbd72a19a22dfee90ff9"
+    },
+    {
+      "path": "PROVENANCE.json",
+      "bytes": 3295,
+      "sha256": "c9eebd1638aa8d65919874cd553c5ab23351d264555e43b8e82f61ae28c317b7"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1315,
+      "sha256": "31f43d8f5a3d2c472b9240fe8c98a1548a10f4c54f8d6c743bc55ac383f9652f"
+    },
+    {
+      "path": "skills/zilvereyes-context-handoff/agents/openai.yaml",
+      "bytes": 281,
+      "sha256": "e7b0c4f6190616c01e4bff2b13d19694ba5a1b64daa302598fb074575f642495"
+    },
+    {
+      "path": "skills/zilvereyes-context-handoff/scripts/context_handoff.py",
+      "bytes": 18216,
+      "sha256": "30a29f6124fe8b425d0d6c0f7327e66406faeaf176414624975158163b2b5f18"
+    },
+    {
+      "path": "skills/zilvereyes-context-handoff/SKILL.md",
+      "bytes": 16707,
+      "sha256": "d779df24546db162be2eb5532faec2163b863cae5e948858d588110021ee2e73"
+    },
+    {
+      "path": "SUPPORT.md",
+      "bytes": 184,
+      "sha256": "4570d4d2a96eedb4615609ee2a8085a13bc7c0ef5263efb8ed11d5aac7a55600"
+    },
+    {
+      "path": "TERMS.md",
+      "bytes": 232,
+      "sha256": "d238b93f00829846e0e12ec676fd15b14da444c1f7d9cfa3f2858b51e279f19a"
+    },
+    {
+      "path": "UPSTREAM-README.md",
+      "bytes": 8925,
+      "sha256": "a17d097a37bcf8307e1c07bde418a2b0d0e010223f274f703b73ae3f118d3929"
+    },
+    {
+      "path": "ZILVEREYES-POLICY.md",
+      "bytes": 1176,
+      "sha256": "c364838f7996cdf8103700370ba5ba4d2b30aa7f5ab0716066e0dc52ff214697"
+    }
+  ],
+  "createdAt": "2026-11-16T01:16:35.041Z",
+  "state": "local-candidate",
+  "installedInHost": false,
+  "executedTarget": false
+}
