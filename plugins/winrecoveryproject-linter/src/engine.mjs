@@ -330,6 +330,7 @@ export async function scan(root, { types, execute = run, toolProbe = probe } = {
   const detected = [...new Set(inv.files.map(file => file.type).filter(Boolean))];
   for (const file of inv.files.filter(file => !file.type)) incomplete.push(`Unsupported source format: ${file.file}`);
   const selected = requested || detected;
+  if (!selected.length) incomplete.push('No source types selected; no checks executed');
   for (const type of detected.filter(type => !selected.includes(type))) notices.push(`Detected ${type} excluded by explicit type selection`);
   const snapshots = [];
   for (const item of inv.files.filter(file => selected.includes(file.type))) {
@@ -348,10 +349,11 @@ export async function scan(root, { types, execute = run, toolProbe = probe } = {
       else for (const item of files) findings.push(...await internal(item, inv.root, notices));
     } catch (error) { coverageItem.status = 'failed'; incomplete.push(`${type}: ${errorText(error)}`); }
   }
+  if (selected.length && !snapshots.length) incomplete.push('No selected source files could be checked');
   try { findings.push(...await compiler(snapshots.filter(file => ['javascript', 'typescript'].includes(file.type) && coverage.find(entry => entry.type === file.type)?.status === 'checked'))); }
   catch (error) { incomplete.push(`compiler: ${errorText(error)}`); }
   if (!inv.files.length) incomplete.push('No supported or recognized source files found');
   findings.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.column - b.column || a.rule.localeCompare(b.rule));
   const exitCode = incomplete.length ? 2 : findings.length ? 1 : 0;
-  return { schemaVersion: 1, product: 'WinRecoveryProjectLinter', version: '0.1.0', root: inv.root, status: ['CLEAN', 'FINDINGS', 'INCOMPLETE'][exitCode], exitCode, discovery: inv.discovery, detected, selected, coverage, findings, incomplete, notices, limits: { maxFiles, maxBytesPerFile: maxBytes }, budget: { paidServices: false, telemetry: false } };
+  return { schemaVersion: 1, product: 'WinRecoveryProjectLinter', version: '0.1.1', root: inv.root, status: ['CLEAN', 'FINDINGS', 'INCOMPLETE'][exitCode], exitCode, discovery: inv.discovery, detected, selected, coverage, findings, incomplete, notices, limits: { maxFiles, maxBytesPerFile: maxBytes }, budget: { paidServices: false, telemetry: false } };
 }

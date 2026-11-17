@@ -1,4 +1,4 @@
-# WinRecoveryProject DevSuite 0.1.0
+# WinRecoveryProject DevSuite 0.1.1
 
 One owned development workflow combines planning/coordination, implementation,
 debugging, testing, independent review, quality gates, security assessment/remediation,
@@ -48,3 +48,5 @@ Local tests cover meaningful helper behavior plus static workflow contracts. Pro
 scans/Deep workers, cloud sessions, conversions, auth/quota, live tracker writes and
 project Linter execution are conditional and are not claimed as demonstrated by those
 tests. Package tests, installation and publication are separate evidence states.
+
+Version 0.1.1 fixes Danish quality/review routing and validates provider inventory containers before access. Invalid inputs return structured ERROR; provider execution and consent remain separate.

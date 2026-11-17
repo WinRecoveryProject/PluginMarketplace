@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "coverageStatement": "Every available original skill is enumerated with function-level rows; CloudConvert original skill source is UNKNOWN, not fabricated. Static workflow coverage is distinct from executable helper/provider evidence.",
   "capabilities": [
     {

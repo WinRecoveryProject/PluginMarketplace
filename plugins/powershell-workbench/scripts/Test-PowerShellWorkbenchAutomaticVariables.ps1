@@ -10,9 +10,19 @@ begin {
     $ErrorActionPreference='Stop'
     $protected=@{home='homeEntry';host='hostInfo';pid='processId';error='parseError';args='arguments';input='inputValue';matches='matchResult';pshome='powerShellHome';executioncontext='executionContextInfo';myinvocation='invocationInfo'}
     $diagnostics=New-Object System.Collections.Generic.List[object]
+    $candidatePaths=New-Object System.Collections.Generic.List[string]
 }
 process {
-    foreach($candidate in $Path){
+    foreach($candidate in $Path){$candidatePaths.Add($candidate)}
+}
+end {
+    # Windows PowerShell 5.1 can skip process for -File with redirected empty
+    # stdin. Explicitly bound paths must still be checked, never silently pass.
+    if($candidatePaths.Count -eq 0 -and $PSBoundParameters.ContainsKey('Path')){
+        foreach($candidate in $Path){$candidatePaths.Add($candidate)}
+    }
+    if($candidatePaths.Count -eq 0){throw 'No paths were supplied for automatic-variable checks.'}
+    foreach($candidate in $candidatePaths){
         $resolved=(Resolve-Path -LiteralPath $candidate -ErrorAction Stop).Path;$tokens=$null;$errors=$null
         $ast=[Management.Automation.Language.Parser]::ParseFile($resolved,[ref]$tokens,[ref]$errors)
         foreach($assignment in $ast.FindAll({param($node)$node -is [Management.Automation.Language.AssignmentStatementAst]},$true)){
@@ -26,8 +36,6 @@ process {
             }
         }
     }
-}
-end {
     $result=[pscustomobject]@{SchemaVersion='1.0';Passed=($diagnostics.Count -eq 0);Diagnostics=@($diagnostics.ToArray())}
     if($AsJson){$result|ConvertTo-Json -Depth 6}else{$result}
     if(-not $result.Passed -and -not $NoThrow){throw "Protected automatic-variable assignments were found: $($diagnostics.Count)"}

@@ -20,7 +20,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | CloudStorage Portal | `0.9.5` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Plugin-Skill-Studio | `0.3.7` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
-| PowerShell Workbench | `0.9.0-beta.3` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
+| PowerShell Workbench | `0.9.0-beta.4` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.3` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.32` | `codex plugin add codex-security@winrecoveryproject-digital` |
 | Linear | `5.0.1` | `codex plugin add linear@winrecoveryproject-digital` |
@@ -29,8 +29,8 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
 | Codex Process Jobs | `0.5.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
-| WinRecoveryProjectLinter | `0.1.0` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
-| WinRecoveryProject DevSuite | `0.1.0` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
+| WinRecoveryProjectLinter | `0.1.1` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
+| WinRecoveryProject DevSuite | `0.1.1` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
 | Vercel | `0.21.4` | `codex plugin add vercel@winrecoveryproject-digital` |

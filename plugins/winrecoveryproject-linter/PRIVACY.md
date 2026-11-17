@@ -1,6 +1,6 @@
 # Privacy
 
-WinRecoveryProjectLinter 0.1.0 scans local files locally. It has no telemetry,
+WinRecoveryProjectLinter 0.1.1 scans local files locally. It has no telemetry,
 cloud analysis, account creation or credential requirement. It does not upload
 source or reports. Reports written through shell redirection are controlled by
 the user. The Codex host has its own privacy policies.

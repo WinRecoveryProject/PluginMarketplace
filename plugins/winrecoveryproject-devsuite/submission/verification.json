@@ -1,13 +1,13 @@
 {
-  "version": "0.1.0",
-  "observedDate": "2026-11-16",
+  "version": "0.1.1",
+  "observedDate": "2026-11-17",
   "localTests": {
     "command": "python -m unittest discover -s tests -v",
     "status": "PASS",
-    "tests": 21,
+    "tests": 23,
     "failures": 0,
     "skipped": 0,
-    "elapsedSeconds": 22.074
+    "elapsedSeconds": 55.249
   },
   "doctor": {
     "command": "python scripts/devsuite.py doctor",
@@ -15,7 +15,7 @@
     "scope": "local package contracts only"
   },
   "studio": {
-    "source": "plugin-skill-studio/0.3.3",
+    "source": "plugin-skill-studio/0.3.7",
     "validate": {
       "valid": true,
       "errors": 0,
@@ -76,6 +76,8 @@
   },
   "reviewAdvisoriesResolved": [
     "Debug trigger/scope boundary made explicit",
-    "Handoff trigger changed to explicit Use when"
+    "Handoff trigger changed to explicit Use when",
+    "Malformed provider containers return structured ERROR without traceback",
+    "Danish lintkontrol and gennemg\u00e5 requests route to their focused workflows"
   ]
 }

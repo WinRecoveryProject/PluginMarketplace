@@ -26,9 +26,9 @@ def route(request: str) -> dict:
         skill = "devsuite-security-fix" if re.search(r"\b(fix|patch|remediat\w*|hardening|writeup|disclos\w*|track|policy)\b", text) else "devsuite-security-assess"
     elif re.search(r"\b(cloud|desktop|docker|vpn|network|environment|package install|preview)\b", text):
         skill = "devsuite-environment"
-    elif re.search(r"\b(lint|linter|megalinter|quality.gate|typecheck|format.check)\b", text):
+    elif re.search(r"\b(lint|linter|lintkontrol|kvalitetskontrol|megalinter|quality.gate|typecheck|format.check)\b", text):
         skill = "devsuite-quality"
-    elif re.search(r"\b(review|audit|release.readiness|pre.release|patch.risk|verify.delivery)\b", text):
+    elif re.search(r"\b(review|audit|gennemgå|kodegennemgang|release.readiness|pre.release|patch.risk|verify.delivery)\b", text):
         skill = "devsuite-review"
     elif re.search(r"\b(debug|diagnos\w*|reproduce|bug|defect)\b", text):
         skill = "devsuite-debug"
@@ -53,7 +53,7 @@ def doctor(root: Path = ROOT) -> dict:
     try:
         manifest = read_json(root / ".codex-plugin/plugin.json")
         require(manifest["name"] == "winrecoveryproject-devsuite", "Wrong package name")
-        require(manifest["version"] == "0.1.0", "Wrong package version")
+        require(manifest["version"] == "0.1.1", "Wrong package version")
         require(manifest["interface"]["developerName"] == "Zilvereyes", "Wrong developer")
         require(len(manifest["interface"]["shortDescription"]) <= 30, "Subtitle exceeds 30 characters")
         require(len(manifest["interface"].get("defaultPrompt", [])) <= 3, "Too many prompts")

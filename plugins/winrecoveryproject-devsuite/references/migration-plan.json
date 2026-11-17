@@ -1,6 +1,6 @@
 {
   "status": "PROPOSAL_ONLY_NO_MUTATION",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "policy": "Never uninstall providers or clear Apps/MCP/auth to remove duplicate skills. Snapshot exact config, inventory all installed variants, validate actual native schema, preserve unrelated bytes and set only selected overlapping skill flags.",
   "overlappingSkillRows": [
     {

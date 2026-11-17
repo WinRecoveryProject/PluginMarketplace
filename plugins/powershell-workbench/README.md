@@ -19,3 +19,5 @@ MIT. See `LICENSE`.
 Version 0.9.0-beta.3 makes skill activation conditions explicit and adds
 research-only boundaries to language documentation skills. Runtime tooling and
 provider connections are unchanged.
+
+Version 0.9.0-beta.4 fixes explicit automatic-variable scan paths under Windows PowerShell 5.1 -File with redirected stdin. Direct invocation and pipeline inputs are tested in both supported PowerShell hosts.

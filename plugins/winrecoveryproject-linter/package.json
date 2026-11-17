@@ -1,6 +1,6 @@
 {
   "name": "@winrecoveryproject/linter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Read-only local source linting with explicit coverage and zero paid services",
   "type": "module",
   "license": "MIT",

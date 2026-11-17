@@ -58,13 +58,21 @@ def _text(value, label):
 
 
 def provider_check(inventory: dict, capability: str, catalog: dict) -> dict:
+    if not isinstance(inventory, dict):
+        raise ContractError("Provider inventory must be an object")
+    access_map = inventory.get("access", {})
+    capability_tools = inventory.get("capabilityTools", {})
+    if not isinstance(access_map, dict):
+        raise ContractError("Inventory access must be an object")
+    if not isinstance(capability_tools, dict):
+        raise ContractError("Inventory capabilityTools must be an object")
     if capability not in catalog:
         raise ContractError(f"Unknown provider capability: {capability}")
     names = inventory.get("tools")
     if not isinstance(names, list) or any(not isinstance(n, str) for n in names):
         raise ContractError("Inventory tools must be an array of observed exact names")
     requirement = catalog[capability]
-    access = inventory.get("access", {}).get(capability, {})
+    access = access_map.get(capability, {})
     if not isinstance(access, dict):
         raise ContractError("Access observation must be an object")
     access_status = access.get("status", "UNKNOWN")
@@ -82,7 +90,7 @@ def provider_check(inventory: dict, capability: str, catalog: dict) -> dict:
                 "authorizationVerified": False, "canExecute": False,
                 "observedAccessStatus": access_status, "provider": requirement["provider"]}
     if requirement.get("discoveryRequired"):
-        selected = inventory.get("capabilityTools", {}).get(capability, [])
+        selected = capability_tools.get(capability, [])
         if not isinstance(selected, list) or any(not isinstance(n, str) for n in selected):
             raise ContractError("Discovered capability tool mapping must be a text array")
         missing = [] if selected and all(n in names for n in selected) else [["Discover actual provider tool schema for " + capability]]
