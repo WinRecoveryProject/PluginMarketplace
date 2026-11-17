@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "status": "VALIDATED_PENDING_FINAL_INSTALLATION_VERIFICATION",
+  "evaluator": "Plugin-Skill-Studio 0.3.8",
+  "packages": [
+    {
+      "name": "plugin-skill-studio",
+      "version": "0.3.8",
+      "files": 326
+    },
+    {
+      "name": "codex-process-jobs",
+      "version": "0.5.3-wrp.1",
+      "files": 42
+    }
+  ],
+  "studioSourceCommit": "59756cb5d8137f4e30efa9ad4fa7ea4a8a4b6cde",
+  "fixes": [
+    {
+      "id": "STUDIO-PORTABLE-IMPORT-RECEIPT",
+      "version": "0.3.8",
+      "status": "FIXED",
+      "cause": "The importer wrote absolute source/target paths into distributable candidate receipts.",
+      "behavior": "Stored receipts now use portable references; the local caller result retains its private paths, hashes and evidence."
+    },
+    {
+      "id": "CPJ-WINDOWS-LOG-ROTATION",
+      "version": "0.5.3-wrp.1",
+      "status": "FIXED_HELPER",
+      "cause": "Windows O_APPEND handles reject ftruncate during bounded rotation.",
+      "behavior": "Windows uses a writable handle with explicit positions and fresh EOF; POSIX keeps O_APPEND. Exact newest bytes, reopen, generation/cursor and sequential multi-handle writes were verified."
+    }
+  ],
+  "portableReceiptPackages": [
+    "codex-coordinator",
+    "codex-dev-workflows",
+    "codex-engineering-guardrails",
+    "codex-process-jobs",
+    "zilvereyes-context-handoff"
+  ],
+  "verification": {
+    "studioSourceSuite": {
+      "passed": 118,
+      "failed": 0,
+      "skipped": 0
+    },
+    "studioIndependentImport": {
+      "passed": 9,
+      "failed": 0
+    },
+    "cpjRegression": {
+      "passed": 6,
+      "failed": 0
+    },
+    "cpjIndependent": {
+      "passed": 23,
+      "failed": 0
+    },
+    "studioArchive": {
+      "sha256": "0f8dd98a7474f8f8b31e05323ca5cbc49081a2c10193940d48e2ec600243ae6a",
+      "deterministic": true,
+      "freshExtractionValid": true
+    },
+    "spreadsheet": {
+      "status": "PASS",
+      "runtime": "bundled @oai/artifact-tool",
+      "tested": "Create formulas, recalculate after input edit, export XLSX and reimport, preserve numeric/formula/UTF-8, render and visually inspect.",
+      "initialSum": 5,
+      "updatedSum": 7,
+      "nativeExcelSessionTested": false
+    },
+    "pdf": {
+      "status": "PASS",
+      "runtime": "bundled reportlab/pypdf/Poppler",
+      "tested": "Create interactive form, update canonical field value, reopen, compare widget effective value and appearance stream, render with Poppler and visually inspect.",
+      "unicode": "æøå",
+      "interactivePreserved": true
+    }
+  },
+  "remaining": [
+    {
+      "item": "Agentmemory",
+      "status": "EXTERNAL_UNAVAILABLE",
+      "cause": "Existing Tailscale client reports NoState, cannot reach its coordination server, and cannot resolve the configured memory hostname.",
+      "action": "No login, host URL, DNS configuration or credential changed."
+    },
+    {
+      "item": "Computer Use",
+      "status": "PREVIOUS_HOST_FAILURE_NOT_RETESTED_THIS_FOLLOWUP"
+    },
+    {
+      "item": "CPJ POSIX controller on Windows",
+      "status": "UNSUPPORTED_PLATFORM",
+      "detail": "Controller not launched; existing Windows host-session workflow preserved."
+    },
+    {
+      "item": "CPJ Linux runtime / concurrent multi-process shared log writer",
+      "status": "NOT_VERIFIED",
+      "detail": "POSIX source path retained; no Linux execution or concurrent multi-process guarantee."
+    }
+  ],
+  "preservation": {
+    "budgetKr": 0,
+    "connectionsChanged": false,
+    "credentialsCreatedOrCopied": false,
+    "jobControllerLaunched": false,
+    "existingJobStateAccessed": false,
+    "sharingChanged": false
+  },
+  "scope": "Bounded practical tests and remediation. Prior 68-identity inventory and its untested/conditional capabilities remain separate; no blanket all-functions pass."
+}

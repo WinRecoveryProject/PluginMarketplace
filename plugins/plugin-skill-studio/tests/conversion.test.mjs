@@ -55,6 +55,25 @@ test('changed source, modified plans and destinations within source are rejected
   assert.equal(await fs.stat(path.join(root, 'out')).catch(() => null), null);
 });
 
+test('imported package receipt is portable while caller keeps private local paths', async t => {
+  const root = await workspace(t);
+  const source = path.join(root, 'private-original-location');
+  await skill(source);
+  const plan = await previewImport(source);
+  const result = await applyImport(plan, path.join(root, 'private-destination'));
+  const local = result.receipts[0];
+  assert.equal(path.isAbsolute(local.source), true);
+  assert.equal(path.isAbsolute(local.target), true);
+  const receipt = JSON.parse(await fs.readFile(path.join(local.target, 'IMPORT-RECEIPT.json'), 'utf8'));
+  assert.equal(path.isAbsolute(receipt.source), false);
+  assert.equal(path.isAbsolute(receipt.target), false);
+  assert.equal(JSON.stringify(receipt).includes('private-original-location'), false);
+  assert.equal(JSON.stringify(receipt).includes('private-destination'), false);
+  assert.equal(receipt.sourceHash, local.sourceHash);
+  assert.deepEqual(receipt.files, local.files);
+  assert.equal(receipt.executedTarget, false);
+});
+
 test('sensitive files and traversal manifest paths become invalid candidates', async t => {
   const root = await workspace(t);
   const first = await skill(root, 'secret');

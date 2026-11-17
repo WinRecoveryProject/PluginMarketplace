@@ -191,7 +191,11 @@ export async function applyImport(plan, destination, options = {}) {
       const receipt = { schemaVersion: 1, installer: 'plugin-skill-studio', source: candidate.source,
         sourceHash: candidate.sourceHash, target, files: candidate.files, createdAt: new Date().toISOString(),
         state: 'local-candidate', installedInHost: false, executedTarget: false };
-      await fs.writeFile(path.join(stage, 'IMPORT-RECEIPT.json'), jsonText(receipt), { flag: 'wx' });
+      // The package can be redistributed; retain host paths only in the local
+      // caller result, not in the receipt stored inside the candidate.
+      const portableReceipt = { ...receipt, source: `selected-source:${candidate.name}`,
+        target: candidate.name, pathDisclosure: 'portable' };
+      await fs.writeFile(path.join(stage, 'IMPORT-RECEIPT.json'), jsonText(portableReceipt), { flag: 'wx' });
       if (await exists(target)) throw new Error('Destination appeared during import');
       await publishStage(stage, target);
       receipts.push(receipt);

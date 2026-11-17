@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "installer": "plugin-skill-studio",
-  "source": "C:\\Users\\zilve\\.codex\\plugins\\cache\\created-by-me-remote\\codex-engineering-guardrails\\1.1.1",
+  "source": "selected-source:codex-engineering-guardrails",
   "sourceHash": "e0a04382e5f19afe44a7830014ff5941723040f0ce00c50fb6933e9fd08d9b1d",
-  "target": "C:\\Users\\zilve\\CloudStorage\\OneDrive\\Dokumenter\\ChatGPT\\WEB - OneDrive Module\\work\\PluginMarketplace\\plugins\\codex-engineering-guardrails",
+  "target": "marketplace:plugins/codex-engineering-guardrails",
   "files": [
     {
       "path": ".codex-plugin/assets/composer-icon.png",
@@ -84,5 +84,7 @@
   "createdAt": "2026-11-16T01:16:30.266Z",
   "state": "local-candidate",
   "installedInHost": false,
-  "executedTarget": false
+  "executedTarget": false,
+  "pathDisclosure": "portable",
+  "historicalReceipt": true
 }

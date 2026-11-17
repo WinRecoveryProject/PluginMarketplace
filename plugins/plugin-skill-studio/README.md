@@ -81,3 +81,5 @@ For a deliberately larger read-only audit, `plugin-eval` and `skill-eval` accept
 32 MiB and 5,000 files; explicit budgets are capped at 32 MiB, 256 MiB and 25,000
 files and are recorded in the report. Increasing a budget does not waive a rule,
 execute the target, follow links or establish that its runtime is safe.
+
+Version 0.3.8 keeps machine-specific source/destination paths in the private import result and stores portable identifiers in distributable import receipts. Source hashes and file evidence remain unchanged.

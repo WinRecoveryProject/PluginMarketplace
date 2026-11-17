@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "installer": "plugin-skill-studio",
-  "source": "C:\\Users\\zilve\\.codex\\plugins\\cache\\created-by-me-remote\\codex-process-jobs\\0.5.2",
+  "source": "installed:created-by-me-remote/codex-process-jobs/0.5.2",
   "sourceHash": "3b7f54ebc4ec89ef76fc05bc0faeef6152ee481d02d3fc8a0b89956697e66513",
-  "target": "C:\\Users\\zilve\\CloudStorage\\OneDrive\\Dokumenter\\ChatGPT\\WEB - OneDrive Module\\work\\PluginMarketplace\\plugins\\codex-process-jobs",
+  "target": "marketplace:plugins/codex-process-jobs",
   "files": [
     {
       "path": ".codex-plugin/plugin.json",
@@ -199,5 +199,7 @@
   "createdAt": "2026-11-16T01:16:32.360Z",
   "state": "local-candidate",
   "installedInHost": false,
-  "executedTarget": false
+  "executedTarget": false,
+  "pathDisclosure": "portable",
+  "historicalReceipt": true
 }

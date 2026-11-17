@@ -1,5 +1,7 @@
 # WinRecoveryProject Digital Plugin Marketplace
 
+Seneste rettelser og praktiske regnearks-/PDF-prøver: [Marketplace-opfølgning](docs/MARKETPLACE-FOLLOWUP-20261117.md).
+
 Praktiske prøver og resterende runtime-begrænsninger: [Studio 0.3.7](docs/PRACTICAL-STUDIO037-20261117.md).
 
 Én samlet Git-markedsplads for de personlige Codex-plugins, der vedligeholdes under WinRecoveryProject/Zilvereyes.
@@ -21,7 +23,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | OneDrive | `1.2.0` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.9.5` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
-| Plugin-Skill-Studio | `0.3.7` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
+| Plugin-Skill-Studio | `0.3.8` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.4` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.3` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.32` | `codex plugin add codex-security@winrecoveryproject-digital` |
@@ -29,7 +31,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Coordinator | `0.4.0` | `codex plugin add codex-coordinator@winrecoveryproject-digital` |
 | Codex Dev Workflows | `0.4.2` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
-| Codex Process Jobs | `0.5.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
+| Codex Process Jobs | `0.5.3-wrp.1` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
 | WinRecoveryProjectLinter | `0.1.1` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
 | WinRecoveryProject DevSuite | `0.1.1` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |

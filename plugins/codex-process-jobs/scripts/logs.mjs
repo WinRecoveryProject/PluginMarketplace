@@ -7,6 +7,16 @@ export const DEFAULT_READ_BYTES = 64 * 1024;
 export const MAX_MODEL_LOG_BYTES = 1024 * 1024;
 const TRUNCATION_MARKER = Buffer.from("[... earlier output truncated ...]\n", "utf8");
 
+// WinRecoveryProject modification: Windows append-only handles cannot truncate.
+// Use explicit positions with a writable handle there; retain POSIX O_APPEND.
+function writeLogChunk(fd, chunk, position) {
+  if (process.platform === "win32") {
+    fs.writeSync(fd, chunk, 0, chunk.length, position);
+  } else {
+    fs.writeSync(fd, chunk);
+  }
+}
+
 export function resolveMaxLogBytes(env = process.env) {
   const parsed = Number.parseInt(env.CODEX_PROCESS_JOBS_MAX_LOG_BYTES ?? "", 10);
   if (!Number.isFinite(parsed)) return DEFAULT_MAX_LOG_BYTES;
@@ -16,7 +26,7 @@ export function resolveMaxLogBytes(env = process.env) {
 function compactAndAppend(fd, currentSize, chunk, limit) {
   const payload = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
   if (currentSize + payload.length <= limit) {
-    fs.writeSync(fd, payload);
+    writeLogChunk(fd, payload, currentSize);
     return currentSize + payload.length;
   }
 
@@ -30,9 +40,9 @@ function compactAndAppend(fd, currentSize, chunk, limit) {
   }
 
   fs.ftruncateSync(fd, 0);
-  fs.writeSync(fd, TRUNCATION_MARKER);
-  if (existingTail.length > 0) fs.writeSync(fd, existingTail);
-  if (payloadTail.length > 0) fs.writeSync(fd, payloadTail);
+  writeLogChunk(fd, TRUNCATION_MARKER, 0);
+  if (existingTail.length > 0) writeLogChunk(fd, existingTail, TRUNCATION_MARKER.length);
+  if (payloadTail.length > 0) writeLogChunk(fd, payloadTail, TRUNCATION_MARKER.length + existingTail.length);
   return TRUNCATION_MARKER.length + existingTail.length + payloadTail.length;
 }
 
@@ -40,7 +50,7 @@ export function createBoundedLogWriter(file, limit = DEFAULT_MAX_LOG_BYTES) {
   fs.mkdirSync(path.dirname(file), { recursive: true, mode: 0o700 });
   const flags = fs.constants.O_RDWR
     | fs.constants.O_CREAT
-    | fs.constants.O_APPEND
+    | (process.platform === "win32" ? 0 : fs.constants.O_APPEND)
     | (fs.constants.O_NOFOLLOW ?? 0);
   const fd = fs.openSync(file, flags, 0o600);
   let stat;
@@ -56,12 +66,15 @@ export function createBoundedLogWriter(file, limit = DEFAULT_MAX_LOG_BYTES) {
   if (size > limit) {
     const tail = readTail(file, Math.max(0, limit - TRUNCATION_MARKER.length));
     fs.ftruncateSync(fd, 0);
-    fs.writeSync(fd, TRUNCATION_MARKER);
-    fs.writeSync(fd, tail);
+    writeLogChunk(fd, TRUNCATION_MARKER, 0);
+    writeLogChunk(fd, tail, TRUNCATION_MARKER.length);
     size = TRUNCATION_MARKER.length + tail.length;
   }
   return {
     append(chunk) {
+      // Another handle may have appended since this writer's previous call.
+      // Refresh EOF on Windows before an explicit-position write.
+      if (process.platform === "win32") size = fs.fstatSync(fd).size;
       size = compactAndAppend(fd, size, chunk, limit);
     },
     close() {
