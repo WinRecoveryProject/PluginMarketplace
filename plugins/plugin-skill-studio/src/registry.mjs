@@ -47,6 +47,8 @@ export async function selfCheck(root=packageRoot) {
   const portable=JSON.parse(await fs.readFile(path.join(root,'plugin.json'),'utf8'));
   const compat=JSON.parse(await fs.readFile(path.join(root,'.codex-plugin/plugin.json'),'utf8'));
   const errors=[];
+  const pkg=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8'));
+  if(pkg.version!==portable.version||registry.package!==portable.name||registry.version!==portable.version)errors.push('Package/integration registry version mismatch');
   if (portable.name!=='plugin-skill-studio'||compat.name!==portable.name||compat.version!==portable.version) errors.push('Manifest identity mismatch');
   if (JSON.stringify(portable.extensions['com.openai'].interface)!==JSON.stringify(compat.interface)) errors.push('Manifest interface mismatch');
   for (const source of registry.sources) {

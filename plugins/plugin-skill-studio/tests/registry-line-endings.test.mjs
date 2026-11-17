@@ -11,12 +11,15 @@ for(const newline of ['\n','\r\n']){
   t.after(()=>fs.rm(root,{recursive:true,force:true}));
   for(const dir of ['references','.codex-plugin','skills/sample'])await fs.mkdir(path.join(root,dir),{recursive:true});
   await fs.writeFile(path.join(root,'plugin.json'),JSON.stringify({name:'plugin-skill-studio',version:'1.0.0',extensions:{'com.openai':{interface:{}}}}));
+  await fs.writeFile(path.join(root,'package.json'),JSON.stringify({name:'plugin-skill-studio',version:'1.0.0'}));
   await fs.writeFile(path.join(root,'.codex-plugin/plugin.json'),JSON.stringify({name:'plugin-skill-studio',version:'1.0.0',interface:{}}));
-  await fs.writeFile(path.join(root,'references/integration-registry.json'),JSON.stringify({sources:[],capabilities:[{id:'sample',entrypoint:'skills/sample/SKILL.md'}]}));
+  await fs.writeFile(path.join(root,'references/integration-registry.json'),JSON.stringify({package:'plugin-skill-studio',version:'1.0.0',sources:[],capabilities:[{id:'sample',entrypoint:'skills/sample/SKILL.md'}]}));
   const file=path.join(root,'skills/sample/SKILL.md');
   const bytes=['---','name: sample','description: Use when checking registry identity.','---','# Sample','Read only.',''].join(newline);
   await fs.writeFile(file,bytes);
   assert.deepEqual((await selfCheck(root)).errors,[]);
   assert.equal(await fs.readFile(file,'utf8'),bytes);
+  const pkg=path.join(root,'package.json');await fs.writeFile(pkg,JSON.stringify({name:'plugin-skill-studio',version:'0.9.0'}));
+  assert.ok((await selfCheck(root)).errors.includes('Package/integration registry version mismatch'));
  });
 }

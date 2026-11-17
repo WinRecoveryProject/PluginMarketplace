@@ -2,7 +2,7 @@
 
 Én samlet Git-markedsplads for de personlige Codex-plugins, der vedligeholdes under WinRecoveryProject/Zilvereyes.
 
-Seneste samlede installationskontrol: [slutverifikation med Plugin-Skill-Studio, 17. november 2026](docs/GOAL-FINAL-VERIFICATION-20261117.json).
+Seneste samlede installationskontrol: [fuld installationsliste og historisk afstemning med Studio 0.3.6/0.3.7](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
 Verificeret samlet mål: [opgaver, færdigkriterier og verifikation](docs/GOAL-WORKLIST-20261117.md).
 
@@ -19,11 +19,11 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | OneDrive | `1.2.0` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.9.5` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
-| Plugin-Skill-Studio | `0.3.6` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
+| Plugin-Skill-Studio | `0.3.7` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.3` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.3` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
-| Codex Security | `0.1.22` | `codex plugin add codex-security@winrecoveryproject-digital` |
-| Linear | `upstream` | `codex plugin add linear@winrecoveryproject-digital` |
+| Codex Security | `0.1.32` | `codex plugin add codex-security@winrecoveryproject-digital` |
+| Linear | `5.0.1` | `codex plugin add linear@winrecoveryproject-digital` |
 | Codex Coordinator | `0.4.0` | `codex plugin add codex-coordinator@winrecoveryproject-digital` |
 | Codex Dev Workflows | `0.4.2` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
@@ -49,7 +49,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Slack | `0.1.7` | `codex plugin add slack@winrecoveryproject-digital` |
 | Plugin Eval | `0.1.2` | `codex plugin add plugin-eval@winrecoveryproject-digital` |
 
-Den samlede oversigt dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se hele samlingen](docs/full-plugin-list-check-20261116.md) og [kontrollen af alle 52 aktuelle installationer](docs/installed-plugins-and-suppliers-20261116.md). Flere offentlige Git-pakker er ældre end de installerede katalogversioner. Denne historiske leverandøroversigt er bevaret. Se [den aktuelle gennemgang og udgivelse](docs/product-release-20261116.md) for nyere validerede pakker og de konkrete installationskontroller.
+Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Den aktuelle liste er afstemt særskilt: 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den aktuelle kontrol og alle historiske forklaringer](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
 ## Struktur
 

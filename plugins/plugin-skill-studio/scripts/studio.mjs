@@ -65,6 +65,13 @@ export async function main(args=process.argv.slice(2)) {
     case 'local-inventory': {
       const service=await import('../src/services/index.mjs'); result=await service.inventory(required(target,'root')); break;
     }
+    case 'inventory-reconcile': {
+      const {readBounded}=await import('../src/services/files.mjs');
+      const {reconcileInstalledInventories}=await import('../src/services/installed-inventory.mjs');
+      result=reconcileInstalledInventories(JSON.parse(await readBounded(path.resolve(required(target,'inventory input JSON')),8*1024*1024)));
+      if(!result.complete)process.exitCode=2;
+      break;
+    }
     case 'import-preview': {
       const engine=await import('../src/conversion/index.mjs'); result=await engine.previewImport(required(target,'source root')); break;
     }
@@ -83,7 +90,7 @@ export async function main(args=process.argv.slice(2)) {
     case 'release-advance': {
       const engine=await import('../src/conversion/index.mjs'); result=engine.advanceRelease(await json(required(target,'checkpoint')),await json(required(more[0],'event'))); break;
     }
-    default: throw new Error('Commands: capabilities, route, self-check, skill-eval, plugin-eval, benchmark-init, compare-reports, risk-scan, evidence-matrix, catalog-snapshot, catalog-search, catalog-compare, local-inventory, import-preview, import-apply, gpt-import, release-checkpoint, release-advance. Legacy commands remain in plugin-studio.mjs and skill-studio.mjs.');
+    default: throw new Error('Commands: capabilities, route, self-check, skill-eval, plugin-eval, benchmark-init, compare-reports, risk-scan, evidence-matrix, catalog-snapshot, catalog-search, catalog-compare, local-inventory, inventory-reconcile, import-preview, import-apply, gpt-import, release-checkpoint, release-advance. Legacy commands remain in plugin-studio.mjs and skill-studio.mjs.');
   }
   const output=rendered??JSON.stringify(result,null,2);
   // --out is a directory for mutating workflows and benchmarks; only reports use a file path.
