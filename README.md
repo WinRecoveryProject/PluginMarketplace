@@ -1,5 +1,7 @@
 # WinRecoveryProject Digital Plugin Marketplace
 
+Din seneste plugin-/skillliste: [52 plugin-identiteter og 3 lokale skills afstemt](docs/USER-PLUGIN-CHECKLIST-20261117.md).
+
 Seneste rettelser og praktiske regnearks-/PDF-prøver: [Marketplace-opfølgning](docs/MARKETPLACE-FOLLOWUP-20261117.md).
 
 Praktiske prøver og resterende runtime-begrænsninger: [Studio 0.3.7](docs/PRACTICAL-STUDIO037-20261117.md).

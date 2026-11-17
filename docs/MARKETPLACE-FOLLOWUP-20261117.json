@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-11-17",
-  "status": "VALIDATED_PENDING_FINAL_INSTALLATION_VERIFICATION",
+  "status": "PUBLISHED_AND_INSTALLED_VERIFIED",
   "evaluator": "Plugin-Skill-Studio 0.3.8",
   "packages": [
     {
@@ -108,5 +108,77 @@
     "existingJobStateAccessed": false,
     "sharingChanged": false
   },
-  "scope": "Bounded practical tests and remediation. Prior 68-identity inventory and its untested/conditional capabilities remain separate; no blanket all-functions pass."
+  "scope": "Bounded practical tests and remediation. Prior 68-identity inventory and its untested/conditional capabilities remain separate; no blanket all-functions pass.",
+  "deliveryVerification": {
+    "status": "PASS",
+    "cliInstalledRecords": 61,
+    "personalRemoteRecords": 7,
+    "identityUnion": 68,
+    "appsPreserved": 28,
+    "skillPathsPerCwd": 561,
+    "disabledSkillsPreserved": 37,
+    "skillLoadErrors": 0,
+    "sourceSnapshotComparisons": 3329,
+    "personalPayloads": [
+      {
+        "name": "plugin-skill-studio",
+        "version": "0.3.8",
+        "exactFiles": 311,
+        "hostNormalizedManifest": 1
+      },
+      {
+        "name": "codex-process-jobs",
+        "version": "0.5.3-wrp.1",
+        "exactFiles": 42,
+        "hostNormalizedManifest": 0
+      }
+    ],
+    "protectedConfigurationDigestsPreserved": true,
+    "connectionsChanged": false,
+    "budgetKr": 0
+  },
+  "userListReconciliation": {
+    "providedUniquePluginIds": 52,
+    "providedPluginsFound": 52,
+    "providedStandaloneSkills": 3,
+    "standaloneSkillsFound": 3,
+    "installedIdentityUnion": 68,
+    "report": "USER-PLUGIN-CHECKLIST-20261117.json"
+  },
+  "localSkillPortability": {
+    "status": "FIXED",
+    "changedFiles": 3,
+    "regressionCases": 8,
+    "independentCases": 21,
+    "actualIndependentCliCommands": 6,
+    "report": "LOCAL-SKILL-PORTABILITY-20261117.json",
+    "assetsChanged": false,
+    "newPluginInstalled": false
+  },
+  "installationCorrection": {
+    "issue": "A metadata refresh initially installed four previously absent Marketplace mirrors.",
+    "restored": true,
+    "removedOnlyNewMirrorInstalls": [
+      "codex-coordinator@winrecoveryproject-digital",
+      "codex-dev-workflows@winrecoveryproject-digital",
+      "codex-process-jobs@winrecoveryproject-digital",
+      "zilvereyes-context-handoff@winrecoveryproject-digital"
+    ],
+    "catalogEntriesRetained": true,
+    "originalPersonalPackagesRetained": true,
+    "originalCliMembershipAndEnabledFlagsRestored": true,
+    "configurationBytesRestored": true,
+    "prevention": "Use the read-only scripts/plan-installed-updates.mjs preview and update only exact identities already installed and enabled. Catalog entries alone never authorize activation."
+  },
+  "updatePlanner": {
+    "mode": "read-only preview",
+    "mutationsPerformed": false,
+    "regressionTestsPassed": 7,
+    "documentation": "INSTALLED-UPDATE-PREVIEW.md",
+    "sourceSha256": "8a82c579500825b8c395f42807417d96897e2996ca4b3a1cc529329b4898f68b",
+    "independentProbesPassed": 4,
+    "malformedArrayCliExitCode": 1,
+    "remainingFindingsInScope": 0,
+    "liveInstallerTested": false
+  }
 }

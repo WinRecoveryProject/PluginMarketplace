@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-17",
+  "sourceKind": "local-user-owned-skills",
+  "files": [
+    {
+      "path": "zilvereyes-2d-to-3d/SKILL.md",
+      "beforeSha256": "1566a1882a8911b2e7097dc717feb9ec1ee04cdca6bfc41c49daa39594e0b8f4",
+      "afterSha256": "a3eb24204971d437ae5513fee04637abdfc383795cd94e2ce2836aeb472a45fa"
+    },
+    {
+      "path": "zilvereyes-2d-to-3d/scripts/inventory_zilvereyes_assets.py",
+      "beforeSha256": "a13c66b7e2db692a6379853c368175633edac05548e42a24165539b4623b1561",
+      "afterSha256": "b9c83fd4cabfc1b79d805e4a1ff85c6445f55c4f747323397a6072e209a2e70e"
+    },
+    {
+      "path": "zilvereyes-2d-game-assets/SKILL.md",
+      "beforeSha256": "35ab75c64725b4837bf05ea13d5909adc9c03c2838d98f58ce3fe6dc0c21cd4e",
+      "afterSha256": "894fa49e5e01bdca14f1fb5b20d60e58bf62ce68a89241ed62468fd7353bde81"
+    }
+  ],
+  "scope": "Portable project/skill paths and truthful inventory status only. Local files repaired; no new Marketplace plugin or image/3D generation claim.",
+  "tests": {
+    "status": "PASS",
+    "cases": [
+      {
+        "name": "named-current-directory-selected",
+        "status": "PASS"
+      },
+      {
+        "name": "existing-onedrive-project-selected",
+        "status": "PASS"
+      },
+      {
+        "name": "duplicate-drive-reference-counted-once",
+        "status": "PASS"
+      },
+      {
+        "name": "ambiguous-project-rejected",
+        "status": "PASS"
+      },
+      {
+        "name": "absent-project-not-invented",
+        "status": "PASS"
+      },
+      {
+        "name": "real-cli-selects-fixture-and-preserves-files",
+        "status": "PASS"
+      },
+      {
+        "name": "non-git-folder-never-reported-clean",
+        "status": "PASS"
+      },
+      {
+        "name": "file-is-not-project-directory",
+        "status": "PASS"
+      }
+    ],
+    "count": 8,
+    "readOnlyFixtureInventory": true,
+    "realGraphicsProjectAccessed": false,
+    "blenderOrProviderStarted": false,
+    "budgetKr": 0
+  },
+  "assetsChanged": false,
+  "paidProvidersUsed": false,
+  "budgetKr": 0,
+  "independentVerification": {
+    "cases": 21,
+    "passed": 21,
+    "failed": [],
+    "actual_cli_commands": 6,
+    "real_git_success_repository": false,
+    "git_success_branches": "stdlib mocks only; actual CLI uses isolated non-repositories",
+    "real_graphics_projects": false,
+    "Blender_or_generation_or_provider_calls": false,
+    "source_config_cache_mutations": false,
+    "budgetKr": 0
+  }
+}

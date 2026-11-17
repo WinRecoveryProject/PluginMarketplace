@@ -1,0 +1,437 @@
+{
+  "date": "2026-11-17",
+  "providedUniquePluginIds": 52,
+  "providedPluginsFound": 52,
+  "providedStandaloneSkills": 3,
+  "standaloneSkillsFound": 3,
+  "installedIdentityUnion": 68,
+  "identityMeaning": "Exact namespace-qualified installation records; aliases are not new products.",
+  "plugins": [
+    {
+      "id": "advisor@openai-curated-remote",
+      "installed": true,
+      "version": "1.4.10",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "agentmemory@openai-curated-remote",
+      "installed": true,
+      "version": "0.9.30",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "app-6aa47394ea708191bcef52a7c4bda7a2@openai-curated-remote",
+      "installed": true,
+      "version": "0.7.4",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "app-69b31dc2110c8191b8b47dc98fe5a052@openai-curated-remote",
+      "installed": true,
+      "version": "6.1.0",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "app-695ff43f74488191a418ea8ac4f0f437@openai-curated-remote",
+      "installed": true,
+      "version": "1.0.0",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "app-69cd66d6b11081919d55522e4f136fec@openai-curated-remote",
+      "installed": true,
+      "version": "1.0.0",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "app-6a057d268ebc81919918d37eec718425@openai-curated-remote",
+      "installed": true,
+      "version": "2.0.3",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "browser@openai-bundled",
+      "installed": true,
+      "version": "26.1111.21308",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "coderabbit@openai-curated-remote",
+      "installed": true,
+      "version": "1.1.4",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "computer-use@openai-bundled",
+      "installed": true,
+      "version": "26.1111.21308",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "codex-security@winrecoveryproject-digital",
+      "installed": true,
+      "version": "0.1.32",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "component-forge@winrecoveryproject-digital",
+      "installed": true,
+      "version": "0.1.2",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "codex-coordinator@created-by-me-remote",
+      "installed": true,
+      "version": "0.4.0",
+      "enabled": true,
+      "source": "fresh personal catalog"
+    },
+    {
+      "id": "cloud-environment@openai-curated-remote",
+      "installed": true,
+      "version": "0.2.1",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "codex-process-jobs@created-by-me-remote",
+      "installed": true,
+      "version": "0.5.3-wrp.1",
+      "enabled": true,
+      "source": "fresh personal catalog"
+    },
+    {
+      "id": "dropbox@winrecoveryproject-digital",
+      "installed": true,
+      "version": "5.0.1",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "documents@openai-primary-runtime",
+      "installed": true,
+      "version": "26.1112.11011",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "defense-factory@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.11",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "dev-6ae8b541a3d08191ae893ea0925a2fe5@created-by-me-remote",
+      "installed": true,
+      "version": "1.2.0",
+      "enabled": true,
+      "source": "fresh personal catalog"
+    },
+    {
+      "id": "gmail@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.10",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "github@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.13-77c10e110b37",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "github@winrecoveryproject-digital",
+      "installed": true,
+      "version": "0.1.12",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "google-drive@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.23",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "google-drive@winrecoveryproject-digital",
+      "installed": true,
+      "version": "0.1.15",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "google-calendar@openai-curated-remote",
+      "installed": true,
+      "version": "1.2.7",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "google-contacts@openai-curated-remote",
+      "installed": true,
+      "version": "1.0.0",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "game-development-studio@openai-curated-remote",
+      "installed": true,
+      "version": "1.0.2",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "plugin-eval@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.2",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "zilvereyes-context-handoff@created-by-me-remote",
+      "installed": true,
+      "version": "0.3.4+zilvereyes.1",
+      "enabled": true,
+      "source": "fresh personal catalog"
+    },
+    {
+      "id": "winrecoveryproject-devsuite@winrecoveryproject-digital",
+      "installed": true,
+      "version": "0.1.1",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "winrecoveryproject-linter@winrecoveryproject-digital",
+      "installed": true,
+      "version": "0.1.1",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "linear@openai-curated-remote",
+      "installed": true,
+      "version": "5.0.1",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "linear@winrecoveryproject-digital",
+      "installed": true,
+      "version": "5.0.1",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "megalinter@megalinter",
+      "installed": true,
+      "version": "1.0.28",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "openai-developers@openai-curated-remote",
+      "installed": true,
+      "version": "1.3.16",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "pdf@openai-primary-runtime",
+      "installed": true,
+      "version": "26.1112.11011",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "pages@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.26",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "presentations@openai-primary-runtime",
+      "installed": true,
+      "version": "26.1112.11011",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "plugin-creator@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.28",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "plugin-management@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.0",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "plugin-creator-plus@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.1",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "plugin-skill-studio@created-by-me-remote",
+      "installed": true,
+      "version": "0.3.8",
+      "enabled": true,
+      "source": "fresh personal catalog"
+    },
+    {
+      "id": "skillquiver@openai-curated-remote",
+      "installed": true,
+      "version": "2.1.0",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "sites@openai-curated-remote",
+      "installed": true,
+      "version": "1.1.6",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "slack@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.8",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "sharepoint@openai-curated-remote",
+      "installed": true,
+      "version": "0.1.8",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "skill-craft@openai-curated-remote",
+      "installed": true,
+      "version": "1.3.0",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "spreadsheets@openai-primary-runtime",
+      "installed": true,
+      "version": "26.1112.11011",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "template-creator@openai-primary-runtime",
+      "installed": true,
+      "version": "26.1112.11011",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "vercel@openai-curated-remote",
+      "installed": true,
+      "version": "0.54.1",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "vercel@winrecoveryproject-digital",
+      "installed": true,
+      "version": "0.21.4",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    },
+    {
+      "id": "visualize@openai-curated-remote",
+      "installed": true,
+      "version": "1.0.103",
+      "enabled": true,
+      "source": "full CLI installed registry"
+    }
+  ],
+  "skills": [
+    {
+      "name": "find-skills",
+      "location": "~/.agents/skills/find-skills/SKILL.md",
+      "registered": true,
+      "enabled": true,
+      "sha256": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
+    },
+    {
+      "name": "zilvereyes-2d-to-3d",
+      "location": "~/.codex/skills/zilvereyes-2d-to-3d/SKILL.md",
+      "registered": true,
+      "enabled": true,
+      "sha256": "a3eb24204971d437ae5513fee04637abdfc383795cd94e2ce2836aeb472a45fa"
+    },
+    {
+      "name": "zilvereyes-2d-game-assets",
+      "location": "~/.codex/skills/zilvereyes-2d-game-assets/SKILL.md",
+      "registered": true,
+      "enabled": true,
+      "sha256": "894fa49e5e01bdca14f1fb5b20d60e58bf62ce68a89241ed62468fd7353bde81"
+    }
+  ],
+  "aliases": [
+    {
+      "labels": [
+        "Microsoft Word",
+        "Documents"
+      ],
+      "id": "documents@openai-primary-runtime"
+    },
+    {
+      "labels": [
+        "Microsoft Excel",
+        "Spreadsheets"
+      ],
+      "id": "spreadsheets@openai-primary-runtime"
+    }
+  ],
+  "repeatedMentions": [
+    "Codex Process Jobs",
+    "Plugin Eval"
+  ],
+  "additionalInstalledIdentities": [
+    "app-69a5a77581c881918f398b27591d685d@openai-curated-remote",
+    "chrome@openai-bundled",
+    "cloudstorage-portal@winrecoveryproject-digital",
+    "coderabbit@winrecoveryproject-digital",
+    "codex-dev-workflows@created-by-me-remote",
+    "codex-engineering-guardrails@created-by-me-remote",
+    "codex-engineering-guardrails@openai-curated-remote",
+    "codex-engineering-guardrails@winrecoveryproject-digital",
+    "onedrive@winrecoveryproject-digital",
+    "openai-templates@openai-curated-remote",
+    "plugin-skill-studio@winrecoveryproject-digital",
+    "powershell-workbench@winrecoveryproject-digital",
+    "unified-computer-use@openai-bundled",
+    "visualize@openai-bundled",
+    "windows-dism-update-docs@winrecoveryproject-digital",
+    "work-pets@openai-curated-remote"
+  ],
+  "policy": "Keep existing provider connections and package states. Availability in Marketplace is not installation; omission from the user list does not authorize removal. MegaLinter remains reference-only in the Marketplace. Seven previously selected originals remain consolidated in Studio."
+}
