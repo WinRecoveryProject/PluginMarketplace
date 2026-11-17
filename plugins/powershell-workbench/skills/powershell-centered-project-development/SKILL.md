@@ -1,6 +1,6 @@
 ---
 name: powershell-centered-project-development
-description: Develop mixed-language projects where Windows PowerShell 5.1 or PowerShell 7 is the primary automation, orchestration, installation, build, or recovery layer.
+description: "Use when asked to develop mixed-language projects where Windows PowerShell 5.1 or PowerShell 7 is the primary automation, orchestration, installation, build, or recovery layer."
 ---
 
 # PowerShell-Centered Project Development

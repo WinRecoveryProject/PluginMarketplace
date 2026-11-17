@@ -15,3 +15,7 @@ PowerShell Workbench provides reusable PowerShell scaffolding, discovery, refact
 ## License
 
 MIT. See `LICENSE`.
+
+Version 0.9.0-beta.3 makes skill activation conditions explicit and adds
+research-only boundaries to language documentation skills. Runtime tooling and
+provider connections are unchanged.

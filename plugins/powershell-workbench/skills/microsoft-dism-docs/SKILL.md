@@ -1,6 +1,6 @@
 ---
 name: microsoft-dism-docs
-description: Research DISM.exe, DISM PowerShell cmdlets, Windows image servicing, WIM, VHD, FFU, WinPE, and ADK behavior from official Microsoft documentation.
+description: "Use when asked to research DISM.exe, DISM PowerShell cmdlets, Windows image servicing, WIM, VHD, FFU, WinPE, and ADK behavior from official Microsoft documentation."
 ---
 
 # Microsoft DISM Docs

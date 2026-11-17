@@ -1,6 +1,6 @@
 ---
 name: ollama-docs
-description: Research Ollama API, CLI, model, runtime, tool-calling, structured-output, context, and integration behavior from official Ollama documentation.
+description: "Use when asked to research Ollama API, CLI, model, runtime, tool-calling, structured-output, context, and integration behavior from official Ollama documentation."
 ---
 
 # Ollama Docs

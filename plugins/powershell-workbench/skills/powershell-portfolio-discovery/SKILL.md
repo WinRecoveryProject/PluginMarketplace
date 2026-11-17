@@ -1,6 +1,6 @@
 ---
 name: powershell-portfolio-discovery
-description: Inventory several explicitly scoped project roots or a project-profile registry and route PowerShell-centered work without scanning entire drives or importing machine-specific paths into the plugin.
+description: "Use when asked to inventory several explicitly scoped project roots or a project-profile registry and route PowerShell-centered work without scanning entire drives or importing machine-specific paths into the plugin."
 ---
 
 # PowerShell Portfolio Discovery

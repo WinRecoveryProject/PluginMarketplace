@@ -1,6 +1,6 @@
 ---
 name: powershell-refactor
-description: Refactor or optimize PowerShell scripts and modules while preserving behavior, exported commands, safety boundaries, and Windows PowerShell 5.1 plus PowerShell 7 compatibility.
+description: "Use when asked to refactor or optimize PowerShell scripts and modules while preserving behavior, exported commands, safety boundaries, and Windows PowerShell 5.1 plus PowerShell 7 compatibility."
 ---
 
 # PowerShell Refactor

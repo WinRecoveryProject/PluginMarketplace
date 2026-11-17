@@ -70,3 +70,14 @@ The optional modern-web-guidance source informed escaped HTML evidence, semantic
 Run `node --test tests/*.test.mjs` from the editable source tree. Tests cover local modules, CLI integration, real subprocess fixtures, invalid data, path escapes, links/junctions, bounded network behavior and source-preserving import. Fresh release evidence is generated outside the runtime package.
 
 This is a local candidate. No host installation, replacement, commit, push, upload or publication is implied. The new package has no verified public website/privacy/terms URLs, so legacy Studio publication checks correctly report those three missing fields. Included local PRIVACY.md, TERMS.md and SUPPORT.md describe the candidate; publisher verification and public URLs remain separate publication gates.
+
+Version 0.3.4 closes PowerShell download-to-execution detection gaps in both
+review engines, versions the changed risk rule and clarifies evaluation-only
+boundaries. No provider connection or permission change is required.
+
+Self-check accepts both LF and Windows CRLF skill files without rewriting them.
+For a deliberately larger read-only audit, `plugin-eval` and `skill-eval` accept
+`--max-file-bytes`, `--max-total-bytes` and `--max-files`. Defaults remain 2 MiB,
+32 MiB and 5,000 files; explicit budgets are capped at 32 MiB, 256 MiB and 25,000
+files and are recorded in the report. Increasing a budget does not waive a rule,
+execute the target, follow links or establish that its runtime is safe.

@@ -1,6 +1,6 @@
 ---
 name: recovery-toolkit-development
-description: Develop or review the local RecoveryToolkit using its split-function architecture, contract tests, safe local path rules, and non-executable recovery-media and servicing boundaries.
+description: "Use when asked to develop or review the local RecoveryToolkit using its split-function architecture, contract tests, safe local path rules, and non-executable recovery-media and servicing boundaries."
 ---
 
 # RecoveryToolkit Development

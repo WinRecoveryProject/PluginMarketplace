@@ -1,6 +1,6 @@
 ---
 name: game-tooling-development
-description: Develop PowerShell-centered game tooling that combines Lua addons, VS Code extensions, Node, .NET, native tools, CASC/game data, or web documentation.
+description: "Use when asked to develop PowerShell-centered game tooling that combines Lua addons, VS Code extensions, Node, .NET, native tools, CASC/game data, or web documentation."
 ---
 
 # Game Tooling Development

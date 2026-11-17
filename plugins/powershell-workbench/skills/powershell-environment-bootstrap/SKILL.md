@@ -1,6 +1,6 @@
 ---
 name: powershell-environment-bootstrap
-description: Diagnose PowerShell, Codex CLI, Node/npm, Git, GitHub CLI, Docker, winget, and PATH availability on Windows before giving installation or plugin setup commands.
+description: "Use when asked to diagnose PowerShell, Codex CLI, Node/npm, Git, GitHub CLI, Docker, winget, and PATH availability on Windows before giving installation or plugin setup commands."
 ---
 
 # PowerShell Environment Bootstrap

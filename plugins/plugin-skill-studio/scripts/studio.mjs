@@ -29,7 +29,8 @@ export async function main(args=process.argv.slice(2)) {
       const engine=await import('../src/eval/index.mjs');
       const mode=opts.mode??'static';
       if(!['static','benchmark'].includes(mode)) throw new Error('mode must be static or benchmark');
-      const evalOptions={configPath:opts.config,outDir:opts.mode==='benchmark'?opts.out:undefined,timeoutMs:opts.timeout?Number(opts.timeout):undefined,codexPath:opts.codex,metricPack:opts['metric-pack']};
+      const limits={}; for(const [flag,key]of [['max-files','maxFiles'],['max-file-bytes','maxFileBytes'],['max-total-bytes','maxTotalBytes']])if(opts[flag]!==undefined)limits[key]=Number(opts[flag]);
+      const evalOptions={limits,configPath:opts.config,outDir:opts.mode==='benchmark'?opts.out:undefined,timeoutMs:opts.timeout?Number(opts.timeout):undefined,codexPath:opts.codex,metricPack:opts['metric-pack']};
       result=mode==='benchmark'?await engine.runBenchmark(required(target,'target'),evalOptions):await engine.analyze(required(target,'target'),evalOptions);
       if(result.valid===false||['FAIL','BLOCKED'].includes(result.status))process.exitCode=1;
       if(result.status==='INCOMPLETE')process.exitCode=2;

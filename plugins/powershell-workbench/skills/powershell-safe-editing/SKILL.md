@@ -1,6 +1,6 @@
 ---
 name: powershell-safe-editing
-description: Make precise, low-churn edits to compact, generated, or one-line PowerShell and mixed-language files, and diagnose patch payload, encoding, or invocation failures without executing the patch.
+description: "Use when asked to make precise, low-churn edits to compact, generated, or one-line PowerShell and mixed-language files, and diagnose patch payload, encoding, or invocation failures without executing the patch."
 ---
 
 # PowerShell Safe Editing

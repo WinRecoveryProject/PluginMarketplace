@@ -8,11 +8,11 @@ const IGNORED=new Set(['.git','node_modules','__pycache__','.plugin-eval','.stud
 export const scoringVersion='pss-eval-2';
 export function contained(root,file){const rel=path.relative(root,file);return rel===''||(!rel.startsWith('..'+path.sep)&&rel!=='..'&&!path.isAbsolute(rel));}
 export function redact(text){return String(text).replace(/\b(?:sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9]{12,}|github_pat_[A-Za-z0-9_]{12,})\b/g,'[REDACTED]').replace(/\bBearer\s+[A-Za-z0-9._~+/=-]{12,}/gi,'Bearer [REDACTED]');}
-export async function safeText(root,file){
+export async function safeText(root,file,maxFileBytes=MAX_FILE){
   if(!contained(root,file))throw new Error('Path escapes target root');
   const parts=path.relative(root,file).split(path.sep).filter(Boolean); let current=root;
   for(const part of parts){current=path.join(current,part);const stat=await fs.lstat(current);if(stat.isSymbolicLink())throw new Error('Symbolic link or junction rejected');}
-  const before=await fs.lstat(file);if(!before.isFile()||before.size>MAX_FILE)throw new Error('Expected bounded regular text file');
+  const before=await fs.lstat(file);if(!before.isFile()||before.size>maxFileBytes)throw new Error('Expected bounded regular text file');
   const handle=await fs.open(file,'r');
   try{const opened=await handle.stat();if(opened.ino!==before.ino||opened.dev!==before.dev)throw new Error('File changed while opening');
     const text=await handle.readFile('utf8');const after=await fs.lstat(file);if(after.isSymbolicLink()||after.ino!==before.ino||after.dev!==before.dev||after.size!==before.size||after.mtimeMs!==before.mtimeMs)throw new Error('File changed while reading');return text;
@@ -56,7 +56,7 @@ export function frontmatter(text){
  }
  return {...result,body:text.slice(match[0].length),headerLines:match[0].split('\n').length-1};
 }
-async function walk(root,findings){
+async function walk(root,findings,limits){
  const files=[];let bytes=0;
  async function visit(current){
    for(const entry of await fs.readdir(current,{withFileTypes:true})){
@@ -65,9 +65,9 @@ async function walk(root,findings){
      if(stat.isSymbolicLink()){add(findings,'error','path.link','Symbolic links and junctions are not evaluated.',rel);continue;}
      if(stat.isDirectory())await visit(file);
      else if(stat.isFile()){
-       bytes+=stat.size;if(files.length>=MAX_FILES||bytes>MAX_TOTAL)throw new Error('Target exceeds bounded evaluation limits');
+       bytes+=stat.size;if(files.length>=limits.maxFiles||bytes>limits.maxTotalBytes)throw new Error('Target exceeds bounded evaluation limits');
        files.push({file,rel,bytes:stat.size});
-       if(stat.size>MAX_FILE&&TEXT.test(entry.name))add(findings,'error','file.limit','Text member exceeds 2 MiB evaluation limit.',rel);
+       if(stat.size>limits.maxFileBytes&&TEXT.test(entry.name))add(findings,'error','file.limit',`Text member exceeds ${limits.maxFileBytes} byte evaluation limit.`,rel);
      }else add(findings,'error','path.special','Special files are not evaluated.',rel);
    }
  }
@@ -114,9 +114,9 @@ function hasExplicitBoundary(body){
  const prose=boundaryProse(body).normalize('NFC');
  return /(?<![\p{L}\p{N}_])(?:(?:må|skal|brug|benyt|udfør)\s+(?:ikke|kun)|(?:bed|spørg|del|gem|send|opret|udfør|vis)\s+aldrig|(?:kun|udelukkende|ikke)\s+til|afvis\s+(?:anmodninger|forespørgsler|opgaver))(?![\p{L}\p{N}_])/iu.test(prose);
 }
-async function inspectSkill(root,file,findings,records){
+async function inspectSkill(root,file,findings,records,limits){
  const rel=path.relative(root,file).split(path.sep).join('/');let text;
- try{text=await safeText(root,file);}catch(err){add(findings,'error','path.read',err.message,rel);return;}
+ try{text=await safeText(root,file,limits.maxFileBytes);}catch(err){add(findings,'error','path.read',err.message,rel);return;}
  let meta;
  try{meta=frontmatter(text);}catch(err){add(findings,'error','frontmatter.invalid',err.message,rel);return;}
  if(typeof meta.name!=='string'||!meta.name.trim()||!/^[-a-z0-9]+$/.test(meta.name)||meta.name.length>64)add(findings,'error','frontmatter.name','Skill name must be a non-empty portable string of at most 64 characters.',rel,2,String(meta.name));
@@ -136,7 +136,7 @@ async function inspectSkill(root,file,findings,records){
      try{link=decodeURIComponent(link);}catch{add(findings,'error','reference.invalid','Invalid encoded reference.',rel,i+1,m[1]);continue;}
      const target=path.resolve(path.dirname(file),link);
      if(path.isAbsolute(link)||/^[A-Za-z]:|^[a-z]+:/i.test(link)||!contained(root,target)){add(findings,'error','reference.escape','Reference escapes the evaluated package.',rel,i+1,m[1]);continue;}
-     try{await safeText(root,target);}catch(err){add(findings,'error',err.code==='ENOENT'?'reference.missing':'reference.unsafe',`Reference cannot be read safely: ${err.message}`,rel,i+1,m[1]);}
+     try{await safeText(root,target,limits.maxFileBytes);}catch(err){add(findings,'error',err.code==='ENOENT'?'reference.missing':'reference.unsafe',`Reference cannot be read safely: ${err.message}`,rel,i+1,m[1]);}
    }
  }
  records.push({name:meta.name??null,file:rel,description:meta.description??null,lineCount:lines.length,estimatedTokens:Math.ceil(text.length/4)});
@@ -144,7 +144,7 @@ async function inspectSkill(root,file,findings,records){
 function riskLines(file,text,findings){
  const rules=[
  ['risk.instruction-override',/ignore (?:all |any )?(?:previous|system|developer) instructions|hide (?:this|these|it) from (?:the )?user/i],
- ['risk.execution',/(?:curl|wget|Invoke-WebRequest)\b[^\n]*(?:\|\s*(?:sh|bash|iex|Invoke-Expression))/i],
+ ['risk.execution',/(?:curl|wget|Invoke-WebRequest|Invoke-RestMethod|iwr|irm)\b[^\n]*(?:\|\s*(?:sh|bash|iex|Invoke-Expression))/i],
  ['risk.credential',/\b(?:sk-[A-Za-z0-9_-]{16,}|ghp_[A-Za-z0-9]{16,}|github_pat_[A-Za-z0-9_]{16,})\b/],
  ];
  for(const [i,line]of text.replaceAll('\r\n','\n').split('\n').entries())for(const[code,regex]of rules){
@@ -162,7 +162,7 @@ function riskLines(file,text,findings){
    }
  }
 }
-async function declaredCapability(root,manifest,findings){
+async function declaredCapability(root,manifest,findings,limits){
  const ext=manifest.extensions?.['com.openai']??{};
  let found=false;
  for(const [kind,value]of [['apps',manifest.apps??ext.apps],['mcpServers',manifest.mcpServers??manifest.mcp??ext.mcpServers],['hooks',manifest.hooks]]){
@@ -172,14 +172,24 @@ async function declaredCapability(root,manifest,findings){
    const target=path.resolve(root,value);
    if(path.isAbsolute(value)||!contained(root,target)){add(findings,'error','reference.escape','Capability manifest escapes the package.',value);continue;}
    try{
-     const data=JSON.parse(await safeText(root,target));
+     const data=JSON.parse(await safeText(root,target,limits.maxFileBytes));
      const entries=kind==='apps'?data.apps:kind==='mcpServers'?data.mcpServers:data.hooks??data;
      found ||= Boolean(entries&&typeof entries==='object'&&Object.keys(entries).length);
    }catch(error){add(findings,'error','reference.missing','Capability manifest cannot be read: '+error.message,value);}
  }
  return found;
 }
+export function evaluationLimits(value={}){
+ const defaults={maxFiles:MAX_FILES,maxFileBytes:MAX_FILE,maxTotalBytes:MAX_TOTAL};
+ const caps={maxFiles:25000,maxFileBytes:32*1024*1024,maxTotalBytes:256*1024*1024};
+ if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('Invalid evaluation limits');
+ for(const [key,n]of Object.entries(value))if(!Object.hasOwn(defaults,key)||!Number.isSafeInteger(n)||n<1||n>caps[key])throw new Error('Invalid evaluation limit: '+key);
+ const result={...defaults,...value};
+ if(result.maxFileBytes>result.maxTotalBytes)throw new Error('File limit exceeds total limit');
+ return result;
+}
 export async function analyze(target,options={}){
+ const limits=evaluationLimits(options.limits);
  let root=path.resolve(target),specific=null;const supplied=await fs.lstat(root);
  if(supplied.isSymbolicLink())throw new Error('Target symlink or junction rejected');
  if(supplied.isFile()){if(path.basename(root).toLowerCase()!=='skill.md')throw new Error('Supply a plugin root, skill root or SKILL.md');specific=root;root=path.dirname(root);}
@@ -190,21 +200,21 @@ export async function analyze(target,options={}){
  if(path.basename(path.dirname(root))==='skills'){
    const parent=path.dirname(path.dirname(root));
    for(const rel of ['plugin.json','.codex-plugin/plugin.json']){
-     try{const candidate=path.join(parent,rel);await safeText(parent,candidate);contextRoot=parent;break;}
+     try{const candidate=path.join(parent,rel);await safeText(parent,candidate,limits.maxFileBytes);contextRoot=parent;break;}
      catch(error){if(error.code!=='ENOENT')throw error;}
    }
  }
- const findings=[],skills=[],files=await walk(root,findings);let manifest=null;const contentHashes=[];
- for(const candidate of ['plugin.json','.codex-plugin/plugin.json'])try{const file=path.join(root,candidate);const text=await safeText(root,file);const value=JSON.parse(text);if(!manifest)manifest=value;else if(value.name!==manifest.name||value.version!==manifest.version)add(findings,'error','manifest.identity','Portable and compatibility identities differ.',candidate);}catch(err){if(err.code!=='ENOENT')add(findings,'error','manifest.invalid',err.message,candidate);}
+ const findings=[],skills=[],files=await walk(root,findings,limits);let manifest=null;const contentHashes=[];
+ for(const candidate of ['plugin.json','.codex-plugin/plugin.json'])try{const file=path.join(root,candidate);const text=await safeText(root,file,limits.maxFileBytes);const value=JSON.parse(text);if(!manifest)manifest=value;else if(value.name!==manifest.name||value.version!==manifest.version)add(findings,'error','manifest.identity','Portable and compatibility identities differ.',candidate);}catch(err){if(err.code!=='ENOENT')add(findings,'error','manifest.invalid',err.message,candidate);}
  const kind=manifest?'plugin':'skill';
  const entrypoints=kind==='skill'?[specific??path.join(root,'SKILL.md')]:files.filter(f=>/^skills\/[^/]+\/SKILL\.md$/i.test(f.rel)).map(f=>f.file);
  if(kind==='plugin'){
    if(!manifest.name||!manifest.version)add(findings,'error','manifest.required','Manifest name and version are required.','plugin.json');
-   const declared=await declaredCapability(root,manifest,findings);
+   const declared=await declaredCapability(root,manifest,findings,limits);
    if(!entrypoints.length&&!declared)add(findings,'error','manifest.capability','No discoverable skills, App, MCP or hook capability.','plugin.json');
  }
- for(const file of entrypoints)await inspectSkill(contextRoot,file,findings,skills);
- for(const f of files)if(TEXT.test(f.rel)&&f.bytes<=MAX_FILE){try{const text=await safeText(root,f.file);contentHashes.push([f.rel,crypto.createHash('sha256').update(text).digest('hex')]);riskLines(f.rel,text,findings);}catch(err){add(findings,'error','path.read',err.message,f.rel);}}
+ for(const file of entrypoints)await inspectSkill(contextRoot,file,findings,skills,limits);
+ for(const f of files)if(TEXT.test(f.rel)&&f.bytes<=limits.maxFileBytes){try{const text=await safeText(root,f.file,limits.maxFileBytes);contentHashes.push([f.rel,crypto.createHash('sha256').update(text).digest('hex')]);riskLines(f.rel,text,findings);}catch(err){add(findings,'error','path.read',err.message,f.rel);}}
  const metrics=[];
  if(options.metricPack){
    const pack=typeof options.metricPack==='string'?JSON.parse(await fs.readFile(options.metricPack,'utf8')):options.metricPack;
@@ -212,7 +222,7 @@ export async function analyze(target,options={}){
    for(const item of pack.metrics){
      if(typeof item.id!=='string'||typeof item.pattern!=='string'||item.pattern.length>500||typeof item.file!=='string'||typeof item.expected!=='boolean')throw new Error('Invalid metric definition');
      const file=path.resolve(root,item.file);if(path.isAbsolute(item.file)||!contained(root,file))throw new Error('Metric file escapes target root');
-     const regex=new RegExp(item.pattern,item.flags??'');const text=await safeText(root,file);if(text.length>200000)throw new Error('Metric text exceeds bounded regex input');
+     const regex=new RegExp(item.pattern,item.flags??'');const text=await safeText(root,file,limits.maxFileBytes);if(text.length>200000)throw new Error('Metric text exceeds bounded regex input');
      const passed=regex.test(text)===item.expected;metrics.push({id:item.id,status:passed?'PASS':'FAIL',file:item.file});
      if(!passed)add(findings,'error','metric.failed',`Metric failed: ${item.id}`,item.file);
    }
@@ -220,7 +230,7 @@ export async function analyze(target,options={}){
  const errors=findings.filter(f=>f.severity==='error'),warnings=findings.filter(f=>f.severity==='warning');
  const score=Math.max(0,100-errors.length*14-warnings.length*6);
  const staticTokens=skills.reduce((sum,s)=>sum+s.estimatedTokens,0);
- const report={schemaVersion:1,scoringVersion,kind,mode:'static',target:{root,packageRoot:contextRoot,name:manifest?.name??skills[0]?.name??path.basename(root),version:manifest?.version??null},
+ const report={schemaVersion:1,scoringVersion,limits,kind,mode:'static',target:{root,packageRoot:contextRoot,name:manifest?.name??skills[0]?.name??path.basename(root),version:manifest?.version??null},
    valid:errors.length===0,readiness:errors.length?'BLOCKED':'STATIC_READY',score,scoreMeaning:'Static readiness only. This score does not establish task success, safety certification, installation or publication.',
    counts:{errors:errors.length,warnings:warnings.length,info:findings.filter(f=>f.severity==='info').length},findings,skills,metrics,
    budget:{estimatedTokens:staticTokens,method:'characters/4',scope:'SKILL.md entrypoints',descriptionTokens:Math.ceil(skills.reduce((n,s)=>n+(s.description?.length??0),0)/4)},

@@ -1,6 +1,6 @@
 ---
 name: winget-downloader-development
-description: Modernize WingetDownloader with explicit exports, help, tests, structured status, cache integrity, safe paths, and recovery handoff compatibility.
+description: "Use when asked to modernize WingetDownloader with explicit exports, help, tests, structured status, cache integrity, safe paths, and recovery handoff compatibility."
 ---
 
 # WingetDownloader Development

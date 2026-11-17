@@ -1,6 +1,6 @@
 ---
 name: powershell-project-profile-portal
-description: Show and safely update a portable PowerShell Workbench project profile through a human-readable, color-coded terminal portal.
+description: "Use when asked to show and safely update a portable PowerShell Workbench project profile through a human-readable, color-coded terminal portal."
 ---
 
 # PowerShell Project Profile Portal

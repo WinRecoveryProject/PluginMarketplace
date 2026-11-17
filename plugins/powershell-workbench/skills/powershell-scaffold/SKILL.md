@@ -1,6 +1,6 @@
 ---
 name: powershell-scaffold
-description: "Generate, extract and compose registered PowerShell components and mixed-language artifacts through archive-first lookup, dependency contracts, parser IDs and a mandatory pre-execution checkpoint."
+description: "Use when asked to generate, extract and compose registered PowerShell components and mixed-language artifacts through archive-first lookup, dependency contracts, parser IDs and a mandatory pre-execution checkpoint."
 ---
 
 # PowerShell Scaffold

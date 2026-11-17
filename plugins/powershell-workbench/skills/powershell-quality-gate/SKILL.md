@@ -1,6 +1,6 @@
 ---
 name: powershell-quality-gate
-description: Run requested PowerShell parser, import, PSScriptAnalyzer, Pester, MegaLinter, or Codex Security checks and report unavailable gates without silently passing them.
+description: "Use when asked to run requested PowerShell parser, import, PSScriptAnalyzer, Pester, MegaLinter, or Codex Security checks and report unavailable gates without silently passing them."
 ---
 
 # PowerShell Quality Gate

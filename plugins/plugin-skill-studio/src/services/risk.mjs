@@ -2,11 +2,11 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 import { readBounded, walkFiles } from './files.mjs';
 
-const rule = (id, severity, pattern, title, remediation) => ({ id, version: '1.0.0', severity, pattern, title, remediation });
+const rule = (id, severity, pattern, title, remediation, version = '1.0.0') => ({ id, version, severity, pattern, title, remediation });
 const rules = [
   rule('INSTRUCTION_OVERRIDE', 'high', /ignore\s+(?:all\s+)?(?:previous|prior|system|developer)\s+instructions|disregard\s+(?:the\s+)?(?:system|developer)\s+(?:prompt|instructions)/i, 'Instruction hierarchy override', 'Remove authority claims; preserve host and user instructions.'),
   rule('HIDDEN_BEHAVIOR', 'high', /(?:do not|don.t|never)\s+(?:tell|inform|notify)\s+(?:the\s+)?user|hide\s+(?:this|these)\s+(?:action|command|instruction)/i, 'Concealed behavior instruction', 'Make side effects explicit and respect the user\'s scope.'),
-  rule('REMOTE_EXECUTION', 'high', /(?:curl|wget|Invoke-WebRequest|iwr).{0,240}(?:\|\s*(?:sh|bash|iex)|Invoke-Expression)|(?:eval|exec)\s*\(.{0,100}(?:fetch|request)/i, 'Remote content executed', 'Download to a reviewable file, verify provenance and avoid piping remote text to execution.'),
+  rule('REMOTE_EXECUTION', 'high', /(?:curl|wget|Invoke-WebRequest|Invoke-RestMethod|iwr|irm).{0,240}(?:\|\s*(?:sh|bash|iex)|Invoke-Expression)|(?:eval|exec)\s*\(.{0,100}(?:fetch|request)/i, 'Remote content executed', 'Download to a reviewable file, verify provenance and avoid piping remote text to execution.', '1.1.0'),
   rule('DESTRUCTIVE_COMMAND', 'high', /\brm\s+-(?:rf|fr)\b|Remove-Item\b.{0,160}-(?:Recurse|Force)|\bgit\s+(?:reset\s+--hard|clean\s+-[a-z]*f|push\b.{0,100}--force)/i, 'Destructive command present', 'Require an exact target, recovery evidence and authorization before destructive execution.'),
   rule('SECRET_PATTERN', 'critical', /\b(?:sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9]{12,}|github_pat_[A-Za-z0-9_]{12,}|Bearer\s+[A-Za-z0-9._~+/=-]{16,})|-----BEGIN (?:[A-Z ]+ )?PRIVATE KEY-----/i, 'Possible secret material', 'Remove credentials from distributable files and investigate the exact exposure.'),
   rule('SECRET_TRANSMISSION', 'high', /(?:fetch|requests?\.(?:post|get)|Invoke-RestMethod|curl).{0,220}(?:process\.env|os\.environ|\$env:|SECRET|TOKEN|API_KEY)/i, 'Possible secret transmission', 'Inspect data flow and destination; never transmit unrelated credentials.'),

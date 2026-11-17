@@ -1,6 +1,6 @@
 ---
 name: microsoft-update-docs
-description: Research Windows Update, Microsoft Update, UUP, update policy, deployment, troubleshooting, releases, and build history from official Microsoft sources.
+description: "Use when asked to research Windows Update, Microsoft Update, UUP, update policy, deployment, troubleshooting, releases, and build history from official Microsoft sources."
 ---
 
 # Microsoft Update Docs

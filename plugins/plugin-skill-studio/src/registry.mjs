@@ -57,7 +57,7 @@ export async function selfCheck(root=packageRoot) {
     }
   }
   for (const c of registry.capabilities) {
-    const content=await fs.readFile(path.join(root,c.entrypoint),'utf8');
+    const content=(await fs.readFile(path.join(root,c.entrypoint),'utf8')).replaceAll('\r\n','\n');
     if (!content.startsWith('---')||!content.includes('name: '+c.id+'\n')) errors.push('Skill identity mismatch: '+c.id);
     const links=[...content.matchAll(/\]\(([^)]+)\)/g)].map(m=>m[1]);
     for (let link of links) {

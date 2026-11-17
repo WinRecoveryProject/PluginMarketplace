@@ -1,6 +1,6 @@
 ---
 name: powershell-docs
-description: Research PowerShell language, engine, module, compatibility, and tooling questions from official Microsoft documentation with explicit version scope.
+description: "Use when asked to research PowerShell language, engine, module, compatibility, and tooling questions from official Microsoft documentation with explicit version scope."
 ---
 
 # PowerShell Docs
