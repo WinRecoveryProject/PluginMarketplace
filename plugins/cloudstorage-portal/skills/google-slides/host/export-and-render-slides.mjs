@@ -332,7 +332,7 @@ function validatePdfPayload(value) {
   return { base64, bytes };
 }
 
-function findMaterializedPdf(raw, result, workspaceRoot) {
+function findMaterializedPdf(raw, result, workspaceRoot, host = null) {
   const candidates = [
     result,
     raw,
@@ -349,10 +349,13 @@ function findMaterializedPdf(raw, result, workspaceRoot) {
     typeof candidate.workspace_path === "string");
   if (!pathOwner) return { missingWorkspacePath: true };
 
-  const source = normalizeAbsolutePath(pathOwner.workspace_path, "workspace_path");
-  const workspace = normalizeAbsolutePath(workspaceRoot, "workspaceRoot");
-  const insideWorkspace = source === workspace || source.startsWith(`${workspace}/`);
-  const insideConnectorResults = source.startsWith(`${CONNECTOR_TOOL_RESULTS_ROOT}/`);
+  const normalize = host?.normalizeAbsolutePath ?? normalizeAbsolutePath;
+  const source = normalize(pathOwner.workspace_path, "workspace_path");
+  const workspace = normalize(workspaceRoot, "workspaceRoot");
+  const insideWorkspace = host ? host.contains(source, workspace) : source === workspace || source.startsWith(`${workspace}/`);
+  const insideConnectorResults = host
+    ? host.connectorResultsRoot !== null && host.contains(source, host.connectorResultsRoot)
+    : source.startsWith(`${CONNECTOR_TOOL_RESULTS_ROOT}/`);
   assert(
     insideWorkspace || insideConnectorResults,
     "Materialized PDF workspace_path must stay within the task workspace or connector tool results",
@@ -501,18 +504,18 @@ function pageNumber(path) {
   return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
 }
 
-async function loadSlideOrder({ designSystemPath, presentationId, workspaceRoot, tools }) {
+async function loadSlideOrder({ designSystemPath, presentationId, workspaceRoot, tools, host = null }) {
   if (designSystemPath === null || designSystemPath === undefined) return null;
-  const path = assertWithinRoot(designSystemPath, workspaceRoot, "designSystemPath");
-  const result = await tools.exec_command({
+  const path = (host?.assertWithinRoot ?? assertWithinRoot)(designSystemPath, workspaceRoot, "designSystemPath");
+  const result = host ? null : await tools.exec_command({
     cmd: `jq -c '{presentationId:.source.presentation.id,slides:([.slides[]|{slideIndex:.index,slideObjectId:.slideId,titlePreview:(.titlePreview//null),layoutId:(.layoutId//null),isSkipped:(.isSkipped==true)}]|sort_by(.slideIndex))}' ${shellQuote(path)}`,
     workdir: dirname(path),
     login: false,
     yield_time_ms: 30000,
     max_output_tokens: 20000,
   });
-  assert(result.exit_code === 0, `Could not read slide order from the design system: ${result.output}`);
-  const parsed = parseJson(String(result.output ?? "").trim());
+  if (!host) assert(result.exit_code === 0, `Could not read slide order from the design system: ${result.output}`);
+  const parsed = host ? await host.readDesignSystem({designSystemPath:path,workspaceRoot}) : parseJson(String(result.output ?? "").trim());
   assert(isRecord(parsed) && Array.isArray(parsed.slides), "Design system did not contain an ordered slides array");
   assert(parsed.presentationId === presentationId, "Design system presentation ID does not match presentationId");
   const seen = new Set();
@@ -535,23 +538,25 @@ export async function exportAndRenderSlides({
   pdftoppmPath,
   dpi = 120,
   tools,
+  host = null,
 } = {}) {
   assert(typeof presentationId === "string" && presentationId.length > 0, "presentationId is required");
-  assert(tools && typeof tools.exec_command === "function", "Code-mode tools are required");
+  assert(tools && (host || typeof tools.exec_command === "function"), "Code-mode tools are required");
   assert(Number.isInteger(dpi) && dpi >= 36 && dpi <= 300, "dpi must be an integer from 36 to 300");
-  const workspace = normalizeAbsolutePath(workspaceRoot, "workspaceRoot");
-  const output = assertWithinRoot(outputDir, workspace, "outputDir");
-  const renderer = normalizeAbsolutePath(pdftoppmPath, "pdftoppmPath");
+  const normalize = host?.normalizeAbsolutePath ?? normalizeAbsolutePath;
+  const workspace = normalize(workspaceRoot, "workspaceRoot");
+  const output = (host?.assertWithinRoot ?? assertWithinRoot)(outputDir, workspace, "outputDir");
+  const renderer = normalize(pdftoppmPath, "pdftoppmPath");
   const pdfPath = `${output}/presentation.pdf`;
-  const slideOrder = await loadSlideOrder({ designSystemPath, presentationId, workspaceRoot: workspace, tools });
+  const slideOrder = await loadSlideOrder({ designSystemPath, presentationId, workspaceRoot: workspace, tools, host });
 
   const connectorTool = resolveFetch(tools);
   const raw = await fetchPdf({ connectorTool, presentationId, tools });
   const result = unwrapToolResult(raw);
-  const materialized = findMaterializedPdf(raw, result, workspace);
+  const materialized = findMaterializedPdf(raw, result, workspace, host);
   let pdf;
   if (materialized?.source) {
-    pdf = await copyMaterializedPdf({
+    pdf = await (host?.copyMaterializedPdf ?? copyMaterializedPdf)({
       source: materialized.source,
       declaredBytes: materialized.declaredBytes,
       outputPath: pdfPath,
@@ -570,7 +575,7 @@ export async function exportAndRenderSlides({
       }
       throw error;
     }
-    pdf = await writeBase64({
+    pdf = await (host?.writeBase64 ?? writeBase64)({
       base64: payload.base64,
       bytes: payload.bytes,
       outputPath: pdfPath,
@@ -580,6 +585,10 @@ export async function exportAndRenderSlides({
     });
   }
 
+  let images;
+  if (host) {
+    images = await host.render({renderer,pdfPath:pdf.path,output,dpi,workspaceRoot:workspace});
+  } else {
   const rendered = await tools.exec_command({
     cmd: `${shellQuote(renderer)} -png -r ${dpi} ${shellQuote(pdfPath)} ${shellQuote(`${output}/slide`)}`,
     workdir: output,
@@ -596,11 +605,13 @@ export async function exportAndRenderSlides({
     max_output_tokens: 20000,
   });
   assert(listed.exit_code === 0, `Could not list rendered slides: ${listed.output}`);
-  const images = String(listed.output ?? "")
+  images = String(listed.output ?? "")
     .split("\n")
     .map((value) => value.trim())
     .filter(Boolean)
     .sort((left, right) => pageNumber(left) - pageNumber(right));
+  }
+  images.sort((left, right) => pageNumber(left) - pageNumber(right));
   assert(images.length > 0, "pdftoppm produced no slide images");
   if (slideOrder) {
     assert(

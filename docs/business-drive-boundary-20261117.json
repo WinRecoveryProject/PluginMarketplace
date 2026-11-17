@@ -1,0 +1,95 @@
+{
+  "observedAt": "2026-11-17T15:15:50.419Z",
+  "status": "VERIFIED_EXTERNAL_TENANT_LICENSE_LIMIT",
+  "existingAppUsed": true,
+  "newAppsCreated": 0,
+  "entraLogin": "PASS",
+  "entraAccountListedInDesktop": true,
+  "personalAccountRetained": true,
+  "personalPrimaryRetained": true,
+  "graphProfile": "HTTP_200",
+  "graphDrive": "HTTP_400",
+  "tenantMissingSpoLicense": true,
+  "freshDriveFailureCount": 2,
+  "driveFileReads": "NOT_RUN_NO_BUSINESS_DRIVE",
+  "driveFileWrites": "NOT_RUN_NO_BUSINESS_DRIVE",
+  "businessToolAccountSelectorExposed": false,
+  "evidenceScope": "Fresh server-side /me and /me/drive probes during the existing Entra account connection. Callable chat tools remain bound to personal Primary; no fallback or copied credentials.",
+  "deploymentId": "dpl_HeHbeY8VEL8sswChKM12ksYTdWL1",
+  "safeEvents": [
+    {
+      "at": "2026-11-17T15:14:19.259Z",
+      "route": "/mcp",
+      "diagnostic": "onedrive-auth-v1",
+      "phase": "graph",
+      "operation": "drive",
+      "status": 200
+    },
+    {
+      "at": "2026-11-17T15:14:18.727Z",
+      "route": "/mcp",
+      "diagnostic": "onedrive-auth-v1",
+      "phase": "graph",
+      "operation": "profile",
+      "status": 200
+    },
+    {
+      "at": "2026-11-17T15:12:20.379Z",
+      "route": "/mcp",
+      "diagnostic": "onedrive-auth-v1",
+      "phase": "graph",
+      "operation": "drive",
+      "status": 200
+    },
+    {
+      "at": "2026-11-17T15:12:19.602Z",
+      "route": "/mcp",
+      "diagnostic": "onedrive-auth-v1",
+      "phase": "graph",
+      "operation": "profile",
+      "status": 200
+    },
+    {
+      "at": "2026-11-17T15:11:51.730Z",
+      "route": "/mcp",
+      "diagnostic": "onedrive-auth-v1",
+      "phase": "graph",
+      "operation": "drive",
+      "status": 400,
+      "graphCode": "BadRequest",
+      "tenantMissingSpoLicense": true,
+      "userMissingLicense": false
+    },
+    {
+      "at": "2026-11-17T15:11:51.319Z",
+      "route": "/mcp",
+      "diagnostic": "onedrive-auth-v1",
+      "phase": "graph",
+      "operation": "profile",
+      "status": 200
+    },
+    {
+      "at": "2026-11-17T15:11:49.605Z",
+      "route": "/mcp",
+      "diagnostic": "onedrive-auth-v1",
+      "phase": "graph",
+      "operation": "drive",
+      "status": 400,
+      "graphCode": "BadRequest",
+      "tenantMissingSpoLicense": true,
+      "userMissingLicense": false
+    },
+    {
+      "at": "2026-11-17T15:11:49.045Z",
+      "route": "/mcp",
+      "diagnostic": "onedrive-auth-v1",
+      "phase": "graph",
+      "operation": "profile",
+      "status": 200
+    }
+  ],
+  "officialReference": "https://learn.microsoft.com/en-us/graph/api/drive-get?view=graph-rest-1.0",
+  "credentialsPersisted": false,
+  "paidActions": 0,
+  "budgetDkk": 0
+}

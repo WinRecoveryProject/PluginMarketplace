@@ -198,14 +198,15 @@ export async function readTemplateToFile({
   workspaceRoot,
   skillRoot,
   tools,
+  host = null,
 } = {}) {
   assert(Boolean(presentationId) !== Boolean(presentationUrl), "Provide exactly one of presentationId or presentationUrl");
-  assert(tools && typeof tools.exec_command === "function" && typeof tools.write_stdin === "function", "Code-mode tools are required");
+  assert(tools && (host || typeof tools.exec_command === "function" && typeof tools.write_stdin === "function"), "Code-mode tools are required");
   const toolName = resolveGetPresentation(tools);
   const args = presentationId ? { presentation_id: presentationId } : { presentation_url: presentationUrl };
   const raw = await tools[toolName](args); // Omit `fields` to request the full presentation resource.
   assert(raw?.isError !== true && raw?.structuredContent?.result?.isError !== true, "Google Slides presentation read failed");
-  const file = await writeText({
+  const file = host ? await host.saveTemplate({raw,outputPath,workspaceRoot}) : await writeText({
     text: `${JSON.stringify(raw, null, 2)}\n`,
     outputPath,
     workspaceRoot,

@@ -5,5 +5,33 @@
     "currentSha256": "f8a284bd10f292af86bd7073ddec36351b2406e572df94bf31ec083eef50188e",
     "appliedInPortalVersion": "0.9.2",
     "reason": "Reviewed discovery-trigger clarification; original upstream provenance remains unchanged."
+  },
+  {
+    "path": "skills/google-slides/SKILL.md",
+    "originalSha256": "f85bd1d7080becf8c043a3646b6c3a53fbcd6d2a77c62a15112b8d89e01a4b83",
+    "currentSha256": "b6f41518b28d7854c71fb4160b54dc1f69cea8000fc84468bc7720f58e33711a",
+    "appliedInPortalVersion": "0.9.5",
+    "reason": "Reviewed native Node host injection and Windows regression coverage; existing POSIX workflow retained. Original upstream provenance is unchanged. New Node adapter and Windows guide are original Portal additions."
+  },
+  {
+    "path": "skills/google-slides/host/export-and-render-slides.mjs",
+    "originalSha256": "43d2436482267426bd48ec20e11787b7c2f84e72adde26e2fee2d1a121aecec4",
+    "currentSha256": "3bd8d59ad482093895faab53ac8e89c808553714e11906d5500bd04d47cfbe1e",
+    "appliedInPortalVersion": "0.9.5",
+    "reason": "Reviewed native Node host injection and Windows regression coverage; existing POSIX workflow retained. Original upstream provenance is unchanged. New Node adapter and Windows guide are original Portal additions."
+  },
+  {
+    "path": "skills/google-slides/host/export-and-render-slides.test.mjs",
+    "originalSha256": "6bc4c07cde3183bd40495a1d985862b432f3e5c1f110d2b309ea803096034ce8",
+    "currentSha256": "4a992c64ba9915bfe023fbdc3b1c3d4ef9696f4ad9187b1daf7a4ea1bf45cc26",
+    "appliedInPortalVersion": "0.9.5",
+    "reason": "Reviewed native Node host injection and Windows regression coverage; existing POSIX workflow retained. Original upstream provenance is unchanged. New Node adapter and Windows guide are original Portal additions."
+  },
+  {
+    "path": "skills/google-slides/host/read-template-to-file.mjs",
+    "originalSha256": "bdeb61186088aab091f2f8c5330449a6aa5e9e3a1e1abbfc0cf132dfc8b27484",
+    "currentSha256": "e2ae070ca9777fdc0f91505493fb8c80db64a2fefc13ecdae7601015f3e4db37",
+    "appliedInPortalVersion": "0.9.5",
+    "reason": "Reviewed native Node host injection and Windows regression coverage; existing POSIX workflow retained. Original upstream provenance is unchanged. New Node adapter and Windows guide are original Portal additions."
   }
 ]

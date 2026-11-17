@@ -70,8 +70,13 @@
     {
       "id": "G06",
       "task": "Afklar den udestående OneDrive Business-filtest uden at genåbne annulleret Entra-login-fejlsøgning.",
-      "status": "PENDING",
-      "acceptance": "Eksisterende konto-/licensforhold undersøges før ændringer. Tilgængelig Business-rute prøves med korrekte kontogrænser; et dokumenteret eksternt licenskrav håndteres uden køb eller påstået filadgang."
+      "status": "VERIFIED",
+      "acceptance": "Eksisterende konto-/licensforhold undersøges før ændringer. Tilgængelig Business-rute prøves med korrekte kontogrænser; et dokumenteret eksternt licenskrav håndteres uden køb eller påstået filadgang.",
+      "finding": "Fresh existing Entra guest login and Desktop connection succeeded. Two server-side Microsoft Graph profile probes returned HTTP 200; both matching drive probes returned HTTP 400 with tenantMissingSpoLicense=true. External tenant-license boundary handled without purchase. Business file reads/writes remain NOT RUN because no Business drive was available. Personal Primary and both connections retained.",
+      "evidence": [
+        "outputs/goal-completion-20261117/business-drive-boundary.json",
+        "work/PluginMarketplace/docs/business-drive-boundary-20261117.json"
+      ]
     },
     {
       "id": "G07",
@@ -104,9 +109,13 @@
     {
       "id": "G10",
       "task": "Afklar Google Slides-hjælperens POSIX-afhængighed på Windows uden at forringe fil- og symlinkkontroller.",
-      "status": "PENDING",
+      "status": "IN_PROGRESS",
       "acceptance": "Den medfølgende export/render-hjælpers Windows-grænse er dokumenteret og løst eller håndteret gennem en faktisk understøttet rute. Ingen bestået Windows-runtime-test påstås ud fra statisk evaluering.",
-      "finding": "An expanded test run exposed 20 Google Slides materialization tests failing at fixture setup: /bin/sh and /bin/mkdir are assumed; production helper also emits /usr/bin/perl commands and POSIX paths. WSL optional component is absent. No OS installation or restart was attempted."
+      "finding": "Native Node host implemented in Portal 0.9.5; 20 original Windows tests and 5 new Node-host tests pass, plus 3 existing manifest tests and one package-boundary test. Real installed pdftoppm rendered a 320x200 PNG; Node REPL module import passed. Source published; Marketplace installation remains to verify.",
+      "evidence": [
+        "outputs/goal-completion-20261117/portal095-host-tests.txt",
+        "outputs/goal-completion-20261117/slides-real-windows-render.json"
+      ]
     },
     {
       "id": "C01",

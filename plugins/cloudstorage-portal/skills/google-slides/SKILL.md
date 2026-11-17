@@ -15,6 +15,8 @@ description: Route Google Slides authoring requests and derive a design system f
 
 ## Parse a Template Deck
 
+On Windows, use [the local Node host workflow](references/windows-host.md) for both template reading and rendering. It uses the same existing Google Drive connector with native filesystem operations and an existing `pdftoppm.exe`; no WSL, Perl, second connection or new service is needed. The `/bin` and `/usr/bin` examples below apply to POSIX hosts only.
+
 If code mode is unavailable in the current Codex environment, reproduce the same read-to-file, parse, and render workflow with the available connector and local tools. Preserve the same artifacts and validation steps; do not skip the workflow merely because code mode cannot be used.
 
 For template or reference following, first use code mode to read the complete template/reference presentation directly into a file. Set `SKILL_DIR` to this skill's absolute directory and `WORKSPACE` to an absolute task workspace, then run this in one `functions.exec` call:

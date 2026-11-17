@@ -8,6 +8,7 @@ import { test } from "node:test";
 import { promisify } from "node:util";
 
 import { exportAndRenderSlides } from "./export-and-render-slides.mjs";
+import { createNodeSlidesHost } from "./node-slides-host.mjs";
 
 const execFileAsync = promisify(execFile);
 const pdfBytes = Buffer.from("%PDF-1.7\nGoogle Slides regression\n%%EOF\n");
@@ -50,7 +51,7 @@ async function createFixture(t, {
   const calls = [];
   const frames = [];
 
-  await runLocalCommand(`/bin/mkdir -p '${join(workspace, "connector-results")}'`, workspace);
+  await mkdir(join(workspace, "connector-results"));
   await writeFile(source, pdf);
   const reference = {
     file_id: "sediment://test-presentation",
@@ -108,12 +109,22 @@ async function createFixture(t, {
     };
   }
 
+  const nodeHost = process.platform === 'win32' ? createNodeSlidesHost({execute:async (_exe,args)=>{
+    calls.push({kind:'native-render',args});
+    await writeFile(join(outputDir,'slide-1.png'),Buffer.from([137,80,78,71,13,10,26,10]));
+    return {stdout:'',stderr:''};
+  }}) : null;
+  if(nodeHost){
+    const write=nodeHost.writeBase64;
+    nodeHost.writeBase64=async args=>{calls.push({kind:'native-inline'});return write(args);};
+  }
   const render = (overrides = {}) => exportAndRenderSlides({
     presentationId: "native-presentation",
     outputDir,
     workspaceRoot: workspace,
     skillRoot: "/trusted/google-slides",
-    pdftoppmPath: "/usr/bin/pdftoppm",
+    pdftoppmPath: process.platform === 'win32' ? process.execPath : "/usr/bin/pdftoppm",
+    host:nodeHost,
     tools,
     ...overrides,
   });
@@ -300,7 +311,7 @@ test("retries older fetch workers and consumes legacy b64_string during rollout"
       },
     },
   ]);
-  assert.ok(fixture.calls.some((call) => call.cmd?.includes("slides-stdin-receiver.pl")));
+  assert.ok(fixture.calls.some((call) => process.platform === "win32" ? call.kind === "native-inline" : call.cmd?.includes("slides-stdin-receiver.pl")));
 });
 
 test("ignores null file reference placeholders in legacy exports", async (t) => {
@@ -319,7 +330,7 @@ test("ignores null file reference placeholders in legacy exports", async (t) => 
   const result = await fixture.render();
   assert.deepEqual(await readFile(result.pdf.path), pdfBytes);
   assert.equal(result.pdf.sha256, pdfSha256);
-  assert.ok(fixture.calls.some((call) => call.cmd?.includes("slides-stdin-receiver.pl")));
+  assert.ok(fixture.calls.some((call) => process.platform === "win32" ? call.kind === "native-inline" : call.cmd?.includes("slides-stdin-receiver.pl")));
 });
 
 test("falls back to inline base64 when Fiber did not materialize a reference", async (t) => {
@@ -339,15 +350,15 @@ test("falls back to inline base64 when Fiber did not materialize a reference", a
   const result = await fixture.render();
   assert.deepEqual(await readFile(result.pdf.path), pdfBytes);
   assert.equal(result.pdf.sha256, pdfSha256);
-  assert.ok(fixture.calls.some((call) => call.cmd?.includes("slides-stdin-receiver.pl")));
+  assert.ok(fixture.calls.some((call) => process.platform === "win32" ? call.kind === "native-inline" : call.cmd?.includes("slides-stdin-receiver.pl")));
 });
 
 test("rejects a materialized path outside the trusted workspace", async (t) => {
   const fixture = await createFixture(t, {
-    raw: ({ reference }) => ({
+    raw: ({ reference, workspace }) => ({
       structuredContent: {
         file_uri: reference,
-        workspace_path: "/private/unrelated/presentation.pdf",
+        workspace_path: join(workspace, "..", "unrelated", "presentation.pdf"),
       },
     }),
   });
@@ -391,7 +402,7 @@ test("verifies the materialized file starts with a real PDF header", async (t) =
 
 test("does not overwrite an existing presentation PDF", async (t) => {
   const fixture = await createFixture(t);
-  await runLocalCommand(`/bin/mkdir -p '${fixture.outputDir}'`, fixture.workspace);
+  await mkdir(fixture.outputDir);
   const existing = Buffer.from("preserve-existing-pdf");
   await writeFile(join(fixture.outputDir, "presentation.pdf"), existing);
 
