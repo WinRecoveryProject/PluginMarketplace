@@ -105,3 +105,10 @@ the corrective package changes, not the whole Marketplace. The local Marketplace
 validator passes 1,588 checks, including six adaptation-specific checks; isolated
 native Desktop discovery also loads `1.1.7-wrp.1` and its original `code-review`
 skill successfully. Both review runs explicitly used the free CLI allowance.
+
+Final installation verification: `coderabbit@winrecoveryproject-digital` is
+installed and enabled as `1.1.7-wrp.1`. All 11 packaged files match the canonical
+Marketplace and its managed Desktop snapshot. Exactly one CodeRabbit skill is
+active; the old 1.1.4 entrypoint remains disabled. Previous provider settings and
+skill flags are unchanged. Billing remains inactive and the observed cost is
+0 kr. The machine-readable receipt above records the final state.

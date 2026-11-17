@@ -1,33 +1,78 @@
 {
   "status": "PASS",
   "name": "CodeRabbit",
-  "version": "1.1.6",
+  "version": "1.1.7-wrp.1",
+  "upstreamVersion": "1.1.6",
   "sourceRepository": "https://github.com/coderabbitai/codex-plugin.git",
   "sourceCommit": "35779b453cca18aa7cd3176f0bb73a8c75d11da8",
-  "sourceUnmodified": true,
-  "installedFilesHashVerified": 8,
+  "sourceUnmodified": false,
+  "localAdaptations": [
+    "Installation-method-specific update guidance",
+    "Skill-local icon copies without parent traversal",
+    "Distinct local version and explicit packaging notes"
+  ],
+  "installedFilesHashVerified": 11,
+  "marketplaceAndDesktopSnapshotMatch": true,
   "nativeInstalled": true,
-  "newSkillEnabled": true,
-  "old114SkillEnabled": false,
   "activeCodeRabbitSkills": 1,
-  "automaticInstallerRemoved": true,
-  "automaticLoginRemoved": true,
-  "oldRiskReproduced": true,
+  "old114SkillEnabled": false,
+  "existingConfigurationAndConnectionsPreserved": true,
+  "cliVersion": "0.9.5",
+  "cliSignatureVerifiedBeforeExecution": true,
+  "cliBinarySha256": "67ee19096586e0803e260513a1690f2906d965a2a58d426cd9f42b2c37c2ffbd",
+  "vendorInstallerExecuted": false,
+  "manualInstallAutomaticUpdateVerified": false,
+  "githubLoginSucceeded": true,
+  "region": "eu",
+  "trialActivated": false,
+  "usageBillingStatus": "inactive",
+  "creditUseAuthorized": false,
+  "remoteAiReviewExecuted": true,
+  "initialPracticalReview": {
+    "status": "review_completed",
+    "findings": 2,
+    "reviewedTextFiles": 12,
+    "reviewedFiles": [
+      ".agents/plugins/marketplace.json",
+      "README.md",
+      "docs/coderabbit-installation-repair-20261117.json",
+      "docs/coderabbit-installation-repair-20261117.md",
+      "docs/workspace-plugin-collection-20261116.json",
+      "plugin-sources.lock.json",
+      "plugins/coderabbit/.codex-plugin/plugin.json",
+      "plugins/coderabbit/skills/coderabbit-review/SKILL.md",
+      "plugins/coderabbit/skills/coderabbit-review/agents/openai.yaml",
+      "plugins/coderabbit/skills/coderabbit-review/references/auth-recovery.md",
+      "plugins/coderabbit/skills/coderabbit-review/references/review-output.md",
+      "validate-marketplace.mjs"
+    ],
+    "excludedBinaryFiles": [
+      "plugins/coderabbit/assets/coderabbit-small.png",
+      "plugins/coderabbit/assets/coderabbit.png",
+      "plugins/coderabbit/assets/logo.png"
+    ],
+    "freeCliAllowanceExplicitlyConfirmed": true
+  },
+  "correctivePracticalReview": {
+    "status": "review_completed",
+    "findings": 0,
+    "reviewedTextFiles": 4,
+    "reviewedFiles": [
+      "plugins/coderabbit/.codex-plugin/plugin.json",
+      "plugins/coderabbit/skills/coderabbit-review/SKILL.md",
+      "plugins/coderabbit/skills/coderabbit-review/agents/openai.yaml",
+      "plugins/coderabbit/PACKAGING-NOTES.md"
+    ],
+    "excludedBinaryFiles": [],
+    "freeCliAllowanceExplicitlyConfirmed": true
+  },
   "studioDeepStaticCounts": {
     "errors": 0,
     "warnings": 0,
     "info": 0
   },
-  "portableTemplateNotes": {
-    "errors": 2,
-    "warnings": 0,
-    "info": 0
-  },
-  "portableNoteScope": "Original upstream native subtitle/directory conventions; native Desktop loader verified independently.",
-  "existingConfigurationAndConnectionsPreserved": true,
-  "installerExecuted": false,
-  "loginPerformed": false,
-  "remoteAiReviewExecuted": false,
-  "cliPresence": "No trusted CodeRabbit executable found during PATH/default-location check",
+  "legacyPortableTemplateErrors": 2,
+  "legacyPortableNoteScope": "Original subtitle length and skill-directory naming conventions; native loader tested independently. Not a public submission approval.",
+  "marketplaceChecksPassed": 1588,
   "budgetDkk": 0
 }
