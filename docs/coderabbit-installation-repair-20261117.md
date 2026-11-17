@@ -47,5 +47,18 @@ authorization to run their installation examples. Use existing included/free
 capabilities only; never authorize credits, change a plan or replace a connection
 because the skill is enabled.
 
-Installed state and observed verification are recorded in the accompanying
-`coderabbit-installation-repair-20261117.json` receipt after deployment.
+## Observed installed result
+
+CodeRabbit 1.1.6 is installed and enabled in Desktop. Native discovery reports
+exactly one active CodeRabbit skill; the old 1.1.4 entrypoint remains disabled.
+All eight installed files match the immutable upstream snapshot. Configuration
+comparison confirms that only the new CodeRabbit Marketplace plugin entry was
+added: all previous plugin settings, skill flags and other settings are unchanged.
+
+The CodeRabbit executable was not found in PATH or the checked standard Windows
+and user-local locations. A real AI review was therefore not run; no installer,
+login, credentials or paid credits were used. The safety/instruction and native
+activation checks passed. The two original portable-template conventions remain
+documented above.
+
+[Observed verification receipt](coderabbit-installation-repair-20261117.json).

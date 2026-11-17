@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "name": "CodeRabbit",
+  "version": "1.1.6",
+  "sourceRepository": "https://github.com/coderabbitai/codex-plugin.git",
+  "sourceCommit": "35779b453cca18aa7cd3176f0bb73a8c75d11da8",
+  "sourceUnmodified": true,
+  "installedFilesHashVerified": 8,
+  "nativeInstalled": true,
+  "newSkillEnabled": true,
+  "old114SkillEnabled": false,
+  "activeCodeRabbitSkills": 1,
+  "automaticInstallerRemoved": true,
+  "automaticLoginRemoved": true,
+  "oldRiskReproduced": true,
+  "studioDeepStaticCounts": {
+    "errors": 0,
+    "warnings": 0,
+    "info": 0
+  },
+  "portableTemplateNotes": {
+    "errors": 2,
+    "warnings": 0,
+    "info": 0
+  },
+  "portableNoteScope": "Original upstream native subtitle/directory conventions; native Desktop loader verified independently.",
+  "existingConfigurationAndConnectionsPreserved": true,
+  "installerExecuted": false,
+  "loginPerformed": false,
+  "remoteAiReviewExecuted": false,
+  "cliPresence": "No trusted CodeRabbit executable found during PATH/default-location check",
+  "budgetDkk": 0
+}
