@@ -291,7 +291,11 @@
     "guardCasesPassed": 13,
     "recipesExecuted": 0,
     "documentationPlaceholdersSeparatelyReviewed": 4,
-    "globalSuppressions": 0
+    "globalSuppressions": 0,
+    "status": "SUPERSEDED_BY_ROOT_CAUSE_REMEDIATION",
+    "retainedCountIsHistorical": true,
+    "followUp": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalRisksNowResolved": 13
   },
   "adjudicationCounts": {
     "CONTEXT_SIZE_ADVISORY": 13,

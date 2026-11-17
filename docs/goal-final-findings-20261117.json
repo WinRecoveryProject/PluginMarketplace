@@ -145,7 +145,10 @@
     "evidence": "RUN wget -O- -nv https://golangci-lint.run/install.sh | sh -s \"v${GO_GOLANGCI_LINT_VERSION}\" \\",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -159,7 +162,10 @@
     "evidence": "RUN curl -sSfL https://raw.githubusercontent.com/anchore/grype/refs/tags/v${REPOSITORY_GRYPE_VERSION}/install.sh | sh -s -- -b /usr/local/bin",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -173,7 +179,10 @@
     "evidence": "RUN curl --silent --location https://raw.githubusercontent.com/mongodb/kingfisher/main/scripts/install-kingfisher.sh | bash -s -- /usr/local/bin --tag \"v${REPOSITORY_KINGFISHER_VERSION}\"",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -187,7 +196,10 @@
     "evidence": "RUN curl -sSfL https://raw.githubusercontent.com/anchore/syft/refs/tags/v${REPOSITORY_SYFT_VERSION}/install.sh | sh -s -- -b /usr/local/bin",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -201,7 +213,10 @@
     "evidence": "RUN wget --tries=5 -q -O - https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \"v${REPOSITORY_TRIVY_VERSION}\" \\",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -215,7 +230,10 @@
     "evidence": "RUN wget --tries=5 -q -O - https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \"v${REPOSITORY_TRIVY_SBOM_VERSION}\" \\",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -257,7 +275,10 @@
     "evidence": "curl -fsSL https://ollama.ai/install.sh | sh",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -299,7 +320,10 @@
     "evidence": "          RUN wget -O- -nv https://golangci-lint.run/install.sh | sh -s \"v${GO_GOLANGCI_LINT_VERSION}\" \\",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -313,7 +337,10 @@
     "evidence": "        - RUN curl -sSfL https://raw.githubusercontent.com/anchore/grype/refs/tags/v${REPOSITORY_GRYPE_VERSION}/install.sh | sh -s -- -b /usr/local/bin",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -327,7 +354,10 @@
     "evidence": "        - RUN curl -sSfL https://raw.githubusercontent.com/anchore/syft/refs/tags/v${REPOSITORY_SYFT_VERSION}/install.sh | sh -s -- -b /usr/local/bin",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -341,7 +371,10 @@
     "evidence": "          RUN wget --tries=5 -q -O - https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \"v${REPOSITORY_TRIVY_VERSION}\" \\",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -355,7 +388,10 @@
     "evidence": "          RUN wget --tries=5 -q -O - https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin \"v${REPOSITORY_TRIVY_SBOM_VERSION}\" \\",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",
@@ -369,7 +405,10 @@
     "evidence": "          RUN curl --silent --location https://raw.githubusercontent.com/mongodb/kingfisher/main/scripts/install-kingfisher.sh | bash -s -- /usr/local/bin --tag \"v${REPOSITORY_KINGFISHER_VERSION}\"",
     "remediation": "Remove the unsafe behavior or state and enforce its authorized boundary.",
     "context": "active-or-unclassified",
-    "review": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK"
+    "review": "ROOT_CAUSE_REMEDIATED",
+    "originalReview": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
+    "remediationEvidence": "UPSTREAM-REMEDIATION-20261117.json",
+    "originalLocationIsHistorical": true
   },
   {
     "plugin": "megalinter@megalinter",

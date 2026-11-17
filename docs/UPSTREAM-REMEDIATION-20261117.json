@@ -1,5 +1,5 @@
 {
-  "status": "PATCH_INSTALLED_MARKETPLACE_UPDATE_PENDING",
+  "status": "DELIVERED_AND_INSTALLED_VERIFIED",
   "verifiedAt": "2026-11-17T16:26:51.192391+00:00",
   "evaluator": "Plugin-Skill-Studio 0.3.6",
   "budgetDkk": 0,
@@ -153,7 +153,7 @@
     "OneDrive and Portal App bindings",
     "MegaLinter manifests, identity, version and branding",
     "Existing services and credentials",
-    "Prior skill deactivations (native post-install check follows)"
+    "All 37 prior skill deactivations verified in fresh native discovery"
   ],
   "limitations": [
     "Integrity hashes do not establish publisher safety or absence of all vulnerabilities.",
@@ -161,5 +161,142 @@
     "Ollama macOS/Windows digests were checked against official metadata/manifests; native installers were not exercised.",
     "Future upstream updates require rechecking this exact-source patch; source drift fails closed.",
     "Two intentionally unsafe upstream test fixtures are retained as test data and were not executed."
-  ]
+  ],
+  "finalVerifiedAt": "2026-11-17T16:32:39.984090+00:00",
+  "priorDisabledSkillsPreserved": 37,
+  "nativeAppStatesPreserved": true,
+  "nativeAppCount": 28,
+  "nativeMcpCount": 9,
+  "nativeMcpToolErrors": 0,
+  "snapshotParity": [
+    {
+      "plugin": "cloudstorage-portal",
+      "version": "0.9.5",
+      "files": 129,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "powershell-workbench",
+      "version": "0.9.0-beta.3",
+      "files": 389,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "plugin-skill-studio",
+      "version": "0.3.6",
+      "files": 324,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "component-forge",
+      "version": "0.1.2",
+      "files": 17,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "windows-dism-update-docs",
+      "version": "0.1.3",
+      "files": 11,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "codex-coordinator",
+      "version": "0.4.0",
+      "files": 24,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace"
+      ]
+    },
+    {
+      "plugin": "codex-dev-workflows",
+      "version": "0.4.2",
+      "files": 26,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace"
+      ]
+    },
+    {
+      "plugin": "codex-engineering-guardrails",
+      "version": "1.1.1",
+      "files": 18,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "codex-process-jobs",
+      "version": "0.5.2",
+      "files": 40,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace"
+      ]
+    },
+    {
+      "plugin": "zilvereyes-context-handoff",
+      "version": "0.3.4+zilvereyes.1",
+      "files": 23,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace"
+      ]
+    },
+    {
+      "plugin": "winrecoveryproject-linter",
+      "version": "0.1.0",
+      "files": 41,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "winrecoveryproject-devsuite",
+      "version": "0.1.0",
+      "files": 83,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "coderabbit",
+      "version": "1.1.7-wrp.1",
+      "files": 11,
+      "verifiedTrees": [
+        "sourceSnapshot",
+        "desktopMarketplace",
+        "installed"
+      ]
+    }
+  ],
+  "marketplaceValidatorChecks": 1596,
+  "sourceRepositoryCommit": "b80cf2ed118231c8bf2bfde7dad7e5358f67a779",
+  "marketplaceCodeCommit": "356e990c61e39cce27f0a5d489e15d92ce079d6e"
 }
