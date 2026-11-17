@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "plugin-skill-studio",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "sources": [
     {
       "id": "matt-skills-curated",

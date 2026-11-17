@@ -1,8 +1,8 @@
 {
-  "version": "0.3.9",
-  "sourceCommit": "4c5b223d211053482e26e8d9ee132f34c0b45d35",
-  "archiveSha256": "7f81d8afde77809e81ad8a881593b5bafc259730d0ce5d8f28da68d868a779ef",
-  "sourceTestsPassed": 129,
+  "version": "0.3.10",
+  "sourceCommit": "4e905475b66c299afc224ce9f261f3ae0356fcf0",
+  "archiveSha256": "e1736e8c5d47e6d80a0367bebc7a8b7a15e031efa717dbfb16aad3d96f1a1252",
+  "sourceTestsPassed": 130,
   "desktopUnitTestsPassed": 11,
   "independentScenariosPassed": 18,
   "deterministicArchive": true,
@@ -31,5 +31,6 @@
   ],
   "connectionsChanged": false,
   "newPluginOrMcpConnection": false,
-  "budgetKr": 0
+  "budgetKr": 0,
+  "desktopRoutingRegressionPassed": true
 }
