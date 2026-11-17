@@ -1,5 +1,7 @@
 # WinRecoveryProject Digital Plugin Marketplace
 
+Praktiske prøver og resterende runtime-begrænsninger: [Studio 0.3.7](docs/PRACTICAL-STUDIO037-20261117.md).
+
 Én samlet Git-markedsplads for de personlige Codex-plugins, der vedligeholdes under WinRecoveryProject/Zilvereyes.
 
 Seneste samlede installationskontrol: [fuld installationsliste og historisk afstemning med Studio 0.3.6/0.3.7](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
@@ -95,7 +97,7 @@ OneDrive-bindingen er fastholdt fra den leverede ZIP; ingen ny App-identitet er 
 
 ## Egne udviklingsværktøjer
 
-WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Begge er 0.1.0 og har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
+WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Begge er 0.1.1 og har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
 
 [Udgivelse og testdækning](docs/product-release-20261116.md) · [Installeret plugin-gennemgang](docs/current-installed-audit-20261116.md).
 

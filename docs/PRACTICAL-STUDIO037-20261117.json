@@ -1,0 +1,711 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "evaluator": "Personal Plugin-Skill-Studio 0.3.7",
+  "status": "PARTIAL_RUNTIME_COVERAGE",
+  "budgetKr": 0,
+  "installedIdentityCount": 68,
+  "identityMeaning": "Exact name@marketplace records; aliases are not unique products.",
+  "coverageCounts": {
+    "NOT_RUN": 21,
+    "FAIL_EXTERNAL": 1,
+    "PARTIAL": 14,
+    "PASS": 31,
+    "FAIL_HOST": 1
+  },
+  "plugins": [
+    {
+      "id": "advisor@openai-curated-remote",
+      "version": "1.4.10",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "agentmemory@openai-curated-remote",
+      "version": "0.9.30",
+      "status": "FAIL_EXTERNAL",
+      "scope": "Initial daemon health passed; final live and fresh startup calls failed. Configured remote hostname DNS unavailable; existing settings preserved."
+    },
+    {
+      "id": "app-695ff43f74488191a418ea8ac4f0f437@openai-curated-remote",
+      "version": "1.0.0",
+      "status": "PARTIAL",
+      "scope": "Code Tytor returned browser Pyodide execution payload; widget execution not observed."
+    },
+    {
+      "id": "app-69a5a77581c881918f398b27591d685d@openai-curated-remote",
+      "version": "1.0.0",
+      "status": "NOT_RUN",
+      "scope": "Pocket FM playback and recommendation flow not exercised."
+    },
+    {
+      "id": "app-69b31dc2110c8191b8b47dc98fe5a052@openai-curated-remote",
+      "version": "6.1.0",
+      "status": "PASS",
+      "scope": "Existing Dropbox App returned bounded folder page; writes/sharing not tested."
+    },
+    {
+      "id": "app-69cd66d6b11081919d55522e4f136fec@openai-curated-remote",
+      "version": "1.0.0",
+      "status": "NOT_RUN",
+      "scope": "Create State persistent saves were not created solely for testing."
+    },
+    {
+      "id": "app-6a057d268ebc81919918d37eec718425@openai-curated-remote",
+      "version": "2.0.3",
+      "status": "PASS",
+      "scope": "Remote Desktop Commander listed existing devices and read existing configuration; no remote execution or changes."
+    },
+    {
+      "id": "app-6aa47394ea708191bcef52a7c4bda7a2@openai-curated-remote",
+      "version": "0.7.4",
+      "status": "PASS",
+      "scope": "Knowledge for Agents returned a valid complete no-match search response; no records published."
+    },
+    {
+      "id": "browser@openai-bundled",
+      "version": "26.1111.21308",
+      "status": "PASS",
+      "scope": "Read existing user-provided ChatGPT plugin upload page through Browser. Local file render was refused and not bypassed."
+    },
+    {
+      "id": "chrome@openai-bundled",
+      "version": "26.1111.21308",
+      "status": "NOT_RUN",
+      "scope": "No connected Chrome browser surface; no browser profile or extension installed."
+    },
+    {
+      "id": "cloud-environment@openai-curated-remote",
+      "version": "0.2.1",
+      "status": "NOT_RUN",
+      "scope": "No compute environment provisioned; included cost not verified."
+    },
+    {
+      "id": "cloudstorage-portal@winrecoveryproject-digital",
+      "version": "0.9.5",
+      "status": "PARTIAL",
+      "scope": "Shared existing OneDrive App create/read/update/read/recycle passed. Google Drive and Dropbox read routes passed. Other writes not exercised."
+    },
+    {
+      "id": "coderabbit@openai-curated-remote",
+      "version": "1.1.7-wrp.1",
+      "status": "NOT_RUN",
+      "scope": "Preserved account/login boundary and disabled upstream skill. No account, trial or paid credits created."
+    },
+    {
+      "id": "coderabbit@winrecoveryproject-digital",
+      "version": "1.1.7-wrp.1",
+      "status": "NOT_RUN",
+      "scope": "Preserved account/login boundary and disabled upstream skill. No account, trial or paid credits created."
+    },
+    {
+      "id": "codex-coordinator@created-by-me-remote",
+      "version": "0.4.0",
+      "status": "PASS",
+      "scope": "20 actual board CLI scenarios on an isolated synthetic fixture; all fixture claims released."
+    },
+    {
+      "id": "codex-dev-workflows@created-by-me-remote",
+      "version": "0.4.2",
+      "status": "PARTIAL",
+      "scope": "Instruction-only workflow applied during this task; no independent executable helper or blanket model-behavior certification."
+    },
+    {
+      "id": "codex-engineering-guardrails@created-by-me-remote",
+      "version": "1.1.1",
+      "status": "PARTIAL",
+      "scope": "Instruction-only rules applied; no independent executable helper or blanket behavior certification."
+    },
+    {
+      "id": "codex-engineering-guardrails@openai-curated-remote",
+      "version": "1.1.1",
+      "status": "PARTIAL",
+      "scope": "Instruction-only rules applied; no independent executable helper or blanket behavior certification."
+    },
+    {
+      "id": "codex-engineering-guardrails@winrecoveryproject-digital",
+      "version": "1.1.1",
+      "status": "PARTIAL",
+      "scope": "Instruction-only rules applied; no independent executable helper or blanket behavior certification."
+    },
+    {
+      "id": "codex-process-jobs@created-by-me-remote",
+      "version": "0.5.2",
+      "status": "PARTIAL",
+      "scope": "19 pure helpers passed; append-descriptor log rotation fails EPERM on Windows. Controller is explicitly unsupported there; existing host-session route and jobs preserved."
+    },
+    {
+      "id": "codex-security@winrecoveryproject-digital",
+      "version": "0.1.32",
+      "status": "PARTIAL",
+      "scope": "Fresh advisory TAC granted and supporting GitHub/Linear reads passed. No paid/model-backed security scan launched."
+    },
+    {
+      "id": "component-forge@winrecoveryproject-digital",
+      "version": "0.1.2",
+      "status": "PARTIAL",
+      "scope": "Actual Workbench component register/search/gate and XML rejection fixtures passed; Forge is an instruction workflow rather than a separate runtime."
+    },
+    {
+      "id": "computer-use@openai-bundled",
+      "version": "26.1111.21308",
+      "status": "FAIL_HOST",
+      "scope": "@oai/sky imports; list_apps times out. CUA inventory read succeeded but Edge accessibility unavailable. No input sent or security bypass attempted."
+    },
+    {
+      "id": "defense-factory@openai-curated-remote",
+      "version": "0.1.11",
+      "status": "NOT_RUN",
+      "scope": "Existing disabled/conditional cloud backend preserved; no scan or paid service started."
+    },
+    {
+      "id": "dev-6ae8b541a3d08191ae893ea0925a2fe5@created-by-me-remote",
+      "version": "1.2.0",
+      "status": "PASS",
+      "scope": "Existing personal OneDrive connection create/read/update/read/recycle passed with exact UTF-8 content and SHA-256 checks."
+    },
+    {
+      "id": "documents@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "dropbox@winrecoveryproject-digital",
+      "version": "5.0.1",
+      "status": "PASS",
+      "scope": "Existing shared Dropbox App and separate Dropbox MCP returned bounded pages; no completeness or write claim."
+    },
+    {
+      "id": "game-development-studio@openai-curated-remote",
+      "version": "1.0.2",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "github@openai-curated-remote",
+      "version": "0.1.13-77c10e110b37",
+      "status": "PASS",
+      "scope": "Existing GitHub profile returned; authorized source and Marketplace pushes verified independently against remote main."
+    },
+    {
+      "id": "github@winrecoveryproject-digital",
+      "version": "0.1.12",
+      "status": "PASS",
+      "scope": "Existing GitHub profile returned; authorized source and Marketplace pushes verified independently against remote main."
+    },
+    {
+      "id": "gmail@openai-curated-remote",
+      "version": "0.1.10",
+      "status": "PASS",
+      "scope": "Profile and INBOX counts read; no message body read or sent."
+    },
+    {
+      "id": "google-calendar@openai-curated-remote",
+      "version": "1.2.7",
+      "status": "PASS",
+      "scope": "Profile and calendar metadata read; no event changes."
+    },
+    {
+      "id": "google-contacts@openai-curated-remote",
+      "version": "1.0.0",
+      "status": "PASS",
+      "scope": "Authenticated profile read; no contact changes."
+    },
+    {
+      "id": "google-drive@openai-curated-remote",
+      "version": "0.1.23",
+      "status": "PASS",
+      "scope": "Profile, bounded project search and exact existing disposable test-document fetch returned expected text; writes untested."
+    },
+    {
+      "id": "google-drive@winrecoveryproject-digital",
+      "version": "0.1.15",
+      "status": "PASS",
+      "scope": "Profile, bounded project search and exact existing disposable test-document fetch returned expected text; writes untested."
+    },
+    {
+      "id": "linear@openai-curated-remote",
+      "version": "5.0.1",
+      "status": "PASS",
+      "scope": "Authenticated self profile and team metadata read; no issue changes."
+    },
+    {
+      "id": "linear@winrecoveryproject-digital",
+      "version": "5.0.1",
+      "status": "PASS",
+      "scope": "Authenticated self profile and team metadata read; no issue changes."
+    },
+    {
+      "id": "megalinter@megalinter",
+      "version": "1.0.28",
+      "status": "PARTIAL",
+      "scope": "Previously patched 37 files retained. Current owned focused Linter practical tests do not prove every MegaLinter engine/container."
+    },
+    {
+      "id": "onedrive@winrecoveryproject-digital",
+      "version": "1.2.0",
+      "status": "PASS",
+      "scope": "Same existing App and personal connection as remote package; exact content round-trip and recycle passed. Business/refresh not forced in this run."
+    },
+    {
+      "id": "openai-developers@openai-curated-remote",
+      "version": "1.3.16",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "openai-templates@openai-curated-remote",
+      "version": "0.1.1",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "pages@openai-curated-remote",
+      "version": "0.1.26",
+      "status": "PASS",
+      "scope": "Existing space list read through Pages backend; no pages or chats created."
+    },
+    {
+      "id": "pdf@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "plugin-creator-plus@openai-curated-remote",
+      "version": "0.1.1",
+      "status": "NOT_RUN",
+      "scope": "User-selected Studio supersedes this authoring route; original installation preserved."
+    },
+    {
+      "id": "plugin-creator@openai-curated-remote",
+      "version": "0.1.28",
+      "status": "NOT_RUN",
+      "scope": "User explicitly prefers Studio; no duplicate plugin or new App created for a synthetic test."
+    },
+    {
+      "id": "plugin-eval@openai-curated-remote",
+      "version": "0.1.2",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "plugin-management@openai-curated-remote",
+      "version": "0.1.0",
+      "status": "PASS",
+      "scope": "Actual full CLI and native catalog/App/MCP/skill inventory used; existing package versions updated without connection replacement."
+    },
+    {
+      "id": "plugin-skill-studio@created-by-me-remote",
+      "version": "0.3.7",
+      "status": "PASS",
+      "scope": "0.3.7 routing/policy, independent verification workflow and actual validation/evaluation of all three repaired source packages applied."
+    },
+    {
+      "id": "plugin-skill-studio@winrecoveryproject-digital",
+      "version": "0.3.7",
+      "status": "PASS",
+      "scope": "0.3.7 routing/policy, independent verification workflow and actual validation/evaluation of all three repaired source packages applied."
+    },
+    {
+      "id": "powershell-workbench@winrecoveryproject-digital",
+      "version": "0.9.0-beta.4",
+      "status": "PASS",
+      "scope": "Reproduced direct -File false pass, fixed it; 10 CLI cases across PS5.1/7 plus both context contracts and structure passed."
+    },
+    {
+      "id": "presentations@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "sharepoint@openai-curated-remote",
+      "version": "0.1.8",
+      "status": "PASS",
+      "scope": "Existing personal profile read. Tenant storage access is outside this probe; no Entra login changes."
+    },
+    {
+      "id": "sites@openai-curated-remote",
+      "version": "1.1.6",
+      "status": "PASS",
+      "scope": "Existing owned site list returned an empty complete result; no site provisioned/published."
+    },
+    {
+      "id": "skill-craft@openai-curated-remote",
+      "version": "1.3.0",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "skillquiver@openai-curated-remote",
+      "version": "2.1.0",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "slack@openai-curated-remote",
+      "version": "0.1.8",
+      "status": "PASS",
+      "scope": "Existing workspace metadata list read; no messages read/sent."
+    },
+    {
+      "id": "spreadsheets@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "template-creator@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "status": "NOT_RUN",
+      "scope": "Instruction/reference or artifact workflow not individually executed in this run; previous static audit is separate evidence."
+    },
+    {
+      "id": "unified-computer-use@openai-bundled",
+      "version": "26.1111.21308",
+      "status": "PARTIAL",
+      "scope": "Browser inventory and user-provided plugin page read. File URL blocked by browser policy; Edge native accessibility unavailable."
+    },
+    {
+      "id": "vercel@openai-curated-remote",
+      "version": "0.54.1",
+      "status": "PASS",
+      "scope": "Existing OneDrive project metadata read; no deployment or billing change."
+    },
+    {
+      "id": "vercel@winrecoveryproject-digital",
+      "version": "0.21.4",
+      "status": "PASS",
+      "scope": "Existing OneDrive project metadata read; no deployment or billing change."
+    },
+    {
+      "id": "visualize@openai-bundled",
+      "version": "1.0.97",
+      "status": "PARTIAL",
+      "scope": "Preferred version exported standalone HTML, validated correct/incorrect JS and refused overwrite; browser render unverified. Disabled older fallback preserved."
+    },
+    {
+      "id": "visualize@openai-curated-remote",
+      "version": "1.0.103",
+      "status": "PARTIAL",
+      "scope": "Preferred version exported standalone HTML, validated correct/incorrect JS and refused overwrite; browser render unverified. Disabled older fallback preserved."
+    },
+    {
+      "id": "windows-dism-update-docs@winrecoveryproject-digital",
+      "version": "0.1.3",
+      "status": "PARTIAL",
+      "scope": "Local documentation catalog route read; no OS servicing or fresh online research performed."
+    },
+    {
+      "id": "winrecoveryproject-devsuite@winrecoveryproject-digital",
+      "version": "0.1.1",
+      "status": "PASS",
+      "scope": "Actual routing/provider/report/budget tests; fixes verified by 23 tests and installed CLI regression checks."
+    },
+    {
+      "id": "winrecoveryproject-linter@winrecoveryproject-digital",
+      "version": "0.1.1",
+      "status": "PASS",
+      "scope": "All 15 language families tested good/bad; Lua5.1, XML DTD, TOC and non-execution checked. Empty/no-matching selection false CLEAN fixed."
+    },
+    {
+      "id": "work-pets@openai-curated-remote",
+      "version": "0.1.6",
+      "status": "PASS",
+      "scope": "Existing animated pets listed; no pet activation or generation."
+    },
+    {
+      "id": "zilvereyes-context-handoff@created-by-me-remote",
+      "version": "0.3.4+zilvereyes.1",
+      "status": "PASS",
+      "scope": "Actual valid and invalid handoff fixtures validated; no chat lifecycle changes."
+    }
+  ],
+  "findings": [
+    {
+      "id": "LINTER-NO-CHECKS-CLEAN",
+      "status": "FIXED",
+      "version": "0.1.1",
+      "evidence": "Two regression cases failed before and passed after; empty selection and no matching selected files now return INCOMPLETE."
+    },
+    {
+      "id": "DEVSUITE-PROVIDER-CONTAINERS",
+      "status": "FIXED",
+      "version": "0.1.1",
+      "evidence": "Top-level and nested null/list/string containers now return structured ERROR without traceback."
+    },
+    {
+      "id": "DEVSUITE-DANISH-ROUTES",
+      "status": "FIXED",
+      "version": "0.1.1",
+      "evidence": "Danish lintkontrol and gennemgå requests now select quality/review; test read/write stays test."
+    },
+    {
+      "id": "WORKBENCH-PS51-FILE",
+      "status": "FIXED",
+      "version": "0.9.0-beta.4",
+      "evidence": "Explicit paths checked from end block even when PS5.1 skips process; direct File, NoThrow, pipeline and arrays exercised in both hosts."
+    },
+    {
+      "id": "LINTER-INSTALLED-DEPENDENCIES",
+      "status": "REMEDIATED_LOCALLY",
+      "evidence": "Selected pinned tools installed with explicit local setup; no project/global config mutation."
+    },
+    {
+      "id": "AGENTMEMORY-REMOTE-DNS",
+      "status": "EXTERNAL_UNAVAILABLE",
+      "evidence": "Initial health call passed. Later live and fresh startup failed; configured HTTPS host gives ENOTFOUND. Tailscale reported startup/NoState. Credentials/host settings preserved."
+    },
+    {
+      "id": "COMPUTER-USE-HOST",
+      "status": "HOST_UNAVAILABLE",
+      "evidence": "sky import succeeds; list_apps timeout. No fake repair or permission escalation claimed."
+    },
+    {
+      "id": "CPJ-WINDOWS-LOG-ROTATION",
+      "status": "DOCUMENTED_PLATFORM_LIMIT",
+      "evidence": "19 helpers pass; ftruncate on append-only descriptor EPERM on Windows. POSIX controller remains explicitly unsupported; Windows uses host sessions."
+    }
+  ],
+  "liveProbes": [
+    {
+      "test": "GitHub profile",
+      "status": "PASS",
+      "tool": "github_get_profile"
+    },
+    {
+      "test": "Gmail profile and INBOX counters",
+      "status": "PASS",
+      "tools": [
+        "gmail_get_profile",
+        "gmail_list_labels"
+      ],
+      "messageBodiesRead": false
+    },
+    {
+      "test": "Google Calendar profile and calendar list",
+      "status": "PASS",
+      "tools": [
+        "google_calendar_get_profile",
+        "google_calendar_list_calendars"
+      ],
+      "eventsChanged": false
+    },
+    {
+      "test": "Google Contacts profile",
+      "status": "PASS",
+      "tool": "google_contacts_get_profile",
+      "contactsRead": false
+    },
+    {
+      "test": "Linear current user",
+      "status": "PASS",
+      "tool": "linear_get_user",
+      "changes": false
+    },
+    {
+      "test": "Slack workspace listing",
+      "status": "PASS",
+      "tool": "slack_slack_list_workspaces",
+      "messagesRead": false,
+      "messagesSent": false
+    },
+    {
+      "test": "Vercel existing project lookup",
+      "status": "PASS",
+      "tool": "vercel_list_projects",
+      "deploymentCreated": false
+    },
+    {
+      "test": "Google Drive profile and bounded project search",
+      "status": "PASS",
+      "tools": [
+        "google_drive_get_profile",
+        "google_drive_search"
+      ],
+      "writeTested": false
+    },
+    {
+      "test": "SharePoint personal profile",
+      "status": "PASS",
+      "tool": "microsoft_sharepoint_get_profile",
+      "driveAccessProven": false
+    },
+    {
+      "test": "Dropbox App bounded root listing",
+      "status": "PASS",
+      "tool": "dropbox_list_folder",
+      "rootCompleteness": false,
+      "writeTested": false
+    },
+    {
+      "test": "Dropbox MCP bounded root listing",
+      "status": "PASS",
+      "tool": "mcp__dropbox__list_folder",
+      "emptyPageWithContinuation": true,
+      "rootCompleteness": false
+    },
+    {
+      "test": "Codex Security TAC status",
+      "status": "PASS",
+      "tool": "codex_security_access_get_tac_status",
+      "statusObserved": "granted",
+      "scanExecuted": false
+    },
+    {
+      "test": "OneDrive personal create/read/update/read/recycle",
+      "status": "PASS",
+      "accountChanged": false,
+      "sharingChanged": false,
+      "contentExact": true,
+      "unicode": "æøå",
+      "sha256v1": "8246cdba7e6b651c51bca03443ef90211014855cb59ea0741c872fdf37fcc56f",
+      "sha256v2": "c30e54c5f2f51e0de3cbeff67af5050cffe4abfbc0ba04ddce1688e3e499f2d0"
+    },
+    {
+      "test": "Node REPL arithmetic",
+      "status": "PASS",
+      "sum": 6,
+      "unicode": "æøå"
+    },
+    {
+      "test": "Agentmemory read-only diagnose",
+      "status": "FAIL_EXTERNAL",
+      "checks": 16,
+      "warnings": 0,
+      "failures": 0,
+      "memoriesChanged": false,
+      "detail": "Initial 16-check call passed; repeated Desktop and fresh MCP startup calls failed. Existing configured remote hostname returns DNS ENOTFOUND. No credential or connection settings changed."
+    },
+    {
+      "test": "Pages bounded space list",
+      "status": "PASS",
+      "writeTested": false
+    },
+    {
+      "test": "Sites owned site list",
+      "status": "PASS",
+      "result": "Empty complete list; no site created",
+      "writeTested": false
+    },
+    {
+      "test": "Work Pets bounded list",
+      "status": "PASS",
+      "petChanged": false
+    },
+    {
+      "test": "Knowledge for Agents public symptom search",
+      "status": "PASS",
+      "matches": 0,
+      "recordsWritten": false
+    },
+    {
+      "test": "Code Tytor prepare execution",
+      "status": "PARTIAL",
+      "detail": "Tool returned Pyodide browser executor payload. Python did not execute server-side; widget execution remains unverified."
+    },
+    {
+      "test": "Computer Use list_apps",
+      "status": "FAIL_HOST",
+      "detail": "sky imported successfully; list_apps timed out. No Desktop input was sent."
+    },
+    {
+      "test": "Unified Computer Use browser read",
+      "status": "PASS",
+      "detail": "Selected existing user-provided ChatGPT plugins tab; native DOM reported the upload dialog. File URL Visualize render was refused by browser policy and not bypassed.",
+      "writes": false
+    },
+    {
+      "test": "Remote Desktop Commander device and configuration read",
+      "status": "PASS",
+      "devicesObserved": 2,
+      "deviceChanged": false
+    }
+  ],
+  "sources": [
+    {
+      "plugin": "winrecoveryproject-devsuite",
+      "version": "0.1.1",
+      "commit": "a2b9d0f6f1809604193a9c7d59cb1045897ff778",
+      "files": 87,
+      "identityAndBindingsPreserved": true
+    },
+    {
+      "plugin": "winrecoveryproject-linter",
+      "version": "0.1.1",
+      "commit": "01dd6eb0e4f7be868e55243da8f764a83c700b2f",
+      "files": 44,
+      "identityAndBindingsPreserved": true
+    },
+    {
+      "plugin": "powershell-workbench",
+      "version": "0.9.0-beta.4",
+      "commit": "8845ac34b56c8e08f58611f302a40f4a0ae96fbe",
+      "files": 390,
+      "identityAndBindingsPreserved": true
+    }
+  ],
+  "preservation": {
+    "connectionsReplaced": false,
+    "newCredentials": false,
+    "sharingChanged": false,
+    "messagesSent": false,
+    "securityBypassed": false,
+    "computerBrowserUploaded": false,
+    "priorDisabledSkills": 37,
+    "priorSkillPaths": 561,
+    "apps": 28
+  },
+  "limitations": [
+    "Representative cases, not all operations or all 561 skill behaviors.",
+    "Context-sensitive onboarding, billing, key picking, safety settings, paid scans/conversions, real communication and permissions were not executed.",
+    "Browser security controls were respected; Computer and Browser were not uploaded or given self-authorization.",
+    "No blanket practical pass for all 561 skills or every App operation. Reference/model workflows and sensitive conditional flows are separately marked.",
+    "Canonical source snapshots include source line-ending differences; semantic changes are limited to the documented fixes."
+  ],
+  "deliveryVerification": {
+    "status": "PASS",
+    "cliInstalledRecords": 61,
+    "personalRemoteRecords": 7,
+    "identityUnion": 68,
+    "appsPreserved": 28,
+    "skillPathsPerCwd": 561,
+    "disabledSkillsPreserved": 37,
+    "skillLoadErrors": 0,
+    "sourceSnapshotFileComparisons": 3325,
+    "personalRemoteIdentitiesPreserved": true,
+    "protectedConfigurationDigestsPreserved": true,
+    "testedVersions": {
+      "winrecoveryproject-devsuite": "0.1.1",
+      "winrecoveryproject-linter": "0.1.1",
+      "powershell-workbench": "0.9.0-beta.4"
+    },
+    "scope": "Installation/source parity and preservation, not all runtime behavior"
+  },
+  "independentInstalledRegression": {
+    "devsuiteAndLinter": {
+      "cases": 16,
+      "passed": 16,
+      "failed": 0,
+      "versions": [
+        "0.1.1"
+      ],
+      "fixturesUnchanged": true,
+      "sourceNotExecuted": true
+    },
+    "workbench": {
+      "version": "0.9.0-beta.4",
+      "cases": 24,
+      "passed": 24,
+      "failed": 0,
+      "hosts": [
+        "Windows PowerShell 5.1",
+        "PowerShell 7"
+      ],
+      "directFileWithRedirectedStdinVerified": true,
+      "pipelineArraysPropertyBindingVerified": true
+    }
+  }
+}
