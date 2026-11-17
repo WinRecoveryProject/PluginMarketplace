@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Test"
-  short_description: "Use for feature testing, broad QA, user journeys, regression che"
-  default_prompt: "Use $devsuite-test to handle this request within its authorized scope."
+  display_name: "DevSuite · Tests"
+  short_description: "Test funktionerne og dokumentér faktiske resultater."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-test til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

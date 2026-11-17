@@ -1,83 +1,10 @@
 {
-  "version": "0.1.1",
-  "observedDate": "2026-11-17",
+  "version": "0.2.0",
   "localTests": {
-    "command": "python -m unittest discover -s tests -v",
-    "status": "PASS",
-    "tests": 23,
-    "failures": 0,
-    "skipped": 0,
-    "elapsedSeconds": 55.249
+    "passed": 30
   },
-  "doctor": {
-    "command": "python scripts/devsuite.py doctor",
-    "status": "PASS",
-    "scope": "local package contracts only"
-  },
-  "studio": {
-    "source": "plugin-skill-studio/0.3.7",
-    "validate": {
-      "valid": true,
-      "errors": 0,
-      "warnings": 0
-    },
-    "evaluate": {
-      "score": 100,
-      "scope": "Static package readiness only; live App/MCP/OAuth/installation/service access unverified"
-    },
-    "deepPluginEval": {
-      "command": "node scripts/studio.mjs plugin-eval <package> --mode static",
-      "scoringVersion": "pss-eval-2",
-      "valid": true,
-      "readiness": "STATIC_READY",
-      "score": 100,
-      "counts": {
-        "errors": 0,
-        "warnings": 0,
-        "info": 0
-      },
-      "findings": [],
-      "behavior": "UNKNOWN: no practical provider benchmark executed",
-      "observedUsage": "UNKNOWN: no actual usage events supplied",
-      "scope": "Static source/workflow analysis; separate from provider task execution"
-    }
-  },
-  "externalProviderExecution": {
-    "security": "NOT_EXECUTED_BY_SOURCE_TESTS",
-    "cloud": "NOT_EXECUTED_BY_SOURCE_TESTS",
-    "cloudconvert": "SOURCE_AND_TOOLS_UNAVAILABLE_AT_BUILD; AUTH_AND_FREE_QUOTA_UNVERIFIED",
-    "tracking": "NOT_EXECUTED_BY_SOURCE_TESTS",
-    "linter": "OPTIONAL_RUNNER_NOT_EXECUTED_BY_SOURCE_TESTS"
-  },
-  "submissionExamples": {
-    "positive": 5,
-    "negative": 3,
-    "evidence": "deterministic routing/contracts, not live provider execution"
-  },
-  "publication": false,
-  "installation": false,
-  "nativeAppOptionality": "Native read observed 12 skills, five real Apps, zero added MCP servers, ON_USE. Response omitted required, so required:false behavior remains unverified; never user consent.",
-  "publicPathAudit": {
-    "privateAbsoluteUserPaths": 0,
-    "scope": "All distributable source text; branding metadata sanitized in DevSuite and Linter; pixels unchanged"
-  },
-  "brandManifestDigestMismatches": 0,
-  "nativeProbe": {
-    "observer": "integration owner",
-    "operation": "native plugin/read staging",
-    "status": "PASS",
-    "skills": 12,
-    "apps": 5,
-    "addedMcpServers": 0,
-    "authPolicy": "ON_USE",
-    "requiredFieldExposed": false,
-    "requiredFalseHonored": "UNVERIFIED",
-    "backendExecutionVerified": false
-  },
-  "reviewAdvisoriesResolved": [
-    "Debug trigger/scope boundary made explicit",
-    "Handoff trigger changed to explicit Use when",
-    "Malformed provider containers return structured ERROR without traceback",
-    "Danish lintkontrol and gennemg\u00e5 requests route to their focused workflows"
-  ]
+  "providerEvidence": "Read-only Business environment discovery succeeded; remote creation/cancellation untested",
+  "installed": false,
+  "published": false,
+  "costKr": 0
 }

@@ -15,6 +15,8 @@ Read [the policy](../../references/policy.md). Select one owned workflow for the
 - Shared checks and existing Linter integration: [quality](../devsuite-quality/SKILL.md).
 - Interrupted work and session handoff: [handoff](../devsuite-handoff/SKILL.md).
 - Local/cloud workspaces, desktop, networking and tools: [environment](../devsuite-environment/SKILL.md).
+- Local builds, background job status/logs/results and safe cancellation: [process jobs](../devsuite-jobs/SKILL.md).
+- Registered environments and explicitly requested remote tasks: [Codex Tasks](../devsuite-tasks/SKILL.md).
 - File transformation: [conversion](../devsuite-convert/SKILL.md).
 
 Carry acceptance criteria and remaining work across phases. Avoid duplicate source workflows and repeated planning/review ceremonies. Local implementation, provider completion, installation and publication are separate claims. [Providers](../../references/providers.md) describes real connections and limitations.

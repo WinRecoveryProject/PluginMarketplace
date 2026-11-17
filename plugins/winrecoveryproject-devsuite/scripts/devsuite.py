@@ -11,6 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from runtime.execution import process_plan, select_environment
 from runtime.evidence import (ContractError, contained, conversion_plan, provider_check,
                               read_json, write_assessment)
 
@@ -18,7 +19,14 @@ from runtime.evidence import (ContractError, contained, conversion_plan, provide
 def route(request: str) -> dict:
     text = request.casefold()
     # More specific intent wins; route suggestions never grant execution authority.
-    if re.search(r"\b(convert|conversion|cloudconvert|transcode)\b", text):
+    operation = bool(re.search(r"\b(fix|implement|debug|review|audit|test|tests|testing|refactor|ret|byg|gennemgå)\b", text))
+    task_target = bool(re.search(r"codex tasks?|remote (?:codex )?task|registered (?:codex )?environment|registrerede? (?:codex.)?miljø", text))
+    job_target = bool(re.search(r"process jobs?|background (?:job|process)|baggrundsjob|procesjob|codex process jobs", text))
+    if task_target and not operation:
+        skill = "devsuite-tasks"
+    elif job_target and not operation:
+        skill = "devsuite-jobs"
+    elif re.search(r"\b(convert|conversion|cloudconvert|transcode)\b", text):
         skill = "devsuite-convert"
     elif re.search(r"\b(resume|handoff|hand.?off|interrupted)\b", text):
         skill = "devsuite-handoff"
@@ -53,7 +61,7 @@ def doctor(root: Path = ROOT) -> dict:
     try:
         manifest = read_json(root / ".codex-plugin/plugin.json")
         require(manifest["name"] == "winrecoveryproject-devsuite", "Wrong package name")
-        require(manifest["version"] == "0.1.1", "Wrong package version")
+        require(manifest["version"] == "0.2.0", "Wrong package version")
         require(manifest["interface"]["developerName"] == "Zilvereyes", "Wrong developer")
         require(len(manifest["interface"]["shortDescription"]) <= 30, "Subtitle exceeds 30 characters")
         require(len(manifest["interface"].get("defaultPrompt", [])) <= 3, "Too many prompts")
@@ -98,7 +106,7 @@ def doctor(root: Path = ROOT) -> dict:
                     continue
                 resolved = (file.parent / link.split("#", 1)[0]).resolve()
                 require(resolved.is_relative_to(root.resolve()) and resolved.is_file(), f"Uncontained/missing link in {file.name}: {link}")
-        require(len(list(root.glob("skills/*/SKILL.md"))) == 12, "Expected 12 focused skills")
+        require(len(list(root.glob("skills/*/SKILL.md"))) == 14, "Expected 14 focused skills")
     except (OSError, ValueError, KeyError, TypeError, SyntaxError) as error:
         errors.append(str(error))
     return {"status": "FAIL" if errors else "PASS", "scope": "local package structure/contracts only",
@@ -110,6 +118,9 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("doctor")
     commands.add_parser("capabilities")
+    process = commands.add_parser("process-plan"); process.add_argument("input", type=Path)
+    environment = commands.add_parser("task-environment"); environment.add_argument("input", type=Path)
+    environment.add_argument("--name")
     routing = commands.add_parser("route"); routing.add_argument("request")
     provider = commands.add_parser("provider-check")
     provider.add_argument("capability"); provider.add_argument("inventory", type=Path)
@@ -121,6 +132,10 @@ def main(argv=None):
     try:
         if args.command == "doctor":
             report = doctor()
+        elif args.command == "process-plan":
+            report = process_plan(read_json(args.input))
+        elif args.command == "task-environment":
+            report = select_environment(read_json(args.input), args.name)
         elif args.command == "capabilities":
             report = read_json(ROOT / "references/capability-matrix.json")
         elif args.command == "route":
@@ -136,7 +151,7 @@ def main(argv=None):
         print(json.dumps({"status": "ERROR", "error": str(error), "executed": False}))
         return 1
     print(json.dumps(report, ensure_ascii=False, indent=2))
-    return 1 if report.get("status") in {"FAIL", "UNAVAILABLE", "ERROR", "NOT_VERIFIED", "ACCESS_INSUFFICIENT"} else 0
+    return 1 if report.get("status") in {"FAIL", "UNAVAILABLE", "ERROR", "NOT_VERIFIED", "ACCESS_INSUFFICIENT", "INCOMPLETE"} else 0
 
 
 if __name__ == "__main__":

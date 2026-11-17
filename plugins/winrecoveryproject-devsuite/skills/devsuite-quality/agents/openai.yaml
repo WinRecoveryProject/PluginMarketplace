@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Quality"
-  short_description: "Use for code quality, tests, lint/type/build gates, existing Meg"
-  default_prompt: "Use $devsuite-quality to handle this request within its authorized scope."
+  display_name: "DevSuite · Kvalitetskontrol"
+  short_description: "Kør projektets eksisterende lint- og kvalitetskontrol."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-quality til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

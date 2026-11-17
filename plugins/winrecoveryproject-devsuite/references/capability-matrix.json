@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "version": "0.1.1",
-  "coverageStatement": "Every available original skill is enumerated with function-level rows; CloudConvert original skill source is UNKNOWN, not fabricated. Static workflow coverage is distinct from executable helper/provider evidence.",
+  "version": "0.2.0",
+  "coverageStatement": "39 source skills map to 214 function-level rows. Jobs/Tasks add independent integration workflows and local planning/selection tests. Provider execution remains separate.",
   "capabilities": [
     {
       "id": "codex-security/security-scan/1",
@@ -4091,6 +4091,161 @@
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
       "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+    },
+    {
+      "id": "codex-process-jobs/start/1",
+      "source": "codex-process-jobs",
+      "originalSkill": "start",
+      "function": "launch one approved finite workload with a platform-correct lifecycle",
+      "owner": "devsuite-jobs",
+      "implementation": "owned workflow plus real host/existing provider",
+      "runtime": [
+        "runtime/execution.py"
+      ],
+      "externalProvider": "existing CPJ POSIX controller or Windows host sessions",
+      "references": [
+        "references/execution.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_execution.py::test_windows_plan_keeps_argv_and_does_not_claim_cpj_or_durability"
+      ],
+      "evidenceType": "local route/selection behavior; lifecycle/provider execution separately verified",
+      "availability": "conditional actual host tools, platform and access; planning is not execution",
+      "verificationLimit": "Tests cover selection/planning; no claim of remote launch, CPJ cancellation or automatic completion delivery"
+    },
+    {
+      "id": "codex-process-jobs/status/1",
+      "source": "codex-process-jobs",
+      "originalSkill": "status",
+      "function": "inspect exact current process or job state",
+      "owner": "devsuite-jobs",
+      "implementation": "owned workflow plus real host/existing provider",
+      "runtime": [
+        "runtime/execution.py"
+      ],
+      "externalProvider": "existing CPJ POSIX controller or Windows host sessions",
+      "references": [
+        "references/execution.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_execution.py::test_windows_plan_keeps_argv_and_does_not_claim_cpj_or_durability"
+      ],
+      "evidenceType": "local route/selection behavior; lifecycle/provider execution separately verified",
+      "availability": "conditional actual host tools, platform and access; planning is not execution",
+      "verificationLimit": "Tests cover selection/planning; no claim of remote launch, CPJ cancellation or automatic completion delivery"
+    },
+    {
+      "id": "codex-process-jobs/tail/1",
+      "source": "codex-process-jobs",
+      "originalSkill": "tail",
+      "function": "bounded logs from the exact owned workload",
+      "owner": "devsuite-jobs",
+      "implementation": "owned workflow plus real host/existing provider",
+      "runtime": [
+        "runtime/execution.py"
+      ],
+      "externalProvider": "existing CPJ POSIX controller or Windows host sessions",
+      "references": [
+        "references/execution.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_execution.py::test_windows_plan_keeps_argv_and_does_not_claim_cpj_or_durability"
+      ],
+      "evidenceType": "local route/selection behavior; lifecycle/provider execution separately verified",
+      "availability": "conditional actual host tools, platform and access; planning is not execution",
+      "verificationLimit": "Tests cover selection/planning; no claim of remote launch, CPJ cancellation or automatic completion delivery"
+    },
+    {
+      "id": "codex-process-jobs/result/1",
+      "source": "codex-process-jobs",
+      "originalSkill": "result",
+      "function": "inspect actual terminal exit and result evidence",
+      "owner": "devsuite-jobs",
+      "implementation": "owned workflow plus real host/existing provider",
+      "runtime": [
+        "runtime/execution.py"
+      ],
+      "externalProvider": "existing CPJ POSIX controller or Windows host sessions",
+      "references": [
+        "references/execution.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_execution.py::test_windows_plan_keeps_argv_and_does_not_claim_cpj_or_durability"
+      ],
+      "evidenceType": "local route/selection behavior; lifecycle/provider execution separately verified",
+      "availability": "conditional actual host tools, platform and access; planning is not execution",
+      "verificationLimit": "Tests cover selection/planning; no claim of remote launch, CPJ cancellation or automatic completion delivery"
+    },
+    {
+      "id": "codex-process-jobs/cancel/1",
+      "source": "codex-process-jobs",
+      "originalSkill": "cancel",
+      "function": "cancel only verified owned identity with current authority",
+      "owner": "devsuite-jobs",
+      "implementation": "owned workflow plus real host/existing provider",
+      "runtime": [
+        "runtime/execution.py"
+      ],
+      "externalProvider": "existing CPJ POSIX controller or Windows host sessions",
+      "references": [
+        "references/execution.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_execution.py::test_windows_plan_keeps_argv_and_does_not_claim_cpj_or_durability"
+      ],
+      "evidenceType": "local route/selection behavior; lifecycle/provider execution separately verified",
+      "availability": "conditional actual host tools, platform and access; planning is not execution",
+      "verificationLimit": "Tests cover selection/planning; no claim of remote launch, CPJ cancellation or automatic completion delivery"
+    },
+    {
+      "id": "codex-process-jobs/rerun/1",
+      "source": "codex-process-jobs",
+      "originalSkill": "rerun",
+      "function": "rerun only after a terminal receipt and authorization",
+      "owner": "devsuite-jobs",
+      "implementation": "owned workflow plus real host/existing provider",
+      "runtime": [
+        "runtime/execution.py"
+      ],
+      "externalProvider": "existing CPJ POSIX controller or Windows host sessions",
+      "references": [
+        "references/execution.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_execution.py::test_windows_plan_keeps_argv_and_does_not_claim_cpj_or_durability"
+      ],
+      "evidenceType": "local route/selection behavior; lifecycle/provider execution separately verified",
+      "availability": "conditional actual host tools, platform and access; planning is not execution",
+      "verificationLimit": "Tests cover selection/planning; no claim of remote launch, CPJ cancellation or automatic completion delivery"
+    },
+    {
+      "id": "codex-tasks/create-codex-task/1",
+      "source": "codex-tasks",
+      "originalSkill": "create-codex-task",
+      "function": "discover paginated registered environments and explicitly create/inspect/continue real remote tasks",
+      "owner": "devsuite-tasks",
+      "implementation": "owned workflow plus real host/existing provider",
+      "runtime": [
+        "runtime/execution.py"
+      ],
+      "externalProvider": "existing Codex Tasks host",
+      "references": [
+        "references/execution.md",
+        "references/providers.md"
+      ],
+      "tests": [
+        "tests/test_execution.py::test_ready_managed_configuration_and_connected_executor",
+        "tests/test_execution.py::test_pagination_empty_pages_and_ambiguous_names"
+      ],
+      "evidenceType": "local route/selection behavior; lifecycle/provider execution separately verified",
+      "availability": "conditional actual host tools, platform and access; planning is not execution",
+      "verificationLimit": "Tests cover selection/planning; no claim of remote launch, CPJ cancellation or automatic completion delivery"
     }
   ]
 }

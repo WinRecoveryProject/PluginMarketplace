@@ -41,3 +41,9 @@ present returns NOT_VERIFIED, never readiness. Observed access denial/insufficie
 returns ACCESS_INSUFFICIENT separately; a grant still proves no consent or free quota.
 All results set canExecute:false. Recheck real schemas, access, authority and cost
 before independently calling any provider; the CLI never executes those operations.
+
+## Jobs and Tasks integration (0.2.0)
+
+Codex Process Jobs: Windows uses host sessions; POSIX detached work may reuse the existing Apache-2.0 controller, with its own lifecycle and release boundary. No controller code or private job state is copied.
+
+Codex Tasks: discover the existing optional native App/provider at runtime. No fixed App ID or new connection is added. Environment discovery, selection, task creation, free quota and successful completion are independent observations. The installed Business provider exposes a ready managed configuration; this does not imply Personal availability or free remote execution. See [execution routes](execution.md).

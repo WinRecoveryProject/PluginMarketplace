@@ -1,0 +1,7 @@
+interface:
+  display_name: "DevSuite · Processer"
+  short_description: "Følg builds, logs og resultater med korrekt ejerskab."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-jobs til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

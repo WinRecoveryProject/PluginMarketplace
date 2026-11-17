@@ -63,5 +63,30 @@
     "provider": "existing GitHub/Linear/optional Atlassian",
     "discoveryRequired": true,
     "requiredToolGroups": []
+  },
+  "codex-tasks": {
+    "provider": "existing Codex Tasks host",
+    "requiredToolGroups": [
+      [
+        "mcp__codex_apps__codex_tasks_list_environments"
+      ],
+      [
+        "mcp__codex_apps__codex_tasks_create_remote_task"
+      ],
+      [
+        "mcp__codex_apps__codex_tasks_read_task"
+      ],
+      [
+        "mcp__codex_apps__codex_tasks_list_tasks"
+      ],
+      [
+        "mcp__codex_apps__codex_tasks_start_task_turn"
+      ]
+    ]
+  },
+  "process-jobs": {
+    "provider": "host execution/session tools or existing CPJ POSIX controller",
+    "discoveryRequired": true,
+    "requiredToolGroups": []
   }
 }

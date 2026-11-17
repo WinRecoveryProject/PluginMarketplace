@@ -1,8 +1,8 @@
-# WinRecoveryProject DevSuite 0.1.1
+# WinRecoveryProject DevSuite 0.2.0
 
 One owned development workflow combines planning/coordination, implementation,
 debugging, testing, independent review, quality gates, security assessment/remediation,
-handoff, local/cloud development and conversions. Twelve focused skills replace
+handoff, local/cloud development and conversions. Fourteen focused skills replace
 overlapping instruction triggers. MIT board/lifecycle helpers and original evidence
 utilities are bundled; no old skill package is needed for local work.
 
@@ -15,8 +15,8 @@ MCP servers, purchases, subscriptions or billable infrastructure are introduced.
 Read [policy](references/policy.md), [provider boundaries](references/providers.md),
 [function coverage](references/capability-matrix.json),
 [source hashes](references/source-provenance.json) and
-[migration proposal](references/migration.md). All 32 available original skills map
-to 207 function-level rows, including the original source's non-triggered
+[migration proposal](references/migration.md). All 39 inspected source skills map
+to 214 function-level rows, including the original source's non-triggered
 orchestrate-work workflow. CloudConvert source is unavailable; its actual App ID is
 verified and its original skill inventory remains UNKNOWN.
 
@@ -50,3 +50,17 @@ project Linter execution are conditional and are not claimed as demonstrated by 
 tests. Package tests, installation and publication are separate evidence states.
 
 Version 0.1.1 fixes Danish quality/review routing and validates provider inventory containers before access. Invalid inputs return structured ERROR; provider execution and consent remain separate.
+
+Version 0.2.0 integrates finite process jobs and registered Codex Tasks in the same
+toolkit, with explicit Windows host-session routing and paginated environment
+selection. Existing Security, Coordinator, Dev Workflows and Engineering Guardrails
+remain covered. The new DevSuite identity refines the existing turquoise network and
+violet shield; plugin identity, all five App bindings and connections are unchanged.
+
+```text
+python scripts/devsuite.py process-plan request.json
+python scripts/devsuite.py task-environment environments.json
+```
+
+See [execution routes](references/execution.md). The helpers plan and select only;
+they do not launch commands, create remote tasks or certify provider execution.

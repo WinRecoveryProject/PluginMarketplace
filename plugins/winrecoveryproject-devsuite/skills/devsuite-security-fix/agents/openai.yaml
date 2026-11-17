@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Security-Fix"
-  short_description: "Use when fixing security findings, verifying remediation, propos"
-  default_prompt: "Use $devsuite-security-fix to handle this request within its authorized scope."
+  display_name: "DevSuite · Sikkerhedsrettelser"
+  short_description: "Ret godkendte fund og kontrollér beskyttelsen."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-security-fix til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

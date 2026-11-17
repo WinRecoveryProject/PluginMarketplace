@@ -1,16 +1,16 @@
 {
   "name": "winrecoveryproject-devsuite",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "developerName": "Zilvereyes",
   "displayName": "WinRecoveryProject DevSuite",
-  "shortDescription": "Build, secure and verify code",
+  "shortDescription": "Byg, test og koordinér kode",
   "category": "Developer Tools",
   "defaultPrompt": [
-    "Plan and implement this change, then verify it.",
-    "Assess this repository and fix the authorized security findings.",
-    "Test this project and review its release readiness."
+    "Planlæg og implementér denne ændring, og test resultatet.",
+    "Gennemgå projektet og ret de godkendte fejl med friske kontrolresultater.",
+    "Vis mine registrerede Codex-miljøer uden at oprette en opgave."
   ],
-  "testEvidence": "Local package/runtime tests and static workflow contract checks only. Live external providers, connection state, free quota and conversion output not verified by package tests.",
+  "testEvidence": "30 local tests plus separate Business read-only Codex Tasks environment discovery; no remote task, paid compute or conversion launched.",
   "installation": "Parent integration owner performs authorized installation after tests",
   "publication": "Not published by source builder",
   "examples": "submission/examples.json",
@@ -22,5 +22,5 @@
   },
   "repository": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite",
   "homepage": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite",
-  "nativeAppOptionality": "Native plugin/read loads 12 skills and five real Apps with zero added MCP and ON_USE; required field omitted so optionality remains unverified, never consent."
+  "nativeAppOptionality": "Five existing App declarations unchanged; Jobs/Tasks discovered through real runtime capabilities, no new App binding."
 }

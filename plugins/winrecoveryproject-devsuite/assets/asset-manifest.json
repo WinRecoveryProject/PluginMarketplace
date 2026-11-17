@@ -1,230 +1,93 @@
 {
-  "product": "WinRecoveryProject-DevSuite",
-  "generation": "built-in image_gen",
-  "generated_sources_inspected": true,
-  "alpha_cleanup": {
-    "rule": "Set only alpha values 1 through 15 to zero; preserve all remaining RGB and alpha values.",
-    "removed_near_invisible_pixels": 26871
-  },
-  "processing_helper": "Build-time Python asset preparation helper: trim alpha, pad and resize; not a runtime dependency",
-  "final_prompt": "Use case: logo-brand. Asset type: production software plugin icon, square transparent PNG. Create a unique polished minimal emblem for WinRecoveryProject DevSuite, belonging to a family of dark graphite and teal developer tools. Subject: a central strong graphite shield with vivid violet inner face, integrated with three small interlinked square modules connected around its top and sides by thick teal links. Shield and modular network form one balanced compact silhouette. Flat vector-like filled geometry, crisp clean edge, simple heavy shapes recognizable at 16 pixels. Centered front view, generous transparent padding, design fills about 78% of canvas. Color palette: graphite #242832, teal #00bda5, violet #9270ff. No checkmark, no code brackets, no lettering, no text, no numbers, no third-party logos, no shadows, no gradients, no glow, no backdrop, no border square. Genuine transparent background. One single isolated emblem only.",
-  "qa": {
-    "dimensions": "pass",
-    "rgba_transparency": "pass",
-    "transparent_corners": "pass",
-    "favicon_frames": "16, 32, 48",
-    "visual_review": {
-      "contact_sheet": "branding-qa-contact-sheet.png",
-      "inspected": true,
-      "backgrounds": [
-        "white",
-        "graphite"
-      ],
-      "inspected_sizes": [
-        256,
-        64,
-        48,
-        32,
-        16
-      ],
-      "findings": "Distinct product silhouettes and accent colors remain visible; clean transparent edges; no letters or third-party marks. Tiny favicons necessarily retain less internal detail."
-    }
-  },
+  "product": "WinRecoveryProject DevSuite",
+  "version": "0.2.0",
+  "uniqueOwnedBranding": true,
   "files": [
     {
       "path": "composer-icon.png",
-      "sha256": "d9e71c06c890ff6297575177c40a94da8b24b43f51ad1d7114efc66a637b6c25",
-      "bytes": 4818,
-      "width": 64,
-      "height": 64,
-      "mode": "RGBA",
-      "alpha_min": 0,
-      "alpha_max": 255,
-      "fully_transparent_pixels": 2402,
-      "partially_transparent_pixels": 1532,
-      "alpha_bbox": [
-        3,
-        5,
-        60,
-        59
-      ],
-      "corners_transparent": true
+      "bytes": 18782,
+      "sha256": "d77bb05d6c8f8175f7bcb13d9427510a09361562842a7ea2be24ddc239ec19b6",
+      "width": 128,
+      "height": 128,
+      "colorType": 6
     },
     {
       "path": "favicon-16.png",
-      "sha256": "640e0d0dfb4de360427eebefacd5d6dbccd7dece1250c3a9823bf8580ea54741",
-      "bytes": 734,
+      "bytes": 686,
+      "sha256": "236bcd953361767573dbfec5fb2d886d4e9cd23d3e44fe7b631316fcc19aa1f7",
       "width": 16,
       "height": 16,
-      "mode": "RGBA",
-      "alpha_min": 0,
-      "alpha_max": 255,
-      "fully_transparent_pixels": 100,
-      "partially_transparent_pixels": 134,
-      "alpha_bbox": [
-        0,
-        1,
-        16,
-        16
-      ],
-      "corners_transparent": true
+      "colorType": 6
     },
     {
       "path": "favicon-32.png",
-      "sha256": "ba5df9dcf938ff8a12ed9cec965ea4c07f6cc7704b628e792ec732409a67798e",
-      "bytes": 1899,
+      "bytes": 1884,
+      "sha256": "639bf7b234c7cd956c18d043c17867f51f09dcb037f9d82f892595a92cfc0e0a",
       "width": 32,
       "height": 32,
-      "mode": "RGBA",
-      "alpha_min": 0,
-      "alpha_max": 255,
-      "fully_transparent_pixels": 516,
-      "partially_transparent_pixels": 442,
-      "alpha_bbox": [
-        0,
-        1,
-        32,
-        31
-      ],
-      "corners_transparent": true
+      "colorType": 6
     },
     {
       "path": "favicon-48.png",
-      "sha256": "f5571356e05d1c974da2f5f61bb099c4ee95165a3d1bce92b58e6b092770bca5",
-      "bytes": 3209,
+      "bytes": 3629,
+      "sha256": "0ce9729c6b2daaf53a126ff4f980a37f82623eae76d91c6eef63e5a474289cf6",
       "width": 48,
       "height": 48,
-      "mode": "RGBA",
-      "alpha_min": 0,
-      "alpha_max": 255,
-      "fully_transparent_pixels": 1296,
-      "partially_transparent_pixels": 882,
-      "alpha_bbox": [
-        2,
-        3,
-        46,
-        45
-      ],
-      "corners_transparent": true
+      "colorType": 6
     },
     {
       "path": "favicon.ico",
-      "sha256": "f424fc00589041bc7936a0b8e62c74b47021412acc6829115d639daf13e7c045",
-      "bytes": 5896,
-      "width": 48,
-      "height": 48,
-      "mode": "RGBA",
-      "alpha_min": 0,
-      "alpha_max": 255,
-      "fully_transparent_pixels": 1296,
-      "partially_transparent_pixels": 882,
-      "alpha_bbox": [
-        2,
-        3,
-        46,
-        45
-      ],
-      "corners_transparent": true,
-      "embedded_sizes": [
-        [
-          16,
-          16
-        ],
-        [
-          32,
-          32
-        ],
-        [
-          48,
-          48
-        ]
-      ]
+      "bytes": 6253,
+      "sha256": "bdd3a4123f816f86f718e6111faf83d954983cb502c7224ffd8c7d44a048ba28"
     },
     {
       "path": "logo.png",
-      "sha256": "f74c96f64743bed20d48186f4c096aa8ae8831ade9b8cf6dd4301ae61d074ed6",
-      "bytes": 115314,
+      "bytes": 214934,
+      "sha256": "6e5748be8419e57b66d060855087a968b5d0ee621cc00ec0d87257ba18ecd804",
       "width": 512,
       "height": 512,
-      "mode": "RGBA",
-      "alpha_min": 0,
-      "alpha_max": 255,
-      "fully_transparent_pixels": 176147,
-      "partially_transparent_pixels": 84551,
-      "alpha_bbox": [
-        48,
-        56,
-        464,
-        455
-      ],
-      "corners_transparent": true
-    },
-    {
-      "path": "source/alpha-cleaned.png",
-      "sha256": "24eed3fa01c67482a252d3211959967597ed0926441674aedc23dc0b8d7919f0",
-      "bytes": 501932,
-      "width": 1254,
-      "height": 1254,
-      "mode": "RGBA",
-      "alpha_min": 0,
-      "alpha_max": 255,
-      "fully_transparent_pixels": 1042899,
-      "partially_transparent_pixels": 526869,
-      "alpha_bbox": [
-        110,
-        143,
-        1144,
-        1134
-      ],
-      "corners_transparent": true
+      "colorType": 6
     },
     {
       "path": "source/generated-raw.png",
-      "sha256": "3e2696c0a735dcc291033019d339df7f93a998b386c681c49346a58550b2c141",
-      "bytes": 634903,
+      "bytes": 853393,
+      "sha256": "f11bdcdca74b3ac91bb80f289835e36cc5610de69f3da90c9791fbf1f1ec69ef",
       "width": 1254,
       "height": 1254,
-      "mode": "RGBA",
-      "alpha_min": 0,
-      "alpha_max": 255,
-      "fully_transparent_pixels": 1016028,
-      "partially_transparent_pixels": 553740,
-      "alpha_bbox": [
-        0,
-        51,
-        1242,
-        1242
-      ],
-      "corners_transparent": true
+      "colorType": 6
     },
     {
       "path": "source/logo-preparation.json",
-      "sha256": "b719d78858db597ef56a83d39a7b6848f45699b612f567e419e08bc21dfcd826",
-      "bytes": 704
+      "bytes": 867,
+      "sha256": "69d9626a83c198ac1456ee3427cafedd02c10ba8d0afe3a08250e29d4470dc6b"
     },
     {
       "path": "source/prompt.txt",
-      "sha256": "75806389eb561e2360fa8e65cea2f619627d54f90a20c1855553538f8b306e66",
-      "bytes": 945
+      "bytes": 336,
+      "sha256": "ea53122fab698d578857624652b1293e6210f519efdbda2fa5b2a75acc78fe2b"
     },
     {
       "path": "thumbnail.png",
-      "sha256": "ce5a3d54bdd13ac64a4b6ec1369927dc0d0df04d027029717ecb6dffdcf8cd7b",
-      "bytes": 37475,
+      "bytes": 61486,
+      "sha256": "83a57cf2aee910597c960544e99200f08304a2283c543be143a01289471c6722",
       "width": 256,
       "height": 256,
-      "mode": "RGBA",
-      "alpha_min": 0,
-      "alpha_max": 255,
-      "fully_transparent_pixels": 42667,
-      "partially_transparent_pixels": 22229,
-      "alpha_bbox": [
-        22,
-        26,
-        234,
-        230
-      ],
-      "corners_transparent": true
+      "colorType": 6
     }
-  ]
+  ],
+  "qa": {
+    "contactSheet": "private build evidence",
+    "backgrounds": [
+      "white",
+      "graphite"
+    ],
+    "sizes": [
+      256,
+      64,
+      48,
+      32,
+      16
+    ],
+    "result": "Recognizable shield/network silhouette; code detail reduces at favicon sizes; no text or third-party marks"
+  }
 }

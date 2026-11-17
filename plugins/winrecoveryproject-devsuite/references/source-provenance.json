@@ -325,6 +325,42 @@
         "tool": "plugin_management.get_plugin_dependencies",
         "searchPluginsResult": []
       }
+    },
+    {
+      "id": "codex-process-jobs",
+      "version": "0.5.3-wrp.1",
+      "license": "Apache-2.0",
+      "originalSkills": [
+        "start",
+        "status",
+        "tail",
+        "result",
+        "cancel",
+        "rerun"
+      ],
+      "adaptation": "independently owned integration; inspected contracts only; no provider implementation redistributed",
+      "files": {
+        ".codex-plugin/plugin.json": "364536243578195d78af459f72ba007e2a60748273876b6d80aff5a7cf2162cf",
+        "skills/start/SKILL.md": "54b9f5a81aa325b2eed51c7dc52bc42affc515b19de8fb62538698ed2e925c20",
+        "skills/status/SKILL.md": "beb16480702b7e31515f5fe2556eb56cea43cc38390f1f9ffd4ac9503ef92f17",
+        "skills/tail/SKILL.md": "5a9d09fa6c5c9970533937660a7e6ffa17cb08c04caf16188e417ddba1c1b9c5",
+        "skills/result/SKILL.md": "ff4ae813577b0a91e7d36c1a236c0225d807f55bb59e62c6a2801448a899b0cc",
+        "skills/cancel/SKILL.md": "13c082083fc903bc72b2beaaf207b5bc92117f113f114badd3abad3e33080911",
+        "skills/rerun/SKILL.md": "1c9ec2a0e23ee85f364fb5615d039675ecaf63d73f60ae730671df7579a6ea6b"
+      }
+    },
+    {
+      "id": "codex-tasks",
+      "version": "0.1.1",
+      "license": "UNSPECIFIED; external host provider",
+      "originalSkills": [
+        "create-codex-task"
+      ],
+      "adaptation": "independently owned integration; inspected contracts only; no provider implementation redistributed",
+      "files": {
+        ".codex-plugin/plugin.json": "c5e7e122107b7b35aa9e3864a52040284477798da7529b36d82e3fdeeaba079b",
+        "skills/create-codex-task/SKILL.md": "a0825c12980c0b875abae35846d0a15af9ad491d614f9aa628c5a124a07bb20b"
+      }
     }
   ],
   "noCredentialsCopied": true,

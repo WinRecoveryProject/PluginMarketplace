@@ -1,0 +1,7 @@
+interface:
+  display_name: "DevSuite · Codex Tasks"
+  short_description: "Find registrerede miljøer og følg bestilte Codex-opgaver."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-tasks til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

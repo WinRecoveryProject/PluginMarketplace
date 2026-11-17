@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Implement"
-  short_description: "Use when authorized to implement, refactor, migrate or maintain"
-  default_prompt: "Use $devsuite-implement to handle this request within its authorized scope."
+  display_name: "DevSuite · Implementering"
+  short_description: "Byg og refaktorér med tydelige acceptkriterier."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-implement til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

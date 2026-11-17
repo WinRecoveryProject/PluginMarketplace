@@ -1,8 +1,10 @@
 # WinRecoveryProject Digital Plugin Marketplace
 
+DevSuite **0.2.0**: [samlede Codex-workflows og nye assets](docs/DEVSUITE-020-20261117.md). Business: [79 installerede identiteter afstemt](docs/BUSINESS-INVENTORY-20261117.md).
+
 Studio **0.3.10**: [integreret Windows-styring og Desktop-/filprøver](docs/STUDIO-DESKTOP-20261117.md).
 
-Din seneste plugin-/skillliste: [52 plugin-identiteter og 3 lokale skills afstemt](docs/USER-PLUGIN-CHECKLIST-20261117.md).
+Tidligere personlige plugin-/skillliste: [52 plugin-identiteter og 3 lokale skills afstemt](docs/USER-PLUGIN-CHECKLIST-20261117.md).
 
 Seneste rettelser og praktiske regnearks-/PDF-prøver: [Marketplace-opfølgning](docs/MARKETPLACE-FOLLOWUP-20261117.md).
 
@@ -38,7 +40,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Process Jobs | `0.5.3-wrp.1` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
 | WinRecoveryProjectLinter | `0.1.1` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
-| WinRecoveryProject DevSuite | `0.1.1` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
+| WinRecoveryProject DevSuite | `0.2.0` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
 | Vercel | `0.21.4` | `codex plugin add vercel@winrecoveryproject-digital` |

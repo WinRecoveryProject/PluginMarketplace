@@ -30,3 +30,7 @@ integration methods, licenses and source gaps. Source paths are audit citations,
 runtime dependencies. The capability matrix separates owned instructions, bundled
 runtime and conditional external providers. No credentials or environment values
 are included; source manifests were inspected as data, not adopted wholesale.
+
+## Codex Process Jobs and Codex Tasks contracts
+
+Inspected Codex Process Jobs 0.5.3-wrp.1 (Joel Farthing, Apache-2.0) and Codex Tasks 0.1.1 (external host service; redistribution license unspecified). DevSuite Jobs/Tasks instructions and execution.py are independently written. No original controller or proprietary provider code is distributed; providers retain their own licenses and existing state.

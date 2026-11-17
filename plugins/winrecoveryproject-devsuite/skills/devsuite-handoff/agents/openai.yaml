@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Handoff"
-  short_description: "Resume interrupted work and prepare evidence-based handoffs."
-  default_prompt: "Use $devsuite-handoff to handle this request within its authorized scope."
+  display_name: "DevSuite · Fortsættelse"
+  short_description: "Genoptag fra verificeret status og bevar arbejdet."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-handoff til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

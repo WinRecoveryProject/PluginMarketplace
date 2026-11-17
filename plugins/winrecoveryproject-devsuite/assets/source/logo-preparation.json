@@ -1,48 +1,28 @@
 {
-  "source": "source/alpha-cleaned.png",
-  "source_size": [
-    1254,
-    1254
-  ],
-  "operations": {
-    "trim_alpha": true,
-    "padding": 120,
-    "resize": [
-      512,
-      512
-    ],
-    "fit": "contain",
-    "split_grid": null
+  "version": "0.2.0",
+  "generation": "built-in image_gen, user-authorized DevSuite branding refresh",
+  "sourceDimensions": {
+    "width": 1254,
+    "height": 1254,
+    "colorType": 6
   },
-  "output": "logo.png",
-  "image": {
-    "input_size": [
-      1254,
-      1254
+  "derivation": "Windows System.Drawing high-quality proportional resizing only; no creative image edits",
+  "alphaCleanup": "none",
+  "visualReview": {
+    "contactSheet": "private build evidence",
+    "backgrounds": [
+      "white",
+      "graphite"
     ],
-    "had_alpha": true,
-    "trim_bbox": [
-      110,
-      143,
-      1144,
-      1134
-    ],
-    "padding": 120,
-    "resize": [
-      512,
-      512
-    ],
-    "fit": "contain",
-    "output_size": [
-      512,
-      512
-    ],
-    "alpha_bbox": [
+    "sizes": [
+      256,
+      64,
       48,
-      56,
-      464,
-      455
-    ]
+      32,
+      16
+    ],
+    "result": "Recognizable shield/network silhouette; code detail reduces at favicon sizes; no text or third-party marks"
   },
-  "path_base": "assets/"
+  "previousLogoSha256": "f74c96f64743bed20d48186f4c096aa8ae8831ade9b8cf6dd4301ae61d074ed6",
+  "referencePortalSha256": "562617fda2cf56bb02e945466c4c43e0c4ba82e2a7b9f9fde57d5b815a5620a8"
 }

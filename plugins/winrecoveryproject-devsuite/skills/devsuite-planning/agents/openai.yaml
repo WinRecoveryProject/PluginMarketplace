@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Planning"
-  short_description: "Use for scoped project planning, architecture, concise AGENTS.md"
-  default_prompt: "Use $devsuite-planning to handle this request within its authorized scope."
+  display_name: "DevSuite · Planlægning"
+  short_description: "Afgræns opgaven, arkitekturen og ejerskabet."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-planning til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

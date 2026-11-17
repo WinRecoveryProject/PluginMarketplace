@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Convert"
-  short_description: "Use for authorized file conversion through free/included CloudCo"
-  default_prompt: "Use $devsuite-convert to handle this request within its authorized scope."
+  display_name: "DevSuite · Konvertering"
+  short_description: "Planlæg filkonvertering med kontrol af adgang og pris."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-convert til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

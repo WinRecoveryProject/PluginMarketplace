@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Security-Assess"
-  short_description: "Use for repository or diff security audits, threat models, disco"
-  default_prompt: "Use $devsuite-security-assess to handle this request within its authorized scope."
+  display_name: "DevSuite · Sikkerhedstjek"
+  short_description: "Undersøg kode og fund med sporbar evidens."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-security-assess til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

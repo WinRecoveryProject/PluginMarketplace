@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Debug"
-  short_description: "Diagnose defects and apply only authorized fixes."
-  default_prompt: "Use $devsuite-debug to handle this request within its authorized scope."
+  display_name: "DevSuite · Fejlfinding"
+  short_description: "Genskab fejlen, find årsagen og test rettelsen."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-debug til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

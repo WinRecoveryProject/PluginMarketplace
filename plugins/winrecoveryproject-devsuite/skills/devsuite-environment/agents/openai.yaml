@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Environment"
-  short_description: "Use for local/cloud development, repositories, packages, Docker,"
-  default_prompt: "Use $devsuite-environment to handle this request within its authorized scope."
+  display_name: "DevSuite · Miljø"
+  short_description: "Arbejd i det valgte lokale eller tilsluttede miljø."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-environment til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

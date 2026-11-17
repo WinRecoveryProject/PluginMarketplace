@@ -1,4 +1,7 @@
 interface:
-  display_name: "Devsuite Review"
-  short_description: "Use for independent code review, immutable patch risk assessment"
-  default_prompt: "Use $devsuite-review to handle this request within its authorized scope."
+  display_name: "DevSuite · Kodegennemgang"
+  short_description: "Find konkrete fejl og vurder ændringernes risiko."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-review til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

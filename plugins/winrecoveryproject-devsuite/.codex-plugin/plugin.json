@@ -1,7 +1,7 @@
 {
   "name": "winrecoveryproject-devsuite",
-  "version": "0.1.1",
-  "description": "Integrated development, security, coordination, quality, cloud and conversion workflows.",
+  "version": "0.2.0",
+  "description": "One development toolkit for planning, coding, security, testing, local processes and registered Codex tasks.",
   "author": {
     "name": "Zilvereyes"
   },
@@ -18,8 +18,8 @@
   ],
   "interface": {
     "displayName": "WinRecoveryProject DevSuite",
-    "shortDescription": "Build, secure and verify code",
-    "longDescription": "One focused workflow for planning, implementation, security assessment and remediation, testing, review, coordination, local/cloud work and file conversion. Reuses existing App connections; provider availability and included free usage are verified before external work.",
+    "shortDescription": "Byg, test og koordinér kode",
+    "longDescription": "Fra idé til verificeret kode: planlægning, implementering, fejlfinding, tests, kodegennemgang, sikkerhed og kvalitetskontrol i én DevSuite. Følg lokale builds og processer med Windows-kompatibel styring, eller brug eksisterende registrerede Codex Tasks-miljøer, når det er bestilt. Bevarer forbindelser og skelner mellem tilgængelige værktøjer og faktisk testede resultater. Ingen nye konti eller betalte tjenester kræves til lokale funktioner.",
     "developerName": "Zilvereyes",
     "category": "Developer Tools",
     "capabilities": [
@@ -27,13 +27,13 @@
       "Read",
       "Write"
     ],
-    "brandColor": "#0B6E8E",
+    "brandColor": "#00BDA5",
     "logo": "./assets/logo.png",
     "composerIcon": "./assets/composer-icon.png",
     "defaultPrompt": [
-      "Plan and implement this change, then verify it.",
-      "Assess this repository and fix the authorized security findings.",
-      "Test this project and review its release readiness."
+      "Planlæg og implementér denne ændring, og test resultatet.",
+      "Gennemgå projektet og ret de godkendte fejl med friske kontrolresultater.",
+      "Vis mine registrerede Codex-miljøer uden at oprette en opgave."
     ],
     "websiteURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite",
     "privacyPolicyURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/blob/main/PRIVACY.md",
