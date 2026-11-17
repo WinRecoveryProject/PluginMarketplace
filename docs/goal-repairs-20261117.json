@@ -1,6 +1,6 @@
 {
   "asOf": "2026-11-17T14:47:59.922067+00:00",
-  "status": "CURRENT_REPAIRS_DELIVERED_GOAL_ACTIVE",
+  "status": "HISTORICAL_CHECKPOINT_SUPERSEDED",
   "budgetDkk": 0,
   "paidActions": 0,
   "sources": [
@@ -150,5 +150,6 @@
     "G06 Business file-access verification",
     "G10 Google Slides Windows host support",
     "G09 Whole-goal final review"
-  ]
+  ],
+  "supersededBy": "GOAL-FINAL-VERIFICATION-20261117.json"
 }

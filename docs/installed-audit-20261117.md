@@ -1,3 +1,5 @@
+> Suppleret af [den samlede slutverifikation](GOAL-FINAL-VERIFICATION-20261117.json), herunder Studio 0.3.5, Portal 0.9.5 og den installerede Linter-opsætning. Denne rapport er et tidligere checkpoint.
+
 # Installed plugin, App, MCP and skill audit — 17 November 2026
 
 Plugin-Skill-Studio 0.3.4 reviewed **56 plugin roots**: 34 catalog-installed packages and 22 host-discovered extra roots. Native discovery contains **554 unique skill paths**, 28 standalone skills, 26 Apps and 8 MCP registrations. There are zero native loader errors and zero incomplete static root scans.

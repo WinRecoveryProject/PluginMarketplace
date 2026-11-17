@@ -1,6 +1,6 @@
 {
   "date": "2026-11-17",
-  "goalStatus": "active",
+  "goalStatus": "requirements_verified",
   "toolkit": "Personal Plugin-Skill-Studio",
   "budgetDkk": 0,
   "constraints": [
@@ -83,7 +83,7 @@
       "task": "Kontrollér Portalens opsætningsdokumentation og giv historiske handoffs en entydig vej til den aktuelle status.",
       "status": "VERIFIED",
       "acceptance": "Dokumentationen forklarer den aktuelle gratis arkitektur og de præcise komponentnavne; forældede historiske instruktioner fremstår ikke som næste handling.",
-      "finding": "Portal 0.9.4 source, Marketplace and installed snapshot match across all 125 files. Provider routes and icons/bindings preserved; current/historical setup and refresh evidence separated; architecture text encoding repaired.",
+      "finding": "Opsætningsdokumentationen er rettet og leveret i Portal 0.9.5. Den aktuelle pakke har 129 verificerede filer. De eksisterende forbindelser og ikoner er bevaret; historiske handoffs og datoerne for login/tokenfornyelse er tydeligt adskilt fra den aktuelle status.",
       "evidence": [
         "outputs/goal-completion-20261117/portal094-installed-parity.json",
         "outputs/goal-completion-20261117/release-parity-verification.json"
@@ -96,25 +96,33 @@
       "acceptance": "Eksisterende 0.1.0-pakker er installeret, deres kildehashes er verificeret, og den seneste audit har ingen nye konkrete produktfejl.",
       "evidence": [
         "work/PluginMarketplace/docs/product-deployment-20261116.json",
-        "work/PluginMarketplace/docs/installed-audit-20261117.json"
-      ]
+        "work/PluginMarketplace/docs/installed-audit-20261117.json",
+        "outputs/goal-completion-20261117/final-audit/linter-explicit-setup.json",
+        "outputs/goal-completion-20261117/final-audit/linter-all-types-doctor-after.json",
+        "outputs/goal-completion-20261117/final-audit/linter-installed-tests-after-setup.txt",
+        "outputs/goal-completion-20261117/final-audit/devsuite-installed-tests.txt"
+      ],
+      "finding": "Installed Linter initially lacked its explicitly bootstrapped parser/tools dependencies. Approved setup installed pinned free local dependencies with scripts disabled and trusted npm config. All 15 families are available; all 44 installed tests pass with zero skips. DevSuite passes all 21 installed tests. Source payloads remain unchanged and verified."
     },
     {
       "id": "G09",
       "task": "Udgiv nødvendige rettelser via Plugin-Skill-Studio, Desktop-native værktøjer og Git og afslut med kilde-/installationsparitet.",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "acceptance": "Nye validerede versioner og opgavelistens slutstatus er synkroniseret i de eksisterende repositories, Marketplace og installationer; forbindelser og deaktiveringer er bevaret.",
-      "finding": "Current Studio and Portal repairs delivered with exact-source and installation parity. Whole-goal final review remains after G06 and G10."
+      "finding": "Syv egne kilde-repositories matcher de fastlåste commits. Alle 13 lokale snapshots og de administrerede kopier matcher deres kildehashes, og installerede Marketplace-pakker matcher de aktuelle versioner. Slutrapporten leveres gennem samme Marketplace-opdatering; forbindelser og tidligere deaktiveringer er bevaret."
     },
     {
       "id": "G10",
       "task": "Afklar Google Slides-hjælperens POSIX-afhængighed på Windows uden at forringe fil- og symlinkkontroller.",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "acceptance": "Den medfølgende export/render-hjælpers Windows-grænse er dokumenteret og løst eller håndteret gennem en faktisk understøttet rute. Ingen bestået Windows-runtime-test påstås ud fra statisk evaluering.",
-      "finding": "Native Node host implemented in Portal 0.9.5; 20 original Windows tests and 5 new Node-host tests pass, plus 3 existing manifest tests and one package-boundary test. Real installed pdftoppm rendered a 320x200 PNG; Node REPL module import passed. Source published; Marketplace installation remains to verify.",
+      "finding": "Portal 0.9.5 published and installed with 129 matching source/Marketplace/managed/cache files. All 29 relevant installed tests pass with zero skips and the real Windows renderer produces the expected PNG. Existing POSIX route retained; fresh Linux execution and live Google export are not claimed.",
       "evidence": [
         "outputs/goal-completion-20261117/portal095-host-tests.txt",
-        "outputs/goal-completion-20261117/slides-real-windows-render.json"
+        "outputs/goal-completion-20261117/slides-real-windows-render.json",
+        "outputs/goal-completion-20261117/slides-installed-real-render.json",
+        "outputs/goal-completion-20261117/portal095-installed-tests.txt",
+        "outputs/goal-completion-20261117/release-parity-verification.json"
       ]
     },
     {
@@ -129,5 +137,6 @@
       "status": "CANCELLED",
       "acceptance": "Genoptages ikke; særskilt Business-filtest er G06."
     }
-  ]
+  ],
+  "verifiedAt": "2026-11-17T15:38:35.339439+00:00"
 }

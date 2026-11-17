@@ -2,9 +2,9 @@
 
 Én samlet Git-markedsplads for de personlige Codex-plugins, der vedligeholdes under WinRecoveryProject/Zilvereyes.
 
-Seneste samlede installationskontrol: [Plugin-Skill-Studio-gennemgang, 17. november 2026](docs/installed-audit-20261117.md).
+Seneste samlede installationskontrol: [slutverifikation med Plugin-Skill-Studio, 17. november 2026](docs/GOAL-FINAL-VERIFICATION-20261117.json).
 
-Aktivt samlet mål: [opgaver, færdigkriterier og verifikation](docs/GOAL-WORKLIST-20261117.md).
+Verificeret samlet mål: [opgaver, færdigkriterier og verifikation](docs/GOAL-WORKLIST-20261117.md).
 
 ## Tilføj markedspladsen
 
@@ -61,7 +61,7 @@ Den samlede oversigt dækker **56 produkter**: 32 Marketplace-poster, 15 origina
 - `docs/consolidation-audit-2026-10-25.md` fastlægger de kanoniske kilder og den sikre oprydningsrækkefølge.
 - `docs/skill-evaluation-2026-10-25.md` sammenligner Plugin Eval-resultater med den faktiske CloudStorage-arkitektur.
 - `docs/provider-architecture-comparison-2026-10-25.md` beskriver Dropbox/Google Drive-mønstret og en kontrolleret vej til færre OneDrive-grænseflader.
-- `docs/codex-mcp-config-audit-2026-10-25.md` skelner mellem den aktive Portal-runtime, den registrerede OneDrive-forbindelse og den karantænerede, ufuldstændige Vercel-udviklingsrute.
+- `docs/codex-mcp-config-audit-2026-10-25.md` er en historisk gennemgang af daværende runtime- og udviklingsruter. Den aktuelle Portal har ingen separat MCP-runtime; brug slutverifikationen ovenfor.
 - `docs/plugin-worklist-2026-10-25.md` fastholder hele arbejdslisten og skelner mellem Codex-kilder, referencer, kandidater, installationer og publicering.
 - `docs/external-plugin-sources.md` dokumenterer eksterne `git-subdir`-poster og bevarer den oprindelige udgiver som kilde.
 - `docs/component-boundaries.md` fastlåser forskellen mellem OneDrive-Appreferencen, den lokale MCP-runtime og CloudStorage Portal-samlepakken.
@@ -78,7 +78,7 @@ Kontrollen kræver blandt andet, at `.agents/plugins/marketplace.json` er udfold
 
 ## App- og OAuth-identitet
 
-Codex App-ID'er som `asdk_app_...` og `connector_...` kommer fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er separate OAuth-identiteter. OneDrive 1.2.0 samler den eksisterende registrerede App, ikonet og to skills; den hosted MCP-server ligger bag Appen. Pakken tilføjer ikke en ekstra native MCP-klient eller et ekstra Microsoft-login. Det portable manifest er bevaret under `references/portable-plugin.json` til eksport; det må ikke skygge Desktop-manifestet i roden. CloudStorage Portal refererer fortsat til samme Dropbox-, Google Drive- og OneDrive-apps. Marketplace-pakken og værtens remote App-kort er to visninger af samme registrerede OneDrive-app; deres versionsnumre og menuer behøver ikke være ens. Microsoft-login og faktisk adgang til et personligt eller Entra-tilknyttet drev verificeres hver for sig.
+Codex App-ID'er som `asdk_app_...` og `connector_...` kommer fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er separate OAuth-identiteter. OneDrive 1.2.0 samler den eksisterende registrerede App, ikonet og to skills; den hosted MCP-server ligger bag Appen. Pakken tilføjer ikke en ekstra native MCP-klient eller et ekstra Microsoft-login. Det portable manifest er bevaret under `references/portable-plugin.json` til eksport; det må ikke skygge Desktop-manifestet i roden. CloudStorage Portal bruger den eksisterende Dropbox MCP-forbindelse og de eksisterende Google Drive- og OneDrive-App-bindinger. Marketplace-pakken samler OneDrive-skills og den registrerede App; værtens remote App-kort administrerer samme Apps kontoforbindelser. Microsoft-login og faktisk adgang til et personligt eller Entra-tilknyttet drev verificeres hver for sig.
 
 OneDrive-bindingen er fastholdt fra den leverede ZIP; ingen ny App-identitet er opfundet. Personlig konto og Business-workspace er forskellige adgangsområder, og tidligere testresultater skal ikke fremstilles som aktuelle livekontroller.
 

@@ -1,6 +1,6 @@
 {
   "observedAt": "2026-11-17T15:17:21.110896+00:00",
-  "status": "SOURCE_VALIDATED_MARKETPLACE_INSTALL_PENDING",
+  "status": "DELIVERED_AND_INSTALLED_VERIFIED",
   "package": "cloudstorage-portal",
   "version": "0.9.5",
   "sourceCommit": "4ca87ba6c9a51e4ce4bd1ec125fb99ab90d735eb",
@@ -41,5 +41,18 @@
   "posixRoute": "Preserved; no Linux environment was available for a fresh POSIX execution test.",
   "liveGoogleExport": "NOT_RUN; filesystem/render tests use a controlled connector response, not a live export claim.",
   "connectionsChanged": false,
-  "paidActions": 0
+  "paidActions": 0,
+  "installedTestsPassed": 29,
+  "installedRealRenderer": {
+    "status": "PASS",
+    "platform": "win32",
+    "realRenderer": true,
+    "pages": 1,
+    "width": 320,
+    "height": 200,
+    "pdfSha256": "cecee5942fb966758c9e9155bd77a07a51bbaf16e3ead1738225c1852a322733",
+    "cloudCalls": 0,
+    "fixtureConnector": true,
+    "budgetDkk": 0
+  }
 }
