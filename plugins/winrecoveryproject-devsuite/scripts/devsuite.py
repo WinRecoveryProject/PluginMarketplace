@@ -16,13 +16,55 @@ from runtime.evidence import (ContractError, contained, conversion_plan, provide
                               read_json, write_assessment)
 
 
+TASK_TARGET = r"(?:codex[\s-]+tasks?|remote(?:[\s-]+codex)?[\s-]+tasks?|codex[\s-]+opgaver?)"
+JOB_TARGET = r"(?:process[\s-]+jobs?|background[\s-]+(?:jobs?|process(?:es)?)|baggrundsjob(?:s)?|baggrundsproces(?:ser)?|procesjob(?:s)?)"
+DETERMINERS = r"(?:(?:a|an|the|one|my|new|existing|durable|en|et|den|det|min|mit|ny|nyt|eksisterende|varig)\s+){0,4}"
+POLITE_PREFIX = r"(?:(?:please|kindly|venligst)\s+|(?:can|could|would|will)\s+you\s+|(?:kan|vil)\s+du\s+)?"
+LAUNCH_VERB = r"(?:start|create|launch|run|queue|opret|kør|igangsæt)"
+TARGET_END = r"(?=\s+(?:to|that|which|for|with|in|on|from|using|via|til|som|der|med|på|i|fra)\b|[.!?]|$)"
+
+
+def execution_intent(text: str) -> tuple[str | None, str]:
+    """Separate an explicit lifecycle request from work on the integration's code.
+
+    Workload verbs after a launch request do not change its owner. Negated target
+    clauses supply no lifecycle intent; a following review/test clause still can.
+    This is a route suggestion only, never execution authority.
+    """
+    clauses = re.split(r"[;,.\n]+|\b(?:but|men|instead|i stedet)\b", text)
+    active = []
+    for clause in clauses:
+        target = re.search(TASK_TARGET + "|" + JOB_TARGET, clause)
+        if target and re.search(r"\b(?:do\s+not|don['’]t|never|must\s+not|ikke|aldrig|undlad)\b", clause[:target.start()]):
+            continue
+        active.append(clause.strip())
+    for clause in active:
+        if re.match(POLITE_PREFIX + LAUNCH_VERB + r"\s+" + DETERMINERS + TASK_TARGET + TARGET_END, clause):
+            return "devsuite-tasks", "; ".join(active)
+        if re.match(POLITE_PREFIX + r"(?:use|brug)\s+" + DETERMINERS + TASK_TARGET + r"\s+(?:to|til(?:\s+at)?)\b", clause):
+            return "devsuite-tasks", "; ".join(active)
+        if re.match(POLITE_PREFIX + r"(?:delegate|delegér|deleger)\b.{1,500}\b(?:to|til)\s+" + DETERMINERS + TASK_TARGET + TARGET_END, clause):
+            return "devsuite-tasks", "; ".join(active)
+        if re.match(POLITE_PREFIX + LAUNCH_VERB + r"\s+" + DETERMINERS + JOB_TARGET + TARGET_END, clause):
+            return "devsuite-jobs", "; ".join(active)
+        run = POLITE_PREFIX + r"(?:run|launch|start|execute|kør|afvikl)\b.{1,500}"
+        if re.match(run + r"\b(?:as|in|som|i)\s+" + DETERMINERS + JOB_TARGET + TARGET_END, clause):
+            return "devsuite-jobs", "; ".join(active)
+        if re.match(run + r"\b(?:in(?:\s+the)?\s+background|i\s+baggrunden)\b", clause):
+            return "devsuite-jobs", "; ".join(active)
+    return None, "; ".join(active)
+
+
 def route(request: str) -> dict:
     text = request.casefold()
     # More specific intent wins; route suggestions never grant execution authority.
-    operation = bool(re.search(r"\b(fix|implement|debug|review|audit|test|tests|testing|refactor|ret|byg|gennemgå)\b", text))
-    task_target = bool(re.search(r"codex tasks?|remote (?:codex )?task|registered (?:codex )?environment|registrerede? (?:codex.)?miljø", text))
-    job_target = bool(re.search(r"process jobs?|background (?:job|process)|baggrundsjob|procesjob|codex process jobs", text))
-    if task_target and not operation:
+    explicit_owner, text = execution_intent(text)
+    operation = bool(re.search(r"\b(fix|implement|build|debug|review|audit|test|tests|testing|refactor|ret|byg|gennemgå)\b", text))
+    task_target = bool(re.search(TASK_TARGET + r"|registered (?:codex )?environment|registrerede? (?:codex.)?miljø", text))
+    job_target = bool(re.search(JOB_TARGET, text))
+    if explicit_owner:
+        skill = explicit_owner
+    elif task_target and not operation:
         skill = "devsuite-tasks"
     elif job_target and not operation:
         skill = "devsuite-jobs"
@@ -61,7 +103,7 @@ def doctor(root: Path = ROOT) -> dict:
     try:
         manifest = read_json(root / ".codex-plugin/plugin.json")
         require(manifest["name"] == "winrecoveryproject-devsuite", "Wrong package name")
-        require(manifest["version"] == "0.2.0", "Wrong package version")
+        require(manifest["version"] == "0.2.1", "Wrong package version")
         require(manifest["interface"]["developerName"] == "Zilvereyes", "Wrong developer")
         require(len(manifest["interface"]["shortDescription"]) <= 30, "Subtitle exceeds 30 characters")
         require(len(manifest["interface"].get("defaultPrompt", [])) <= 3, "Too many prompts")

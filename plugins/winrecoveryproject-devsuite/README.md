@@ -1,4 +1,4 @@
-# WinRecoveryProject DevSuite 0.2.0
+# WinRecoveryProject DevSuite 0.2.1
 
 One owned development workflow combines planning/coordination, implementation,
 debugging, testing, independent review, quality gates, security assessment/remediation,
@@ -64,3 +64,8 @@ python scripts/devsuite.py task-environment environments.json
 
 See [execution routes](references/execution.md). The helpers plan and select only;
 they do not launch commands, create remote tasks or certify provider execution.
+
+Version 0.2.1 preserves explicit remote-task and background-job intent when the
+workload contains test/fix/implement verbs. Code-maintenance requests keep their
+normal development route; negated lifecycle clauses do not start an execution
+workflow. Route suggestions never authorize execution.

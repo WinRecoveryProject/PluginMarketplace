@@ -1,0 +1,43 @@
+{
+  "name": "agentmemory-asus",
+  "version": "1.0.0",
+  "description": "Use the existing AgentMemory-ASUS App for scoped memory lookup, diagnostics and user-authorized memory changes.",
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "license": "MIT",
+  "apps": "./.app.json",
+  "skills": "./skills/",
+  "repository": "https://github.com/WinRecoveryProject/PluginMarketplace",
+  "homepage": "https://github.com/WinRecoveryProject/PluginMarketplace/tree/main/plugins/agentmemory-asus",
+  "keywords": [
+    "memory",
+    "agents",
+    "existing-app",
+    "asus"
+  ],
+  "interface": {
+    "displayName": "AgentMemory-ASUS",
+    "shortDescription": "Fælles hukommelse til agenter",
+    "longDescription": "Find tidligere beslutninger og projektviden gennem din eksisterende AgentMemory-ASUS-forbindelse. Kontrollér forbindelsens status, og gem eller ret kun hukommelse inden for den opgave, du faktisk har godkendt. Denne Marketplace-pakke tilføjer én fokuseret arbejdsgang; den erstatter hverken Appen, serveren eller dine eksisterende forbindelser.",
+    "developerName": "Zilvereyes",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Kontrollér min eksisterende AgentMemory-ASUS-forbindelse uden at ændre data.",
+      "Find relevant tidligere projektviden i AgentMemory-ASUS.",
+      "Gem denne konkrete beslutning i det angivne projekt uden credentials eller private nøgler."
+    ],
+    "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace/tree/main/plugins/agentmemory-asus",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/plugins/agentmemory-asus/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/plugins/agentmemory-asus/TERMS.md",
+    "supportURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/plugins/agentmemory-asus/SUPPORT.md",
+    "logo": "./assets/logo.png",
+    "composerIcon": "./assets/composer-icon.png",
+    "brandColor": "#F5A623"
+  }
+}

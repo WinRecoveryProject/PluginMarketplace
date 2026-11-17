@@ -1,6 +1,8 @@
 # WinRecoveryProject Digital Plugin Marketplace
 
-DevSuite **0.2.0**: [samlede Codex-workflows og nye assets](docs/DEVSUITE-020-20261117.md). Business: [79 installerede identiteter afstemt](docs/BUSINESS-INVENTORY-20261117.md).
+[Seneste personlige afstemning og rettelser: 18. november](docs/MARKETPLACE-FOLLOWUP-20261118.md).
+
+Grundlaget i DevSuite **0.2.0**: [samlede Codex-workflows og nye assets](docs/DEVSUITE-020-20261117.md). Business: [79 installerede identiteter afstemt](docs/BUSINESS-INVENTORY-20261117.md).
 
 Studio **0.3.10**: [integreret Windows-styring og Desktop-/filprøver](docs/STUDIO-DESKTOP-20261117.md).
 
@@ -27,20 +29,20 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
 | OneDrive | `1.2.0` | `codex plugin add onedrive@winrecoveryproject-digital` |
-| CloudStorage Portal | `0.9.5` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
+| CloudStorage Portal | `0.9.6` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Plugin-Skill-Studio | `0.3.10` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
-| PowerShell Workbench | `0.9.0-beta.4` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
+| PowerShell Workbench | `0.9.0-beta.5` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.3` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.32` | `codex plugin add codex-security@winrecoveryproject-digital` |
 | Linear | `5.0.1` | `codex plugin add linear@winrecoveryproject-digital` |
 | Codex Coordinator | `0.4.0` | `codex plugin add codex-coordinator@winrecoveryproject-digital` |
 | Codex Dev Workflows | `0.4.2` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
-| Codex Process Jobs | `0.5.3-wrp.1` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
+| Codex Process Jobs | `0.5.3-wrp.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
 | WinRecoveryProjectLinter | `0.1.1` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
-| WinRecoveryProject DevSuite | `0.2.0` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
+| WinRecoveryProject DevSuite | `0.2.1` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
 | Vercel | `0.21.4` | `codex plugin add vercel@winrecoveryproject-digital` |
@@ -58,8 +60,9 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Google Calendar | `1.2.6` | `codex plugin add google-calendar@winrecoveryproject-digital` |
 | Slack | `0.1.7` | `codex plugin add slack@winrecoveryproject-digital` |
 | Plugin Eval | `0.1.2` | `codex plugin add plugin-eval@winrecoveryproject-digital` |
+| AgentMemory-ASUS | `1.0.0` | `codex plugin add agentmemory-asus@winrecoveryproject-digital` |
 
-Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Den aktuelle liste er afstemt særskilt: 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den aktuelle kontrol og alle historiske forklaringer](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
+Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Opgørelsen fra 17. november var 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den historiske kontrol og forklaringerne](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
 ## Struktur
 
@@ -105,7 +108,7 @@ OneDrive-bindingen er fastholdt fra den leverede ZIP; ingen ny App-identitet er 
 
 ## Egne udviklingsværktøjer
 
-WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Begge er 0.1.1 og har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
+WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Linter er 0.1.1, og DevSuite er 0.2.1; begge har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
 
 [Udgivelse og testdækning](docs/product-release-20261116.md) · [Installeret plugin-gennemgang](docs/current-installed-audit-20261116.md).
 

@@ -68,7 +68,7 @@ The source installer is intended for development and migration. Run `node script
 
 Run `npm run check` and `npm run smoke` to validate a source change. The test tree retains legacy hook compatibility tests; hooks are excluded from both the runtime allowlist and published archives. Build the marketplace ZIP with `npm run package:openai-directory`.
 
-The [release checklist](docs/releasing.md) defines the remaining release gates. Synthetic transport tests do not replace a live local completion canary.
+The [upstream maintainer release checklist](https://github.com/joelfarthing/codex-process-jobs/blob/main/docs/releasing.md) defines the remaining release gates. Synthetic transport tests do not replace a live local completion canary.
 
 ## Support
 
@@ -82,4 +82,4 @@ unsupported POSIX controller. This is not a Windows port of CPJ process groups,
 IPC or completion delivery. Original controller code, attribution and license
 remain unchanged. No reboot/crash recovery is promised for host sessions.
 
-WinRecoveryProject maintenance revision **0.5.3-wrp.1** fixes Windows log-helper rotation. See [modification notice](WRP-MODIFICATIONS.md) for provenance, tested scope and platform limits.
+WinRecoveryProject maintenance revision **0.5.3-wrp.2** fixes Windows log-helper rotation. See [modification notice](WRP-MODIFICATIONS.md) for provenance, tested scope and platform limits.

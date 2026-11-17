@@ -1,4 +1,15 @@
-# Portal contract
+# Historical Portal contract
+
+This file records retired Local-runtime experiments through 0.8.0-dev.15. It is
+historical evidence, not the active package or connection contract. The current
+Portal uses the existing provider Apps or MCP connections, including the hosted
+OneDrive App. It does not require a separate Local plugin, runtime or login.
+
+For current behavior, read the [Portal workflow](../SKILL.md) and
+[setup documentation](../../cloudstorage-setup-docs/SKILL.md). Verify current
+account identity and actual file access independently of the archived results.
+
+## Archived implementation notes
 
 Plugin version 0.8.0-dev.15 embeds local runtime 0.8.0-dev.9. It is separately installed as `cloudstorage-portal@cloudstorage-local` and passed direct MCP discovery. `cloudstorage_execute` binds each implemented read to an explicit provider and connection. One own-app Dropbox grant and one own-app OneDrive grant were previously present together and live-verified for identity/root; OneDrive folder/text were also verified. Runtime dev.9 adds bounded search within the selected personal OneDrive drive, filters shortcuts and cross-drive results, and never aliases SharePoint as the provider. Google Drive API, test audience, test user, `drive.readonly`, Desktop OAuth client and the local DPAPI-protected client secret are configured; startup leaves that secret encrypted until token exchange or refresh needs it. Google consent, immutable identity, bounded root read and a real process stop/restart followed by token refresh, identity revalidation and a second root read are live-verified. OAuth authorization state is single-use and remains valid for 30 minutes, replacing the five-minute window that expired during a real interactive login. The eleven imported Dropbox/Google workflows and their native app references are preserved; the local broker neither copies their credentials nor claims to observe their selected accounts.
 
@@ -8,7 +19,7 @@ Version 0.5.0 adds a sixth local MCP tool for relative subfolder metadata, plus 
 
 Version 0.4.0 uses the official MCP Server SDK 2.3.1 for the local runtime, including stdio transport, version handling, tool listing and tool calls. Five existing tools retain their operation boundaries and use strict argument schemas. The dependency lock and license texts are shipped. An actual 2025-06-18 stdio client exchange was tested against the SDK implementation; live cloud OAuth and host MCP installation are still pending. Historical implementation notes follow.
 
-Version 0.3.0 preserves all eleven imported provider skills and their support files, and adds a local OAuth prototype, five stdio MCP tools and an optional OneDrive sync-folder metadata adapter. The local adapter has been tested against the user's actual sync root. OAuth provider flows are implemented and tested with simulated responses; client registrations and live consent are still pending. There is no hosted deployment or automatic MCP installation. See [oauth-broker.md](oauth-broker.md), [onedrive-local-findings.md](onedrive-local-findings.md) and [runtime/README.md](../../../runtime/README.md).
+Version 0.3.0 preserves all eleven imported provider skills and their support files, and adds a local OAuth prototype, five stdio MCP tools and an optional OneDrive sync-folder metadata adapter. The local adapter has been tested against the user's actual sync root. OAuth provider flows are implemented and tested with simulated responses; client registrations and live consent are still pending. There is no hosted deployment or automatic MCP installation. See [oauth-broker.md](oauth-broker.md), [onedrive-local-findings.md](onedrive-local-findings.md) and the [current Portal workflow](../SKILL.md) for the active contract. The retired runtime README is not distributed with the current package.
 
 A future server must use a trusted per-user connection broker, not copied ChatGPT connector tokens. Store connection metadata separately from credentials. Identify connections by owner, provider, tenant (when applicable) and immutable provider subject; email is a display label. Bind each operation to a server-authorized connection. A requested account ID is not proof of access.
 

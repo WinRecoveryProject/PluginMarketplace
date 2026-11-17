@@ -17,3 +17,10 @@ The current worker owns one writer per separate stdout/stderr file. Shared concu
 multi-process writers/rotation are not supported by this helper. The POSIX controller
 remains unsupported on Windows; its existing host-session workflow is unchanged.
 Windows helper behavior was tested. Linux runtime behavior is not newly verified.
+
+Changes on 2026-11-18 in version 0.5.3-wrp.2:
+
+- Replaced the missing runtime-local release checklist link with the verified
+  upstream maintainer documentation URL. The native snapshot contains no source
+  release tooling; no controller, user job, log state or connection is changed.
+- This documentation-only maintenance revision is not an upstream release.

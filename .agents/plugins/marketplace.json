@@ -519,6 +519,23 @@
       "interface": {
         "displayName": "CodeRabbit"
       }
+    },
+    {
+      "name": "agentmemory-asus",
+      "pluginId": "plugin_asdk_app_6afcbaea744c8191bf18756ef4058cf0",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/agentmemory-asus"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "AgentMemory-ASUS"
+      }
     }
   ]
 }

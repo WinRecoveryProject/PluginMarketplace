@@ -15,7 +15,7 @@ function contained(base,value){
 const registry=json('.agents/plugins/marketplace.json');
 const lock=json('plugin-sources.lock.json');
 const ownRepo='https://github.com/WinRecoveryProject/PluginMarketplace.git';
-const managed=['onedrive','cloudstorage-portal','powershell-workbench','plugin-skill-studio','component-forge','windows-dism-update-docs','codex-coordinator','codex-dev-workflows','codex-engineering-guardrails','codex-process-jobs','zilvereyes-context-handoff','winrecoveryproject-linter','winrecoveryproject-devsuite','coderabbit'];
+const managed=['onedrive','cloudstorage-portal','powershell-workbench','plugin-skill-studio','component-forge','windows-dism-update-docs','codex-coordinator','codex-dev-workflows','codex-engineering-guardrails','codex-process-jobs','zilvereyes-context-handoff','winrecoveryproject-linter','winrecoveryproject-devsuite','coderabbit','agentmemory-asus'];
 if(registry){
   check(readFileSync(join(root,'.agents/plugins/marketplace.json'),'utf8').replaceAll('\r\n','\n')===JSON.stringify(registry,null,2)+'\n','canonical registry formatting');
   const entries=registry.plugins??[], names=entries.map(e=>e.name);
@@ -83,8 +83,14 @@ if(registry){
     }
     const source=lock?.plugins?.[name];
     if(source){
-      if(source.sourceKind==='personal-installed-snapshot'){
+      if(['personal-installed-snapshot','maintained-personal-snapshot'].includes(source.sourceKind)){
         check(source.sourceNamespace==='created-by-me-remote'&&/^[0-9a-f]{64}$/.test(source.sourceHash),`${name}: hashed personal package provenance`);
+      }else if(source.sourceKind==='owned-app-wrapper'){
+        const apps=json(`plugins/${name}/.app.json`), values=Object.values(apps?.apps??{});
+        check(values.length===1&&values[0].id===source.sourceAppId&&values[0].required===false,`${name}: exactly one existing optional App`);
+        check(source.originalPluginId===`plugin_${source.sourceAppId}`&&entry.pluginId===source.originalPluginId,`${name}: canonical original App identity preserved`);
+        check(/^[0-9a-f]{64}$/.test(source.sourceHash)&&source.licenseScope?.includes('wrapper'),`${name}: hashed owned wrapper provenance and license boundary`);
+        check(m.mcpServers==null&&!existsSync(join(base,'.mcp.json'))&&!existsSync(join(base,'hooks/hooks.json')),`${name}: no added MCP or hooks`);
       }else check(/^[0-9a-f]{40}$/.test(source.commit),`${name}: immutable source commit`);
       check(source.version===m.version,`${name}: source version`);
       const actual=[];
@@ -128,6 +134,7 @@ if(registry&&external){
   check(names.length>=24&&new Set(names).size===names.length,'original supplied collection retained without duplicate names');
 }
 const workspace=json('docs/workspace-plugin-collection-20261116.json');
+const additions=json('docs/catalog-additions-20261118.json');
 if(registry&&workspace){
   for(const p of workspace.additionalGitSources){
     const e=registry.plugins.find(e=>e.name===p.name);
@@ -136,8 +143,11 @@ if(registry&&workspace){
     check(e?.interface?.displayName===p.manifest.interface?.displayName,`${p.name}: original publisher display name`);
   }
   const names=[...registry.plugins.map(p=>p.name),...workspace.catalogOnly.map(p=>p.name),...workspace.hostBundled.map(p=>p.name)];
-  check(new Set(names).size===names.length&&names.length===workspace.counts.collectionProducts,'extended collection has one record per product');
-  check(registry.plugins.length===workspace.counts.nativeMarketplaceEntries,'native Marketplace entry count');
+  const added=additions?.addedEntries??[];
+  check(additions?.baselineNativeMarketplaceEntries===workspace.counts.nativeMarketplaceEntries&&additions?.baselineCollectionProducts===workspace.counts.collectionProducts,'catalog additions retain the historical baseline');
+  check(new Set(added.map(p=>p.name)).size===added.length&&added.every(p=>registry.plugins.some(e=>e.name===p.name&&e.pluginId===p.existingPluginId)&&p.newAppOrConnectionCreated===false&&p.installationAutomatic===false),'added catalog wrappers retain existing identities without automatic installation');
+  check(new Set(names).size===names.length&&names.length===workspace.counts.collectionProducts+added.length&&names.length===additions?.currentCollectionRecords,'extended collection has one record per product');
+  check(registry.plugins.length===workspace.counts.nativeMarketplaceEntries+added.length&&registry.plugins.length===additions?.currentNativeMarketplaceEntries,'native Marketplace entry count');
   check(workspace.catalogOnly.every(p=>p.url===`https://chatgpt.com/plugins/${p.pluginId}`),'original catalog links retain native identities');
   check(workspace.hostBundled.every(p=>p.status==='HOST_BUNDLED'&&!registry.plugins.some(e=>e.name===p.name)),'host runtime packages not republished as personal file paths');
   check(workspace.nativeLoaderRemoteSourceProbe.remoteEntryListed===false&&workspace.nativeLoaderRemoteSourceProbe.localControlListed===true,'remote source restriction checked with native positive control');

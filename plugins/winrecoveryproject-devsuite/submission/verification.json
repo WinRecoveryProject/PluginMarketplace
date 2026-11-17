@@ -1,7 +1,7 @@
 {
-  "version": "0.2.0",
+  "version": "0.2.1",
   "localTests": {
-    "passed": 30
+    "passed": 32
   },
   "providerEvidence": "Read-only Business environment discovery succeeded; remote creation/cancellation untested",
   "installed": false,

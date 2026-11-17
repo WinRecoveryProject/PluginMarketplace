@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentMemory-ASUS"
+  short_description: "Find projektviden og håndtér godkendte hukommelsesopgaver."
+  default_prompt: "Brug $agentmemory-asus til den bestilte hukommelsesopgave gennem den eksisterende forbindelse; bevar data og budgettet på 0 kr."
+  icon_small: "./assets/icon.png"
+  icon_large: "./assets/icon.png"
+  brand_color: "#F5A623"

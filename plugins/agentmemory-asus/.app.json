@@ -1,0 +1,8 @@
+{
+  "apps": {
+    "agentmemory-asus": {
+      "id": "asdk_app_6afcbaea744c8191bf18756ef4058cf0",
+      "required": false
+    }
+  }
+}

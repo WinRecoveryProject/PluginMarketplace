@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-18",
+  "baseline": "workspace-plugin-collection-20261116.json",
+  "baselineNativeMarketplaceEntries": 32,
+  "baselineCollectionProducts": 56,
+  "addedEntries": [
+    {
+      "name": "agentmemory-asus",
+      "sourceKind": "owned-app-wrapper",
+      "version": "1.0.0",
+      "existingAppId": "asdk_app_6afcbaea744c8191bf18756ef4058cf0",
+      "existingPluginId": "plugin_asdk_app_6afcbaea744c8191bf18756ef4058cf0",
+      "newAppOrConnectionCreated": false,
+      "installationAutomatic": false,
+      "licenseScope": "Owned MIT metadata/workflow/assets only; external App/server retains its own terms"
+    }
+  ],
+  "currentNativeMarketplaceEntries": 33,
+  "currentCollectionRecords": 57,
+  "countMeaning": "Distinct catalog names and retained external/host references, not a claim of 57 independent service backends or installed products"
+}
