@@ -17,7 +17,7 @@ for(const command of ['curl','wget','Invoke-WebRequest','Invoke-RestMethod','iwr
   const risk=await scanRisk(root);
   const finding=risk.findings.find(f=>f.ruleId==='REMOTE_EXECUTION');
   assert.ok(finding);
-  assert.equal(finding.ruleVersion,'1.1.0');
+  assert.equal(finding.ruleVersion,'1.2.0');
  });
 }
 test('saving a download without executing it is not remote execution',async t=>{

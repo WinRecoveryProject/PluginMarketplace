@@ -1,0 +1,1035 @@
+{
+  "schemaVersion": 1,
+  "id": "megalinter-1.0.28-verified-artifacts-v1",
+  "upstreamPlugin": "megalinter@megalinter",
+  "upstreamVersion": "1.0.28",
+  "license": "AGPL-3.0",
+  "files": [
+    {
+      "path": ".automation/build.py",
+      "beforeSha256": "7c9c0ae878bc1d04139d58622830fdc6ed46ee53ab11cfbeb5835341b49cb64e",
+      "afterSha256": "ade2e573dfbb5652027b57184e6260cf6896703290da0797ae08ed1a17411dd8",
+      "operations": [
+        {
+          "start": 22303,
+          "end": 22477,
+          "oldSha256": "e7c596499b2afa75089583a044de9aeae32e77c8db97cdaee23844e5633e45e2",
+          "replacement": "                + '    && sh -eu -c \\'set -eu; test \"${RUST_RUST_VERSION}\" = \"1.99.1\"; case \"$(uname -m)\" in   x86_64|amd64) target=\"x86_64-unknown-linux-musl\"; sha256=\"1552169aba2836777136ccff7a381e95c17233b5d8250cd5e10ae3cb971bfcfc\";;   aarch64|arm64) target=\"aarch64-unknown-linux-musl\"; sha256=\"956deacdc27ab82ae7ac821d5d3e9e95e4795d476d17efe99743bb8531ca1031\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap \\'\"\\'\"\\'rm -rf \"$tmp\"\\'\"\\'\"\\' EXIT HUP INT TERM; curl --fail --show-error --location --proto \\'\"\\'\"\\'=https\\'\"\\'\"\\' --proto-redir \\'\"\\'\"\\'=https\\'\"\\'\"\\' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://static.rust-lang.org/rustup/archive/1.29.3/$target/rustup-init\" -o \"$tmp/archive\"; printf \\'\"\\'\"\\'%s  %s\\\\n\\'\"\\'\"\\' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; chmod 0755 \"$tmp/archive\"; \"$tmp/archive\" -y --profile minimal --default-toolchain \"${RUST_RUST_VERSION}\" --no-modify-path\\' \\\\\\n'\n"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 0,
+      "generatorFix": true,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": ".claude/skills/kibana-dashboards/SKILL.md",
+      "beforeSha256": "aec280e8a3fca21e9069518e4b44ff24685b85188c9324d71425f267a895767c",
+      "afterSha256": "08e2ed045c9c4a58a27b861d165cd7480db73f6082cce1f4dba0e4bfb16e3959",
+      "operations": [
+        {
+          "start": 2162,
+          "end": 2550,
+          "oldSha256": "ac6b5a1b77c5a658280eb8d703d3fbca119d40688a3dd6c3d8b66e07f6ba6368",
+          "replacement": "#### Option 4: Reuse an existing local deployment\n\nFor a zero-budget local workflow, use an already available Elasticsearch/Kibana deployment with an appropriate free license. Configure `KIBANA_URL` and the existing API key or account credentials using options 2 or 3 above. This connector does not provision a service, create a trial or run remote installation scripts. Keep existing services and credentials unchanged; do not source a downloaded environment file.\n\n"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": true
+    },
+    {
+      "path": ".claude/skills/kibana-dashboards/scripts/kibana-dashboards.js",
+      "beforeSha256": "eda1ba2fc316dfc4e0edcdc08834292d434dffb2447cf9435b88a45d793e8493",
+      "afterSha256": "f4e03ebdce50d9a3ab0be0cb71c9b31cc78c2f885760e349378cb3b16c8d6ce5",
+      "operations": [
+        {
+          "start": 4420,
+          "end": 4998,
+          "oldSha256": "a84f283a301fa45661fcc9b56916a4b864d4ad750abdfe92f8ecf9fa6e85458e",
+          "replacement": "    console.error(\"For local development, reuse an existing appropriately licensed Elasticsearch/Kibana deployment.\");\n    console.error(\"Set KIBANA_URL and existing API key or account credentials as described above.\");\n    console.error(\"No service provisioning, trial or remote installer is required by this connector.\");\n"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": true
+    },
+    {
+      "path": "Dockerfile",
+      "beforeSha256": "f8c0cb9ccf45bcfba2b94a0909bf6208461bbf1ad483be28971d15e03a811ae4",
+      "afterSha256": "df1e12fe84ee98e6872203e68cbd3a5a62af2edfc2c42d739449110096d97710",
+      "operations": [
+        {
+          "start": 65822,
+          "end": 66013,
+          "oldSha256": "9a601ad6d1fa2da57d922e7eb2300724c58aed3f7a243cbdcc6183c64005008d",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_KINGFISHER_VERSION}\" = \"2.14.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"kingfisher-linux-x64.tgz\"; sha256=\"45fc2e12d64dddc17f1f3143d7c0e5dddbc2079b92ec420c20be1a57a8e4829a\";;   aarch64|arm64) asset=\"kingfisher-linux-arm64.tgz\"; sha256=\"3b04c3a339c9bb5f4ce6796e6cfa977cdea2c7ddc0b709ac61f24fd803e196d5\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/mongodb/kingfisher/releases/download/v2.14.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"kingfisher\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/kingfisher\"' \\"
+        },
+        {
+          "start": 65151,
+          "end": 65324,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 64586,
+          "end": 64754,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 64423,
+          "end": 64564,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 63107,
+          "end": 63253,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        },
+        {
+          "start": 54321,
+          "end": 54418,
+          "oldSha256": "55e7d67ffa9fd3588fe1b3cab04b30ad5d120799541d712557ceed7854bb721a",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${GO_GOLANGCI_LINT_VERSION}\" = \"2.15.0\"; case \"$(uname -m)\" in   x86_64|amd64) arch=\"amd64\"; asset=\"golangci-lint-2.15.0-linux-amd64.tar.gz\"; sha256=\"9b7fe6a6bf6334b98decf8d86b11415ea7889afdabdd1959fdce23af2a9ebcea\";;   aarch64|arm64) arch=\"arm64\"; asset=\"golangci-lint-2.15.0-linux-arm64.tar.gz\"; sha256=\"b4d8f17068b35ee6060cc2f69a16fb48740d706fbba81661c318649c114a6998\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/golangci/golangci-lint/releases/download/v2.15.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"golangci-lint-2.15.0-linux-$arch/golangci-lint\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/golangci-lint\"' \\"
+        },
+        {
+          "start": 23939,
+          "end": 24068,
+          "oldSha256": "d4e1a0b9bb91119f77a1ddd75190b0a74d450d3986eef7a7530cea6efc84a7d1",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${RUST_RUST_VERSION}\" = \"1.99.1\"; case \"$(uname -m)\" in   x86_64|amd64) target=\"x86_64-unknown-linux-musl\"; sha256=\"1552169aba2836777136ccff7a381e95c17233b5d8250cd5e10ae3cb971bfcfc\";;   aarch64|arm64) target=\"aarch64-unknown-linux-musl\"; sha256=\"956deacdc27ab82ae7ac821d5d3e9e95e4795d476d17efe99743bb8531ca1031\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://static.rust-lang.org/rustup/archive/1.29.3/$target/rustup-init\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; chmod 0755 \"$tmp/archive\"; \"$tmp/archive\" -y --profile minimal --default-toolchain \"${RUST_RUST_VERSION}\" --no-modify-path' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 7,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "docs/descriptors/go_golangci_lint.md",
+      "beforeSha256": "03b7a7e0c530ee6d0fd2b28a26f3156d905d7e0ff1d4429f0ed349d4b805519d",
+      "afterSha256": "a07613d48c4cde820974ff1819e6d70aa6c133acc1549ba9b57f8ec59caa761e",
+      "operations": [
+        {
+          "start": 20502,
+          "end": 20596,
+          "oldSha256": "a0431da62cb21c3e506274e7ba0ebc65bc781ebe919a7abc7ef0b535d870f68b",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${GO_GOLANGCI_LINT_VERSION}\" = \"2.15.0\"; case \"$(uname -m)\" in   x86_64|amd64) arch=\"amd64\"; asset=\"golangci-lint-2.15.0-linux-amd64.tar.gz\"; sha256=\"9b7fe6a6bf6334b98decf8d86b11415ea7889afdabdd1959fdce23af2a9ebcea\";;   aarch64|arm64) arch=\"arm64\"; asset=\"golangci-lint-2.15.0-linux-arm64.tar.gz\"; sha256=\"b4d8f17068b35ee6060cc2f69a16fb48740d706fbba81661c318649c114a6998\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/golangci/golangci-lint/releases/download/v2.15.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"golangci-lint-2.15.0-linux-$arch/golangci-lint\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/golangci-lint\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 1,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "docs/descriptors/repository_grype.md",
+      "beforeSha256": "72aec46d641ace67117c2dbd06847e02328a6d92ac62bcbdc1bbd3f8e41f62ad",
+      "afterSha256": "627b7865403f51fe6515050c516c1a61ce2b158b1494005568f6c1d652a7a1ba",
+      "operations": [
+        {
+          "start": 26289,
+          "end": 26430,
+          "oldSha256": "223807766e3fbd9137df24aae6336dbbe59e4004fbb3f9dcc9e47afbe8f6e814",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"'"
+        }
+      ],
+      "resolvedOccurrences": 1,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "docs/descriptors/repository_kingfisher.md",
+      "beforeSha256": "319ecfba1da11a03bc3c9c95d2e1afaa2b91007bbf96f342f72b134f08377729",
+      "afterSha256": "6df2ca5fc5b37c4c66781035f8383c054bd48bcd06285163b498a2959c957c8b",
+      "operations": [
+        {
+          "start": 13346,
+          "end": 13532,
+          "oldSha256": "44e0039e67a2f2a112fee8e696d87a6d594e7286a9c31e0feceb37753493f810",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_KINGFISHER_VERSION}\" = \"2.14.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"kingfisher-linux-x64.tgz\"; sha256=\"45fc2e12d64dddc17f1f3143d7c0e5dddbc2079b92ec420c20be1a57a8e4829a\";;   aarch64|arm64) asset=\"kingfisher-linux-arm64.tgz\"; sha256=\"3b04c3a339c9bb5f4ce6796e6cfa977cdea2c7ddc0b709ac61f24fd803e196d5\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/mongodb/kingfisher/releases/download/v2.14.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"kingfisher\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/kingfisher\"'"
+        }
+      ],
+      "resolvedOccurrences": 1,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "docs/descriptors/repository_syft.md",
+      "beforeSha256": "a1de509f891912e5c7197db5ac4eb94f6852ccb416934ba9ce4fb51f46f2de66",
+      "afterSha256": "9518b2d1da35527f9c138b7132035a349b699b19a183a2ecbd1d1a136a182679",
+      "operations": [
+        {
+          "start": 26369,
+          "end": 26508,
+          "oldSha256": "2fb56a1dff3a9c67f10662e57890013b2528ec99c105f98e451470d3644050be",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"'"
+        }
+      ],
+      "resolvedOccurrences": 1,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "docs/descriptors/repository_trivy.md",
+      "beforeSha256": "92196d55ad247c2d200d86df034fc2716261b09e591863b30d62454214f9c33c",
+      "afterSha256": "84c472e559f86a8bb612d73e871d52980bd94c10cb1fc46ae40af1984abf77ef",
+      "operations": [
+        {
+          "start": 25318,
+          "end": 25483,
+          "oldSha256": "c7f96f7a0218e1150d8909182ba16e587769cf9859a5081852fa9b56ae0e8ec7",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 1,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "docs/descriptors/repository_trivy_sbom.md",
+      "beforeSha256": "4dea14264e5c29605cf5d65994dbcbf78811096cfa7b7c0728690467827ae71f",
+      "afterSha256": "9153865bb4cda90e7d852511aae528c1fe6a91e860c486c7638ebde3926b4724",
+      "operations": [
+        {
+          "start": 25003,
+          "end": 25173,
+          "oldSha256": "78f0693504296da65b0ed575439780e0bfc8f71ec4586d822123605ad9df8f20",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 1,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "docs/llm-provider/llm_provider_ollama.md",
+      "beforeSha256": "c1ced2ff0211a325203025b6852ed26a735ea5329554960ed8293305d004d8ce",
+      "afterSha256": "4865b02c7805bc7f4bfb8902003fcbf27a340a7c761559ded511f2d650ac6b40",
+      "operations": [
+        {
+          "start": 241,
+          "end": 411,
+          "oldSha256": "9a65ff3b079f5f82562086642e8bfd6460c2b6073b2450294f120e73b04ac020",
+          "replacement": "### 1. Install Ollama from a verified release\n\nThis optional local provider has no API fee. It is not installed or started by this patch, and no model is downloaded. Existing Ollama services and configuration remain unchanged. Large release archives require sufficient disk space. Use the existing installation if it is already available.\n\nRelease: [Ollama v0.40.16](https://github.com/ollama/ollama/releases/tag/v0.40.16). The hashes below are pinned from the publisher's GitHub release asset digests, not fetched dynamically during installation. A version change requires reviewing new hashes. This checks artifact integrity, not all publisher behavior.\n\n**Linux (amd64/arm64, curl, sha256sum and tar with zstd support):**\n\nDownload and verify into a new user-local version directory; no root, service creation, startup or model pull is performed.\n\n```bash\nset -eu\ncase \"$(uname -m)\" in\n  x86_64|amd64) asset=\"ollama-linux-amd64.tar.zst\"; sha256=\"87bfafb2acbc89b2e6a1be0a9043de6aa75fb450696f86bc426e65fc448f788d\";;\n  aarch64|arm64) asset=\"ollama-linux-arm64.tar.zst\"; sha256=\"e45b8e6dcb86cb9f3057396351655079c9a4879b4ced2678c9350d375dcbc224\";;\n  *) echo \"Unsupported architecture\" >&2; exit 1;;\nesac\ndest=\"$HOME/.local/opt/ollama-v0.40.16\"\ntest ! -e \"$dest\"\nmkdir -p \"$HOME/.local/opt\"\ntmp=\"$(mktemp -d \"$HOME/.local/opt/.ollama-XXXXXX\")\"\ntrap 'rm -rf \"$tmp\"' EXIT HUP INT TERM\ncurl --fail --show-error --location --proto '=https' --proto-redir '=https' --tlsv1.2 --connect-timeout 20 --max-time 1800 --retry 3 \"https://github.com/ollama/ollama/releases/download/v0.40.16/$asset\" -o \"$tmp/archive\"\nprintf '%s  %s\\n' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status\nmkdir \"$tmp/payload\"\ntar --zstd -xf \"$tmp/archive\" -C \"$tmp/payload\"\ntest -f \"$tmp/payload/bin/ollama\"\ntest ! -L \"$tmp/payload/bin/ollama\"\nmv \"$tmp/payload\" \"$dest\"\n```\n\nStart the verified executable explicitly when you need it: `~/.local/opt/ollama-v0.40.16/bin/ollama serve`. This is separate from installation. Follow the release's GPU requirements if applicable; GPU add-on archives are not implicitly installed.\n\n**macOS:** download [Ollama.dmg](https://github.com/ollama/ollama/releases/download/v0.40.16/Ollama.dmg) and check `shasum -a 256 Ollama.dmg` equals `b48d74a2d8c6a0592c816a4f85643d8d8608ad592abafbe95c04128a73c398c6` before manually opening the disk image. Keep the existing app/configuration; do not remove it as cleanup.\n\n**Windows:** download [OllamaSetup.exe](https://github.com/ollama/ollama/releases/download/v0.40.16/OllamaSetup.exe) and check `(Get-FileHash -Algorithm SHA256 -LiteralPath .\\OllamaSetup.exe).Hash.ToLowerInvariant()` equals `84db4f756ddc9e091142a85cdc0f7ae5db68bc9b3e075f114388b326f8ed912d` before manually starting the installer. A mismatch means stop; keep existing services and settings.\n\n"
+        }
+      ],
+      "resolvedOccurrences": 1,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/c_cpp/Dockerfile",
+      "beforeSha256": "cc1784e1cc7d579dd9c0a99a8371313676ffaf7930d54b3c78fa98443834fd6a",
+      "afterSha256": "b14b50a581c48b38f87cacfd0c74886140412162c9f73802988d8b9fefd1e2a9",
+      "operations": [
+        {
+          "start": 29870,
+          "end": 30043,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29305,
+          "end": 29473,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29142,
+          "end": 29283,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 27826,
+          "end": 27972,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/ci_light/Dockerfile",
+      "beforeSha256": "164db2c77526d84f5ca7db164862e1e8ca1ca8d8d7a661e1e38c53ad41a44efc",
+      "afterSha256": "f2e6c8c0a351302c8fed274bfe89d8fd1d2a12295e48d7bb61a601cd85297f01",
+      "operations": [
+        {
+          "start": 16002,
+          "end": 16175,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 15437,
+          "end": 15605,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 15271,
+          "end": 15415,
+          "oldSha256": "518bbad67f29e16610140e021a0c77b5256568f8ee4046fcfd5ed6e297571735",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 14531,
+          "end": 14674,
+          "oldSha256": "00190cbb46804c814a2a2407612761872872ceb9cb47b7638f1066765801c399",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/cupcake/Dockerfile",
+      "beforeSha256": "bf2ebe4a141cbb8b1a5f7f75600237747dd0d76c3c06fd6a747083633f3be5cc",
+      "afterSha256": "884b9403b61ef088ba524b76d751ebf363fb0714e6e14f8053286037714d6406",
+      "operations": [
+        {
+          "start": 47571,
+          "end": 47744,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 47006,
+          "end": 47174,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 46843,
+          "end": 46984,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 45530,
+          "end": 45673,
+          "oldSha256": "00190cbb46804c814a2a2407612761872872ceb9cb47b7638f1066765801c399",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        },
+        {
+          "start": 40613,
+          "end": 40710,
+          "oldSha256": "55e7d67ffa9fd3588fe1b3cab04b30ad5d120799541d712557ceed7854bb721a",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${GO_GOLANGCI_LINT_VERSION}\" = \"2.15.0\"; case \"$(uname -m)\" in   x86_64|amd64) arch=\"amd64\"; asset=\"golangci-lint-2.15.0-linux-amd64.tar.gz\"; sha256=\"9b7fe6a6bf6334b98decf8d86b11415ea7889afdabdd1959fdce23af2a9ebcea\";;   aarch64|arm64) arch=\"arm64\"; asset=\"golangci-lint-2.15.0-linux-arm64.tar.gz\"; sha256=\"b4d8f17068b35ee6060cc2f69a16fb48740d706fbba81661c318649c114a6998\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/golangci/golangci-lint/releases/download/v2.15.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"golangci-lint-2.15.0-linux-$arch/golangci-lint\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/golangci-lint\"' \\"
+        },
+        {
+          "start": 19627,
+          "end": 19756,
+          "oldSha256": "d4e1a0b9bb91119f77a1ddd75190b0a74d450d3986eef7a7530cea6efc84a7d1",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${RUST_RUST_VERSION}\" = \"1.99.1\"; case \"$(uname -m)\" in   x86_64|amd64) target=\"x86_64-unknown-linux-musl\"; sha256=\"1552169aba2836777136ccff7a381e95c17233b5d8250cd5e10ae3cb971bfcfc\";;   aarch64|arm64) target=\"aarch64-unknown-linux-musl\"; sha256=\"956deacdc27ab82ae7ac821d5d3e9e95e4795d476d17efe99743bb8531ca1031\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://static.rust-lang.org/rustup/archive/1.29.3/$target/rustup-init\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; chmod 0755 \"$tmp/archive\"; \"$tmp/archive\" -y --profile minimal --default-toolchain \"${RUST_RUST_VERSION}\" --no-modify-path' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 6,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/documentation/Dockerfile",
+      "beforeSha256": "814b799801f778de80c5cdec3fcaa0116b100c912b446fac624a11cc0e6c15ef",
+      "afterSha256": "578bbf4e7abe034bd555c5becb4e4b7f98969cfb6e3f332db6e180ca33a88d92",
+      "operations": [
+        {
+          "start": 29137,
+          "end": 29310,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 28572,
+          "end": 28740,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 28409,
+          "end": 28550,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 27093,
+          "end": 27239,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/dotnet/Dockerfile",
+      "beforeSha256": "be672fc3b3b97913cc459be62e33ffec8c959e796eefd2ba528fc63b648e4d02",
+      "afterSha256": "3e5b060bf73ee969ecb83a04ecc0808606c15c51404d2de6174b331381703b93",
+      "operations": [
+        {
+          "start": 34245,
+          "end": 34418,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 33680,
+          "end": 33848,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 33517,
+          "end": 33658,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 32201,
+          "end": 32347,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/dotnetweb/Dockerfile",
+      "beforeSha256": "8a9992c75acc72861ddf6644299d57318535048ecb996f4be09e0e4abc987ef1",
+      "afterSha256": "70b3bc795e6588a294b783e0214ce92b01500b5cd94f61860dc0b581e7148fa5",
+      "operations": [
+        {
+          "start": 37632,
+          "end": 37805,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 37067,
+          "end": 37235,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 36904,
+          "end": 37045,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 35588,
+          "end": 35734,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/go/Dockerfile",
+      "beforeSha256": "597796f7315c0f599aaa69d00f100c55879abbe17688a69a4f0210b447f55cb8",
+      "afterSha256": "8f11c8a2370dba80cc67a656a9b3b3fb695f618cea319011e2a2d579d79d5d09",
+      "operations": [
+        {
+          "start": 30357,
+          "end": 30530,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29792,
+          "end": 29960,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29629,
+          "end": 29770,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 28313,
+          "end": 28459,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        },
+        {
+          "start": 26101,
+          "end": 26198,
+          "oldSha256": "55e7d67ffa9fd3588fe1b3cab04b30ad5d120799541d712557ceed7854bb721a",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${GO_GOLANGCI_LINT_VERSION}\" = \"2.15.0\"; case \"$(uname -m)\" in   x86_64|amd64) arch=\"amd64\"; asset=\"golangci-lint-2.15.0-linux-amd64.tar.gz\"; sha256=\"9b7fe6a6bf6334b98decf8d86b11415ea7889afdabdd1959fdce23af2a9ebcea\";;   aarch64|arm64) arch=\"arm64\"; asset=\"golangci-lint-2.15.0-linux-arm64.tar.gz\"; sha256=\"b4d8f17068b35ee6060cc2f69a16fb48740d706fbba81661c318649c114a6998\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/golangci/golangci-lint/releases/download/v2.15.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"golangci-lint-2.15.0-linux-$arch/golangci-lint\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/golangci-lint\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 5,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/java/Dockerfile",
+      "beforeSha256": "32b2db1605b313fa3178d1b6cba7fd589cc5576962ff6c03e6bee024d9badc34",
+      "afterSha256": "0c33b9173f967763f8b3bc5e985e78fb48abb6d594a1de48faf6785be2851254",
+      "operations": [
+        {
+          "start": 31166,
+          "end": 31339,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 30601,
+          "end": 30769,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 30438,
+          "end": 30579,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 29122,
+          "end": 29268,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/javascript/Dockerfile",
+      "beforeSha256": "b5080a1a1ee3814d0da3f0ba08dd41cdd65e0c2884f35e4a37acf0836e57a43e",
+      "afterSha256": "6161093497a2239b91706fb786695eddcec538d63c33ea23d838835415e3b610",
+      "operations": [
+        {
+          "start": 32962,
+          "end": 33135,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 32397,
+          "end": 32565,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 32234,
+          "end": 32375,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 30918,
+          "end": 31064,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/php/Dockerfile",
+      "beforeSha256": "1c5421dbbda61bd2541d2bdd262e862ee9e699ae45e78bd559e7d85f045f949f",
+      "afterSha256": "114950e5eff7b57a104d202b982e65427737426c49a2cf69252ea11b5cc30679",
+      "operations": [
+        {
+          "start": 32272,
+          "end": 32445,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 31707,
+          "end": 31875,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 31544,
+          "end": 31685,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 30231,
+          "end": 30374,
+          "oldSha256": "00190cbb46804c814a2a2407612761872872ceb9cb47b7638f1066765801c399",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/python/Dockerfile",
+      "beforeSha256": "4abc208813d0ef16987f19d340859ca778f3dd417113421dbef731b72f0aa399",
+      "afterSha256": "fd30d1399599e76e28de265c0e34badd6b932fa231682f31dd2fe1881574e38e",
+      "operations": [
+        {
+          "start": 36226,
+          "end": 36399,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 35661,
+          "end": 35829,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 35498,
+          "end": 35639,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 34185,
+          "end": 34328,
+          "oldSha256": "00190cbb46804c814a2a2407612761872872ceb9cb47b7638f1066765801c399",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/ruby/Dockerfile",
+      "beforeSha256": "c517de46c518afb3f2901b05a8f297cc77aac9d4d1f4e208742e6e810a1c6ac2",
+      "afterSha256": "67db5601cbfdfe071506f23b8861dab280d6fde10c5affba6ae032893030eef6",
+      "operations": [
+        {
+          "start": 30274,
+          "end": 30447,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29709,
+          "end": 29877,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29546,
+          "end": 29687,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 28230,
+          "end": 28376,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/rust/Dockerfile",
+      "beforeSha256": "ef676d9416fcc1a21d67090a2003185a77f1cf8de93dbaed1bc76850dbff4e61",
+      "afterSha256": "513a15959f43f8e9e8d86f5c4858c1008524c5c55ab0f5148515d9e62fd269b4",
+      "operations": [
+        {
+          "start": 29885,
+          "end": 30058,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29320,
+          "end": 29488,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29157,
+          "end": 29298,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 27841,
+          "end": 27987,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        },
+        {
+          "start": 12776,
+          "end": 12905,
+          "oldSha256": "d4e1a0b9bb91119f77a1ddd75190b0a74d450d3986eef7a7530cea6efc84a7d1",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${RUST_RUST_VERSION}\" = \"1.99.1\"; case \"$(uname -m)\" in   x86_64|amd64) target=\"x86_64-unknown-linux-musl\"; sha256=\"1552169aba2836777136ccff7a381e95c17233b5d8250cd5e10ae3cb971bfcfc\";;   aarch64|arm64) target=\"aarch64-unknown-linux-musl\"; sha256=\"956deacdc27ab82ae7ac821d5d3e9e95e4795d476d17efe99743bb8531ca1031\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://static.rust-lang.org/rustup/archive/1.29.3/$target/rustup-init\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; chmod 0755 \"$tmp/archive\"; \"$tmp/archive\" -y --profile minimal --default-toolchain \"${RUST_RUST_VERSION}\" --no-modify-path' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 5,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/salesforce/Dockerfile",
+      "beforeSha256": "4fc3761eeeb5c340c6631b3d6a6124379106af144fbd2c51a4fd875ac5d1d2fe",
+      "afterSha256": "989e1909ad202c1d590be720a98ad2ff2022b826bbb60a8786c989b93a532941",
+      "operations": [
+        {
+          "start": 30638,
+          "end": 30811,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 30073,
+          "end": 30241,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29910,
+          "end": 30051,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 28594,
+          "end": 28740,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/security/Dockerfile",
+      "beforeSha256": "ef8c559a96b71602c2003cca603f4a1c5ddd360a7218b1360a144f535cc28722",
+      "afterSha256": "77fe33fb85858483250783346c987616558ed6c0cc4715c808b6268d4157c78e",
+      "operations": [
+        {
+          "start": 19953,
+          "end": 20142,
+          "oldSha256": "0d3b0a4743f51030e3b2a8f4ccc806081a273f30d3a0317ae14806c8b95e98d7",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_KINGFISHER_VERSION}\" = \"2.14.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"kingfisher-linux-x64.tgz\"; sha256=\"45fc2e12d64dddc17f1f3143d7c0e5dddbc2079b92ec420c20be1a57a8e4829a\";;   aarch64|arm64) asset=\"kingfisher-linux-arm64.tgz\"; sha256=\"3b04c3a339c9bb5f4ce6796e6cfa977cdea2c7ddc0b709ac61f24fd803e196d5\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/mongodb/kingfisher/releases/download/v2.14.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"kingfisher\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/kingfisher\"'"
+        },
+        {
+          "start": 19282,
+          "end": 19455,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 18717,
+          "end": 18885,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 18554,
+          "end": 18695,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 17681,
+          "end": 17827,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 5,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/swift/Dockerfile",
+      "beforeSha256": "12b3e229cb531998678b2bb18d0a936d3748893fe878df5b9f609b3381fb0da1",
+      "afterSha256": "8257b28cbe509dcbae9167c3c79c3d44bd731860a60d29a86807e5ce20bbd6f2",
+      "operations": [
+        {
+          "start": 29248,
+          "end": 29421,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 28683,
+          "end": 28851,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 28520,
+          "end": 28661,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 27204,
+          "end": 27350,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "flavors/terraform/Dockerfile",
+      "beforeSha256": "471893430ad07c0eb41014632c4e86e55cd3120ae62712ddb464d39f56455e76",
+      "afterSha256": "6ff56e88c971bd89d9add9cab7a1109942a75dbc2e78eceae3e8719f52909bb0",
+      "operations": [
+        {
+          "start": 30409,
+          "end": 30582,
+          "oldSha256": "86fa002395820002b00984310acebc12da4a4086aa193915b1420f5630e47724",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29844,
+          "end": 30012,
+          "oldSha256": "ee55548299f2ed8f7dadd8c7b25a5580c8c9a4e7b65dbddfaf0950365dfa5471",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 29681,
+          "end": 29822,
+          "oldSha256": "f83233ee7528beacf41bff0c35ecfce5971594d298045975002a82be025728e0",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"' \\"
+        },
+        {
+          "start": 28365,
+          "end": 28511,
+          "oldSha256": "de65c1b79c418e4d9d1389f4bb60d25b46051307698b3573a547266df5098813",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 4,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "linters/go_golangci_lint/Dockerfile",
+      "beforeSha256": "5a2357e69882d17966c1547a0456825588e2c39068462979d4bc85dd065c0a19",
+      "afterSha256": "5a9524287ad3cc8774ac17050d754531b61121f277fa0bd3b578f88ab03d4fd1",
+      "operations": [
+        {
+          "start": 6761,
+          "end": 6858,
+          "oldSha256": "55e7d67ffa9fd3588fe1b3cab04b30ad5d120799541d712557ceed7854bb721a",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${GO_GOLANGCI_LINT_VERSION}\" = \"2.15.0\"; case \"$(uname -m)\" in   x86_64|amd64) arch=\"amd64\"; asset=\"golangci-lint-2.15.0-linux-amd64.tar.gz\"; sha256=\"9b7fe6a6bf6334b98decf8d86b11415ea7889afdabdd1959fdce23af2a9ebcea\";;   aarch64|arm64) arch=\"arm64\"; asset=\"golangci-lint-2.15.0-linux-arm64.tar.gz\"; sha256=\"b4d8f17068b35ee6060cc2f69a16fb48740d706fbba81661c318649c114a6998\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/golangci/golangci-lint/releases/download/v2.15.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"golangci-lint-2.15.0-linux-$arch/golangci-lint\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/golangci-lint\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 1,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "linters/repository_grype/Dockerfile",
+      "beforeSha256": "b1e52212433fffd5400a7e61cd22686a2c158d20a7c61178f8ea3fb844682b97",
+      "afterSha256": "447f781050c9ef38fa5256c8aee21ee9105ca49f3216ad5a5d5881eb50d9816f",
+      "operations": [
+        {
+          "start": 6567,
+          "end": 6708,
+          "oldSha256": "223807766e3fbd9137df24aae6336dbbe59e4004fbb3f9dcc9e47afbe8f6e814",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"'"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 1,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "linters/repository_kingfisher/Dockerfile",
+      "beforeSha256": "96d2c9e4dd935033b2d49cd56cec29cd74e68018dfcbf914144af6bb5f39a331",
+      "afterSha256": "58dab8e67998017ab26f4695d33089efa0151f37fa9f5062eeef872e9919a560",
+      "operations": [
+        {
+          "start": 6581,
+          "end": 6767,
+          "oldSha256": "44e0039e67a2f2a112fee8e696d87a6d594e7286a9c31e0feceb37753493f810",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_KINGFISHER_VERSION}\" = \"2.14.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"kingfisher-linux-x64.tgz\"; sha256=\"45fc2e12d64dddc17f1f3143d7c0e5dddbc2079b92ec420c20be1a57a8e4829a\";;   aarch64|arm64) asset=\"kingfisher-linux-arm64.tgz\"; sha256=\"3b04c3a339c9bb5f4ce6796e6cfa977cdea2c7ddc0b709ac61f24fd803e196d5\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/mongodb/kingfisher/releases/download/v2.14.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"kingfisher\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/kingfisher\"'"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 1,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "linters/repository_syft/Dockerfile",
+      "beforeSha256": "1df404ed1fc95dc85e569f6fb0b6773e577b6ec1823dc713a15d09a41b57c5f7",
+      "afterSha256": "06d7cd8f0c5f5096ba5172073ab50798ebad1e2641dc31fff0fb61a4ecdbc7d7",
+      "operations": [
+        {
+          "start": 6563,
+          "end": 6702,
+          "oldSha256": "2fb56a1dff3a9c67f10662e57890013b2528ec99c105f98e451470d3644050be",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"'"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 1,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "linters/repository_trivy/Dockerfile",
+      "beforeSha256": "230f2c5e64d3346b070a70a4a31920458a8f89120949f7fe4695cafbc9c5a7d6",
+      "afterSha256": "3c59041fc86fdad39072e886d91f9b32ced0ad4614660965d2a43ac763d11a46",
+      "operations": [
+        {
+          "start": 6699,
+          "end": 6864,
+          "oldSha256": "c7f96f7a0218e1150d8909182ba16e587769cf9859a5081852fa9b56ae0e8ec7",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 1,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "linters/repository_trivy_sbom/Dockerfile",
+      "beforeSha256": "48bbaba712c8c92c074ffae15a56a0eb0eedacec83018e803094e78ee05ad042",
+      "afterSha256": "478deca6cdfb0cab27f9d4f20a0e344763d74c03347322773df66dc9f8367136",
+      "operations": [
+        {
+          "start": 6709,
+          "end": 6879,
+          "oldSha256": "78f0693504296da65b0ed575439780e0bfc8f71ec4586d822123605ad9df8f20",
+          "replacement": "RUN sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 1,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "linters/rust_clippy/Dockerfile",
+      "beforeSha256": "29e7f0632a6e7053e848a50dd8e52d7a0dda18de84e7ad983e4d9db3c870676f",
+      "afterSha256": "2c6616a596232a341314b65acd3851cd1e2ac404d1fb3cb949c4b49b8b72bb8e",
+      "operations": [
+        {
+          "start": 4675,
+          "end": 4804,
+          "oldSha256": "d4e1a0b9bb91119f77a1ddd75190b0a74d450d3986eef7a7530cea6efc84a7d1",
+          "replacement": "    && sh -eu -c 'set -eu; test \"${RUST_RUST_VERSION}\" = \"1.99.1\"; case \"$(uname -m)\" in   x86_64|amd64) target=\"x86_64-unknown-linux-musl\"; sha256=\"1552169aba2836777136ccff7a381e95c17233b5d8250cd5e10ae3cb971bfcfc\";;   aarch64|arm64) target=\"aarch64-unknown-linux-musl\"; sha256=\"956deacdc27ab82ae7ac821d5d3e9e95e4795d476d17efe99743bb8531ca1031\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://static.rust-lang.org/rustup/archive/1.29.3/$target/rustup-init\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; chmod 0755 \"$tmp/archive\"; \"$tmp/archive\" -y --profile minimal --default-toolchain \"${RUST_RUST_VERSION}\" --no-modify-path' \\"
+        }
+      ],
+      "resolvedOccurrences": 0,
+      "derivedOccurrences": 1,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "megalinter/descriptors/go.megalinter-descriptor.yml",
+      "beforeSha256": "54b68bf11455edaca5882c0782f23b67856c1f8c90ff7b06608eb4bdaa8d324e",
+      "afterSha256": "05d9a34e97cd65d5750e77e6fbacd659dde5e6fde47b3710e991e05c1664af15",
+      "operations": [
+        {
+          "start": 7119,
+          "end": 7223,
+          "oldSha256": "173f9e2838dcb6295d2f64e6273c1edb0d205f1107d7cd758df324acca82a619",
+          "replacement": "          RUN sh -eu -c 'set -eu; test \"${GO_GOLANGCI_LINT_VERSION}\" = \"2.15.0\"; case \"$(uname -m)\" in   x86_64|amd64) arch=\"amd64\"; asset=\"golangci-lint-2.15.0-linux-amd64.tar.gz\"; sha256=\"9b7fe6a6bf6334b98decf8d86b11415ea7889afdabdd1959fdce23af2a9ebcea\";;   aarch64|arm64) arch=\"arm64\"; asset=\"golangci-lint-2.15.0-linux-arm64.tar.gz\"; sha256=\"b4d8f17068b35ee6060cc2f69a16fb48740d706fbba81661c318649c114a6998\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/golangci/golangci-lint/releases/download/v2.15.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"golangci-lint-2.15.0-linux-$arch/golangci-lint\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/golangci-lint\"' \\"
+        }
+      ],
+      "resolvedOccurrences": 1,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    },
+    {
+      "path": "megalinter/descriptors/repository.megalinter-descriptor.yml",
+      "beforeSha256": "af41895d0cb45ab52790a112c57de04218e9c039078b094fa919423f32f71b2c",
+      "afterSha256": "9ef014885fc57111846b77da2e08371175d4714e845927ae5a2e7fdf3a2d436f",
+      "operations": [
+        {
+          "start": 67265,
+          "end": 67461,
+          "oldSha256": "68278ceeb87cfab2fa96c8a8092f31a5bcc61daf02a33b6ac392f337e269e7b8",
+          "replacement": "          RUN sh -eu -c 'set -eu; test \"${REPOSITORY_KINGFISHER_VERSION}\" = \"2.14.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"kingfisher-linux-x64.tgz\"; sha256=\"45fc2e12d64dddc17f1f3143d7c0e5dddbc2079b92ec420c20be1a57a8e4829a\";;   aarch64|arm64) asset=\"kingfisher-linux-arm64.tgz\"; sha256=\"3b04c3a339c9bb5f4ce6796e6cfa977cdea2c7ddc0b709ac61f24fd803e196d5\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/mongodb/kingfisher/releases/download/v2.14.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"kingfisher\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/kingfisher\"'"
+        },
+        {
+          "start": 58484,
+          "end": 58664,
+          "oldSha256": "86d33cbeb4b234970f29410c1b54664858c55a203f5c415b91d7edc577eb0e18",
+          "replacement": "          RUN sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_SBOM_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 52955,
+          "end": 53130,
+          "oldSha256": "c682d3d8c27f33b1492e97000d5e8851484c77cfd6764eafcc2f3e5c644f3044",
+          "replacement": "          RUN sh -eu -c 'set -eu; test \"${REPOSITORY_TRIVY_VERSION}\" = \"0.76.1\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"trivy_0.76.1_Linux-64bit.tar.gz\"; sha256=\"c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0\";;   aarch64|arm64) asset=\"trivy_0.76.1_Linux-ARM64.tar.gz\"; sha256=\"e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/aquasecurity/trivy/releases/download/v0.76.1/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"trivy\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/trivy\"' \\"
+        },
+        {
+          "start": 46472,
+          "end": 46621,
+          "oldSha256": "56dfd6ca50cdd437cabd68a70f29ce2365fc68758fa02d8c101d58768d9436b5",
+          "replacement": "        - |\n          RUN sh -eu -c 'set -eu; test \"${REPOSITORY_SYFT_VERSION}\" = \"1.55.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"syft_1.55.0_linux_amd64.tar.gz\"; sha256=\"bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d\";;   aarch64|arm64) asset=\"syft_1.55.0_linux_arm64.tar.gz\"; sha256=\"929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/syft/releases/download/v1.55.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"syft\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/syft\"'"
+        },
+        {
+          "start": 25959,
+          "end": 26110,
+          "oldSha256": "88594ebab3ec5c2301b543a236b6c2a28c447ce16c46316701255548c85b07c9",
+          "replacement": "        - |\n          RUN sh -eu -c 'set -eu; test \"${REPOSITORY_GRYPE_VERSION}\" = \"0.121.0\"; case \"$(uname -m)\" in   x86_64|amd64) asset=\"grype_0.121.0_linux_amd64.tar.gz\"; sha256=\"64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519\";;   aarch64|arm64) asset=\"grype_0.121.0_linux_arm64.tar.gz\"; sha256=\"86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae\";;   *) echo \"Unsupported architecture\" >&2; exit 1;; esac; tmp=\"$(mktemp -d)\"; trap '\"'\"'rm -rf \"$tmp\"'\"'\"' EXIT HUP INT TERM; curl --fail --show-error --location --proto '\"'\"'=https'\"'\"' --proto-redir '\"'\"'=https'\"'\"' --tlsv1.2 --connect-timeout 20 --max-time 300 --retry 3 \"https://github.com/anchore/grype/releases/download/v0.121.0/$asset\" -o \"$tmp/archive\"; printf '\"'\"'%s  %s\\n'\"'\"' \"$sha256\" \"$tmp/archive\" | sha256sum --check --status; member=\"grype\"; tar -xzf \"$tmp/archive\" -C \"$tmp\" -- \"$member\"; test -f \"$tmp/$member\"; test ! -L \"$tmp/$member\"; install -m 0755 \"$tmp/$member\" \"/usr/local/bin/grype\"'"
+        }
+      ],
+      "resolvedOccurrences": 5,
+      "derivedOccurrences": 0,
+      "generatorFix": false,
+      "additionalKibanaFinding": false
+    }
+  ],
+  "resolvedOccurrences": 13
+}

@@ -1,0 +1,142 @@
+{
+  "golangci": {
+    "tag": "v2.15.0",
+    "release": "https://github.com/golangci/golangci-lint/releases/tag/v2.15.0",
+    "assets": [
+      {
+        "name": "golangci-lint-2.15.0-linux-amd64.tar.gz",
+        "url": "https://github.com/golangci/golangci-lint/releases/download/v2.15.0/golangci-lint-2.15.0-linux-amd64.tar.gz",
+        "sha256": "9b7fe6a6bf6334b98decf8d86b11415ea7889afdabdd1959fdce23af2a9ebcea",
+        "size": 15585535
+      },
+      {
+        "name": "golangci-lint-2.15.0-linux-arm64.tar.gz",
+        "url": "https://github.com/golangci/golangci-lint/releases/download/v2.15.0/golangci-lint-2.15.0-linux-arm64.tar.gz",
+        "sha256": "b4d8f17068b35ee6060cc2f69a16fb48740d706fbba81661c318649c114a6998",
+        "size": 14141514
+      }
+    ]
+  },
+  "grype": {
+    "tag": "v0.121.0",
+    "release": "https://github.com/anchore/grype/releases/tag/v0.121.0",
+    "assets": [
+      {
+        "name": "grype_0.121.0_linux_amd64.tar.gz",
+        "url": "https://github.com/anchore/grype/releases/download/v0.121.0/grype_0.121.0_linux_amd64.tar.gz",
+        "sha256": "64e07133d3486115de647a66581461dccf5c732748a0a3119077395565f15519",
+        "size": 32504199
+      },
+      {
+        "name": "grype_0.121.0_linux_arm64.tar.gz",
+        "url": "https://github.com/anchore/grype/releases/download/v0.121.0/grype_0.121.0_linux_arm64.tar.gz",
+        "sha256": "86f570f75ca947ea3dd6486309232bcff6d78e44ba081ae75ab14eab72be3dae",
+        "size": 29658981
+      }
+    ]
+  },
+  "syft": {
+    "tag": "v1.55.0",
+    "release": "https://github.com/anchore/syft/releases/tag/v1.55.0",
+    "assets": [
+      {
+        "name": "syft_1.55.0_linux_amd64.tar.gz",
+        "url": "https://github.com/anchore/syft/releases/download/v1.55.0/syft_1.55.0_linux_amd64.tar.gz",
+        "sha256": "bb65249542db5fedeeb4d3f9b018b75e7264dbfbbb10486f044581a92f90490d",
+        "size": 31198534
+      },
+      {
+        "name": "syft_1.55.0_linux_arm64.tar.gz",
+        "url": "https://github.com/anchore/syft/releases/download/v1.55.0/syft_1.55.0_linux_arm64.tar.gz",
+        "sha256": "929bd163db2d7cd2255d3bcb8967208079813d7b46b0c952f7b794d8e2c7d304",
+        "size": 28485268
+      }
+    ]
+  },
+  "trivy": {
+    "tag": "v0.76.1",
+    "release": "https://github.com/aquasecurity/trivy/releases/tag/v0.76.1",
+    "assets": [
+      {
+        "name": "trivy_0.76.1_Linux-64bit.tar.gz",
+        "url": "https://github.com/aquasecurity/trivy/releases/download/v0.76.1/trivy_0.76.1_Linux-64bit.tar.gz",
+        "sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+        "size": 52676794
+      },
+      {
+        "name": "trivy_0.76.1_Linux-ARM64.tar.gz",
+        "url": "https://github.com/aquasecurity/trivy/releases/download/v0.76.1/trivy_0.76.1_Linux-ARM64.tar.gz",
+        "sha256": "e174dff2a6dba5e3ae41f8d0537a6324405bd08132497340304c6b20e0f16a1f",
+        "size": 47434511
+      }
+    ]
+  },
+  "kingfisher": {
+    "tag": "v2.14.0",
+    "release": "https://github.com/mongodb/kingfisher/releases/tag/v2.14.0",
+    "assets": [
+      {
+        "name": "kingfisher-linux-x64.tgz",
+        "url": "https://github.com/mongodb/kingfisher/releases/download/v2.14.0/kingfisher-linux-x64.tgz",
+        "sha256": "45fc2e12d64dddc17f1f3143d7c0e5dddbc2079b92ec420c20be1a57a8e4829a",
+        "size": 22322617
+      },
+      {
+        "name": "kingfisher-linux-arm64.tgz",
+        "url": "https://github.com/mongodb/kingfisher/releases/download/v2.14.0/kingfisher-linux-arm64.tgz",
+        "sha256": "3b04c3a339c9bb5f4ce6796e6cfa977cdea2c7ddc0b709ac61f24fd803e196d5",
+        "size": 20991444
+      }
+    ]
+  },
+  "ollama": {
+    "tag": "v0.40.16",
+    "release": "https://github.com/ollama/ollama/releases/tag/v0.40.16",
+    "assets": [
+      {
+        "name": "ollama-linux-amd64.tar.zst",
+        "url": "https://github.com/ollama/ollama/releases/download/v0.40.16/ollama-linux-amd64.tar.zst",
+        "sha256": "87bfafb2acbc89b2e6a1be0a9043de6aa75fb450696f86bc426e65fc448f788d",
+        "size": 1545767640
+      },
+      {
+        "name": "ollama-linux-arm64.tar.zst",
+        "url": "https://github.com/ollama/ollama/releases/download/v0.40.16/ollama-linux-arm64.tar.zst",
+        "sha256": "e45b8e6dcb86cb9f3057396351655079c9a4879b4ced2678c9350d375dcbc224",
+        "size": 1600610073
+      },
+      {
+        "name": "Ollama.dmg",
+        "url": "https://github.com/ollama/ollama/releases/download/v0.40.16/Ollama.dmg",
+        "sha256": "b48d74a2d8c6a0592c816a4f85643d8d8608ad592abafbe95c04128a73c398c6",
+        "size": 229996388
+      },
+      {
+        "name": "OllamaSetup.exe",
+        "url": "https://github.com/ollama/ollama/releases/download/v0.40.16/OllamaSetup.exe",
+        "sha256": "84db4f756ddc9e091142a85cdc0f7ae5db68bc9b3e075f114388b326f8ed912d",
+        "size": 1857663944
+      }
+    ]
+  },
+  "rustup": {
+    "tag": "1.29.3",
+    "release": "https://rust-lang.github.io/rustup/installation/other.html",
+    "assets": [
+      {
+        "name": "rustup-init-x86_64",
+        "url": "https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-musl/rustup-init",
+        "sha256": "1552169aba2836777136ccff7a381e95c17233b5d8250cd5e10ae3cb971bfcfc",
+        "size": 21753664,
+        "checksumUrl": "https://static.rust-lang.org/rustup/archive/1.29.3/x86_64-unknown-linux-musl/rustup-init.sha256"
+      },
+      {
+        "name": "rustup-init-aarch64",
+        "url": "https://static.rust-lang.org/rustup/archive/1.29.3/aarch64-unknown-linux-musl/rustup-init",
+        "sha256": "956deacdc27ab82ae7ac821d5d3e9e95e4795d476d17efe99743bb8531ca1031",
+        "size": 19008208,
+        "checksumUrl": "https://static.rust-lang.org/rustup/archive/1.29.3/aarch64-unknown-linux-musl/rustup-init.sha256"
+      }
+    ]
+  }
+}

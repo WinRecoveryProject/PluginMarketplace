@@ -3,7 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 
 const MAX_FILES=5000, MAX_FILE=2*1024*1024, MAX_TOTAL=32*1024*1024;
-const TEXT=/\.(md|txt|json|ya?ml|m?js|cjs|ts|tsx|py|ps1|cmd|bat|sh|toml|xml|svg)$/i;
+const TEXT=/(?:\.(md|txt|json|ya?ml|m?js|cjs|ts|tsx|py|ps1|cmd|bat|sh|toml|xml|svg|dockerfile|containerfile)$|(?:^|[\\/])(?:Dockerfile|Containerfile)$)/i;
 const IGNORED=new Set(['.git','node_modules','__pycache__','.plugin-eval','.studio-eval']);
 export const scoringVersion='pss-eval-2';
 export function contained(root,file){const rel=path.relative(root,file);return rel===''||(!rel.startsWith('..'+path.sep)&&rel!=='..'&&!path.isAbsolute(rel));}
@@ -144,7 +144,7 @@ async function inspectSkill(root,file,findings,records,limits){
 function riskLines(file,text,findings){
  const rules=[
  ['risk.instruction-override',/ignore (?:all |any )?(?:previous|system|developer) instructions|hide (?:this|these|it) from (?:the )?user/i],
- ['risk.execution',/(?:curl|wget|Invoke-WebRequest|Invoke-RestMethod|iwr|irm)\b[^\n]*(?:\|\s*(?:sh|bash|iex|Invoke-Expression))/i],
+ ['risk.execution',/(?:curl|wget|Invoke-WebRequest|Invoke-RestMethod|iwr|irm)\b[^\n]*(?:\|\s*(?:sh|bash|iex|Invoke-Expression)\b)/i],
  ['risk.credential',/\b(?:sk-[A-Za-z0-9_-]{16,}|ghp_[A-Za-z0-9]{16,}|github_pat_[A-Za-z0-9_]{16,})\b/],
  ];
  for(const [i,line]of text.replaceAll('\r\n','\n').split('\n').entries())for(const[code,regex]of rules){

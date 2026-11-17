@@ -2,3 +2,5 @@
 # Apply to every package, including personal imports and future additions,
 # so Windows core.autocrlf cannot change their contents during checkout.
 plugins/** -text
+# Security patch receipts and exact-source replacements must survive Windows checkout unchanged.
+remediations/** -text

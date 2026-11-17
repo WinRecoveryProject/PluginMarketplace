@@ -1,0 +1,165 @@
+{
+  "status": "PATCH_INSTALLED_MARKETPLACE_UPDATE_PENDING",
+  "verifiedAt": "2026-11-17T16:26:51.192391+00:00",
+  "evaluator": "Plugin-Skill-Studio 0.3.6",
+  "budgetDkk": 0,
+  "paidActions": 0,
+  "originalRisksResolved": 13,
+  "sourceFilesPatched": 37,
+  "additionalGeneratedDockerfileOccurrencesResolved": 87,
+  "generatedDockerfilesPatched": 25,
+  "rustGeneratorPatched": true,
+  "additionalKibanaInstallerExamplesRemoved": 2,
+  "installedSourceHashesMatch": true,
+  "upstreamPluginIdentityAndVersionPreserved": true,
+  "protectedConfigAndProviderBindingsUnchanged": true,
+  "patchsetSha256": "a8de396f10954b9ede1281d2bdef19fdba19f242d56926dfe340363943e10532",
+  "studioSource": {
+    "commit": "b80cf2ed118231c8bf2bfde7dad7e5358f67a779",
+    "files": 324,
+    "version": "0.3.6",
+    "identityPreserved": true
+  },
+  "personalStudio": {
+    "status": "PASS",
+    "version": "0.3.6",
+    "existingRemotePluginId": "Plugin_9011ce5752cc8191809b8b15708c09ae",
+    "files": 311,
+    "exact": 310,
+    "hostNormalizedManifests": 1,
+    "retrievedCatalogVersion": "0.3.6",
+    "catalogLoadErrors": 0,
+    "uploadResponse": "Catalog request failed after update; existing ID and downloaded package independently verified",
+    "sharingFieldsSent": false
+  },
+  "tests": {
+    "studio": {
+      "passed": 110,
+      "failed": 0,
+      "skipped": 0
+    },
+    "remediation": {
+      "passed": 71,
+      "failed": 0,
+      "skipped": 0
+    },
+    "actualVerifiedLinuxAssets": 12,
+    "yamlDescriptorsParsed": 2,
+    "linterInstallersChanged": 6,
+    "otherDescriptorFieldsPreserved": true,
+    "fullDockerBuild": "NOT_RUN",
+    "nativeLinuxToolsAndRustBootstrap": "NOT_EXECUTED",
+    "ollamaLinuxTransport": "FIXTURE_ONLY",
+    "ollamaNativePackages": "NOT_DOWNLOADED_OR_EXECUTED"
+  },
+  "scanner": {
+    "complete": true,
+    "scannedTextFiles": 2158,
+    "skippedNonTextFiles": 793,
+    "maxFileBytes": 33554432,
+    "remoteExecutionFindingsBefore": 104,
+    "remoteExecutionFindingsAfter": 2,
+    "remainingRemoteExecutionFindingsAreSecurityFixtures": true,
+    "originalStaticErrorsBefore": 111,
+    "staticErrorsAfter": 9,
+    "remainingStaticFindingsReviewed": [
+      {
+        "code": "risk.execution",
+        "file": ".automation/test/ansible/bad/roles/bad_role/tasks/ansible_bad_3.yml",
+        "line": 3,
+        "review": "REVIEWED_UPSTREAM_REGRESSION_FIXTURE",
+        "executed": false
+      },
+      {
+        "code": "risk.execution",
+        "file": ".automation/test/devskim/good/.wireit/poison.sh",
+        "line": 4,
+        "review": "REVIEWED_UPSTREAM_REGRESSION_FIXTURE",
+        "executed": false
+      },
+      {
+        "code": "risk.credential",
+        "file": "docs/llm-advisor.md",
+        "line": 160,
+        "review": "REVIEWED_DOCUMENTATION_PLACEHOLDER",
+        "executed": false
+      },
+      {
+        "code": "risk.credential",
+        "file": "docs/llm-provider/llm_provider_anthropic.md",
+        "line": 15,
+        "review": "REVIEWED_DOCUMENTATION_PLACEHOLDER",
+        "executed": false
+      },
+      {
+        "code": "risk.credential",
+        "file": "docs/llm-provider/llm_provider_openai.md",
+        "line": 15,
+        "review": "REVIEWED_DOCUMENTATION_PLACEHOLDER",
+        "executed": false
+      },
+      {
+        "code": "risk.credential",
+        "file": "docs/llm-provider/llm_provider_orcarouter.md",
+        "line": 15,
+        "review": "REVIEWED_DOCUMENTATION_PLACEHOLDER",
+        "executed": false
+      },
+      {
+        "code": "risk.credential",
+        "file": "megalinter/tests/test_megalinter/utils_test.py",
+        "line": 48,
+        "review": "REVIEWED_UPSTREAM_REGRESSION_FIXTURE",
+        "executed": false
+      },
+      {
+        "code": "risk.credential",
+        "file": "megalinter/tests/test_megalinter/utils_test.py",
+        "line": 52,
+        "review": "REVIEWED_UPSTREAM_REGRESSION_FIXTURE",
+        "executed": false
+      },
+      {
+        "code": "risk.credential",
+        "file": "skills/megalinter-fix/linters/repository_secretlint.md",
+        "line": 41,
+        "review": "REVIEWED_SYNTHETIC_DOCUMENTATION_EXAMPLE",
+        "executed": false
+      }
+    ],
+    "suppressedFindings": 0,
+    "otherRuleSignalCounts": {
+      "DESTRUCTIVE_COMMAND": 1012,
+      "AUTOMATIC_INSTALL": 1193,
+      "SECRET_PATTERN": 12,
+      "BROAD_PERMISSION": 91,
+      "SECRET_TRANSMISSION": 7
+    },
+    "scopeLimit": "Raw signals about cleanup, examples, installation, permissions and data flow remain visible; this targeted remediation does not certify every upstream behavior.",
+    "initialBeforeScan": "Complete except one 25.8 MB generated HTML file exceeded its 8 MiB bound; final scan includes it within an explicit 32 MiB bound."
+  },
+  "backup": "External exact originals and application receipt; no old scripts copied into active plugin members",
+  "currentPatch": "../remediations/megalinter-1.0.28/README.md",
+  "causeFixes": [
+    "No streamed download is shell input in setup instructions, active descriptors or generated builds.",
+    "Release URLs and SHA-256 digests are pinned and verified before use.",
+    "Unsupported architecture, version drift, failed download and hash mismatch stop before installation, including AND-list callers.",
+    "Studio now includes Dockerfile/Containerfile and distinguishes sha256sum from sh; REMOTE_EXECUTION rule is 1.2.0.",
+    "Kibana uses existing services; no trial provisioning or downloaded environment-file sourcing is recommended."
+  ],
+  "testHarnessHistory": "An initial Windows harness PATH conversion bypassed stubs, causing official pinned-asset downloads and failed /usr/local/bin installation attempts (directory absent). No downloaded binary ran or global install succeeded. The final harness exports PATH inside the shell and refuses execution unless all side-effect commands resolve to isolated stubs; all 71 authoritative tests pass.",
+  "preserved": [
+    "Existing App and MCP connections",
+    "OneDrive and Portal App bindings",
+    "MegaLinter manifests, identity, version and branding",
+    "Existing services and credentials",
+    "Prior skill deactivations (native post-install check follows)"
+  ],
+  "limitations": [
+    "Integrity hashes do not establish publisher safety or absence of all vulnerabilities.",
+    "Rust bootstrap is pinned; its existing downstream rustup toolchain-distribution behavior remains. Fully offline/transitively pinned Rust builds are not claimed.",
+    "Ollama macOS/Windows digests were checked against official metadata/manifests; native installers were not exercised.",
+    "Future upstream updates require rechecking this exact-source patch; source drift fails closed.",
+    "Two intentionally unsafe upstream test fixtures are retained as test data and were not executed."
+  ]
+}
