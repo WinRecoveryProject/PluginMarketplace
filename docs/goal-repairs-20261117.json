@@ -1,6 +1,6 @@
 {
   "asOf": "2026-11-17T14:47:59.922067+00:00",
-  "status": "SOURCE_FIXES_PUBLISHED_INSTALLATIONS_PENDING",
+  "status": "CURRENT_REPAIRS_DELIVERED_GOAL_ACTIVE",
   "budgetDkk": 0,
   "paidActions": 0,
   "sources": [
@@ -23,7 +23,9 @@
     "newReceiptRegression": true,
     "staticValidationPassed": true,
     "deterministicPackaging": true,
-    "personalRemoteUpdate": "PENDING_VERIFICATION"
+    "personalRemoteUpdate": "VERIFIED_0.3.5_EXACT_EXISTING_ID_AFTER_FORCED_REMOTE_REFETCH",
+    "installedReceiptTestsPassed": 2,
+    "publicationCaveat": "The native save call reported a catalog-request failure after applying the update. A fresh remote catalog and installed bytes independently confirmed 0.3.5; no duplicate was created and no sharing fields were supplied."
   },
   "portal": {
     "packageBoundaryTestsPassed": 4,
@@ -77,5 +79,76 @@
       "coderabbit"
     ],
     "scope": "Package structure and exact source snapshots; not a live connection test."
-  }
+  },
+  "verifiedAt": "2026-11-17T14:56:30.339027+00:00",
+  "installationParity": {
+    "status": "PASS",
+    "trees": [
+      {
+        "package": "plugin-skill-studio",
+        "tree": "marketplace",
+        "version": "0.3.5",
+        "exactFiles": 323,
+        "hostNormalizedManifests": 0,
+        "mismatches": 0
+      },
+      {
+        "package": "plugin-skill-studio",
+        "tree": "managed",
+        "version": "0.3.5",
+        "exactFiles": 323,
+        "hostNormalizedManifests": 0,
+        "mismatches": 0
+      },
+      {
+        "package": "plugin-skill-studio",
+        "tree": "installed",
+        "version": "0.3.5",
+        "exactFiles": 323,
+        "hostNormalizedManifests": 0,
+        "mismatches": 0
+      },
+      {
+        "package": "cloudstorage-portal",
+        "tree": "marketplace",
+        "version": "0.9.4",
+        "exactFiles": 125,
+        "hostNormalizedManifests": 0,
+        "mismatches": 0
+      },
+      {
+        "package": "cloudstorage-portal",
+        "tree": "managed",
+        "version": "0.9.4",
+        "exactFiles": 125,
+        "hostNormalizedManifests": 0,
+        "mismatches": 0
+      },
+      {
+        "package": "cloudstorage-portal",
+        "tree": "installed",
+        "version": "0.9.4",
+        "exactFiles": 125,
+        "hostNormalizedManifests": 0,
+        "mismatches": 0
+      },
+      {
+        "package": "plugin-skill-studio",
+        "tree": "personal-installed",
+        "version": "0.3.5",
+        "exactFiles": 310,
+        "hostNormalizedManifests": 1,
+        "mismatches": 0
+      }
+    ],
+    "priorDisabledSkillsPreserved": 37,
+    "nativeLoaderErrors": 0,
+    "configBytesEqualEarlierAudit": false,
+    "configurationCaveat": "The earlier audit baseline predates concurrent account/plugin activity. This run did not edit config.toml directly; compare preserved skill states and exact provider bindings separately."
+  },
+  "remainingGoalTasks": [
+    "G06 Business file-access verification",
+    "G10 Google Slides Windows host support",
+    "G09 Whole-goal final review"
+  ]
 }

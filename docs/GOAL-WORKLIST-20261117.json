@@ -31,12 +31,14 @@
     {
       "id": "G03",
       "task": "Kontrollér og ret eventuel forkert versionsangivelse i Studios installationskvitteringer.",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "acceptance": "En sikker isoleret prøve dokumenterer faktisk installerVersion; eventuel rettelse består regressionstest og udgives med bevaret eksisterende plugin-identitet.",
-      "finding": "Fixed in Studio 0.3.5 source: receipt reads the executing package version. New install/readback regression and all 107 tests pass. Git source published; personal and Marketplace deployment tracked separately.",
+      "finding": "Studio 0.3.5 published in the existing personal plugin, source repository and Marketplace. Fresh remote catalog and installed package bytes verified; practical install receipts from both installed editions record 0.3.5. All 107 source tests pass.",
       "evidence": [
         "outputs/goal-completion-20261117/studio035-tests.txt",
-        "outputs/goal-completion-20261117/studio035-canonical-package-result.json"
+        "outputs/goal-completion-20261117/studio035-canonical-package-result.json",
+        "outputs/goal-completion-20261117/installed-studio035-receipts.json",
+        "outputs/goal-completion-20261117/release-parity-verification.json"
       ]
     },
     {
@@ -74,9 +76,13 @@
     {
       "id": "G07",
       "task": "Kontrollér Portalens opsætningsdokumentation og giv historiske handoffs en entydig vej til den aktuelle status.",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "acceptance": "Dokumentationen forklarer den aktuelle gratis arkitektur og de præcise komponentnavne; forældede historiske instruktioner fremstår ikke som næste handling.",
-      "finding": "Fixed in Portal 0.9.4 source: actual Dropbox MCP and Google Drive/OneDrive App routes, no fixed current tool count, dated actual-refresh evidence, repaired mixed-encoding architecture text. Source published; installation tracked in G09."
+      "finding": "Portal 0.9.4 source, Marketplace and installed snapshot match across all 125 files. Provider routes and icons/bindings preserved; current/historical setup and refresh evidence separated; architecture text encoding repaired.",
+      "evidence": [
+        "outputs/goal-completion-20261117/portal094-installed-parity.json",
+        "outputs/goal-completion-20261117/release-parity-verification.json"
+      ]
     },
     {
       "id": "G08",
@@ -92,7 +98,8 @@
       "id": "G09",
       "task": "Udgiv nødvendige rettelser via Plugin-Skill-Studio, Desktop-native værktøjer og Git og afslut med kilde-/installationsparitet.",
       "status": "IN_PROGRESS",
-      "acceptance": "Nye validerede versioner og opgavelistens slutstatus er synkroniseret i de eksisterende repositories, Marketplace og installationer; forbindelser og deaktiveringer er bevaret."
+      "acceptance": "Nye validerede versioner og opgavelistens slutstatus er synkroniseret i de eksisterende repositories, Marketplace og installationer; forbindelser og deaktiveringer er bevaret.",
+      "finding": "Current Studio and Portal repairs delivered with exact-source and installation parity. Whole-goal final review remains after G06 and G10."
     },
     {
       "id": "G10",
