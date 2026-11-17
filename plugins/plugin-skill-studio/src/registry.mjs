@@ -14,6 +14,7 @@ export async function loadRegistry(root=packageRoot) {
 }
 
 const rules=[
+ ['automate-ui',/desktop|skærmfangst|museklik|screenshot|mouse.click/i],
  ['skill-eval',/skill.{0,35}(eval|vurder|test|analy[sz])|(?:eval|vurder|test|analy[sz]).{0,35}skill/i],
  ['plugin-eval',/plugin.{0,35}(eval|vurder|analy[sz])|(?:eval|vurder|analy[sz]).{0,35}plugin/i],
  ['risk-review',/risik|risk|malici|hemmelig|secret|sikkerhedsscan/i],

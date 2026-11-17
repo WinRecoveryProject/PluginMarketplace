@@ -1,5 +1,7 @@
 # WinRecoveryProject Digital Plugin Marketplace
 
+Studio **0.3.9**: [integreret Windows-styring og Desktop-/filprøver](docs/STUDIO-DESKTOP-20261117.md).
+
 Din seneste plugin-/skillliste: [52 plugin-identiteter og 3 lokale skills afstemt](docs/USER-PLUGIN-CHECKLIST-20261117.md).
 
 Seneste rettelser og praktiske regnearks-/PDF-prøver: [Marketplace-opfølgning](docs/MARKETPLACE-FOLLOWUP-20261117.md).
@@ -25,7 +27,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | OneDrive | `1.2.0` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.9.5` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
-| Plugin-Skill-Studio | `0.3.8` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
+| Plugin-Skill-Studio | `0.3.9` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.4` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.3` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.32` | `codex plugin add codex-security@winrecoveryproject-digital` |

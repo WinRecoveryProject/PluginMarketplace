@@ -1,0 +1,35 @@
+{
+  "version": "0.3.9",
+  "sourceCommit": "4c5b223d211053482e26e8d9ee132f34c0b45d35",
+  "archiveSha256": "7f81d8afde77809e81ad8a881593b5bafc259730d0ce5d8f28da68d868a779ef",
+  "sourceTestsPassed": 129,
+  "desktopUnitTestsPassed": 11,
+  "independentScenariosPassed": 18,
+  "deterministicArchive": true,
+  "freshExtractionValid": true,
+  "nativeComputerUseRepaired": false,
+  "desktopAppsTested": [
+    "ChatGPT/Codex Desktop: Plugins settings",
+    "CloudStorage Portal: three existing dependency Apps visible",
+    "OneDrive App: personal Primary and Entra account rows preserved"
+  ],
+  "sharedOneDriveAppBindingPreserved": true,
+  "fileTests": {
+    "separateTestFolder": true,
+    "newFiles": 2,
+    "updatedFiles": 2,
+    "exactUtf8Readbacks": 2,
+    "sameExistingOneDriveCredentialRoute": true,
+    "otherUserFilesChanged": false
+  },
+  "liveInputRefusalsReported": true,
+  "limitations": [
+    "Native WGC capture still fails; local backend is the integrated alternative",
+    "Foreground activation and standalone scroll not live-verified",
+    "Other apps, DPI/display configurations and token renewal not tested",
+    "No public directory submission/audience expansion"
+  ],
+  "connectionsChanged": false,
+  "newPluginOrMcpConnection": false,
+  "budgetKr": 0
+}

@@ -53,6 +53,8 @@ Use for web UI defects, end-to-end flows, accessibility checks, flaky-test inves
 
 ## Mode 3: Operate a desktop application
 
+For explicitly authorized local Windows work, Studio bundles [local screenshot and mouse control](../../references/windows-desktop.md) in `scripts/studio.mjs desktop-*`. Read that reference before using it. This optional backend uses existing Windows components, keeps exact target/evidence guards and needs no additional plugin or MCP server. It is not an automatic fallback from a host's safety or user-input refusal. It does not repair the native Computer Use component.
+
 Use for native application or cross-application desktop workflows that need auditable evidence — clicking through an app and proving which window or dialog appeared. Use whichever authorized desktop-control capability the host provides, such as a Windows automation MCP or computer-use. Respect that capability's current restrictions; route browser work through an authorized browser tool and shell commands through the available shell capability. Start live input only for the task, never merely because this skill loaded.
 
 1. **Confirm the surface first.** Take a screenshot or window snapshot before any input. Confirm the target application's expected window is in the foreground before clicking or typing — input into the wrong window is the classic failure.

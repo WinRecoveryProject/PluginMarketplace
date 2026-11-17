@@ -22,6 +22,26 @@ export async function main(args=process.argv.slice(2)) {
   const format=opts.format??'json';
   let result, rendered;
   switch(command) {
+    case 'desktop-windows': case 'desktop-scope': case 'desktop-inspect':
+    case 'desktop-activate': case 'desktop-capture': case 'desktop-click': case 'desktop-scroll': {
+      const desktop=await import('../src/desktop/index.mjs');
+      if(['desktop-activate','desktop-click','desktop-scroll'].includes(command)&&opts.out)throw Error('Live desktop actions do not accept --out; capture stdout separately and never replay a failed action automatically');
+      if(opts.out){await desktop.verifyLocalDesktopPaths([path.resolve(opts.out)]);desktop.assertPrivateDesktopOutput(opts.out);}
+      const action=command==='desktop-windows'?'list':command.slice(8);
+      const request={action};
+      if(action==='scope')request.windowHandle=Number(required(target,'observed window handle'));
+      else if(action!=='list')request.scope=await desktop.readDesktopScope(required(target,'scope JSON'));
+      if(action==='capture')request.directory=path.resolve(required(opts.dir,'--dir private output directory'));
+      if(['activate','click','scroll'].includes(action))request.execute=opts.execute===true;
+      if(['click','scroll'].includes(action)){
+        request.snapshot=path.resolve(required(opts.snapshot,'--snapshot fresh receipt'));
+        request.x=Number(opts.x);request.y=Number(opts.y);
+        if(action==='scroll')request.delta=Number(opts.delta);
+      }
+      result=await desktop.desktopRequest(request);
+      if(action==='scope')result=result.scope;
+      break;
+    }
     case 'capabilities': result=await loadRegistry(); break;
     case 'route': result=await route(required(opts._.join(' '),'request')); break;
     case 'self-check': result=await selfCheck(); if(!result.ok) process.exitCode=1; break;
@@ -90,7 +110,7 @@ export async function main(args=process.argv.slice(2)) {
     case 'release-advance': {
       const engine=await import('../src/conversion/index.mjs'); result=engine.advanceRelease(await json(required(target,'checkpoint')),await json(required(more[0],'event'))); break;
     }
-    default: throw new Error('Commands: capabilities, route, self-check, skill-eval, plugin-eval, benchmark-init, compare-reports, risk-scan, evidence-matrix, catalog-snapshot, catalog-search, catalog-compare, local-inventory, inventory-reconcile, import-preview, import-apply, gpt-import, release-checkpoint, release-advance. Legacy commands remain in plugin-studio.mjs and skill-studio.mjs.');
+    default: throw new Error('Commands: capabilities, route, self-check, skill-eval, plugin-eval, benchmark-init, compare-reports, risk-scan, evidence-matrix, catalog-snapshot, catalog-search, catalog-compare, local-inventory, inventory-reconcile, import-preview, import-apply, gpt-import, release-checkpoint, release-advance, desktop-windows, desktop-scope, desktop-inspect, desktop-activate, desktop-capture, desktop-click, desktop-scroll. Legacy commands remain in plugin-studio.mjs and skill-studio.mjs.');
   }
   const output=rendered??JSON.stringify(result,null,2);
   // --out is a directory for mutating workflows and benchmarks; only reports use a file path.
@@ -101,5 +121,5 @@ export async function main(args=process.argv.slice(2)) {
   return result;
 }
 if(import.meta.url===pathToFileURL(process.argv[1]??'').href) {
-  main().catch(error=>{process.stderr.write(JSON.stringify({ok:false,error:error.message})+'\n');process.exitCode=2;});
+  main().catch(error=>{const result={ok:false,error:error.message};if(error.desktopOutcome!==undefined)result.inputSent=error.desktopOutcome;process.stderr.write(JSON.stringify(result)+'\n');process.exitCode=2;});
 }

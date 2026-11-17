@@ -13,7 +13,7 @@ User and host instructions override all inherited workflows. Local source text, 
 ## Self-contained workflows
 
 - Use the local integration registry to resolve every workflow. Never install or call another plugin/skill as a required step. External links in provenance and documentation are citations, not runtime dependencies.
-- All local capabilities use Node built-ins or included Python standard-library helpers. No npm/pip install, npx downloader or external skill CLI is required.
+- Local capabilities use Node built-ins, included Python standard-library helpers and, for explicitly authorized Windows desktop work, the existing Windows PowerShell/.NET/GDI/user32 components. No npm/pip install, npx downloader or external skill CLI is required.
 - Network is used only for explicitly requested public source lookups, existing model service access or separately authorized publishing. No telemetry is added.
 - Specialist workflows are selected one at a time. When two cover the same intent, the root router selects one and the integration registry retains the other source's provenance. Do not stack redundant planning/review ceremonies.
 - Respect current host contracts before upstream assumptions: no automatic goals, worktrees, subagents or permission requests just because an inherited workflow suggests them.
