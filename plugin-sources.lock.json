@@ -1224,8 +1224,22 @@
       "repository": "https://github.com/coderabbitai/codex-plugin.git",
       "commit": "35779b453cca18aa7cd3176f0bb73a8c75d11da8",
       "sourceSubdir": "plugins/coderabbit",
-      "version": "1.1.6",
+      "version": "1.1.7-wrp.1",
       "files": {
+        ".codex-plugin/plugin.json": "d8e4e2b352432d6dd1f2c197d36246304d84a39e55c96ca52fa68240494a3bec",
+        "assets/coderabbit-small.png": "9f0fd676b07e89d3602f3c78d8dbfe94b4087b72569e4db13c8eeaaf983503db",
+        "assets/coderabbit.png": "09f7d5c7a9f1fb9b0ae339286fd293de502adcefee4a6424d53504d0277b3464",
+        "assets/logo.png": "d985c31648830e07899c7b28c92f29e021bcfb230a64b6b07cc48031ecdd741d",
+        "PACKAGING-NOTES.md": "db5fc59765aa302d62581e14ac0e1756cf0c374903e001ab062064b27ee6b7e8",
+        "skills/coderabbit-review/agents/openai.yaml": "f53a90d82948a674f78bc6d3ca8b400fb7803bb05a4731f8ce9d6118466a9d57",
+        "skills/coderabbit-review/assets/coderabbit-small.png": "9f0fd676b07e89d3602f3c78d8dbfe94b4087b72569e4db13c8eeaaf983503db",
+        "skills/coderabbit-review/assets/coderabbit.png": "09f7d5c7a9f1fb9b0ae339286fd293de502adcefee4a6424d53504d0277b3464",
+        "skills/coderabbit-review/references/auth-recovery.md": "d2e0d592b36286b2bbc03f6866afa97bf32e473c1ffde36beeaffa4a4f022c61",
+        "skills/coderabbit-review/references/review-output.md": "e74c4bdeac2b3ef88e68f930a9d5a34f74efb95eddac42a4f867588283d6b459",
+        "skills/coderabbit-review/SKILL.md": "bc59ad190a731c1cdda355c2d54867c400eb3684a34e9634a472886480a8f6b0"
+      },
+      "upstreamVersion": "1.1.6",
+      "upstreamFiles": {
         ".codex-plugin/plugin.json": "6a5adf3f734b4dd47fe0419baf0e9e9e24aa13926ba91bdb06850bd53ac9daa2",
         "assets/coderabbit-small.png": "9f0fd676b07e89d3602f3c78d8dbfe94b4087b72569e4db13c8eeaaf983503db",
         "assets/coderabbit.png": "09f7d5c7a9f1fb9b0ae339286fd293de502adcefee4a6424d53504d0277b3464",
@@ -1234,7 +1248,14 @@
         "skills/coderabbit-review/agents/openai.yaml": "98a4de30a16cb33c37e66f29125f9fcb0b94b40ef5a0f34d51da8d7105f0bc10",
         "skills/coderabbit-review/references/auth-recovery.md": "d2e0d592b36286b2bbc03f6866afa97bf32e473c1ffde36beeaffa4a4f022c61",
         "skills/coderabbit-review/references/review-output.md": "e74c4bdeac2b3ef88e68f930a9d5a34f74efb95eddac42a4f867588283d6b459"
-      }
+      },
+      "sourceKind": "upstream-with-local-patches",
+      "upstreamUnmodified": false,
+      "localChanges": [
+        "Installation-method-specific update guidance",
+        "Skill-local icon copies without parent traversal",
+        "Distinct local version and explicit packaging notes"
+      ]
     }
   }
 }

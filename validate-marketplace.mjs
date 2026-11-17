@@ -67,6 +67,20 @@ if(registry){
       const portalApps=json('plugins/cloudstorage-portal/.app.json');
       check(Object.values(portalApps?.apps??{}).some(a=>a.id===ids[0]),'OneDrive and Portal share the existing App identity');
     }
+    if(name==='coderabbit'){
+      const skillRoot=join(base,'skills/coderabbit-review');
+      const agent=readFileSync(join(skillRoot,'agents/openai.yaml'),'utf8');
+      for(const field of ['icon_small','icon_large']){
+        const value=agent.match(new RegExp(`^\\s*${field}:\\s*"([^"]+)"\\s*$`,'m'))?.[1];
+        check(Boolean(value)&&!value.split(/[\\/]/).includes('..')&&contained(skillRoot,value),`CodeRabbit: ${field} is skill-local without parent traversal`);
+      }
+      for(const file of ['coderabbit-small.png','coderabbit.png']){
+        check(createHash('sha256').update(readFileSync(join(skillRoot,'assets',file))).digest('hex')===createHash('sha256').update(readFileSync(join(base,'assets',file))).digest('hex'),`CodeRabbit: original ${file} preserved`);
+      }
+      const source=lock?.plugins?.[name];
+      check(source?.sourceKind==='upstream-with-local-patches'&&source?.upstreamUnmodified===false&&source?.upstreamVersion==='1.1.6','CodeRabbit: adapted package declares original upstream version');
+      check(m.apps==null&&m.mcpServers==null,'CodeRabbit: no provider connections added');
+    }
     const source=lock?.plugins?.[name];
     if(source){
       if(source.sourceKind==='personal-installed-snapshot'){

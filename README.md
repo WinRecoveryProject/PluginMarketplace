@@ -25,7 +25,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
 | WinRecoveryProjectLinter | `0.1.0` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
 | WinRecoveryProject DevSuite | `0.1.0` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
-| CodeRabbit | `1.1.6` | `codex plugin add coderabbit@winrecoveryproject-digital` |
+| CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
 | Vercel | `0.21.4` | `codex plugin add vercel@winrecoveryproject-digital` |
 | GitHub | `0.1.12` | `codex plugin add github@winrecoveryproject-digital` |
@@ -95,4 +95,4 @@ WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroll
 
 [Endelig installationskontrol og rettelser](docs/final-installed-audit-20261116.md) · [Verificeret deployment](docs/product-deployment-20261116.json).
 
-CodeRabbit 1.1.6 bruger den verificerede officielle kilde med bevaret navn, udgiver og ikoner. Den gamle værtsleverede 1.1.4-skill forbliver deaktiveret; kun den rettede udgave aktiveres. [Kontrol af installationsrettelsen](docs/coderabbit-installation-repair-20261117.md).
+CodeRabbit 1.1.7-wrp.1 er vores dokumenterede pakketilpasning af officiel 1.1.6 med bevaret navn, udgiver og ikoner; opdateringsvejledning og skillens ikonstier er rettet. Den gamle værtsleverede 1.1.4-skill forbliver deaktiveret; kun den rettede udgave aktiveres. [Kontrol af installationsrettelsen](docs/coderabbit-installation-repair-20261117.md).

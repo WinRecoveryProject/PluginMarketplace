@@ -34,7 +34,11 @@ Reject `--committed` with `--uncommitted`, and `--base` with `--base-commit`.
 Preserve all requested selectors on retries. Check the installed CLI's `--help`
 when support is uncertain. Do not stage files or shrink scope to bypass a limit.
 When the CLI reports a newer version or an automatic update that did not finish,
-tell the user to run `coderabbit update`; do not run it yourself.
+identify its installation method before giving update advice. Homebrew users
+should run `brew upgrade coderabbit`. Install-script users should run
+`coderabbit update`. For a manually copied Windows executable, refer the user
+to the official Windows installation documentation; do not assume the updater
+supports that installation. Do not run an update yourself.
 
 A review usually takes 2-6 minutes and can take up to 15. Start it with a
 command timeout of at least 15 minutes; a shorter timeout stops the review and
