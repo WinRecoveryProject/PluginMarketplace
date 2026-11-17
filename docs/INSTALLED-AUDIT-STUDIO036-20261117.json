@@ -1,5 +1,5 @@
 {
-  "status": "SOURCE_REVIEWED_STUDIO037_RELEASE_PENDING",
+  "status": "DELIVERED_AND_INSTALLED_VERIFIED",
   "checkedAt": "2026-11-17T17:23:07.478534+00:00",
   "sourceEvaluator": "Personal Plugin-Skill-Studio 0.3.6",
   "repairVersion": "0.3.7",
@@ -50,7 +50,13 @@
       "skipped": 0
     },
     "selfCheck037": "PASS",
-    "deterministicFreshPackage037": true
+    "deterministicFreshPackage037": true,
+    "installed037Focused": {
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "subsetOfSourceSuite": true
+    }
   },
   "liveOneDrivePortalRoute": {
     "status": "PASS",
@@ -98,7 +104,8 @@
       "complete": true,
       "fingerprint": "8df8094df47401508e957ce1d42b30a6b8205a0361ea273246317b27193838bb",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "pdf@openai-primary-runtime",
@@ -115,7 +122,8 @@
       "complete": true,
       "fingerprint": "f9b920398cbde1049948f8b5543358b0c7a7cbabb876213a9adc37fb1acd18b2",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "spreadsheets@openai-primary-runtime",
@@ -132,7 +140,8 @@
       "complete": true,
       "fingerprint": "0ffe22155a04a1a5697a3accbb44ffc4a7dfeadf93d7a603015aac809b43f013",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "presentations@openai-primary-runtime",
@@ -149,7 +158,8 @@
       "complete": true,
       "fingerprint": "51af17bf7b21809d77ea40d35790cb22c760c2d8e3821c5b33f9e51f96363316",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "template-creator@openai-primary-runtime",
@@ -166,7 +176,8 @@
       "complete": true,
       "fingerprint": "0a4a6fa3bfef7eae92756d2aa9557d9a152fbc04e51e245c31fb6135f7d58d4f",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "browser@openai-bundled",
@@ -183,7 +194,8 @@
       "complete": true,
       "fingerprint": "773a7d2694caac62cf23838338e720a5cebd4e9513ad8c1673226447554233a5",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "unified-computer-use@openai-bundled",
@@ -200,7 +212,8 @@
       "complete": true,
       "fingerprint": "1e18a8724da0a1db048fbd5b8a1f1e7e82342e6acf4c70aa558339eb564a3037",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "chrome@openai-bundled",
@@ -217,7 +230,8 @@
       "complete": true,
       "fingerprint": "57217106638501ac1f67e2940e4913c83428c1d4b5f5cc67355d328a94d22bda",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "computer-use@openai-bundled",
@@ -234,7 +248,8 @@
       "complete": true,
       "fingerprint": "471130672d35415fcba9794ce3b1e15af85b2b2db92f2778d254f5f50941a1c1",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "visualize@openai-bundled",
@@ -251,7 +266,8 @@
       "complete": true,
       "fingerprint": "e3daa094dac319df5c5918e24a5643442969be8d48aa7b211545a70b2f8fdd71",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "megalinter@megalinter",
@@ -268,7 +284,8 @@
       "complete": true,
       "fingerprint": "b7b48e44372230bbb285d4a736e22ecbea8e93aa00fbd3efb27badd2bbba83c7",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": true
+      "sameRemediatedSource": true,
+      "postReleaseEvaluator": null
     },
     {
       "id": "onedrive@winrecoveryproject-digital",
@@ -285,7 +302,8 @@
       "complete": true,
       "fingerprint": "41f111905aff23f888da0d6f5ff8aed1879c6902c68b95e30b28b7fe10fee1d5",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "cloudstorage-portal@winrecoveryproject-digital",
@@ -302,7 +320,8 @@
       "complete": true,
       "fingerprint": "8c626d1ebbb21e8777c43b3c9bb2174f5e4f2925236d69d97a4f7091a449326b",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "component-forge@winrecoveryproject-digital",
@@ -319,13 +338,14 @@
       "complete": true,
       "fingerprint": "df515acc4092abe2725b98a039ff05ec53e96ab28ecf6e15003a8ddf0237110b",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "plugin-skill-studio@winrecoveryproject-digital",
       "name": "plugin-skill-studio",
       "namespace": "winrecoveryproject-digital",
-      "version": "0.3.6",
+      "version": "0.3.7",
       "catalogInstalled": true,
       "cliInstalled": true,
       "counts": {
@@ -334,9 +354,10 @@
         "info": 0
       },
       "complete": true,
-      "fingerprint": "83669c5cf2d050de5ea2a43b290596a034ddd19086bcb5cc97b96368b13cecfe",
+      "fingerprint": "5efd4b094c78b0af383c097a4f0663a1ea58369bf736a5d4f557620c9a4cbe54",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": "Plugin-Skill-Studio 0.3.7"
     },
     {
       "id": "powershell-workbench@winrecoveryproject-digital",
@@ -353,7 +374,8 @@
       "complete": true,
       "fingerprint": "e2c6de6db77ddb75e3d3dd5e76519fa6d8164acb8a7ba841c703f20dfbd34fb1",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "windows-dism-update-docs@winrecoveryproject-digital",
@@ -370,7 +392,8 @@
       "complete": true,
       "fingerprint": "d2bde316a116ab6ac2780ae9d6d97884a8abe3ba912eb28c4d3cdeb1623c1595",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "codex-security@winrecoveryproject-digital",
@@ -387,7 +410,8 @@
       "complete": true,
       "fingerprint": "056cc8e556a07d6fc4774a55b58493b51fceb045af75b5bd7798b4fb44b456ce",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "linear@winrecoveryproject-digital",
@@ -404,7 +428,8 @@
       "complete": true,
       "fingerprint": "bc1a151083d43e82f12d517c15052ee48514b34fc894458e686027eefaa76669",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "codex-engineering-guardrails@winrecoveryproject-digital",
@@ -421,7 +446,8 @@
       "complete": true,
       "fingerprint": "3ef0bd6546ffd7cb1ef86d438916cc320410e92efcf9b7af6792cfed93e63d71",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "vercel@winrecoveryproject-digital",
@@ -438,7 +464,8 @@
       "complete": true,
       "fingerprint": "effcc182307fda104bfe38cf1818732e606aaaf4b421a9a9bfcf73179090a442",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "github@winrecoveryproject-digital",
@@ -455,7 +482,8 @@
       "complete": true,
       "fingerprint": "f1c84fb4d6112be07ebccf6549bc6faa768ec20511b0fd75a30142777b19c939",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "google-drive@winrecoveryproject-digital",
@@ -472,7 +500,8 @@
       "complete": true,
       "fingerprint": "6a2787a54d8b21e8551ed18554b97c54ad44530d08e4f6ad7380a704d0d3c663",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "dropbox@winrecoveryproject-digital",
@@ -489,7 +518,8 @@
       "complete": true,
       "fingerprint": "5587f79488b51a9912760b102fb7e3c49b5605c49284f66f0b31f578d28d8ad1",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "winrecoveryproject-linter@winrecoveryproject-digital",
@@ -506,7 +536,8 @@
       "complete": true,
       "fingerprint": "2669d01c8961d2d046c784424031e5426c988b2072966396f843e2b360290c39",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "winrecoveryproject-devsuite@winrecoveryproject-digital",
@@ -523,7 +554,8 @@
       "complete": true,
       "fingerprint": "fb49f1afb18826bbc1a60827b9451a63283afe151d201caf17cc000ad61d36d8",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "coderabbit@winrecoveryproject-digital",
@@ -540,7 +572,8 @@
       "complete": true,
       "fingerprint": "659c5865fe5dad998eb6b87e01e7ee96db0a07dce9725c2b2ff97a6afc358245",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "codex-dev-workflows@created-by-me-remote",
@@ -557,7 +590,8 @@
       "complete": true,
       "fingerprint": "aa29b63451fbfa436206e5cb0a69a9d8d1c112201982ae4b066bdae00a7786d8",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "codex-coordinator@created-by-me-remote",
@@ -574,7 +608,8 @@
       "complete": true,
       "fingerprint": "ba1a2f69a3ab02f3302f8a4498d2437314660a97fcf29f655b42238bfcf96056",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "zilvereyes-context-handoff@created-by-me-remote",
@@ -591,7 +626,8 @@
       "complete": true,
       "fingerprint": "b645bf17550bc6a6b8b2e3f5e50e3b6c29055a7e5f6545b1e4e44380a50d7229",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "codex-process-jobs@created-by-me-remote",
@@ -608,13 +644,14 @@
       "complete": true,
       "fingerprint": "4d048a3c02ffe05881a3d1be29c3b0b98648cbfebddbb954c94265fb9627d07d",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "plugin-skill-studio@created-by-me-remote",
       "name": "plugin-skill-studio",
       "namespace": "created-by-me-remote",
-      "version": "0.3.6",
+      "version": "0.3.7",
       "catalogInstalled": true,
       "cliInstalled": null,
       "counts": {
@@ -623,9 +660,10 @@
         "info": 0
       },
       "complete": true,
-      "fingerprint": "b054618de7e535f605f1a7bdcc46bb6ddbb206048c0029b3b939626f85dde139",
+      "fingerprint": "0a7985127a9748da110728bc996be87d30d88298556b734a388d9a2fac9bb806",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": "Plugin-Skill-Studio 0.3.7"
     },
     {
       "id": "codex-engineering-guardrails@created-by-me-remote",
@@ -642,7 +680,8 @@
       "complete": true,
       "fingerprint": "5e933107014321dace3f6b0ee405887776286fb3b06a69a45eddaecef8cd1eac",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "dev-6ae8b541a3d08191ae893ea0925a2fe5@created-by-me-remote",
@@ -659,7 +698,8 @@
       "complete": true,
       "fingerprint": "8caea67167935c3112e21df5204f4958877e42e873efce1ace43c2cc95d63953",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "gmail@openai-curated-remote",
@@ -676,7 +716,8 @@
       "complete": true,
       "fingerprint": "0d0b057114ad576aa3be54b41945122b6368a1e4ce77c4c2797acfec65617ada",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "google-drive@openai-curated-remote",
@@ -693,7 +734,8 @@
       "complete": true,
       "fingerprint": "6942bd236599d0ae0a01d55b472da6215bd72790f3a6624b12a0b58ad9d7d51c",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "google-calendar@openai-curated-remote",
@@ -710,7 +752,8 @@
       "complete": true,
       "fingerprint": "466551a96dc543f2b495c5fd7895da6d0921d67acc0a15a986bdee64d61730ff",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "slack@openai-curated-remote",
@@ -727,7 +770,8 @@
       "complete": true,
       "fingerprint": "b373f3b7e55ec84f7aa50261337122e7f4a777b79be896d2f7af29e17948a416",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "app-6a057d268ebc81919918d37eec718425@openai-curated-remote",
@@ -744,7 +788,8 @@
       "complete": true,
       "fingerprint": "b93325d0b50de3d381c670ddc4f8ac0cd94f6d76d3f32bbfc3bb66ea2e6b456e",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "github@openai-curated-remote",
@@ -761,7 +806,8 @@
       "complete": true,
       "fingerprint": "2c28d0162dd37dbcf64fe356c38dff04efcb4ab78c2baa948fbbeca64f264ffd",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "linear@openai-curated-remote",
@@ -778,7 +824,8 @@
       "complete": true,
       "fingerprint": "935aae4a8e9d009045b775e7fc00bd2f49fb84f034d38bcf2d18474dbd799971",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "sharepoint@openai-curated-remote",
@@ -795,7 +842,8 @@
       "complete": true,
       "fingerprint": "5a4e6797de1d1f5370e985e8a439bb2a93627fb685abaad7177c376495d8f5b3",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "vercel@openai-curated-remote",
@@ -812,7 +860,8 @@
       "complete": true,
       "fingerprint": "b7a54677b09e14cbece0cf1cc1478b8fb88886951eb8579cfff13b0d8171d3c2",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "app-69b31dc2110c8191b8b47dc98fe5a052@openai-curated-remote",
@@ -829,7 +878,8 @@
       "complete": true,
       "fingerprint": "e66b1f7f5b6d2c03a51809189a804cc907032846282c84c5864d1e1d31feb360",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "codex-engineering-guardrails@openai-curated-remote",
@@ -846,7 +896,8 @@
       "complete": true,
       "fingerprint": "5e933107014321dace3f6b0ee405887776286fb3b06a69a45eddaecef8cd1eac",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "google-contacts@openai-curated-remote",
@@ -863,7 +914,8 @@
       "complete": true,
       "fingerprint": "3544d06ef84c25524e3b9d103cccaa0d95e2cd38ae21d5a2651570e3ab29823e",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "openai-developers@openai-curated-remote",
@@ -880,7 +932,8 @@
       "complete": true,
       "fingerprint": "4e7ca954af12a211a24190e7ad48c21de23d8141bb4d45cb0ab3d70848392143",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "app-695ff43f74488191a418ea8ac4f0f437@openai-curated-remote",
@@ -897,7 +950,8 @@
       "complete": true,
       "fingerprint": "b11909f82ca39cd5dfc084c63c0388bbb983b08ef80ee722aad1df6e14f405a4",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "plugin-creator@openai-curated-remote",
@@ -914,7 +968,8 @@
       "complete": true,
       "fingerprint": "c6b90bcd3386cff2dad706d95ce72a8486b5843e0c0d01885fce151f48209be0",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "game-development-studio@openai-curated-remote",
@@ -931,7 +986,8 @@
       "complete": true,
       "fingerprint": "f2ccf88ab8ad526f4f41b16f37d3482f9b71d9861ddb9c41c0164f744f9b6fe2",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "cloud-environment@openai-curated-remote",
@@ -948,7 +1004,8 @@
       "complete": true,
       "fingerprint": "52ba43f11070fcf2634344dccf615990ae599e9a27390bc2fbf3438ed912f5d1",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "app-69cd66d6b11081919d55522e4f136fec@openai-curated-remote",
@@ -965,7 +1022,8 @@
       "complete": true,
       "fingerprint": "de0c531b2a393258a6c902c28efc64df116c19180f57450c619e01dfe28d3305",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "app-69a5a77581c881918f398b27591d685d@openai-curated-remote",
@@ -982,7 +1040,8 @@
       "complete": true,
       "fingerprint": "106f1b0abf141bbab3bec5e2d02a7c8ea09ce0cb4a4d9c1eda28ce8aa202c5c1",
       "sourceMatchesPrior": false,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "defense-factory@openai-curated-remote",
@@ -999,7 +1058,8 @@
       "complete": true,
       "fingerprint": "5be049c287558f71381755a27782989f8fc00b8f1050dfa616fc641bc28a07e3",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "app-6aa47394ea708191bcef52a7c4bda7a2@openai-curated-remote",
@@ -1016,7 +1076,8 @@
       "complete": true,
       "fingerprint": "e27c6be1595fb2c688ad3f622138b669bc89db47bcc4342b295e2dd2896862c0",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "advisor@openai-curated-remote",
@@ -1033,7 +1094,8 @@
       "complete": true,
       "fingerprint": "29dab164b537ec78b537600f395438771a77bd76088f7024ede70ce31ff95ac6",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "agentmemory@openai-curated-remote",
@@ -1050,7 +1112,8 @@
       "complete": true,
       "fingerprint": "3dcd76ab63ee22b92910dd3024f8c04f8ce5090ff48644f54b023170f65fb621",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "skillquiver@openai-curated-remote",
@@ -1067,7 +1130,8 @@
       "complete": true,
       "fingerprint": "8f4eee16f524b28d3e3cee686145882404462fc4952e2ea6ab7fa27d0999d2a2",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "skill-craft@openai-curated-remote",
@@ -1084,7 +1148,8 @@
       "complete": true,
       "fingerprint": "63fd11d8fa2987e20724c9f8af6ab52c460c65dbf7764f08108a6bcbafea81b3",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "plugin-creator-plus@openai-curated-remote",
@@ -1101,7 +1166,8 @@
       "complete": true,
       "fingerprint": "e1d89130f2461f12f9b20076bc16b3288da39d58a52ddc13b70f5cba348714e9",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "coderabbit@openai-curated-remote",
@@ -1118,7 +1184,8 @@
       "complete": true,
       "fingerprint": "0c75f34172e635276668e03a66d530a94cc69fd1f11a90f7a2bb8e3bbdcc6871",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "plugin-eval@openai-curated-remote",
@@ -1135,7 +1202,8 @@
       "complete": true,
       "fingerprint": "834971ad1c6b30a5a7c6bccebfe10db11a6d7b639819454357cde5a530c194e8",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "openai-templates@openai-curated-remote",
@@ -1152,7 +1220,8 @@
       "complete": true,
       "fingerprint": "0081c8929d04311f7411fd1a92c1fb327152db51b2d76aac17e0f1aaa666caa7",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "pages@openai-curated-remote",
@@ -1169,7 +1238,8 @@
       "complete": true,
       "fingerprint": "73340107a2f71afbbfc61d6c483d9b09fb585827eeb1065a13ed3869995131b0",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "sites@openai-curated-remote",
@@ -1186,7 +1256,8 @@
       "complete": true,
       "fingerprint": "0d8e15ce4c0a9146b96a9f7dd939ae95e219c02b930dd2ca67068860b8eca285",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "plugin-management@openai-curated-remote",
@@ -1203,7 +1274,8 @@
       "complete": true,
       "fingerprint": "31a46dc82b696b9e825029d3ffdf5f45379d9524944c5c76395f91bc4dcb56f9",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "work-pets@openai-curated-remote",
@@ -1220,7 +1292,8 @@
       "complete": true,
       "fingerprint": "1e642d504dd76cb07cf21b2cda25ce671433358324186912a1c189fa2b7ba8a9",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     },
     {
       "id": "visualize@openai-curated-remote",
@@ -1237,16 +1310,177 @@
       "complete": true,
       "fingerprint": "b02ac3c65ac98dd49c93c25f329c653d4e574e1460f1345d152c5628cf07a807",
       "sourceMatchesPrior": true,
-      "sameRemediatedSource": false
+      "sameRemediatedSource": false,
+      "postReleaseEvaluator": null
     }
   ],
   "budgetDkk": 0,
   "paidActions": 0,
-  "preservation": "No new account, App identity, MCP server, service, paid tier or reinstall of the seven originals. Post-release connection and deactivation checks follow.",
+  "preservation": "Fresh native state comparison confirms existing Apps, MCP registrations, all 37 prior skill deactivations, provider bindings and plugin identity preservation. Seven originals remain consolidated in Studio by explicit user choice.",
   "limits": [
     "This is source/manifest, host-registration and targeted regression evidence, not execution of every tool in every App.",
     "Generic boundary/discovery/context advisories remain visible; arbitrary skill behavior and external provider runtime operations are not all certified.",
     "Business-drive testing was not reopened; the previously documented external license boundary remains.",
     "Historical missing identities are explicit, including user-approved consolidation and maintained derivatives; none are silently counted as the original installed plugin."
-  ]
+  ],
+  "finalVerifiedAt": "2026-11-17T17:38:33.953384+00:00",
+  "postReleaseEvaluator": "Plugin-Skill-Studio 0.3.7",
+  "postReleaseDeltaRoots": 2,
+  "currentStudioVersion": "0.3.7",
+  "sourceCommit": "316860ac73ed450d1dcc464fd65ecbd0e5f03908",
+  "codeMarketplaceCommit": "57e5b1c3b3a7ab4d6ffd466b2a0042cc97358e97",
+  "priorDisabledSkillsPreserved": 37,
+  "appStatesPreserved": true,
+  "cliInstalledMembershipPreserved": true,
+  "snapshotParity": [
+    {
+      "plugin": "cloudstorage-portal",
+      "version": "0.9.5",
+      "files": 129,
+      "trees": [
+        "marketplace",
+        "desktop",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "powershell-workbench",
+      "version": "0.9.0-beta.3",
+      "files": 389,
+      "trees": [
+        "marketplace",
+        "desktop",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "plugin-skill-studio",
+      "version": "0.3.7",
+      "files": 326,
+      "trees": [
+        "marketplace",
+        "desktop",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "component-forge",
+      "version": "0.1.2",
+      "files": 17,
+      "trees": [
+        "marketplace",
+        "desktop",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "windows-dism-update-docs",
+      "version": "0.1.3",
+      "files": 11,
+      "trees": [
+        "marketplace",
+        "desktop",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "codex-coordinator",
+      "version": "0.4.0",
+      "files": 24,
+      "trees": [
+        "marketplace",
+        "desktop"
+      ]
+    },
+    {
+      "plugin": "codex-dev-workflows",
+      "version": "0.4.2",
+      "files": 26,
+      "trees": [
+        "marketplace",
+        "desktop"
+      ]
+    },
+    {
+      "plugin": "codex-engineering-guardrails",
+      "version": "1.1.1",
+      "files": 18,
+      "trees": [
+        "marketplace",
+        "desktop",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "codex-process-jobs",
+      "version": "0.5.2",
+      "files": 40,
+      "trees": [
+        "marketplace",
+        "desktop"
+      ]
+    },
+    {
+      "plugin": "zilvereyes-context-handoff",
+      "version": "0.3.4+zilvereyes.1",
+      "files": 23,
+      "trees": [
+        "marketplace",
+        "desktop"
+      ]
+    },
+    {
+      "plugin": "winrecoveryproject-linter",
+      "version": "0.1.0",
+      "files": 41,
+      "trees": [
+        "marketplace",
+        "desktop",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "winrecoveryproject-devsuite",
+      "version": "0.1.0",
+      "files": 83,
+      "trees": [
+        "marketplace",
+        "desktop",
+        "installed"
+      ]
+    },
+    {
+      "plugin": "coderabbit",
+      "version": "1.1.7-wrp.1",
+      "files": 11,
+      "trees": [
+        "marketplace",
+        "desktop",
+        "installed"
+      ]
+    }
+  ],
+  "personalPackageParity": {
+    "version": "0.3.7",
+    "exactFiles": 311,
+    "hostNormalizedManifest": 1,
+    "existingIdentityPreserved": true,
+    "saveResponse": "Post-save catalog-request error; existing remote ID, forced fresh catalog version and installed payload independently verified",
+    "sharingFieldsChanged": false
+  },
+  "marketplaceValidatorChecks": 1598,
+  "protectedConfigurationAndAppBindingsUnchanged": true,
+  "upstreamPatchedFilesStillVerified": 37,
+  "skillDiscoveryVerification": {
+    "initialUniquePaths": 561,
+    "firstPostReleaseDiscoveryPaths": 284,
+    "configuredDisabledOverridesDuringDifference": 37,
+    "previouslyDisabledPathsChangedToEnabled": 0,
+    "sourceDirectoriesMissing": 0,
+    "finalAfterCatalogAndNormalizedPaths": 561,
+    "repeatedWarmDiscovery": 561,
+    "finalDisabledDiscoveredPaths": 37,
+    "settingsChangedForRetry": false,
+    "finding": "Initial post-release discovery was an incomplete view; catalog-first reload and normalized project paths restored the full repeated view. The isolated causal contribution of warm-up versus path normalization is not claimed."
+  }
 }

@@ -454,5 +454,12 @@
     "Business files were not tested because fresh Graph drive probes reported missing tenant SPO licensing. No license, trial or paid service was purchased.",
     "Node dependency/tool bootstrap is operational installation state; pinned packages and tests were verified separately from canonical plugin source snapshots.",
     "Earlier config.toml byte identity no longer holds amid concurrent plugin/account activity. Prior deactivations, provider bindings and App states were verified directly."
-  ]
+  ],
+  "installedInventoryScopeCorrection": {
+    "status": "SUPERSEDED_BY_FULL_CLI_AND_NATIVE_REMOTE_UNION",
+    "earlierRootCount": 57,
+    "appOnlySourceRootsPreviouslyOmitted": 11,
+    "currentRootCount": 68,
+    "report": "INSTALLED-AUDIT-STUDIO036-20261117.json"
+  }
 }
