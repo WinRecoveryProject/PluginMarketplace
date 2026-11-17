@@ -1,0 +1,106 @@
+{
+  "date": "2026-11-17",
+  "goalStatus": "active",
+  "toolkit": "Personal Plugin-Skill-Studio",
+  "budgetDkk": 0,
+  "constraints": [
+    "Bevar forbindelser, eksisterende identiteter, ikoner, deling og deaktiveringer.",
+    "Ingen Plugin Creator-workflow eller nye betalte tjenester.",
+    "Ingen nye chats eller genoptagelse af annullerede opgaver."
+  ],
+  "tasks": [
+    {
+      "id": "G01",
+      "task": "Afklar daybreak-local uden at ændre eksisterende aktiveringer eller starte betalte scanninger.",
+      "status": "VERIFIED",
+      "acceptance": "Effektiv aktiveringsstatus og årsagen til nul værktøjer er dokumenteret; en bevidst deaktivering bevares.",
+      "evidence": [
+        "outputs/goal-completion-20261117/daybreak-activation-evidence.json"
+      ]
+    },
+    {
+      "id": "G02",
+      "task": "Efterprøv upstream-fundene og afprøv Studios installationsværn mod de konkrete usikre byggeopskrifter.",
+      "status": "VERIFIED",
+      "acceptance": "Dokumentationspladsholdere adskilles fra eksekveringsrisici; hver tilbageværende opskrift afvises uden eksekvering eller installation.",
+      "evidence": [
+        "outputs/goal-completion-20261117/upstream-placeholder-evidence.json",
+        "outputs/goal-completion-20261117/guard-and-receipt-probe.json"
+      ]
+    },
+    {
+      "id": "G03",
+      "task": "Kontrollér og ret eventuel forkert versionsangivelse i Studios installationskvitteringer.",
+      "status": "IN_PROGRESS",
+      "acceptance": "En sikker isoleret prøve dokumenterer faktisk installerVersion; eventuel rettelse består regressionstest og udgives med bevaret eksisterende plugin-identitet.",
+      "finding": "Isolated safe installation reports 0.3.0 while executing Studio 0.3.4.",
+      "evidence": [
+        "outputs/goal-completion-20261117/guard-and-receipt-probe.json"
+      ]
+    },
+    {
+      "id": "G04",
+      "task": "Afstem OneDrive og CloudStorage Portal som én aktuel løsning med eksisterende ikoner og forbindelser.",
+      "status": "VERIFIED",
+      "acceptance": "Aktuelle installerede pakker og Marketplace bruger samme registrerede OneDrive-rute; Local og staging bruges ikke som skjult alternativ.",
+      "evidence": [
+        "outputs/onedrive-refresh-20261116/onedrive-fresh-package-consolidation-audit.json",
+        "work/PluginMarketplace/docs/installed-audit-delivery-20261117.json"
+      ]
+    },
+    {
+      "id": "G05",
+      "task": "Afstem den personlige login-kæde, faktiske tokenfornyelse og isolerede læse-/skriveprøver med de seneste kvitteringer.",
+      "status": "IN_PROGRESS",
+      "acceptance": "Korrekt personlig konto, eksisterende App, faktisk refresh og genlæsning samt testmappe-operationer er dokumenteret; historiske og friske prøver mærkes korrekt.",
+      "evidence": [
+        "outputs/onedrive-refresh-20261116/personal-live-acceptance.json",
+        "outputs/onedrive-refresh-20261116/verification.json"
+      ],
+      "verifiedSubpoints": [
+        "Personal login and actual production token refresh verified on 16 November 2026; 34 account/root checks and two post-refresh fixture reads. Preserve as dated evidence, not a new run."
+      ]
+    },
+    {
+      "id": "G06",
+      "task": "Afklar den udestående OneDrive Business-filtest uden at genåbne annulleret Entra-login-fejlsøgning.",
+      "status": "PENDING",
+      "acceptance": "Eksisterende konto-/licensforhold undersøges før ændringer. Tilgængelig Business-rute prøves med korrekte kontogrænser; et dokumenteret eksternt licenskrav håndteres uden køb eller påstået filadgang."
+    },
+    {
+      "id": "G07",
+      "task": "Kontrollér Portalens opsætningsdokumentation og giv historiske handoffs en entydig vej til den aktuelle status.",
+      "status": "PENDING",
+      "acceptance": "Dokumentationen forklarer den aktuelle gratis arkitektur og de præcise komponentnavne; forældede historiske instruktioner fremstår ikke som næste handling.",
+      "finding": "Installed setup skill still says all three providers use App bindings and hard-codes 28 tools. Current connection skill and bindings route Dropbox through its existing MCP; tool inventory must be discovered."
+    },
+    {
+      "id": "G08",
+      "task": "Bevar og verificér WinRecoveryProjectLinter og DevSuite som allerede leverede værktøjer og Marketplace-pakker.",
+      "status": "VERIFIED",
+      "acceptance": "Eksisterende 0.1.0-pakker er installeret, deres kildehashes er verificeret, og den seneste audit har ingen nye konkrete produktfejl.",
+      "evidence": [
+        "work/PluginMarketplace/docs/product-deployment-20261116.json",
+        "work/PluginMarketplace/docs/installed-audit-20261117.json"
+      ]
+    },
+    {
+      "id": "G09",
+      "task": "Udgiv nødvendige rettelser via Plugin-Skill-Studio, Desktop-native værktøjer og Git og afslut med kilde-/installationsparitet.",
+      "status": "PENDING",
+      "acceptance": "Nye validerede versioner og opgavelistens slutstatus er synkroniseret i de eksisterende repositories, Marketplace og installationer; forbindelser og deaktiveringer er bevaret."
+    },
+    {
+      "id": "C01",
+      "task": "WoW-Addon-SDK-arbejde",
+      "status": "CANCELLED",
+      "acceptance": "Genoptages ikke."
+    },
+    {
+      "id": "C02",
+      "task": "Fejlsøgning af Entra-login som brugeren har bekræftet virker",
+      "status": "CANCELLED",
+      "acceptance": "Genoptages ikke; særskilt Business-filtest er G06."
+    }
+  ]
+}

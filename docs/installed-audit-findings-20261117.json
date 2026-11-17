@@ -198,10 +198,11 @@
     "severity": "error",
     "file": "docs/llm-advisor.md",
     "line": 160,
-    "status": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
-    "reason": "Upstream build/download recipe remains a real execution risk if run. It was not executed, is not copied into our Linter, and MegaLinter remains outside the installable Marketplace. Separate execution review is required.",
+    "status": "REVIEWED_DOCUMENTATION_PLACEHOLDER",
+    "reason": "Exact source line contains an explicit documentation-placeholder pattern; no credential was tested or transmitted. Raw severity remains visible.",
     "evidence": "ANTHROPIC_API_KEY=[REDACTED]",
-    "fingerprint": "155fb51ef5cc2ec14590cb24fe1de155e20e33b6705c5ba59914d3aff66d9525"
+    "fingerprint": "155fb51ef5cc2ec14590cb24fe1de155e20e33b6705c5ba59914d3aff66d9525",
+    "sourceFileSha256": "e34eda843c4677a7bac18c18c05fcbfb9e188b4ea2764e0dca50a2c025b8baed"
   },
   {
     "plugin": "megalinter@megalinter",
@@ -210,10 +211,11 @@
     "severity": "error",
     "file": "docs/llm-provider/llm_provider_anthropic.md",
     "line": 15,
-    "status": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
-    "reason": "Upstream build/download recipe remains a real execution risk if run. It was not executed, is not copied into our Linter, and MegaLinter remains outside the installable Marketplace. Separate execution review is required.",
+    "status": "REVIEWED_DOCUMENTATION_PLACEHOLDER",
+    "reason": "Exact source line contains an explicit documentation-placeholder pattern; no credential was tested or transmitted. Raw severity remains visible.",
     "evidence": "Set **ANTHROPIC_API_KEY=[REDACTED]** in your CI/CD secret variables.",
-    "fingerprint": "155fb51ef5cc2ec14590cb24fe1de155e20e33b6705c5ba59914d3aff66d9525"
+    "fingerprint": "155fb51ef5cc2ec14590cb24fe1de155e20e33b6705c5ba59914d3aff66d9525",
+    "sourceFileSha256": "49953c17bbdc0bfac52e97dc65674d7540cb55c77756c87d34b4735112110394"
   },
   {
     "plugin": "megalinter@megalinter",
@@ -234,10 +236,11 @@
     "severity": "error",
     "file": "docs/llm-provider/llm_provider_openai.md",
     "line": 15,
-    "status": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
-    "reason": "Upstream build/download recipe remains a real execution risk if run. It was not executed, is not copied into our Linter, and MegaLinter remains outside the installable Marketplace. Separate execution review is required.",
+    "status": "REVIEWED_DOCUMENTATION_PLACEHOLDER",
+    "reason": "Exact source line contains an explicit documentation-placeholder pattern; no credential was tested or transmitted. Raw severity remains visible.",
     "evidence": "Set **OPENAI_API_KEY=[REDACTED]** in your CI/CD secret variables.",
-    "fingerprint": "155fb51ef5cc2ec14590cb24fe1de155e20e33b6705c5ba59914d3aff66d9525"
+    "fingerprint": "155fb51ef5cc2ec14590cb24fe1de155e20e33b6705c5ba59914d3aff66d9525",
+    "sourceFileSha256": "1b28d8161b87385181c66c5ecb586ab3aea4083ac192360b89ac30d755888265"
   },
   {
     "plugin": "megalinter@megalinter",
@@ -246,10 +249,11 @@
     "severity": "error",
     "file": "docs/llm-provider/llm_provider_orcarouter.md",
     "line": 15,
-    "status": "RETAINED_UPSTREAM_BUILD_RECIPE_RISK",
-    "reason": "Upstream build/download recipe remains a real execution risk if run. It was not executed, is not copied into our Linter, and MegaLinter remains outside the installable Marketplace. Separate execution review is required.",
+    "status": "REVIEWED_DOCUMENTATION_PLACEHOLDER",
+    "reason": "Exact source line contains an explicit documentation-placeholder pattern; no credential was tested or transmitted. Raw severity remains visible.",
     "evidence": "Set **ORCAROUTER_API_KEY=[REDACTED]** in your CI/CD secret variables.",
-    "fingerprint": "155fb51ef5cc2ec14590cb24fe1de155e20e33b6705c5ba59914d3aff66d9525"
+    "fingerprint": "155fb51ef5cc2ec14590cb24fe1de155e20e33b6705c5ba59914d3aff66d9525",
+    "sourceFileSha256": "8cac7bc9d0c2197b8fb062bb6b74ec5107024d8c43b01657b62d7d1336353927"
   },
   {
     "plugin": "megalinter@megalinter",

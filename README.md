@@ -4,6 +4,8 @@
 
 Seneste samlede installationskontrol: [Plugin-Skill-Studio-gennemgang, 17. november 2026](docs/installed-audit-20261117.md).
 
+Aktivt samlet mål: [opgaver, færdigkriterier og verifikation](docs/GOAL-WORKLIST-20261117.md).
+
 ## Tilføj markedspladsen
 
 ```powershell

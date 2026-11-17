@@ -66,7 +66,8 @@
     "DISCOVERY_WORDING_ADVISORY": 30,
     "REVIEWED_UPSTREAM_REGRESSION_FIXTURE": 4,
     "UNDISCOVERED_UPSTREAM_EXAMPLE": 2,
-    "RETAINED_UPSTREAM_BUILD_RECIPE_RISK": 17,
+    "RETAINED_UPSTREAM_BUILD_RECIPE_RISK": 13,
+    "REVIEWED_DOCUMENTATION_PLACEHOLDER": 4,
     "REVIEWED_SYNTHETIC_DOCUMENTATION_EXAMPLE": 1,
     "REVIEWED_DETECTOR_LITERAL": 4,
     "REVIEWED_SYNTHETIC_TEST_INPUT": 15,
@@ -1188,7 +1189,9 @@
       "tools": 0,
       "authStatus": "unsupported",
       "runtimeObserved": false,
-      "note": "Registered only; no startup result or tool discovery observed."
+      "note": "Vendor declaration enabled=false and enabled_tools=[]; no enabling override found. Deactivation is preserved; no scan or startup is required to establish this state.",
+      "enabled": false,
+      "status": "INTENTIONALLY_DISABLED"
     },
     {
       "name": "dropbox",
@@ -1225,5 +1228,13 @@
     "App callable state is registration/policy evidence, not a live operation against every provider.",
     "Retained upstream recipe risks, portability, context and wording advisories are not silently converted to passes.",
     "No paid model benchmark, vendor trial, credits or new OAuth consent was used."
-  ]
+  ],
+  "followup": {
+    "daybreakLocal": "INTENTIONALLY_DISABLED",
+    "upstreamDocumentPlaceholders": 4,
+    "unsafeBuildRecipesBlockedBeforeInstallation": 13,
+    "unsafeRecipesExecuted": 0,
+    "newOpenProductFinding": "Studio 0.3.4 installation receipts report installerVersion 0.3.0. Tracked as G03.",
+    "worklist": "GOAL-WORKLIST-20261117.md"
+  }
 }

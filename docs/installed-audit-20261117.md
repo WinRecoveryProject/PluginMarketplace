@@ -21,7 +21,7 @@ MegaLinter is a reference and is not installed by our Marketplace. Its newly com
 
 ## Runtime and connection evidence
 
-Read-only checks succeeded through existing OneDrive, Dropbox, Google Drive, GitHub and Vercel connections. No files were written by those checks. All existing App enabled/callable states and the MCP registration set are preserved. The daybreak-local registration has no observed tool list or startup result; its runtime health is not claimed. Other Apps have registration evidence, not an invented exhaustive functional test.
+Read-only checks succeeded through existing OneDrive, Dropbox, Google Drive, GitHub and Vercel connections. No files were written by those checks. All existing App enabled/callable states and the MCP registration set are preserved. The daybreak-local declaration is intentionally disabled (`enabled=false`, `enabled_tools=[]`), with no enabling override observed. Its deactivation is preserved; runtime startup is not claimed. Other Apps have registration evidence, not an invented exhaustive functional test.
 
 ## Installed and host-discovered roots
 
@@ -122,7 +122,7 @@ Read-only checks succeeded through existing OneDrive, Dropbox, Google Drive, Git
 | codex-security | 47 | Tool discovery |
 | codex_apps | 925 | Tool discovery |
 | cua_repl | 3 | Tool discovery |
-| daybreak-local | 0 | Registration only; runtime unverified |
+| daybreak-local | 0 | Intentionally disabled by vendor declaration; deactivation preserved |
 | dropbox | 41 | Tool discovery |
 | node_repl | 4 | Tool discovery |
 | openai-api-credit-promo | 3 | Tool discovery |
@@ -131,3 +131,17 @@ Read-only checks succeeded through existing OneDrive, Dropbox, Google Drive, Git
 [Machine-readable summary](installed-audit-20261117.json) · [Exact finding ledger](installed-audit-findings-20261117.json) · [Delivery receipt](installed-audit-delivery-20261117.json)
 
 Budget: **0 kr.** No paid service, trial, credits, new account or new consent was used.
+
+## Goal follow-up
+
+The [active worklist](GOAL-WORKLIST-20261117.md) tracks the remaining authorized
+tasks. Four previously grouped upstream credential-pattern findings are explicit
+documentation placeholders, verified at exact source locations. The 13 actual
+download/build recipes were each rejected by Studio before any installation
+destination was created; no recipe or endpoint was executed.
+
+A separate safe temporary installation reproduced a new metadata defect: Studio
+0.3.4 writes installerVersion 0.3.0 in its receipt. This is an open product
+finding, tracked as G03, alongside the stale Portal setup wording tracked as G07.
+The earlier 128 passing tests remain their recorded scope and do not establish
+that these new cases passed.
