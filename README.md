@@ -25,6 +25,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
 | WinRecoveryProjectLinter | `0.1.0` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
 | WinRecoveryProject DevSuite | `0.1.0` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
+| CodeRabbit | `1.1.6` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
 | Vercel | `0.21.4` | `codex plugin add vercel@winrecoveryproject-digital` |
 | GitHub | `0.1.12` | `codex plugin add github@winrecoveryproject-digital` |
@@ -42,7 +43,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Slack | `0.1.7` | `codex plugin add slack@winrecoveryproject-digital` |
 | Plugin Eval | `0.1.2` | `codex plugin add plugin-eval@winrecoveryproject-digital` |
 
-Den samlede oversigt dækker **55 produkter**: 31 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se hele samlingen](docs/full-plugin-list-check-20261116.md) og [kontrollen af alle 52 aktuelle installationer](docs/installed-plugins-and-suppliers-20261116.md). Flere offentlige Git-pakker er ældre end de installerede katalogversioner. Denne historiske leverandøroversigt er bevaret. Se [den aktuelle gennemgang og udgivelse](docs/product-release-20261116.md) for nyere validerede pakker og de konkrete installationskontroller.
+Den samlede oversigt dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se hele samlingen](docs/full-plugin-list-check-20261116.md) og [kontrollen af alle 52 aktuelle installationer](docs/installed-plugins-and-suppliers-20261116.md). Flere offentlige Git-pakker er ældre end de installerede katalogversioner. Denne historiske leverandøroversigt er bevaret. Se [den aktuelle gennemgang og udgivelse](docs/product-release-20261116.md) for nyere validerede pakker og de konkrete installationskontroller.
 
 ## Struktur
 
@@ -93,3 +94,5 @@ WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroll
 [Udgivelse og testdækning](docs/product-release-20261116.md) · [Installeret plugin-gennemgang](docs/current-installed-audit-20261116.md).
 
 [Endelig installationskontrol og rettelser](docs/final-installed-audit-20261116.md) · [Verificeret deployment](docs/product-deployment-20261116.json).
+
+CodeRabbit 1.1.6 bruger den verificerede officielle kilde med bevaret navn, udgiver og ikoner. Den gamle værtsleverede 1.1.4-skill forbliver deaktiveret; kun den rettede udgave aktiveres. [Kontrol af installationsrettelsen](docs/coderabbit-installation-repair-20261117.md).

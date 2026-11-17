@@ -1219,6 +1219,22 @@
         "tests/test_runtime.py": "724de3bc08577553d88343bc44442247c6177b6f61f0b3d8c90e872cdbe1e777",
         "THIRD_PARTY_NOTICES.md": "fc1ad081d7a89f69dd78d688bcf44dc9404ea56c7a4c74a38c3b3c055e812d19"
       }
+    },
+    "coderabbit": {
+      "repository": "https://github.com/coderabbitai/codex-plugin.git",
+      "commit": "35779b453cca18aa7cd3176f0bb73a8c75d11da8",
+      "sourceSubdir": "plugins/coderabbit",
+      "version": "1.1.6",
+      "files": {
+        ".codex-plugin/plugin.json": "6a5adf3f734b4dd47fe0419baf0e9e9e24aa13926ba91bdb06850bd53ac9daa2",
+        "assets/coderabbit-small.png": "9f0fd676b07e89d3602f3c78d8dbfe94b4087b72569e4db13c8eeaaf983503db",
+        "assets/coderabbit.png": "09f7d5c7a9f1fb9b0ae339286fd293de502adcefee4a6424d53504d0277b3464",
+        "assets/logo.png": "d985c31648830e07899c7b28c92f29e021bcfb230a64b6b07cc48031ecdd741d",
+        "skills/coderabbit-review/SKILL.md": "bcd4da86b701230c8a3d78d9a775b2165aa53aab43040d2c22fb44877f5a35d7",
+        "skills/coderabbit-review/agents/openai.yaml": "98a4de30a16cb33c37e66f29125f9fcb0b94b40ef5a0f34d51da8d7105f0bc10",
+        "skills/coderabbit-review/references/auth-recovery.md": "d2e0d592b36286b2bbc03f6866afa97bf32e473c1ffde36beeaffa4a4f022c61",
+        "skills/coderabbit-review/references/review-output.md": "e74c4bdeac2b3ef88e68f930a9d5a34f74efb95eddac42a4f867588283d6b459"
+      }
     }
   }
 }

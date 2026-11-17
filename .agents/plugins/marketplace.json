@@ -503,6 +503,22 @@
       "interface": {
         "displayName": "WinRecoveryProject DevSuite"
       }
+    },
+    {
+      "name": "coderabbit",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
+        "path": "plugins/coderabbit"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "CodeRabbit"
+      }
     }
   ]
 }
