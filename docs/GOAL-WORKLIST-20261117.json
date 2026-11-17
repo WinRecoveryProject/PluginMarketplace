@@ -33,9 +33,10 @@
       "task": "Kontrollér og ret eventuel forkert versionsangivelse i Studios installationskvitteringer.",
       "status": "IN_PROGRESS",
       "acceptance": "En sikker isoleret prøve dokumenterer faktisk installerVersion; eventuel rettelse består regressionstest og udgives med bevaret eksisterende plugin-identitet.",
-      "finding": "Isolated safe installation reports 0.3.0 while executing Studio 0.3.4.",
+      "finding": "Fixed in Studio 0.3.5 source: receipt reads the executing package version. New install/readback regression and all 107 tests pass. Git source published; personal and Marketplace deployment tracked separately.",
       "evidence": [
-        "outputs/goal-completion-20261117/guard-and-receipt-probe.json"
+        "outputs/goal-completion-20261117/studio035-tests.txt",
+        "outputs/goal-completion-20261117/studio035-canonical-package-result.json"
       ]
     },
     {
@@ -51,14 +52,17 @@
     {
       "id": "G05",
       "task": "Afstem den personlige login-kæde, faktiske tokenfornyelse og isolerede læse-/skriveprøver med de seneste kvitteringer.",
-      "status": "IN_PROGRESS",
+      "status": "VERIFIED",
       "acceptance": "Korrekt personlig konto, eksisterende App, faktisk refresh og genlæsning samt testmappe-operationer er dokumenteret; historiske og friske prøver mærkes korrekt.",
       "evidence": [
         "outputs/onedrive-refresh-20261116/personal-live-acceptance.json",
-        "outputs/onedrive-refresh-20261116/verification.json"
+        "outputs/onedrive-refresh-20261116/verification.json",
+        "outputs/goal-completion-20261117/personal-live-write-test.json",
+        "outputs/goal-completion-20261117/personal-write-cleanup.json"
       ],
       "verifiedSubpoints": [
-        "Personal login and actual production token refresh verified on 16 November 2026; 34 account/root checks and two post-refresh fixture reads. Preserve as dated evidence, not a new run."
+        "Personal login and actual production token refresh verified on 16 November 2026; 34 account/root checks and two post-refresh fixture reads. Preserve as dated evidence, not a new run.",
+        "17 November: same existing Desktop App route tested through OneDrive and Portal workflows; two isolated files created and updated; 8 SHA-256/UTF-8/identity readbacks pass, including 6 after updates; test folder sent to recycle bin. No independent Portal MCP server was implied."
       ]
     },
     {
@@ -70,9 +74,9 @@
     {
       "id": "G07",
       "task": "Kontrollér Portalens opsætningsdokumentation og giv historiske handoffs en entydig vej til den aktuelle status.",
-      "status": "PENDING",
+      "status": "IN_PROGRESS",
       "acceptance": "Dokumentationen forklarer den aktuelle gratis arkitektur og de præcise komponentnavne; forældede historiske instruktioner fremstår ikke som næste handling.",
-      "finding": "Installed setup skill still says all three providers use App bindings and hard-codes 28 tools. Current connection skill and bindings route Dropbox through its existing MCP; tool inventory must be discovered."
+      "finding": "Fixed in Portal 0.9.4 source: actual Dropbox MCP and Google Drive/OneDrive App routes, no fixed current tool count, dated actual-refresh evidence, repaired mixed-encoding architecture text. Source published; installation tracked in G09."
     },
     {
       "id": "G08",
@@ -87,8 +91,15 @@
     {
       "id": "G09",
       "task": "Udgiv nødvendige rettelser via Plugin-Skill-Studio, Desktop-native værktøjer og Git og afslut med kilde-/installationsparitet.",
-      "status": "PENDING",
+      "status": "IN_PROGRESS",
       "acceptance": "Nye validerede versioner og opgavelistens slutstatus er synkroniseret i de eksisterende repositories, Marketplace og installationer; forbindelser og deaktiveringer er bevaret."
+    },
+    {
+      "id": "G10",
+      "task": "Afklar Google Slides-hjælperens POSIX-afhængighed på Windows uden at forringe fil- og symlinkkontroller.",
+      "status": "PENDING",
+      "acceptance": "Den medfølgende export/render-hjælpers Windows-grænse er dokumenteret og løst eller håndteret gennem en faktisk understøttet rute. Ingen bestået Windows-runtime-test påstås ud fra statisk evaluering.",
+      "finding": "An expanded test run exposed 20 Google Slides materialization tests failing at fixture setup: /bin/sh and /bin/mkdir are assumed; production helper also emits /usr/bin/perl commands and POSIX paths. WSL optional component is absent. No OS installation or restart was attempted."
     },
     {
       "id": "C01",

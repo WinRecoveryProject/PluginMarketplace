@@ -1,6 +1,6 @@
 ---
 name: cloudstorage-portal
-description: "Use when the user wants to search, read, upload, organize, share, inspect file history or transfer files across Dropbox, Google Drive and OneDrive through their existing App connections."
+description: "Use when the user wants to search, read, upload, organize, share, inspect file history or transfer files across Dropbox, Google Drive and OneDrive through their existing App or MCP connections."
 ---
 # CloudStorage Portal
 
@@ -40,4 +40,4 @@ Skills contain workflows; executable tools, granted scopes and resource permissi
 7. For a transfer, read the exact source version, materialize through supported provider tools, verify bytes/hash where possible, write to the resolved destination and read back metadata. Record a receipt. Do not delete the source unless explicitly requested. Never replay uncertain writes automatically.
 8. Keep credentials in provider-managed authentication. Do not put tokens, refresh tokens, passwords, permission grants or consent assertions into configuration, SQL, source code, logs or component archives.
 
-The Portal routes to native provider Apps. Its OneDrive skill documents the current hosted read/write contract and limits. Historical Local-runtime evidence remains reference material; never use it as proof for the active App.
+The Portal routes to the existing provider Apps or MCP connections. Its OneDrive skill documents the current hosted read/write contract and limits. Historical Local-runtime evidence remains reference material; never use it as proof for the active App.

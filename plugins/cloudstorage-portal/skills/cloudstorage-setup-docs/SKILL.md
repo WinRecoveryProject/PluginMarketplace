@@ -7,7 +7,7 @@ description: "Explain and reproduce the documented zero-cost CloudStorage Portal
 
 Forklar den dokumenterede opsætning og hjælp en ny bruger gennem den. Denne skill er en vejledning, ikke en credentialbutik eller en ny MCP-runtime.
 
-Aktuel pakke: Portal router til Dropbox, Google Drive og OneDrive via App-bindinger; CloudStorage Portal Local er ikke påkrævet. OneDrive har 28 annoncerede værktøjer. Skriveadgang kræver onedrive.read + onedrive.write og nyt Microsoft-samtykke til Graph Files.ReadWrite. De følgende referencer indeholder også historiske læse-/OBO-forløb; brug dem ikke som den aktuelle skrivekontrakt.
+Aktuel pakke: Portal bruger den eksisterende Dropbox MCP-forbindelse og de eksisterende Google Drive- og OneDrive-App-bindinger. Portalen har ingen separat MCP-runtime. CloudStorage Portal Local er udgået. Opdag det aktuelle værktøjsudvalg gennem den valgte forbindelse; historiske værktøjsantal er ikke en aktuel kontrakt. OneDrive-skriveadgang kræver onedrive.read + onedrive.write og Microsoft-samtykke til Graph Files.ReadWrite. Bevar et eksisterende gyldigt samtykke; en manglende skrivebevilling kræver ny godkendelse. Referencerne indeholder også historiske læse-/OBO-forløb; brug dem ikke som den aktuelle skrivekontrakt.
 
 ## Opslag
 

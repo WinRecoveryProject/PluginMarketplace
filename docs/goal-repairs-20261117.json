@@ -1,0 +1,81 @@
+{
+  "asOf": "2026-11-17T14:47:59.922067+00:00",
+  "status": "SOURCE_FIXES_PUBLISHED_INSTALLATIONS_PENDING",
+  "budgetDkk": 0,
+  "paidActions": 0,
+  "sources": [
+    {
+      "package": "plugin-skill-studio",
+      "version": "0.3.5",
+      "commit": "5c4bbb9747e989f4f9f2f82ec333841e59b6f2fb",
+      "bindingsAndIdentityPreserved": true
+    },
+    {
+      "package": "cloudstorage-portal",
+      "version": "0.9.4",
+      "commit": "2fe435659f6372c68e47c745bc3da41f2258fb26",
+      "bindingsAndIdentityPreserved": true
+    }
+  ],
+  "studio": {
+    "testsPassed": 107,
+    "testsFailed": 0,
+    "newReceiptRegression": true,
+    "staticValidationPassed": true,
+    "deterministicPackaging": true,
+    "personalRemoteUpdate": "PENDING_VERIFICATION"
+  },
+  "portal": {
+    "packageBoundaryTestsPassed": 4,
+    "hybridIdentityAndProviderValidation": true,
+    "studioStaticErrors": 0,
+    "studioStaticWarnings": 0,
+    "existingConnectionsChanged": false
+  },
+  "personalOneDrive": {
+    "freshWriteWorkflows": [
+      "OneDrive",
+      "CloudStorage Portal"
+    ],
+    "sharedRoute": "existing codex_apps / onedrive App",
+    "filesCreated": 2,
+    "filesUpdated": 2,
+    "sha256AndIdentityReadChecksPassed": 8,
+    "postUpdateReadbacks": 6,
+    "cleanup": "deleted_to_recycle_bin",
+    "actualProductionRefresh": "PASS_DATED_2026_11_16",
+    "newLoginRequested": false
+  },
+  "googleSlides": {
+    "status": "FAILED_ON_WINDOWS_HOST",
+    "testsFailed": 20,
+    "cause": "POSIX host and fixture assumptions; not a passed Windows runtime test",
+    "trackedAs": "G10"
+  },
+  "desktop": {
+    "bundledClickFailure": "coordinate input geometry is unavailable",
+    "localFallback": "VERIFIED_CAPTURE_AND_NAVIGATION_AFTER_GUARDED_FOREGROUND_REPAIR",
+    "sharingOrConnectionChanges": false
+  },
+  "marketplaceValidation": {
+    "ok": true,
+    "checks": 1591,
+    "managedPlugins": [
+      "onedrive",
+      "cloudstorage-portal",
+      "powershell-workbench",
+      "plugin-skill-studio",
+      "component-forge",
+      "windows-dism-update-docs",
+      "codex-coordinator",
+      "codex-dev-workflows",
+      "codex-engineering-guardrails",
+      "codex-process-jobs",
+      "zilvereyes-context-handoff",
+      "winrecoveryproject-linter",
+      "winrecoveryproject-devsuite",
+      "coderabbit"
+    ],
+    "scope": "Package structure and exact source snapshots; not a live connection test."
+  }
+}

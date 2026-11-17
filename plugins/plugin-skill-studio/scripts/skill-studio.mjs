@@ -204,13 +204,15 @@ export function installSkill(sourceInput, options = {}) {
     if (options["dry-run"] === "true") return { mode: "dry-run", written: false, plan, validation, riskReview };
     if (scan.status !== 0) throw new Error("Installation blocked by active risk findings; review exact evidence and supply only justified fingerprint/rule-version suppressions.");
     if (fs.existsSync(target)) throw new Error(`Refusing to overwrite existing skill: ${target}`);
+    const installerVersion = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8")).version;
+    if (typeof installerVersion !== "string" || !installerVersion.trim()) throw new Error("Installer package version is missing; installation is blocked.");
     fs.mkdirSync(destinationRoot, { recursive: true });
     const staging = path.join(destinationRoot, `.zilvereyes-staging-${crypto.randomUUID()}`);
     const receipt = {
       schemaVersion: 1,
       installedAt: new Date().toISOString(),
       installer: "plugin-skill-studio",
-      installerVersion: "0.3.0",
+      installerVersion,
       source: materialized.provenance,
       target,
       files,
