@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "marketplacePackages": [
+    {
+      "package": "plugin-skill-studio",
+      "version": "0.3.4",
+      "filesVerifiedInEachTree": 323,
+      "sourceCommit": "229614d9415eb7dfaf925366260fbdd3bc071c2f",
+      "canonicalMarketplaceManagedSnapshotAndInstallationMatch": true
+    },
+    {
+      "package": "powershell-workbench",
+      "version": "0.9.0-beta.3",
+      "filesVerifiedInEachTree": 389,
+      "sourceCommit": "9806283abce88ecd66a0bc4a7edc02aa180bbd2c",
+      "canonicalMarketplaceManagedSnapshotAndInstallationMatch": true
+    }
+  ],
+  "personalStudio": {
+    "version": "0.3.4",
+    "scope": "USER",
+    "discoverability": "PRIVATE",
+    "exactRuntimeFilesMatched": 310,
+    "hostNormalizedManifestFiles": 1,
+    "normalizationScope": "Omitted keyword list defaults to []; skill directory trailing slash is canonicalized. Identity, presentation and bindings are unchanged."
+  },
+  "configBytesUnchanged": true,
+  "configurationSemanticsUnchanged": true,
+  "providerConnectionsAndPriorSkillFlagsPreserved": true,
+  "studioDeterministicPackaging": true,
+  "runtimeReadChecks": {
+    "observedAt": "2026-11-17T14:04:17.348Z",
+    "checks": [
+      {
+        "name": "OneDrive account",
+        "status": "PASS",
+        "readOnly": true,
+        "credentialsCopied": false
+      },
+      {
+        "name": "Google Drive profile",
+        "status": "PASS",
+        "readOnly": true,
+        "credentialsCopied": false
+      },
+      {
+        "name": "GitHub profile",
+        "status": "PASS",
+        "readOnly": true,
+        "credentialsCopied": false
+      },
+      {
+        "name": "Dropbox quota",
+        "status": "PASS",
+        "readOnly": true,
+        "credentialsCopied": false
+      },
+      {
+        "name": "Vercel teams",
+        "status": "PASS",
+        "readOnly": true,
+        "credentialsCopied": false
+      }
+    ],
+    "providerWrites": 0,
+    "newLogins": 0,
+    "budgetDkk": 0
+  },
+  "studioTestsPassed": 106,
+  "workbenchTestsPassed": 22,
+  "workbenchStructuralParserCheckPassed": true,
+  "marketplaceChecksPassed": 1591,
+  "sourceLineEndings": "Marketplace payloads now use canonical committed Git blob bytes, avoiding workstation CRLF drift. Existing component script hashes are validated by the Workbench suite.",
+  "budgetDkk": 0
+}

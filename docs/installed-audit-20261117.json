@@ -1,0 +1,1229 @@
+{
+  "observedAt": "2026-11-17T14:11:01.286Z",
+  "status": "AUDIT_COMPLETE_WITH_EXPLICIT_UPSTREAM_ADVISORIES",
+  "evaluator": {
+    "name": "Plugin-Skill-Studio",
+    "version": "0.3.4"
+  },
+  "installedPlugins": 34,
+  "hostDiscoveredExtraRoots": 22,
+  "pluginRootsReviewed": 56,
+  "incompleteStaticRootScans": 0,
+  "uniqueNativeSkills": 554,
+  "disabledNativeSkills": 37,
+  "standaloneSkills": 28,
+  "nativeLoaderErrors": 0,
+  "installedApps": 26,
+  "callableApps": 26,
+  "mcpServers": 8,
+  "appStatesPreserved": true,
+  "mcpRegistrationSetPreserved": true,
+  "repairs": {
+    "studioVersion": "0.3.4",
+    "studioChangedRiskRuleVersion": "1.1.0",
+    "workbenchVersion": "0.9.0-beta.3",
+    "workbenchRepairedSkills": [
+      "skills/bash-docs/SKILL.md",
+      "skills/batch-docs/SKILL.md",
+      "skills/cmd-docs/SKILL.md",
+      "skills/csharp-docs/SKILL.md",
+      "skills/css-docs/SKILL.md",
+      "skills/game-tooling-development/SKILL.md",
+      "skills/html-docs/SKILL.md",
+      "skills/javascript-docs/SKILL.md",
+      "skills/json-docs/SKILL.md",
+      "skills/lua-docs/SKILL.md",
+      "skills/microsoft-dism-docs/SKILL.md",
+      "skills/microsoft-update-docs/SKILL.md",
+      "skills/ollama-docs/SKILL.md",
+      "skills/powershell-centered-project-development/SKILL.md",
+      "skills/powershell-docs/SKILL.md",
+      "skills/powershell-environment-bootstrap/SKILL.md",
+      "skills/powershell-portfolio-discovery/SKILL.md",
+      "skills/powershell-project-profile-portal/SKILL.md",
+      "skills/powershell-quality-gate/SKILL.md",
+      "skills/powershell-refactor/SKILL.md",
+      "skills/powershell-safe-editing/SKILL.md",
+      "skills/powershell-scaffold/SKILL.md",
+      "skills/python-docs/SKILL.md",
+      "skills/recovery-toolkit-development/SKILL.md",
+      "skills/typescript-docs/SKILL.md",
+      "skills/winget-downloader-development/SKILL.md",
+      "skills/xml-docs/SKILL.md",
+      "skills/yaml-docs/SKILL.md"
+    ],
+    "connectionsChanged": false,
+    "budgetDkk": 0
+  },
+  "tests": {
+    "studio": 106,
+    "workbench": 22
+  },
+  "adjudicationCounts": {
+    "CONTEXT_SIZE_ADVISORY": 13,
+    "HOST_NATIVE_PORTABILITY_ADVISORY": 2,
+    "HOST_CAPABILITY_DECLARATION": 4,
+    "DISCOVERY_WORDING_ADVISORY": 30,
+    "REVIEWED_UPSTREAM_REGRESSION_FIXTURE": 4,
+    "UNDISCOVERED_UPSTREAM_EXAMPLE": 2,
+    "RETAINED_UPSTREAM_BUILD_RECIPE_RISK": 17,
+    "REVIEWED_SYNTHETIC_DOCUMENTATION_EXAMPLE": 1,
+    "REVIEWED_DETECTOR_LITERAL": 4,
+    "REVIEWED_SYNTHETIC_TEST_INPUT": 15,
+    "BOUNDARY_HEURISTIC_BEHAVIOR_UNPROVEN": 19,
+    "HEADING_STYLE_ADVISORY": 19,
+    "MITIGATED_DISABLED_ENTRYPOINT": 1
+  },
+  "unreviewedFindings": 0,
+  "roots": [
+    {
+      "id": "documents@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "8df8094df47401508e957ce1d42b30a6b8205a0361ea273246317b27193838bb"
+    },
+    {
+      "id": "pdf@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "f9b920398cbde1049948f8b5543358b0c7a7cbabb876213a9adc37fb1acd18b2"
+    },
+    {
+      "id": "spreadsheets@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 1,
+        "warnings": 1,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "0ffe22155a04a1a5697a3accbb44ffc4a7dfeadf93d7a603015aac809b43f013"
+    },
+    {
+      "id": "presentations@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 1,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "51af17bf7b21809d77ea40d35790cb22c760c2d8e3821c5b33f9e51f96363316"
+    },
+    {
+      "id": "template-creator@openai-primary-runtime",
+      "version": "26.1112.11011",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 1
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "0a4a6fa3bfef7eae92756d2aa9557d9a152fbc04e51e245c31fb6135f7d58d4f"
+    },
+    {
+      "id": "browser@openai-bundled",
+      "version": "26.1111.21308",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 8388608,
+        "maxTotalBytes": 134217728
+      },
+      "fingerprint": "773a7d2694caac62cf23838338e720a5cebd4e9513ad8c1673226447554233a5"
+    },
+    {
+      "id": "unified-computer-use@openai-bundled",
+      "version": "26.1111.21308",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "1e18a8724da0a1db048fbd5b8a1f1e7e82342e6acf4c70aa558339eb564a3037"
+    },
+    {
+      "id": "chrome@openai-bundled",
+      "version": "26.1111.21308",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 8388608,
+        "maxTotalBytes": 134217728
+      },
+      "fingerprint": "57217106638501ac1f67e2940e4913c83428c1d4b5f5cc67355d328a94d22bda"
+    },
+    {
+      "id": "computer-use@openai-bundled",
+      "version": "26.1111.21308",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "471130672d35415fcba9794ce3b1e15af85b2b2db92f2778d254f5f50941a1c1"
+    },
+    {
+      "id": "visualize@openai-bundled",
+      "version": "1.0.97",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 8388608,
+        "maxTotalBytes": 134217728
+      },
+      "fingerprint": "e3daa094dac319df5c5918e24a5643442969be8d48aa7b211545a70b2f8fdd71"
+    },
+    {
+      "id": "megalinter@megalinter",
+      "version": "1.0.28",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 24,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 8388608,
+        "maxTotalBytes": 134217728
+      },
+      "fingerprint": "155fb51ef5cc2ec14590cb24fe1de155e20e33b6705c5ba59914d3aff66d9525"
+    },
+    {
+      "id": "onedrive@winrecoveryproject-digital",
+      "version": "1.2.0",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "41f111905aff23f888da0d6f5ff8aed1879c6902c68b95e30b28b7fe10fee1d5"
+    },
+    {
+      "id": "cloudstorage-portal@winrecoveryproject-digital",
+      "version": "0.9.3",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "0c143cfc4d22e935b96bb282fe1f11d0637c2f2b8f555a6d2bcfababd3843af2"
+    },
+    {
+      "id": "component-forge@winrecoveryproject-digital",
+      "version": "0.1.2",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "df515acc4092abe2725b98a039ff05ec53e96ab28ecf6e15003a8ddf0237110b"
+    },
+    {
+      "id": "plugin-skill-studio@winrecoveryproject-digital",
+      "version": "0.3.4",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 14,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "1cdb28f69c12840d64c0bc90941b488b6a059ec54d0f55c5935538beb4531d56"
+    },
+    {
+      "id": "powershell-workbench@winrecoveryproject-digital",
+      "version": "0.9.0-beta.3",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "e2c6de6db77ddb75e3d3dd5e76519fa6d8164acb8a7ba841c703f20dfbd34fb1"
+    },
+    {
+      "id": "windows-dism-update-docs@winrecoveryproject-digital",
+      "version": "0.1.3",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "d2bde316a116ab6ac2780ae9d6d97884a8abe3ba912eb28c4d3cdeb1623c1595"
+    },
+    {
+      "id": "codex-security@winrecoveryproject-digital",
+      "version": "0.1.32",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 3
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "056cc8e556a07d6fc4774a55b58493b51fceb045af75b5bd7798b4fb44b456ce"
+    },
+    {
+      "id": "linear@winrecoveryproject-digital",
+      "version": "5.0.1",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "bc1a151083d43e82f12d517c15052ee48514b34fc894458e686027eefaa76669"
+    },
+    {
+      "id": "codex-engineering-guardrails@winrecoveryproject-digital",
+      "version": "1.1.1",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "3ef0bd6546ffd7cb1ef86d438916cc320410e92efcf9b7af6792cfed93e63d71"
+    },
+    {
+      "id": "vercel@winrecoveryproject-digital",
+      "version": "0.21.4",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 10,
+        "info": 10
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "effcc182307fda104bfe38cf1818732e606aaaf4b421a9a9bfcf73179090a442"
+    },
+    {
+      "id": "github@winrecoveryproject-digital",
+      "version": "0.1.12",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "f1c84fb4d6112be07ebccf6549bc6faa768ec20511b0fd75a30142777b19c939"
+    },
+    {
+      "id": "google-drive@winrecoveryproject-digital",
+      "version": "0.1.15",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "6a2787a54d8b21e8551ed18554b97c54ad44530d08e4f6ad7380a704d0d3c663"
+    },
+    {
+      "id": "dropbox@winrecoveryproject-digital",
+      "version": "5.0.1",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "5587f79488b51a9912760b102fb7e3c49b5605c49284f66f0b31f578d28d8ad1"
+    },
+    {
+      "id": "winrecoveryproject-linter@winrecoveryproject-digital",
+      "version": "0.1.0",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "2669d01c8961d2d046c784424031e5426c988b2072966396f843e2b360290c39"
+    },
+    {
+      "id": "winrecoveryproject-devsuite@winrecoveryproject-digital",
+      "version": "0.1.0",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "fb49f1afb18826bbc1a60827b9451a63283afe151d201caf17cc000ad61d36d8"
+    },
+    {
+      "id": "coderabbit@winrecoveryproject-digital",
+      "version": "1.1.7-wrp.1",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "659c5865fe5dad998eb6b87e01e7ee96db0a07dce9725c2b2ff97a6afc358245"
+    },
+    {
+      "id": "codex-dev-workflows@created-by-me-remote",
+      "version": "0.4.2",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 9,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "aa29b63451fbfa436206e5cb0a69a9d8d1c112201982ae4b066bdae00a7786d8"
+    },
+    {
+      "id": "codex-coordinator@created-by-me-remote",
+      "version": "0.4.0",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "ba1a2f69a3ab02f3302f8a4498d2437314660a97fcf29f655b42238bfcf96056"
+    },
+    {
+      "id": "zilvereyes-context-handoff@created-by-me-remote",
+      "version": "0.3.4+zilvereyes.1",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "b645bf17550bc6a6b8b2e3f5e50e3b6c29055a7e5f6545b1e4e44380a50d7229"
+    },
+    {
+      "id": "codex-process-jobs@created-by-me-remote",
+      "version": "0.5.2",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "4d048a3c02ffe05881a3d1be29c3b0b98648cbfebddbb954c94265fb9627d07d"
+    },
+    {
+      "id": "plugin-skill-studio@created-by-me-remote",
+      "version": "0.3.4",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 2,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "0019e9b230c22a42c43d5cf3a51787c3267ad8f4802381e74871d183953239e2"
+    },
+    {
+      "id": "codex-engineering-guardrails@created-by-me-remote",
+      "version": "1.1.1",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "5e933107014321dace3f6b0ee405887776286fb3b06a69a45eddaecef8cd1eac"
+    },
+    {
+      "id": "dev-6ae8b541a3d08191ae893ea0925a2fe5@created-by-me-remote",
+      "version": "1.2.0",
+      "catalogInstalled": true,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "8caea67167935c3112e21df5204f4958877e42e873efce1ace43c2cc95d63953"
+    },
+    {
+      "id": "advisor@openai-curated-remote",
+      "version": "1.4.10",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "29dab164b537ec78b537600f395438771a77bd76088f7024ede70ce31ff95ac6"
+    },
+    {
+      "id": "agentmemory@openai-curated-remote",
+      "version": "0.9.30",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 16,
+        "info": 1
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "3dcd76ab63ee22b92910dd3024f8c04f8ce5090ff48644f54b023170f65fb621"
+    },
+    {
+      "id": "app-6aa47394ea708191bcef52a7c4bda7a2@openai-curated-remote",
+      "version": "0.7.4",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 6,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "e27c6be1595fb2c688ad3f622138b669bc89db47bcc4342b295e2dd2896862c0"
+    },
+    {
+      "id": "cloud-environment@openai-curated-remote",
+      "version": "0.2.1",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 3,
+        "info": 1
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "52ba43f11070fcf2634344dccf615990ae599e9a27390bc2fbf3438ed912f5d1"
+    },
+    {
+      "id": "coderabbit@openai-curated-remote",
+      "version": "1.1.4",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 1,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "0c75f34172e635276668e03a66d530a94cc69fd1f11a90f7a2bb8e3bbdcc6871"
+    },
+    {
+      "id": "codex-engineering-guardrails@openai-curated-remote",
+      "version": "1.1.1",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "5e933107014321dace3f6b0ee405887776286fb3b06a69a45eddaecef8cd1eac"
+    },
+    {
+      "id": "defense-factory@openai-curated-remote",
+      "version": "0.1.11",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 3
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "5be049c287558f71381755a27782989f8fc00b8f1050dfa616fc641bc28a07e3"
+    },
+    {
+      "id": "game-development-studio@openai-curated-remote",
+      "version": "1.0.2",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "f2ccf88ab8ad526f4f41b16f37d3482f9b71d9861ddb9c41c0164f744f9b6fe2"
+    },
+    {
+      "id": "google-drive@openai-curated-remote",
+      "version": "0.1.23",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "6942bd236599d0ae0a01d55b472da6215bd72790f3a6624b12a0b58ad9d7d51c"
+    },
+    {
+      "id": "openai-developers@openai-curated-remote",
+      "version": "1.3.16",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 4,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "4e7ca954af12a211a24190e7ad48c21de23d8141bb4d45cb0ab3d70848392143"
+    },
+    {
+      "id": "openai-templates@openai-curated-remote",
+      "version": "0.1.1",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "0081c8929d04311f7411fd1a92c1fb327152db51b2d76aac17e0f1aaa666caa7"
+    },
+    {
+      "id": "pages@openai-curated-remote",
+      "version": "0.1.26",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 1,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "73340107a2f71afbbfc61d6c483d9b09fb585827eeb1065a13ed3869995131b0"
+    },
+    {
+      "id": "plugin-creator-plus@openai-curated-remote",
+      "version": "0.1.1",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "e1d89130f2461f12f9b20076bc16b3288da39d58a52ddc13b70f5cba348714e9"
+    },
+    {
+      "id": "plugin-creator@openai-curated-remote",
+      "version": "0.1.28",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "c6b90bcd3386cff2dad706d95ce72a8486b5843e0c0d01885fce151f48209be0"
+    },
+    {
+      "id": "plugin-eval@openai-curated-remote",
+      "version": "0.1.2",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 2
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "834971ad1c6b30a5a7c6bccebfe10db11a6d7b639819454357cde5a530c194e8"
+    },
+    {
+      "id": "plugin-management@openai-curated-remote",
+      "version": "0.1.0",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "31a46dc82b696b9e825029d3ffdf5f45379d9524944c5c76395f91bc4dcb56f9"
+    },
+    {
+      "id": "sites@openai-curated-remote",
+      "version": "1.1.6",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "0d8e15ce4c0a9146b96a9f7dd939ae95e219c02b930dd2ca67068860b8eca285"
+    },
+    {
+      "id": "skill-craft@openai-curated-remote",
+      "version": "1.3.0",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "63fd11d8fa2987e20724c9f8af6ab52c460c65dbf7764f08108a6bcbafea81b3"
+    },
+    {
+      "id": "skillquiver@openai-curated-remote",
+      "version": "2.1.0",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "8f4eee16f524b28d3e3cee686145882404462fc4952e2ea6ab7fa27d0999d2a2"
+    },
+    {
+      "id": "vercel@openai-curated-remote",
+      "version": "0.54.1",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 8,
+        "info": 1
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "b7a54677b09e14cbece0cf1cc1478b8fb88886951eb8579cfff13b0d8171d3c2"
+    },
+    {
+      "id": "visualize@openai-curated-remote",
+      "version": "1.0.103",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 8388608,
+        "maxTotalBytes": 134217728
+      },
+      "fingerprint": "b02ac3c65ac98dd49c93c25f329c653d4e574e1460f1345d152c5628cf07a807"
+    },
+    {
+      "id": "work-pets@openai-curated-remote",
+      "version": "0.1.6",
+      "catalogInstalled": false,
+      "coverage": "COMPLETE_WITHIN_RULES",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "info": 0
+      },
+      "limits": {
+        "maxFiles": 5000,
+        "maxFileBytes": 2097152,
+        "maxTotalBytes": 33554432
+      },
+      "fingerprint": "1e642d504dd76cb07cf21b2cda25ce671433358324186912a1c189fa2b7ba8a9"
+    }
+  ],
+  "apps": [
+    {
+      "name": "Code Tytor: Python",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Linear",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Pocket FM",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Create State",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Remote Desktop Commander",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Knowledge for Agents",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "OneDrive",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Microsoft SharePoint",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Sites",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Gmail",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "OpenAI Platform",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Google Drive",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Vercel",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "GitHub",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Google Calendar",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Google Contacts",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Pets",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Codex Document Control",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Codex Security Access",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Daybreak Defense Factory",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Hotline",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "ChatGPT Space",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Plugin Creator",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Plugin Management",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Safety Settings",
+      "enabled": true,
+      "callable": true
+    },
+    {
+      "name": "Search Service",
+      "enabled": true,
+      "callable": true
+    }
+  ],
+  "mcp": [
+    {
+      "name": "codex-security",
+      "tools": 47,
+      "authStatus": "unsupported",
+      "runtimeObserved": true,
+      "note": "Tool discovery observed"
+    },
+    {
+      "name": "codex_apps",
+      "tools": 925,
+      "authStatus": "bearerToken",
+      "runtimeObserved": true,
+      "note": "Tool discovery observed"
+    },
+    {
+      "name": "cua_repl",
+      "tools": 3,
+      "authStatus": "unsupported",
+      "runtimeObserved": true,
+      "note": "Tool discovery observed"
+    },
+    {
+      "name": "daybreak-local",
+      "tools": 0,
+      "authStatus": "unsupported",
+      "runtimeObserved": false,
+      "note": "Registered only; no startup result or tool discovery observed."
+    },
+    {
+      "name": "dropbox",
+      "tools": 41,
+      "authStatus": "oAuth",
+      "runtimeObserved": true,
+      "note": "Tool discovery observed"
+    },
+    {
+      "name": "node_repl",
+      "tools": 4,
+      "authStatus": "unsupported",
+      "runtimeObserved": true,
+      "note": "Tool discovery observed"
+    },
+    {
+      "name": "openai-api-credit-promo",
+      "tools": 3,
+      "authStatus": "bearerToken",
+      "runtimeObserved": true,
+      "note": "Tool discovery observed"
+    },
+    {
+      "name": "openai-api-key-local-confirmation",
+      "tools": 3,
+      "authStatus": "unsupported",
+      "runtimeObserved": true,
+      "note": "Tool discovery observed"
+    }
+  ],
+  "budgetDkk": 0,
+  "limits": [
+    "Static analysis covers the evaluator rules and supported text types; binary internals and complete behavioral correctness are not certified.",
+    "App callable state is registration/policy evidence, not a live operation against every provider.",
+    "Retained upstream recipe risks, portability, context and wording advisories are not silently converted to passes.",
+    "No paid model benchmark, vendor trial, credits or new OAuth consent was used."
+  ]
+}

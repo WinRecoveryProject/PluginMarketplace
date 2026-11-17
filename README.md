@@ -2,6 +2,8 @@
 
 Én samlet Git-markedsplads for de personlige Codex-plugins, der vedligeholdes under WinRecoveryProject/Zilvereyes.
 
+Seneste samlede installationskontrol: [Plugin-Skill-Studio-gennemgang, 17. november 2026](docs/installed-audit-20261117.md).
+
 ## Tilføj markedspladsen
 
 ```powershell
