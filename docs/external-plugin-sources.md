@@ -1,5 +1,22 @@
 # External plugin sources
 
+## Versionskanaler · 2026-11-18
+
+Kontrollen sammenlignede 33 Marketplace-poster med de respektive Git-manifester på de aktuelle revisionsnumre. Alle 29 installerede poster med identiteten `@winrecoveryproject-digital` matchede deres Git-kilde. Seks separat installerede udgaver fra `openai-curated-remote` havde nyere versioner end de tilsvarende offentlige Git-pakker.
+
+| Plugin | Git-kilde i WinRecoveryProject Digital | Installeret via OpenAI-kataloget |
+| --- | --- | --- |
+| Vercel | `0.21.4` | `0.54.1` |
+| Google Drive | `0.1.15` | `0.1.26` |
+| Dropbox | `5.0.1` | `6.1.0` |
+| Gmail | `0.1.9` | `0.1.10` |
+| Google Calendar | `1.2.6` | `1.2.7` |
+| Slack | `0.1.7` | `0.1.8` |
+
+Git-versionerne er aflæst fra [OpenAIs publicerede manifests](https://github.com/openai/plugins/tree/985fff07dcefa03e40e8664e24363d10b2bacd44/plugins). Den offentlige Git-kilde havde ingen release-tags ved kontrollen. Vercels eget repository havde version 0.56.0 for andre værter. Den revision havde hverken en native Codex-manifestfil eller Vercel App-deklarationen. [Vercels offentlige kilde](https://github.com/vercel/vercel-plugin/tree/e69e3ba0ac0d7d24033c5ba95041acc4fc656480)
+
+Brug den eksisterende udgave fra OpenAI-kataloget, når den nyere udgave er nødvendig. Marketplace-posterne henter deres publicerede pakker fra de angivne Git-kilder. En opdatering af kataloget ændrer kun installationer, der tilhører det katalog.
+
 ## Workspace-wide continuation — 2026-11-16
 
 The current installed inventory covers 52 installation records. The [full collection](full-plugin-list-check-20261116.md) now includes 30 native Marketplace entries, 15 original catalog links and 9 host-bundled products. Ten more original Git sources were verified: Gmail, Google Calendar, Slack, Plugin Eval, Plugin Autopilot, Skill Risk Check, Context Handoff, Skillquiver, Skill Craft and Plugin Creator Plus.
@@ -47,7 +64,7 @@ The directory `plugins/codex-security/` in this repository is retained as a hist
 
 `plugin-eval` is deliberately not linked as a separate marketplace entry. Its selected behavior is being integrated into the independently named Zilvereyes Plugin Studio, while the archived source remains available for comparison and attribution.
 
-## Newer Codex snapshots not yet linkable without downgrade
+## Earlier comparisons · 2026-10-25
 
 The following observed Codex snapshots are newer than the manifests currently published on the `openai/plugins` `main` branch:
 
@@ -59,7 +76,7 @@ The following observed Codex snapshots are newer than the manifests currently pu
 | OpenAI Developers | `1.3.6` | `1.2.3` |
 | Vercel | `0.54.1` | `0.21.4` |
 
-On 2026-10-25, the path-specific GitHub commit API exposed one commit for each of these plugin manifest paths, and none contained the newer observed version. Because `git-subdir` can only resolve a published Git ref or SHA, linking these entries now would select the older package. They remain preserved worklist sources rather than marketplace entries until a matching upstream revision can be verified.
+On 2026-10-25, the path-specific GitHub commit API exposed one commit for each of these plugin manifest paths, and none contained the newer observed version. Because `git-subdir` can only resolve a published Git ref or SHA, linking these entries now would select the older package. That was the initial inclusion decision. The current Marketplace links to the verified Git sources and lists their observed versions separately from the OpenAI catalog.
 
 Before adding another external plugin, verify its exact current name, subdirectory, manifest identity, version, policy and license in the owning repository. Do not convert an upstream package to a local source merely to make it appear owned by WinRecoveryProject.
 

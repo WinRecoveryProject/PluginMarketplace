@@ -67,6 +67,8 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Plugin Eval | `0.1.2` | `codex plugin add plugin-eval@winrecoveryproject-digital` |
 | AgentMemory-ASUS | `1.0.0` | `codex plugin add agentmemory-asus@winrecoveryproject-digital` |
 
+Versionerne i tabellen er de udgaver, som Marketplace kan hente fra de respektive Git-kilder. Se [versionskontrollen](docs/external-plugin-sources.md#versionskanaler--2026-11-18) for de seks nyere udgaver i OpenAI-kataloget.
+
 Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Opgørelsen fra 17. november var 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den historiske kontrol og forklaringerne](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
 ## Struktur
