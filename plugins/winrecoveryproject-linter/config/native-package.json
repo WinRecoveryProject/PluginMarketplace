@@ -4,6 +4,9 @@
   "entries": [
     ".codex-plugin/plugin.json",
     "LICENSE",
+    "licenses/libpg-query-upstream-BSD.txt",
+    "licenses/libpg-query-wrapper-MIT.txt",
+    "licenses/postgresql-COPYRIGHT.txt",
     "PRIVACY.md",
     "README.md",
     "TERMS.md",
@@ -43,12 +46,16 @@
     "src/process.mjs",
     "src/runtime-cache.mjs",
     "src/setup.mjs",
+    "src/sql-process.mjs",
+    "src/sql-worker.mjs",
     "test/linter.test.mjs",
     "test/package.test.mjs",
     "test/powershell-batching.test.mjs",
     "test/practical-regressions.test.mjs",
     "test/python-adapter.test.mjs",
     "test/runtime-cache.test.mjs",
+    "test/setup-failure-isolation.test.mjs",
+    "test/sql.test.mjs",
     "test/toc-regressions.test.mjs"
   ]
 }

@@ -13,7 +13,8 @@ export const catalog = [
   { id: 'toc', extensions: ['.toc'], tool: 'WRP TOC 0.1.0', kind: 'bundled', scope: 'WoW metadata, numeric interfaces and contained paths; dynamic game/locale paths reported as deferred' },
   { id: 'yaml', extensions: ['.yaml', '.yml'], tool: 'js-yaml 4.1.1', kind: 'bundled', scope: 'YAML data parser with JSON schema; only when files detected/selected' },
   { id: 'toml', extensions: ['.toml'], tool: 'smol-toml 1.6.0', kind: 'bundled', scope: 'TOML parser; only when files detected/selected' },
-  { id: 'python', extensions: ['.py', '.pyi'], tool: 'Python 3.11–3.15 ast.parse', kind: 'external', scope: 'Python syntax only; no imports, execution or bytecode writes' }
+  { id: 'python', extensions: ['.py', '.pyi'], tool: 'Python 3.11–3.15 ast.parse', kind: 'external', scope: 'Python syntax only; no imports, execution or bytecode writes' },
+  { id: 'sql', extensions: ['.sql'], tool: 'libpg-query 18.2.4 / PostgreSQL 18 grammar', kind: 'external', scope: 'Explicit postgresql dialect; static SQL/PLpgSQL syntax in a bounded parser process, no DB or migration execution' }
 ];
 export const byExtension = new Map(catalog.flatMap(item => item.extensions.map(extension => [extension, item.id])));
-export const unsupportedSource = new Set(['.scss', '.less', '.vue', '.svelte', '.rs', '.go', '.c', '.cpp', '.h', '.cs', '.java', '.php', '.rb', '.swift', '.kt', '.bats', '.zsh', '.fish', '.sql']);
+export const unsupportedSource = new Set(['.scss', '.less', '.vue', '.svelte', '.rs', '.go', '.c', '.cpp', '.h', '.cs', '.java', '.php', '.rb', '.swift', '.kt', '.bats', '.zsh', '.fish']);

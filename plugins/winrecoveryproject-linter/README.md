@@ -1,6 +1,6 @@
 # WinRecoveryProjectLinter
 
-Version 0.1.2. An independent MIT local CLI and Codex plugin by Zilvereyes.
+Version 0.1.3. An independent MIT local CLI and Codex plugin by Zilvereyes.
 Scan selected source types without running project scripts or changing source.
 Paid service budget: **0 kr**. No cloud account, API key, telemetry or model API.
 
@@ -40,6 +40,13 @@ cannot. Scans and doctor perform no installation, migration or repair. Explicit
 setup retains a rejected cache in quarantine and never stops another setup;
 a stale setup lock requires inspection rather than automatic process killing.
 
+Staging leaves use a short kind/UUID name to keep Windows installer paths short;
+the final directory and READY receipt retain the complete contract fingerprint.
+Setup keeps one result per selected adapter and continues independent tools after
+a preparation failure. `available` describes the observed adapter; `setupSucceeded`
+also requires that the requested preparation succeeded. Any failed preparation
+keeps exit code 2 even when an older working adapter remains available.
+
 Verification checks the exact lock graph/pins and bounded selected module-entry,
 package-metadata or tool hashes with contained physical paths. This is local
 corruption/readiness evidence, not an authenticity attestation or a hash of every
@@ -63,7 +70,7 @@ node ./bin/wrp-lint.mjs setup "C:/my/project" --types batch,bash
 ```
 
 `init` creates `.wrp-lint.json` with exclusive creation and refuses overwrites.
-The JSON data schema accepts only `version: 1`, optional `types`, and `exclude`
+The JSON data schema accepts `version: 1`, optional `types`, `sqlDialect`, and `exclude`
 as an array of plain relative paths. Executable configuration and custom tool
 commands are unsupported. No scan command automatically creates configuration.
 
@@ -86,11 +93,29 @@ commands are unsupported. No scan command automatically creates configuration.
 | yaml | yaml, yml | js-yaml 4.1.1 data parsing with JSON schema |
 | toml | toml | smol-toml 1.6.0 data parsing |
 | python | py, pyi | Existing Python 3.11–3.15 AST syntax parser |
+| sql | sql | Explicit PostgreSQL 18 SQL/PLpgSQL syntax through libpg-query 18.2.4 WebAssembly; no database execution |
+
+SQL needs an explicit dialect. Use `--sql-dialect postgresql` with `scan`,
+`doctor`, `setup` or `init`, or set `"sqlDialect": "postgresql"` in
+`.wrp-lint.json`. Missing/unknown dialects, including SQLite/MySQL/SQL Server,
+report INCOMPLETE rather than silently using PostgreSQL. The parser implements
+PostgreSQL 18 grammar; it does not discover a server version or validate schema,
+types, permissions, query plans or migration safety against a database.
+
+SQL source is parsed in a separate fixed process with a 30-second per-file
+timeout and the existing 2 MiB source limit. The V8 heap flag is not a total
+WASM/RSS memory limit. Only verified local parser/loader/WASM assets are loaded;
+SQL, DB clients, target configuration, templates and external URLs never execute.
+SQL-language literal bodies and PL/pgSQL routines/DO blocks receive additional
+static syntax checks. Unsupported routine languages or generated dynamic SQL
+are explicit INCOMPLETE coverage gaps. PL/pgSQL errors without source cursors
+use an identified outer-source anchor; SQL-body diagnostics include the inner
+body position and identify the outer statement anchor.
 
 The default selects detected supported source types. `--types` or config `types`
 narrows this selection; omitted detected families remain visible in notices.
 YAML, TOML and Python adapters run only when detected or explicitly selected.
-Recognized unsupported source formats (including SCSS/Less, Bats and SQL) are
+Recognized unsupported source formats (including SCSS/Less and Bats) are
 listed as INCOMPLETE. Images, archives and unknown non-source files are ignored.
 
 PowerShell requires an existing trusted pwsh >=7.4.6 and PSScriptAnalyzer 1.25.0.
@@ -183,7 +208,7 @@ extracts that ZIP to a new directory, proves missing library failures, explicitl
 bootstraps its locked dependencies and then scans Lua/HTML/CSS fixtures. It never
 copies locks around a broken artifact or borrows the original node_modules.
 To prove a specific built ZIP, run
-`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.2.zip`.
+`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.3.zip`.
 Unavailable external tools are explicitly skipped by the portable test suite;
 check the actual test receipt before claiming coverage for a machine.
 

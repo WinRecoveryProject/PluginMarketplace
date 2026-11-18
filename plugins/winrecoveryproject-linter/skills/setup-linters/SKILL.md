@@ -13,6 +13,13 @@ Setup is a separate explicit operation. A scan request alone never authorizes ne
 2. Run `node "<plugin-directory>/bin/wrp-lint.mjs" setup "<project-root>" --detected --format json`, or `--types batch,bash` for the user's explicit selection. It never installs the full MegaLinter catalog. Python 3.11–3.15 is needed for isolated Blinter; PowerShell >=7.4.6 and PSScriptAnalyzer 1.25.0 are required for PowerShell. The CLI reports missing runtimes separately rather than modifying system configuration.
 3. Explicit setup prepares a verified per-user runtime cache outside the disposable plugin directory, with staging and an atomically published READY receipt. Windows uses `%LOCALAPPDATA%/WinRecoveryProjectLinter/runtimes`, macOS `~/Library/Caches/WinRecoveryProjectLinter/runtimes`, and Linux `$XDG_CACHE_HOME/WinRecoveryProjectLinter/runtimes` or `~/.cache/WinRecoveryProjectLinter/runtimes`. The exact dependency lock/platform/Node major and observed Python ABI select runtimes. A replacement plugin path can reuse the same verified runtime; a mismatched or incomplete cache cannot. Doctor and scan never install, migrate or repair it.
 4. Blinter is separately downloaded into its selected durable runtime using pinned, hash-checked wheel requirements. Blinter is AGPL-3.0-or-later and is not bundled/relicensed as MIT. On Windows ShellCheck 0.11.0 has a separate durable runtime from the official checksum-pinned archive. Bash, PowerShell and Python runtimes must already exist. Other platforms currently require manual ShellCheck 0.11.0 installation from its official release. Older explicitly prepared plugin-local tools remain a verified compatibility fallback, not an automatic migration source.
+
+SQL uses the exact pinned libpg-query PostgreSQL 18 WebAssembly parser in the
+Node runtime. No database server/client, account or native compiler is required.
+Select `--sql-dialect postgresql` or the data-only `sqlDialect` setting explicitly;
+other/missing dialects remain INCOMPLETE even when the parser is installed. Setup
+does not execute SQL or apply migrations. Preserve existing runtime keys rather
+than replacing another version's cache.
 4. Run doctor, then scan with the same selection. Distinguish installation success, availability and actual lint success.
 
 Use 0 kr paid services. No credentials, cloud actions, subscriptions, global config writes, source fixes or automatic project config creation. `init` creates only `.wrp-lint.json` on explicit request and refuses overwrites. Do not claim unsupported languages or unavailable tools are checked.

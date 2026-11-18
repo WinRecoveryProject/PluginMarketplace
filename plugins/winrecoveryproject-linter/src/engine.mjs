@@ -31,8 +31,9 @@ export async function readConfig(root) {
   } catch (error) { if (error.code === 'ENOENT') return {}; throw error; }
   const value = JSON.parse(text);
   if (!value || Array.isArray(value) || typeof value !== 'object') throw new Error('Config must be an object');
-  for (const key of Object.keys(value)) if (!['version', 'types', 'exclude'].includes(key)) throw new Error(`Unknown config key: ${key}`);
+  for (const key of Object.keys(value)) if (!['version', 'types', 'exclude', 'sqlDialect'].includes(key)) throw new Error(`Unknown config key: ${key}`);
   if (value.version !== 1) throw new Error('Config version must be 1');
+  if (value.sqlDialect !== undefined && (typeof value.sqlDialect !== 'string' || !/^[a-z][a-z0-9-]{0,31}$/.test(value.sqlDialect))) throw new Error('sqlDialect must be a plain lowercase dialect name; currently supported: postgresql');
   if (value.types !== undefined && (!Array.isArray(value.types) || value.types.some(type => !catalog.some(item => item.id === type)))) throw new Error('Config types must contain known linter IDs');
   if (value.exclude !== undefined && (!Array.isArray(value.exclude) || value.exclude.some(item => typeof item !== 'string' || !item || item.includes('\\') || item.includes('..') || path.isAbsolute(item) || /[*?\[\]]/.test(item)))) throw new Error('Config exclude must contain plain relative paths without glob patterns or traversal');
   return value;
@@ -256,8 +257,16 @@ export async function batchPython(root, execute = run, { cacheRoot } = {}) {
   return localTool(`.tools/blinter/${process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python'}`);
 }
 
-export async function probe(type, root, execute = run, { cacheRoot } = {}) {
+export async function probe(type, root, execute = run, { cacheRoot, sqlDialect } = {}) {
   try {
+    if (type === 'sql') {
+      const dialect = sqlDialect ?? (await readConfig(root)).sqlDialect;
+      if (dialect !== 'postgresql') throw new Error(dialect ? `SQL dialect ${dialect} is unsupported; only explicit postgresql is available` : 'SQL dialect is unknown; select sqlDialect: postgresql or --sql-dialect postgresql');
+      const { verifySqlAssets } = await import('./sql-process.mjs');
+      try { verifySqlAssets({ cacheRoot }); }
+      catch (error) { throw new Error(`Pinned PostgreSQL parser/assets are missing or incorrect (${error.message}). Run wrp-lint setup --types sql --sql-dialect postgresql (explicit, free local setup).`); }
+      return { available: true, executable: process.execPath, version: catalog.find(item => item.id === type).tool, sqlDialect: dialect };
+    }
     if (catalog.find(item => item.id === type)?.kind === 'bundled') {
       if (dependencies[type]) {
         try { verifyPin(dependencies[type], { cacheRoot }); }
@@ -308,6 +317,10 @@ export async function probe(type, root, execute = run, { cacheRoot } = {}) {
 }
 
 async function external(type, files, tool, root, execute) {
+  if (type === 'sql') {
+    const { analyzeSql } = await import('./sql-process.mjs');
+    return analyzeSql(files, { execute, executable: process.execPath, cwd: packageRoot });
+  }
   if (type === 'powershell') {
     const { analyzePowerShell } = await import('./powershell-batch.mjs');
     return analyzePowerShell(files, { execute, executable: tool.executable, adapter: path.join(packageRoot, 'adapters/powershell.ps1'), cwd: packageRoot });
@@ -344,7 +357,7 @@ async function external(type, files, tool, root, execute) {
   return findings;
 }
 
-export async function scan(root, { types, execute = run, toolProbe = probe } = {}) {
+export async function scan(root, { types, execute = run, toolProbe = probe, sqlDialect } = {}) {
   const config = await readConfig(root);
   const inv = await inventory(root, config);
   const requested = types || config.types;
@@ -362,7 +375,7 @@ export async function scan(root, { types, execute = run, toolProbe = probe } = {
   }
   for (const type of selected) {
     const files = snapshots.filter(file => file.type === type);
-    const tool = await toolProbe(type, inv.root, execute);
+    const tool = await toolProbe(type, inv.root, execute, { sqlDialect: sqlDialect ?? config.sqlDialect });
     const coverageItem = { type, files: files.length, status: tool.available ? (files.length ? 'checked' : 'no-files') : 'unavailable', tool: catalog.find(item => item.id === type).tool, detail: tool.reason };
     coverage.push(coverageItem);
     if (!tool.available) { incomplete.push(`${type}: ${tool.reason}`); continue; }
@@ -392,5 +405,5 @@ export async function scan(root, { types, execute = run, toolProbe = probe } = {
   if (!inv.files.length) incomplete.push('No supported or recognized source files found');
   findings.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.column - b.column || a.rule.localeCompare(b.rule));
   const exitCode = incomplete.length ? 2 : findings.length ? 1 : 0;
-  return { schemaVersion: 1, product: 'WinRecoveryProjectLinter', version: '0.1.2', root: inv.root, status: ['CLEAN', 'FINDINGS', 'INCOMPLETE'][exitCode], exitCode, discovery: inv.discovery, detected, selected, coverage, findings, incomplete, notices, limits: { maxFiles, maxBytesPerFile: maxBytes }, budget: { paidServices: false, telemetry: false } };
+  return { schemaVersion: 1, product: 'WinRecoveryProjectLinter', version: '0.1.3', root: inv.root, status: ['CLEAN', 'FINDINGS', 'INCOMPLETE'][exitCode], exitCode, discovery: inv.discovery, detected, selected, coverage, findings, incomplete, notices, limits: { maxFiles, maxBytesPerFile: maxBytes }, budget: { paidServices: false, telemetry: false } };
 }

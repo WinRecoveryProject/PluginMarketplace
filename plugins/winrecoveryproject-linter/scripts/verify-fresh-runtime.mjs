@@ -35,10 +35,11 @@ try {
   await fs.writeFile(path.join(target, 'main.lua'), 'local message = "æøå"\r\nreturn message\r\n');
   await fs.writeFile(path.join(target, 'index.html'), '<!doctype html><html lang="da"><head><title>æøå</title></head><body><p>Test</p></body></html>\r\n');
   await fs.writeFile(path.join(target, 'style.css'), 'body { color: red; }\r\n');
+  await fs.writeFile(path.join(target, 'schema.sql'), 'CREATE TYPE provider AS ENUM (\'ONE\', \'TWO\');\r\nCREATE TABLE example (id int, scopes jsonb);\r\n');
   await fs.writeFile(path.join(target, '.npmrc'), 'registry=https://must-not-be-contacted.invalid/\nignore-scripts=false\n');
   const step = async (name, args, expected) => {
     const cli = path.join(plugin, 'bin/wrp-lint.mjs');
-    const result = await run(process.execPath, [cli, ...args, '--format', 'json'], { cwd: target, timeout: 180000, env: { ...process.env, WRP_LINT_RUNTIME_CACHE: runtimeCache } });
+    const result = await run(process.execPath, [cli, ...args, '--format', 'json'], { cwd: target, timeout: 180000, env: { ...process.env, WRP_LINT_RUNTIME_CACHE: runtimeCache, npm_config_cache: path.join(temporary, 'isolated npm cache') } });
     assert.equal(result.code, expected, `${name}: ${result.stdout}\n${result.stderr}`);
     const report = JSON.parse(result.stdout);
     checks.push({ name, exitCode: result.code, status: report.status || (result.code === 0 ? 'AVAILABLE' : 'UNAVAILABLE'), results: report.results?.map(({ type, action, available }) => ({ type, action, available })) });
@@ -58,7 +59,9 @@ try {
   plugin = replacement;
   await step('replacement plugin path reuses durable runtime without setup', ['doctor', target, '--types', 'lua,html,css'], 0);
   await step('replacement plugin path scan', ['scan', target, '--types', 'lua,html,css'], 0);
-  assert.deepEqual((await fs.readdir(target)).sort(), ['.npmrc', 'index.html', 'main.lua', 'style.css']);
+  await step('SQL dialect is required', ['scan', target, '--types', 'sql'], 2);
+  await step('fresh PostgreSQL parser uses durable verified WASM', ['scan', target, '--types', 'sql', '--sql-dialect', 'postgresql'], 0);
+  assert.deepEqual((await fs.readdir(target)).sort(), ['.npmrc', 'index.html', 'main.lua', 'schema.sql', 'style.css']);
   const report = { atUtc: new Date().toISOString(), status: 'PASS', artifact: { format: artifact.format, archive: path.basename(artifact.archive), sha256: artifact.sha256, includedFileCount: artifact.includedFileCount, extractionVerified: true }, originalDependenciesBorrowed: false, runtimeCacheScope: 'Explicit setup in isolated TEMP directory, not the existing per-user cache', pluginPathChangeVerified: true, durableRuntimeReusedWithoutSetup: true, targetFilesChanged: false, checks };
   await fs.mkdir(path.join(packageRoot, 'outputs'), { recursive: true });
   await fs.writeFile(path.join(packageRoot, 'outputs/fresh-runtime-smoke.json'), JSON.stringify(report, null, 2) + '\n');

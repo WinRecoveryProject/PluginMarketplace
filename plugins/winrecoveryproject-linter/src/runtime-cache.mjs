@@ -7,7 +7,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ownRoot = fileURLToPath(new URL('../', import.meta.url));
-const specs = ['typescript', '@types/node/package.json', 'undici-types/package.json', 'jsonc-parser', 'luaparse', 'markdownlint/sync', 'saxes', 'js-yaml', 'smol-toml', 'parse5', 'css-tree'];
+const specs = ['typescript', '@types/node/package.json', 'undici-types/package.json', 'jsonc-parser', 'luaparse', 'markdownlint/sync', 'saxes', 'js-yaml', 'smol-toml', 'parse5', 'css-tree', 'libpg-query', 'libpg-query/wasm/libpg-query.js', 'libpg-query/wasm/libpg-query.wasm'];
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const canonical = value => JSON.stringify(value, (_, item) => item && !Array.isArray(item) && typeof item === 'object' ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item);
 const inside = (root, candidate) => { const rel = path.relative(root, candidate); return !path.isAbsolute(rel) && rel !== '..' && !rel.startsWith(`..${path.sep}`); };
@@ -39,8 +39,8 @@ function json(file, limit = 1024 * 1024) {
   if (fs.statSync(file).size > limit) throw new Error('Runtime metadata exceeds its limit');
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
-function hashFile(file) {
-  if (fs.statSync(file).size > 16 * 1024 * 1024) throw new Error('Runtime entry exceeds its limit');
+function hashFile(file, kind) {
+  if (fs.statSync(file).size > (kind === 'shellcheck' ? 40 : 16) * 1024 * 1024) throw new Error('Runtime entry exceeds its limit');
   return digest(fs.readFileSync(file));
 }
 export function defaultCacheRoot({ env = process.env, platform = process.platform, home = os.homedir() } = {}) {
@@ -103,7 +103,7 @@ function verify(location) {
   if (Object.keys(receipt.files).length !== required.length || Object.keys(receipt.files).some(file => !required.includes(file))) throw new Error('Runtime receipt file set differs from the fixed capability set');
   for (const relative of required) {
     const file = relativeFile(location.root, relative);
-    if (!/^[a-f0-9]{64}$/.test(receipt.files[relative] || '') || hashFile(file) !== receipt.files[relative]) throw new Error(`Runtime integrity mismatch: ${relative}`);
+    if (!/^[a-f0-9]{64}$/.test(receipt.files[relative] || '') || hashFile(file, location.kind) !== receipt.files[relative]) throw new Error(`Runtime integrity mismatch: ${relative}`);
   }
   return { ...location, receipt };
 }
@@ -144,13 +144,13 @@ export async function prepareRuntime(kind, builder, options = {}) {
   physical(location.base);
   const lock = path.join(location.base, `${location.key}.setup-lock`);
   await fsp.mkdir(lock); // Fail clearly on another concurrent setup, never kill it.
-  const stage = path.join(location.base, `.staging-${location.key}-${randomUUID()}`);
+  const stage = path.join(location.base, `.staging-${kind}-${randomUUID()}`);
   try {
     await fsp.mkdir(stage);
     await builder(stage, location.contract);
     physical(stage);
     const records = {};
-    for (const relative of requiredFiles(kind, stage, location.contract)) records[relative] = hashFile(relativeFile(stage, relative));
+    for (const relative of requiredFiles(kind, stage, location.contract)) records[relative] = hashFile(relativeFile(stage, relative), kind);
     const receipt = { schemaVersion: 1, kind, key: location.key, preparedAt: new Date().toISOString(), integrityScope: 'Exact lock graph/pins and selected entry/package metadata hashes; not every transitive source file and not an authenticity attestation.', files: records };
     await fsp.writeFile(path.join(stage, 'READY.json'), JSON.stringify(receipt, null, 2) + '\n', { flag: 'wx' });
     verify({ ...location, root: stage });

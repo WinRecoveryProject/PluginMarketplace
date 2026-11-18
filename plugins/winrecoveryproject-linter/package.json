@@ -1,6 +1,6 @@
 {
   "name": "@winrecoveryproject/linter",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Read-only local source linting with explicit coverage and zero paid services",
   "type": "module",
   "license": "MIT",
@@ -34,6 +34,7 @@
     "assets",
     "README.md",
     "LICENSE",
+    "licenses",
     "THIRD-PARTY-NOTICES.md",
     "PRIVACY.md",
     "TERMS.md",
@@ -46,6 +47,7 @@
     "css-tree": "3.1.0",
     "js-yaml": "4.1.1",
     "jsonc-parser": "3.3.1",
+    "libpg-query": "18.2.4",
     "luaparse": "0.3.1",
     "markdownlint": "0.40.0",
     "markdownlint-cli": "0.48.0",

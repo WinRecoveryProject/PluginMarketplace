@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { catalog } from '../src/catalog.mjs';
 
-const help = `WinRecoveryProjectLinter 0.1.2 — local, read-only scanning, 0 kr services\n\nUsage: wrp-lint <command> [root] [options]\n  init                 Create .wrp-lint.json without overwriting\n  doctor               Check only detected/selected adapter availability\n  scan                 Scan detected/selected source types\n  list-linters         Describe adapters and limits\n  setup --detected     Explicitly install only needed supported local tools\n\nOptions: --types powershell,lua,...  --format text|json  --detected\nExit: 0 CLEAN, 1 FINDINGS, 2 INCOMPLETE (takes precedence).\nNo project scripts/configuration execute. No scan downloads or source writes.\nPrepare the pinned per-user runtime explicitly: wrp-lint setup <root> --detected\n`;
+const help = `WinRecoveryProjectLinter 0.1.3 — local, read-only scanning, 0 kr services\n\nUsage: wrp-lint <command> [root] [options]\n  init                 Create .wrp-lint.json without overwriting\n  doctor               Check only detected/selected adapter availability\n  scan                 Scan detected/selected source types\n  list-linters         Describe adapters and limits\n  setup --detected     Explicitly install only needed supported local tools\n\nOptions: --types powershell,lua,...  --format text|json  --detected\nExit: 0 CLEAN, 1 FINDINGS, 2 INCOMPLETE (takes precedence).\nNo project scripts/configuration execute. No scan downloads or source writes.\nPrepare the pinned per-user runtime explicitly: wrp-lint setup <root> --detected\n`;
 
 function parse(args) {
   const value = { command: args.shift(), root: process.cwd(), format: 'text' };
@@ -13,6 +13,7 @@ function parse(args) {
     if (item === '--format') { value.format = args.shift(); if (!['json', 'text'].includes(value.format)) throw new Error('Expected --format text|json'); }
     else if (item === '--types') { const types = args.shift(); if (!types) throw new Error('--types needs a value'); value.types = [...new Set(types.split(','))]; if (value.types.some(type => !catalog.some(entry => entry.id === type))) throw new Error('Unknown type; use list-linters'); }
     else if (item === '--detected') value.detected = true;
+    else if (item === '--sql-dialect') { value.sqlDialect = args.shift(); if (!value.sqlDialect || !/^[a-z][a-z0-9-]{0,31}$/.test(value.sqlDialect)) throw new Error('--sql-dialect needs a plain lowercase dialect name'); }
     else if (item.startsWith('-')) throw new Error(`Unknown option: ${item}`);
     else { if (rootSeen) throw new Error('Only one root may be supplied'); value.root = path.resolve(item); rootSeen = true; }
   }
@@ -33,25 +34,25 @@ function print(value, format) {
 
 let options;
 try {
-  if (!process.argv[2] || ['help', '--help', '-h'].includes(process.argv[2])) { console.log(help); }
-  else if (['--version', '-v'].includes(process.argv[2])) console.log('0.1.2');
+  if (!process.argv[2] || ['help', '--help', '-h'].includes(process.argv[2])) { console.log(help + '\nSQL requires --sql-dialect postgresql or sqlDialect in .wrp-lint.json.\nOnly PostgreSQL 18 SQL/PLpgSQL grammar is supported; no DB operations.'); }
+  else if (['--version', '-v'].includes(process.argv[2])) console.log('0.1.3');
   else {
     options = parse(process.argv.slice(2));
-    const { command, root, types, format } = options;
+    const { command, root, types, format, sqlDialect } = options;
     if (command === 'list-linters') print(catalog, format);
     else {
       const engine = await import('../src/engine.mjs');
       if (command === 'init') {
-        const value = { version: 1, ...(types ? { types } : {}), exclude: [] };
+        const value = { version: 1, ...(types ? { types } : {}), ...(sqlDialect ? { sqlDialect } : {}), exclude: [] };
         await fs.writeFile(path.join(root, engine.configName), JSON.stringify(value, null, 2) + '\n', { flag: 'wx' });
         print({ message: `Created ${path.join(root, engine.configName)}` }, format);
       } else if (command === 'scan') {
-        const report = await engine.scan(root, { types }); print(report, format); process.exitCode = report.exitCode;
+        const report = await engine.scan(root, { types, sqlDialect }); print(report, format); process.exitCode = report.exitCode;
       } else if (command === 'doctor') {
         const config = await engine.readConfig(root), inv = await engine.inventory(root, config);
         const selected = types || config.types || [...new Set(inv.files.map(file => file.type).filter(Boolean))];
         const results = [];
-        for (const type of selected) results.push({ type, ...await engine.probe(type, inv.root) });
+        for (const type of selected) results.push({ type, ...await engine.probe(type, inv.root, undefined, { sqlDialect: sqlDialect ?? config.sqlDialect }) });
         const exitCode = results.some(item => !item.available) || inv.incomplete.length || !selected.length ? 2 : 0;
         print({ results, exitCode, message: selected.length ? 'Availability only; doctor does not certify source correctness.' : 'No source types detected.' }, format); process.exitCode = exitCode;
       } else if (command === 'setup') {

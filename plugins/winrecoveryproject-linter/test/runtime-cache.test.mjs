@@ -17,11 +17,15 @@ async function fixture(t) {
   for (const name of ['package.json', 'package-lock.json', 'npm-shrinkwrap.json', 'config/blinter-requirements.txt']) await fs.copyFile(path.join(source, name), path.join(packageDirectory, name));
   const build = async (stage, contract) => {
     for (const name of ['package.json', 'package-lock.json', 'npm-shrinkwrap.json']) await fs.copyFile(path.join(packageDirectory, name), path.join(stage, name));
-    for (const name of ['typescript', '@types/node', 'undici-types', 'jsonc-parser', 'luaparse', 'markdownlint', 'saxes', 'js-yaml', 'smol-toml', 'parse5', 'css-tree']) {
+    for (const name of ['typescript', '@types/node', 'undici-types', 'jsonc-parser', 'luaparse', 'markdownlint', 'saxes', 'js-yaml', 'smol-toml', 'parse5', 'css-tree', 'libpg-query']) {
       const folder = path.join(stage, 'node_modules', name);
       await fs.mkdir(folder, { recursive: true });
       await fs.writeFile(path.join(folder, 'package.json'), JSON.stringify({ name, version: contract.pins[name], main: 'index.cjs', ...(name === 'markdownlint' ? { exports: { './sync': './index.cjs' } } : {}) }));
       await fs.writeFile(path.join(folder, 'index.cjs'), 'throw new Error("Fixture modules must never execute");\n');
+      if (name === 'libpg-query') {
+        await fs.mkdir(path.join(folder, 'wasm'));
+        for (const file of ['libpg-query.js', 'libpg-query.wasm']) await fs.writeFile(path.join(folder, 'wasm', file), 'Fixture asset; must never execute');
+      }
     }
   };
   return { root, packageDirectory, cacheRoot, build };
@@ -35,6 +39,25 @@ test('Fresh runtime lookup is read-only and never falls back to an uninstalled h
   await fs.mkdir(path.join(ctx.cacheRoot, 'node-highest-999'), { recursive: true });
   assert.throws(() => resolveLibrary('luaparse', ctx));
   assert.deepEqual(await fs.readdir(ctx.cacheRoot), ['node-highest-999']);
+});
+
+test('ShellCheck accepts the official Windows binary size while oversized tool receipts remain bounded', async t => {
+  const ctx = await fixture(t);
+  const ready = await prepareRuntime('shellcheck', async stage => {
+    await fs.writeFile(path.join(stage, 'shellcheck.exe'), Buffer.alloc(34778624));
+  }, ctx);
+  assert.equal(verifiedRuntime('shellcheck', ctx).key, ready.key);
+  await fs.truncate(path.join(ready.root, 'shellcheck.exe'), 40 * 1024 * 1024 + 1);
+  assert.throws(() => verifiedRuntime('shellcheck', ctx), /exceeds its limit/);
+});
+
+test('The ShellCheck exception does not raise the ordinary Node runtime entry limit', async t => {
+  const ctx = await fixture(t);
+  await assert.rejects(prepareRuntime('node', async (stage, contract) => {
+    await ctx.build(stage, contract);
+    await fs.writeFile(path.join(stage, 'node_modules/luaparse/index.cjs'), Buffer.alloc(16 * 1024 * 1024 + 1));
+  }, ctx), /exceeds its limit/);
+  assert.deepEqual(await fs.readdir(ctx.cacheRoot), []);
 });
 
 test('Explicit preparation survives plugin path replacement and product-only version changes', async t => {
