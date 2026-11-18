@@ -1,6 +1,6 @@
 # Zilvereyes Context Handoff
 
-Personal MIT-derived candidate, version `0.3.4+zilvereyes.1`, built with Zilvereyes Plugin Studio.
+Personal MIT-derived candidate, version `0.3.5+zilvereyes.1`, built with Zilvereyes Plugin Studio.
 
 ## Features
 

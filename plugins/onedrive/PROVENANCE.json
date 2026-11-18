@@ -1,7 +1,7 @@
 {
   "sourceArchive": "OneDrive_unified_v1.1.5.zip",
   "sha256": "1e72b800989c636eb1c0ead9eb9f049a5b77962249490a5cd73e3570a3c9e163",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "canonicalMcp": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
   "appBinding": "asdk_app_6ae8b541a3d08191ae893ea0925a2fe5",
   "personalAccountAppAccess": "CONNECTED_PRIMARY_ACCOUNT_UI_VERIFIED",
@@ -21,5 +21,10 @@
   "historicalConnectionEvidenceNote": "The UI and live file-operation statuses above are retained historical evidence, not new acceptance tests for version 1.2.0.",
   "connectionEvidence": "ONEDRIVE-APP-CREATION-20261102.json",
   "connectionModel": "Existing registered OneDrive App only; hosted MCP remains behind that App. No independent native MCP OAuth client.",
-  "unificationLoaderEvidence": "app-only-package-test.json"
+  "unificationLoaderEvidence": "app-only-package-test.json",
+  "branding": {
+    "logo": "assets/logo-512.png",
+    "composer": "assets/composer-128.png",
+    "origin": "Original Zilvereyes icon designed for this package in November 2026"
+  }
 }

@@ -1,6 +1,6 @@
 # OneDrive — one App connection
 
-**Desktop package version:** 1.2.0
+**Desktop package version:** 1.2.1
 **Registered OneDrive App:** https://chatgpt.com/plugins/plugin_asdk_app_6ae8b541a3d08191ae893ea0925a2fe5
 
 OneDrive combines the existing registered App, its hosted CloudStorage Portal

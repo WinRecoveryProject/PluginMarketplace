@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "onedrive",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "OneDrive files through the existing registered App and its hosted CloudStorage Portal MCP connection.",
   "author": {
     "name": "Zilvereyes",
@@ -27,8 +27,8 @@
         "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
         "capabilities": [],
         "defaultPrompt": "Vis min verificerede OneDrive-konto og indholdet i roden uden at ændre filer.",
-        "logo": "./assets/onedrive.png",
-        "composerIcon": "./assets/onedrive.png",
+        "logo": "./assets/logo-512.png",
+        "composerIcon": "./assets/composer-128.png",
         "brandColor": "#0078D4",
         "brandColorDark": "#4CC2FF"
       },

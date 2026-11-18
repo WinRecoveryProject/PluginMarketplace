@@ -16,13 +16,13 @@
     "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
     "capabilities": [],
     "defaultPrompt": "Vis min verificerede OneDrive-konto og indholdet i roden uden at ændre filer.",
-    "logo": "./assets/onedrive.png",
-    "composerIcon": "./assets/onedrive.png",
+    "logo": "./assets/logo-512.png",
+    "composerIcon": "./assets/composer-128.png",
     "brandColor": "#0078D4",
     "brandColorDark": "#4CC2FF"
   },
   "name": "onedrive",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "skills": "./skills",
   "onboardingSkill": "./skills/onedrive-setup/SKILL.md",
   "license": "MIT"

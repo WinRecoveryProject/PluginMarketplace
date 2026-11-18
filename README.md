@@ -33,7 +33,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 
 | Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
-| OneDrive | `1.2.0` | `codex plugin add onedrive@winrecoveryproject-digital` |
+| OneDrive | `1.2.1` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.9.6` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.2` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Plugin-Skill-Studio | `0.3.11` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
@@ -45,7 +45,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Dev Workflows | `0.4.2` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
 | Codex Process Jobs | `0.5.3-wrp.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
-| Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
+| Zilvereyes Context Handoff | `0.3.5+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
 | WinRecoveryProjectLinter | `0.1.3` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
 | WinRecoveryProject DevSuite | `0.2.1` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |

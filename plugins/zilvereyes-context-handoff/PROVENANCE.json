@@ -1,6 +1,6 @@
 {
   "derivative": "zilvereyes-context-handoff",
-  "version": "0.3.4+zilvereyes.1",
+  "version": "0.3.5+zilvereyes.1",
   "sourceWorkspaceRelativePath": "context-handoff/0.3.4",
   "sourceLicense": "MIT",
   "sourceAuthor": {
@@ -48,5 +48,10 @@
     "Active-interpreter Windows subprocess support",
     "Independent local legal/support text; no invented public URLs",
     "Historical upstream docs retained; unrelated sample and submission snapshots excluded"
-  ]
+  ],
+  "branding": {
+    "logo": "assets/logo-512.png",
+    "composer": "assets/composer-128.png",
+    "origin": "Original Zilvereyes icon designed for this package in November 2026"
+  }
 }
