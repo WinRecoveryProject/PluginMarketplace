@@ -35,6 +35,7 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
         revision = "c" * 40
         for failure in (subprocess.TimeoutExpired("git", 30),
                         subprocess.CalledProcessError(128, "git", stderr=b"fatal: connection was reset"),
+                        subprocess.CalledProcessError(128, "git", stderr=b"Could not connect to server"),
                         subprocess.CalledProcessError(128, "git", stderr=b"requested URL returned error: 503")):
             with self.subTest(failure=failure), \
                  patch.object(collector.subprocess, "check_output", side_effect=failure), \
@@ -381,8 +382,9 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
             previous = root / "previous.json"
             previous.write_text(json.dumps(history), encoding="utf-8")
             mappings = root / "mappings.json"
-            mappings.write_text(json.dumps([{"publishedId": owned, "catalogId": row}
-                                            for row in (native, vendor)]), encoding="utf-8")
+            mappings_payload = [{"publishedId": owned, "catalogId": native},
+                                {"publishedId": owned, "catalogId": vendor, "searchTerm": "Known vendor name"}]
+            mappings.write_text(json.dumps(mappings_payload), encoding="utf-8")
             args = SimpleNamespace(codex=root, marketplace=root, account="business",
                                    host="Acer", counterparts=mappings, previous=previous)
             good = json.dumps(successful).encode()
@@ -396,7 +398,9 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                 ("business", 110, good, warning, b"", "FAILED"),
                 ("business", 110, good, b"", warning, None),
                 ("business", 110, good, b"Unrelated diagnostic", b"", None),
-                ("personal", 30, good, b"", b"", None),
+                ("personal", 75, good, b"", b"", None),
+                ("personal", 75, subprocess.TimeoutExpired("codex", 75), b"", b"", "TIMEOUT"),
+                ("personal", 75, good, b"", warning, None),
             ):
                 args.account = account
                 active_directory = directory if account == "business" else {
@@ -404,15 +408,19 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                 }
                 with self.subTest(account=account, reason=reason, warning=full_warning or vendor_warning):
                     def run(cmd, *, timeout, stderr, **_kwargs):
-                        self.assertEqual(timeout, budget)
                         self.assertEqual(stderr, subprocess.PIPE)
+                        ordinary_budget = 110 if account == "business" else 30
                         if cmd[1:] == ["plugin", "marketplace", "list", "--json"]:
+                            self.assertEqual(timeout, ordinary_budget)
                             return subprocess.CompletedProcess(cmd, 0, b'{"marketplaces":[]}', b"")
                         if "--marketplace" in cmd:
                             if cmd[cmd.index("--marketplace") + 1] == "winrecoveryproject-digital":
+                                self.assertEqual(timeout, ordinary_budget)
                                 self.assertNotIn("--available", cmd)
                                 return subprocess.CompletedProcess(cmd, 0, good, b"")
+                            self.assertEqual(timeout, budget)
                             return subprocess.CompletedProcess(cmd, 0, json.dumps(available).encode(), vendor_warning)
+                        self.assertEqual(timeout, budget)
                         if isinstance(response, Exception):
                             raise response
                         return subprocess.CompletedProcess(cmd, 0, response, full_warning)
@@ -429,6 +437,13 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                     self.assertEqual(capture["published"], publications)
                     if vendor_warning:
                         self.assertEqual(capture["catalogs"], [{"namespace": "openai-curated-remote", "exitCode": 2}])
+                        send = object()
+                        with patch.object(collector, "capture_vendor_details") as details:
+                            capture_native.call_args.args[4](send)
+                        details.assert_called_once_with(send, mappings_payload)
+                        self.assertEqual(capture["counterparts"], [
+                            {"publishedId": owned, "catalogId": native}, {"publishedId": owned, "catalogId": vendor},
+                        ])
                     else:
                         self.assertEqual(capture["catalogs"][0]["data"], available)
                     inventory = capture["inventory"]

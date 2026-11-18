@@ -1,7 +1,8 @@
 [
   {
     "publishedId": "agent-skillguard@winrecoveryproject-digital",
-    "catalogId": "agent-skillguard@openai-curated-remote"
+    "catalogId": "agent-skillguard@openai-curated-remote",
+    "searchTerm": "Skill Risk Check"
   },
   {
     "publishedId": "chatgpt-codex-plugin-autopilot@winrecoveryproject-digital",

@@ -31,11 +31,12 @@ CURATED_MARKETPLACE = "openai-curated-remote"
 REMOTE_MARKETPLACE_NAMES = {*NATIVE_NAMESPACES.values(), CURATED_MARKETPLACE}
 ENV = {**os.environ, "GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "Never"}
 COMMAND_TIMEOUT = 30
+PERSONAL_REMOTE_PLUGIN_TIMEOUT = 75
 BUSINESS_PLUGIN_TIMEOUT = 110
 PUBLIC_MANIFEST_SIZE_LIMIT = 256 * 1024
 PUBLIC_MANIFEST_RETRY_CODES = frozenset({408, 500, 502, 503, 504})
 GIT_TRANSPORT_FAILURE = re.compile(
-    rb"(?:timed out|connection (?:reset|was reset)|remote end hung up unexpectedly|"
+    rb"(?:timed out|connection (?:reset|was reset)|remote end hung up unexpectedly|could not connect to server|"
     rb"requested URL returned error: (?:408|500|502|503|504)\b)", re.I
 )
 INCOMPLETE_MARKETPLACE_WARNING = b"Warning: failed to list remote marketplace plugins:"
@@ -392,10 +393,10 @@ def capture_configured_installations(codex, publication, timeout):
 
 def capture(args):
     codex, root = args.codex.resolve(strict=True), args.marketplace.resolve(strict=True)
-    counterpart = json.loads(args.counterparts.read_text(encoding="utf-8-sig")) if args.counterparts else []
-    if not isinstance(counterpart, list) or len(counterpart) > 1000:
+    mappings = json.loads(args.counterparts.read_text(encoding="utf-8-sig")) if args.counterparts else []
+    if not isinstance(mappings, list) or len(mappings) > 1000:
         raise ValueError("Expected explicit catalog counterpart list")
-    counterpart = [{"publishedId": row["publishedId"], "catalogId": row["catalogId"]} for row in counterpart]
+    counterpart = [{"publishedId": row["publishedId"], "catalogId": row["catalogId"]} for row in mappings]
     wanted = {row["catalogId"] for row in counterpart}
     if not all(IDENTITY.fullmatch(row["publishedId"]) for row in counterpart):
         raise ValueError("Invalid published counterpart identity")
@@ -404,12 +405,14 @@ def capture(args):
     scopes = sorted({namespace for value in wanted
                      if not is_native_namespace(namespace := identity_namespace(value))})
 
-    plugin_timeout = BUSINESS_PLUGIN_TIMEOUT if args.account == "business" else COMMAND_TIMEOUT
+    local_timeout = BUSINESS_PLUGIN_TIMEOUT if args.account == "business" else COMMAND_TIMEOUT
+    remote_timeout = BUSINESS_PLUGIN_TIMEOUT if args.account == "business" else PERSONAL_REMOTE_PLUGIN_TIMEOUT
 
     def provider(namespace):
         try:
+            timeout = remote_timeout if namespace == CURATED_MARKETPLACE else local_timeout
             data = json.loads(command(codex, "plugin", "list", "--marketplace", namespace, "--available", "--json",
-                                      timeout=plugin_timeout, check_marketplace=True))
+                                      timeout=timeout, check_marketplace=True))
             if not isinstance(data, dict) or data.get("marketplaceLoadErrors"):
                 raise ValueError("Incomplete vendor catalog")
             inventory = scoped_installations(namespace, data)
@@ -439,14 +442,14 @@ def capture(args):
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         cli = pool.submit(command, codex, "plugin", "list", "--json",
-                          timeout=plugin_timeout, check_marketplace=True)
+                          timeout=remote_timeout, check_marketplace=True)
         published = pool.submit(capture_publications, root)
         curated = pool.submit(provider, CURATED_MARKETPLACE) if CURATED_MARKETPLACE in scopes else None
 
         def recover_vendor(send):
             if curated.result()[0]["exitCode"] == 0:
                 return None
-            return capture_vendor_details(send, counterpart)
+            return capture_vendor_details(send, mappings)
 
         native = pool.submit(capture_native, codex, root, args.account, wanted, recover_vendor if curated else None)
         providers = [curated if scope == CURATED_MARKETPLACE else pool.submit(provider, scope) for scope in scopes]
@@ -465,7 +468,7 @@ def capture(args):
         current.append({"label": "CLI", "kind": "cli", "data": installed})
     publication = published.result()
     if cli_failure:
-        scoped = {row["namespace"]: row for row in capture_configured_installations(codex, publication, plugin_timeout)}
+        scoped = {row["namespace"]: row for row in capture_configured_installations(codex, publication, local_timeout)}
         for _, observed in provider_results:
             if observed is not None:
                 scoped.setdefault(observed["namespace"], observed)
