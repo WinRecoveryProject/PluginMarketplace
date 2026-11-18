@@ -75,9 +75,15 @@ Studio 0.3.18 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs
 
 Kør `node scripts/check-documented-versions.mjs <rapport.json>` med en frisk Studio-rapport efter en udgivelse. Kontrollen sammenligner alle rækker med de observerede Git-manifester og melder manglende eller forældede versionsangivelser.
 
+## Claude Desktop og Claude Code
+
+Claude Desktop og Claude Code kan bruge samme GitHub-repository. Claude-kataloget viser de lokale plugins, der kan indlæses uden Codex’ App-forbindelser. Brug `WinRecoveryProject/PluginMarketplace` i Claude Desktop eller kør `claude plugin marketplace add WinRecoveryProject/PluginMarketplace` i Claude Code.
+
+Kør `node scripts/claude-marketplace.mjs --write`, når en af de fælles pakker får en ny version. Kør derefter `node scripts/claude-marketplace.mjs --check` og `claude plugin validate .`.
+
 ## Struktur
 
-- `.agents/plugins/marketplace.json` er det eneste markedspladsmanifest.
+- `.agents/plugins/marketplace.json` er Codex-kataloget. `.claude-plugin/marketplace.json` er Claude-kataloget.
 - `plugins/` indeholder versionsfrosne, selvstændigt installerbare pluginpakker.
 - De selvstændige kilde-repositories bevares. `plugin-sources.lock.json` fastlåser commit og filhash for deres marketplace-snapshots; se [kildeoversigten](docs/marketplace-sources-20261102.md).
 - `cloudstorage-portal-local` er udgået og fjernet fra både kataloget og den publicerede pakkemappe. OneDrive og CloudStorage Portal er de to aktive cloudpakker.
