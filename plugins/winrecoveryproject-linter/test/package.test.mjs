@@ -42,9 +42,13 @@ test('Actual native ZIP deterministically includes both locks and only whitelist
   const extracted = await run(python, ['-I', builder, '--extract', archive, '--destination', destination]);
   assert.equal(extracted.code, 0, extracted.stderr);
   assert.deepEqual(await fs.readFile(path.join(destination, 'package-lock.json')), await fs.readFile(path.join(destination, 'npm-shrinkwrap.json')));
-  const doctor = await run(process.execPath, [path.join(destination, 'bin/wrp-lint.mjs'), 'doctor', destination, '--types', 'lua,html,css', '--format', 'json']);
+  const emptyRuntimeCache = path.join(root, 'empty-runtime-cache');
+  const doctor = await run(process.execPath, [path.join(destination, 'bin/wrp-lint.mjs'), 'doctor', destination, '--types', 'lua,html,css', '--format', 'json'], {
+    env: { ...process.env, WRP_LINT_RUNTIME_CACHE: emptyRuntimeCache }
+  });
   assert.equal(doctor.code, 2);
   for (const item of JSON.parse(doctor.stdout).results) assert.equal(item.available, false);
+  await assert.rejects(fs.access(emptyRuntimeCache), { code: 'ENOENT' });
 });
 
 test('Native packaging fails closed for missing locks, lock drift and private source paths', async () => {

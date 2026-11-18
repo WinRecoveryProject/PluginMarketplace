@@ -1,5 +1,8 @@
 # WinRecoveryProject Digital Plugin Marketplace
 
+[Linter 0.1.2: Windows-rettelser og stabil lokal runtime](docs/LINTER-012-20261118.md).
+[Originalpakker gendannet i Personlig](docs/ORIGINALS-RECOVERY-20261118.md).
+
 [Seneste personlige afstemning og rettelser: 18. november](docs/MARKETPLACE-FOLLOWUP-20261118.md).
 
 Grundlaget i DevSuite **0.2.0**: [samlede Codex-workflows og nye assets](docs/DEVSUITE-020-20261117.md). Business: [79 installerede identiteter afstemt](docs/BUSINESS-INVENTORY-20261117.md).
@@ -43,7 +46,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
 | Codex Process Jobs | `0.5.3-wrp.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.4+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
-| WinRecoveryProjectLinter | `0.1.1` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
+| WinRecoveryProjectLinter | `0.1.2` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
 | WinRecoveryProject DevSuite | `0.2.1` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
@@ -110,7 +113,7 @@ OneDrive-bindingen er fastholdt fra den leverede ZIP; ingen ny App-identitet er 
 
 ## Egne udviklingsværktøjer
 
-WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Linter er 0.1.1, og DevSuite er 0.2.1; begge har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
+WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Linter er 0.1.2, og DevSuite er 0.2.1; begge har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
 
 [Udgivelse og testdækning](docs/product-release-20261116.md) · [Installeret plugin-gennemgang](docs/current-installed-audit-20261116.md).
 

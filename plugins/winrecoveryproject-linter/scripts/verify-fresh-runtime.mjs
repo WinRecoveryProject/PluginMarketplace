@@ -6,7 +6,9 @@ import { packageRoot } from '../src/engine.mjs';
 import { run, findExecutable } from '../src/process.mjs';
 
 const temporary = await fs.mkdtemp(path.join(os.tmpdir(), 'wrp fresh runtime æøå '));
-const plugin = path.join(temporary, 'extracted native ZIP'), target = path.join(temporary, 'target project');
+let plugin = path.join(temporary, 'extracted native ZIP');
+const target = path.join(temporary, 'target project');
+const runtimeCache = path.join(temporary, 'isolated durable runtimes');
 const checks = [];
 try {
   await fs.mkdir(target);
@@ -34,9 +36,9 @@ try {
   await fs.writeFile(path.join(target, 'index.html'), '<!doctype html><html lang="da"><head><title>æøå</title></head><body><p>Test</p></body></html>\r\n');
   await fs.writeFile(path.join(target, 'style.css'), 'body { color: red; }\r\n');
   await fs.writeFile(path.join(target, '.npmrc'), 'registry=https://must-not-be-contacted.invalid/\nignore-scripts=false\n');
-  const cli = path.join(plugin, 'bin/wrp-lint.mjs');
   const step = async (name, args, expected) => {
-    const result = await run(process.execPath, [cli, ...args, '--format', 'json'], { cwd: target, timeout: 180000 });
+    const cli = path.join(plugin, 'bin/wrp-lint.mjs');
+    const result = await run(process.execPath, [cli, ...args, '--format', 'json'], { cwd: target, timeout: 180000, env: { ...process.env, WRP_LINT_RUNTIME_CACHE: runtimeCache } });
     assert.equal(result.code, expected, `${name}: ${result.stdout}\n${result.stderr}`);
     const report = JSON.parse(result.stdout);
     checks.push({ name, exitCode: result.code, status: report.status || (result.code === 0 ? 'AVAILABLE' : 'UNAVAILABLE'), results: report.results?.map(({ type, action, available }) => ({ type, action, available })) });
@@ -49,8 +51,15 @@ try {
   await step('bootstrapped doctor', ['doctor', target, '--types', 'lua,html,css'], 0);
   const scanned = await step('bootstrapped scan', ['scan', target, '--types', 'lua,html,css'], 0);
   for (const type of ['lua', 'html', 'css']) assert.equal(scanned.coverage.find(item => item.type === type)?.status, 'checked');
+  await assert.rejects(fs.access(path.join(plugin, 'node_modules')), { code: 'ENOENT' });
+  await assert.rejects(fs.access(path.join(plugin, '.tools')), { code: 'ENOENT' });
+  const replacement = path.join(temporary, 'replacement plugin cache path');
+  await fs.rename(plugin, replacement);
+  plugin = replacement;
+  await step('replacement plugin path reuses durable runtime without setup', ['doctor', target, '--types', 'lua,html,css'], 0);
+  await step('replacement plugin path scan', ['scan', target, '--types', 'lua,html,css'], 0);
   assert.deepEqual((await fs.readdir(target)).sort(), ['.npmrc', 'index.html', 'main.lua', 'style.css']);
-  const report = { atUtc: new Date().toISOString(), status: 'PASS', artifact: { format: artifact.format, archive: path.basename(artifact.archive), sha256: artifact.sha256, includedFileCount: artifact.includedFileCount, extractionVerified: true }, originalDependenciesBorrowed: false, targetFilesChanged: false, checks };
+  const report = { atUtc: new Date().toISOString(), status: 'PASS', artifact: { format: artifact.format, archive: path.basename(artifact.archive), sha256: artifact.sha256, includedFileCount: artifact.includedFileCount, extractionVerified: true }, originalDependenciesBorrowed: false, runtimeCacheScope: 'Explicit setup in isolated TEMP directory, not the existing per-user cache', pluginPathChangeVerified: true, durableRuntimeReusedWithoutSetup: true, targetFilesChanged: false, checks };
   await fs.mkdir(path.join(packageRoot, 'outputs'), { recursive: true });
   await fs.writeFile(path.join(packageRoot, 'outputs/fresh-runtime-smoke.json'), JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));

@@ -1,6 +1,6 @@
 # WinRecoveryProjectLinter
 
-Version 0.1.1. An independent MIT local CLI and Codex plugin by Zilvereyes.
+Version 0.1.2. An independent MIT local CLI and Codex plugin by Zilvereyes.
 Scan selected source types without running project scripts or changing source.
 Paid service budget: **0 kr**. No cloud account, API key, telemetry or model API.
 
@@ -18,9 +18,35 @@ node ./bin/wrp-lint.mjs scan "C:/path with spaces/project" --format json
 ```
 
 `setup` is explicit and is the only command that downloads tools. It installs
-locked Node libraries into this product's own directory using npm ci with
+locked Node libraries into a separate per-user runtime cache using npm ci with
 scripts disabled, the public registry and trusted empty npm config files.
 It never runs npm in the inspected project. Node must include npm.
+The cache lives outside the versioned plugin installation: Windows uses
+`%LOCALAPPDATA%/WinRecoveryProjectLinter/runtimes`, macOS uses
+`~/Library/Caches/WinRecoveryProjectLinter/runtimes`, and Linux uses
+`$XDG_CACHE_HOME/WinRecoveryProjectLinter/runtimes` or
+`~/.cache/WinRecoveryProjectLinter/runtimes`. A process-local
+`WRP_LINT_RUNTIME_CACHE` override supports isolated verification; the product
+never persists environment or global configuration changes.
+
+Explicit setup prepares a private staging directory and publishes READY only
+after successful verification and atomic rename. The exact locked dependency
+graph, platform, architecture and Node major version select the Node runtime;
+the Blinter key also includes the observed Python executable/version/base-prefix,
+implementation, cache tag, SOABI and free-threaded ABI flag. A product-only
+version or plugin-path change can reuse the same verified runtime. A changed
+dependency lock, missing READY, changed selected entry or physical-path mismatch
+cannot. Scans and doctor perform no installation, migration or repair. Explicit
+setup retains a rejected cache in quarantine and never stops another setup;
+a stale setup lock requires inspection rather than automatic process killing.
+
+Verification checks the exact lock graph/pins and bounded selected module-entry,
+package-metadata or tool hashes with contained physical paths. This is local
+corruption/readiness evidence, not an authenticity attestation or a hash of every
+transitive source file. It does not hash the entire dependency tree for each
+family probe. An older explicitly prepared plugin-local dependency directory
+remains usable only with exact versions and physically contained resolution;
+it is never copied or silently migrated to the durable cache.
 Marketplace distribution uses the owned native ZIP packager, which explicitly
 includes both `package-lock.json` and the identical `npm-shrinkwrap.json`.
 Actual npm 12.2.0 tarballs omitted both lockfiles despite the files whitelist;
@@ -72,13 +98,13 @@ The wrapper imports only that exact version and uses parser input snapshots and
 `Invoke-ScriptAnalyzer -ScriptDefinition` with a fixed built-in rule allowlist.
 It does not download PowerShell modules or resolve DSC dependencies.
 
-Batch setup creates `.tools/blinter` as a separate Python venv and installs
+Batch setup creates its separate durable Python venv and installs
 the pinned Blinter and charset-normalizer wheels with PyPI SHA-256 hashes.
 Blinter is AGPL-3.0-or-later, independently installed, and is not included in
 the MIT distributable. Python itself must already exist.
 
 On Windows, Bash setup installs checksum-pinned official ShellCheck 0.11.0
-into `.tools/shellcheck`; Git Bash/GNU Bash must already exist. Other platforms
+into its selected durable runtime; Git Bash/GNU Bash must already exist. Other platforms
 must provide ShellCheck 0.11.0 separately. Missing runtimes are reported with
 INCOMPLETE and are never silently downloaded or replaced.
 
@@ -157,7 +183,7 @@ extracts that ZIP to a new directory, proves missing library failures, explicitl
 bootstraps its locked dependencies and then scans Lua/HTML/CSS fixtures. It never
 copies locks around a broken artifact or borrows the original node_modules.
 To prove a specific built ZIP, run
-`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.1.zip`.
+`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.2.zip`.
 Unavailable external tools are explicitly skipped by the portable test suite;
 check the actual test receipt before claiming coverage for a machine.
 

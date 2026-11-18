@@ -1,23 +1,15 @@
 import fs from 'node:fs/promises';
-import { constants, readFileSync } from 'node:fs';
+import { constants } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createRequire } from 'node:module';
 import { TextDecoder } from 'node:util';
 import { catalog, byExtension, unsupportedSource } from './catalog.mjs';
 import { findExecutable, inside, run } from './process.mjs';
+import { resolveLibrary, importLibrary, localTool, verifiedRuntime } from './runtime-cache.mjs';
 
-const require = createRequire(import.meta.url);
 const dependencies = { javascript: 'typescript', typescript: 'typescript', json: 'jsonc-parser', lua: 'luaparse', markdown: 'markdownlint', xml: 'saxes', html: 'parse5', css: 'css-tree', yaml: 'js-yaml', toml: 'smol-toml' };
-const pins = { typescript: '6.0.3', 'jsonc-parser': '3.3.1', luaparse: '0.3.1', markdownlint: '0.40.0', saxes: '6.0.0', parse5: '8.0.0', 'css-tree': '3.1.0', 'js-yaml': '4.1.1', 'smol-toml': '1.6.0', '@types/node': '24.10.1' };
-function verifyPin(name) {
-  let directory = path.dirname(require.resolve(name === '@types/node' ? '@types/node/package.json' : name));
-  for (let depth = 0; depth < 5; depth++) {
-    try { const data = JSON.parse(readFileSync(path.join(directory, 'package.json'), 'utf8')); if (data.name === name) { if (data.version !== pins[name]) throw new Error(`${name} requires ${pins[name]}, found ${data.version}`); return; } }
-    catch (error) { if (error.code !== 'ENOENT' && !(error instanceof SyntaxError)) throw error; }
-    directory = path.dirname(directory);
-  }
-  throw new Error(`Cannot verify pinned version of ${name}`);
+function verifyPin(name, options) {
+  resolveLibrary(name === '@types/node' ? '@types/node/package.json' : name === 'markdownlint' ? 'markdownlint/sync' : name, options);
 }
 export const packageRoot = fileURLToPath(new URL('../', import.meta.url));
 export const configName = '.wrp-lint.json';
@@ -134,12 +126,12 @@ async function snapshot(item, root) {
 
 async function compiler(files) {
   if (!files.length) return [];
-  const { default: ts } = await import('typescript');
+  const { default: ts } = await importLibrary('typescript');
   const findings = [];
   const sources = new Map(files.map(file => [path.normalize(file.absolute), file]));
-  const libRoot = path.dirname(require.resolve('typescript'));
-  const nodeTypes = path.dirname(require.resolve('@types/node/package.json'));
-  const trustedRoots = [libRoot, nodeTypes, path.dirname(require.resolve('undici-types/package.json'))];
+  const libRoot = path.dirname(resolveLibrary('typescript'));
+  const nodeTypes = path.dirname(resolveLibrary('@types/node/package.json'));
+  const trustedRoots = [libRoot, nodeTypes, path.dirname(resolveLibrary('undici-types/package.json'))];
   const options = { noEmit: true, allowJs: true, checkJs: true, strict: true, skipLibCheck: true, target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext, moduleResolution: ts.ModuleResolutionKind.Bundler, jsx: ts.JsxEmit.Preserve, types: ['node'], typeRoots: [path.dirname(nodeTypes)], noResolve: false, allowImportingTsExtensions: true };
   const host = ts.createCompilerHost(options);
   const originalRead = host.readFile.bind(host);
@@ -171,38 +163,38 @@ async function internal(item, root, notices) {
   const text = item.content, findings = [];
   const add = (rule, message, line, column) => findings.push(issue(item.file, rule, message, line, column));
   if (item.type === 'json') {
-    const { parse: parseJson, printParseErrorCode } = await import('jsonc-parser');
+    const { parse: parseJson, printParseErrorCode } = await importLibrary('jsonc-parser');
     const errors = [];
     parseJson(text, errors, { disallowComments: path.extname(item.file).toLowerCase() !== '.jsonc', allowTrailingComma: path.extname(item.file).toLowerCase() === '.jsonc' });
     for (const error of errors) { const before = text.slice(0, error.offset).split('\n'); add(`JSON-${printParseErrorCode(error.error)}`, printParseErrorCode(error.error), before.length, before.at(-1).length + 1); }
   } else if (item.type === 'lua') {
-    const { default: luaparse } = await import('luaparse');
+    const { default: luaparse } = await importLibrary('luaparse');
     try { luaparse.parse(text, { luaVersion: '5.1', locations: true, comments: false, encodingMode: 'none' }); }
     catch (error) { add('LUA51-syntax', error.message, error.line, (error.column ?? 0) + 1); }
   } else if (item.type === 'markdown') {
-    const { lint: lintMarkdown } = await import('markdownlint/sync');
+    const { lint: lintMarkdown } = await importLibrary('markdownlint/sync');
     const result = lintMarkdown({ strings: { [item.file]: text }, config: { default: true, MD013: false, MD024: { siblings_only: true } }, noInlineConfig: true });
     for (const error of result[item.file]) add(error.ruleNames[0], `${error.ruleDescription}${error.errorDetail ? ': ' + error.errorDetail : ''}`, error.lineNumber, error.errorRange?.[0] || 1);
   } else if (item.type === 'xml') {
-    const { SaxesParser } = await import('saxes');
+    const { SaxesParser } = await importLibrary('saxes');
     const parser = new SaxesParser({ xmlns: true, position: true });
     parser.on('doctype', () => { add('XML-no-DTD', 'DOCTYPE declarations are disabled; external entities are never resolved.', parser.line, parser.column); });
     parser.on('error', error => { add('XML-syntax', error.message, parser.line, parser.column); });
     try { parser.write(text).close(); } catch (error) { add('XML-syntax', errorText(error), parser.line, parser.column); }
   } else if (item.type === 'yaml') {
-    const { default: yaml } = await import('js-yaml');
+    const { default: yaml } = await importLibrary('js-yaml');
     try { yaml.loadAll(text, undefined, { schema: yaml.JSON_SCHEMA, filename: item.file }); }
     catch (error) { add('YAML-syntax', error.message, (error.mark?.line ?? 0) + 1, (error.mark?.column ?? 0) + 1); }
   } else if (item.type === 'toml') {
-    const { parse: parseToml } = await import('smol-toml');
+    const { parse: parseToml } = await importLibrary('smol-toml');
     try { parseToml(text); } catch (error) { add('TOML-syntax', error.message, error.line || 1, error.column || 1); }
   } else if (item.type === 'html') {
-    const { parse } = await import('parse5');
+    const { parse } = await importLibrary('parse5');
     parse(text, { sourceCodeLocationInfo: true, scriptingEnabled: false, onParseError: error => {
       add(`HTML-${error.code}`, error.code.replaceAll('-', ' '), error.startLine || 1, error.startCol || 1);
     } });
   } else if (item.type === 'css') {
-    const { parse } = await import('css-tree');
+    const { parse } = await importLibrary('css-tree');
     try {
       parse(text, { positions: true, filename: item.file, parseValue: true, parseCustomProperty: true, onParseError: error => {
         add('CSS-syntax', error.message, error.line || 1, error.column || 1);
@@ -226,10 +218,14 @@ async function internal(item, root, notices) {
       }
       // Flavor attributes are packager data, not part of the filename.
       const target = line.replace(/\s+\[AllowLoad(?:GameType|TextLocale)\s+[^\]]+\]\s*$/i, '').replaceAll('\\', '/');
-      if (/\[(?:Game|TextLocale)\]/i.test(target)) { notices.push(`${item.file}:${index + 1}: dynamic TOC path deferred: ${target}`); continue; }
-      if (/\[[^\]]+\]/.test(target)) { add('TOC-token', `Unsupported dynamic token: ${target}`, index + 1, 1); continue; }
       const absolute = path.resolve(path.dirname(item.absolute), target);
-      if (path.isAbsolute(target) || /^[A-Za-z]:/.test(target) || !inside(root, absolute)) { add('TOC-path', `Path escapes scan root: ${target}`, index + 1, 1); continue; }
+      const unsafePath = path.isAbsolute(target) || /^[A-Za-z]:/.test(target) || !inside(root, absolute);
+      const tokens = target.match(/\[[^\]]+\]/g) || [];
+      const unsupportedToken = tokens.some(token => !/^\[(?:Game|TextLocale)\]$/i.test(token));
+      if (unsafePath) add('TOC-path', `Path escapes scan root: ${target}`, index + 1, 1);
+      if (unsupportedToken) add('TOC-token', `Unsupported dynamic token: ${target}`, index + 1, 1);
+      if (unsafePath || unsupportedToken) continue;
+      if (tokens.length) { notices.push(`${item.file}:${index + 1}: dynamic TOC path deferred: ${target}`); continue; }
       try {
         const relative = path.relative(root, absolute); let current = root;
         for (const part of relative.split(path.sep)) { current = path.join(current, part); if ((await fs.lstat(current)).isSymbolicLink()) throw new Error('symlink path'); }
@@ -242,16 +238,32 @@ async function internal(item, root, notices) {
   return findings;
 }
 
-export function batchPython() { return path.join(packageRoot, '.tools', 'blinter', process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python'); }
+export async function pythonRuntime(root, execute = run) {
+  const executable = findExecutable('python', root);
+  if (!executable) throw new Error('Python 3.11–3.15 is required for isolated Blinter');
+  const result = await execute(executable, ['-I', '-c', 'import sys,json,sysconfig; print(json.dumps({"version":list(sys.version_info[:3]),"prefix":sys.base_prefix,"implementation":sys.implementation.name,"cacheTag":sys.implementation.cache_tag,"soabi":sysconfig.get_config_var("SOABI"),"freeThreaded":bool(sysconfig.get_config_var("Py_GIL_DISABLED"))}))'], { cwd: packageRoot });
+  if (result.code !== 0) throw new Error(result.stderr || 'Python runtime identity is unavailable');
+  const info = JSON.parse(result.stdout);
+  if (!Array.isArray(info.version) || info.version.length !== 3 || !info.version.every(Number.isInteger) || info.version[0] !== 3 || info.version[1] < 11 || info.version[1] > 15 || typeof info.prefix !== 'string' || typeof info.implementation !== 'string' || (info.cacheTag !== null && typeof info.cacheTag !== 'string') || (info.soabi !== null && typeof info.soabi !== 'string') || typeof info.freeThreaded !== 'boolean') throw new Error('Python 3.11–3.15 with an observed runtime ABI is required for isolated Blinter');
+  return { executable, identity: JSON.stringify([executable, info.version, info.prefix, info.implementation, info.cacheTag, info.soabi, info.freeThreaded]) };
+}
+export async function batchPython(root, execute = run, { cacheRoot } = {}) {
+  try {
+    const python = await pythonRuntime(root, execute);
+    const runtime = verifiedRuntime('blinter', { cacheRoot, pythonIdentity: python.identity });
+    return path.join(runtime.root, process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python');
+  } catch { /* A missing durable runtime may use an explicitly prepared legacy venv. */ }
+  return localTool(`.tools/blinter/${process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python'}`);
+}
 
-export async function probe(type, root, execute = run) {
+export async function probe(type, root, execute = run, { cacheRoot } = {}) {
   try {
     if (catalog.find(item => item.id === type)?.kind === 'bundled') {
       if (dependencies[type]) {
-        try { verifyPin(dependencies[type]); }
+        try { verifyPin(dependencies[type], { cacheRoot }); }
         catch (error) { throw new Error(`Pinned ${dependencies[type]} library is missing or incorrect (${error.message}). Run wrp-lint setup --detected (free, local, explicit setup).`); }
       }
-      if (['javascript', 'typescript'].includes(type)) { try { verifyPin('@types/node'); require.resolve('undici-types/package.json'); } catch { throw new Error('Pinned Node compiler types are missing. Run wrp-lint setup --detected.'); } }
+      if (['javascript', 'typescript'].includes(type)) { try { verifyPin('@types/node', { cacheRoot }); resolveLibrary('undici-types/package.json', { cacheRoot }); } catch { throw new Error('Pinned Node compiler types are missing. Run wrp-lint setup --detected.'); } }
       return { available: true, version: catalog.find(item => item.id === type).tool };
     }
     if (type === 'powershell') {
@@ -261,18 +273,25 @@ export async function probe(type, root, execute = run) {
       return { available: true, executable, version: JSON.parse(result.stdout.trim()) };
     }
     if (type === 'batch') {
-      const executable = batchPython();
-      const result = await execute(executable, ['-I', '-c', 'import importlib.metadata; print(importlib.metadata.version("Blinter"))'], { cwd: packageRoot });
-      if (result.code !== 0 || result.stdout.trim() !== '1.1.66') throw new Error('Blinter 1.1.66 missing from isolated .tools/blinter');
+      const executable = await batchPython(root, execute, { cacheRoot });
+      const result = await execute(executable, ['-I', '-c', 'import sys,importlib.metadata; assert (3,11) <= sys.version_info[:2] < (3,16); print(importlib.metadata.version("Blinter"))'], { cwd: packageRoot });
+      if (result.code !== 0 || result.stdout.trim() !== '1.1.66') throw new Error('Blinter 1.1.66 missing from the selected isolated runtime');
       return { available: true, executable, version: '1.1.66' };
     }
     if (type === 'bash') {
       const bash = findExecutable('bash', root);
-      let shellcheck = findExecutable('shellcheck', root);
-      if (!shellcheck) { const local = path.join(packageRoot, '.tools/shellcheck/shellcheck.exe'); try { await fs.access(local); shellcheck = local; } catch { /* Optional explicit setup has not run. */ } }
+      const candidates = [];
+      try { candidates.push(path.join(verifiedRuntime('shellcheck', { cacheRoot }).root, 'shellcheck.exe')); } catch { /* Explicit setup has not prepared a verified runtime. */ }
+      candidates.push(findExecutable('shellcheck', root));
+      try { candidates.push(localTool('.tools/shellcheck/shellcheck.exe')); } catch { /* No legacy preparation. */ }
+      let shellcheck;
+      for (const candidate of [...new Set(candidates.filter(Boolean))]) {
+        try {
+          const result = await execute(candidate, ['--version'], { cwd: packageRoot });
+          if (result.code === 0 && /version:\s*0\.11\.0\b/.test(result.stdout)) { shellcheck = candidate; break; }
+        } catch { /* A broken older PATH/local tool must not mask a valid candidate. */ }
+      }
       if (!bash || !shellcheck) throw new Error(`Missing ${[!bash && 'bash', !shellcheck && 'ShellCheck 0.11.0'].filter(Boolean).join(' and ')}`);
-      const result = await execute(shellcheck, ['--version'], { cwd: packageRoot });
-      if (result.code !== 0 || !/version:\s*0\.11\.0\b/.test(result.stdout)) throw new Error('ShellCheck must be exactly 0.11.0');
       const bashVersion = await execute(bash, ['--version'], { cwd: packageRoot });
       if (bashVersion.code !== 0 || !/GNU bash/.test(bashVersion.stdout)) throw new Error('Executable is not GNU Bash');
       return { available: true, executable: bash, shellcheck, version: 'ShellCheck 0.11.0 + Bash syntax' };
@@ -289,8 +308,12 @@ export async function probe(type, root, execute = run) {
 }
 
 async function external(type, files, tool, root, execute) {
-  if (type === 'powershell' || type === 'python') {
-    const args = type === 'powershell' ? ['-NoLogo', '-NoProfile', '-NonInteractive', '-File', path.join(packageRoot, 'adapters/powershell.ps1')] : ['-I', '-B', path.join(packageRoot, 'adapters/python-syntax.py')];
+  if (type === 'powershell') {
+    const { analyzePowerShell } = await import('./powershell-batch.mjs');
+    return analyzePowerShell(files, { execute, executable: tool.executable, adapter: path.join(packageRoot, 'adapters/powershell.ps1'), cwd: packageRoot });
+  }
+  if (type === 'python') {
+    const args = ['-I', '-B', path.join(packageRoot, 'adapters/python-syntax.py')];
     const result = await execute(tool.executable, args, { cwd: packageRoot, input: JSON.stringify(files.map(({ file, content }) => ({ file, content }))) });
     if (result.code !== 0) throw new Error(result.stderr || `Adapter exited ${result.code}`);
     const data = JSON.parse(result.stdout.trim());
@@ -345,7 +368,21 @@ export async function scan(root, { types, execute = run, toolProbe = probe } = {
     if (!tool.available) { incomplete.push(`${type}: ${tool.reason}`); continue; }
     try {
       if (['javascript', 'typescript'].includes(type)) continue;
-      if (catalog.find(item => item.id === type).kind === 'external') findings.push(...await external(type, files, tool, inv.root, execute));
+      if (catalog.find(item => item.id === type).kind === 'external') {
+        coverageItem.checkedFiles = 0;
+        const diagnostics = await external(type, files, tool, inv.root, execute);
+        const requestedFiles = new Set(files.map(item => item.file));
+        const uncheckedFiles = new Set();
+        for (const item of diagnostics) {
+          if (item.incomplete === true) {
+            if (typeof item.file !== 'string' || !requestedFiles.has(item.file)) throw new Error('Adapter returned an unknown incomplete file');
+            uncheckedFiles.add(item.file);
+            incomplete.push(`${item.file}:${item.line}:${item.column}: ${item.rule}: ${item.message}`);
+          } else findings.push(item);
+        }
+        coverageItem.checkedFiles = files.length - uncheckedFiles.size;
+        if (uncheckedFiles.size) coverageItem.status = coverageItem.checkedFiles ? 'partial' : 'failed';
+      }
       else for (const item of files) findings.push(...await internal(item, inv.root, notices));
     } catch (error) { coverageItem.status = 'failed'; incomplete.push(`${type}: ${errorText(error)}`); }
   }
@@ -355,5 +392,5 @@ export async function scan(root, { types, execute = run, toolProbe = probe } = {
   if (!inv.files.length) incomplete.push('No supported or recognized source files found');
   findings.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.column - b.column || a.rule.localeCompare(b.rule));
   const exitCode = incomplete.length ? 2 : findings.length ? 1 : 0;
-  return { schemaVersion: 1, product: 'WinRecoveryProjectLinter', version: '0.1.1', root: inv.root, status: ['CLEAN', 'FINDINGS', 'INCOMPLETE'][exitCode], exitCode, discovery: inv.discovery, detected, selected, coverage, findings, incomplete, notices, limits: { maxFiles, maxBytesPerFile: maxBytes }, budget: { paidServices: false, telemetry: false } };
+  return { schemaVersion: 1, product: 'WinRecoveryProjectLinter', version: '0.1.2', root: inv.root, status: ['CLEAN', 'FINDINGS', 'INCOMPLETE'][exitCode], exitCode, discovery: inv.discovery, detected, selected, coverage, findings, incomplete, notices, limits: { maxFiles, maxBytesPerFile: maxBytes }, budget: { paidServices: false, telemetry: false } };
 }

@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { catalog } from '../src/catalog.mjs';
 
-const help = `WinRecoveryProjectLinter 0.1.1 — local, read-only scanning, 0 kr services\n\nUsage: wrp-lint <command> [root] [options]\n  init                 Create .wrp-lint.json without overwriting\n  doctor               Check only detected/selected adapter availability\n  scan                 Scan detected/selected source types\n  list-linters         Describe adapters and limits\n  setup --detected     Explicitly install only needed supported local tools\n\nOptions: --types powershell,lua,...  --format text|json  --detected\nExit: 0 CLEAN, 1 FINDINGS, 2 INCOMPLETE (takes precedence).\nNo project scripts/configuration execute. No scan downloads or source writes.\nInstall pinned Node dependencies first: npm ci --ignore-scripts\n`;
+const help = `WinRecoveryProjectLinter 0.1.2 — local, read-only scanning, 0 kr services\n\nUsage: wrp-lint <command> [root] [options]\n  init                 Create .wrp-lint.json without overwriting\n  doctor               Check only detected/selected adapter availability\n  scan                 Scan detected/selected source types\n  list-linters         Describe adapters and limits\n  setup --detected     Explicitly install only needed supported local tools\n\nOptions: --types powershell,lua,...  --format text|json  --detected\nExit: 0 CLEAN, 1 FINDINGS, 2 INCOMPLETE (takes precedence).\nNo project scripts/configuration execute. No scan downloads or source writes.\nPrepare the pinned per-user runtime explicitly: wrp-lint setup <root> --detected\n`;
 
 function parse(args) {
   const value = { command: args.shift(), root: process.cwd(), format: 'text' };
@@ -34,7 +34,7 @@ function print(value, format) {
 let options;
 try {
   if (!process.argv[2] || ['help', '--help', '-h'].includes(process.argv[2])) { console.log(help); }
-  else if (['--version', '-v'].includes(process.argv[2])) console.log('0.1.1');
+  else if (['--version', '-v'].includes(process.argv[2])) console.log('0.1.2');
   else {
     options = parse(process.argv.slice(2));
     const { command, root, types, format } = options;
@@ -61,7 +61,7 @@ try {
     }
   }
 } catch (error) {
-  const report = { status: 'INCOMPLETE', exitCode: 2, error: error.message, ...(error.code === 'ERR_MODULE_NOT_FOUND' ? { remedy: 'Run npm ci --ignore-scripts in the packaged plugin/CLI directory.' } : {}) };
+  const report = { status: 'INCOMPLETE', exitCode: 2, error: error.message, ...(error.code === 'ERR_MODULE_NOT_FOUND' ? { remedy: 'Verify this exact plugin package if a bundled module is missing. Use wrp-lint setup <project-root> --detected for missing pinned tools; scan never installs them.' } : {}) };
   if (options?.format === 'json') console.log(JSON.stringify(report, null, 2)); else console.error(`INCOMPLETE: ${report.error}${report.remedy ? '\n' + report.remedy : ''}`);
   process.exitCode = 2;
 }

@@ -1,12 +1,15 @@
 {
   "name": "@winrecoveryproject/linter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Read-only local source linting with explicit coverage and zero paid services",
   "type": "module",
   "license": "MIT",
   "author": "Zilvereyes",
   "homepage": "https://github.com/WinRecoveryProject/WinRecoveryProjectLinter",
-  "repository": { "type": "git", "url": "git+https://github.com/WinRecoveryProject/WinRecoveryProjectLinter.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WinRecoveryProject/WinRecoveryProjectLinter.git"
+  },
   "engines": {
     "node": ">=24"
   },

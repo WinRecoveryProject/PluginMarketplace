@@ -39,9 +39,16 @@
     "skills/setup-linters/SKILL.md",
     "src/catalog.mjs",
     "src/engine.mjs",
+    "src/powershell-batch.mjs",
     "src/process.mjs",
+    "src/runtime-cache.mjs",
     "src/setup.mjs",
     "test/linter.test.mjs",
-    "test/package.test.mjs"
+    "test/package.test.mjs",
+    "test/powershell-batching.test.mjs",
+    "test/practical-regressions.test.mjs",
+    "test/python-adapter.test.mjs",
+    "test/runtime-cache.test.mjs",
+    "test/toc-regressions.test.mjs"
   ]
 }

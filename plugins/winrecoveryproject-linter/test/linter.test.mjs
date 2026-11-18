@@ -166,17 +166,20 @@ test('Fresh extraction works without original dependencies and reports missing l
   const root = await fixture({ 'main.lua': 'return 1' });
   const copy = await fixture({});
   for (const name of ['bin', 'src', 'adapters', 'config']) await fs.cp(path.join(packageRoot, name), path.join(copy, name), { recursive: true });
-  for (const name of ['package.json', 'package-lock.json']) await fs.copyFile(path.join(packageRoot, name), path.join(copy, name));
+  for (const name of ['package.json', 'package-lock.json', 'npm-shrinkwrap.json']) await fs.copyFile(path.join(packageRoot, name), path.join(copy, name));
   const bin = path.join(copy, 'bin/wrp-lint.mjs');
-  assert.equal((await run(process.execPath, [bin, 'list-linters'])).code, 0);
-  assert.equal((await run(process.execPath, [bin, 'init', root])).code, 0);
-  const doctor = await run(process.execPath, [bin, 'doctor', root, '--types', 'lua', '--format', 'json']);
+  const emptyRuntimeCache = path.join(copy, 'empty-runtime-cache');
+  const options = { env: { ...process.env, WRP_LINT_RUNTIME_CACHE: emptyRuntimeCache } };
+  assert.equal((await run(process.execPath, [bin, 'list-linters'], options)).code, 0);
+  assert.equal((await run(process.execPath, [bin, 'init', root], options)).code, 0);
+  const doctor = await run(process.execPath, [bin, 'doctor', root, '--types', 'lua', '--format', 'json'], options);
   assert.equal(doctor.code, 2);
   assert.match(doctor.stdout, /library is missing/);
-  const result = await run(process.execPath, [bin, 'scan', root, '--types', 'lua', '--format', 'json']);
+  const result = await run(process.execPath, [bin, 'scan', root, '--types', 'lua', '--format', 'json'], options);
   assert.equal(result.code, 2);
   assert.equal(JSON.parse(result.stdout).status, 'INCOMPLETE');
   assert.ok(!result.stderr.includes('ERR_MODULE_NOT_FOUND'));
+  await assert.rejects(fs.access(emptyRuntimeCache), { code: 'ENOENT' });
 });
 
 test('Compiler handles Node builtins and blocks arbitrary external imports/config', async () => {
