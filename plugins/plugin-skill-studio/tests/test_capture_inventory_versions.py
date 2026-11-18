@@ -88,6 +88,59 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                     collector.remote_manifest_bytes("openai", "plugins", "a" * 40, "plugin.json")
                 self.assertEqual(get.call_count, 1)
 
+    def test_publications_respect_pinned_git_revision(self):
+        origin = "https://github.com/example/marketplace.git"
+        vendor = "https://github.com/example/plugin.git"
+        marketplace_revision, default, pin = "a" * 40, "b" * 40, "c" * 40
+        default_source = {"source": "git-subdir", "url": vendor, "path": "plugins/example"}
+        cases = [
+            ({"sha": pin}, pin, "2.0.0"),
+            ({"sha": "  " + pin.upper() + " ", "ref": "release/another"}, pin, "2.0.0"),
+            ({"sha": "  ", "ref": "  "}, default, "1.0.0"),
+            ({}, default, "1.0.0"),
+            ({"sha": pin[:12]}, None, None),
+            ({"sha": 7}, None, None),
+            ({"ref": "release/another"}, None, None),
+            ({"sha": pin, "ref": []}, None, None),
+        ]
+        for selectors, expected_revision, version in cases:
+            with self.subTest(selectors=selectors):
+                manifest = {"name": "market", "plugins": [
+                    {"name": "example", "source": {**default_source, **selectors}},
+                ]}
+
+                def read_manifest(owner, repo, revision, path):
+                    self.assertEqual((owner, repo), ("example", "plugin"))
+                    self.assertEqual(revision, expected_revision)
+                    return json.dumps({"name": "example", "version": version}).encode()
+
+                with patch.object(collector, "command", side_effect=[origin.encode(), json.dumps(manifest).encode()]), \
+                     patch.object(collector, "git_head", side_effect=lambda url: marketplace_revision if url == origin else default), \
+                     patch.object(collector, "remote_manifest_bytes", side_effect=read_manifest) as read:
+                    result = collector.capture_publications(Path("market"))
+                self.assertEqual(result["expected"], ["example@market"])
+                if expected_revision is None:
+                    self.assertEqual(result["entries"], [])
+                    read.assert_not_called()
+                else:
+                    self.assertEqual(result["entries"][0]["version"], version)
+                    self.assertEqual(result["entries"][0]["source"]["revision"], expected_revision)
+
+    def test_unreadable_pin_does_not_fall_back_to_default_head(self):
+        origin = "https://github.com/example/marketplace.git"
+        vendor = "https://github.com/example/plugin.git"
+        pin = "c" * 40
+        manifest = {"name": "market", "plugins": [{"name": "example", "source": {
+            "source": "git-subdir", "url": vendor, "path": "plugins/example", "sha": pin,
+        }}]}
+        with patch.object(collector, "command", side_effect=[origin.encode(), json.dumps(manifest).encode()]), \
+             patch.object(collector, "git_head", side_effect=lambda url: "a" * 40 if url == origin else "b" * 40), \
+             patch.object(collector, "remote_manifest_bytes", side_effect=HTTPError("fixture", 404, "missing", {}, None)) as read:
+            result = collector.capture_publications(Path("market"))
+        self.assertEqual(result, {"expected": ["example@market"], "entries": []})
+        self.assertTrue(read.call_args_list)
+        self.assertTrue(all(item.args[2] == pin for item in read.call_args_list))
+
     def test_scoped_installation_rejects_out_of_scope_or_incomplete_results(self):
         declared={"expected":["one@winrecoveryproject-digital"]}
         for response in ({"installed":[{"pluginId":"one@other", "version":"1.0.0"}]},

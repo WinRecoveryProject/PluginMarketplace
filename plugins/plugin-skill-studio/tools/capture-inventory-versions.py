@@ -148,15 +148,29 @@ def capture_publications(root):
             here = location not in ("", ".")
             if here and not all(COMPONENT.fullmatch(part) and part not in (".", "..") for part in location.split("/")):
                 return None
-            sha = heads.get(url)
             repository = GITHUB.fullmatch(url)
-            if source.get("ref") or source.get("source") != "git-subdir" or not sha or not repository:
+            if source.get("source") != "git-subdir" or not repository:
                 return None
+            pin, ref = source.get("sha"), source.get("ref")
+            if any(value is not None and not isinstance(value, str) for value in (pin, ref)):
+                return None
+            pin = (pin or "").strip().lower()
+            if pin:
+                if not REVISION.fullmatch(pin):
+                    return None
+                sha = pin
+            elif ref and ref.strip():
+                return None
+            else:
+                sha = heads.get(url)
+                if not sha:
+                    return None
+            read_local = url == origin and sha == revision
             candidates = []
             for filename in MANIFESTS:
                 name = f"{location}/{filename}" if here else filename
                 try:
-                    if url == origin:
+                    if read_local:
                         raw = command("git", "-C", root, "show", f"{sha}:{name}")
                     else:
                         owner, repo = repository.groups()
@@ -169,7 +183,7 @@ def capture_publications(root):
                     if failure.code != 404:
                         return None
                 except subprocess.CalledProcessError:
-                    if url != origin:
+                    if not read_local:
                         return None
             if not candidates or len({data[1:] for data in candidates}) != 1 or candidates[0][1] != row["name"]:
                 return None
