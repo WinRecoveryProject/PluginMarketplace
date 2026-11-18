@@ -22,6 +22,8 @@ Git-versionerne er aflæst fra [OpenAIs publicerede manifests](https://github.co
 
 Brug den eksisterende udgave fra OpenAI-kataloget, når den nyere udgave er nødvendig. Marketplace-posterne henter deres publicerede pakker fra de angivne Git-kilder. Opdatering af en Marketplace-installation gælder det pågældende katalog-ID.
 
+[Modpartstabellen](catalog-counterparts.json) forbinder 22 kendte produkter til deres eksakte OpenAI-katalog-ID i Studios genkørbare versionskontrol. Den gemmer sammenligningsgrundlaget på GitHub. App-ID, OAuth, installation og valg af distributionskanal er separate. Codex' native test indlæste en almindelig Git-pakke og udelod forsøget med et direkte remote-plugin-ID i samme Marketplace-manifest.
+
 ## Workspace-wide continuation — 2026-11-16
 
 The current installed inventory covers 52 installation records. The [full collection](full-plugin-list-check-20261116.md) now includes 30 native Marketplace entries, 15 original catalog links and 9 host-bundled products. Ten more original Git sources were verified: Gmail, Google Calendar, Slack, Plugin Eval, Plugin Autopilot, Skill Risk Check, Context Handoff, Skillquiver, Skill Craft and Plugin Creator Plus.

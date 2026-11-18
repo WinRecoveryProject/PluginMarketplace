@@ -14,6 +14,17 @@ function contained(base,value){
 }
 const registry=json('.agents/plugins/marketplace.json');
 const lock=json('plugin-sources.lock.json');
+const counterparts=json('docs/catalog-counterparts.json');
+if(registry&&counterparts){
+  const publishedIds=new Set(registry.plugins.map(entry=>entry.name+'@'+registry.name));
+  check(Array.isArray(counterparts)&&counterparts.length>0,'explicit version counterparts');
+  if(Array.isArray(counterparts)){
+    const ids=counterparts.map(row=>row.publishedId);
+    check(new Set(ids).size===ids.length,'one curated counterpart per published ID');
+    check(counterparts.every(row=>publishedIds.has(row.publishedId)&&
+      /^[a-z0-9][a-z0-9._-]*@openai-curated-remote$/.test(row.catalogId)),'counterparts reference known exact channel IDs');
+  }
+}
 const ownRepo='https://github.com/WinRecoveryProject/PluginMarketplace.git';
 const managed=['onedrive','cloudstorage-portal','powershell-workbench','plugin-skill-studio','component-forge','windows-dism-update-docs','codex-coordinator','codex-dev-workflows','codex-engineering-guardrails','codex-process-jobs','zilvereyes-context-handoff','winrecoveryproject-linter','winrecoveryproject-devsuite','coderabbit','agentmemory-asus'];
 if(registry){

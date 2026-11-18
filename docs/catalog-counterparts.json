@@ -1,0 +1,90 @@
+[
+  {
+    "publishedId": "agent-skillguard@winrecoveryproject-digital",
+    "catalogId": "agent-skillguard@openai-curated-remote"
+  },
+  {
+    "publishedId": "chatgpt-codex-plugin-autopilot@winrecoveryproject-digital",
+    "catalogId": "chatgpt-codex-plugin-autopilot@openai-curated-remote"
+  },
+  {
+    "publishedId": "coderabbit@winrecoveryproject-digital",
+    "catalogId": "coderabbit@openai-curated-remote"
+  },
+  {
+    "publishedId": "codex-coordinator@winrecoveryproject-digital",
+    "catalogId": "codex-coordinator@openai-curated-remote"
+  },
+  {
+    "publishedId": "codex-dev-workflows@winrecoveryproject-digital",
+    "catalogId": "codex-dev-workflows@openai-curated-remote"
+  },
+  {
+    "publishedId": "codex-engineering-guardrails@winrecoveryproject-digital",
+    "catalogId": "codex-engineering-guardrails@openai-curated-remote"
+  },
+  {
+    "publishedId": "codex-security@winrecoveryproject-digital",
+    "catalogId": "codex-security@openai-curated-remote"
+  },
+  {
+    "publishedId": "context-handoff@winrecoveryproject-digital",
+    "catalogId": "context-handoff@openai-curated-remote"
+  },
+  {
+    "publishedId": "dropbox@winrecoveryproject-digital",
+    "catalogId": "app-69b31dc2110c8191b8b47dc98fe5a052@openai-curated-remote"
+  },
+  {
+    "publishedId": "github@winrecoveryproject-digital",
+    "catalogId": "github@openai-curated-remote"
+  },
+  {
+    "publishedId": "gmail@winrecoveryproject-digital",
+    "catalogId": "gmail@openai-curated-remote"
+  },
+  {
+    "publishedId": "google-calendar@winrecoveryproject-digital",
+    "catalogId": "google-calendar@openai-curated-remote"
+  },
+  {
+    "publishedId": "google-drive@winrecoveryproject-digital",
+    "catalogId": "google-drive@openai-curated-remote"
+  },
+  {
+    "publishedId": "linear@winrecoveryproject-digital",
+    "catalogId": "linear@openai-curated-remote"
+  },
+  {
+    "publishedId": "openai-developers@winrecoveryproject-digital",
+    "catalogId": "openai-developers@openai-curated-remote"
+  },
+  {
+    "publishedId": "plugin-creator-plus@winrecoveryproject-digital",
+    "catalogId": "plugin-creator-plus@openai-curated-remote"
+  },
+  {
+    "publishedId": "plugin-eval@winrecoveryproject-digital",
+    "catalogId": "plugin-eval@openai-curated-remote"
+  },
+  {
+    "publishedId": "sharepoint@winrecoveryproject-digital",
+    "catalogId": "sharepoint@openai-curated-remote"
+  },
+  {
+    "publishedId": "skill-craft@winrecoveryproject-digital",
+    "catalogId": "skill-craft@openai-curated-remote"
+  },
+  {
+    "publishedId": "skillquiver@winrecoveryproject-digital",
+    "catalogId": "skillquiver@openai-curated-remote"
+  },
+  {
+    "publishedId": "slack@winrecoveryproject-digital",
+    "catalogId": "slack@openai-curated-remote"
+  },
+  {
+    "publishedId": "vercel@winrecoveryproject-digital",
+    "catalogId": "vercel@openai-curated-remote"
+  }
+]

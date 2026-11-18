@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "plugin-skill-studio",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "sources": [
     {
       "id": "matt-skills-curated",
@@ -1946,7 +1946,7 @@
       "sourceIds": [
         "studio"
       ],
-      "description": "Use when inspecting local plugin identities, dependencies, declarations and installation evidence."
+      "description": "Use when inspecting local plugin identities, dependencies and installation evidence, or comparing installed releases with Git and other catalogs."
     },
     {
       "id": "metric-pack",

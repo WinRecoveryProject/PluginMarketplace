@@ -1,4 +1,4 @@
-# WinRecoveryProject DevSuite 0.2.4
+# WinRecoveryProject DevSuite 0.2.5
 
 One owned development workflow combines planning/coordination, implementation,
 debugging, testing, independent review, quality gates, security assessment/remediation,

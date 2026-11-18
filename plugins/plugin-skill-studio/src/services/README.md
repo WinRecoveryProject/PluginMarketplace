@@ -18,6 +18,10 @@ Results contain redacted `findings` with rule/version, relative path, line/colum
 
 `await inventory(localPath, options)` returns `{records, errors, complete}`. It reads portable/compatibility manifests as data, groups both manifests for a root, lists public skill directories, records declared components and listing field presence, and observes compatibility manifest synchronization. Paths containing `cache`, `candidates` or an explicit archive segment are classified accordingly; other paths remain `unknown`. Merely finding a manifest never proves installation, host enablement, global account permissions, OAuth connection or publisher verification. Those fields remain `UNKNOWN`.
 
+## Installed and published versions
+
+The `inventory-versions` command compares one host and account receipt with verified Git manifest observations and optionally related provider catalog IDs. See the [version audit contract](../../references/inventory-versions.md) for capture and exit codes.
+
 ## Exact installed-cache resolution
 
 `await resolveInstalledPlugin({pluginId, cacheRoot, snapshot, skill?})` is read-only.

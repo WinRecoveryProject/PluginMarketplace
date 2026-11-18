@@ -1,6 +1,6 @@
 ---
 name: local-management
-description: "Use when inspecting local plugin identities, dependencies, declarations and installation evidence."
+description: "Use when inspecting local plugin identities, dependencies and installation evidence, or comparing installed releases with Git and other catalogs."
 ---
 
 # Local Plugin Management
@@ -14,6 +14,10 @@ Run `local-inventory <root>`. Keep source, candidate, cache, installed and unkno
 When auditing everything installed, obtain the host's **full installed CLI list** (`codex plugin list --json` when that actual host CLI is available), the native personal/remote installed catalog, and native skill discovery. A filtered catalog slice can omit App-only wrappers; the CLI can omit personal remote packages. Merge exact `name@marketplace` identities from both installed surfaces. Do not count every cached directory as installed, or use the number of Apps as the plugin count. Report exact installation records separately from unique products and shared App bindings.
 
 Use `node scripts/studio.mjs inventory-reconcile <input.json>` to reconcile data-only snapshots. Input has `current` snapshots (`label`, `kind: cli|catalog`, `data`), optional `historical` snapshots (`kind: historical`, with their original installed lists), and optional `apps` containing the separate App list. The command performs no discovery, installation or account changes. Missing inventory surfaces, load errors and version/state conflicts remain incomplete. An absent historical ID stays visible; matching display names or functionality adapted into Studio do not prove the original is installed. Document explicit account scope, replacements and user-approved removals separately. Never reinstall, rename, disconnect or merge connections merely to increase a count.
+
+## Compare installed and published versions
+
+Use the [version audit](../../references/inventory-versions.md) to collect a scoped receipt and compare exact installed versions with the observed Git manifests. Use explicit counterpart IDs for comparisons with another catalog. The command includes available releases so users can compare without reinstalling duplicates. A result on one host or scope does not verify another.
 
 ## Cache paths removed by an upgrade
 
