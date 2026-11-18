@@ -143,11 +143,11 @@
     },
     "powershell-workbench": {
       "repository": "https://github.com/WinRecoveryProject/PowerShellWorkbench.git",
-      "commit": "5c906525e6e0b31e67cfd0aac49861d6271923b2",
+      "commit": "b4fde39fd58e36ddf9bc6669252cefade9977e33",
       "sourceSubdir": "plugins/powershell-workbench",
-      "version": "0.9.0-beta.5",
+      "version": "0.9.0-beta.6",
       "files": {
-        ".codex-plugin/plugin.json": "bb79c4fb72e3a6c26eb214f5533887bd29dc1ee6c26786a5e5001d948a7e7602",
+        ".codex-plugin/plugin.json": "e67c02e7efb9272014fd09417e8b5a21e3925ddd494909283faae2f49ff11b0e",
         "assets/component-parser-catalog.json": "d1c0fc8e816a19be8d8b5051cfe7cb90a8ff10f7df54bd0ec04d2db2ea5067d5",
         "assets/composer-icon.png": "74eb359d9a73f6d49ffc863f69992339bd42798e8f5917e3bf5856020824638f",
         "assets/documentation-source-catalog.json": "6f26dd1cae612c2599110c2f7e54d8d14918be7de4fe2200c6aa92434f42c1a9",
@@ -329,7 +329,7 @@
         "assets/terms-of-service_files/3ko1oymi5nfar.css": "38744e875777bec34ed15d0c8bc1e40d278da3b3cb1da816d0a351bd3ce5afd6",
         "assets/terms-of-service_files/418g1ki4urs7i.css": "915545769c9304260ea772c2f022547dfec6da757cc2bd0673098bbc67f2b0bb",
         "LICENSE": "a2b395dbbc2e33b60248c0fd232a815399337a7aff58cee4545aacfa5b46fe3a",
-        "plugin.json": "bf3cd467e0548cb89d48ae44403d1ede577fd8d8cb366f8148978078f7d78176",
+        "plugin.json": "d8d126fa94c5fa51ed037b8e945f4c10069237df1ca545f8303707f519dfed3e",
         "PRIVACY.md": "8d44b8e4d948c1fda8a352842c670e0805be97e3729ba97edf79f142ffca2d4b",
         "README.md": "1454ea18510c48fbe3ee5d301244019a236ab7cbf0a4437b7630c17ba5490ee4",
         "scripts/Compare-PowerShellWorkbenchOllamaEvidence.ps1": "2cd2d58c4f13e1dc9358353b1ae71261b453f4dd89337f432ddb51611938749e",
@@ -537,7 +537,11 @@
         "Tests/Test-ScaffoldContracts.ps1": "c0a11ee320da2be69ea711980837bb581cdb6cef0d6991a99848c7a542f65e95",
         "Tests/Test-StatusDashboardContracts.ps1": "43b0913497b23a7faca72f6910b6fb81063710552e108cf7f5ad44ba07b29791",
         "Tests/Test-TextIntegrityContracts.ps1": "3a4c3f6d371a0a3b6cc2139bf6d89d1c57b50853b083bb2cf6dfb3ab9364de32",
-        "Tests/test_workbench_components.py": "222244850ea7d1cdb031553ff899479eec9ffd2fa907018db2e196743cac8846"
+        "Tests/test_workbench_components.py": "222244850ea7d1cdb031553ff899479eec9ffd2fa907018db2e196743cac8846",
+        "assets/composer-128.png": "ba06a9569e09aeff9ffbfccf6ae090f486ae9ed7620904d759b5ad8b74a29249",
+        "assets/favicon.ico": "547911f500eec3b87bb1de9a9c20895fcee7dcaa4b2532fdf1ae8c6b9af0f8af",
+        "assets/icon-small-64.png": "c509fd7d02250cde81629524570a1b79891f673aededb1125bca5ce36c2c4a25",
+        "assets/logo-512.png": "faa9d5fbb8f3bcbb7c554171cefdb3b2b77cd2b1e2c2885693027ecc60096c39"
       }
     },
     "plugin-skill-studio": {

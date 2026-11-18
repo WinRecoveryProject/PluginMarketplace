@@ -1,6 +1,6 @@
 {
   "name": "powershell-workbench",
-  "version": "0.9.0-beta.5",
+  "version": "0.9.0-beta.6",
   "description": "Portable PowerShell and mixed-language scaffolding, refactoring, discovery, agent harnesses, game tooling, and opt-in quality workflows.",
   "license": "MIT",
   "repository": "https://github.com/WinRecoveryProject/PowerShellWorkbench",
@@ -26,7 +26,7 @@
       "Diagnose this project with the read-only Doctor, quality gate, and text-integrity checks.",
       "Preview a hash-bound project assessment before writing any project profile sidecar."
     ],
-    "logo": "./assets/logo.png",
-    "composerIcon": "./assets/composer-icon.png"
+    "logo": "./assets/logo-512.png",
+    "composerIcon": "./assets/composer-128.png"
   }
 }
