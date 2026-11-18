@@ -1,4 +1,4 @@
-# WinRecoveryProject DevSuite 0.2.5
+# WinRecoveryProject DevSuite 0.2.6
 
 One owned development workflow combines planning/coordination, implementation,
 debugging, testing, independent review, quality gates, security assessment/remediation,
@@ -69,3 +69,8 @@ Version 0.2.1 preserves explicit remote-task and background-job intent when the
 workload contains test/fix/implement verbs. Code-maintenance requests keep their
 normal development route; negated lifecycle clauses do not start an execution
 workflow. Route suggestions never authorize execution.
+
+Version 0.2.6 routes requests for saved Codex cloud environments to the
+read-only Codex Tasks listing, including Danish requests with gemte or
+Codex-cloudmiljøer. Interactive Cloud Environment login still depends
+on the host's Cloud Environment tools.

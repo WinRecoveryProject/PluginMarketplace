@@ -1,9 +1,9 @@
 {
-  "version": "0.2.5",
+  "version": "0.2.6",
   "localTests": {
     "passed": 32
   },
-  "providerEvidence": "Read-only Business environment discovery succeeded; remote creation/cancellation untested",
+  "providerEvidence": "Read-only Codex Tasks discovery returned five configurations, three marked runnable. Remote creation, cancellation and interactive Cloud Environment login remain untested",
   "installed": false,
   "published": false,
   "costKr": 0

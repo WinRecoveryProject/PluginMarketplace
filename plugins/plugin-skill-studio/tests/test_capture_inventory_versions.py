@@ -21,6 +21,48 @@ with patch.object(sys, "path", [str(script.parent), *sys.path]):
 
 
 class CaptureInventoryVersionsTest(unittest.TestCase):
+    def test_git_head_prefers_a_verified_git_ref(self):
+        remote = "https://github.com/openai/plugins.git"
+        revision = "a" * 40
+        with patch.object(collector.subprocess, "check_output", return_value=(revision + "\tHEAD\n").encode()) as git, \
+             patch.object(collector.PUBLIC_HTTP, "open") as rest:
+            self.assertEqual(collector.git_head(remote), revision)
+        self.assertEqual(git.call_args.args[0][-3:], ["--exit-code", remote, "HEAD"])
+        rest.assert_not_called()
+
+    def test_git_head_uses_one_public_sha_request_for_a_transient_failure(self):
+        remote = "https://github.com/WinRecoveryProject/PluginMarketplace.git"
+        revision = "c" * 40
+        for failure in (subprocess.TimeoutExpired("git", 30),
+                        subprocess.CalledProcessError(128, "git", stderr=b"fatal: connection was reset"),
+                        subprocess.CalledProcessError(128, "git", stderr=b"requested URL returned error: 503")):
+            with self.subTest(failure=failure), \
+                 patch.object(collector.subprocess, "check_output", side_effect=failure), \
+                 patch.object(collector.PUBLIC_HTTP, "open", return_value=io.BytesIO(revision.encode())) as rest:
+                self.assertEqual(collector.git_head(remote), revision)
+            request = rest.call_args.args[0]
+            self.assertEqual(request.full_url, "https://api.github.com/repos/WinRecoveryProject/PluginMarketplace/commits/HEAD")
+            self.assertEqual(request.get_header("Accept"), "application/vnd.github.sha")
+            self.assertIsNone(request.get_header("Authorization"))
+            self.assertEqual(rest.call_args.kwargs, {"timeout": 8})
+            self.assertEqual(rest.call_count, 1)
+
+    def test_git_head_rejects_invalid_or_unavailable_evidence(self):
+        remote = "https://github.com/openai/plugins.git"
+        inaccessible = subprocess.CalledProcessError(128, "git", stderr=b"fatal: Authentication failed")
+        for output in (inaccessible, ("a" * 40 + "\trefs/tags/wrong\n").encode(), b""):
+            with self.subTest(output=output), patch.object(collector.PUBLIC_HTTP, "open") as rest, \
+                 patch.object(collector.subprocess, "check_output", side_effect=[output]):
+                with self.assertRaises((subprocess.CalledProcessError, ValueError)):
+                    collector.git_head(remote)
+            rest.assert_not_called()
+        for payload in (b"", b"a" * 39, b"a" * 41, b"a" * 40 + b"\n", b"not-a-sha"):
+            with self.subTest(payload=payload), \
+                 patch.object(collector.PUBLIC_HTTP, "open", return_value=io.BytesIO(payload)), \
+                 patch.object(collector.subprocess, "check_output", side_effect=subprocess.TimeoutExpired("git", 30)):
+                with self.assertRaises(ValueError):
+                    collector.git_head(remote)
+
     def test_public_manifest_retries_the_same_revision_after_a_transient_failure(self):
         url = "https://raw.githubusercontent.com/openai/plugins/" + "a" * 40 + "/plugins/github/plugin.json"
         expected = b'{"name":"github","version":"0.1.12"}'
@@ -127,6 +169,38 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                 else:
                     self.assertEqual(result["entries"][0]["version"], version)
                     self.assertEqual(result["entries"][0]["source"]["revision"], expected_revision)
+
+    def test_truncated_remote_head_preserves_available_and_pinned_publications(self):
+        origin = "https://github.com/example/marketplace.git"
+        unreliable = "https://github.com/example/unstable.git"
+        reliable = "https://github.com/example/available.git"
+        pinned_revision = "c" * 40
+        manifest = {"name": "market", "plugins": [
+            {"name": "unstable", "source": {
+                "source": "git-subdir", "url": unreliable, "path": "plugins/unstable"}},
+            {"name": "pinned", "source": {
+                "source": "git-subdir", "url": unreliable, "path": "plugins/pinned", "sha": pinned_revision}},
+            {"name": "available", "source": {
+                "source": "git-subdir", "url": reliable, "path": "plugins/available"}},
+        ]}
+
+        def read_head(url):
+            if url == unreliable:
+                raise collector.IncompleteRead(b"")
+            return "a" * 40 if url == origin else "b" * 40
+
+        def read_manifest(owner, repo, revision, path):
+            name = path.split("/")[1]
+            self.assertIn(name, ("pinned", "available"))
+            self.assertEqual(revision, pinned_revision if name == "pinned" else "b" * 40)
+            return json.dumps({"name": name, "version": "1.0.0"}).encode()
+
+        with patch.object(collector, "command", side_effect=[origin.encode(), json.dumps(manifest).encode()]), \
+             patch.object(collector, "git_head", side_effect=read_head), \
+             patch.object(collector, "remote_manifest_bytes", side_effect=read_manifest):
+            result = collector.capture_publications(Path("market"))
+        self.assertEqual(result["expected"], ["unstable@market", "pinned@market", "available@market"])
+        self.assertEqual([row["id"] for row in result["entries"]], ["pinned@market", "available@market"])
 
     def test_unreadable_pin_does_not_fall_back_to_default_head(self):
         origin = "https://github.com/example/marketplace.git"

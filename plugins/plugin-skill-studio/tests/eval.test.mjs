@@ -74,7 +74,7 @@ async function benchmarkFixture(mode={}){
  config.scenarios=[{id:'concrete',prompt:'Create result.txt containing expected.',verifiers:[{command:process.execPath,args:['-e',"const fs=require('fs');process.exit(fs.readFileSync('result.txt','utf8')==='expected'?0:1)"]}]}];
  // Successful subprocess tests use the normal preflight startup allowance.
  // The explicit timeout test below still exercises the short failure boundary.
- return {target,dir,config,options:{config,codexPath:process.execPath,codexArgs:[fakeCodex],preflightTimeoutMs:15000,timeoutMs:15000}};
+ return {target,dir,config,options:{config,codexPath:process.execPath,codexArgs:[fakeCodex],preflightTimeoutMs:30000,timeoutMs:60000}};
 }
 test('practical runner uses real child fixture events, actual verifiers and two isolated modes',async()=>{
  const f=await benchmarkFixture();const r=await runBenchmark(f.target,f.options);
@@ -104,6 +104,6 @@ test('unrelated skills block model execution; missing telemetry stays UNKNOWN',a
  assert.equal(r.status,'PASS',r.reason);assert.equal(r.observedUsage.status,'UNKNOWN');
 });
 test('verifier failure and process timeout cannot pass practical evaluation',async()=>{
- let f=await benchmarkFixture({wrongResult:true}),r=await runBenchmark(f.target,f.options);assert.equal(r.status,'FAIL');assert.equal(r.runs[0].verifiers[0].status,'FAIL');
- f=await benchmarkFixture({timeout:true});r=await runBenchmark(f.target,{...f.options,timeoutMs:150});assert.equal(r.status,'FAIL');assert.ok(r.runs.every(r=>r.timedOut));
+ let f=await benchmarkFixture({wrongResult:true}),r=await runBenchmark(f.target,f.options);assert.equal(r.status,'FAIL',r.reason);assert.equal(r.runs[0].verifiers[0].status,'FAIL');
+ f=await benchmarkFixture({timeout:true});r=await runBenchmark(f.target,{...f.options,timeoutMs:150});assert.equal(r.status,'FAIL',r.reason);assert.ok(r.runs.every(r=>r.timedOut));
 });

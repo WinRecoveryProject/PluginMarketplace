@@ -1,4 +1,6 @@
-# OneDrive gennem den faktisk installerede Codex-MCP
+# Historisk dokumentation for det lokale OneDrive-MCP-runtime
+
+Dette dokument samler forsøg med det tidligere lokale runtime. CloudStorage Portal bruger nu de eksisterende Apps til Dropbox, Google Drive og OneDrive. Se [verifikation af den aktuelle App-rute](skills/cloudstorage-portal/references/workflow-verification.md). Daterede resultater herfra dokumenterer det runtime og den forbindelse, som var valgt i det enkelte forsøg.
 
 ## 23. oktober 2026 — dev.17 host reconciliation
 

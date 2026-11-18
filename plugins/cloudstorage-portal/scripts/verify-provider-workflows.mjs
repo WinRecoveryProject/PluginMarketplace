@@ -14,6 +14,7 @@ const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
 const providerTools = {
   dropbox: new Set(catalog.dropbox?.tools ?? []),
   google: new Set(catalog.googleDrive?.tools ?? []),
+  oneDrive: new Set(catalog.oneDrive?.tools ?? []),
 };
 
 const dropboxSkills = [
@@ -74,6 +75,18 @@ const googleRequirements = {
   ],
 };
 
+const oneDriveRequirements = [
+  'onedrive_account',
+  'onedrive_get_drive',
+  'onedrive_list_root',
+  'onedrive_list_folder',
+  'onedrive_get_item',
+  'onedrive_read_text',
+  'onedrive_download_file',
+  'onedrive_upload_file',
+  'onedrive_update_file_content',
+];
+
 function readSkill(name) {
   const skillPath = path.join(pluginRoot, 'skills', name, 'SKILL.md');
   const content = fs.readFileSync(skillPath, 'utf8');
@@ -107,6 +120,16 @@ for (const [name, requiredTools] of Object.entries(googleRequirements)) {
   workflowResults.push({ name, provider: 'google-drive', requiredTools, missingTools, available: missingTools.length === 0 });
 }
 
+readSkill('onedrive');
+const missingOneDriveTools = oneDriveRequirements.filter(tool => !providerTools.oneDrive.has(tool));
+const oneDriveWorkflow = {
+  name: 'onedrive',
+  provider: 'onedrive',
+  requiredTools: oneDriveRequirements,
+  missingTools: missingOneDriveTools,
+  available: missingOneDriveTools.length === 0,
+};
+
 const expectedNames = [...dropboxSkills, ...Object.keys(googleRequirements)].sort();
 const observedNames = workflowResults.map(result => result.name).sort();
 const report = {
@@ -121,10 +144,13 @@ const report = {
   providerCatalogs: {
     dropboxToolCount: providerTools.dropbox.size,
     googleDriveToolCount: providerTools.google.size,
+    oneDriveToolCount: providerTools.oneDrive.size,
   },
   workflows: workflowResults,
+  oneDriveWorkflow,
   passed: workflowResults.length === 12
     && workflowResults.every(result => result.available)
+    && oneDriveWorkflow.available
     && JSON.stringify(observedNames) === JSON.stringify(expectedNames),
 };
 

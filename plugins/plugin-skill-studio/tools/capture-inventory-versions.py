@@ -4,7 +4,7 @@ import base64
 import concurrent.futures
 import datetime
 import hashlib
-from http.client import IncompleteRead
+from http.client import HTTPException, IncompleteRead
 import json
 import os
 from pathlib import Path
@@ -34,6 +34,10 @@ COMMAND_TIMEOUT = 30
 BUSINESS_PLUGIN_TIMEOUT = 110
 PUBLIC_MANIFEST_SIZE_LIMIT = 256 * 1024
 PUBLIC_MANIFEST_RETRY_CODES = frozenset({408, 500, 502, 503, 504})
+GIT_TRANSPORT_FAILURE = re.compile(
+    rb"(?:timed out|connection (?:reset|was reset)|remote end hung up unexpectedly|"
+    rb"requested URL returned error: (?:408|500|502|503|504)\b)", re.I
+)
 INCOMPLETE_MARKETPLACE_WARNING = b"Warning: failed to list remote marketplace plugins:"
 
 
@@ -56,19 +60,41 @@ def command(*args, timeout=COMMAND_TIMEOUT, check_marketplace=False):
     return result.stdout
 
 
+def github_default_head(remote):
+    match = GITHUB.fullmatch(remote)
+    if not match or any(segment in (".", "..") for segment in match.groups()):
+        raise ValueError("Expected an HTTPS GitHub repository")
+    owner, repository = match.groups()
+    request = Request(f"https://api.github.com/repos/{owner}/{repository}/commits/HEAD",
+                      headers={"Accept": "application/vnd.github.sha", "User-Agent": "Plugin-Skill-Studio-Inventory"})
+    with PUBLIC_HTTP.open(request, timeout=8) as page:
+        payload = page.read(41)
+    revision = payload.decode("ascii")
+    if len(payload) != 40 or not REVISION.fullmatch(revision):
+        raise ValueError("GitHub did not return a complete default commit")
+    return revision
+
+
 def git_head(remote):
     env = {key: value for key, value in ENV.items() if not key.upper().startswith("GIT_")}
     env.update(GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull, GIT_TERMINAL_PROMPT="0")
-    with tempfile.TemporaryDirectory(prefix="studio-public-git-") as directory:
-        value = subprocess.check_output(
-            ["git", "-c", "credential.helper=", "-c", "protocol.allow=never",
-             "-c", "protocol.https.allow=always", "ls-remote", "--exit-code", remote, "HEAD"],
-            cwd=directory, env=env, stderr=subprocess.DEVNULL, timeout=30,
-        )
-    revision = value.decode("ascii").split()[0]
-    if not REVISION.fullmatch(revision):
+    try:
+        with tempfile.TemporaryDirectory(prefix="studio-public-git-") as directory:
+            value = subprocess.check_output(
+                ["git", "-c", "credential.helper=", "-c", "protocol.allow=never",
+                 "-c", "protocol.https.allow=always", "ls-remote", "--exit-code", remote, "HEAD"],
+                cwd=directory, env=env, stderr=subprocess.PIPE, timeout=COMMAND_TIMEOUT,
+            )
+    except subprocess.TimeoutExpired:
+        return github_default_head(remote)
+    except subprocess.CalledProcessError as error:
+        if not GIT_TRANSPORT_FAILURE.search(error.stderr or b""):
+            raise
+        return github_default_head(remote)
+    fields = value.decode("ascii").split()
+    if len(fields) != 2 or fields[1] != "HEAD" or not REVISION.fullmatch(fields[0]):
         raise ValueError("Invalid resolved Git revision")
-    return revision
+    return fields[0]
 
 
 PUBLIC_MANIFEST_TRANSPORT_ERRORS = (TimeoutError, ConnectionError, IncompleteRead, URLError)
@@ -141,7 +167,7 @@ def capture_publications(root):
             return None
         try:
             return revision if url == origin else git_head(url)
-        except (IndexError, ValueError, OSError, subprocess.SubprocessError):
+        except (IndexError, ValueError, OSError, HTTPException, subprocess.SubprocessError):
             return None
 
     def manifest(entry):
