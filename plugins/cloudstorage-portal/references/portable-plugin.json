@@ -21,7 +21,7 @@
         "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
         "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
         "logo": "./assets/cloudstorage-portal.png",
-        "composerIcon": "./assets/cloudstorage-portal.png",
+        "composerIcon": "./assets/cloudstorage-portal-composer.png",
         "longDescription": "Dropbox, Google Drive and OneDrive workflows through existing authorized connections. Discover each available App or MCP route without duplicate login.",
         "shortDescription": "Cloudfiler på tværs af konti"
       }
@@ -29,5 +29,5 @@
   },
   "name": "cloudstorage-portal",
   "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
-  "version": "0.9.7"
+  "version": "0.9.8"
 }

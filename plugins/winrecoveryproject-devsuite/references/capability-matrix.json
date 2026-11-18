@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.2.2",
+  "version": "0.2.3",
   "coverageStatement": "39 source skills map to 214 function-level rows. Jobs/Tasks add independent integration workflows and local planning/selection tests. Provider execution remains separate.",
   "capabilities": [
     {

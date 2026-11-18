@@ -103,7 +103,7 @@ def doctor(root: Path = ROOT) -> dict:
     try:
         manifest = read_json(root / ".codex-plugin/plugin.json")
         require(manifest["name"] == "winrecoveryproject-devsuite", "Wrong package name")
-        require(manifest["version"] == "0.2.2", "Wrong package version")
+        require(manifest["version"] == "0.2.3", "Wrong package version")
         require(manifest["interface"]["developerName"] == "Zilvereyes", "Wrong developer")
         require(len(manifest["interface"]["shortDescription"]) <= 30, "Subtitle exceeds 30 characters")
         require(len(manifest["interface"].get("defaultPrompt", [])) <= 3, "Too many prompts")
