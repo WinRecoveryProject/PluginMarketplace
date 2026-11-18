@@ -23,6 +23,9 @@ REVISION = re.compile(r"[\da-f]{40}$", re.ASCII)
 MANIFESTS = (".codex-plugin/plugin.json", "plugin.json")
 NATIVE_NAMESPACES = {"personal": "created-by-me-remote", "business": "workspace-directory"}
 ENV = {**os.environ, "GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "Never"}
+COMMAND_TIMEOUT = 30
+BUSINESS_PLUGIN_TIMEOUT = 110
+INCOMPLETE_MARKETPLACE_WARNING = b"Warning: failed to list remote marketplace plugins:"
 
 
 class RejectRedirect(HTTPRedirectHandler):
@@ -33,10 +36,15 @@ class RejectRedirect(HTTPRedirectHandler):
 PUBLIC_HTTP = build_opener(RejectRedirect)
 
 
-def command(*args):
-    return subprocess.check_output(
-        [str(arg) for arg in args], env=ENV, stderr=subprocess.DEVNULL, timeout=30
+def command(*args, timeout=COMMAND_TIMEOUT, check_marketplace=False):
+    result = subprocess.run(
+        [str(arg) for arg in args], env=ENV, stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE if check_marketplace else subprocess.DEVNULL,
+        timeout=timeout, check=True,
     )
+    if check_marketplace and INCOMPLETE_MARKETPLACE_WARNING in result.stderr:
+        raise ValueError("Incomplete marketplace CLI output")
+    return result.stdout
 
 
 def git_head(remote):
@@ -231,22 +239,47 @@ def capture(args):
     scopes = sorted({namespace for value in wanted
                      if not is_native_namespace(namespace := identity_namespace(value))})
 
+    plugin_timeout = BUSINESS_PLUGIN_TIMEOUT if args.account == "business" else COMMAND_TIMEOUT
+
     def provider(namespace):
         try:
-            data = json.loads(command(codex, "plugin", "list", "--marketplace", namespace, "--available", "--json"))
-            if data.get("marketplaceLoadErrors"):
-                return {"namespace": namespace, "exitCode": 2}
-            return {"namespace": namespace, "exitCode": 0, "data": {
-                key: [{"pluginId": r["pluginId"], "version": r["version"]} for r in data[key] if r["pluginId"] in wanted]
-                for key in ("installed", "available")
-            }}
+            data = json.loads(command(codex, "plugin", "list", "--marketplace", namespace, "--available", "--json",
+                                      timeout=plugin_timeout, check_marketplace=True))
+            if not isinstance(data, dict) or data.get("marketplaceLoadErrors"):
+                raise ValueError("Incomplete vendor catalog")
+            observations = {}
+            for key in ("installed", "available"):
+                rows = data[key]
+                if not isinstance(rows, list):
+                    raise ValueError("Expected a vendor plugin list")
+                selected = []
+                for row in rows:
+                    plugin_id = row.get("pluginId") if isinstance(row, dict) else None
+                    if not isinstance(plugin_id, str):
+                        raise ValueError("Invalid vendor plugin identity")
+                    if plugin_id not in wanted:
+                        continue
+                    version = row.get("version")
+                    if not isinstance(version, str) or not VERSION.fullmatch(version):
+                        raise ValueError("Invalid vendor plugin version")
+                    selected.append({"pluginId": plugin_id, "version": version})
+                if len(selected) > 20000:
+                    raise ValueError("Vendor records exceed inventory limit")
+                observations[key] = selected
+            return {"namespace": namespace, "exitCode": 0, "data": observations}
         except (KeyError, OSError, ValueError, subprocess.SubprocessError):
             return {"namespace": namespace, "exitCode": 2}
 
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        cli = pool.submit(command, codex, "plugin", "list", "--json",
+                          timeout=plugin_timeout, check_marketplace=True)
+        native = pool.submit(capture_native, codex, root, args.account, wanted)
+        published = pool.submit(capture_publications, root)
+        catalogs = list(pool.map(provider, scopes))
     current = []
     cli_failure = None
     try:
-        data = json.loads(command(codex, "plugin", "list", "--json"))
+        data = json.loads(cli.result())
         installed = observed_installations(data)
         if data.get("marketplaceLoadErrors") or len(installed["installed"]) > 20000:
             raise ValueError("Incomplete installed CLI listing")
@@ -264,10 +297,6 @@ def capture(args):
         cli_failure = "FAILED"
     else:
         current.append({"label": "CLI", "kind": "cli", "data": installed})
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-        native = pool.submit(capture_native, codex, root, args.account, wanted)
-        published = pool.submit(capture_publications, root)
-        catalogs = list(pool.map(provider, scopes))
     history = [] if not args.previous else [{"label": "previous", "kind": "historical",
         "data": observed_installations(json.loads(args.previous.read_text(encoding="utf-8-sig")))}]
     workspace_fingerprint, catalog = native.result()

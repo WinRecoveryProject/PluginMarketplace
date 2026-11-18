@@ -15,6 +15,44 @@ spec.loader.exec_module(collector)
 
 
 class CaptureInventoryVersionsTest(unittest.TestCase):
+    def test_non_plugin_commands_keep_default_budget(self):
+        result = subprocess.CompletedProcess(["git", "status"], 0, stdout=b"clean")
+        with patch.object(collector.subprocess, "run", return_value=result) as run:
+            self.assertEqual(collector.command("git", "status"), b"clean")
+        self.assertEqual(run.call_args.kwargs["timeout"], 30)
+        self.assertEqual(run.call_args.kwargs["stderr"], subprocess.DEVNULL)
+
+    def test_invalid_vendor_catalog_preserves_current_and_published_evidence(self):
+        vendor = "one@openai-curated-remote"
+        fingerprint = "a" * 64
+        native = {"marketplaces": [{"name": "workspace-directory", "plugins": []}], "marketplaceLoadErrors": []}
+        publications = {"expected": ["one@winrecoveryproject-digital"], "entries": []}
+        with tempfile.TemporaryDirectory() as directory_path:
+            root = Path(directory_path)
+            mappings = root / "mappings.json"
+            mappings.write_text(json.dumps([{"publishedId": publications["expected"][0], "catalogId": vendor}]),
+                                encoding="utf-8")
+            args = SimpleNamespace(codex=root, marketplace=root, account="business",
+                                   host="Acer", counterparts=mappings, previous=None)
+
+            for payload in (None, [], {"installed": [], "available": None},
+                            {"installed": [], "available": [None]},
+                            {"installed": [], "available": [{"pluginId": vendor, "version": []}]}):
+                with self.subTest(payload=payload):
+                    def command(*cmd, **_kwargs):
+                        reply = payload if "--marketplace" in cmd else {"installed": []}
+                        return json.dumps(reply).encode()
+
+                    with patch.object(collector, "command", side_effect=command), \
+                         patch.object(collector, "capture_native", return_value=(fingerprint, native)), \
+                         patch.object(collector, "capture_publications", return_value=publications):
+                        capture = collector.capture(args)
+
+                    self.assertEqual(capture["catalogs"], [{"namespace": "openai-curated-remote", "exitCode": 2}])
+                    self.assertEqual(capture["inventory"]["current"][0]["data"], {"installed": []})
+                    self.assertEqual(capture["inventory"]["current"][1]["data"], native)
+                    self.assertEqual(capture["published"], publications)
+
     def test_optional_cli_failure_preserves_independent_evidence(self):
         owned = "one@winrecoveryproject-digital"
         native = "dev-business@workspace-directory"
@@ -39,32 +77,48 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                                             for row in (native, vendor)]), encoding="utf-8")
             args = SimpleNamespace(codex=root, marketplace=root, account="business",
                                    host="Acer", counterparts=mappings, previous=previous)
-            for response, reason in (
-                (subprocess.TimeoutExpired("codex", 30), "TIMEOUT"),
-                (subprocess.CalledProcessError(1, "codex"), "FAILED"),
-                (b'{"installed":{}}', "FAILED"),
-                (b'{"installed":[{}]}', "FAILED"),
-                (b'{"installed":[],"marketplaceLoadErrors":["incomplete"]}', "FAILED"),
-                (json.dumps(successful).encode(), None),
+            good = json.dumps(successful).encode()
+            warning = b"Warning: failed to list remote marketplace plugins: provider details"
+            for account, budget, response, full_warning, vendor_warning, reason in (
+                ("business", 110, subprocess.TimeoutExpired("codex", 110), b"", b"", "TIMEOUT"),
+                ("business", 110, subprocess.CalledProcessError(1, "codex"), b"", b"", "FAILED"),
+                ("business", 110, b'{"installed":{}}', b"", b"", "FAILED"),
+                ("business", 110, b'{"installed":[{}]}', b"", b"", "FAILED"),
+                ("business", 110, b'{"installed":[],"marketplaceLoadErrors":["incomplete"]}', b"", b"", "FAILED"),
+                ("business", 110, good, warning, b"", "FAILED"),
+                ("business", 110, good, b"", warning, None),
+                ("business", 110, good, b"Unrelated diagnostic", b"", None),
+                ("personal", 30, good, b"", b"", None),
             ):
-                with self.subTest(reason=reason):
-                    def command(*cmd):
+                args.account = account
+                active_directory = directory if account == "business" else {
+                    "marketplaces": [{"name": "created-by-me-remote", "plugins": []}], "marketplaceLoadErrors": [],
+                }
+                with self.subTest(account=account, reason=reason, warning=full_warning or vendor_warning):
+                    def run(cmd, *, timeout, stderr, **_kwargs):
+                        self.assertEqual(timeout, budget)
+                        self.assertEqual(stderr, subprocess.PIPE)
                         if "--marketplace" in cmd:
-                            return json.dumps(available).encode()
+                            return subprocess.CompletedProcess(cmd, 0, json.dumps(available).encode(), vendor_warning)
                         if isinstance(response, Exception):
                             raise response
-                        return response
+                        return subprocess.CompletedProcess(cmd, 0, response, full_warning)
 
-                    with patch.object(collector, "command", side_effect=command), \
-                         patch.object(collector, "capture_native", return_value=(fingerprint, directory)), \
+                    with patch.object(collector.subprocess, "run", side_effect=run) as run_mock, \
+                         patch.object(collector, "capture_native", return_value=(fingerprint, active_directory)) as capture_native, \
                          patch.object(collector, "capture_publications", return_value=publications):
                         capture = collector.capture(args)
 
+                    self.assertEqual(run_mock.call_count, 2)
+                    capture_native.assert_called_once_with(root, root, account, {native, vendor})
                     self.assertEqual(capture["scope"]["workspaceFingerprint"], fingerprint)
                     self.assertEqual(capture["published"], publications)
-                    self.assertEqual(capture["catalogs"][0]["data"], available)
+                    if vendor_warning:
+                        self.assertEqual(capture["catalogs"], [{"namespace": "openai-curated-remote", "exitCode": 2}])
+                    else:
+                        self.assertEqual(capture["catalogs"][0]["data"], available)
                     inventory = capture["inventory"]
-                    self.assertEqual(inventory["current"][-1]["data"], directory)
+                    self.assertEqual(inventory["current"][-1]["data"], active_directory)
                     self.assertEqual(inventory["historical"][0]["data"], {"installed": history["installed"][:1]})
                     if reason:
                         self.assertEqual(inventory["cliFailure"], reason)

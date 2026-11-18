@@ -45,14 +45,20 @@ test("missing publication URLs remain explicit errors on a candidate", () => {
   assert.equal(report.counts.warnings, 0);
 });
 
-test('own metadata links to actual repository documents without claiming public access',()=>{
- const report=validate(pluginRoot);assert.equal(report.valid,true,JSON.stringify(report.findings));
- const manifest=JSON.parse(fs.readFileSync(path.join(pluginRoot,'plugin.json'),'utf8'));
- const ui=manifest.extensions['com.openai'].interface;
- assert.equal(ui.websiteURL,'https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio');
- for(const [key,file]of [['privacyPolicyURL','PRIVACY.md'],['termsOfServiceURL','TERMS.md']]){
-  assert.equal(ui[key],ui.websiteURL+'/blob/main/'+file);assert.ok(fs.existsSync(path.join(pluginRoot,file)));
- }
+test('both manifests point to the public Marketplace listing and policy documents', () => {
+  const report = validate(pluginRoot);
+  assert.equal(report.valid, true, JSON.stringify(report.findings));
+  const portable = JSON.parse(fs.readFileSync(path.join(pluginRoot, 'plugin.json'), 'utf8'));
+  const native = JSON.parse(fs.readFileSync(path.join(pluginRoot, '.codex-plugin/plugin.json'), 'utf8'));
+  const marketplace = 'https://github.com/WinRecoveryProject/PluginMarketplace';
+  const listing = 'plugins/plugin-skill-studio';
+  for (const ui of [portable.extensions['com.openai'].interface, native.interface]) {
+    assert.equal(ui.websiteURL, marketplace + '/tree/main/' + listing);
+    for (const [key, file] of [['privacyPolicyURL', 'PRIVACY.md'], ['termsOfServiceURL', 'TERMS.md']]) {
+      assert.equal(ui[key], marketplace + '/blob/main/' + listing + '/' + file);
+      assert.ok(fs.existsSync(path.join(pluginRoot, file)));
+    }
+  }
 });
 
 test("short descriptions over 30 characters are blocking", () => {
