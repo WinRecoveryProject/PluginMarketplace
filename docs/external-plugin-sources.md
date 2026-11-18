@@ -1,5 +1,26 @@
 # External plugin sources
 
+## Versionskontrol med Studio 0.3.20
+
+Kontrollen på Acer i Personlig den 18. november 2026 afstemte 81 installerede identiteter og 33 Marketplace-kilder. Nedenstående rækker viser de otte produkter med en nyere modpart i OpenAI-kataloget.
+
+| Plugin | Git-udgave i Marketplace | OpenAI-katalog | Evidens i Personlig |
+| --- | --- | --- | --- |
+| Dropbox | `5.0.1` | `6.1.0` | Installeret |
+| GitHub | `0.1.12` | `0.1.13-77c10e110b37` | Installeret |
+| Gmail | `0.1.9` | `0.1.10` | Installeret |
+| Google Calendar | `1.2.6` | `1.2.7` | Installeret |
+| Google Drive | `0.1.15` | `0.1.26` | Installeret |
+| OpenAI Developers | `1.2.3` | `1.3.16` | Tilgængelig |
+| SharePoint | `0.1.7` | `0.1.8` | Installeret |
+| Slack | `0.1.7` | `0.1.8` | Installeret |
+
+Alle otte Marketplace-poster henter fortsat fra den officielle Git-kilde. Den offentlige standardgren var på [985fff0](https://github.com/openai/plugins/tree/985fff07dcefa03e40e8664e24363d10b2bacd44/plugins) ved kontrollen, og repositoryet publicerede ingen Git-tags. Versionsstrengen for GitHub `0.1.13-77c10e110b37` kunne ikke opløses til den tilsvarende revision i dette repository.
+
+Den offentlige [udviklingsgren for OpenAI Developers](https://github.com/openai/plugins/tree/6774981fee17d182c46e343e9cbd03dbda7a7fa6/plugins/openai-developers) deklarerer `1.3.0` med samme App- og MCP-deklarationer som `1.2.3`. Grenen er divergeret fra standardgrenen. Den verificerer udviklingsversionen `1.3.0`. Katalogversionen `1.3.16` er fortsat kun verificeret i OpenAI-kataloget.
+
+Studio sammenligner de eksakte navne og katalog-ID'er fra [modpartstabellen](catalog-counterparts.json). En opgradering af Git-posten kræver, at den relevante udgave kan hentes fra en verificeret kilde, og at den eksisterende binding er kontrolleret.
+
 ## Versionskanaler · 2026-11-18
 
 Studio 0.3.17 sammenlignede 33 Marketplace-poster med Git og så 29 installerede Marketplace-pakker med præcist versionsmatch på Acer i Business. OpenAI-kataloget viste ni nyere modparter. Otte versioner blev bekræftet fra installerede pakker i den Business-session. SharePoint 0.1.8 blev bekræftet som tilgængelig i kataloget.
