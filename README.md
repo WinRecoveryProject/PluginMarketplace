@@ -39,7 +39,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Plugin-Skill-Studio | `0.3.12` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.6` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.4` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
-| Codex Security | `0.1.32` | `codex plugin add codex-security@winrecoveryproject-digital` |
+| Codex Security | `0.1.33` | `codex plugin add codex-security@winrecoveryproject-digital` |
 | Linear | `5.0.1` | `codex plugin add linear@winrecoveryproject-digital` |
 | Codex Coordinator | `0.4.0` | `codex plugin add codex-coordinator@winrecoveryproject-digital` |
 | Codex Dev Workflows | `0.4.2` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
@@ -84,7 +84,6 @@ Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32
 - `docs/codex-mcp-config-audit-2026-10-25.md` er en historisk gennemgang af daværende runtime- og udviklingsruter. Den aktuelle Portal har ingen separat MCP-runtime; brug slutverifikationen ovenfor.
 - `docs/plugin-worklist-2026-10-25.md` fastholder hele arbejdslisten og skelner mellem Codex-kilder, referencer, kandidater, installationer og publicering.
 - `docs/external-plugin-sources.md` dokumenterer eksterne `git-subdir`-poster og bevarer den oprindelige udgiver som kilde.
-- `docs/component-boundaries.md` fastlåser forskellen mellem OneDrive-Appreferencen, den lokale MCP-runtime og CloudStorage Portal-samlepakken.
 
 ## Validering
 
@@ -98,7 +97,7 @@ Kontrollen kræver blandt andet, at `.agents/plugins/marketplace.json` er udfold
 
 ## App- og OAuth-identitet
 
-Codex App-ID'er som `asdk_app_...` og `connector_...` kommer fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er separate OAuth-identiteter. OneDrive 1.2.0 samler den eksisterende registrerede App, ikonet og to skills; den hosted MCP-server ligger bag Appen. Pakken tilføjer ikke en ekstra native MCP-klient eller et ekstra Microsoft-login. Det portable manifest er bevaret under `references/portable-plugin.json` til eksport; det må ikke skygge Desktop-manifestet i roden. CloudStorage Portal bruger den eksisterende Dropbox MCP-forbindelse og de eksisterende Google Drive- og OneDrive-App-bindinger. Marketplace-pakken samler OneDrive-skills og den registrerede App; værtens remote App-kort administrerer samme Apps kontoforbindelser. Microsoft-login og faktisk adgang til et personligt eller Entra-tilknyttet drev verificeres hver for sig.
+Codex App-ID'er som `asdk_app_...` og `connector_...` kommer fra eksisterende Codex App-bindinger. Microsoft Entra application/client-ID'er er separate OAuth-identiteter. Marketplace-pakken OneDrive 1.2.1 samler den eksisterende registrerede App, ikonet og to skills; den hosted MCP-server ligger bag Appen. Pakken tilføjer ikke en ekstra native MCP-klient eller et ekstra Microsoft-login. Det portable manifest er bevaret under `references/portable-plugin.json` til eksport; det må ikke skygge Desktop-manifestet i roden. CloudStorage Portal bruger den eksisterende Dropbox MCP-forbindelse og de eksisterende Google Drive- og OneDrive-App-bindinger. Marketplace-pakken samler OneDrive-skills og den registrerede App; værtens remote App-kort administrerer samme Apps kontoforbindelser. Microsoft-login og faktisk adgang til et personligt eller Entra-tilknyttet drev verificeres hver for sig.
 
 OneDrive-bindingen er fastholdt fra den leverede ZIP; ingen ny App-identitet er opfundet. Personlig konto og Business-workspace er forskellige adgangsområder, og tidligere testresultater skal ikke fremstilles som aktuelle livekontroller.
 
@@ -113,7 +112,7 @@ OneDrive-bindingen er fastholdt fra den leverede ZIP; ingen ny App-identitet er 
 
 ## Egne udviklingsværktøjer
 
-WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Linter er 0.1.3, og DevSuite er 0.2.1; begge har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
+WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Linter er 0.1.4, og DevSuite er 0.2.2. Begge har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
 
 [Udgivelse og testdækning](docs/product-release-20261116.md) · [Installeret plugin-gennemgang](docs/current-installed-audit-20261116.md).
 
