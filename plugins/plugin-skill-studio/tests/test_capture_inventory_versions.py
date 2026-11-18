@@ -5,6 +5,7 @@ import io
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
@@ -15,7 +16,8 @@ from urllib.error import HTTPError, URLError
 script = Path(__file__).resolve().parents[1] / "tools" / "capture-inventory-versions.py"
 spec = importlib.util.spec_from_file_location("studio_capture_inventory_versions", script)
 collector = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(collector)
+with patch.object(sys, "path", [str(script.parent), *sys.path]):
+    spec.loader.exec_module(collector)
 
 
 class CaptureInventoryVersionsTest(unittest.TestCase):
@@ -142,12 +144,78 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
         self.assertTrue(all(item.args[2] == pin for item in read.call_args_list))
 
     def test_scoped_installation_rejects_out_of_scope_or_incomplete_results(self):
-        declared={"expected":["one@winrecoveryproject-digital"]}
+        namespace = "winrecoveryproject-digital"
         for response in ({"installed":[{"pluginId":"one@other", "version":"1.0.0"}]},
                          {"installed":[], "marketplaceLoadErrors":["missing"]},
                          {"installed":[{"pluginId":"one@created-by-me-remote", "version":"1.0.0"}]}):
             with self.subTest(response=response), patch.object(collector, "command", return_value=json.dumps(response).encode()):
-                self.assertIsNone(collector.capture_marketplace_installations("codex", declared, 30))
+                self.assertIsNone(collector.capture_marketplace_installations("codex", namespace, 30))
+
+    def test_configured_fallback_keeps_each_verified_ordinary_scope(self):
+        published = {"expected": ["studio@winrecoveryproject-digital"]}
+        listed = {"marketplaces": [
+            {"name": name} for name in ("openai-bundled", "openai-curated", "ordinary-fails",
+                                         "winrecoveryproject-digital", "openai-curated-remote",
+                                         "workspace-directory", "created-by-me-remote", "--unsafe")
+        ]}
+
+        def run(_exe, *args, timeout, check_marketplace):
+            self.assertEqual(timeout, 30)
+            self.assertTrue(check_marketplace)
+            if args == ("plugin", "marketplace", "list", "--json"):
+                return json.dumps(listed).encode()
+            self.assertEqual(args[:3], ("plugin", "list", "--marketplace"))
+            self.assertEqual(args[4:], ("--json",))
+            name = args[3]
+            if name == "ordinary-fails":
+                raise subprocess.TimeoutExpired(args, 30)
+            self.assertIn(name, {"openai-bundled", "openai-curated", "winrecoveryproject-digital"})
+            rows = [] if name == "openai-curated" else [{"pluginId": "studio@" + name}]
+            return json.dumps({"installed": rows}).encode()
+
+        with patch.object(collector, "command", side_effect=run) as command:
+            snapshots = collector.capture_configured_installations("codex", published, 30)
+        self.assertEqual(command.call_count, 5)
+        self.assertEqual([row["namespace"] for row in snapshots],
+                         ["openai-bundled", "openai-curated", "winrecoveryproject-digital"])
+        self.assertEqual(snapshots[1]["data"], {"installed": []})
+
+    def test_registry_failure_keeps_published_scope_probe(self):
+        published = {"expected": ["studio@winrecoveryproject-digital"]}
+        with patch.object(collector, "command", side_effect=[subprocess.TimeoutExpired("codex", 30),
+                                                            b'{"installed":[]}']) as command:
+            snapshots = collector.capture_configured_installations("codex", published, 30)
+        self.assertEqual(command.call_count, 2)
+        self.assertEqual([row["namespace"] for row in snapshots], ["winrecoveryproject-digital"])
+
+    def test_targeted_vendor_installations_require_stable_native_account(self):
+        namespace = "openai-curated-remote"
+        plugin = "github@" + namespace
+        vendor = {"installed": [{"pluginId": plugin, "version": "1.2.3", "enabled": True, "installed": True}],
+                  "available": [{"pluginId": plugin, "version": "1.2.3"}]}
+        active = {"account": {"planType": "plus"}, "workspaceRouting": {"chatgptAccountId": "personal"}}
+        for after, expected in ((active, vendor),
+                                ({**active, "workspaceRouting": {"chatgptAccountId": "different"}}, None),
+                                ({**active, "account": {"planType": "business"}}, None)):
+            with self.subTest(after=after):
+                responses = [{}, active, {"marketplaces": [{"name": "created-by-me-remote", "plugins": []}]}, after]
+                process = SimpleNamespace(stdin=io.BytesIO(), stdout=[
+                    json.dumps({"id": key, "result": data}).encode() + b"\n"
+                    for key, data in enumerate(responses)
+                ], poll=lambda: 0, wait=lambda **_kwargs: 0)
+                with patch.object(collector.subprocess, "Popen", return_value=process):
+                    fingerprint, native, result = collector.capture_native(
+                        "codex", Path("workspace"), "personal", {plugin}, lambda _send: vendor)
+                self.assertEqual(result, expected)
+                if expected:
+                    self.assertTrue(fingerprint)
+                    self.assertEqual(native["marketplaces"][-1],
+                        {"name": namespace, "targeted": True, "plugins": [{
+                            "id": plugin, "localVersion": "1.2.3", "installed": True, "enabled": True,
+                        }]})
+                else:
+                    self.assertIsNone(fingerprint)
+                    self.assertEqual(native["marketplaces"], [])
 
     def test_non_plugin_commands_keep_default_budget(self):
         result = subprocess.CompletedProcess(["git", "status"], 0, stdout=b"clean")
@@ -178,7 +246,7 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                         return json.dumps(reply).encode()
 
                     with patch.object(collector, "command", side_effect=command), \
-                         patch.object(collector, "capture_native", return_value=(fingerprint, native)), \
+                         patch.object(collector, "capture_native", return_value=(fingerprint, native, None)), \
                          patch.object(collector, "capture_publications", return_value=publications):
                         capture = collector.capture(args)
 
@@ -232,6 +300,8 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                     def run(cmd, *, timeout, stderr, **_kwargs):
                         self.assertEqual(timeout, budget)
                         self.assertEqual(stderr, subprocess.PIPE)
+                        if cmd[1:] == ["plugin", "marketplace", "list", "--json"]:
+                            return subprocess.CompletedProcess(cmd, 0, b'{"marketplaces":[]}', b"")
                         if "--marketplace" in cmd:
                             if cmd[cmd.index("--marketplace") + 1] == "winrecoveryproject-digital":
                                 self.assertNotIn("--available", cmd)
@@ -242,12 +312,13 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                         return subprocess.CompletedProcess(cmd, 0, response, full_warning)
 
                     with patch.object(collector.subprocess, "run", side_effect=run) as run_mock, \
-                         patch.object(collector, "capture_native", return_value=(fingerprint, active_directory)) as capture_native, \
+                         patch.object(collector, "capture_native", return_value=(fingerprint, active_directory, None)) as capture_native, \
                          patch.object(collector, "capture_publications", return_value=publications):
                         capture = collector.capture(args)
 
-                    self.assertEqual(run_mock.call_count, 3 if reason else 2)
-                    capture_native.assert_called_once_with(root, root, account, {native, vendor})
+                    self.assertEqual(run_mock.call_count, 4 if reason else 2)
+                    self.assertEqual(capture_native.call_args.args[:4], (root, root, account, {native, vendor}))
+                    self.assertTrue(callable(capture_native.call_args.args[4]))
                     self.assertEqual(capture["scope"]["workspaceFingerprint"], fingerprint)
                     self.assertEqual(capture["published"], publications)
                     if vendor_warning:

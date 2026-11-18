@@ -354,3 +354,35 @@ test('scoped CLI snapshots reject a record from a different namespace', () => {
     namespace: 'winrecoveryproject-digital', data: { installed: [{ pluginId: peer, version: '6.1.0' }] } };
   assert.throws(() => auditInventoryVersions(input), /scoped CLI namespace/);
 });
+
+test('targeted vendor lookups retain exact installations and keep the broad gap', () => {
+  const input = fixture();
+  const namespace = 'winrecoveryproject-digital';
+  const vendor = 'openai-curated-remote';
+  const unknown = 'unobserved@' + vendor;
+  input.scope.workspaceFingerprint = 'b'.repeat(64);
+  input.inventory.current[0] = { ...input.inventory.current[0], kind: 'scoped-cli', namespace };
+  input.inventory.cliFailure = 'TIMEOUT';
+  input.inventory.current[1].data.marketplaces.push({ name: vendor, targeted: true, plugins: [
+    { id: peer, installed: true, localVersion: '6.1.0', enabled: true },
+    { id: 'different@other', installed: true, localVersion: '9.0.0', enabled: true },
+  ] });
+  input.counterparts.push({ publishedId: owned, catalogId: unknown });
+  input.catalogs[0].scope = 'targeted';
+  input.catalogs[0].data.installed.push({ pluginId: peer, version: '6.1.0' });
+  const report = auditInventoryVersions(input);
+  assert.equal(report.status, 'INCOMPLETE');
+  assert.equal(report.installedPluginIdentities, 2);
+  assert.equal(report.outsidePublication.find(row => row.id === peer).versions[0], '6.1.0');
+  const known = report.counterparts.find(row => row.catalogId === peer);
+  assert.equal(known.installedVersion, '6.1.0');
+  assert.equal(known.availableVersion, '6.1.0');
+  assert.equal(known.observationScope, 'TARGETED_VENDOR');
+  assert.equal(report.counterparts.find(row => row.catalogId === unknown).comparison, 'UNKNOWN');
+  assert.ok(report.gaps.some(gap => gap.code === 'CATALOG_UNAVAILABLE' && gap.namespace === vendor));
+
+  delete input.scope.workspaceFingerprint;
+  const unattested = auditInventoryVersions(input);
+  assert.equal(unattested.installedPluginIdentities, 1);
+  assert.equal(unattested.counterparts.find(row => row.catalogId === peer).comparison, 'UNKNOWN');
+});

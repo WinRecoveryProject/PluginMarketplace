@@ -2,6 +2,7 @@ import { reconcileInstalledInventories } from './installed-inventory.mjs';
 
 const nativeNamespaces = { personal: 'created-by-me-remote', business: 'workspace-directory' };
 const nativeNames = new Set(Object.values(nativeNamespaces));
+const curatedMarketplace = 'openai-curated-remote';
 const namespaceOf = value => typeof value === 'string' ? value.split('@')[1] : null;
 
 function isNativeNamespace(value) {
@@ -119,7 +120,9 @@ function scopedInventory(inventory, namespace, attested, gaps) {
     }
     const data = snapshot.data;
     if (snapshot.kind !== 'catalog' || !Array.isArray(data?.marketplaces)) return snapshot;
-    const scoped = data.marketplaces.filter(section => !isNativeNamespace(section.name) || section.name === namespace);
+    const scoped = data.marketplaces.filter(section =>
+      (section.targeted !== true || (attested && section.name === curatedMarketplace)) &&
+      (!isNativeNamespace(section.name) || section.name === namespace));
     const invalidNativeState = scoped.some(section => section.name === namespace && section.plugins?.some(row =>
       namespaceOf(row?.id) === namespace && typeof row.installed !== 'boolean'));
     const marketplaceLoadErrors = invalidNativeState ? [
@@ -131,6 +134,7 @@ function scopedInventory(inventory, namespace, attested, gaps) {
       ...section,
       plugins: section.plugins?.filter(row => {
         const observed = namespaceOf(row.id);
+        if (section.targeted === true) return observed === section.name && row.installed === true;
         return !isNativeNamespace(observed) || (nativeRowsVerified && observed === section.name);
       }),
     }));
@@ -155,7 +159,7 @@ function nativeCounterpartRows(sections, namespace, wanted) {
   return { namespace, exitCode: 0, data };
 }
 
-function catalogRows(snapshots, wanted, gaps) {
+function catalogRows(snapshots, wanted, gaps, attested) {
   const records = new Map();
   const seenNamespaces = new Set();
   for (const snapshot of snapshots) {
@@ -163,14 +167,15 @@ function catalogRows(snapshots, wanted, gaps) {
       /^[a-z0-9][a-z0-9._-]{0,100}$/i.test(snapshot.namespace), 'catalog namespace');
     check(namespace, !seenNamespaces.has(namespace), 'unique catalog namespace');
     seenNamespaces.add(namespace);
-    if (snapshot.exitCode !== 0 || snapshot.data?.marketplaceLoadErrors?.length || !Array.isArray(snapshot.data?.available) || !Array.isArray(snapshot.data?.installed)) {
-      gaps.push({ code: 'CATALOG_UNAVAILABLE', namespace });
-      continue;
-    }
+    const targeted = snapshot.scope === 'targeted';
+    const usable = snapshot.exitCode === 0 && !snapshot.data?.marketplaceLoadErrors?.length &&
+      Array.isArray(snapshot.data?.available) && Array.isArray(snapshot.data?.installed);
+    if (!usable || targeted) gaps.push({ code: 'CATALOG_UNAVAILABLE', namespace });
+    if (!usable || (targeted && (!attested || namespace !== curatedMarketplace))) continue;
     for (const kind of ['installed', 'available']) {
       for (const row of list(snapshot.data[kind], 20000, 'catalog records')) {
         if (!wanted.has(row?.pluginId) || !row.pluginId.endsWith('@' + namespace)) continue;
-        const versions = records.get(row.pluginId) ?? { installed: new Set(), available: new Set() };
+        const versions = records.get(row.pluginId) ?? { installed: new Set(), available: new Set(), targeted };
         versions[kind].add(release(row.version));
         records.set(row.pluginId, versions);
       }
@@ -194,6 +199,7 @@ function assessCounterpart(pair, catalog, published, gaps) {
   return {
     publishedId, catalogId, installedVersion, availableVersion, installedComparison, availableComparison,
     evidence: availableVersion ? 'AVAILABLE_RELEASE' : 'INSTALLED_RELEASE',
+    ...(observed.targeted ? { observationScope: 'TARGETED_VENDOR' } : {}),
     comparison: availableVersion ? availableComparison : installedComparison,
   };
 }
@@ -247,7 +253,7 @@ export function auditInventoryVersions(input) {
   } else if (nativeObserved && [...wanted].some(key => namespaceOf(key) === nativeNamespace)) {
     gaps.push({ code: 'NATIVE_SCOPE_UNATTESTED', namespace: nativeNamespace });
   }
-  const catalog = catalogRows(catalogs, wanted, gaps);
+  const catalog = catalogRows(catalogs, wanted, gaps, workspaceFingerprint !== null);
   const installed = new Map(reconciled.plugins.map(row => [row.id, row]));
   const plugins = [...expected].sort().map(key => {
     const source = published.get(key) ?? null;

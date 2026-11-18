@@ -17,6 +17,8 @@ import time
 from urllib.error import HTTPError, URLError
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
+from native_vendor_evidence import capture_vendor_details
+
 GITHUB = re.compile(r"https://github\.com/([\w.-]+)/([\w.-]+?)(?:\.git)?$", re.ASCII)
 IDENTITY = re.compile(r"[\da-z][\da-z._-]*@[\da-z][\da-z._-]*$", re.ASCII | re.I)
 VERSION = re.compile(r"[a-z0-9][a-z0-9.+_-]{0,127}", re.ASCII | re.I)
@@ -24,6 +26,9 @@ COMPONENT = re.compile(r"[\da-z_.-]+$", re.ASCII | re.I)
 REVISION = re.compile(r"[\da-f]{40}$", re.ASCII)
 MANIFESTS = (".codex-plugin/plugin.json", "plugin.json")
 NATIVE_NAMESPACES = {"personal": "created-by-me-remote", "business": "workspace-directory"}
+SCOPED_MARKETPLACE_NAME = re.compile(r"[a-z0-9][a-z0-9._-]{0,100}", re.I | re.ASCII)
+CURATED_MARKETPLACE = "openai-curated-remote"
+REMOTE_MARKETPLACE_NAMES = {*NATIVE_NAMESPACES.values(), CURATED_MARKETPLACE}
 ENV = {**os.environ, "GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "Never"}
 COMMAND_TIMEOUT = 30
 BUSINESS_PLUGIN_TIMEOUT = 110
@@ -213,7 +218,7 @@ def identity_namespace(identity):
     return identity.rpartition("@")[2] if isinstance(identity, str) else ""
 
 
-def capture_native(codex, root, account, wanted):
+def capture_native(codex, root, account, wanted, vendor_probe=None):
     process = subprocess.Popen([str(codex), "app-server", "--stdio"], stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, env=ENV)
     messages = queue.Queue()
@@ -260,23 +265,32 @@ def capture_native(codex, root, account, wanted):
         if plan not in (business if account == "business" else personal):
             raise ValueError("Active scope is different or unknown")
         required = NATIVE_NAMESPACES[account]
-        result = send("plugin/list", 2, {"cwds": [str(root)], "marketplaceKinds": [required], "forceRefetch": True})
+        sections = []
+        native_errors = []
+        try:
+            result = send("plugin/list", 2, {"cwds": [str(root)], "marketplaceKinds": [required], "forceRefetch": True})
+            sections = [row for row in result["marketplaces"] if row.get("name") == required]
+            if not sections or result.get("marketplaceLoadErrors"):
+                native_errors.append("Native catalog load error")
+        except (queue.Empty, KeyError, TypeError, ValueError, OSError):
+            native_errors.append("Active native catalog unavailable")
+        vendor = vendor_probe(send) if vendor_probe else None
         after = send("account/read", 3, {"refreshToken": False})
-        if after["workspaceRouting"]["chatgptAccountId"] != workspace:
-            raise ValueError("Native workspace changed during capture")
-        sections = [row for row in result["marketplaces"] if row.get("name") == required]
-        if not sections:
-            raise ValueError("Native workspace directory not observed")
+        if after["workspaceRouting"]["chatgptAccountId"] != workspace or after["account"]["planType"] != plan:
+            raise ValueError("Native account scope changed during capture")
+        observed = [{"name": section["name"],
+                     "plugins": [{key: row.get(key) for key in ("id", "version", "localVersion", "installed", "enabled")}
+                                 for row in section["plugins"] if row.get("installed") is True or row.get("id") in wanted]}
+                    for section in sections]
+        if vendor and vendor["installed"]:
+            observed.append({"name": CURATED_MARKETPLACE, "targeted": True,
+                             "plugins": [{"id": row["pluginId"], "localVersion": row["version"],
+                                          "installed": True, "enabled": row["enabled"]}
+                                         for row in vendor["installed"]]})
         fingerprint = hashlib.sha256(("studio-inventory:" + workspace).encode("utf-8")).hexdigest()
-        return fingerprint, {
-            "marketplaces": [{"name": section["name"],
-                 "plugins": [{key: row.get(key) for key in ("id", "version", "localVersion", "installed", "enabled")}
-                             for row in section["plugins"] if row.get("installed") is True or row.get("id") in wanted]}
-                             for section in sections],
-            "marketplaceLoadErrors": ["Native catalog load error"] if result.get("marketplaceLoadErrors") else [],
-        }
+        return fingerprint, {"marketplaces": observed, "marketplaceLoadErrors": native_errors}, vendor
     except (queue.Empty, KeyError, TypeError, ValueError, OSError):
-        return None, {"marketplaces": [], "marketplaceLoadErrors": ["Active native catalog unavailable"]}
+        return None, {"marketplaces": [], "marketplaceLoadErrors": ["Active native catalog unavailable"]}, None
     finally:
         if process.poll() is None:
             process.terminate()
@@ -311,13 +325,7 @@ def validated_cli_installations(data):
     return installed
 
 
-def capture_marketplace_installations(codex, publication, timeout):
-    namespaces = {identity_namespace(value) for value in publication["expected"]}
-    if len(namespaces) != 1:
-        return None
-    namespace, = namespaces
-    if not re.fullmatch(r"[a-z0-9][a-z0-9._-]{0,100}", namespace, re.I | re.ASCII) or is_native_namespace(namespace):
-        return None
+def capture_marketplace_installations(codex, namespace, timeout):
     try:
         data = json.loads(command(codex, "plugin", "list", "--marketplace", namespace, "--json",
                                   timeout=timeout, check_marketplace=True))
@@ -329,6 +337,28 @@ def capture_marketplace_installations(codex, publication, timeout):
         return None
     return {"label": "Marketplace CLI: " + namespace, "kind": "scoped-cli",
             "namespace": namespace, "data": installed}
+
+def capture_configured_installations(codex, publication, timeout):
+    published = {identity_namespace(value) for value in publication["expected"]}
+    configured = set()
+    try:
+        registry = json.loads(command(codex, "plugin", "marketplace", "list", "--json",
+                                      timeout=timeout, check_marketplace=True))
+        rows = registry["marketplaces"]
+        if isinstance(rows, list) and len(rows) <= 99:
+            configured = {row["name"] for row in rows if isinstance(row, dict)
+                          and isinstance(row.get("name"), str)}
+    except (KeyError, TypeError, ValueError, OSError, subprocess.SubprocessError):
+        pass
+    names = sorted(name for name in configured | published if SCOPED_MARKETPLACE_NAME.fullmatch(name)
+                   and name.lower() not in REMOTE_MARKETPLACE_NAMES)
+    # One slot in the reconciliation input is reserved for the native catalog.
+    if len(names) > 99:
+        names = sorted(published & set(names))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        snapshots = pool.map(lambda name: capture_marketplace_installations(codex, name, timeout), names)
+        return [snapshot for snapshot in snapshots if snapshot is not None]
+
 
 def capture(args):
     codex, root = args.codex.resolve(strict=True), args.marketplace.resolve(strict=True)
@@ -378,9 +408,17 @@ def capture(args):
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         cli = pool.submit(command, codex, "plugin", "list", "--json",
                           timeout=plugin_timeout, check_marketplace=True)
-        native = pool.submit(capture_native, codex, root, args.account, wanted)
         published = pool.submit(capture_publications, root)
-        catalogs = list(pool.map(provider, scopes))
+        curated = pool.submit(provider, CURATED_MARKETPLACE) if CURATED_MARKETPLACE in scopes else None
+
+        def recover_vendor(send):
+            if curated.result()["exitCode"] == 0:
+                return None
+            return capture_vendor_details(send, counterpart)
+
+        native = pool.submit(capture_native, codex, root, args.account, wanted, recover_vendor if curated else None)
+        providers = [curated if scope == CURATED_MARKETPLACE else pool.submit(provider, scope) for scope in scopes]
+        catalogs = [query.result() for query in providers]
     current = []
     cli_failure = None
     try:
@@ -394,13 +432,17 @@ def capture(args):
         current.append({"label": "CLI", "kind": "cli", "data": installed})
     publication = published.result()
     if cli_failure:
-        scoped = capture_marketplace_installations(codex, publication, plugin_timeout)
-        if scoped is not None:
-            current.append(scoped)
+        current.extend(capture_configured_installations(codex, publication, plugin_timeout))
     history = [] if not args.previous else [{"label": "previous", "kind": "historical",
         "data": observed_installations(json.loads(args.previous.read_text(encoding="utf-8-sig")))}]
-    workspace_fingerprint, catalog = native.result()
+    workspace_fingerprint, catalog, recovered_vendor = native.result()
     current.append({"label": "Native", "kind": "catalog", "data": catalog})
+    if recovered_vendor and (recovered_vendor["installed"] or recovered_vendor["available"]):
+        catalogs = [
+            {"namespace": row["namespace"], "exitCode": 0, "scope": "targeted", "data": recovered_vendor}
+            if row["namespace"] == CURATED_MARKETPLACE and row["exitCode"] != 0 else row
+            for row in catalogs
+        ]
     inventory = {"current": current, "historical": history}
     if cli_failure:
         inventory["cliFailure"] = cli_failure
