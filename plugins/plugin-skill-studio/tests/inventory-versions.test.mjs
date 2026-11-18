@@ -325,3 +325,32 @@ test('CLI distinguishes verified same-ID drift from incomplete observations', as
     await rm(folder, { recursive: true, force: true });
   }
 });
+
+
+test('scoped CLI evidence retains a version match without claiming a full inventory', () => {
+  const input = fixture();
+  const namespace = 'winrecoveryproject-digital';
+  const missing = 'unobserved@' + namespace;
+  input.inventory.current[0] = { ...input.inventory.current[0], kind: 'scoped-cli', namespace };
+  input.inventory.cliFailure = 'TIMEOUT';
+  input.inventory.historical = [{ kind: 'historical', label: 'previous', data: {
+    installed: [{ pluginId: missing, version: '1.0.0' }, { pluginId: peer, version: '6.0.0' }],
+  } }];
+  input.published.expected.push(missing);
+  input.published.entries.push({ ...input.published.entries[0], id: missing });
+  const report = auditInventoryVersions(input);
+  assert.equal(report.status, 'INCOMPLETE');
+  assert.equal(report.exitCode, 2);
+  assert.deepEqual(report.scopedCliNamespaces, [namespace]);
+  assert.equal(report.plugins.find(row => row.id === owned).comparison, 'EXACT');
+  assert.equal(report.plugins.find(row => row.id === missing).installation, 'UNKNOWN');
+  assert.deepEqual(report.history.snapshots[0].deltas.map(row => row.status),
+    ['HISTORICAL_ID_UNVERIFIED', 'HISTORICAL_ID_UNVERIFIED']);
+});
+
+test('scoped CLI snapshots reject a record from a different namespace', () => {
+  const input = fixture();
+  input.inventory.current[0] = { ...input.inventory.current[0], kind: 'scoped-cli',
+    namespace: 'winrecoveryproject-digital', data: { installed: [{ pluginId: peer, version: '6.1.0' }] } };
+  assert.throws(() => auditInventoryVersions(input), /scoped CLI namespace/);
+});
