@@ -3,7 +3,7 @@ const ID=/^[a-z0-9][a-z0-9._-]*@[a-z0-9][a-z0-9._-]*$/i;
 function text(value,label){if(typeof value!=='string'||!value.trim()||value.length>256)throw Error('Invalid '+label);return value;}
 function records(snapshot){
  const {kind,data}=snapshot;
- if(kind==='cli'||kind==='historical'){
+ if(kind==='cli'||kind==='scoped-cli'||kind==='historical'){
   const list=data?.installed??data?.plugins;
   if(!Array.isArray(list))throw Error('Expected an installed plugin list');
   return list.filter(p=>p.installed!==false).map(p=>({id:p.pluginId,version:p.version,enabled:p.enabled}));
@@ -16,7 +16,10 @@ function records(snapshot){
 }
 function normalize(snapshot){
  text(snapshot.label,'snapshot label');
+ const scoped=snapshot.kind==='scoped-cli';
+ if(scoped&&(!snapshot.namespace||typeof snapshot.namespace!=='string'||!/^[a-z0-9][a-z0-9._-]{0,100}$/i.test(snapshot.namespace)))throw Error('Invalid scoped CLI namespace');
  return records(snapshot).map(r=>{
+  if(scoped&&!(typeof r.id==='string'&&r.id.endsWith('@'+snapshot.namespace)))throw Error('Record outside scoped CLI namespace');
   if(typeof r.id!=='string'||!ID.test(r.id))throw Error('Expected an exact name@marketplace plugin identity');
   if(r.version!=null)text(r.version,'installed version');
   if(r.enabled!=null&&typeof r.enabled!=='boolean')throw Error('Invalid enabled state');
@@ -28,7 +31,7 @@ export function reconcileInstalledInventories(input){
  const current=new Map(),sources=[],incomplete=[];
  let hasCli=false,hasCatalog=false;
  for(const snapshot of input.current){
-  if(!['cli','catalog'].includes(snapshot.kind))throw Error('Current snapshots must be cli or catalog');
+  if(!['cli','scoped-cli','catalog'].includes(snapshot.kind))throw Error('Current snapshots must be cli, scoped-cli or catalog');
   hasCli ||= snapshot.kind==='cli';hasCatalog ||= snapshot.kind==='catalog';
   const rows=normalize(snapshot);if(rows.length>20000)throw Error('Inventory member limit exceeded');
   if(snapshot.data.marketplaceLoadErrors?.length)incomplete.push('Catalog load errors: '+snapshot.label);
@@ -37,7 +40,8 @@ export function reconcileInstalledInventories(input){
    unique.add(row.id);if(!current.has(row.id))current.set(row.id,{id:row.id,observations:[]});
    current.get(row.id).observations.push({source:snapshot.label,kind:snapshot.kind,...row});
   }
-  sources.push({label:snapshot.label,kind:snapshot.kind,installedIdentities:unique.size});
+  sources.push({label:snapshot.label,kind:snapshot.kind,installedIdentities:unique.size,
+    ...(snapshot.kind==='scoped-cli'?{namespace:snapshot.namespace}:{})});
  }
  if(!hasCli)incomplete.push('Full CLI installed list missing; catalog slices alone are incomplete');
  if(!hasCatalog)incomplete.push('Native remote installed catalog missing; CLI alone can omit personal remote packages');
@@ -50,10 +54,11 @@ export function reconcileInstalledInventories(input){
  });
  const historical=input.historical??[];
  if(!Array.isArray(historical)||historical.length>100)throw Error('Invalid historical inventories');
+ const absentStatus=!hasCli&&input.current.some(snapshot=>snapshot.kind==='scoped-cli')?'HISTORICAL_ID_UNVERIFIED':'HISTORICAL_ID_ABSENT';
  const comparisons=historical.map(snapshot=>{
   if(snapshot.kind!=='historical')throw Error('History must be explicitly identified');
   const rows=normalize(snapshot),unique=new Map(rows.map(r=>[r.id,r]));
-  const deltas=[...unique.values()].map(r=>({id:r.id,previousVersion:r.version,status:!current.has(r.id)?'HISTORICAL_ID_ABSENT':current.get(r.id).observations.some(o=>o.version===r.version)?'PRESENT':'PRESENT_VERSION_CHANGED'}));
+  const deltas=[...unique.values()].map(r=>({id:r.id,previousVersion:r.version,status:!current.has(r.id)?absentStatus:current.get(r.id).observations.some(o=>o.version===r.version)?'PRESENT':'PRESENT_VERSION_CHANGED'}));
   return {label:snapshot.label,previousInstalledIdentities:unique.size,deltas};
  });
  const appIds=input.apps?.apps?.map(a=>text(a.id,'App identity'))??null;

@@ -113,6 +113,10 @@ function scopedInventory(inventory, namespace, attested, gaps) {
     if (snapshot.kind === 'cli') {
       return filterInstallationSnapshot(snapshot, value => !isNativeNamespace(value));
     }
+    if (snapshot.kind === 'scoped-cli') {
+      check(snapshot.namespace, !isNativeNamespace(snapshot.namespace), 'scoped CLI namespace');
+      return snapshot;
+    }
     const data = snapshot.data;
     if (snapshot.kind !== 'catalog' || !Array.isArray(data?.marketplaces)) return snapshot;
     const scoped = data.marketplaces.filter(section => !isNativeNamespace(section.name) || section.name === namespace);
@@ -272,8 +276,10 @@ export function auditInventoryVersions(input) {
       const previousIds = new Set(snapshot.deltas.map(row => row.id));
       const deltas = snapshot.deltas.map(row => {
         const coverage = isNativeNamespace(namespaceOf(row.id)) ? nativeAttested : fullCliObserved;
-        return !coverage && row.status === 'HISTORICAL_ID_ABSENT' ?
-          { ...row, status: 'HISTORICAL_ID_UNVERIFIED' } : row;
+        if (row.status === 'HISTORICAL_ID_ABSENT' || row.status === 'HISTORICAL_ID_UNVERIFIED') {
+          return { ...row, status: coverage ? 'HISTORICAL_ID_ABSENT' : 'HISTORICAL_ID_UNVERIFIED' };
+        }
+        return row;
       });
       const newlyObserved = [...installed.keys()].filter(key => !previousIds.has(key) && !isNativeNamespace(namespaceOf(key)));
       return { ...snapshot, deltas, newlyObserved };
@@ -285,6 +291,7 @@ export function auditInventoryVersions(input) {
     exitCode: gaps.length ? 2 : drift ? 1 : 0,
     scope: { host, account, observedAt, workspaceFingerprint }, installedPluginIdentities: reconciled.installedPluginIdentities,
     publicationsExpected: expected.size, sameIdentityDrift: drift, plugins, counterparts, gaps,
+    scopedCliNamespaces: [...new Set(reconciled.sources.filter(row => row.kind === 'scoped-cli').map(row => row.namespace))],
     history, outsidePublication,
     limitation: 'Cross-catalog rows compare explicitly related products. They do not establish identity, replacement eligibility, account access or permission to install.',
   };

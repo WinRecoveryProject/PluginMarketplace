@@ -282,6 +282,40 @@ def observed_installations(data):
                           and not is_native_namespace(identity_namespace(row.get("pluginId")))]}
 
 
+def validated_cli_installations(data):
+    installed = observed_installations(data)
+    if data.get("marketplaceLoadErrors") or len(installed["installed"]) > 20000:
+        raise ValueError("Incomplete installed CLI listing")
+    for row in installed["installed"]:
+        plugin_id, version = row["pluginId"], row["version"]
+        if not isinstance(plugin_id, str) or not IDENTITY.fullmatch(plugin_id):
+            raise ValueError("Invalid installed CLI identity")
+        if version is not None and (not isinstance(version, str) or not VERSION.fullmatch(version)):
+            raise ValueError("Invalid installed CLI version")
+        if any(row[key] is not None and not isinstance(row[key], bool) for key in ("enabled", "installed")):
+            raise ValueError("Invalid installed CLI state")
+    return installed
+
+
+def capture_marketplace_installations(codex, publication, timeout):
+    namespaces = {identity_namespace(value) for value in publication["expected"]}
+    if len(namespaces) != 1:
+        return None
+    namespace, = namespaces
+    if not re.fullmatch(r"[a-z0-9][a-z0-9._-]{0,100}", namespace, re.I | re.ASCII) or is_native_namespace(namespace):
+        return None
+    try:
+        data = json.loads(command(codex, "plugin", "list", "--marketplace", namespace, "--json",
+                                  timeout=timeout, check_marketplace=True))
+        # Check the raw rows before normalization removes native entries.
+        if any(identity_namespace(row.get("pluginId")) != namespace for row in data["installed"]):
+            raise ValueError("Unexpected row outside selected Marketplace")
+        installed = validated_cli_installations(data)
+    except (AttributeError, KeyError, TypeError, ValueError, OSError, subprocess.SubprocessError):
+        return None
+    return {"label": "Marketplace CLI: " + namespace, "kind": "scoped-cli",
+            "namespace": namespace, "data": installed}
+
 def capture(args):
     codex, root = args.codex.resolve(strict=True), args.marketplace.resolve(strict=True)
     counterpart = json.loads(args.counterparts.read_text(encoding="utf-8-sig")) if args.counterparts else []
@@ -337,23 +371,18 @@ def capture(args):
     cli_failure = None
     try:
         data = json.loads(cli.result())
-        installed = observed_installations(data)
-        if data.get("marketplaceLoadErrors") or len(installed["installed"]) > 20000:
-            raise ValueError("Incomplete installed CLI listing")
-        for row in installed["installed"]:
-            plugin_id, version = row["pluginId"], row["version"]
-            if not isinstance(plugin_id, str) or not IDENTITY.fullmatch(plugin_id):
-                raise ValueError("Invalid installed CLI identity")
-            if version is not None and (not isinstance(version, str) or not VERSION.fullmatch(version)):
-                raise ValueError("Invalid installed CLI version")
-            if any(row[key] is not None and not isinstance(row[key], bool) for key in ("enabled", "installed")):
-                raise ValueError("Invalid installed CLI state")
+        installed = validated_cli_installations(data)
     except subprocess.TimeoutExpired:
         cli_failure = "TIMEOUT"
     except (KeyError, TypeError, ValueError, OSError, subprocess.SubprocessError):
         cli_failure = "FAILED"
     else:
         current.append({"label": "CLI", "kind": "cli", "data": installed})
+    publication = published.result()
+    if cli_failure:
+        scoped = capture_marketplace_installations(codex, publication, plugin_timeout)
+        if scoped is not None:
+            current.append(scoped)
     history = [] if not args.previous else [{"label": "previous", "kind": "historical",
         "data": observed_installations(json.loads(args.previous.read_text(encoding="utf-8-sig")))}]
     workspace_fingerprint, catalog = native.result()
@@ -365,7 +394,7 @@ def capture(args):
               "workspaceFingerprint": workspace_fingerprint,
               "observedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")},
               "inventory": inventory,
-              "published": published.result(), "catalogs": catalogs, "counterparts": counterpart}
+              "published": publication, "catalogs": catalogs, "counterparts": counterpart}
     return report
 
 

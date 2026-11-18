@@ -88,6 +88,14 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                     collector.remote_manifest_bytes("openai", "plugins", "a" * 40, "plugin.json")
                 self.assertEqual(get.call_count, 1)
 
+    def test_scoped_installation_rejects_out_of_scope_or_incomplete_results(self):
+        declared={"expected":["one@winrecoveryproject-digital"]}
+        for response in ({"installed":[{"pluginId":"one@other", "version":"1.0.0"}]},
+                         {"installed":[], "marketplaceLoadErrors":["missing"]},
+                         {"installed":[{"pluginId":"one@created-by-me-remote", "version":"1.0.0"}]}):
+            with self.subTest(response=response), patch.object(collector, "command", return_value=json.dumps(response).encode()):
+                self.assertIsNone(collector.capture_marketplace_installations("codex", declared, 30))
+
     def test_non_plugin_commands_keep_default_budget(self):
         result = subprocess.CompletedProcess(["git", "status"], 0, stdout=b"clean")
         with patch.object(collector.subprocess, "run", return_value=result) as run:
@@ -172,6 +180,9 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                         self.assertEqual(timeout, budget)
                         self.assertEqual(stderr, subprocess.PIPE)
                         if "--marketplace" in cmd:
+                            if cmd[cmd.index("--marketplace") + 1] == "winrecoveryproject-digital":
+                                self.assertNotIn("--available", cmd)
+                                return subprocess.CompletedProcess(cmd, 0, good, b"")
                             return subprocess.CompletedProcess(cmd, 0, json.dumps(available).encode(), vendor_warning)
                         if isinstance(response, Exception):
                             raise response
@@ -182,7 +193,7 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                          patch.object(collector, "capture_publications", return_value=publications):
                         capture = collector.capture(args)
 
-                    self.assertEqual(run_mock.call_count, 2)
+                    self.assertEqual(run_mock.call_count, 3 if reason else 2)
                     capture_native.assert_called_once_with(root, root, account, {native, vendor})
                     self.assertEqual(capture["scope"]["workspaceFingerprint"], fingerprint)
                     self.assertEqual(capture["published"], publications)
@@ -195,7 +206,9 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                     self.assertEqual(inventory["historical"][0]["data"], {"installed": history["installed"][:1]})
                     if reason:
                         self.assertEqual(inventory["cliFailure"], reason)
-                        self.assertEqual([row["kind"] for row in inventory["current"]], ["catalog"])
+                        self.assertEqual([row["kind"] for row in inventory["current"]], ["scoped-cli", "catalog"])
+                        self.assertEqual(inventory["current"][0]["namespace"], "winrecoveryproject-digital")
+                        self.assertEqual(inventory["current"][0]["data"], successful)
                     else:
                         self.assertNotIn("cliFailure", inventory)
                         self.assertEqual(inventory["current"][0]["data"], successful)
