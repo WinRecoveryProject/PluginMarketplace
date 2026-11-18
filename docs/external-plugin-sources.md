@@ -2,20 +2,25 @@
 
 ## Versionskanaler · 2026-11-18
 
-Kontrollen sammenlignede 33 Marketplace-poster med de respektive Git-manifester på de aktuelle revisionsnumre. Alle 29 installerede poster med identiteten `@winrecoveryproject-digital` matchede deres Git-kilde. Seks separat installerede udgaver fra `openai-curated-remote` havde nyere versioner end de tilsvarende offentlige Git-pakker.
+Kontrollen sammenlignede 33 Marketplace-poster med de respektive Git-manifester på de aktuelle revisionsnumre. Alle 29 installerede poster med identiteten `@winrecoveryproject-digital` matchede deres Git-kilde. OpenAIs katalog viste ni nyere udgaver. Seks var installeret på kontrolmaskinen, og tre stod som tilgængelige.
 
-| Plugin | Git-kilde i WinRecoveryProject Digital | Installeret via OpenAI-kataloget |
-| --- | --- | --- |
-| Vercel | `0.21.4` | `0.54.1` |
-| Google Drive | `0.1.15` | `0.1.26` |
-| Dropbox | `5.0.1` | `6.1.0` |
-| Gmail | `0.1.9` | `0.1.10` |
-| Google Calendar | `1.2.6` | `1.2.7` |
-| Slack | `0.1.7` | `0.1.8` |
+| Plugin | Git-kilde i WinRecoveryProject Digital | OpenAI-katalog | Status på kontrolmaskinen |
+| --- | --- | --- | --- |
+| SharePoint | `0.1.7` | `0.1.8` | Tilgængelig |
+| Vercel | `0.21.4` | `0.54.1` | Installeret |
+| GitHub | `0.1.12` | `0.1.13-77c10e110b37` | Tilgængelig |
+| Google Drive | `0.1.15` | `0.1.26` | Installeret |
+| OpenAI Developers | `1.2.3` | `1.3.16` | Tilgængelig |
+| Dropbox | `5.0.1` | `6.1.0` | Installeret |
+| Gmail | `0.1.9` | `0.1.10` | Installeret |
+| Google Calendar | `1.2.6` | `1.2.7` | Installeret |
+| Slack | `0.1.7` | `0.1.8` | Installeret |
+
+Katalogopslaget brugte `codex plugin list --marketplace openai-curated-remote --available --json`, som også viser tilgængelige pakker uden en lokal installation.
 
 Git-versionerne er aflæst fra [OpenAIs publicerede manifests](https://github.com/openai/plugins/tree/985fff07dcefa03e40e8664e24363d10b2bacd44/plugins). Den offentlige Git-kilde havde ingen release-tags ved kontrollen. Vercels eget repository havde version 0.56.0 for andre værter. Den revision havde hverken en native Codex-manifestfil eller Vercel App-deklarationen. [Vercels offentlige kilde](https://github.com/vercel/vercel-plugin/tree/e69e3ba0ac0d7d24033c5ba95041acc4fc656480)
 
-Brug den eksisterende udgave fra OpenAI-kataloget, når den nyere udgave er nødvendig. Marketplace-posterne henter deres publicerede pakker fra de angivne Git-kilder. En opdatering af kataloget ændrer kun installationer, der tilhører det katalog.
+Brug den eksisterende udgave fra OpenAI-kataloget, når den nyere udgave er nødvendig. Marketplace-posterne henter deres publicerede pakker fra de angivne Git-kilder. Opdatering af en Marketplace-installation gælder det pågældende katalog-ID.
 
 ## Workspace-wide continuation — 2026-11-16
 
