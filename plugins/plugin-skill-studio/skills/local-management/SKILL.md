@@ -14,3 +14,15 @@ Run `local-inventory <root>`. Keep source, candidate, cache, installed and unkno
 When auditing everything installed, obtain the host's **full installed CLI list** (`codex plugin list --json` when that actual host CLI is available), the native personal/remote installed catalog, and native skill discovery. A filtered catalog slice can omit App-only wrappers; the CLI can omit personal remote packages. Merge exact `name@marketplace` identities from both installed surfaces. Do not count every cached directory as installed, or use the number of Apps as the plugin count. Report exact installation records separately from unique products and shared App bindings.
 
 Use `node scripts/studio.mjs inventory-reconcile <input.json>` to reconcile data-only snapshots. Input has `current` snapshots (`label`, `kind: cli|catalog`, `data`), optional `historical` snapshots (`kind: historical`, with their original installed lists), and optional `apps` containing the separate App list. The command performs no discovery, installation or account changes. Missing inventory surfaces, load errors and version/state conflicts remain incomplete. An absent historical ID stays visible; matching display names or functionality adapted into Studio do not prove the original is installed. Document explicit account scope, replacements and user-approved removals separately. Never reinstall, rename, disconnect or merge connections merely to increase a count.
+
+## Cache paths removed by an upgrade
+
+If an injected skill path returns ENOENT after a plugin upgrade, follow the host's
+existing rediscovery rule and obtain a fresh successful full CLI installed lookup.
+Use `resolve-installed <request.json>` with the exact `name@namespace`, physical
+cache root and relative skill. Read [the recovery contract](../../references/installed-cache-resolution.md)
+for the observed snapshot envelope and bounded retry. The helper verifies the
+current exact manifest/path; it never runs commands from input, selects the highest
+cached version, restores an old cache, installs or changes settings/auth. Resolution
+is path evidence only: per-skill enabled state and current account access remain
+separate. Studio cannot rewrite the host's already injected catalog or UI.

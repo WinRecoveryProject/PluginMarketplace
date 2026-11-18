@@ -18,6 +18,30 @@ Results contain redacted `findings` with rule/version, relative path, line/colum
 
 `await inventory(localPath, options)` returns `{records, errors, complete}`. It reads portable/compatibility manifests as data, groups both manifests for a root, lists public skill directories, records declared components and listing field presence, and observes compatibility manifest synchronization. Paths containing `cache`, `candidates` or an explicit archive segment are classified accordingly; other paths remain `unknown`. Merely finding a manifest never proves installation, host enablement, global account permissions, OAuth connection or publisher verification. Those fields remain `UNKNOWN`.
 
+## Exact installed-cache resolution
+
+`await resolveInstalledPlugin({pluginId, cacheRoot, snapshot, skill?})` is read-only.
+`snapshot` has `kind:'codex-cli-installed'`, `capturedAt` (`YYYY-MM-DDTHH:mm:ss[.sss]Z`,
+no fractional seconds or exactly three digits), observed
+`exitCode:0` and `data` containing the complete raw CLI `installed` array. Identity
+is exact `name@namespace`; `cacheRoot` is an observed absolute physical local path;
+`skill`, when supplied, is a relative forward-slash path under the manifest's
+declared skills directory ending in `SKILL.md`. No version override is accepted.
+
+Only one installed/enabled exact record is eligible. Its version and matching
+current manifest determine the cache path; no glob, highest-version, source-path
+or other-provider fallback occurs. A missing/unsafe/stale/incomplete observation or
+path returns `UNAVAILABLE`. Successful `RESOLVED` means `PATH_RESOLUTION_ONLY`;
+`skillEnabled:'UNKNOWN'`, `currentEntitlementVerified:false` and
+`executionAuthorized:false` remain explicit. CLI unavailable results exit with 2.
+
+The fixed 60-second timestamp check is a caller observation, not freshness attestation
+or current account authorization. The optional `{now}` JavaScript test clock is not
+a CLI request override. The resolver never executes an input command, invokes a
+host lookup, installs, restores cache content or changes settings. On ENOENT the
+calling host performs a new real read-only lookup, then retries once. See the
+[cache recovery contract](../../references/installed-cache-resolution.md) for limits.
+
 ## Catalogs
 
 `await catalogSnapshot(input, options)` accepts:

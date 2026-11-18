@@ -1,6 +1,6 @@
 # Plugin-Skill-Studio
 
-Version **0.3.10**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
+Version **0.3.11**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
 
 All required skills, scripts, policies and references are bundled. Node 20+ and Python 3.10+ are host runtimes, not companion plugins. Optional Windows desktop commands use the already installed Windows PowerShell 5.1 and .NET components. No npm/pip install, npx, external plugin, App binding or MCP server is required. Model benchmarks use the user's existing Codex CLI and login; host terminal/browser capabilities are required for corresponding operations. Direct public lookups are explicit and bounded. No telemetry is added.
 
@@ -42,6 +42,7 @@ node scripts/studio.mjs catalog-snapshot . --out catalog.json
 node scripts/studio.mjs catalog-search catalog.json "evaluation"
 node scripts/studio.mjs catalog-compare old.json new.json
 node scripts/studio.mjs local-inventory .
+node scripts/studio.mjs resolve-installed request.json
 node scripts/studio.mjs import-preview input-folders --out import-plan.json
 node scripts/studio.mjs import-apply import-plan.json --out candidates
 node scripts/studio.mjs gpt-import authorized-export.json --out candidates
@@ -50,6 +51,14 @@ node scripts/studio.mjs gpt-import authorized-export.json --out candidates
 Evidence input uses `asOf`, `freshWithinDays`, `skills`, and `evidence` records containing `skill`, `date`, `fact` and `source`. This measures evidence recency, not human competence or agent quality. Future dates do not establish recent evidence. The local module also supports adult user-controlled competency worksheets.
 
 Catalog input is a package root, supplied JSON snapshot or explicit public HTTPS URL. No links are automatically followed. Rankings and history are UNKNOWN unless supported by attributed observations. Local installation and global account permissions are distinct from manifest declarations. [Service contracts](src/services/README.md) describe exact fields and bounds.
+
+If an upgrade removed a skill path during the current turn, use the host's existing
+rediscovery rule and a new successful full CLI installed observation. The read-only
+`resolve-installed` helper checks the exact identity/version and contained current
+cache root/skill; it never runs a command from input, picks the highest cache,
+restores a stale directory or changes settings/connections. Snapshot timestamps
+remain observations, not attested freshness or entitlement. Per-skill activation
+is separate. See [in-session cache recovery](references/installed-cache-resolution.md).
 
 GPT import accepts user-supplied text/configuration and previously authorized visible source content. No hidden GPT configuration, cookies, private browser profile or credentials are retrieved. Imported capability names do not activate tools. Batch import and GPT conversion create reviewable local candidates, never host installations. The compatible skill installer runs a bundled pre-install risk scan: preview includes findings, and active or incomplete scans block writing unless exact reviewed fingerprint/rule-version suppressions clear them.
 
