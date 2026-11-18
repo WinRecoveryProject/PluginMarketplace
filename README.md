@@ -50,7 +50,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | WinRecoveryProject DevSuite | `0.2.5` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
-| Vercel | `0.21.4` | `codex plugin add vercel@winrecoveryproject-digital` |
+| Vercel | `0.56.0-wrp.1` | `codex plugin add vercel@winrecoveryproject-digital` |
 | GitHub | `0.1.12` | `codex plugin add github@winrecoveryproject-digital` |
 | Google Drive | `0.1.15` | `codex plugin add google-drive@winrecoveryproject-digital` |
 | OpenAI Developers | `1.2.3` | `codex plugin add openai-developers@winrecoveryproject-digital` |
@@ -67,7 +67,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Plugin Eval | `0.1.2` | `codex plugin add plugin-eval@winrecoveryproject-digital` |
 | AgentMemory-ASUS | `1.0.0` | `codex plugin add agentmemory-asus@winrecoveryproject-digital` |
 
-Versionerne i tabellen er de udgaver, som Marketplace kan hente fra de respektive Git-kilder. Se [versionskontrollen](docs/external-plugin-sources.md#versionskanaler--2026-11-18) for de ni nyere udgaver i OpenAI-kataloget.
+Versionerne i tabellen er de udgaver, som Marketplace kan hente fra de respektive Git-kilder. Se [versionskontrollen](docs/external-plugin-sources.md#versionskanaler--2026-11-18) for de tidligere katalogforskelle og [Vercel-opdateringen](docs/VERCEL-056-WRP-20261118.md).
 
 Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Opgørelsen fra 17. november var 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den historiske kontrol og forklaringerne](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 

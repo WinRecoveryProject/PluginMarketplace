@@ -1,0 +1,55 @@
+{
+  "apps": "./.app.json",
+  "author": {
+    "name": "Vercel Labs",
+    "url": "https://github.com/vercel"
+  },
+  "description": "Build and deploy web apps and agents",
+  "homepage": "https://vercel.com/",
+  "interface": {
+    "brandColor": "#000000",
+    "brandColorDark": "#FFFFFF",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "category": "Developer Tools",
+    "composerIcon": "./assets/composer-icon.png",
+    "defaultPrompt": [
+      "Audit this repo for Vercel deployment risks",
+      "Which Vercel tools fit this app best",
+      "Help wire the Vercel app into this workflow"
+    ],
+    "developerName": "Vercel Labs",
+    "displayName": "Vercel",
+    "logo": "./assets/logo.png",
+    "longDescription": "Use the connected Vercel app and Vercel ecosystem guidance in Codex. This WinRecoveryProject package adapts Vercel 0.56.0 skills and retains existing Marketplace skill entry points.",
+    "privacyPolicyURL": "https://vercel.com/legal/privacy-policy",
+    "screenshots": [],
+    "shortDescription": "Build and deploy on Vercel",
+    "termsOfServiceURL": "https://vercel.com/legal/terms",
+    "websiteURL": "https://vercel.com/"
+  },
+  "keywords": [
+    "vercel",
+    "nextjs",
+    "ai-sdk",
+    "turborepo",
+    "turbopack",
+    "workflow",
+    "deployment",
+    "edge-functions",
+    "serverless",
+    "ai-gateway",
+    "chat-sdk",
+    "chat-bot",
+    "slack-bot",
+    "discord-bot"
+  ],
+  "license": "Apache-2.0",
+  "name": "vercel",
+  "repository": "https://github.com/vercel/vercel-plugin",
+  "skills": "./skills/",
+  "version": "0.56.0-wrp.1",
+  "mcpServers": "./.mcp.json"
+}

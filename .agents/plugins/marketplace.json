@@ -233,7 +233,7 @@
       "name": "vercel",
       "source": {
         "source": "git-subdir",
-        "url": "https://github.com/openai/plugins.git",
+        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
         "path": "plugins/vercel"
       },
       "policy": {
