@@ -66,6 +66,8 @@ class ExecutionTests(unittest.TestCase):
         spec=importlib.util.spec_from_file_location('execution_cli',ROOT/'scripts/devsuite.py')
         cli=importlib.util.module_from_spec(spec);spec.loader.exec_module(cli)
         cases={'Vis Codex Tasks miljøer':'devsuite-tasks','start a remote Codex task':'devsuite-tasks',
+               'list my cloud environments':'devsuite-tasks','vis mine cloudmiljøer':'devsuite-tasks',
+               'open the Cloud Environment desktop':'devsuite-environment',
                'vis log for baggrundsjob':'devsuite-jobs','resume process job result':'devsuite-jobs',
                'test the Codex Tasks integration code':'devsuite-test',
                'fix the background job parser':'devsuite-implement','review this job launcher patch':'devsuite-review',

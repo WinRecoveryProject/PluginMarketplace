@@ -61,10 +61,14 @@ def route(request: str) -> dict:
     explicit_owner, text = execution_intent(text)
     operation = bool(re.search(r"\b(fix|implement|build|debug|review|audit|test|tests|testing|refactor|ret|byg|gennemgå)\b", text))
     task_target = bool(re.search(TASK_TARGET + r"|registered (?:codex )?environment|registrerede? (?:codex.)?miljø", text))
+    cloud_config_query = re.search(
+        r"\b(?:list|show|vis|oplist)\s+(?:(?:my|mine|the|all|alle|available|tilgængelige)\s+){0,3}"
+        r"(?:codex\s+)?cloud(?:[- ]?miljøer|\s+environments)\b", text
+    )
     job_target = bool(re.search(JOB_TARGET, text))
     if explicit_owner:
         skill = explicit_owner
-    elif task_target and not operation:
+    elif (task_target or cloud_config_query) and not operation:
         skill = "devsuite-tasks"
     elif job_target and not operation:
         skill = "devsuite-jobs"
@@ -103,7 +107,7 @@ def doctor(root: Path = ROOT) -> dict:
     try:
         manifest = read_json(root / ".codex-plugin/plugin.json")
         require(manifest["name"] == "winrecoveryproject-devsuite", "Wrong package name")
-        require(manifest["version"] == "0.2.3", "Wrong package version")
+        require(manifest["version"] == "0.2.4", "Wrong package version")
         require(manifest["interface"]["developerName"] == "Zilvereyes", "Wrong developer")
         require(len(manifest["interface"]["shortDescription"]) <= 30, "Subtitle exceeds 30 characters")
         require(len(manifest["interface"].get("defaultPrompt", [])) <= 3, "Too many prompts")
