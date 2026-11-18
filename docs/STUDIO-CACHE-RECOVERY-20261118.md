@@ -41,4 +41,19 @@ Kilden er udgivet som [commit 13b0f59](https://github.com/WinRecoveryProject/Zil
 Den isolerede 0.3.11-pakke er bygget to gange med identiske bytes, valideret og
 genprøvet fra frisk udpakning. Marketplace-valideringen består 1.672 kontroller.
 Pakken bevarer de eksisterende erklæringer; der er ingen ny App, MCP-server eller
-forbindelse. Lokal installationsverifikation dokumenteres særskilt efter opdatering.
+forbindelse.
+
+## Installation efterprøvet
+
+Den eksisterende Marketplace-installation er opdateret til 0.3.11. De 74
+CLI-identiteter og deres aktiveringsflag, 29 Apps med deres flag, 486 skillposter
+pr. kontrolleret arbejdsmappe og ni annoncerede MCP-identiteter/auth-statusser
+er bevaret i de friske før/efter-observationer. Workspace-OneDrive er ikke ændret.
+
+1.002 filhashsammenligninger stemmer mellem Marketplace, det konfigurerede
+katalog og installationen. Alle otte resolver-regressioner består i den faktiske
+installation. Nye faktiske CLI-opslag opløser både Workbench beta.5 og Studio
+0.3.11 til deres korrekte skills. Den installerede selvkontrol består også.
+
+Det verificerer installation og stiopløsning, ikke adgang til samtlige eksterne
+udbydere eller omskrivning af en aktiv chats allerede injicerede skilloversigt.
