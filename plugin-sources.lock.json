@@ -4,12 +4,12 @@
   "plugins": {
     "cloudstorage-portal": {
       "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal.git",
-      "commit": "c09d43853592cf4f6e8f197ed10657ec048a7db2",
+      "commit": "7c5c7d3fce9114ec883cce6cbcab506ee82d778e",
       "sourceSubdir": ".",
-      "version": "0.9.9",
+      "version": "0.9.10",
       "files": {
         ".app.json": "0a72372b3d29fb69055e4b24ce79fff2a4445249a48fafc4563c56f568160edb",
-        ".codex-plugin/plugin.json": "85c0d3c3d53c58b84dec7f94405c3e19bfc75363dbe4d438d2f84830043ff6f2",
+        ".codex-plugin/plugin.json": "1617d709ff83c51d5641acf023fafdb98be0dfeb8513dd5752b3ffe16d4adac1",
         ".gitattributes": "d7e0a903ace705511d69a7862e1b3eb83b34ec890888b27ade0328b4965f3d4c",
         "BUILD-NEXT.md": "fac6db84a5640f2822567c85073b692065c5e4a9c005e419d812ce897cd44066",
         "DROPBOX-REGISTRATION.md": "bdc89e68001f5d82fec2f33e49cfc84df0e94655d73d357fcec64f64bed9be50",
@@ -20,7 +20,7 @@
         "assets/cloudstorage-portal-composer.png": "d559ce85a9ff024a54b32cf43ba137f79e4128ca1e7ee23aca1437fe98869920",
         "assets/cloudstorage-portal.png": "562617fda2cf56bb02e945466c4c43e0c4ba82e2a7b9f9fde57d5b815a5620a8",
         "references/README.md": "f759293a94e62065239845d433a26681ee3ec793afe36a79d1708cb64ac4e35b",
-        "references/portable-plugin.json": "eff2b22f9afd4b94b1f25f93705fdd0fff19a6197a228ae630c6cd4bba19139c",
+        "references/portable-plugin.json": "49135f6e712299b7b2da27e2515b6ff9e204228442088490ba705061d952dbd5",
         "scripts/package-boundaries.test.mjs": "ec44d1b3e870d7d0ad36b393711500e4ac375da9ab3e0412c50623ff2d2affb8",
         "scripts/verify-hybrid-package.mjs": "f9bcc4bbc5eb3f36239c61125ee423a8f76a333fd4c85c0ec715da7f23f61692",
         "scripts/verify-provider-workflows.mjs": "bb0116011ce97b304d93014ec23f116bd08519c75b38ec820be61350e3fc6f7c",
@@ -131,7 +131,7 @@
         "skills/inspect-dropbox-file/SKILL.md": "de44c9809c8d498823ed5130f49494de9b161c85812bd741aaf709b0861dcf9f",
         "skills/inspect-dropbox-file/agents/openai.yaml": "ad58e8ee24afffdb3caf4663023419f43eb3e1842ce0b6aaa538c8d4dd26014c",
         "skills/inspect-dropbox-file/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273",
-        "skills/onedrive/SKILL.md": "49273769a36cfc5f55829b158782e3bf4e6461aeecd24148611cc20da1dd2c70",
+        "skills/onedrive/SKILL.md": "48a7d84d1ffb282706b5d0baec0ffe56dfb90f741aaec5b0b422e97e0f74659a",
         "skills/onedrive/agents/openai.yaml": "67b2c59db9d9383b7203677811da7e1da276c671882120aa6d36e2c23d7a47a5",
         "skills/onedrive/assets/onedrive.png": "1f81c2dd007b12becc3a94ff5750611d2b4d439edc0ef5a87c069b03159267f2",
         "skills/organize-dropbox-folder/SKILL.md": "ac628ecb0fe11803011d4a2703cfc725d099546384fb023ce60b812dd3d362c8",

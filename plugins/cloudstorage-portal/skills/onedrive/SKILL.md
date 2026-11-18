@@ -8,9 +8,24 @@ Use the dedicated OneDrive App referenced by .app.json. CloudStorage Portal uses
 this same App. Never substitute OneDrive Broker Staging, SharePoint or a local
 Windows sync folder. No separate CloudStorage Portal Local installation is needed.
 
-Discover actual host tools and call onedrive_account first. Bind all item, folder,
-permission and version IDs to that observed account and drive. Resolve duplicate
-names before a write. Package presence is not proof of loaded or working tools.
+Inspect the current tool schemas before calling `onedrive_account`. For a tool
+that accepts `link_id`, use only the exact selector advertised for the intended
+linked account. If the intended link is absent or ambiguous, clarify before
+accessing files. On a schema without `link_id`, omit it and verify the active
+profile. Proceed only after `onedrive_account` confirms the intended identity.
+Reuse the same verified link for calls that support it and bind all item,
+folder, permission, version and cursor IDs to that account and drive. Resolve
+duplicate names before a write.
+
+If the host rejected a read before dispatch because `link_id` was missing,
+recheck the schema and intended account, then retry only that exact read with
+the verified selector. For an uncertain write, reconcile with read-only
+metadata and never replay the write automatically.
+
+If the OneDrive tools are unavailable in Business, report that the Portal
+route is unavailable and point to the existing Workspace OneDrive entry in
+the Business catalogue. Preserve the current account and connections. Do not
+switch accounts, reconnect, or create an App as a fallback.
 
 ## Workflows
 
