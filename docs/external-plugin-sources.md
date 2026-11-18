@@ -24,6 +24,8 @@ Brug den eksisterende udgave fra OpenAI-kataloget, når den nyere udgave er nød
 
 [Modpartstabellen](catalog-counterparts.json) forbinder 22 kendte produkter til deres eksakte OpenAI-katalog-ID i Studios genkørbare versionskontrol. Den gemmer sammenligningsgrundlaget på GitHub. App-ID, OAuth, installation og valg af distributionskanal er separate. Codex' native test indlæste en almindelig Git-pakke og udelod forsøget med et direkte remote-plugin-ID i samme Marketplace-manifest.
 
+Studio 0.3.15 kan også kontrollere en eksisterende personlig eller Business-post ud fra dens præcise ID. Brug en privat kopi af modpartstabellen med din egen post tilføjet. Studio bruger kataloget for den aktive konto og viser den installerede og den tilgængelige version hver for sig. Identiteter fra andre konti indgår ikke som observationer. [Sådan samles en versionskvittering](../plugins/plugin-skill-studio/references/inventory-versions.md)
+
 ## Workspace-wide continuation — 2026-11-16
 
 The current installed inventory covers 52 installation records. The [full collection](full-plugin-list-check-20261116.md) now includes 30 native Marketplace entries, 15 original catalog links and 9 host-bundled products. Ten more original Git sources were verified: Gmail, Google Calendar, Slack, Plugin Eval, Plugin Autopilot, Skill Risk Check, Context Handoff, Skillquiver, Skill Craft and Plugin Creator Plus.

@@ -24,7 +24,11 @@ Supply counterpart IDs only after identifying equivalent products and catalog en
 ]
 ```
 
-The collector requests `codex plugin list --marketplace <namespace> --available --json` and retains only the declared counterpart IDs. It can compare available versions whether or not they are installed. To include historical changes, pass a previous `codex plugin list --json` capture from the same host and account with `--previous`. Keep the capture private because it contains your installed plugin IDs and observed scope.
+For vendor counterparts the collector requests `codex plugin list --marketplace <namespace> --available --json` and retains only the declared counterpart IDs. For a native counterpart add its exact `name@created-by-me-remote` identity for Personal or `name@workspace-directory` identity for Business to your private counterpart file. Run once per account with its active scope and separate output files. A mapping for the other native scope is shown as `OUT_OF_SCOPE`. Its installation and release stay unknown on this run. Use the canonical lowercase native namespace in counterpart IDs.
+
+Native counterpart evidence comes from the same authenticated catalog snapshot as the inventory and requires a verified workspace fingerprint. Its `localVersion` is an installed version only when the catalog marks that row as installed. Its separate `version` field can establish an available release. An unavailable or invalid active catalog makes the report incomplete. Missing installed versions stay unknown, including on rows with a visible available release.
+
+To include historical changes, pass a previous `codex plugin list --json` capture from the same host and account with `--previous`. A CLI-only history can confirm changes for the ordinary CLI inventory. Native catalog history needs its own scoped evidence. Keep the counterpart file and capture private because they can contain account-specific plugin identities and scope evidence.
 
 ## Read the report
 
@@ -32,6 +36,6 @@ The collector requests `codex plugin list --marketplace <namespace> --available 
 - Exit `1` means a verified version difference on the same exact plugin ID. A newer version in another catalog never sets this exit code.
 - Exit `2` means missing, conflicting or invalid evidence. Inspect the report's gaps or the command error.
 
-The report keeps available and installed counterpart versions separate. It preserves exact versions and applies SemVer precedence when both versions support it. Different build metadata can have the same precedence. Review new and missing identities against the previous capture before any installation change.
+The report keeps each counterpart's installed and available versions separate, with `installedComparison` and `availableComparison` against the same published Git version. The existing `comparison` field still follows the available release when present and follows the observed installation otherwise. The comparisons preserve exact versions and apply SemVer precedence when both versions support it. Different build metadata can have the same precedence. Review new and missing identities against the previous capture before any installation change.
 
 Run [installed path recovery](installed-cache-resolution.md) separately if a skill path fails. An old version-audit receipt cannot establish fresh path or account access. Use active host tests for login, tools and file operations.

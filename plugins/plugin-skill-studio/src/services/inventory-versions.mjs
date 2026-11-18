@@ -1,5 +1,16 @@
 import { reconcileInstalledInventories } from './installed-inventory.mjs';
 
+const nativeNamespaces = { personal: 'created-by-me-remote', business: 'workspace-directory' };
+const nativeNames = new Set(Object.values(nativeNamespaces));
+const namespaceOf = value => typeof value === 'string' ? value.split('@')[1] : null;
+
+function isNativeNamespace(value) {
+  const canonical = typeof value === 'string' ? value.toLowerCase() : null;
+  if (!nativeNames.has(canonical)) return false;
+  if (value !== canonical) throw new Error('Native catalog namespaces must use canonical lowercase');
+  return true;
+}
+
 const identifier = /^[a-z0-9][a-z0-9._-]*@[a-z0-9][a-z0-9._-]*$/i;
 const token = /^[a-z0-9][a-z0-9.+_-]{0,127}$/i;
 const repository = /^https:\/\/github\.com\/[a-z0-9_.-]+\/[a-z0-9_.-]+$/i;
@@ -89,10 +100,61 @@ function publishedRows(input, gaps) {
   return { expected, published };
 }
 
+function filterInstallationSnapshot(snapshot, keep) {
+  const data = snapshot.data;
+  const key = data?.installed != null ? 'installed' : 'plugins';
+  if (!Array.isArray(data?.[key])) return snapshot;
+  const rows = data[key].filter(row => keep(namespaceOf(row.pluginId)));
+  return { ...snapshot, data: { ...data, [key]: rows } };
+}
+
+function scopedInventory(inventory, namespace, attested, gaps) {
+  const current = list(inventory?.current, 100, 'current inventory snapshots').map(snapshot => {
+    if (snapshot.kind === 'cli') {
+      return filterInstallationSnapshot(snapshot, value => !isNativeNamespace(value));
+    }
+    const data = snapshot.data;
+    if (snapshot.kind !== 'catalog' || !Array.isArray(data?.marketplaces)) return snapshot;
+    const scoped = data.marketplaces.filter(section => !isNativeNamespace(section.name) || section.name === namespace);
+    const invalidNativeState = scoped.some(section => section.name === namespace && section.plugins?.some(row =>
+      namespaceOf(row?.id) === namespace && typeof row.installed !== 'boolean'));
+    const marketplaceLoadErrors = invalidNativeState ? [
+      ...(data.marketplaceLoadErrors ?? []), 'Invalid native installation state',
+    ] : data.marketplaceLoadErrors;
+    if (invalidNativeState) gaps.push({ code: 'NATIVE_INSTALLATION_STATE_INVALID', namespace });
+    const nativeRowsVerified = attested && !marketplaceLoadErrors?.length;
+    const marketplaces = scoped.map(section => ({
+      ...section,
+      plugins: section.plugins?.filter(row => {
+        const observed = namespaceOf(row.id);
+        return !isNativeNamespace(observed) || (nativeRowsVerified && observed === section.name);
+      }),
+    }));
+    return { ...snapshot, data: { ...data, marketplaces, marketplaceLoadErrors } };
+  });
+  const historical = list(inventory.historical ?? [], 100, 'historical inventory snapshots')
+    .map(snapshot => filterInstallationSnapshot(snapshot, value => !isNativeNamespace(value) || value === namespace));
+  return { ...inventory, current, historical };
+}
+
+function nativeCounterpartRows(sections, namespace, wanted) {
+  const data = { installed: [], available: [] };
+  for (const section of sections) {
+    for (const row of list(section.plugins, 20000, 'native catalog records')) {
+      if (!wanted.has(row?.id) || namespaceOf(row.id) !== namespace) continue;
+      if (row.installed === true && row.localVersion != null) {
+        data.installed.push({ pluginId: row.id, version: row.localVersion });
+      }
+      if (row.version != null) data.available.push({ pluginId: row.id, version: row.version });
+    }
+  }
+  return { namespace, exitCode: 0, data };
+}
+
 function catalogRows(snapshots, wanted, gaps) {
   const records = new Map();
   const seenNamespaces = new Set();
-  for (const snapshot of list(snapshots, 20, 'catalog observations')) {
+  for (const snapshot of snapshots) {
     const namespace = check(snapshot.namespace, typeof snapshot.namespace === 'string' &&
       /^[a-z0-9][a-z0-9._-]{0,100}$/i.test(snapshot.namespace), 'catalog namespace');
     check(namespace, !seenNamespaces.has(namespace), 'unique catalog namespace');
@@ -123,11 +185,12 @@ function assessCounterpart(pair, catalog, published, gaps) {
   }
   const [installedVersion = null] = observed.installed;
   const [availableVersion = null] = observed.available;
-  const observedVersion = availableVersion ?? installedVersion;
+  const installedComparison = installedVersion ? compareVersions(installedVersion, source.version) : 'UNKNOWN';
+  const availableComparison = availableVersion ? compareVersions(availableVersion, source.version) : 'UNKNOWN';
   return {
-    publishedId, catalogId, installedVersion, availableVersion,
+    publishedId, catalogId, installedVersion, availableVersion, installedComparison, availableComparison,
     evidence: availableVersion ? 'AVAILABLE_RELEASE' : 'INSTALLED_RELEASE',
-    comparison: compareVersions(observedVersion, source.version),
+    comparison: availableVersion ? availableComparison : installedComparison,
   };
 }
 
@@ -137,14 +200,19 @@ export function auditInventoryVersions(input) {
   check(account, ['personal', 'business'].includes(account), 'account scope');
   check(observedAt, typeof observedAt === 'string' && /^\d{4}-\d{2}-\d{2}T[\d:.]+Z$/.test(observedAt) &&
     Number.isFinite(Date.parse(observedAt)), 'UTC observation time');
-  const reconciled = reconcileInstalledInventories(input.inventory);
-  const gaps = reconciled.incomplete.map(message => ({ code: 'INVENTORY_INCOMPLETE', message }));
   check(workspaceFingerprint, workspaceFingerprint === null || (typeof workspaceFingerprint === 'string' &&
     /^[a-f0-9]{64}$/.test(workspaceFingerprint)), 'workspace fingerprint');
-  const nativeNamespace = account === 'business' ? 'workspace-directory' : 'created-by-me-remote';
-  const nativeObserved = input.inventory.current.some(snapshot => snapshot.kind === 'catalog' &&
-    !snapshot.data.marketplaceLoadErrors?.length &&
-    snapshot.data.marketplaces.some(section => section.name === nativeNamespace && Array.isArray(section.plugins)));
+  const nativeNamespace = nativeNamespaces[account];
+  const gaps = [];
+  const inventory = scopedInventory(input.inventory, nativeNamespace, workspaceFingerprint !== null, gaps);
+  const reconciled = reconcileInstalledInventories(inventory);
+  gaps.push(...reconciled.incomplete.map(message => ({ code: 'INVENTORY_INCOMPLETE', message })));
+  const nativeSections = inventory.current
+    .filter(snapshot => snapshot.kind === 'catalog' && !snapshot.data.marketplaceLoadErrors?.length)
+    .flatMap(snapshot => snapshot.data.marketplaces.filter(section =>
+      section.name === nativeNamespace && Array.isArray(section.plugins)));
+  const nativeObserved = nativeSections.length > 0;
+  const nativeAttested = nativeObserved && workspaceFingerprint !== null;
   if (!nativeObserved) {
     gaps.push({ code: 'NATIVE_SCOPE_MISSING', namespace: nativeNamespace });
   }
@@ -158,7 +226,15 @@ export function auditInventoryVersions(input) {
     check(key, expected.has(pair.publishedId) && pair.publishedId !== pair.catalogId && !keys.has(key), 'counterpart mapping');
     keys.add(key);
   }
-  const catalog = catalogRows(input.catalogs ?? [], new Set(pairs.map(row => row.catalogId)), gaps);
+  const wanted = new Set(pairs.map(row => row.catalogId));
+  const catalogs = list(input.catalogs ?? [], 20, 'catalog observations')
+    .filter(snapshot => !isNativeNamespace(snapshot.namespace));
+  if (nativeAttested) {
+    catalogs.push(nativeCounterpartRows(nativeSections, nativeNamespace, wanted));
+  } else if (nativeObserved && [...wanted].some(key => namespaceOf(key) === nativeNamespace)) {
+    gaps.push({ code: 'NATIVE_SCOPE_UNATTESTED', namespace: nativeNamespace });
+  }
+  const catalog = catalogRows(catalogs, wanted, gaps);
   const installed = new Map(reconciled.plugins.map(row => [row.id, row]));
   const plugins = [...expected].sort().map(key => {
     const source = published.get(key) ?? null;
@@ -171,7 +247,13 @@ export function auditInventoryVersions(input) {
     return { id: key, installedVersion, installation, published: source, comparison };
   });
   const counterparts = pairs.sort((a, b) => a.publishedId.localeCompare(b.publishedId) || a.catalogId.localeCompare(b.catalogId))
-    .map(pair => assessCounterpart(pair, catalog, published, gaps));
+    .map(pair => {
+      const namespace = namespaceOf(pair.catalogId);
+      if (isNativeNamespace(namespace) && namespace !== nativeNamespace) {
+        return { ...pair, comparison: 'UNKNOWN', evidence: 'OUT_OF_SCOPE' };
+      }
+      return assessCounterpart(pair, catalog, published, gaps);
+    });
   const outsidePublication = reconciled.plugins.filter(row => !expected.has(row.id)).map(row => ({
     id: row.id, versions: row.versions.map(release), status: row.status,
   }));
@@ -179,7 +261,10 @@ export function auditInventoryVersions(input) {
     ...reconciled.historicalComparison,
     snapshots: reconciled.historicalComparison.snapshots.map(snapshot => {
       const previousIds = new Set(snapshot.deltas.map(row => row.id));
-      return { ...snapshot, newlyObserved: [...installed.keys()].filter(key => !previousIds.has(key)) };
+      const deltas = snapshot.deltas.map(row => !nativeAttested && row.status === 'HISTORICAL_ID_ABSENT' &&
+        isNativeNamespace(namespaceOf(row.id)) ? { ...row, status: 'HISTORICAL_ID_UNVERIFIED' } : row);
+      const newlyObserved = [...installed.keys()].filter(key => !previousIds.has(key) && !isNativeNamespace(namespaceOf(key)));
+      return { ...snapshot, deltas, newlyObserved };
     }),
   };
   const drift = plugins.filter(row => row.comparison !== 'EXACT' && row.comparison !== 'UNKNOWN').length;

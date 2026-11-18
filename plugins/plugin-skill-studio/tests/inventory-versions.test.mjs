@@ -42,6 +42,7 @@ test('matches the installed release and compares an uninstalled explicit counter
   assert.equal(report.plugins[0].published.source.revision, revision);
   assert.deepEqual(report.counterparts, [{
     publishedId: owned, catalogId: peer, installedVersion: null, availableVersion: '6.1.0',
+    installedComparison: 'UNKNOWN', availableComparison: 'NEWER',
     comparison: 'NEWER', evidence: 'AVAILABLE_RELEASE',
   }]);
 });
@@ -71,6 +72,129 @@ test('current and available versions remain separate', () => {
   const [row] = auditInventoryVersions(input).counterparts;
   assert.equal(row.installedVersion, '5.0.1');
   assert.equal(row.availableVersion, '6.1.0');
+  assert.equal(row.installedComparison, 'EXACT');
+  assert.equal(row.availableComparison, 'NEWER');
+});
+
+const personalNative = 'dev-personal@created-by-me-remote';
+const businessNative = 'dev-business@workspace-directory';
+
+function nativeFixture(account) {
+  const input = fixture();
+  input.scope.account = account;
+  input.scope.workspaceFingerprint = 'a'.repeat(64);
+  input.counterparts = [personalNative, businessNative].map(catalogId => ({ publishedId: owned, catalogId }));
+  input.catalogs = [];
+  input.inventory.current[1].data.marketplaces = [
+    { name: 'created-by-me-remote', plugins: [{ id: personalNative, installed: true, localVersion: '4.9.0', version: '5.0.1' }] },
+    { name: 'workspace-directory', plugins: [{ id: businessNative, installed: true, localVersion: '5.0.1', version: '5.1.0' }] },
+  ];
+  return input;
+}
+
+test('native counterparts keep both versions and use only the active account catalog', () => {
+  for (const [account, active, opposite, local, available, installed, publication] of [
+    ['personal', personalNative, businessNative, '4.9.0', '5.0.1', 'OLDER', 'EXACT'],
+    ['business', businessNative, personalNative, '5.0.1', '5.1.0', 'EXACT', 'NEWER'],
+  ]) {
+    const input = nativeFixture(account);
+    input.inventory.current[0].data.installed.push({ pluginId: opposite, version: '99.0.0', enabled: true });
+    const report = auditInventoryVersions(input);
+    assert.equal(report.exitCode, 0);
+    assert.equal(report.sameIdentityDrift, 0);
+    assert.deepEqual(report.outsidePublication.map(row => row.id), [active]);
+    const selected = report.counterparts.find(row => row.catalogId === active);
+    assert.equal(selected.installedVersion, local);
+    assert.equal(selected.availableVersion, available);
+    assert.equal(selected.installedComparison, installed);
+    assert.equal(selected.availableComparison, publication);
+    assert.deepEqual(report.counterparts.find(row => row.catalogId === opposite), {
+      publishedId: owned, catalogId: opposite, comparison: 'UNKNOWN', evidence: 'OUT_OF_SCOPE',
+    });
+  }
+});
+
+test('uninstalled native releases do not imply a local installation', () => {
+  const input = nativeFixture('personal');
+  input.inventory.current[1].data.marketplaces[0].plugins[0].installed = false;
+  const report = auditInventoryVersions(input);
+  assert.equal(report.exitCode, 0);
+  assert.equal(report.outsidePublication.length, 0);
+  const selected = report.counterparts.find(row => row.catalogId === personalNative);
+  assert.equal(selected.installedVersion, null);
+  assert.equal(selected.installedComparison, 'UNKNOWN');
+  assert.equal(selected.availableVersion, '5.0.1');
+});
+
+test('unavailable native scope cannot be filled from a vendor or opposite catalog', () => {
+  const input = nativeFixture('business');
+  input.inventory.current[1].data.marketplaces.pop();
+  input.inventory.current[1].data.marketplaces[0].plugins.push({
+    id: businessNative, installed: true, localVersion: '99.0.0', version: '99.0.0',
+  });
+  input.catalogs.push({
+    namespace: 'workspace-directory', exitCode: 0,
+    data: { installed: [{ pluginId: businessNative, version: '99.0.0' }], available: [] },
+  });
+  const report = auditInventoryVersions(input);
+  assert.equal(report.exitCode, 2);
+  assert.equal(report.outsidePublication.length, 0);
+  assert.ok(report.gaps.some(gap => gap.code === 'NATIVE_SCOPE_MISSING'));
+  assert.ok(report.gaps.some(gap => gap.code === 'COUNTERPART_MISSING' && gap.id === businessNative));
+  assert.equal(report.counterparts.find(row => row.catalogId === businessNative).comparison, 'UNKNOWN');
+});
+
+test('native counterpart comparison requires an attested workspace', () => {
+  const input = nativeFixture('personal');
+  delete input.scope.workspaceFingerprint;
+  const report = auditInventoryVersions(input);
+  assert.equal(report.exitCode, 2);
+  assert.equal(report.outsidePublication.length, 0);
+  assert.ok(report.gaps.some(gap => gap.code === 'NATIVE_SCOPE_UNATTESTED'));
+  assert.equal(report.counterparts.find(row => row.catalogId === personalNative).comparison, 'UNKNOWN');
+});
+
+test('native catalogue errors and nonboolean installed state cannot source installation evidence', () => {
+  for (const invalidState of [true, false]) {
+    const input = nativeFixture('personal');
+    const data = input.inventory.current[1].data;
+    if (invalidState) data.marketplaces[0].plugins[0].installed = 'true';
+    else data.marketplaceLoadErrors = ['Failed to read the native catalogue'];
+    const report = auditInventoryVersions(input);
+    assert.equal(report.exitCode, 2);
+    assert.equal(report.outsidePublication.length, 0);
+    assert.equal(report.counterparts.find(row => row.catalogId === personalNative).comparison, 'UNKNOWN');
+    assert.ok(report.gaps.some(gap => gap.code === 'NATIVE_SCOPE_MISSING'));
+    assert.ok(report.gaps.some(gap => gap.code === (invalidState ? 'NATIVE_INSTALLATION_STATE_INVALID' : 'INVENTORY_INCOMPLETE')));
+  }
+});
+
+test('CLI history cannot prove native changes across scopes or a missing catalogue', () => {
+  const input = nativeFixture('personal');
+  const prior = {
+    label: 'prior', kind: 'historical', data: { installed: [
+      { pluginId: owned, version: '5.0.1' }, { pluginId: businessNative, version: '5.0.1' },
+    ] },
+  };
+  input.inventory.historical = [prior];
+  const [present] = auditInventoryVersions(input).history.snapshots;
+  assert.deepEqual(present.deltas.map(row => row.id), [owned]);
+  assert.deepEqual(present.newlyObserved, []);
+  prior.data.installed.push({ pluginId: personalNative, version: '4.9.0' });
+  input.inventory.current[1].data.marketplaceLoadErrors = ['Cannot verify the current native catalogue'];
+  const [unknown] = auditInventoryVersions(input).history.snapshots;
+  assert.deepEqual(unknown.deltas.map(row => [row.id, row.status]), [
+    [owned, 'PRESENT'], [personalNative, 'HISTORICAL_ID_UNVERIFIED'],
+  ]);
+});
+
+test('noncanonical spelling of either native namespace is invalid evidence', () => {
+  const input = nativeFixture('personal');
+  input.counterparts[1].catalogId = 'dev-business@WORKSPACE-DIRECTORY';
+  assert.throws(() => auditInventoryVersions(input), /Native catalog namespaces must use canonical lowercase/);
+  input.counterparts[1].catalogId = businessNative;
+  input.inventory.current[1].data.marketplaces[1].name = 'WORKSPACE-DIRECTORY';
+  assert.throws(() => auditInventoryVersions(input), /Native catalog namespaces must use canonical lowercase/);
 });
 
 test('SemVer prereleases, build suffixes and nonstandard versions remain distinct', () => {

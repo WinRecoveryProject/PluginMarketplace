@@ -20,6 +20,7 @@ IDENTITY = re.compile(r"[\da-z][\da-z._-]*@[\da-z][\da-z._-]*$", re.ASCII | re.I
 COMPONENT = re.compile(r"[\da-z_.-]+$", re.ASCII | re.I)
 REVISION = re.compile(r"[\da-f]{40}$", re.ASCII)
 MANIFESTS = (".codex-plugin/plugin.json", "plugin.json")
+NATIVE_NAMESPACES = {"personal": "created-by-me-remote", "business": "workspace-directory"}
 ENV = {**os.environ, "GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "Never"}
 
 
@@ -119,7 +120,20 @@ def capture_publications(root):
     return {"expected": expected, "entries": entries}
 
 
-def capture_native(codex, root, account):
+def is_native_namespace(namespace):
+    canonical = namespace.lower()
+    if canonical not in NATIVE_NAMESPACES.values():
+        return False
+    if namespace != canonical:
+        raise ValueError("Native catalog namespaces must use canonical lowercase")
+    return True
+
+
+def identity_namespace(identity):
+    return identity.rpartition("@")[2] if isinstance(identity, str) else ""
+
+
+def capture_native(codex, root, account, wanted):
     process = subprocess.Popen([str(codex), "app-server", "--stdio"], stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, env=ENV)
     messages = queue.Queue()
@@ -165,20 +179,20 @@ def capture_native(codex, root, account):
         personal = {"free", "go", "plus", "pro", "prolite"}
         if plan not in (business if account == "business" else personal):
             raise ValueError("Active scope is different or unknown")
-        kinds = ["created-by-me-remote", "workspace-directory"] if account == "business" else ["created-by-me-remote"]
-        result = send("plugin/list", 2, {"cwds": [str(root)], "marketplaceKinds": kinds, "forceRefetch": True})
+        required = NATIVE_NAMESPACES[account]
+        result = send("plugin/list", 2, {"cwds": [str(root)], "marketplaceKinds": [required], "forceRefetch": True})
         after = send("account/read", 3, {"refreshToken": False})
         if after["workspaceRouting"]["chatgptAccountId"] != workspace:
             raise ValueError("Native workspace changed during capture")
-        required = "workspace-directory" if account == "business" else "created-by-me-remote"
-        if not any(row.get("name") == required for row in result["marketplaces"]):
+        sections = [row for row in result["marketplaces"] if row.get("name") == required]
+        if not sections:
             raise ValueError("Native workspace directory not observed")
         fingerprint = hashlib.sha256(("studio-inventory:" + workspace).encode("utf-8")).hexdigest()
         return fingerprint, {
             "marketplaces": [{"name": section["name"],
-                 "plugins": [{key: row.get(key) for key in ("id", "localVersion", "installed", "enabled")}
-                             for row in section["plugins"] if row.get("installed") is True]}
-                             for section in result["marketplaces"]],
+                 "plugins": [{key: row.get(key) for key in ("id", "version", "localVersion", "installed", "enabled")}
+                             for row in section["plugins"] if row.get("installed") is True or row.get("id") in wanted]}
+                             for section in sections],
             "marketplaceLoadErrors": ["Native catalog load error"] if result.get("marketplaceLoadErrors") else [],
         }
     except (queue.Empty, KeyError, TypeError, ValueError, OSError):
@@ -195,7 +209,8 @@ def capture_native(codex, root, account):
 
 def observed_installations(data):
     return {"installed": [{key: row.get(key) for key in ("pluginId", "version", "enabled", "installed")}
-                          for row in data["installed"] if row.get("installed") is not False]}
+                          for row in data["installed"] if row.get("installed") is not False
+                          and not is_native_namespace(identity_namespace(row.get("pluginId")))]}
 
 
 def capture(args):
@@ -209,7 +224,8 @@ def capture(args):
         raise ValueError("Invalid published counterpart identity")
     if not all(IDENTITY.fullmatch(value) for value in wanted):
         raise ValueError("Invalid catalog counterpart identity")
-    scopes = sorted({value.split("@")[1] for value in wanted})
+    scopes = sorted({namespace for value in wanted
+                     if not is_native_namespace(namespace := identity_namespace(value))})
 
     def provider(namespace):
         try:
@@ -225,7 +241,7 @@ def capture(args):
 
     installed = json.loads(command(codex, "plugin", "list", "--json"))
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-        native = pool.submit(capture_native, codex, root, args.account)
+        native = pool.submit(capture_native, codex, root, args.account, wanted)
         published = pool.submit(capture_publications, root)
         catalogs = list(pool.map(provider, scopes))
     history = [] if not args.previous else [{"label": "previous", "kind": "historical",
