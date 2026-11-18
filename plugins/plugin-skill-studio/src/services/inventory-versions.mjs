@@ -188,14 +188,15 @@ function assessCounterpart(pair, catalog, published, gaps) {
   const { publishedId, catalogId } = pair;
   const observed = catalog.get(catalogId);
   const source = published.get(publishedId);
-  if (!observed || observed.available.size > 1 || observed.installed.size > 1 || !source) {
+  if (!observed || observed.available.size > 1 || observed.installed.size > 1) {
     gaps.push({ code: observed ? 'COUNTERPART_UNCERTAIN' : 'COUNTERPART_MISSING', id: catalogId, publishedId });
     return { publishedId, catalogId, comparison: 'UNKNOWN' };
   }
+  if (!source) gaps.push({ code: 'COUNTERPART_UNCERTAIN', id: catalogId, publishedId });
   const [installedVersion = null] = observed.installed;
   const [availableVersion = null] = observed.available;
-  const installedComparison = installedVersion ? compareVersions(installedVersion, source.version) : 'UNKNOWN';
-  const availableComparison = availableVersion ? compareVersions(availableVersion, source.version) : 'UNKNOWN';
+  const installedComparison = installedVersion && source ? compareVersions(installedVersion, source.version) : 'UNKNOWN';
+  const availableComparison = availableVersion && source ? compareVersions(availableVersion, source.version) : 'UNKNOWN';
   return {
     publishedId, catalogId, installedVersion, availableVersion, installedComparison, availableComparison,
     evidence: availableVersion ? 'AVAILABLE_RELEASE' : 'INSTALLED_RELEASE',

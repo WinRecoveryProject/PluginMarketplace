@@ -325,18 +325,22 @@ def validated_cli_installations(data):
     return installed
 
 
+def scoped_installations(namespace, data):
+    installed = validated_cli_installations(data)
+    # Check raw identities as normalization can omit inactive and native rows.
+    if any(identity_namespace(row.get("pluginId")) != namespace for row in data["installed"]):
+        raise ValueError("Unexpected row outside selected Marketplace")
+    return {"label": "Marketplace CLI: " + namespace, "kind": "scoped-cli",
+            "namespace": namespace, "data": installed}
+
+
 def capture_marketplace_installations(codex, namespace, timeout):
     try:
         data = json.loads(command(codex, "plugin", "list", "--marketplace", namespace, "--json",
                                   timeout=timeout, check_marketplace=True))
-        # Check the raw rows before normalization removes native entries.
-        if any(identity_namespace(row.get("pluginId")) != namespace for row in data["installed"]):
-            raise ValueError("Unexpected row outside selected Marketplace")
-        installed = validated_cli_installations(data)
+        return scoped_installations(namespace, data)
     except (AttributeError, KeyError, TypeError, ValueError, OSError, subprocess.SubprocessError):
         return None
-    return {"label": "Marketplace CLI: " + namespace, "kind": "scoped-cli",
-            "namespace": namespace, "data": installed}
 
 def capture_configured_installations(codex, publication, timeout):
     published = {identity_namespace(value) for value in publication["expected"]}
@@ -382,28 +386,30 @@ def capture(args):
                                       timeout=plugin_timeout, check_marketplace=True))
             if not isinstance(data, dict) or data.get("marketplaceLoadErrors"):
                 raise ValueError("Incomplete vendor catalog")
-            observations = {}
-            for key in ("installed", "available"):
-                rows = data[key]
-                if not isinstance(rows, list):
-                    raise ValueError("Expected a vendor plugin list")
-                selected = []
-                for row in rows:
-                    plugin_id = row.get("pluginId") if isinstance(row, dict) else None
-                    if not isinstance(plugin_id, str):
-                        raise ValueError("Invalid vendor plugin identity")
-                    if plugin_id not in wanted:
-                        continue
-                    version = row.get("version")
-                    if not isinstance(version, str) or not VERSION.fullmatch(version):
-                        raise ValueError("Invalid vendor plugin version")
-                    selected.append({"pluginId": plugin_id, "version": version})
-                if len(selected) > 20000:
-                    raise ValueError("Vendor records exceed inventory limit")
-                observations[key] = selected
-            return {"namespace": namespace, "exitCode": 0, "data": observations}
-        except (KeyError, OSError, ValueError, subprocess.SubprocessError):
-            return {"namespace": namespace, "exitCode": 2}
+            inventory = scoped_installations(namespace, data)
+            installed = [{"pluginId": row["pluginId"], "version": row["version"]}
+                         for row in inventory["data"]["installed"]
+                         if row["pluginId"] in wanted and row["version"] is not None]
+            rows = data["available"]
+            if not isinstance(rows, list):
+                raise ValueError("Expected a vendor plugin list")
+            available = []
+            for row in rows:
+                plugin_id = row.get("pluginId") if isinstance(row, dict) else None
+                if not isinstance(plugin_id, str):
+                    raise ValueError("Invalid vendor plugin identity")
+                if plugin_id not in wanted:
+                    continue
+                version = row.get("version")
+                if not isinstance(version, str) or not VERSION.fullmatch(version):
+                    raise ValueError("Invalid vendor plugin version")
+                available.append({"pluginId": plugin_id, "version": version})
+            if len(available) > 20000:
+                raise ValueError("Vendor records exceed inventory limit")
+            return {"namespace": namespace, "exitCode": 0,
+                    "data": {"installed": installed, "available": available}}, inventory
+        except (KeyError, TypeError, OSError, ValueError, subprocess.SubprocessError):
+            return {"namespace": namespace, "exitCode": 2}, None
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         cli = pool.submit(command, codex, "plugin", "list", "--json",
@@ -412,13 +418,14 @@ def capture(args):
         curated = pool.submit(provider, CURATED_MARKETPLACE) if CURATED_MARKETPLACE in scopes else None
 
         def recover_vendor(send):
-            if curated.result()["exitCode"] == 0:
+            if curated.result()[0]["exitCode"] == 0:
                 return None
             return capture_vendor_details(send, counterpart)
 
         native = pool.submit(capture_native, codex, root, args.account, wanted, recover_vendor if curated else None)
         providers = [curated if scope == CURATED_MARKETPLACE else pool.submit(provider, scope) for scope in scopes]
-        catalogs = [query.result() for query in providers]
+        provider_results = [query.result() for query in providers]
+    catalogs = [catalog for catalog, _ in provider_results]
     current = []
     cli_failure = None
     try:
@@ -432,7 +439,11 @@ def capture(args):
         current.append({"label": "CLI", "kind": "cli", "data": installed})
     publication = published.result()
     if cli_failure:
-        current.extend(capture_configured_installations(codex, publication, plugin_timeout))
+        scoped = {row["namespace"]: row for row in capture_configured_installations(codex, publication, plugin_timeout)}
+        for _, observed in provider_results:
+            if observed is not None:
+                scoped.setdefault(observed["namespace"], observed)
+        current.extend(list(scoped.values())[:99])
     history = [] if not args.previous else [{"label": "previous", "kind": "historical",
         "data": observed_installations(json.loads(args.previous.read_text(encoding="utf-8-sig")))}]
     workspace_fingerprint, catalog, recovered_vendor = native.result()

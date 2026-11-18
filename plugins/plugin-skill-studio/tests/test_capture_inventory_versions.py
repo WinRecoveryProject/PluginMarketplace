@@ -217,6 +217,38 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                     self.assertIsNone(fingerprint)
                     self.assertEqual(native["marketplaces"], [])
 
+    def test_provider_success_retains_installations_outside_declared_pairs_during_cli_failure(self):
+        namespace = "openai-curated-remote"
+        owned = "one@winrecoveryproject-digital"
+        mapped, extra = ("one@" + namespace, "unknown@" + namespace)
+        data = {"installed": [
+            {"pluginId": mapped, "version": "2.0.0", "enabled": True},
+            {"pluginId": extra, "version": None, "enabled": False},
+        ], "available": [{"pluginId": mapped, "version": "2.1.0"}]}
+
+        def command(_codex, *args, **_kwargs):
+            if args == ("plugin", "list", "--marketplace", namespace, "--available", "--json"):
+                return json.dumps(data).encode()
+            raise subprocess.TimeoutExpired(args, 30)
+
+        native = {"marketplaces": [{"name": "created-by-me-remote", "plugins": []}], "marketplaceLoadErrors": []}
+        with tempfile.TemporaryDirectory() as path:
+            root = Path(path)
+            mappings = root / "counterparts.json"
+            mappings.write_text(json.dumps([{"publishedId": owned, "catalogId": mapped}]), encoding="utf8")
+            args = SimpleNamespace(codex=root, marketplace=root, account="personal", host="Acer",
+                                   counterparts=mappings, previous=None)
+            with patch.object(collector, "command", side_effect=command), \
+                 patch.object(collector, "capture_native", return_value=("a" * 64, native, None)), \
+                 patch.object(collector, "capture_publications", return_value={"expected":[owned],"entries":[]}):
+                captured = collector.capture(args)
+        self.assertEqual(captured["inventory"]["cliFailure"], "TIMEOUT")
+        scoped, = [row for row in captured["inventory"]["current"] if row["kind"] == "scoped-cli"]
+        self.assertEqual(scoped["namespace"], namespace)
+        self.assertEqual([(row["pluginId"], row["version"], row["enabled"]) for row in scoped["data"]["installed"]],
+                         [(mapped, "2.0.0", True), (extra, None, False)])
+        self.assertEqual(captured["catalogs"][0]["data"]["installed"], [{"pluginId": mapped, "version": "2.0.0"}])
+
     def test_non_plugin_commands_keep_default_budget(self):
         result = subprocess.CompletedProcess(["git", "status"], 0, stdout=b"clean")
         with patch.object(collector.subprocess, "run", return_value=result) as run:
@@ -330,7 +362,7 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                     self.assertEqual(inventory["historical"][0]["data"], {"installed": history["installed"][:1]})
                     if reason:
                         self.assertEqual(inventory["cliFailure"], reason)
-                        self.assertEqual([row["kind"] for row in inventory["current"]], ["scoped-cli", "catalog"])
+                        self.assertEqual([row["kind"] for row in inventory["current"]], ["scoped-cli", "scoped-cli", "catalog"])
                         self.assertEqual(inventory["current"][0]["namespace"], "winrecoveryproject-digital")
                         self.assertEqual(inventory["current"][0]["data"], successful)
                     else:

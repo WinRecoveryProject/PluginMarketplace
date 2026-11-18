@@ -386,3 +386,19 @@ test('targeted vendor lookups retain exact installations and keep the broad gap'
   assert.equal(unattested.installedPluginIdentities, 1);
   assert.equal(unattested.counterparts.find(row => row.catalogId === peer).comparison, 'UNKNOWN');
 });
+
+test('keeps observed counterpart versions when the published manifest is missing', () => {
+  const input = fixture();
+  input.scope.workspaceFingerprint = 'b'.repeat(64);
+  input.published.entries = [];
+  input.catalogs[0].scope = 'targeted';
+  input.catalogs[0].data.installed = [{ pluginId: peer, version: '6.0.0' }];
+  const report = auditInventoryVersions(input);
+  const [row] = report.counterparts;
+  assert.equal(report.status, 'INCOMPLETE');
+  assert.equal(row.installedVersion, '6.0.0');
+  assert.equal(row.availableVersion, '6.1.0');
+  assert.equal(row.comparison, 'UNKNOWN');
+  assert.equal(row.observationScope, 'TARGETED_VENDOR');
+  assert.ok(report.gaps.some(gap => gap.code === 'COUNTERPART_UNCERTAIN'));
+});
