@@ -1,4 +1,6 @@
 interface:
+  icon_large: "./assets/wrp-icon-256.png"
+  icon_small: "./assets/wrp-icon-128.png"
   display_name: "Cloudstorage Setup Docs"
-  short_description: "Explain and reproduce the documented zero-cost CloudStorage Portal setup, Micros"
+  short_description: "Guidance for cloud setup and login troubleshooting."
   default_prompt: "Use $cloudstorage-setup-docs to help with this task."
