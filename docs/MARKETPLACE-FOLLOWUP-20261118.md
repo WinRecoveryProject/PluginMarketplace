@@ -2,8 +2,9 @@
 
 Den personlige konto er afstemt med Plugin-Skill-Studio 0.3.10: **74 CLI-poster og
 2 yderligere personlige remote-poster**, i alt **76 eksakte plugin-identiteter**.
-Der er 29 Apps, 7 MCP-servere og 481 registrerede skillstier; alle 28 selvstændige
-skill-filer er fundet. Der er ingen skill-indlæsningsfejl eller versionskonflikter.
+Der er 29 Apps og 481 registrerede skillstier; alle 28 selvstændige skill-filer er
+fundet. Det indledende MCP-statusopslag viste syv servere; se den efterfølgende
+fulde status nedenfor. Der er ingen skill-indlæsningsfejl eller versionskonflikter.
 Apps, produkter og namespace-specifikke installationer tælles hver for sig.
 
 ## Rettelser
@@ -79,3 +80,30 @@ repareret. Studios lokale afhjælpning og dens konkrete tests er særskilt evide
 
 Budget: **0 kr.** Ingen prøveperiode, credits, ny konto, credential eller betalt
 infrastruktur er oprettet. Eksisterende forbindelser og uvedkommende arbejde bevares.
+
+## Efter installationen
+
+Alle fire eksisterende pakker er opdateret til versionerne i tabellen. De 74
+CLI-identiteter og den samlede union på 76 installationer er bevaret, inklusive
+aktiveringsflag. De samme 29 Apps er eksponeret med uændrede flag; alle 481
+eksisterende skillaktiveringer, herunder 22 deaktiveringer, er bevaret. AgentMemory-ASUS
+er tilføjet til kataloget uden automatisk installation af wrapperen.
+
+Den installerede DevSuite 0.2.1 består de samme 79 uafhængige kontroller. Installeret
+Workbench beta.5 består både de nye automatic-variable-kontrakter og eksisterende
+context-kontrakter på PowerShell 5.1 og 7. Den installerede Portal 0.9.6 består den
+eksisterende hybrid-/providerbindingkontrol. Den personlige OneDrive-App returnerer
+fortsat den forventede personlige profil gennem den eksisterende Primary-forbindelse;
+ingen filer er skrevet i denne ekstra forbindelsesprøve.
+
+Efter fuld opdagelse annoncerer værten ni MCP-servere. Alle syv tidligere observerede
+servere og deres auth-typer er stadig til stede. De to yderligere statusposter tilhører
+de allerede installerede, uændrede Daybreak- og OpenAI Developers-pakker; de er ikke
+MCP-servere tilføjet af disse fire pakkeopdateringer. En statusliste er ikke en
+konfigurationsændringslog eller bevis for alle serverfunktioners tilgængelighed.
+
+2.037 filhashsammenligninger bekræfter de opdaterede native-payloads i Marketplace,
+det konfigurerede katalog og installationerne. Den nye katalogwrappers filer er
+sammenlignet mellem Marketplace og det konfigurerede katalog. App-erklæringerne for
+OneDrive, Portal og DevSuite er byte-identiske med før opdateringen. Ingen ny
+forbindelse, konto, prøveperiode, credits eller betalt infrastruktur er oprettet.
