@@ -68,6 +68,13 @@ def check_text(name, data):
     # public UTF-8 text, which also makes path-leak scanning deterministic.
     if name.startswith("assets/") and PurePosixPath(name).suffix.lower() in {".png", ".ico"}:
         return
+    skill_icon = re.fullmatch(r"skills/(lint-project|setup-linters)/assets/wrp-icon-(128|256)\.png", name)
+    if skill_icon:
+        size = int(skill_icon.group(2))
+        if (len(data) < 33 or data[:16] != b"\x89PNG\r\n\x1a\n\x00\x00\x00\x0dIHDR" or
+                int.from_bytes(data[16:20], "big") != size or int.from_bytes(data[20:24], "big") != size):
+            fail("Invalid declared skill icon: " + name)
+        return
     text = data.decode("utf-8-sig")
     if PRIVATE_PATH.search(text):
         fail("Private user path in whitelisted file: " + name)

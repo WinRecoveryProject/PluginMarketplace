@@ -1,6 +1,6 @@
 # WinRecoveryProjectLinter
 
-Version 0.1.3. An independent MIT local CLI and Codex plugin by Zilvereyes.
+Version 0.1.4. An independent MIT local CLI and Codex plugin by Zilvereyes.
 Scan selected source types without running project scripts or changing source.
 Paid service budget: **0 kr**. No cloud account, API key, telemetry or model API.
 
@@ -208,7 +208,7 @@ extracts that ZIP to a new directory, proves missing library failures, explicitl
 bootstraps its locked dependencies and then scans Lua/HTML/CSS fixtures. It never
 copies locks around a broken artifact or borrows the original node_modules.
 To prove a specific built ZIP, run
-`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.3.zip`.
+`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.4.zip`.
 Unavailable external tools are explicitly skipped by the portable test suite;
 check the actual test receipt before claiming coverage for a machine.
 

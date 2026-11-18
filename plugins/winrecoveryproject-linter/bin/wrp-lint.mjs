@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { catalog } from '../src/catalog.mjs';
 
-const help = `WinRecoveryProjectLinter 0.1.3 — local, read-only scanning, 0 kr services\n\nUsage: wrp-lint <command> [root] [options]\n  init                 Create .wrp-lint.json without overwriting\n  doctor               Check only detected/selected adapter availability\n  scan                 Scan detected/selected source types\n  list-linters         Describe adapters and limits\n  setup --detected     Explicitly install only needed supported local tools\n\nOptions: --types powershell,lua,...  --format text|json  --detected\nExit: 0 CLEAN, 1 FINDINGS, 2 INCOMPLETE (takes precedence).\nNo project scripts/configuration execute. No scan downloads or source writes.\nPrepare the pinned per-user runtime explicitly: wrp-lint setup <root> --detected\n`;
+const help = `WinRecoveryProjectLinter 0.1.4 — local, read-only scanning, 0 kr services\n\nUsage: wrp-lint <command> [root] [options]\n  init                 Create .wrp-lint.json without overwriting\n  doctor               Check only detected/selected adapter availability\n  scan                 Scan detected/selected source types\n  list-linters         Describe adapters and limits\n  setup --detected     Explicitly install only needed supported local tools\n\nOptions: --types powershell,lua,...  --format text|json  --detected\nExit: 0 CLEAN, 1 FINDINGS, 2 INCOMPLETE (takes precedence).\nNo project scripts/configuration execute. No scan downloads or source writes.\nPrepare the pinned per-user runtime explicitly: wrp-lint setup <root> --detected\n`;
 
 function parse(args) {
   const value = { command: args.shift(), root: process.cwd(), format: 'text' };
@@ -35,7 +35,7 @@ function print(value, format) {
 let options;
 try {
   if (!process.argv[2] || ['help', '--help', '-h'].includes(process.argv[2])) { console.log(help + '\nSQL requires --sql-dialect postgresql or sqlDialect in .wrp-lint.json.\nOnly PostgreSQL 18 SQL/PLpgSQL grammar is supported; no DB operations.'); }
-  else if (['--version', '-v'].includes(process.argv[2])) console.log('0.1.3');
+  else if (['--version', '-v'].includes(process.argv[2])) console.log('0.1.4');
   else {
     options = parse(process.argv.slice(2));
     const { command, root, types, format, sqlDialect } = options;

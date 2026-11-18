@@ -1,0 +1,5 @@
+interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
+  display_name: "Lint Project"
+  short_description: "Scan selected source files and report lint coverage"
