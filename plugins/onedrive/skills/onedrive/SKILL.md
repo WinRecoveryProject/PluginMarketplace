@@ -33,11 +33,26 @@ plugin files. Validate audience, issuer, scopes, account/tenant binding, and
 expiration server-side. For fresh scopes, require the provider's authorization
 flow rather than treating a read-only grant as write authorization.
 
-Discover the actual available OneDrive tools. If they are not exposed by this
-plugin, report the connection limitation and do not substitute a different app.
-Call `onedrive_account` before item operations when that tool exists. Bind item,
-folder, permission and version IDs to the observed drive/account. Detect ambiguous
-names before writing. A package manifest is not a live connectivity test.
+Inspect the current tool schemas before calling `onedrive_account`. For a tool
+that accepts `link_id`, use only the exact selector advertised for the intended
+linked account. If the intended link is absent or ambiguous, clarify before
+accessing files. On a schema without `link_id`, omit it and verify the active
+profile. Proceed only after `onedrive_account` confirms the intended identity.
+Reuse the same verified link for calls that support it and bind all item,
+folder, permission, version and cursor IDs to that account and drive. Resolve
+duplicate names before a write.
+
+If the host rejected a read before dispatch because `link_id` was missing,
+recheck the schema and intended account, then retry only that exact read with
+the verified selector. For an uncertain write, reconcile with read-only
+metadata and never replay the write automatically.
+
+If this package's OneDrive tools are unavailable, report the connection
+limitation. In Business, if the Git Marketplace entry lacks those tools,
+direct the user to the existing Workspace OneDrive entry in the Business
+catalogue. Verify its intended App and connected Microsoft account before
+accessing files there. Keep existing connections and avoid implicit account
+or App switches.
 
 ## Intended MCP capabilities (verify before use)
 

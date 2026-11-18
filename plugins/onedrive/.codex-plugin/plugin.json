@@ -22,7 +22,7 @@
     "brandColorDark": "#4CC2FF"
   },
   "name": "onedrive",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "skills": "./skills",
   "onboardingSkill": "./skills/onedrive-setup/SKILL.md",
   "license": "MIT"
