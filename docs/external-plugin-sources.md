@@ -1,5 +1,11 @@
 # External plugin sources
 
+## Seneste versionsfund med Studio 0.3.22
+
+Google Drive 0.1.27 er bekræftet installeret og aktiveret som `google-drive@openai-curated-remote` på både Acer og ASUS. Fra ASUS bekræftede opslaget samtidig 0.1.27 som tilgængelig i OpenAI-kataloget. De installerede pakker deklarerer samme App-ID som Marketplace-pakken. En afgrænset søgning gennem den eksisterende Google Drive-forbindelse lykkedes uden filændringer.
+
+Marketplace henter fortsat Google Drive 0.1.15 fra [OpenAIs Git-kilde](https://github.com/openai/plugins/tree/981b02c0c44058b595f3b4180002c3ae3c806d40/plugins/google-drive). OpenAIs Git-standardgren var rykket én commit ved genkontrollen. [Ændringen](https://github.com/openai/plugins/compare/985fff07dcefa03e40e8664e24363d10b2bacd44...981b02c0c44058b595f3b4180002c3ae3c806d40) berørte ingen af de 11 pakker, som Marketplace henter fra repositoryet.
+
 ## Versionskontrol med Studio 0.3.20
 
 Kontrollen på Acer i Personlig den 18. november 2026 afstemte 81 installerede identiteter og 33 Marketplace-kilder. Nedenstående rækker viser de otte produkter med en nyere modpart i OpenAI-kataloget.
