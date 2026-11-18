@@ -1,5 +1,6 @@
 """Capture read-only evidence for Studio's inventory-versions command."""
 import argparse
+import base64
 import concurrent.futures
 import datetime
 import hashlib
@@ -14,7 +15,7 @@ import tempfile
 import threading
 import time
 from urllib.error import HTTPError, URLError
-from urllib.request import HTTPRedirectHandler, build_opener
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 GITHUB = re.compile(r"https://github\.com/([\w.-]+)/([\w.-]+?)(?:\.git)?$", re.ASCII)
 IDENTITY = re.compile(r"[\da-z][\da-z._-]*@[\da-z][\da-z._-]*$", re.ASCII | re.I)
@@ -65,6 +66,15 @@ def git_head(remote):
     return revision
 
 
+PUBLIC_MANIFEST_TRANSPORT_ERRORS = (TimeoutError, ConnectionError, IncompleteRead, URLError)
+
+
+def retryable_manifest_failure(failure):
+    if isinstance(failure, HTTPError):
+        return failure.code in PUBLIC_MANIFEST_RETRY_CODES
+    return not isinstance(failure, URLError) or isinstance(failure.reason, (TimeoutError, ConnectionError))
+
+
 def public_manifest_bytes(url):
     def fetch(timeout):
         with PUBLIC_HTTP.open(url, timeout=timeout) as page:
@@ -72,16 +82,43 @@ def public_manifest_bytes(url):
 
     try:
         return fetch(12)
-    except (TimeoutError, ConnectionError, IncompleteRead, URLError) as failure:
-        if isinstance(failure, HTTPError):
-            if failure.code not in PUBLIC_MANIFEST_RETRY_CODES:
-                raise
-            failure.close()
-        elif isinstance(failure, URLError) and not isinstance(failure.reason, (TimeoutError, ConnectionError)):
+    except PUBLIC_MANIFEST_TRANSPORT_ERRORS as failure:
+        if not retryable_manifest_failure(failure):
             raise
+        if isinstance(failure, HTTPError):
+            failure.close()
     time.sleep(0.5)
     return fetch(5)
 
+
+def remote_manifest_bytes(owner, repository, revision, path):
+    url = f"https://raw.githubusercontent.com/{owner}/{repository}/{revision}/{path}"
+    try:
+        return public_manifest_bytes(url)
+    except PUBLIC_MANIFEST_TRANSPORT_ERRORS as failure:
+        if not retryable_manifest_failure(failure):
+            raise
+        if isinstance(failure, HTTPError):
+            failure.close()
+
+    # The Contents request uses the same pinned public file and never loads an auth token.
+    request = Request(f"https://api.github.com/repos/{owner}/{repository}/contents/{path}?ref={revision}",
+                      headers={"Accept": "application/vnd.github+json", "User-Agent": "Plugin-Skill-Studio-Inventory"})
+    limit = 2 * PUBLIC_MANIFEST_SIZE_LIMIT
+    with PUBLIC_HTTP.open(request, timeout=8) as page:
+        response = page.read(limit + 1)
+    if len(response) > limit:
+        raise ValueError("GitHub Contents response exceeds limit")
+    metadata = json.loads(response)
+    if (not isinstance(metadata, dict) or metadata.get("type") != "file" or metadata.get("path") != path
+            or metadata.get("encoding") != "base64" or not isinstance(metadata.get("content"), str)
+            or type(metadata.get("size")) is not int or not 0 <= metadata["size"] <= PUBLIC_MANIFEST_SIZE_LIMIT):
+        raise ValueError("Invalid GitHub Contents metadata")
+    raw = base64.b64decode("".join(metadata["content"].split()), validate=True)
+    blob = hashlib.sha1(f"blob {len(raw)}\0".encode("ascii") + raw, usedforsecurity=False).hexdigest()
+    if len(raw) != metadata["size"] or blob != metadata.get("sha"):
+        raise ValueError("GitHub Contents blob does not match its metadata")
+    return raw
 
 def capture_publications(root):
     origin = command("git", "-C", root, "remote", "get-url", "origin").decode("utf-8").strip()
@@ -123,7 +160,7 @@ def capture_publications(root):
                         raw = command("git", "-C", root, "show", f"{sha}:{name}")
                     else:
                         owner, repo = repository.groups()
-                        raw = public_manifest_bytes(f"https://raw.githubusercontent.com/{owner}/{repo}/{sha}/{name}")
+                        raw = remote_manifest_bytes(owner, repo, sha, name)
                     if len(raw) > PUBLIC_MANIFEST_SIZE_LIMIT:
                         return None
                     data = json.loads(raw)

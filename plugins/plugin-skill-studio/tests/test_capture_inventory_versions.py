@@ -1,3 +1,5 @@
+import base64
+import hashlib
 import importlib.util
 import io
 import json
@@ -41,6 +43,50 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                 with self.assertRaises(type(initial)):
                     collector.public_manifest_bytes(url)
                 self.assertEqual(get.call_count, expected_calls)
+
+    def test_public_contents_fallback_checks_the_same_blob_after_raw_retries(self):
+        ref = "a" * 40
+        path = "plugins/sharepoint/.codex-plugin/plugin.json"
+        raw_url = f"https://raw.githubusercontent.com/openai/plugins/{ref}/{path}"
+        api_url = f"https://api.github.com/repos/openai/plugins/contents/{path}?ref={ref}"
+        raw = b'{"name":"sharepoint","version":"0.1.7"}'
+        digest = hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
+        result = {"type": "file", "path": path, "encoding": "base64", "size": len(raw),
+                  "content": base64.encodebytes(raw).decode(), "sha": digest}
+        unavailable = HTTPError(raw_url, 503, "unavailable", {}, io.BytesIO())
+        with patch.object(collector.PUBLIC_HTTP, "open", side_effect=[
+                 TimeoutError(), unavailable, io.BytesIO(json.dumps(result).encode())]) as get, \
+             patch.object(collector.time, "sleep"):
+            self.assertEqual(collector.remote_manifest_bytes("openai", "plugins", ref, path), raw)
+        self.assertEqual(get.call_args_list[:2], [call(raw_url, timeout=12), call(raw_url, timeout=5)])
+        request = get.call_args.args[0]
+        self.assertEqual(request.full_url, api_url)
+        self.assertIsNone(request.get_header("Authorization"))
+
+    def test_public_contents_fallback_does_not_accept_unverified_evidence(self):
+        ref = "a" * 40
+        path = "plugins/sharepoint/.codex-plugin/plugin.json"
+        raw = b"{}"
+        valid = {"type": "file", "path": path, "encoding": "base64", "size": len(raw),
+                 "content": base64.encodebytes(raw).decode(),
+                 "sha": hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()}
+        for overrides in ({"path": "wrong.json"}, {"sha": "0" * 40}, {"size": 7},
+                          {"type": "symlink"}, {"content": "!"}):
+            with self.subTest(overrides=overrides), \
+                 patch.object(collector, "public_manifest_bytes", side_effect=TimeoutError()), \
+                 patch.object(collector.PUBLIC_HTTP, "open", return_value=io.BytesIO(
+                     json.dumps({**valid, **overrides}).encode())):
+                with self.assertRaises(ValueError):
+                    collector.remote_manifest_bytes("openai", "plugins", ref, path)
+
+    def test_public_contents_fallback_does_not_retry_permission_or_tls_errors(self):
+        url = "https://raw.githubusercontent.com/openai/plugins/" + "a" * 40 + "/plugin.json"
+        for failure in (HTTPError(url, 403, "forbidden", {}, None), HTTPError(url, 404, "missing", {}, None),
+                        HTTPError(url, 429, "rate limited", {}, None), URLError("TLS verification failed")):
+            with self.subTest(failure=failure), patch.object(collector.PUBLIC_HTTP, "open", side_effect=failure) as get:
+                with self.assertRaises(type(failure)):
+                    collector.remote_manifest_bytes("openai", "plugins", "a" * 40, "plugin.json")
+                self.assertEqual(get.call_count, 1)
 
     def test_non_plugin_commands_keep_default_budget(self):
         result = subprocess.CompletedProcess(["git", "status"], 0, stdout=b"clean")
