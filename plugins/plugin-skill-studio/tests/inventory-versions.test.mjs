@@ -114,6 +114,64 @@ test('native counterparts keep both versions and use only the active account cat
   }
 });
 
+test('failed CLI capture retains attested evidence and leaves historical absences unverified', () => {
+  for (const reason of ['TIMEOUT', 'FAILED', undefined]) {
+    const input = nativeFixture('business');
+    input.inventory.current.shift();
+    input.inventory.cliFailure = reason;
+    const vendor = fixture();
+    input.counterparts.push(...vendor.counterparts);
+    input.catalogs = vendor.catalogs;
+    input.inventory.historical = [{
+      label: 'same scope prior CLI', kind: 'historical', data: { installed: [
+        { pluginId: owned, version: '5.0.0' },
+        { pluginId: businessNative, version: '5.0.1' },
+        { pluginId: personalNative, version: '99.0.0' },
+      ] },
+    }];
+    const report = auditInventoryVersions(input);
+    assert.equal(report.status, 'INCOMPLETE');
+    assert.equal(report.exitCode, 2);
+    assert.deepEqual(report.gaps.find(row => row.code === 'CLI_EVIDENCE_MISSING'),
+      { code: 'CLI_EVIDENCE_MISSING', reason: reason ?? 'NOT_CAPTURED' });
+    assert.equal(report.plugins[0].installation, 'UNKNOWN');
+    assert.equal(report.plugins[0].installedVersion, null);
+    assert.equal(report.plugins[0].published.version, '5.0.1');
+    assert.equal(report.plugins[0].published.source.revision, revision);
+    assert.equal(report.counterparts.find(row => row.catalogId === peer).availableVersion, '6.1.0');
+    const business = report.counterparts.find(row => row.catalogId === businessNative);
+    assert.equal(business.installedVersion, '5.0.1');
+    assert.equal(business.availableVersion, '5.1.0');
+    assert.deepEqual(report.outsidePublication.map(row => row.id), [businessNative]);
+    assert.deepEqual(report.counterparts.find(row => row.catalogId === personalNative),
+      { publishedId: owned, catalogId: personalNative, comparison: 'UNKNOWN', evidence: 'OUT_OF_SCOPE' });
+    const [history] = report.history.snapshots;
+    assert.deepEqual(history.newlyObserved, []);
+    assert.deepEqual(Object.fromEntries(history.deltas.map(row => [row.id, row.status])),
+      { [owned]: 'HISTORICAL_ID_UNVERIFIED', [businessNative]: 'PRESENT' });
+  }
+});
+
+test('a CLI snapshot with load errors cannot prove an absent historical identity', () => {
+  const input = fixture();
+  input.inventory.current[0].data = { installed: [], marketplaceLoadErrors: ['incomplete'] };
+  input.inventory.historical = [{
+    label: 'prior', kind: 'historical', data: { installed: [{ pluginId: owned, version: '5.0.0' }] },
+  }];
+  const report = auditInventoryVersions(input);
+  assert.equal(report.exitCode, 2);
+  assert.equal(report.plugins[0].installation, 'UNKNOWN');
+  assert.equal(report.history.snapshots[0].deltas[0].status, 'HISTORICAL_ID_UNVERIFIED');
+  assert.deepEqual(report.gaps.find(row => row.code === 'CLI_EVIDENCE_MISSING'),
+    { code: 'CLI_EVIDENCE_MISSING', reason: 'FAILED' });
+});
+
+test('an inventory cannot report a failed CLI capture alongside successful CLI evidence', () => {
+  const input = fixture();
+  input.inventory.cliFailure = 'TIMEOUT';
+  assert.throws(() => auditInventoryVersions(input), /CLI failure without a successful CLI snapshot/);
+});
+
 test('uninstalled native releases do not imply a local installation', () => {
   const input = nativeFixture('personal');
   input.inventory.current[1].data.marketplaces[0].plugins[0].installed = false;

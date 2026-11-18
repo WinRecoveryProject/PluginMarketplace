@@ -24,7 +24,7 @@ Brug den eksisterende udgave fra OpenAI-kataloget, når den nyere udgave er nød
 
 [Modpartstabellen](catalog-counterparts.json) forbinder 22 kendte produkter til deres eksakte OpenAI-katalog-ID i Studios genkørbare versionskontrol. Den gemmer sammenligningsgrundlaget på GitHub. App-ID, OAuth, installation og valg af distributionskanal er separate. Codex' native test indlæste en almindelig Git-pakke og udelod forsøget med et direkte remote-plugin-ID i samme Marketplace-manifest.
 
-Studio 0.3.15 kan også kontrollere en eksisterende personlig eller Business-post ud fra dens præcise ID. Brug en privat kopi af modpartstabellen med din egen post tilføjet. Studio bruger kataloget for den aktive konto og viser den installerede og den tilgængelige version hver for sig. Identiteter fra andre konti indgår ikke som observationer. [Sådan samles en versionskvittering](../plugins/plugin-skill-studio/references/inventory-versions.md)
+Studio 0.3.16 kan også kontrollere en eksisterende personlig eller Business-post ud fra dens præcise ID. Brug en privat kopi af modpartstabellen med din egen post tilføjet. Studio bruger kataloget for den aktive konto og viser den installerede og den tilgængelige version hver for sig. Identiteter fra andre konti indgår ikke som observationer. Hvis CLI-listen fejler, bevarer Studio de verificerede katalog- og kildeopslag og markerer kontrollen som ufuldstændig. En uobserveret installation kan derfor stå som uafklaret. [Sådan samles en versionskvittering](../plugins/plugin-skill-studio/references/inventory-versions.md)
 
 ## Workspace-wide continuation — 2026-11-16
 

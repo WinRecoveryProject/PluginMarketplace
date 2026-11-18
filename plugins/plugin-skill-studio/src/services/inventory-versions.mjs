@@ -205,6 +205,15 @@ export function auditInventoryVersions(input) {
   const nativeNamespace = nativeNamespaces[account];
   const gaps = [];
   const inventory = scopedInventory(input.inventory, nativeNamespace, workspaceFingerprint !== null, gaps);
+  const { cliFailure = null } = inventory;
+  check(cliFailure, [null, 'TIMEOUT', 'FAILED'].includes(cliFailure), 'CLI failure reason');
+  const cliSnapshots = inventory.current.filter(snapshot => snapshot.kind === 'cli');
+  const fullCliObserved = cliSnapshots.some(snapshot => !snapshot.data?.marketplaceLoadErrors?.length);
+  check(cliFailure, !cliFailure || !fullCliObserved, 'CLI failure without a successful CLI snapshot');
+  if (!fullCliObserved) {
+    const reason = cliFailure ?? (cliSnapshots.length ? 'FAILED' : 'NOT_CAPTURED');
+    gaps.push({ code: 'CLI_EVIDENCE_MISSING', reason });
+  }
   const reconciled = reconcileInstalledInventories(inventory);
   gaps.push(...reconciled.incomplete.map(message => ({ code: 'INVENTORY_INCOMPLETE', message })));
   const nativeSections = inventory.current
@@ -261,8 +270,11 @@ export function auditInventoryVersions(input) {
     ...reconciled.historicalComparison,
     snapshots: reconciled.historicalComparison.snapshots.map(snapshot => {
       const previousIds = new Set(snapshot.deltas.map(row => row.id));
-      const deltas = snapshot.deltas.map(row => !nativeAttested && row.status === 'HISTORICAL_ID_ABSENT' &&
-        isNativeNamespace(namespaceOf(row.id)) ? { ...row, status: 'HISTORICAL_ID_UNVERIFIED' } : row);
+      const deltas = snapshot.deltas.map(row => {
+        const coverage = isNativeNamespace(namespaceOf(row.id)) ? nativeAttested : fullCliObserved;
+        return !coverage && row.status === 'HISTORICAL_ID_ABSENT' ?
+          { ...row, status: 'HISTORICAL_ID_UNVERIFIED' } : row;
+      });
       const newlyObserved = [...installed.keys()].filter(key => !previousIds.has(key) && !isNativeNamespace(namespaceOf(key)));
       return { ...snapshot, deltas, newlyObserved };
     }),

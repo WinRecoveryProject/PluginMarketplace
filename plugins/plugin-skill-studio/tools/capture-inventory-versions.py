@@ -17,6 +17,7 @@ from urllib.request import HTTPRedirectHandler, build_opener
 
 GITHUB = re.compile(r"https://github\.com/([\w.-]+)/([\w.-]+?)(?:\.git)?$", re.ASCII)
 IDENTITY = re.compile(r"[\da-z][\da-z._-]*@[\da-z][\da-z._-]*$", re.ASCII | re.I)
+VERSION = re.compile(r"[a-z0-9][a-z0-9.+_-]{0,127}", re.ASCII | re.I)
 COMPONENT = re.compile(r"[\da-z_.-]+$", re.ASCII | re.I)
 REVISION = re.compile(r"[\da-f]{40}$", re.ASCII)
 MANIFESTS = (".codex-plugin/plugin.json", "plugin.json")
@@ -208,8 +209,11 @@ def capture_native(codex, root, account, wanted):
 
 
 def observed_installations(data):
+    rows = data["installed"]
+    if not isinstance(rows, list) or not all(isinstance(row, dict) for row in rows):
+        raise ValueError("Expected a list of installed plugin records")
     return {"installed": [{key: row.get(key) for key in ("pluginId", "version", "enabled", "installed")}
-                          for row in data["installed"] if row.get("installed") is not False
+                          for row in rows if row.get("installed") is not False
                           and not is_native_namespace(identity_namespace(row.get("pluginId")))]}
 
 
@@ -239,7 +243,27 @@ def capture(args):
         except (KeyError, OSError, ValueError, subprocess.SubprocessError):
             return {"namespace": namespace, "exitCode": 2}
 
-    installed = json.loads(command(codex, "plugin", "list", "--json"))
+    current = []
+    cli_failure = None
+    try:
+        data = json.loads(command(codex, "plugin", "list", "--json"))
+        installed = observed_installations(data)
+        if data.get("marketplaceLoadErrors") or len(installed["installed"]) > 20000:
+            raise ValueError("Incomplete installed CLI listing")
+        for row in installed["installed"]:
+            plugin_id, version = row["pluginId"], row["version"]
+            if not isinstance(plugin_id, str) or not IDENTITY.fullmatch(plugin_id):
+                raise ValueError("Invalid installed CLI identity")
+            if version is not None and (not isinstance(version, str) or not VERSION.fullmatch(version)):
+                raise ValueError("Invalid installed CLI version")
+            if any(row[key] is not None and not isinstance(row[key], bool) for key in ("enabled", "installed")):
+                raise ValueError("Invalid installed CLI state")
+    except subprocess.TimeoutExpired:
+        cli_failure = "TIMEOUT"
+    except (KeyError, TypeError, ValueError, OSError, subprocess.SubprocessError):
+        cli_failure = "FAILED"
+    else:
+        current.append({"label": "CLI", "kind": "cli", "data": installed})
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         native = pool.submit(capture_native, codex, root, args.account, wanted)
         published = pool.submit(capture_publications, root)
@@ -247,13 +271,14 @@ def capture(args):
     history = [] if not args.previous else [{"label": "previous", "kind": "historical",
         "data": observed_installations(json.loads(args.previous.read_text(encoding="utf-8-sig")))}]
     workspace_fingerprint, catalog = native.result()
+    current.append({"label": "Native", "kind": "catalog", "data": catalog})
+    inventory = {"current": current, "historical": history}
+    if cli_failure:
+        inventory["cliFailure"] = cli_failure
     report = {"scope": {"host": args.host, "account": args.account,
               "workspaceFingerprint": workspace_fingerprint,
               "observedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")},
-              "inventory": {"current": [
-                  {"label": "CLI", "kind": "cli", "data": observed_installations(installed)},
-                  {"label": "Native", "kind": "catalog", "data": catalog}],
-                  "historical": history},
+              "inventory": inventory,
               "published": published.result(), "catalogs": catalogs, "counterparts": counterpart}
     return report
 
