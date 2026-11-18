@@ -1,6 +1,6 @@
 {
   "name": "winrecoveryproject-linter",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Local read-only linting for selected source types with visible coverage, pinned tools and no paid services.",
   "author": {
     "name": "Zilvereyes"

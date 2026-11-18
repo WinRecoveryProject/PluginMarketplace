@@ -1,3 +1,5 @@
+import { ToolTimeoutError } from './process.mjs';
+
 // Bound analyzer work per process without raising the process timeout or running source.
 const MAX_FILES=8;
 const TARGET_BYTES=256*1024; // A larger supported source stays whole, alone in a batch.
@@ -24,22 +26,32 @@ function checkedReport(text,files){
     return {file:item.file,rule:item.rule,message:item.message,line:item.line,column:item.column,severity:item.severity};
   });
 }
-export async function analyzePowerShell(files,{execute,executable,adapter,cwd}){
-  const findings=[];
-  for(const batch of batches(files)){
-    try{
-      const input=JSON.stringify(batch);
-      if(Buffer.byteLength(input)>MAX_INPUT_BYTES)throw Error('PowerShell batch exceeds bounded adapter input');
-      const result=await execute(executable,['-NoLogo','-NoProfile','-NonInteractive','-File',adapter],
-        {cwd,input,timeout:TIMEOUT});
-      if(result.code!==0)throw Error(result.stderr||`PowerShell adapter exited ${result.code}`);
-      findings.push(...checkedReport(result.stdout,batch));
-    }catch(error){
-      // The failed process is terminal. Continue independent batches, never mark this one checked.
-      const reason=String(error?.message??error).slice(0,2048);
-      for(const item of batch)findings.push({file:item.file,rule:'powershell-adapter',message:`PowerShell batch incomplete: ${reason}`,
-        line:1,column:1,severity:'error',incomplete:true});
+export async function analyzePowerShell(files, { execute, executable, adapter, cwd }) {
+  const findings = [];
+  const args = ['-NoLogo', '-NoProfile', '-NonInteractive', '-File', adapter];
+
+  async function analyzeBatch(batch, allowSplit) {
+    try {
+      const input = JSON.stringify(batch);
+      if (Buffer.byteLength(input) > MAX_INPUT_BYTES) throw Error('PowerShell batch exceeds bounded adapter input');
+      const result = await execute(executable, args, { cwd, input, timeout: TIMEOUT });
+      if (result.code !== 0) throw Error(result.stderr || `PowerShell adapter exited ${result.code}`);
+      findings.push(...checkedReport(result.stdout, batch));
+    } catch (error) {
+      // Give each half one attempt under the same per-process timeout.
+      if (allowSplit && batch.length > 1 && error instanceof ToolTimeoutError) {
+        const midpoint = Math.floor(batch.length / 2);
+        await analyzeBatch(batch.slice(0, midpoint), false);
+        await analyzeBatch(batch.slice(midpoint), false);
+        return;
+      }
+      const reason = String(error?.message ?? error).slice(0, 2048);
+      for (const item of batch) findings.push({
+        file: item.file, rule: 'powershell-adapter', message: `PowerShell batch incomplete: ${reason}`,
+        line: 1, column: 1, severity: 'error', incomplete: true
+      });
     }
   }
+  for (const batch of batches(files)) await analyzeBatch(batch, true);
   return findings;
 }

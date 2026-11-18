@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { ChildProcess } from 'node:child_process';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -149,6 +150,24 @@ test('Process runner limits time/output and does not interpret argument metachar
   assert.equal(result.stdout, text);
   await assert.rejects(run(process.execPath, ['-e', 'setInterval(()=>{},1000)'], { timeout: 30 }), /timed out/);
   await assert.rejects(run(process.execPath, ['-e', 'process.stdout.write("x".repeat(10000))'], { limit: 100 }), /exceeded/);
+});
+
+test('Process runner preserves an output-limit failure when the timeout fires during shutdown', async t => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const kill = ChildProcess.prototype.kill;
+  let killCount = 0;
+  t.mock.method(ChildProcess.prototype, 'kill', function (...args) {
+    if (++killCount === 1) {
+      // Hold the first kill until the runner's timeout callback also fires.
+      t.mock.timers.tick(100);
+      return true;
+    }
+    return kill.apply(this, args);
+  });
+  const script = 'process.stdout.write("x".repeat(100)); setInterval(() => {}, 1000)';
+  await assert.rejects(run(process.execPath, ['-e', script], { timeout: 100, limit: 10 }),
+    { message: 'Tool output exceeded 10 bytes' });
+  assert.equal(killCount, 2);
 });
 
 test('CLI init never overwrites config; malformed config fails closed', async () => {

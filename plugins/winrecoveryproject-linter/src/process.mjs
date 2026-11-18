@@ -2,6 +2,12 @@ import { spawn } from 'node:child_process';
 import { accessSync, constants, realpathSync } from 'node:fs';
 import path from 'node:path';
 
+export class ToolTimeoutError extends Error {
+  constructor(timeout) {
+    super(`Tool timed out after ${timeout} ms`);
+  }
+}
+
 // No shell and no command strings. Process output is bounded in bytes, including stderr.
 export function run(executable, args, { cwd, input, timeout = 30000, limit = 4 * 1024 * 1024, env = process.env } = {}) {
   return new Promise((resolve, reject) => {
@@ -11,12 +17,12 @@ export function run(executable, args, { cwd, input, timeout = 30000, limit = 4 *
     try { child = spawn(executable, args, { cwd, env: clean, shell: false, windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] }); }
     catch (error) { reject(error); return; }
     let stdout = '', stderr = '', bytes = 0, failure;
-    const timer = setTimeout(() => { failure = new Error(`Tool timed out after ${timeout} ms`); child.kill(); }, timeout);
+    const timer = setTimeout(() => { failure ??= new ToolTimeoutError(timeout); child.kill(); }, timeout);
     for (const [stream, name] of [[child.stdout, 'stdout'], [child.stderr, 'stderr']]) {
       stream.setEncoding('utf8');
       stream.on('data', chunk => {
         bytes += Buffer.byteLength(chunk);
-        if (bytes > limit) { failure = new Error(`Tool output exceeded ${limit} bytes`); child.kill(); return; }
+        if (bytes > limit) { failure ??= new Error(`Tool output exceeded ${limit} bytes`); child.kill(); return; }
         if (name === 'stdout') stdout += chunk; else stderr += chunk;
       });
     }

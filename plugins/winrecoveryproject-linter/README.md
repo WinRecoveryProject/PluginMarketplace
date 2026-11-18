@@ -1,6 +1,6 @@
 # WinRecoveryProjectLinter
 
-Version 0.1.4. An independent MIT local CLI and Codex plugin by Zilvereyes.
+Version 0.1.5. An independent MIT local CLI and Codex plugin by Zilvereyes.
 Scan selected source types without running project scripts or changing source.
 Paid service budget: **0 kr**. No cloud account, API key, telemetry or model API.
 
@@ -122,6 +122,9 @@ PowerShell requires an existing trusted pwsh >=7.4.6 and PSScriptAnalyzer 1.25.0
 The wrapper imports only that exact version and uses parser input snapshots and
 `Invoke-ScriptAnalyzer -ScriptDefinition` with a fixed built-in rule allowlist.
 It does not download PowerShell modules or resolve DSC dependencies.
+The analyzer runs in batches with a 30-second limit per process. If a
+multi-file batch times out, each half gets one attempt under the same limit.
+Files in any half that still fails are reported as INCOMPLETE.
 
 Batch setup creates its separate durable Python venv and installs
 the pinned Blinter and charset-normalizer wheels with PyPI SHA-256 hashes.
@@ -208,7 +211,7 @@ extracts that ZIP to a new directory, proves missing library failures, explicitl
 bootstraps its locked dependencies and then scans Lua/HTML/CSS fixtures. It never
 copies locks around a broken artifact or borrows the original node_modules.
 To prove a specific built ZIP, run
-`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.4.zip`.
+`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.5.zip`.
 Unavailable external tools are explicitly skipped by the portable test suite;
 check the actual test receipt before claiming coverage for a machine.
 
