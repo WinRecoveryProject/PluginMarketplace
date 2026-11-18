@@ -1,3 +1,5 @@
 interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
   display_name: "Diagnosing Bugs"
   short_description: "Diagnose hard bugs and regressions"

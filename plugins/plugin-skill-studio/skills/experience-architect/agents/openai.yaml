@@ -1,0 +1,5 @@
+interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
+  display_name: "Experience Architect"
+  short_description: "Shape plugin skills around clear user outcomes"

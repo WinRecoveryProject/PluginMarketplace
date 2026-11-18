@@ -1,4 +1,6 @@
 interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
   display_name: "Execute Durably"
   short_description: "Run long work with durable state and evidence"
   default_prompt: "Run this long task with durable evidence."

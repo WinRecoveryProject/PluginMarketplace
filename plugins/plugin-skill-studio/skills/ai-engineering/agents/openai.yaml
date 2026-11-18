@@ -1,3 +1,5 @@
 interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
   display_name: "AI Engineering"
   short_description: "ML model training, fine-tuning, and serving"

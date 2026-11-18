@@ -1,4 +1,6 @@
 interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
   display_name: "Automate UI"
   short_description: "Automate browser and desktop UI workflows"
   default_prompt: "Navigate and verify this user interface."

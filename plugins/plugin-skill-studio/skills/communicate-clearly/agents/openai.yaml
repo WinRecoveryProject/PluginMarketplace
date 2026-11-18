@@ -1,4 +1,6 @@
 interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
   display_name: "Communicate Clearly"
   short_description: "Write clear audience-appropriate communication"
   default_prompt: "Rewrite this message for its audience."

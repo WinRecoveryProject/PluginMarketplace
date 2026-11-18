@@ -1,4 +1,6 @@
 interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
   display_name: "Host Workspace Operator"
   short_description: "Read search and edit files"
   default_prompt: "Inspect the workspace with native read/search tools first, then make only the authorized file changes and verify them with available host tools."

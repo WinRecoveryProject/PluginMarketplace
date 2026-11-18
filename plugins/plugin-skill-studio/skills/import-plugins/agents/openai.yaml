@@ -1,4 +1,6 @@
 interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
   display_name: "Universal Local Import"
   short_description: "Use when adapting a selected folder of local skills or plugins into independent"
   default_prompt: "Use $import-plugins for this task."

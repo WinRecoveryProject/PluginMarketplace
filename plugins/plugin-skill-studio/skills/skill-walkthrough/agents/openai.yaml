@@ -1,4 +1,6 @@
 interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
   display_name: "Skill Walkthrough"
   short_description: "Use when explaining what a skill does, what it can touch, and how to review it."
   default_prompt: "Use $skill-walkthrough for this task."
