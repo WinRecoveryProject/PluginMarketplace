@@ -38,7 +38,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Component Forge | `0.1.3` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Plugin-Skill-Studio | `0.3.12` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.5` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
-| Windows Dism Update Docs | `0.1.3` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
+| Windows Dism Update Docs | `0.1.4` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.32` | `codex plugin add codex-security@winrecoveryproject-digital` |
 | Linear | `5.0.1` | `codex plugin add linear@winrecoveryproject-digital` |
 | Codex Coordinator | `0.4.0` | `codex plugin add codex-coordinator@winrecoveryproject-digital` |

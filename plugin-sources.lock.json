@@ -1118,21 +1118,27 @@
     },
     "windows-dism-update-docs": {
       "repository": "https://github.com/WinRecoveryProject/Windows-Dism-Update-Docs.git",
-      "commit": "d026bda690fb1f9ef219ea6b7a6070cd3845307d",
+      "commit": "d27d6cf0d8e425364b2c73c9bfb193f5e8d56ad5",
       "sourceSubdir": ".",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "files": {
-        ".codex-plugin/plugin.json": "c06af0057b103388e1beee0d5115cad9f8a4bad0c3d2535b3dc39b913b715d1a",
+        ".codex-plugin/plugin.json": "c53a872203461153bbbb9feadb99bc6d9b8e8ea7dd4a35bbbd93b1d2a70f4ac7",
         ".gitattributes": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c",
         "assets/windows-dism-update-docs.png": "3fc4c557045c15e45cca5c50daa5fa455725e448ec6ba51d4ce1c6682124f298",
         "LICENSE": "105280883c50dfa484fd0be76f8fa23e3dc5c8ae28bb30548c3a91fd6308c97b",
         "PRIVACY.md": "1d1fb298a90c2c9d6a9cf2b7532f1c08c0ec6bfceed96669cb38cdfd10ee616c",
         "README.md": "a57f9cce2edf07552711448d20098d9bb0db437b85a3745d8e2ef490441f1b43",
-        "skills/windows-dism-update-docs/agents/openai.yaml": "1bdaa515dfc80840a739addcef047fa8cfe95b6111c2d3dc6536adbfbabaa81c",
+        "skills/windows-dism-update-docs/agents/openai.yaml": "64a70189509a5c9f0c15f08a42c4996fe27a024f8f99faddd6f33e4e548510a0",
         "skills/windows-dism-update-docs/assets/windows-dism-update-docs.png": "3fc4c557045c15e45cca5c50daa5fa455725e448ec6ba51d4ce1c6682124f298",
         "skills/windows-dism-update-docs/references/local-library.md": "15bf7af1a7bbf516fdae4f6dd060e08cc4c94a4c3ade3a5301fa1f340c8b90e5",
         "skills/windows-dism-update-docs/SKILL.md": "a8f413c1ca1b13846b092681b3d6e54d06a20ab1499a232127b974c8f1f79d40",
-        "TERMS.md": "3d10f0384e9ac0f825e5b88f844bbf6f185fd4ddadfb851b030fefb24d3fa6a1"
+        "TERMS.md": "3d10f0384e9ac0f825e5b88f844bbf6f185fd4ddadfb851b030fefb24d3fa6a1",
+        "assets/composer-128.png": "1e8b599996fb1ca54facad8a684e7b16359651cf4e8bf3828d0d076858d89e42",
+        "assets/favicon.ico": "1e4c76b47dd8f8d7c75a6fb88eefde41f8f0f2bfe75908d63b1354e41cddd323",
+        "assets/icon-small-64.png": "117d265723415eec4db19ae06e2f272e4d6f65b852c93f5fb33f01299b03d6d2",
+        "assets/logo-512.png": "0233434d0452f2d323fb9ccf539b77e28fec460b79921b665ba2c0c37d243b71",
+        "skills/windows-dism-update-docs/assets/wrp-icon-128.png": "a850613cea31a201dc848726fff334a14f15939cf59d37c43c97abb58fbbedea",
+        "skills/windows-dism-update-docs/assets/wrp-icon-256.png": "31342a2ffe8e7b39fbc11fe7481b18e2422a316a429c0d4e726bc5763de329fd"
       }
     },
     "codex-coordinator": {
