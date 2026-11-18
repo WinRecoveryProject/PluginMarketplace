@@ -1,11 +1,13 @@
 import importlib.util
+import io
 import json
 from pathlib import Path
 import subprocess
 import tempfile
 from types import SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import call, patch
+from urllib.error import HTTPError, URLError
 
 
 script = Path(__file__).resolve().parents[1] / "tools" / "capture-inventory-versions.py"
@@ -15,6 +17,31 @@ spec.loader.exec_module(collector)
 
 
 class CaptureInventoryVersionsTest(unittest.TestCase):
+    def test_public_manifest_retries_the_same_revision_after_a_transient_failure(self):
+        url = "https://raw.githubusercontent.com/openai/plugins/" + "a" * 40 + "/plugins/github/plugin.json"
+        expected = b'{"name":"github","version":"0.1.12"}'
+        for failure in (TimeoutError(), ConnectionResetError(), URLError(TimeoutError()),
+                        collector.IncompleteRead(b""), HTTPError(url, 503, "unavailable", {}, io.BytesIO())):
+            with self.subTest(failure=failure), \
+                 patch.object(collector.PUBLIC_HTTP, "open", side_effect=[failure, io.BytesIO(expected)]) as get, \
+                 patch.object(collector.time, "sleep") as wait:
+                self.assertEqual(collector.public_manifest_bytes(url), expected)
+                self.assertEqual(get.call_args_list, [call(url, timeout=12), call(url, timeout=5)])
+                wait.assert_called_once_with(0.5)
+
+    def test_public_manifest_leaves_permanent_or_repeated_failures_unverified(self):
+        url = "https://raw.githubusercontent.com/openai/plugins/" + "a" * 40 + "/plugins/sharepoint/plugin.json"
+        for initial, expected_calls in ((HTTPError(url, 404, "missing", {}, None), 1),
+                                        (HTTPError(url, 429, "rate limited", {}, None), 1),
+                                        (URLError("TLS verification failed"), 1),
+                                        (TimeoutError(), 2)):
+            with self.subTest(initial=initial), \
+                 patch.object(collector.PUBLIC_HTTP, "open", side_effect=initial) as get, \
+                 patch.object(collector.time, "sleep"):
+                with self.assertRaises(type(initial)):
+                    collector.public_manifest_bytes(url)
+                self.assertEqual(get.call_count, expected_calls)
+
     def test_non_plugin_commands_keep_default_budget(self):
         result = subprocess.CompletedProcess(["git", "status"], 0, stdout=b"clean")
         with patch.object(collector.subprocess, "run", return_value=result) as run:

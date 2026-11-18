@@ -2,29 +2,31 @@
 
 ## Versionskanaler · 2026-11-18
 
-Kontrollen sammenlignede 33 Marketplace-poster med de respektive Git-manifester på de aktuelle revisionsnumre. Alle 29 installerede poster med identiteten `@winrecoveryproject-digital` matchede deres Git-kilde. OpenAIs katalog viste ni nyere udgaver. Seks var installeret på kontrolmaskinen, og tre stod som tilgængelige.
+Studio 0.3.17 sammenlignede 33 Marketplace-poster med Git og så 29 installerede Marketplace-pakker med præcist versionsmatch på Acer i Business. OpenAI-kataloget viste ni nyere modparter. Otte versioner blev bekræftet fra installerede pakker i den Business-session. SharePoint 0.1.8 blev bekræftet som tilgængelig i kataloget.
 
-| Plugin | Git-kilde i WinRecoveryProject Digital | OpenAI-katalog | Status på kontrolmaskinen |
+| Plugin | Git-kilde i WinRecoveryProject Digital | OpenAI-katalog | Evidens på Acer i Business |
 | --- | --- | --- | --- |
 | SharePoint | `0.1.7` | `0.1.8` | Tilgængelig |
 | Vercel | `0.21.4` | `0.54.1` | Installeret |
-| GitHub | `0.1.12` | `0.1.13-77c10e110b37` | Tilgængelig |
+| GitHub | `0.1.12` | `0.1.13-77c10e110b37` | Installeret |
 | Google Drive | `0.1.15` | `0.1.26` | Installeret |
-| OpenAI Developers | `1.2.3` | `1.3.16` | Tilgængelig |
+| OpenAI Developers | `1.2.3` | `1.3.16` | Installeret |
 | Dropbox | `5.0.1` | `6.1.0` | Installeret |
 | Gmail | `0.1.9` | `0.1.10` | Installeret |
 | Google Calendar | `1.2.6` | `1.2.7` | Installeret |
 | Slack | `0.1.7` | `0.1.8` | Installeret |
 
-Katalogopslaget brugte `codex plugin list --marketplace openai-curated-remote --available --json`, som også viser tilgængelige pakker uden en lokal installation.
+Katalogopslaget brugte `codex plugin list --marketplace openai-curated-remote --available --json`. En række med installeret evidens viser den installerede version på kontrolmaskinen. Tilgængelig evidens viser en separat version, som kataloget tilbyder den aktive konto. Den aktive konto og installationerne på værten afgør, hvilke af de to felter Studio kan udfylde.
 
-Git-versionerne er aflæst fra [OpenAIs publicerede manifests](https://github.com/openai/plugins/tree/985fff07dcefa03e40e8664e24363d10b2bacd44/plugins). Den offentlige Git-kilde havde ingen release-tags ved kontrollen. Vercels eget repository havde version 0.56.0 for andre værter. Den revision havde hverken en native Codex-manifestfil eller Vercel App-deklarationen. [Vercels offentlige kilde](https://github.com/vercel/vercel-plugin/tree/e69e3ba0ac0d7d24033c5ba95041acc4fc656480)
+De ni Marketplace-poster peger på [OpenAIs publicerede manifester ved 985fff0](https://github.com/openai/plugins/tree/985fff07dcefa03e40e8664e24363d10b2bacd44/plugins). Det var stadig den offentlige `main` ved genkontrollen. De nyere versionsangivelser i tabellen kommer fra OpenAI-kataloget. Vercels eget repository havde version 0.56.0 for andre værter. Den revision havde hverken en native Codex-manifestfil eller Vercel App-deklarationen. [Vercels offentlige kilde](https://github.com/vercel/vercel-plugin/tree/e69e3ba0ac0d7d24033c5ba95041acc4fc656480)
 
-Brug den eksisterende udgave fra OpenAI-kataloget, når den nyere udgave er nødvendig. Marketplace-posterne henter deres publicerede pakker fra de angivne Git-kilder. Opdatering af en Marketplace-installation gælder det pågældende katalog-ID.
+Brug den eksisterende udgave fra OpenAI-kataloget, når den nyere udgave er nødvendig. En Marketplace-opgradering kræver en nyere Codex-pakke fra en verificeret Git-kilde og kontrol af dens eksisterende App- eller MCP-binding. Opdatering af en Marketplace-installation gælder det pågældende katalog-ID.
 
 [Modpartstabellen](catalog-counterparts.json) forbinder 22 kendte produkter til deres eksakte OpenAI-katalog-ID i Studios genkørbare versionskontrol. Den gemmer sammenligningsgrundlaget på GitHub. App-ID, OAuth, installation og valg af distributionskanal er separate. Codex' native test indlæste en almindelig Git-pakke og udelod forsøget med et direkte remote-plugin-ID i samme Marketplace-manifest.
 
-Studio 0.3.17 kan også kontrollere en eksisterende personlig eller Business-post ud fra dens præcise ID. Brug en privat kopi af modpartstabellen med din egen post tilføjet. Studio bruger kataloget for den aktive konto og viser den installerede og den tilgængelige version hver for sig. Identiteter fra andre konti indgår ikke som observationer. Hvis CLI-listen fejler, bevarer Studio de verificerede katalog- og kildeopslag og markerer kontrollen som ufuldstændig. En uobserveret installation kan derfor stå som uafklaret. Business-opslag har en afgrænset frist på 110 sekunder. En advarsel om et fejlet fjernkatalog giver fortsat en ufuldstændig kontrol, også når CLI-processen afslutter normalt. [Sådan samles en versionskvittering](../plugins/plugin-skill-studio/references/inventory-versions.md)
+Studio 0.3.18 kan også kontrollere en eksisterende personlig eller Business-post ud fra dens præcise ID. Brug en privat kopi af modpartstabellen med din egen post tilføjet. Studio bruger kataloget for den aktive konto og viser den installerede og den tilgængelige version hver for sig. Identiteter fra andre konti indgår ikke som observationer. Hvis CLI-listen fejler, bevarer Studio de verificerede katalog- og kildeopslag og markerer kontrollen som ufuldstændig. En uobserveret installation kan derfor stå som uafklaret. Business-opslag har en afgrænset frist på 110 sekunder. En advarsel om et fejlet fjernkatalog giver fortsat en ufuldstændig kontrol, også når CLI-processen afslutter normalt. [Sådan samles en versionskvittering](../plugins/plugin-skill-studio/references/inventory-versions.md)
+
+ASUS Business blev også kontrolleret. Studio læste den eksisterende session gennem den aktive Codex Desktop-runtime 0.169.0-alpha.11.1. De 81 installerede identiteter og OneDrive 1.2.1 blev bekræftet i Business. De 33 Git-manifester blev afstemt efter separat genhentning af GitHub og SharePoint på samme revision. Personlig blev gendannet før genhentningen. Studio 0.3.18 genforsøger nu midlertidige netværksfejl ved manifestlæsning én gang på samme URL og revision.
 
 ## Workspace-wide continuation — 2026-11-16
 

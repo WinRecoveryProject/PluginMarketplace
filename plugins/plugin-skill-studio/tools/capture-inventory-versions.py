@@ -3,6 +3,7 @@ import argparse
 import concurrent.futures
 import datetime
 import hashlib
+from http.client import IncompleteRead
 import json
 import os
 from pathlib import Path
@@ -12,7 +13,7 @@ import subprocess
 import tempfile
 import threading
 import time
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.request import HTTPRedirectHandler, build_opener
 
 GITHUB = re.compile(r"https://github\.com/([\w.-]+)/([\w.-]+?)(?:\.git)?$", re.ASCII)
@@ -25,6 +26,8 @@ NATIVE_NAMESPACES = {"personal": "created-by-me-remote", "business": "workspace-
 ENV = {**os.environ, "GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "Never"}
 COMMAND_TIMEOUT = 30
 BUSINESS_PLUGIN_TIMEOUT = 110
+PUBLIC_MANIFEST_SIZE_LIMIT = 256 * 1024
+PUBLIC_MANIFEST_RETRY_CODES = frozenset({408, 500, 502, 503, 504})
 INCOMPLETE_MARKETPLACE_WARNING = b"Warning: failed to list remote marketplace plugins:"
 
 
@@ -60,6 +63,24 @@ def git_head(remote):
     if not REVISION.fullmatch(revision):
         raise ValueError("Invalid resolved Git revision")
     return revision
+
+
+def public_manifest_bytes(url):
+    def fetch(timeout):
+        with PUBLIC_HTTP.open(url, timeout=timeout) as page:
+            return page.read(PUBLIC_MANIFEST_SIZE_LIMIT + 1)
+
+    try:
+        return fetch(12)
+    except (TimeoutError, ConnectionError, IncompleteRead, URLError) as failure:
+        if isinstance(failure, HTTPError):
+            if failure.code not in PUBLIC_MANIFEST_RETRY_CODES:
+                raise
+            failure.close()
+        elif isinstance(failure, URLError) and not isinstance(failure.reason, (TimeoutError, ConnectionError)):
+            raise
+    time.sleep(0.5)
+    return fetch(5)
 
 
 def capture_publications(root):
@@ -102,9 +123,8 @@ def capture_publications(root):
                         raw = command("git", "-C", root, "show", f"{sha}:{name}")
                     else:
                         owner, repo = repository.groups()
-                        with PUBLIC_HTTP.open(f"https://raw.githubusercontent.com/{owner}/{repo}/{sha}/{name}", timeout=12) as page:
-                            raw = page.read(256 * 1024 + 1)
-                    if len(raw) > 256 * 1024:
+                        raw = public_manifest_bytes(f"https://raw.githubusercontent.com/{owner}/{repo}/{sha}/{name}")
+                    if len(raw) > PUBLIC_MANIFEST_SIZE_LIMIT:
                         return None
                     data = json.loads(raw)
                     candidates.append((name, data["name"], data["version"]))
@@ -118,7 +138,7 @@ def capture_publications(root):
                 return None
             return {"id": identity, "version": candidates[0][2],
                     "source": {"url": url, "revision": sha, "path": candidates[0][0]}}
-        except (KeyError, TypeError, ValueError, OSError, subprocess.SubprocessError):
+        except (KeyError, TypeError, ValueError, OSError, IncompleteRead, subprocess.SubprocessError):
             return None
 
     urls = sorted({source["url"] for entry in rows["plugins"]
