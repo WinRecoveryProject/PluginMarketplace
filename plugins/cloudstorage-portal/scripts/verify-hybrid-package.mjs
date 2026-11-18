@@ -87,7 +87,8 @@ if (installedRoot) {
 
 const expectedWorkflows = [
   'clean-up-dropbox-content', 'collect-files-with-request', 'find-dropbox-content', 'inspect-dropbox-file',
-  'organize-dropbox-folder', 'share-dropbox-content', 'google-docs', 'google-drive', 'google-drive-comments',
+  'organize-dropbox-folder', 'share-dropbox-content', 'upload-to-dropbox',
+  'google-docs', 'google-drive', 'google-drive-comments',
   'google-sheets', 'google-slides',
 ];
 
@@ -139,7 +140,7 @@ const result = {
 
 console.log(JSON.stringify(result, null, 2));
 if (providerMismatches.length || !result.plugin.identitiesSynchronized || !result.expectedWorkflowsPresent
-  || skillNames.length !== 15 || !result.bindings.preserved || result.hybrid.portalOwnsMcpRuntime
+  || skillNames.length !== 16 || !result.bindings.preserved || result.hybrid.portalOwnsMcpRuntime
   || !result.hybrid.activeRootPortableManifestAbsent || !result.hybrid.activeRootPortableMcpAbsent
   || !activeLegacyMcpAbsent || !exactAppSet || manifest.apps !== './.app.json'
   || installationMismatches.length) process.exitCode = 1;

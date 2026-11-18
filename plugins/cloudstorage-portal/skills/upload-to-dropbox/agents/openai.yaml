@@ -1,0 +1,7 @@
+interface:
+  display_name: "Upload to Dropbox"
+  short_description: "Save a file from this conversation to Dropbox"
+  icon_small: "./assets/dropbox.png"
+  icon_large: "./assets/dropbox.png"
+  brand_color: "#0061FF"
+  default_prompt: "Use $upload-to-dropbox to save my selected file to the full Dropbox path I give you."

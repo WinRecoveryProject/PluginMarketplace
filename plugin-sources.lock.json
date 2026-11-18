@@ -4,12 +4,12 @@
   "plugins": {
     "cloudstorage-portal": {
       "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal.git",
-      "commit": "07726d640458f5410849adb26d09a0408745923e",
+      "commit": "c09d43853592cf4f6e8f197ed10657ec048a7db2",
       "sourceSubdir": ".",
-      "version": "0.9.8",
+      "version": "0.9.9",
       "files": {
         ".app.json": "0a72372b3d29fb69055e4b24ce79fff2a4445249a48fafc4563c56f568160edb",
-        ".codex-plugin/plugin.json": "b524b6fffdc421c4cdcc1f2f1869571f1473c79f44c06d08416730c11d404f5a",
+        ".codex-plugin/plugin.json": "85c0d3c3d53c58b84dec7f94405c3e19bfc75363dbe4d438d2f84830043ff6f2",
         ".gitattributes": "d7e0a903ace705511d69a7862e1b3eb83b34ec890888b27ade0328b4965f3d4c",
         "BUILD-NEXT.md": "fac6db84a5640f2822567c85073b692065c5e4a9c005e419d812ce897cd44066",
         "DROPBOX-REGISTRATION.md": "bdc89e68001f5d82fec2f33e49cfc84df0e94655d73d357fcec64f64bed9be50",
@@ -20,10 +20,10 @@
         "assets/cloudstorage-portal-composer.png": "d559ce85a9ff024a54b32cf43ba137f79e4128ca1e7ee23aca1437fe98869920",
         "assets/cloudstorage-portal.png": "562617fda2cf56bb02e945466c4c43e0c4ba82e2a7b9f9fde57d5b815a5620a8",
         "references/README.md": "f759293a94e62065239845d433a26681ee3ec793afe36a79d1708cb64ac4e35b",
-        "references/portable-plugin.json": "21b3ad33eae3a75b4a328c899f7061ae32f4adf1fb1e5d6b95fab963317a93fe",
+        "references/portable-plugin.json": "eff2b22f9afd4b94b1f25f93705fdd0fff19a6197a228ae630c6cd4bba19139c",
         "scripts/package-boundaries.test.mjs": "ec44d1b3e870d7d0ad36b393711500e4ac375da9ab3e0412c50623ff2d2affb8",
-        "scripts/verify-hybrid-package.mjs": "8c5c5aa09a7229f1749b74f8d3fe2b495539607f3aae86e87813a22d37769a91",
-        "scripts/verify-provider-workflows.mjs": "4d68d50ccccd7ab24589acbab7d4b4faf27dd5c2f3da8a6a36e7763ca4cf9a80",
+        "scripts/verify-hybrid-package.mjs": "f9bcc4bbc5eb3f36239c61125ee423a8f76a333fd4c85c0ec715da7f23f61692",
+        "scripts/verify-provider-workflows.mjs": "bb0116011ce97b304d93014ec23f116bd08519c75b38ec820be61350e3fc6f7c",
         "scripts/verify-slides-native-host.mjs": "5be437ed8589e3c65ba3784d79e1153c662b2ddaf4dee8359a004c859816f38c",
         "scripts/write-remote-onedrive-mcp.mjs": "87b2e14ada2aeb9daf364e233d0b2c30e036fa3f5fd93c147e5d6f49d4897ac6",
         "scripts/write-remote-onedrive-mcp.test.mjs": "d81045c297a50844da0533f2c6120ac772bd986067c8a38834b7e2f195a216a7",
@@ -33,7 +33,7 @@
         "skills/cloudstorage-connections/SKILL.md": "a04e570531a624ada17e8935ca3cca5db00b0dbe39c5db45acb5739d145de6e0",
         "skills/cloudstorage-connections/agents/openai.yaml": "99f696d4177c4baaeec952404612b9eba160bcd3181c3ed3891fc70ec2cf3021",
         "skills/cloudstorage-connections/assets/cloudstorage-portal.png": "562617fda2cf56bb02e945466c4c43e0c4ba82e2a7b9f9fde57d5b815a5620a8",
-        "skills/cloudstorage-portal/SKILL.md": "a088428f42a8c20591504472e8fb064b404fa6996c353e0b6c119f669e6033ab",
+        "skills/cloudstorage-portal/SKILL.md": "199506185cdf99bd19a147f67122397a4d19da418e1af17d17d42bdc820d3ddd",
         "skills/cloudstorage-portal/agents/openai.yaml": "f7f0cfd166e5b954363799c55cd091f2144750de5646a0cd8529486eb8e4d144",
         "skills/cloudstorage-portal/assets/cloudstorage-portal.png": "562617fda2cf56bb02e945466c4c43e0c4ba82e2a7b9f9fde57d5b815a5620a8",
         "skills/cloudstorage-portal/references/inspection.md": "154efde438ff0a93ed94650124c60eccc6368c9281c9d34f24f4e879bbdf4461",
@@ -139,7 +139,10 @@
         "skills/organize-dropbox-folder/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273",
         "skills/share-dropbox-content/SKILL.md": "4b54a3d146d43e7a8f4bb909cf5f32f6bbc16b625b975f89bddae3856a8f18f7",
         "skills/share-dropbox-content/agents/openai.yaml": "2983c2c25f05aa8b6aa1f55d309a2075b488c1d1e8132d494dce2d32f721ccf9",
-        "skills/share-dropbox-content/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273"
+        "skills/share-dropbox-content/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273",
+        "skills/upload-to-dropbox/SKILL.md": "94fa8c23b8c2ade724d099cf7c7281c200e2b808902116af8e85ff4b5f17b477",
+        "skills/upload-to-dropbox/agents/openai.yaml": "4ee43a67550e6497e21767d6f252444db312ebdde24b929021ebad805a96411c",
+        "skills/upload-to-dropbox/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273"
       }
     },
     "powershell-workbench": {

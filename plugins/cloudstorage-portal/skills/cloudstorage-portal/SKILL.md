@@ -19,7 +19,8 @@ Use the full provider workflows included in this package; do not limit the porta
 | Dropbox metadata and content | [inspect-dropbox-file](../inspect-dropbox-file/SKILL.md) |
 | Dropbox folders, copy, move and rename | [organize-dropbox-folder](../organize-dropbox-folder/SKILL.md) |
 | Dropbox sharing | [share-dropbox-content](../share-dropbox-content/SKILL.md) |
-| Dropbox upload requests | [collect-files-with-request](../collect-files-with-request/SKILL.md) |
+| Save a file from this conversation to Dropbox | [upload-to-dropbox](../upload-to-dropbox/SKILL.md) |
+| Collect uploads from other people with a Dropbox file request | [collect-files-with-request](../collect-files-with-request/SKILL.md) |
 | Dropbox cleanup | [clean-up-dropbox-content](../clean-up-dropbox-content/SKILL.md) |
 | Google Drive files, folders, import, export and versions | [google-drive](../google-drive/SKILL.md) |
 | Google Docs | [google-docs](../google-docs/SKILL.md) |

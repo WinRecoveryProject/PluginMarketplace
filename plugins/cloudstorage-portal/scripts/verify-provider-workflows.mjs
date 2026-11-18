@@ -23,6 +23,7 @@ const dropboxSkills = [
   'inspect-dropbox-file',
   'organize-dropbox-folder',
   'share-dropbox-content',
+  'upload-to-dropbox',
 ];
 
 const googleRequirements = {
@@ -122,7 +123,7 @@ const report = {
     googleDriveToolCount: providerTools.google.size,
   },
   workflows: workflowResults,
-  passed: workflowResults.length === 11
+  passed: workflowResults.length === 12
     && workflowResults.every(result => result.available)
     && JSON.stringify(observedNames) === JSON.stringify(expectedNames),
 };
