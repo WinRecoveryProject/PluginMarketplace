@@ -80,9 +80,11 @@ const oneDriveRequirements = [
   'onedrive_get_drive',
   'onedrive_list_root',
   'onedrive_list_folder',
+  'onedrive_search',
   'onedrive_get_item',
   'onedrive_read_text',
   'onedrive_download_file',
+  'onedrive_create_folder',
   'onedrive_upload_file',
   'onedrive_update_file_content',
 ];

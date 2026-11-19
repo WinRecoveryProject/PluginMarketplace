@@ -5,6 +5,12 @@ function escape(value){return String(value??'').replaceAll('&','&amp;').replaceA
 export function render(report,format='json'){
  if(format==='json')return JSON.stringify(report,null,2)+'\n';
  const lines=[`# ${report.target?.name??'Skill Eval'}`,``, `Readiness: ${report.readiness??report.status??'UNKNOWN'}`,`Static score: ${report.score??'UNKNOWN'}`,``,report.scoreMeaning??'Practical results describe only observed runs.',``, '## Fix first',...((report.findings??[]).filter(f=>f.severity==='error').map(f=>`- ${f.code} — ${f.message} (${f.file}:${f.line})`)),``, '## Findings',...(report.findings??[]).map(f=>`- [${f.severity}] ${f.code}: ${f.message} (${f.file}:${f.line})`),``, '## Budget',`Estimated tokens: ${report.budget?.estimatedTokens??'UNKNOWN'}; method: ${report.budget?.method??'UNKNOWN'}.`,`Observed usage: ${report.observedUsage?.status??'UNKNOWN'}.`,`Behavior: ${report.behavior?.status??report.status??'UNKNOWN'}.`];
+ if(report.claude){
+   const {skills,commands,agents,hookEvents,mcpServers,mcpBundles,unverified}=report.claude.components;
+   lines.push('', '## Claude package', '',
+     `Static discovery found ${skills.length} skills, ${commands.length} commands, ${agents.length} agents, ${hookEvents.length} hook events, ${mcpServers.length} MCP servers and ${mcpBundles.length} MCP bundle references.`,
+     unverified.length?`Unverified components include ${unverified.join(', ')}.`:'Host activation requires a separate Claude test.');
+ }
  const md=lines.join('\n')+'\n';if(format==='markdown')return md;
  if(format==='html'){
    const rows=(report.findings??[]).map(f=>`<tr><th scope="row">${escape(f.id??f.code)}</th><td>${escape(f.severity)}</td><td>${escape(f.code)}</td><td>${escape(f.message)}</td><td>${escape(`${f.file}:${f.line}`)}</td><td><code>${escape(f.evidence)}</code></td></tr>`).join('');

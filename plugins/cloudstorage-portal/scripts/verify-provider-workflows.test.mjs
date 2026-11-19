@@ -28,12 +28,12 @@ const existingCatalog = {
   ] },
 };
 const oneDriveTools = [
-  'onedrive_account', 'onedrive_get_drive', 'onedrive_list_root', 'onedrive_list_folder',
+  'onedrive_account', 'onedrive_get_drive', 'onedrive_list_root', 'onedrive_list_folder', 'onedrive_search',
   'onedrive_get_item', 'onedrive_read_text', 'onedrive_download_file',
-  'onedrive_upload_file', 'onedrive_update_file_content',
+  'onedrive_create_folder', 'onedrive_upload_file', 'onedrive_update_file_content',
 ];
 
-test('catalog gate requires the hosted OneDrive read and write tools', () => {
+test('catalog gate requires hosted OneDrive search, folder creation, reads and writes', () => {
   const directory = mkdtempSync(path.join(tmpdir(), 'cloudstorage-workflow-catalog-'));
   const catalogFile = path.join(directory, 'catalog.json');
   try {
@@ -54,16 +54,17 @@ test('catalog gate requires the hosted OneDrive read and write tools', () => {
 
     const complete = verify({ ...existingCatalog, oneDrive: { tools: oneDriveTools } }, 0);
     assert.deepEqual(complete.oneDriveWorkflow.missingTools, []);
-    assert.equal(complete.providerCatalogs.oneDriveToolCount, 9);
+    assert.equal(complete.providerCatalogs.oneDriveToolCount, 11);
 
     const absent = verify(existingCatalog, 1);
     assert.deepEqual(absent.oneDriveWorkflow.missingTools, oneDriveTools);
     assert.equal(absent.providerCatalogs.oneDriveToolCount, 0);
 
-    const requiredWrite = 'onedrive_update_file_content';
-    const missingUpdate = { tools: oneDriveTools.filter(tool => tool !== requiredWrite) };
-    const partial = verify({ ...existingCatalog, oneDrive: missingUpdate }, 1);
-    assert.deepEqual(partial.oneDriveWorkflow.missingTools, [requiredWrite]);
+    for (const requiredTool of ['onedrive_search', 'onedrive_create_folder', 'onedrive_update_file_content']) {
+      const oneDrive = { tools: oneDriveTools.filter(tool => tool !== requiredTool) };
+      const partial = verify({ ...existingCatalog, oneDrive }, 1);
+      assert.deepEqual(partial.oneDriveWorkflow.missingTools, [requiredTool]);
+    }
   } finally {
     unlinkSync(catalogFile);
     rmdirSync(directory);

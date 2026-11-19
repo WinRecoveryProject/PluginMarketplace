@@ -4,6 +4,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import {spawn} from 'node:child_process';
 import {analyze,contained,redact} from './static.mjs';
+import {claudeManifestPath} from './claude.mjs';
 
 const MAX_OUTPUT=4*1024*1024;
 const DEFAULT_TIMEOUT=300000;
@@ -89,6 +90,7 @@ async function safeCopy(root,dest){
 }
 export async function createBenchmarkConfig(target,options={}){
  const report=await analyze(target);
+ if(report.target.manifest===claudeManifestPath)throw new Error('Claude plugin evaluation is static. The benchmark runner uses Codex.');
  const name=report.target.name;
  return {schemaVersion:1,kind:'studio-benchmark',targetKind:report.kind,targetName:name,
    runner:{type:'codex-cli',timeoutMs:DEFAULT_TIMEOUT,concurrency:1},fixturePath:null,
@@ -121,6 +123,7 @@ export async function runBenchmark(target,options={}){
  let temporary;
  try{
   const analyzed=await analyze(target);report.target=analyzed.target;
+  if(analyzed.target.manifest===claudeManifestPath)throw new Error('Claude plugin evaluation is static. The benchmark runner uses Codex.');
   if(!analyzed.valid)throw new Error('Static evaluation has blocking findings');
   const config=options.config??(options.configPath?JSON.parse(await fs.readFile(options.configPath,'utf8')):await createBenchmarkConfig(target));
   // Check the executable first so missing CLI diagnosis is explicit even for a starter config.

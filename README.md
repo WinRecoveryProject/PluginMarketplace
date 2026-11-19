@@ -34,9 +34,9 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
 | OneDrive | `1.2.1` | `codex plugin add onedrive@winrecoveryproject-digital` |
-| CloudStorage Portal | `0.9.11` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
+| CloudStorage Portal | `0.9.12` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.3` | `codex plugin add component-forge@winrecoveryproject-digital` |
-| Plugin-Skill-Studio | `0.3.27` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
+| Plugin-Skill-Studio | `0.3.28` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.6` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.4` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.33` | `codex plugin add codex-security@winrecoveryproject-digital` |
@@ -75,7 +75,7 @@ Game Development Studio følger udviklerens frigivne 1.4.0. Praktisk brug kræve
 
 Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Opgørelsen fra 17. november var 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den historiske kontrol og forklaringerne](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
-Studio 0.3.27 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322).
+Studio 0.3.28 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322).
 
 Kør `node scripts/check-documented-versions.mjs <rapport.json>` med en frisk Studio-rapport efter en udgivelse. Kontrollen sammenligner alle rækker med de observerede Git-manifester og melder manglende eller forældede versionsangivelser.
 

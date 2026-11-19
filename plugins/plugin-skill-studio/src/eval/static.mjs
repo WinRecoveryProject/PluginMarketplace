@@ -1,10 +1,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import {claudeManifestPath, inspectClaude} from './claude.mjs';
 
 const MAX_FILES=5000, MAX_FILE=2*1024*1024, MAX_TOTAL=32*1024*1024;
 const TEXT=/(?:\.(md|txt|json|ya?ml|m?js|cjs|ts|tsx|py|ps1|cmd|bat|sh|toml|xml|svg|dockerfile|containerfile)$|(?:^|[\\/])(?:Dockerfile|Containerfile)$)/i;
 const IGNORED=new Set(['.git','node_modules','__pycache__','.plugin-eval','.studio-eval']);
+const CODEX_MANIFESTS=['plugin.json','.codex-plugin/plugin.json'];
 export const scoringVersion='pss-eval-2';
 export function contained(root,file){const rel=path.relative(root,file);return rel===''||(!rel.startsWith('..'+path.sep)&&rel!=='..'&&!path.isAbsolute(rel));}
 export function redact(text){return String(text).replace(/\b(?:sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9]{12,}|github_pat_[A-Za-z0-9_]{12,})\b/g,'[REDACTED]').replace(/\bBearer\s+[A-Za-z0-9._~+/=-]{12,}/gi,'Bearer [REDACTED]');}
@@ -57,13 +59,13 @@ export function frontmatter(text){
  return {...result,body:text.slice(match[0].length),headerLines:match[0].split('\n').length-1};
 }
 async function walk(root,findings,limits){
- const files=[];let bytes=0;
+ const files=[],directories=new Set();let bytes=0;
  async function visit(current){
    for(const entry of await fs.readdir(current,{withFileTypes:true})){
      if(IGNORED.has(entry.name))continue;const file=path.join(current,entry.name),rel=path.relative(root,file).split(path.sep).join('/');
      const stat=await fs.lstat(file);
      if(stat.isSymbolicLink()){add(findings,'error','path.link','Symbolic links and junctions are not evaluated.',rel);continue;}
-     if(stat.isDirectory())await visit(file);
+     if(stat.isDirectory()){directories.add(rel);await visit(file);}
      else if(stat.isFile()){
        bytes+=stat.size;if(files.length>=limits.maxFiles||bytes>limits.maxTotalBytes)throw new Error('Target exceeds bounded evaluation limits');
        files.push({file,rel,bytes:stat.size});
@@ -71,7 +73,7 @@ async function walk(root,findings,limits){
      }else add(findings,'error','path.special','Special files are not evaluated.',rel);
    }
  }
- await visit(root);return files;
+ await visit(root);return {files,directories};
 }
 function markdownProse(text){
  let fence=null;
@@ -199,19 +201,51 @@ export async function analyze(target,options={}){
  let contextRoot=root;
  if(path.basename(path.dirname(root))==='skills'){
    const parent=path.dirname(path.dirname(root));
-   for(const rel of ['plugin.json','.codex-plugin/plugin.json']){
+   for(const rel of [...CODEX_MANIFESTS,claudeManifestPath]){
      try{const candidate=path.join(parent,rel);await safeText(parent,candidate,limits.maxFileBytes);contextRoot=parent;break;}
      catch(error){if(error.code!=='ENOENT')throw error;}
    }
  }
- const findings=[],skills=[],files=await walk(root,findings,limits);let manifest=null;const contentHashes=[];
- for(const candidate of ['plugin.json','.codex-plugin/plugin.json'])try{const file=path.join(root,candidate);const text=await safeText(root,file,limits.maxFileBytes);const value=JSON.parse(text);if(!manifest)manifest=value;else if(value.name!==manifest.name||value.version!==manifest.version)add(findings,'error','manifest.identity','Portable and compatibility identities differ.',candidate);}catch(err){if(err.code!=='ENOENT')add(findings,'error','manifest.invalid',err.message,candidate);}
- const kind=manifest?'plugin':'skill';
- const entrypoints=kind==='skill'?[specific??path.join(root,'SKILL.md')]:files.filter(f=>/^skills\/[^/]+\/SKILL\.md$/i.test(f.rel)).map(f=>f.file);
- if(kind==='plugin'){
-   if(!manifest.name||!manifest.version)add(findings,'error','manifest.required','Manifest name and version are required.','plugin.json');
+ const findings=[],skills=[],{files,directories}=await walk(root,findings,limits);
+ let manifest=null,codexManifestPath=null,claude=null,hasClaudeManifest=false;
+ const contentHashes=[],entrypoints=new Set();
+ const readText=relative=>safeText(root,path.join(root,relative),limits.maxFileBytes);
+ for(const candidate of CODEX_MANIFESTS)try{
+   const value=JSON.parse(await readText(candidate));
+   if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('Expected a plugin manifest object');
+   if(!manifest){manifest=value;codexManifestPath=candidate;}
+   else if(value.name!==manifest.name||value.version!==manifest.version)add(findings,'error','manifest.identity','Portable and compatibility identities differ.',candidate);
+ }catch(err){if(err.code!=='ENOENT')add(findings,'error','manifest.invalid',err.message,candidate);}
+ try{
+   const value=JSON.parse(await readText(claudeManifestPath));
+   hasClaudeManifest=true;
+   if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('Expected a Claude manifest object');
+   const name=typeof value.name==='string'&&value.name&&!/[\s@:/\\\p{C}]/u.test(value.name)?value.name:null;
+   const version=typeof value.version==='string'&&value.version.trim()?value.version:null;
+   if(!name||value.version!==undefined&&!version){
+     add(findings,'error','manifest.required','Claude requires a portable name and accepts an optional non-empty version.',claudeManifestPath);
+   }
+   const issue=(code,message,file=claudeManifestPath)=>add(findings,'error',code,message,file);
+   const components=await inspectClaude(value,{files,directories,readText,issue});
+   if(!Object.values(components).some(component=>component.length)){
+     issue('manifest.capability','No discoverable Claude skills, commands, agents, hooks or MCP declarations.');
+   }
+   for(const file of components.skills)entrypoints.add(path.join(root,file));
+   claude={manifest:claudeManifestPath,name,version,coverage:components.unverified.length?'PARTIAL':'CHECKED',components};
+ }catch(err){
+   if(err.code!=='ENOENT'){
+     hasClaudeManifest=true;
+     add(findings,'error','manifest.invalid',redact(err.message),claudeManifestPath);
+   }
+ }
+ const kind=manifest||hasClaudeManifest?'plugin':'skill';
+ if(kind==='skill')entrypoints.add(specific??path.join(root,'SKILL.md'));
+ if(manifest){
+   const defaultSkills=files.filter(f=>/^skills\/[^/]+\/SKILL\.md$/i.test(f.rel));
+   if(!manifest.name||!manifest.version)add(findings,'error','manifest.required','Manifest name and version are required.',codexManifestPath);
    const declared=await declaredCapability(root,manifest,findings,limits);
-   if(!entrypoints.length&&!declared)add(findings,'error','manifest.capability','No discoverable skills, App, MCP or hook capability.','plugin.json');
+   if(!defaultSkills.length&&!declared)add(findings,'error','manifest.capability','No discoverable skills, App, MCP or hook capability.',codexManifestPath);
+   for(const file of defaultSkills)entrypoints.add(file.file);
  }
  for(const file of entrypoints)await inspectSkill(contextRoot,file,findings,skills,limits);
  for(const f of files)if(TEXT.test(f.rel)&&f.bytes<=limits.maxFileBytes){try{const text=await safeText(root,f.file,limits.maxFileBytes);contentHashes.push([f.rel,crypto.createHash('sha256').update(text).digest('hex')]);riskLines(f.rel,text,findings);}catch(err){add(findings,'error','path.read',err.message,f.rel);}}
@@ -230,8 +264,11 @@ export async function analyze(target,options={}){
  const errors=findings.filter(f=>f.severity==='error'),warnings=findings.filter(f=>f.severity==='warning');
  const score=Math.max(0,100-errors.length*14-warnings.length*6);
  const staticTokens=skills.reduce((sum,s)=>sum+s.estimatedTokens,0);
- const report={schemaVersion:1,scoringVersion,limits,kind,mode:'static',target:{root,packageRoot:contextRoot,name:manifest?.name??skills[0]?.name??path.basename(root),version:manifest?.version??null},
-   valid:errors.length===0,readiness:errors.length?'BLOCKED':'STATIC_READY',score,scoreMeaning:'Static readiness only. This score does not establish task success, safety certification, installation or publication.',
+ const targetManifest=codexManifestPath??(hasClaudeManifest?claudeManifestPath:null);
+ const report={schemaVersion:1,scoringVersion,limits,kind,mode:'static',target:{root,packageRoot:contextRoot,name:manifest?.name??claude?.name??skills[0]?.name??path.basename(root),version:manifest?manifest.version??null:claude?.version??null,manifest:targetManifest},
+   ...(claude?{claude}:{}),
+   ...(errors.length===0&&claude?.coverage==='PARTIAL'?{status:'INCOMPLETE'}:{}),
+   valid:errors.length===0,readiness:errors.length?'BLOCKED':claude?.coverage==='PARTIAL'?'INCOMPLETE':'STATIC_READY',score,scoreMeaning:'Static readiness only. This score does not establish task success, safety certification, installation or publication.',
    counts:{errors:errors.length,warnings:warnings.length,info:findings.filter(f=>f.severity==='info').length},findings,skills,metrics,
    budget:{estimatedTokens:staticTokens,method:'characters/4',scope:'SKILL.md entrypoints',descriptionTokens:Math.ceil(skills.reduce((n,s)=>n+(s.description?.length??0),0)/4)},
    observedUsage:{status:'UNKNOWN',reason:'No actual Codex usage events supplied.'},behavior:{status:'UNKNOWN',reason:'No practical benchmark has been executed.'},
