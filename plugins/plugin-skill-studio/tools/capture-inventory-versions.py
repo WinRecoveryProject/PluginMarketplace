@@ -18,6 +18,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from native_vendor_evidence import capture_vendor_details
+from native_component_inventory import capture_components, observation
 
 GITHUB = re.compile(r"https://github\.com/([\w.-]+)/([\w.-]+?)(?:\.git)?$", re.ASCII)
 IDENTITY = re.compile(r"[\da-z][\da-z._-]*@[\da-z][\da-z._-]*$", re.ASCII | re.I)
@@ -260,7 +261,7 @@ def identity_namespace(identity):
     return identity.rpartition("@")[2] if isinstance(identity, str) else ""
 
 
-def capture_native(codex, root, account, wanted, vendor_probe=None):
+def capture_native(codex, root, account, wanted, vendor_probe=None, component_cwd=None):
     process = subprocess.Popen([str(codex), "app-server", "--stdio"], stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, env=ENV)
     messages = queue.Queue()
@@ -275,7 +276,7 @@ def capture_native(codex, root, account, wanted, vendor_probe=None):
 
     threading.Thread(target=receive, daemon=True).start()
 
-    def send(method, request_id=None, params=None):
+    def send(method, request_id=None, params=None, *, timeout=30):
         data = {"method": method}
         if request_id is not None:
             data.update(id=request_id, params=params or {})
@@ -283,7 +284,7 @@ def capture_native(codex, root, account, wanted, vendor_probe=None):
         process.stdin.flush()
         if request_id is None:
             return None
-        deadline = time.monotonic() + 30
+        deadline = time.monotonic() + timeout
         while time.monotonic() < deadline:
             response = messages.get(timeout=max(0.01, deadline - time.monotonic()))
             if response is None:
@@ -317,6 +318,7 @@ def capture_native(codex, root, account, wanted, vendor_probe=None):
         except (queue.Empty, KeyError, TypeError, ValueError, OSError):
             native_errors.append("Active native catalog unavailable")
         vendor = vendor_probe(send) if vendor_probe else None
+        components = capture_components(send, str(component_cwd)) if component_cwd is not None else None
         after = send("account/read", 3, {"refreshToken": False})
         if after["workspaceRouting"]["chatgptAccountId"] != workspace or after["account"]["planType"] != plan:
             raise ValueError("Native account scope changed during capture")
@@ -330,7 +332,10 @@ def capture_native(codex, root, account, wanted, vendor_probe=None):
                                           "installed": True, "enabled": row["enabled"]}
                                          for row in vendor["installed"]]})
         fingerprint = hashlib.sha256(("studio-inventory:" + workspace).encode("utf-8")).hexdigest()
-        return fingerprint, {"marketplaces": observed, "marketplaceLoadErrors": native_errors}, vendor
+        catalog = {"marketplaces": observed, "marketplaceLoadErrors": native_errors}
+        if components is not None:
+            catalog["components"] = components
+        return fingerprint, catalog, vendor
     except (queue.Empty, KeyError, TypeError, ValueError, OSError):
         return None, {"marketplaces": [], "marketplaceLoadErrors": ["Active native catalog unavailable"]}, None
     finally:
@@ -408,6 +413,11 @@ def capture_configured_installations(codex, publication, timeout):
 
 def capture(args):
     codex, root = args.codex.resolve(strict=True), args.marketplace.resolve(strict=True)
+    component_cwd = getattr(args, "components", None)
+    if component_cwd is not None:
+        component_cwd = component_cwd.resolve(strict=True)
+        if not component_cwd.is_dir():
+            raise ValueError("Component inventory requires a workspace directory")
     mappings = json.loads(args.counterparts.read_text(encoding="utf-8-sig")) if args.counterparts else []
     if not isinstance(mappings, list) or len(mappings) > 1000:
         raise ValueError("Expected explicit catalog counterpart list")
@@ -466,7 +476,9 @@ def capture(args):
                 return None
             return capture_vendor_details(send, mappings)
 
-        native = pool.submit(capture_native, codex, root, args.account, wanted, recover_vendor if curated else None)
+        component_options = {"component_cwd": component_cwd} if component_cwd is not None else {}
+        native = pool.submit(capture_native, codex, root, args.account, wanted, recover_vendor if curated else None,
+                             **component_options)
         providers = [curated if scope == CURATED_MARKETPLACE else pool.submit(provider, scope) for scope in scopes]
         provider_results = [query.result() for query in providers]
     catalogs = [catalog for catalog, _ in provider_results]
@@ -491,6 +503,7 @@ def capture(args):
     history = [] if not args.previous else [{"label": "previous", "kind": "historical",
         "data": observed_installations(json.loads(args.previous.read_text(encoding="utf-8-sig")))}]
     workspace_fingerprint, catalog, recovered_vendor = native.result()
+    components = catalog.pop("components", None)
     current.append({"label": "Native", "kind": "catalog", "data": catalog})
     if recovered_vendor and (recovered_vendor["installed"] or recovered_vendor["available"]):
         catalogs = [
@@ -506,6 +519,11 @@ def capture(args):
               "observedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")},
               "inventory": inventory,
               "published": publication, "catalogs": catalogs, "counterparts": counterpart}
+    if component_cwd is not None:
+        report["componentWorkspace"] = str(component_cwd)
+        report["components"] = components if components is not None else {
+            name: observation({}, "ACCOUNT_SCOPE_UNVERIFIED") for name in ("apps", "skills", "mcpServers")
+        }
     return report
 
 
@@ -517,6 +535,7 @@ def main():
     parser.add_argument("--host", required=True, help="One device label, such as Acer")
     parser.add_argument("--counterparts", type=Path, help="Explicit list of publishedId/catalogId pairs")
     parser.add_argument("--previous", type=Path, help="Previous full installed CLI list for the same scope")
+    parser.add_argument("--components", type=Path, metavar="WORKSPACE", help="Include native App, skill and MCP discovery")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     result = capture(args)

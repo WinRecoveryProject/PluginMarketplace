@@ -1,5 +1,9 @@
 # External plugin sources
 
+## Geninstallation ved ændret katalogrevision på Windows
+
+Codex CLI `0.169.0-alpha.11.1` forsøger at geninstallere de konfigurerede pakker, når det opgraderede Git-katalog skifter revision. Det gælder også ændringer i Claude-kataloget og dokumentationen. På Acer returnerede Windows delingsfejl 32 for versionsmappen til OpenAI Developers 1.2.3. Den aktive version og de 30 pakkefiler kunne stadig læses. [Codex’ opdateringskode](https://github.com/openai/codex/blob/rust-v0.169.0-alpha.11.1/codex-rs/core-plugins/src/manager.rs#L3123-L3158) · [Rapporteret versionsmappelås](https://github.com/openai/codex/issues/56718)
+
 ## Codex Coordinator 0.5.0
 
 Den seneste stabile udgivelse er 0.5.0 på commit `75afa2866bedd2f2454f6e703b66a670ef67056a`. Marketplace fortsætter med 0.4.0, mens adfærdsændringerne vurderes. Den nye `UserPromptSubmit`-hook kan afvise koordinationsformaterede beskeder uden for projekter, der har aktiveret koordinering. Udgivelsen hæver standarden for eksisterende schema-2-projekter fra tre til fem samtidige opgaver og fjerner det tidligere maksimum på tolv. [Officiel udgivelse](https://github.com/eyeinthesky6/codex-coordinator/releases/tag/v0.5.0)

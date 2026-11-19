@@ -420,6 +420,28 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                     self.assertIsNone(fingerprint)
                     self.assertEqual(native["marketplaces"], [])
 
+    def test_component_inventory_is_kept_only_under_the_same_native_account_scope(self):
+        active = {"account": {"planType": "plus"}, "workspaceRouting": {"chatgptAccountId": "personal"}}
+        scope_change = {**active, "workspaceRouting": {"chatgptAccountId": "different"}}
+        components = {"apps": {"status": "OBSERVED", "issue": None, "items": []}}
+        for after in (active, scope_change):
+            with self.subTest(after=after):
+                responses = [{}, active, {"marketplaces": []}, after]
+                process = SimpleNamespace(stdin=io.BytesIO(), stdout=[
+                    json.dumps({"id": key, "result": data}).encode() + b"\n"
+                    for key, data in enumerate(responses)
+                ], poll=lambda: 0, wait=lambda **_kwargs: 0)
+                with patch.object(collector.subprocess, "Popen", return_value=process), \
+                     patch.object(collector, "capture_components", return_value=components):
+                    fingerprint, native, _ = collector.capture_native(
+                        "codex", Path("marketplace"), "personal", set(), component_cwd=Path("workspace"))
+                if after is active:
+                    self.assertTrue(fingerprint)
+                    self.assertEqual(native["components"], components)
+                else:
+                    self.assertIsNone(fingerprint)
+                    self.assertNotIn("components", native)
+
     def test_provider_success_retains_installations_outside_declared_pairs_during_cli_failure(self):
         namespace = "openai-curated-remote"
         owned = "one@winrecoveryproject-digital"

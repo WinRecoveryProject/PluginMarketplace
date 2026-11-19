@@ -1,6 +1,6 @@
 # Plugin-Skill-Studio
 
-Version **0.3.31**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
+Version **0.3.32**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
 
 All required skills, scripts, policies and references are bundled. Node 20+ and Python 3.10+ are host runtimes, not companion plugins. Optional Windows desktop commands use the already installed Windows PowerShell 5.1 and .NET components. No npm/pip install, npx, external plugin, App binding or MCP server is required. Model benchmarks use the user's existing Codex CLI and login; host terminal/browser capabilities are required for corresponding operations. Direct public lookups are explicit and bounded. No telemetry is added.
 
@@ -53,7 +53,7 @@ Evidence input uses `asOf`, `freshWithinDays`, `skills`, and `evidence` records 
 
 Catalog input is a package root, supplied JSON snapshot or explicit public HTTPS URL. No links are automatically followed. Rankings and history are UNKNOWN unless supported by attributed observations. Local installation and global account permissions are distinct from manifest declarations. [Service contracts](src/services/README.md) describe exact fields and bounds.
 
-Use the [version audit](references/inventory-versions.md) to capture and compare installed versions, public Git manifests and explicitly related vendor releases for one host and account.
+Use the [version audit](references/inventory-versions.md) to capture and compare installed versions, public Git manifests and explicitly related vendor releases for one host and account. Add `--components <workspace>` to capture native App, skill and MCP discovery in the same attested scope.
 
 If an upgrade removed a skill path during the current turn, use the host's existing
 rediscovery rule and a new successful full CLI installed observation. The read-only
