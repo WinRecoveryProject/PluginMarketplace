@@ -66,8 +66,12 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Slack | `0.1.7` | `codex plugin add slack@winrecoveryproject-digital` |
 | Plugin Eval | `0.1.2` | `codex plugin add plugin-eval@winrecoveryproject-digital` |
 | AgentMemory-ASUS | `1.0.0` | `codex plugin add agentmemory-asus@winrecoveryproject-digital` |
+| Game Development Studio | `1.4.0` | `codex plugin add game-development-studio@winrecoveryproject-digital` |
+| Atlassian Rovo | `1.0.6` | `codex plugin add atlassian-rovo@winrecoveryproject-digital` |
 
 Versionerne i tabellen er de udgaver, som Marketplace kan hente fra de respektive Git-kilder. Se [versionskontrollen](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322) for de senest kontrollerede katalogforskelle og [Vercel-opdateringen](docs/VERCEL-056-WRP-20261118.md).
+
+Game Development Studio følger udviklerens frigivne 1.4.0. Praktisk brug kræver den separate `game-dev`-CLI. Atlassian Rovo tilbyder den offentlige pakke 1.0.6 med det eksisterende Jira/Confluence-App-ID. Den kuraterede 1.0.7 er fortsat en separat udgivelseskanal. [Game Development Studio 1.4.0](https://github.com/theisegoria/game-development-studio-skills/tree/v1.4.0) · [Atlassian Rovos Git-manifest](https://github.com/openai/plugins/blob/981b02c0c44058b595f3b4180002c3ae3c806d40/plugins/atlassian-rovo/.codex-plugin/plugin.json)
 
 Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Opgørelsen fra 17. november var 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den historiske kontrol og forklaringerne](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
@@ -79,7 +83,13 @@ Kør `node scripts/check-documented-versions.mjs <rapport.json>` med en frisk St
 
 Claude Desktop og Claude Code kan bruge samme GitHub-repository. Claude-kataloget viser de lokale plugins, der kan indlæses uden Codex’ App-forbindelser. Brug `WinRecoveryProject/PluginMarketplace` i Claude Desktop eller kør `claude plugin marketplace add WinRecoveryProject/PluginMarketplace` i Claude Code.
 
+Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
+
 Kør `node scripts/claude-marketplace.mjs --write`, når en af de fælles pakker får en ny version. Kør derefter `node scripts/claude-marketplace.mjs --check` og `claude plugin validate .`.
+
+## Visual Studio Code
+
+WinRecoveryProjectLinter kan pakkes som en lokal VS Code-udvidelse. Den indeholder samme lintmotor som CLI-udgaven og viser fund i Problems samt checkerdækning i Output. [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProjectLinter/tree/main/editors/vscode)
 
 ## Struktur
 

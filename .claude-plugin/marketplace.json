@@ -39,6 +39,27 @@
       "description": "Local Windows servicing knowledge assistant for DISM, .NET, Defender, ESU and Home/Pro integration evidence.",
       "source": "./plugins/windows-dism-update-docs",
       "strict": false
+    },
+    {
+      "name": "codex-dev-workflows",
+      "version": "0.4.2",
+      "description": "Reusable software-development workflows and platform guidance for Codex.",
+      "source": "./plugins/codex-dev-workflows",
+      "strict": false
+    },
+    {
+      "name": "codex-engineering-guardrails",
+      "version": "1.1.1",
+      "description": "Skills-only bundle for scoped software implementation and independent code verification in Codex.",
+      "source": "./plugins/codex-engineering-guardrails",
+      "strict": false
+    },
+    {
+      "name": "coderabbit",
+      "version": "1.1.7-wrp.1",
+      "description": "AI-powered code review in Codex, powered by CodeRabbit.",
+      "source": "./plugins/coderabbit",
+      "strict": false
     }
   ]
 }

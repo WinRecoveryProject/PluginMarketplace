@@ -16,7 +16,42 @@
       "licenseScope": "Owned MIT metadata/workflow/assets only; external App/server retains its own terms"
     }
   ],
-  "currentNativeMarketplaceEntries": 33,
-  "currentCollectionRecords": 57,
-  "countMeaning": "Distinct catalog names and retained external/host references, not a claim of 57 independent service backends or installed products"
+  "currentNativeMarketplaceEntries": 35,
+  "currentCollectionRecords": 59,
+  "countMeaning": "Distinct catalog names and retained external/host references, not a claim of 57 independent service backends or installed products",
+  "verifiedGitAdditions": [
+    {
+      "name": "game-development-studio",
+      "version": "1.4.0",
+      "curatedVersion": "1.0.2",
+      "displayName": "Game Development Studio",
+      "category": "Developer Tools",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/theisegoria/game-development-studio-skills.git",
+        "path": "plugins/game-development-studio",
+        "sha": "0985981ecf1b0b69671d3da7b0b5a9d16283714a"
+      },
+      "license": "MIT",
+      "installedAppIds": [],
+      "upstreamTag": "v1.4.0"
+    },
+    {
+      "name": "atlassian-rovo",
+      "version": "1.0.6",
+      "curatedVersion": "1.0.7",
+      "displayName": "Atlassian Rovo",
+      "category": "Productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/atlassian-rovo",
+        "sha": "981b02c0c44058b595f3b4180002c3ae3c806d40"
+      },
+      "license": "MIT",
+      "installedAppIds": [
+        "connector_692de805e3ec8191834719067174a384"
+      ]
+    }
+  ]
 }

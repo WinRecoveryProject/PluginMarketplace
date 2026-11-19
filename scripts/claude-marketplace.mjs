@@ -9,6 +9,9 @@ const portablePackages = [
   'powershell-workbench',
   'component-forge',
   'windows-dism-update-docs',
+  'codex-dev-workflows',
+  'codex-engineering-guardrails',
+  'coderabbit',
 ];
 
 function pluginEntry(name) {

@@ -171,10 +171,21 @@ if(registry&&workspace){
   }
   const names=[...registry.plugins.map(p=>p.name),...workspace.catalogOnly.map(p=>p.name),...workspace.hostBundled.map(p=>p.name)];
   const added=additions?.addedEntries??[];
+  const gitAdded=additions?.verifiedGitAdditions??[];
   check(additions?.baselineNativeMarketplaceEntries===workspace.counts.nativeMarketplaceEntries&&additions?.baselineCollectionProducts===workspace.counts.collectionProducts,'catalog additions retain the historical baseline');
   check(new Set(added.map(p=>p.name)).size===added.length&&added.every(p=>registry.plugins.some(e=>e.name===p.name&&e.pluginId===p.existingPluginId)&&p.newAppOrConnectionCreated===false&&p.installationAutomatic===false),'added catalog wrappers retain existing identities without automatic installation');
-  check(new Set(names).size===names.length&&names.length===workspace.counts.collectionProducts+added.length&&names.length===additions?.currentCollectionRecords,'extended collection has one record per product');
-  check(registry.plugins.length===workspace.counts.nativeMarketplaceEntries+added.length&&registry.plugins.length===additions?.currentNativeMarketplaceEntries,'native Marketplace entry count');
+  for(const p of gitAdded){
+    const entry=registry.plugins.find(e=>e.name===p.name);
+    check(entry?.source?.source==='git-subdir'&&entry.source.url===p.source.url&&entry.source.path===p.source.path&&
+      entry.source.sha===p.source.sha&&/^[0-9a-f]{40}$/.test(p.source.sha),`${p.name}: pinned official Git source`);
+    check(entry?.interface?.displayName===p.displayName&&entry?.category===p.category&&entry?.policy?.installation==='AVAILABLE',
+      `${p.name}: package identity and availability`);
+    check(counterparts?.some(pair=>pair.publishedId===p.name+'@'+registry.name&&pair.catalogId===p.name+'@openai-curated-remote'),
+      `${p.name}: explicit curated counterpart`);
+  }
+  const totalAdditions=added.length+gitAdded.length;
+  check(new Set(names).size===names.length&&names.length===workspace.counts.collectionProducts+totalAdditions&&names.length===additions?.currentCollectionRecords,'extended collection has one record per product');
+  check(registry.plugins.length===workspace.counts.nativeMarketplaceEntries+totalAdditions&&registry.plugins.length===additions?.currentNativeMarketplaceEntries,'native Marketplace entry count');
   check(workspace.catalogOnly.every(p=>p.url===`https://chatgpt.com/plugins/${p.pluginId}`),'original catalog links retain native identities');
   check(workspace.hostBundled.every(p=>p.status==='HOST_BUNDLED'&&!registry.plugins.some(e=>e.name===p.name)),'host runtime packages not republished as personal file paths');
   check(workspace.nativeLoaderRemoteSourceProbe.remoteEntryListed===false&&workspace.nativeLoaderRemoteSourceProbe.localControlListed===true,'remote source restriction checked with native positive control');

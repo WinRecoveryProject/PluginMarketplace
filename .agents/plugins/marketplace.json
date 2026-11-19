@@ -536,6 +536,40 @@
       "interface": {
         "displayName": "AgentMemory-ASUS"
       }
+    },
+    {
+      "name": "game-development-studio",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/theisegoria/game-development-studio-skills.git",
+        "path": "plugins/game-development-studio",
+        "sha": "0985981ecf1b0b69671d3da7b0b5a9d16283714a"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "Game Development Studio"
+      }
+    },
+    {
+      "name": "atlassian-rovo",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/atlassian-rovo",
+        "sha": "981b02c0c44058b595f3b4180002c3ae3c806d40"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Atlassian Rovo"
+      }
     }
   ]
 }

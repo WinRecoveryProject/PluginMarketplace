@@ -87,5 +87,13 @@
   {
     "publishedId": "vercel@winrecoveryproject-digital",
     "catalogId": "vercel@openai-curated-remote"
+  },
+  {
+    "publishedId": "game-development-studio@winrecoveryproject-digital",
+    "catalogId": "game-development-studio@openai-curated-remote"
+  },
+  {
+    "publishedId": "atlassian-rovo@winrecoveryproject-digital",
+    "catalogId": "atlassian-rovo@openai-curated-remote"
   }
 ]
