@@ -171,6 +171,64 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                     self.assertEqual(result["entries"][0]["version"], version)
                     self.assertEqual(result["entries"][0]["source"]["revision"], expected_revision)
 
+    def test_publications_read_valid_git_root_and_subdirectory_sources(self):
+        origin = "https://github.com/example/marketplace.git"
+        vendor = "https://github.com/example/plugin.git"
+        default, pin = "b" * 40, "c" * 40
+        cases = [
+            ({"source": "url"}, "", default),
+            ({"source": "url", "path": None, "sha": pin, "ref": "release/v2"}, "", pin),
+            ({"source": "url", "path": " ./plugins/example "}, "plugins/example/", default),
+            ({"source": "git-subdir", "path": "./plugins/example", "sha": pin}, "plugins/example/", pin),
+            ({"source": "git-subdir", "path": "."}, "", default),
+        ]
+        for source, prefix, revision in cases:
+            with self.subTest(source=source):
+                manifest_path = prefix + ".codex-plugin/plugin.json"
+                marketplace = {"name": "market", "plugins": [
+                    {"name": "example", "source": {"url": vendor, **source}},
+                ]}
+
+                def manifest(_owner, _repository, _revision, path):
+                    if path == manifest_path:
+                        return b'{"name":"example","version":"2.1.0"}'
+                    raise HTTPError("fixture", 404, "missing", {}, None)
+
+                with patch.object(collector, "command", side_effect=[origin.encode(), json.dumps(marketplace).encode()]), \
+                     patch.object(collector, "git_head", side_effect=lambda url: "a" * 40 if url == origin else default), \
+                     patch.object(collector, "remote_manifest_bytes", side_effect=manifest) as read:
+                    result = collector.capture_publications(Path("market"))
+                self.assertEqual(read.call_args_list, [call("example", "plugin", revision, manifest_path),
+                                                       call("example", "plugin", revision, prefix + "plugin.json")])
+                self.assertEqual(result, {"expected": ["example@market"], "entries": [
+                    {"id": "example@market", "version": "2.1.0",
+                     "source": {"url": vendor, "revision": revision, "path": manifest_path}},
+                ]})
+
+    def test_publications_leave_invalid_root_source_selectors_unverified(self):
+        origin = "https://github.com/example/marketplace.git"
+        vendor = "https://github.com/example/plugin.git"
+        cases = [
+            {"source": "url", "path": path}
+            for path in ("", ".", "./", "../plugin", "/plugin", "plugins/../example", 1, [])
+        ] + [
+            {"source": "url", "ref": "release/v2"},
+            {"source": "git-subdir"},
+            {"source": "git-subdir", "path": "../plugin"},
+            {"source": "github"},
+        ]
+        for source in cases:
+            with self.subTest(source=source):
+                marketplace = {"name": "market", "plugins": [
+                    {"name": "example", "source": {"url": vendor, **source}},
+                ]}
+                with patch.object(collector, "command", side_effect=[origin.encode(), json.dumps(marketplace).encode()]), \
+                     patch.object(collector, "git_head", return_value="a" * 40), \
+                     patch.object(collector, "remote_manifest_bytes") as read:
+                    result = collector.capture_publications(Path("market"))
+                self.assertEqual(result, {"expected": ["example@market"], "entries": []})
+                read.assert_not_called()
+
     def test_truncated_remote_head_preserves_available_and_pinned_publications(self):
         origin = "https://github.com/example/marketplace.git"
         unreliable = "https://github.com/example/unstable.git"

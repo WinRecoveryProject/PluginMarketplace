@@ -176,13 +176,22 @@ def capture_publications(root):
         try:
             source = row["source"]
             url = source["url"]
-            location = source["path"].removeprefix("./")
-            here = location not in ("", ".")
-            if here and not all(COMPONENT.fullmatch(part) and part not in (".", "..") for part in location.split("/")):
-                return None
             repository = GITHUB.fullmatch(url)
-            if source.get("source") != "git-subdir" or not repository:
+            source_type = source.get("source")
+            if source_type not in ("url", "git-subdir") or not repository:
                 return None
+            path = source.get("path")
+            if source_type == "url" and path is None:
+                location = ""
+            else:
+                if not isinstance(path, str):
+                    return None
+                location = path.strip().removeprefix("./")
+                if source_type == "git-subdir" and location in ("", "."):
+                    # Keep publication evidence readable for legacy root entries.
+                    location = ""
+                elif not all(COMPONENT.fullmatch(part) and part not in (".", "..") for part in location.split("/")):
+                    return None
             pin, ref = source.get("sha"), source.get("ref")
             if any(value is not None and not isinstance(value, str) for value in (pin, ref)):
                 return None
@@ -200,7 +209,7 @@ def capture_publications(root):
             read_local = url == origin and sha == revision
             candidates = []
             for filename in MANIFESTS:
-                name = f"{location}/{filename}" if here else filename
+                name = f"{location}/{filename}" if location else filename
                 try:
                     if read_local:
                         raw = command("git", "-C", root, "show", f"{sha}:{name}")

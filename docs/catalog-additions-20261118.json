@@ -16,9 +16,9 @@
       "licenseScope": "Owned MIT metadata/workflow/assets only; external App/server retains its own terms"
     }
   ],
-  "currentNativeMarketplaceEntries": 35,
-  "currentCollectionRecords": 59,
-  "countMeaning": "Distinct catalog names and retained external/host references, not a claim of 57 independent service backends or installed products",
+  "currentNativeMarketplaceEntries": 36,
+  "currentCollectionRecords": 60,
+  "countMeaning": "Distinct catalog names and retained external or host references. Several entries can use the same service or App binding.",
   "verifiedGitAdditions": [
     {
       "name": "game-development-studio",
@@ -52,6 +52,23 @@
       "installedAppIds": [
         "connector_692de805e3ec8191834719067174a384"
       ]
+    },
+    {
+      "name": "advisor",
+      "version": "1.4.11",
+      "curatedVersion": "1.4.11",
+      "displayName": "Codex Advisor",
+      "category": "Developer Tools",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/dave-schmidt-dev/advisor.git",
+        "path": "plugins/advisor",
+        "sha": "bfca6619adeb4d56d3cb5061c8aeac9bbed889d9"
+      },
+      "license": "MIT",
+      "installedAppIds": [],
+      "upstreamTag": "v1.4.11",
+      "verifiedOn": "2026-11-19"
     }
   ]
 }

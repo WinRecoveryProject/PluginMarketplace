@@ -34,9 +34,9 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
 | OneDrive | `1.2.1` | `codex plugin add onedrive@winrecoveryproject-digital` |
-| CloudStorage Portal | `0.9.12` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
+| CloudStorage Portal | `0.9.13` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.3` | `codex plugin add component-forge@winrecoveryproject-digital` |
-| Plugin-Skill-Studio | `0.3.28` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
+| Plugin-Skill-Studio | `0.3.29` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.6` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.4` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.33` | `codex plugin add codex-security@winrecoveryproject-digital` |
@@ -68,6 +68,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | AgentMemory-ASUS | `1.0.0` | `codex plugin add agentmemory-asus@winrecoveryproject-digital` |
 | Game Development Studio | `1.4.0` | `codex plugin add game-development-studio@winrecoveryproject-digital` |
 | Atlassian Rovo | `1.0.6` | `codex plugin add atlassian-rovo@winrecoveryproject-digital` |
+| Codex Advisor | `1.4.11` | `codex plugin add advisor@winrecoveryproject-digital` |
 
 Versionerne i tabellen er de udgaver, som Marketplace kan hente fra de respektive Git-kilder. Se [versionskontrollen](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322) for de senest kontrollerede katalogforskelle og [Vercel-opdateringen](docs/VERCEL-056-WRP-20261118.md).
 
@@ -75,9 +76,13 @@ Game Development Studio følger udviklerens frigivne 1.4.0. Praktisk brug kræve
 
 Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Opgørelsen fra 17. november var 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den historiske kontrol og forklaringerne](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
-Studio 0.3.28 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322).
+Studio 0.3.29 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322).
 
 Kør `node scripts/check-documented-versions.mjs <rapport.json>` med en frisk Studio-rapport efter en udgivelse. Kontrollen sammenligner alle rækker med de observerede Git-manifester og melder manglende eller forældede versionsangivelser.
+
+Plugin Autopilot 0.8.0, Context Handoff 0.3.7 og Skillquiver 2.2.0 hentes fra roden af deres respektive Git-kilder på fastlåste commits. De to første matcher udgivelserne med samme version. Skillquiver 2.2.0 er en kildeversion efter udgivelsestagget 2.1.0.
+
+Codex Advisor 1.4.11 kommer fra udgiverens tag og kræver Codex, Python, jq og en POSIX-shell til konsultationer. [Udgiverens version](https://github.com/dave-schmidt-dev/advisor/tree/v1.4.11)
 
 ## Claude Desktop og Claude Code
 
@@ -85,15 +90,15 @@ Claude Desktop og Claude Code kan bruge samme GitHub-repository. Claude-kataloge
 
 Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
 
-Claude henter Skill Craft 1.3.0 direkte fra udgiverens pakkemappe og Vercels egen `vercel-plugin` 0.56.0 direkte fra udgivelsens commit. Vercel-pakken indeholder udgiverens kommandoer, skills, sessionshooks med skill-telemetri og officielle MCP-server. Pakken kræver Node.js og Bun til udgiverens værktøjer. Kontofunktionerne bruger Vercels OAuth i Claude. [Skill Craft](https://github.com/MuhammadBahaa/majarrah-marketplace/tree/4b22ec0e2645ce30059cfa7f35d37b03b60498f9/plugins/skill-craft) · [Vercel](https://github.com/vercel/vercel-plugin/tree/v0.56.0)
+Claude henter Skillquiver 2.2.0 fra udgiverens native Claude-pakke på den fastlåste kildecommit med 24 skills. Claude henter Skill Craft 1.3.0 direkte fra udgiverens pakkemappe og Vercels egen `vercel-plugin` 0.56.0 direkte fra udgivelsens commit. Vercel-pakken indeholder udgiverens kommandoer, skills, sessionshooks med skill-telemetri og officielle MCP-server. Pakken kræver Node.js og Bun til udgiverens værktøjer. Kontofunktionerne bruger Vercels OAuth i Claude. [Skill Craft](https://github.com/MuhammadBahaa/majarrah-marketplace/tree/4b22ec0e2645ce30059cfa7f35d37b03b60498f9/plugins/skill-craft) · [Vercel](https://github.com/vercel/vercel-plugin/tree/v0.56.0)
 
 Kør `node scripts/claude-marketplace.mjs --write`, når en pakke får en ny version. `--check` kontrollerer det genererede katalog lokalt. `--verify-sources` kontrollerer også de låste kataloger og manifester hos udgiverne. Kør derefter `claude plugin validate .`.
 
 ## Visual Studio Code
 
-WinRecoveryProjectLinter kan pakkes som en lokal VS Code-udvidelse. Den indeholder samme lintmotor som CLI-udgaven og viser fund i Problems samt checkerdækning i Output. [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProjectLinter/tree/main/editors/vscode)
+WinRecoveryProjectLinter 0.1.6 bruger samme lintmotor som CLI-udgaven og viser fund i Problems og checkerdækning i Output. [Download VSIX](https://github.com/WinRecoveryProject/WinRecoveryProjectLinter/releases/download/v0.1.6/winrecoveryproject-linter-0.1.6.vsix) · [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProjectLinter/tree/main/editors/vscode)
 
-WinRecoveryProject DevSuite kan pakkes som en lokal VS Code-udvidelse. Den bruger DevSuites Python-router til at åbne en af pakkens 14 workflowguides og viser resultatet af den lokale pakkekontrol i Output. [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/vscode)
+WinRecoveryProject DevSuite 0.2.6 bruger Python til at åbne pakkens workflowguides og viser den lokale Doctor-kontrol i Output. [Download VSIX](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/releases/download/v0.2.6/winrecoveryproject-devsuite-0.2.6.vsix) · [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/vscode)
 
 ## Struktur
 

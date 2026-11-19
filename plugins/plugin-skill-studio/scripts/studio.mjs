@@ -101,7 +101,14 @@ export async function main(args=process.argv.slice(2)) {
         if(typeof opts.against!=='string')throw Error('--against requires the other host’s capture JSON');
         result.peerInstallation=compareHostInstallations(result,await readAudit(opts.against));
       }
-      if(result.exitCode)process.exitCode=result.exitCode;
+      if(opts['installed-files']!==undefined){
+        if(typeof opts['installed-files']!=='string')throw Error('--installed-files requires a release check request JSON');
+        const request=JSON.parse(await readBounded(path.resolve(opts['installed-files']),64*1024));
+        const {verifyInstalledRelease}=await import('../src/services/installed-release.mjs');
+        result.installedFiles=await verifyInstalledRelease(result,request);
+      }
+      const exitCode=Math.max(result.exitCode,result.installedFiles?.exitCode??0);
+      if(exitCode)process.exitCode=exitCode;
       break;
     }
     case 'resolve-installed': {

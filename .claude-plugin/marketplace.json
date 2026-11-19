@@ -14,7 +14,7 @@
     },
     {
       "name": "plugin-skill-studio",
-      "version": "0.3.28",
+      "version": "0.3.29",
       "description": "Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.",
       "source": "./plugins/plugin-skill-studio",
       "strict": false
@@ -90,6 +90,21 @@
         "url": "https://github.com/MuhammadBahaa/majarrah-marketplace.git",
         "path": "plugins/skill-craft",
         "sha": "4b22ec0e2645ce30059cfa7f35d37b03b60498f9"
+      }
+    },
+    {
+      "name": "skillquiver",
+      "version": "2.2.0",
+      "description": "Twenty-four Agent Skills shared by ChatGPT, Claude Code, and Codex.",
+      "author": {
+        "name": "Drizzy07x"
+      },
+      "repository": "https://github.com/Drizzy07x/Skillquiver",
+      "license": "MIT",
+      "source": {
+        "source": "github",
+        "repo": "Drizzy07x/Skillquiver",
+        "sha": "58ff9af6185ebc19980d483a02d3d74a8d1227dd"
       }
     }
   ]

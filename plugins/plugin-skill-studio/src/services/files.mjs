@@ -10,6 +10,7 @@ export async function walkFiles(input, options = {}) {
   const supplied = path.resolve(input);
   const errors = [], files = [];
   const maximum = options.maxFiles ?? 10000;
+  const ignoreNames = options.ignoreNames ?? ignored;
   if (!Number.isSafeInteger(maximum) || maximum < 1) throw new Error('maxFiles must be positive');
   let start;
   try { start = await fs.lstat(supplied); }
@@ -27,7 +28,7 @@ export async function walkFiles(input, options = {}) {
       if (stat.isDirectory()) {
         const members = await fs.readdir(file, { withFileTypes: true });
         for (const member of members.sort((a,b) => a.name.localeCompare(b.name))) {
-          if (member.isDirectory() && ignored.has(member.name)) continue;
+          if (member.isDirectory() && ignoreNames.has(member.name)) continue;
           await visit(path.join(file, member.name));
         }
       } else if (stat.isFile()) {
@@ -41,6 +42,10 @@ export async function walkFiles(input, options = {}) {
 }
 
 export async function readBounded(file, maxBytes = 2 * 1024 * 1024) {
+  return new TextDecoder('utf-8', { fatal: true }).decode(await readBoundedBuffer(file, maxBytes));
+}
+
+export async function readBoundedBuffer(file, maxBytes = 2 * 1024 * 1024) {
   const before = await fs.lstat(file);
   if (!before.isFile() || before.isSymbolicLink()) throw new Error('not a regular file');
   if (before.size > maxBytes) throw new Error('file size limit exceeded');
@@ -58,7 +63,9 @@ export async function readBounded(file, maxBytes = 2 * 1024 * 1024) {
       bytesRead += chunk.bytesRead;
     }
     const after = await handle.stat();
-    if (bytesRead > maxBytes || after.size !== before.size || after.mtimeMs !== before.mtimeMs) throw new Error('file changed while reading');
-    return new TextDecoder('utf-8', { fatal: true }).decode(buffer.subarray(0, bytesRead));
+    const afterPath = await fs.lstat(file);
+    if (bytesRead > maxBytes || after.size !== before.size || after.mtimeMs !== before.mtimeMs ||
+        afterPath.dev !== before.dev || afterPath.ino !== before.ino || afterPath.isSymbolicLink()) throw new Error('file changed while reading');
+    return buffer.subarray(0, bytesRead);
   } finally { await handle.close(); }
 }

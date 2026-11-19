@@ -165,7 +165,11 @@ const additions=json('docs/catalog-additions-20261118.json');
 if(registry&&workspace){
   for(const p of workspace.additionalGitSources){
     const e=registry.plugins.find(e=>e.name===p.name);
-    check(e?.source?.source==='git-subdir'&&e.source.url===p.repository&&e.source.path===p.path,`${p.name}: verified original publisher source`);
+    const source=e?.source;
+    const matchesLocation=p.path==='.'
+      ? source?.source==='url'&&!Object.hasOwn(source,'path')&&source.sha===p.observedCommit
+      : source?.source==='git-subdir'&&source.path===p.path;
+    check(matchesLocation&&source.url===p.repository,`${p.name}: verified original publisher source`);
     check(p.manifest?.name===p.name&&/^[0-9a-f]{40}$/.test(p.observedCommit),`${p.name}: upstream manifest and observed revision`);
     check(e?.interface?.displayName===p.manifest.interface?.displayName,`${p.name}: original publisher display name`);
   }

@@ -8,6 +8,8 @@ Run `node scripts/verify-provider-workflows.mjs . <provider-tool-catalog.json>` 
 
 Google has exposed both schemas with multiple explicit `link_id` values and schemas without an account selector. Use the current schema and confirm the active account before writes. Local OneDrive sync-folder access provides filesystem metadata only.
 
+Follow the [exact-child fallback](../../onedrive/SKILL.md#resolve-a-known-file-or-folder-after-an-empty-search) only with an already verified direct parent and a successful empty OneDrive search. Record search, full parent listing and exact item readback separately.
+
 ## Live verification contract
 
 

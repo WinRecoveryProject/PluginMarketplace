@@ -60,6 +60,39 @@ Sharing requires explicit audience/recipient and role. Never send an invitation
 or publish a link just to demonstrate capability. Delete only requested items or
 explicitly disposable test items. No permanent-delete tool is provided.
 
+## Resolve a known file or folder after an empty search
+
+When a successful `onedrive_search` yields no match and the exact child name,
+expected kind and its direct parent ID are already verified in this account:
+
+1. Call `onedrive_list_folder` with that parent ID and the same verified
+   `link_id` where required. List direct children only. Keep the parent and
+   account fixed and follow that folder's returned cursors in order until
+   `more: false`. Stop as incomplete on a failed call, missing or repeated next
+   cursor, identity mismatch or unfinished pagination.
+2. Compare the exact name, kind and returned parent ID. Collect distinct item
+   IDs across the complete list before deciding. With zero matches, report
+   that the child was absent from this completed parent listing. With multiple
+   matches, report ambiguity and ask the user to identify the item. Never
+   choose by position, timestamp or a similar name.
+3. For a unique match, call `onedrive_get_item` for that exact ID on the same
+   account. Verify its current name, kind and parent before using it. A read
+   may then proceed as requested. A write still requires its own authorization
+   and any current eTag required by the operation.
+
+This fallback applies only to a known direct parent after a successful empty
+search. Keep ordinary discovery on `onedrive_search`. Without a verified parent
+or after an authorization or tool error, report what is unresolved. Do not
+recursively traverse folders or switch accounts to recover a search miss.
+
+If Node is available, `node scripts/resolve-onedrive-child.mjs` accepts JSON
+with `account` (`subject`, `driveId` and `driveType`), `parentId`, `name`,
+`kind` (`file` or `folder`) and `pages` on stdin. After fetching all pages
+from the App, include only each request's `parentId` and the response's
+`account` identity fields, `more` and `items` (`id`, `name`, `kind` and
+`parentId`). Exclude credentials and cursors. Use the result before the same
+exact-item metadata recheck in step 3. The helper only checks supplied results.
+
 ## Transfers and limits
 
 Simple uploads and binary download/export return at most 2 MiB per file.

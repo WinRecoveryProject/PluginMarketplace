@@ -43,6 +43,21 @@ const publisherPackages = [
       sha: '4b22ec0e2645ce30059cfa7f35d37b03b60498f9',
     },
   },
+  {
+    name: 'skillquiver',
+    manifestName: 'skillquiver',
+    version: '2.2.0',
+    description: 'Twenty-four Agent Skills shared by ChatGPT, Claude Code, and Codex.',
+    author: { name: 'Drizzy07x' },
+    repository: 'https://github.com/Drizzy07x/Skillquiver',
+    license: 'MIT',
+    licenseFile: 'LICENSE',
+    source: {
+      source: 'github',
+      repo: 'Drizzy07x/Skillquiver',
+      sha: '58ff9af6185ebc19980d483a02d3d74a8d1227dd',
+    },
+  },
 ];
 
 function pluginEntry(name) {
@@ -62,27 +77,33 @@ function pluginEntry(name) {
   return { name, version: manifest.version, description: manifest.description, source, strict: false };
 }
 
-async function publishedJson(base, path) {
+async function publishedText(base, path) {
   const response = await fetch(`${base}/${path}`, { redirect: 'error', signal: AbortSignal.timeout(12000) });
   if (!response.ok) throw new Error(`${path} is unavailable at ${base} (HTTP ${response.status}).`);
   const json = await response.text();
   if (Buffer.byteLength(json) > 256 * 1024) throw new Error(`${path} exceeds the metadata size limit.`);
-  return JSON.parse(json);
+  return json;
 }
 
-async function verifyPublisher({ name, manifestName, version, author, license, source }) {
+async function verifyPublisher({ name, manifestName, version, author, license, licenseFile, source }) {
   const repo = source.repo ?? new URL(source.url).pathname.slice(1).replace(/\.git$/, '');
   const path = source.path ?? '';
   const base = `https://raw.githubusercontent.com/${repo}/${source.sha}`;
   const manifestPath = [path, '.claude-plugin/plugin.json'].filter(Boolean).join('/');
-  const [catalog, manifest] = await Promise.all([
-    publishedJson(base, '.claude-plugin/marketplace.json'),
-    publishedJson(base, manifestPath),
+  const [catalogText, manifestText, publisherLicense] = await Promise.all([
+    publishedText(base, '.claude-plugin/marketplace.json'),
+    publishedText(base, manifestPath),
+    licenseFile ? publishedText(base, licenseFile) : undefined,
   ]);
+  const catalog = JSON.parse(catalogText);
+  const manifest = JSON.parse(manifestText);
+  const matchesLicense = manifest.license === license || manifest.license === undefined &&
+    license === 'MIT' && publisherLicense?.startsWith('MIT License') &&
+    publisherLicense.includes(author.name) && publisherLicense.includes('Permission is hereby granted');
   const listing = catalog.plugins.find(entry => entry.name === name);
   if (listing?.source !== `./${path}` || (listing.version !== undefined && listing.version !== version) ||
       manifest.name !== manifestName || manifest.version !== version ||
-      manifest.author?.name !== author.name || manifest.license !== license) {
+      manifest.author?.name !== author.name || !matchesLicense) {
     throw new Error(`${name} differs from the publisher catalog or manifest at ${source.sha}.`);
   }
 }
@@ -96,7 +117,7 @@ try {
     name: 'winrecoveryproject-digital',
     description: 'WinRecoveryProject Digital plugins for local project and skill workflows.',
     owner: { name: 'Zilvereyes' },
-    plugins: [...portablePackages.map(pluginEntry), ...publisherPackages.map(({ manifestName, ...entry }) => entry)],
+    plugins: [...portablePackages.map(pluginEntry), ...publisherPackages.map(({ manifestName, licenseFile, ...entry }) => entry)],
   };
   const expected = JSON.stringify(marketplace, null, 2) + '\n';
   if (mode === '--write') {

@@ -39,6 +39,8 @@ async function containedPath(root,parts,kind){
  return fs.realpath(current);
 }
 
+export { directoryRoot, containedPath, component as cacheComponent };
+
 export async function resolveInstalledPlugin(request,{now=Date.now()}={}){
  const common={schemaVersion:1,scope:'PATH_RESOLUTION_ONLY',skillEnabled:'UNKNOWN',executionAuthorized:false,
                currentEntitlementVerified:false,safety:{...safety}};

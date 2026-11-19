@@ -4,6 +4,7 @@ import { mkdtempSync, readFileSync, rmdirSync, unlinkSync, writeFileSync } from 
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
+import { resolveOneDriveChild } from './resolve-onedrive-child.mjs';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -85,4 +86,34 @@ test('verification guide identifies the active App route separately from histori
   const record = readFileSync(path.resolve(path.dirname(guidePath), recordPath), 'utf8');
   assert.match(record, /^# Historisk dokumentation/);
   assert.match(record, /\[verifikation af den aktuelle App-rute\]\(skills\/cloudstorage-portal\/references\/workflow-verification\.md\)/);
+});
+
+test('empty search fallback finds one exact child across all direct-parent pages', () => {
+  const account = { subject: 'verified', driveId: 'drive', driveType: 'personal' };
+  const exact = { id: 'expected', name: 'Probe.txt', kind: 'file', parentId: 'parent' };
+  const page = (items, more) => ({ account, parentId: 'parent', items, more });
+  const request = { account, parentId: 'parent', name: exact.name, kind: exact.kind };
+  const first = page([{ ...exact, id: 'same-casefold', name: 'probe.txt' }], true);
+  const last = page([exact, { ...exact, id: 'wrong-kind', kind: 'folder' }], false);
+  assert.deepEqual(resolveOneDriveChild({ ...request, pages: [first, last] }), {
+    status: 'MATCHED', itemId: exact.id, parentId: exact.parentId, name: exact.name, kind: exact.kind,
+  });
+  assert.equal(resolveOneDriveChild({ ...request, pages: [page([], false)] }).status, 'NOT_FOUND');
+  const duplicate = page([{ ...exact, id: 'other-exact-id' }], true);
+  assert.deepEqual(resolveOneDriveChild({ ...request, pages: [duplicate, last] }), {
+    status: 'AMBIGUOUS', distinctMatches: 2,
+  });
+});
+
+test('empty search fallback rejects unfinished, mixed-account and out-of-parent pages', () => {
+  const account = { subject: 'verified', driveId: 'drive', driveType: 'personal' };
+  const exact = { id: 'expected', name: 'Probe.txt', kind: 'file', parentId: 'parent' };
+  const page = { account, parentId: exact.parentId, items: [exact], more: false };
+  const check = pages => resolveOneDriveChild({ account, parentId: exact.parentId, name: exact.name, kind: exact.kind, pages });
+  assert.equal(check([]).status, 'INCOMPLETE');
+  assert.equal(check([{ ...page, more: true }]).status, 'INCOMPLETE');
+  assert.equal(check([page, page]).status, 'INCOMPLETE');
+  assert.equal(check([{ ...page, parentId: 'other-folder' }]).status, 'INCOMPLETE');
+  assert.equal(check([{ ...page, account: { ...account, driveId: 'other-drive' } }]).status, 'INCOMPLETE');
+  assert.equal(check([{ ...page, items: [{ ...exact, parentId: 'other-folder' }] }]).status, 'INCOMPLETE');
 });

@@ -13,7 +13,7 @@ node scripts/studio.mjs inventory-versions C:/private/capture.json --out C:/priv
 
 The collector resolves public GitHub HEAD revisions and verifies that the local checkout contains the published Marketplace revision. If the default Git ref request times out or reports a transient transport error such as a GitHub connection refusal, Studio makes one SHA-only request for the same public repository's default commit through the GitHub REST API. The request has an eight-second timeout and uses no credentials or redirects. The result must be a complete commit hash. Studio reads manifests at the observed commits. A transient public manifest timeout, interrupted response or selected HTTP server error gets one retry at the same URL and Git revision. The first request has a 12-second network timeout and the retry has a 5-second timeout. After a second transient transport error, Studio tries the public GitHub Contents endpoint once for the same repository, path and revision. It verifies the returned file path, size and Git blob digest. Permission, rate-limit and TLS errors remain unresolved without an alternate request. Missing, still unreachable or conflicting manifests remain unverified. It runs the public catalog reads and the native account-scope read through the host's existing CLI, without refreshing sign-in. Native load errors and missing scope-specific directories stay visible as incomplete results.
 
-For a Git subdirectory that specifies a complete 40-hex commit in `sha`, the collector reads the manifest at that commit. Codex gives a full SHA precedence when both `sha` and `ref` are present. A named ref alone, a malformed selector or an unreachable pinned manifest leaves the publication unverified. A pinned manifest confirms the source version. A successful installation requires separate host evidence.
+For a Git root with source type `url` or a Git subdirectory that specifies a complete 40-hex commit in `sha`, the collector reads the manifest at that commit. Codex gives a full SHA precedence when both `sha` and `ref` are present. A named ref alone, a malformed selector or an unreachable pinned manifest leaves the publication unverified. A pinned manifest confirms the source version. A successful installation requires separate host evidence.
 
 Business plugin CLI listings have a 110-second budget per command. On Personal the full installed list and curated vendor list have 75 seconds so the host's remote installed pagination can finish. Ordinary scoped lists and Git command budgets stay at 30 seconds. If the full installed CLI listing times out, fails or warns that a remote marketplace failed to load, the collector still records independent native, Git publication and vendor catalog evidence. The report returns exit code 2 with a CLI evidence gap. If the full CLI fails, Studio reads the configured marketplace names and tries each ordinary namespace with a separate, bounded command. The published Git Marketplace remains a candidate if the registry read fails. Exact namespace matches from successful lists are reported in `scopedCliNamespaces`. A successful vendor-scoped listing also supplies its exact installed identities when the broad CLI fails. This includes installations outside the declared comparison pairs. The audit remains incomplete and missing ordinary installations and historical absences stay unverified. The capture records a one-way workspace fingerprint when the native account was identified consistently, alongside the operator's host label.
 
@@ -35,6 +35,25 @@ If the full OpenAI curated catalog query fails, Studio searches for explicitly m
 Native counterpart evidence comes from the same authenticated catalog snapshot as the inventory and requires a verified workspace fingerprint. Its `localVersion` is an installed version only when the catalog marks that row as installed. Its separate `version` field can establish an available release. An unavailable or invalid active catalog makes the report incomplete. Missing installed versions stay unknown, including on rows with a visible available release.
 
 To include historical changes, pass a previous `codex plugin list --json` capture from the same host and account with `--previous`. A CLI-only history can confirm changes for the ordinary CLI inventory. Native catalog history needs its own scoped evidence. Keep the counterpart file and capture private because they can contain account-specific plugin identities and scope evidence.
+
+## Verify the installed release files
+
+After the native refresh, capture the current host again. For a Marketplace package tracked in its committed file ledger, supply a second JSON file with the managed checkout, its expected published revision, the local plug-in cache and exact installed IDs.
+
+```json
+{
+  "checkout": "C:/path/to/managed/PluginMarketplace",
+  "cacheRoot": "C:/path/to/.codex/plugins/cache",
+  "revision": "0123456789abcdef0123456789abcdef01234567",
+  "ids": ["plugin-skill-studio@winrecoveryproject-digital"]
+}
+```
+
+```powershell
+node scripts/studio.mjs inventory-versions C:/private/capture.json --installed-files C:/private/request.json --out C:/private/report.json
+```
+
+`installedFiles` records package versions and compares SHA-256 digests with the ledger committed at the requested revision. The managed checkout must be at that revision and, when present, its native receipt must match. Use the checkout and cache on the host where you took the capture. Installation and activation are observations from that capture. The file check reads the supplied cache and checks for changes during the read. Extra, missing and changed files make the result differ. The command returns the higher of the version audit and installed-file exit codes. This read-only check covers the observed installation and file contents. A functional test separately verifies the tools and connected account.
 
 ## Read the report
 

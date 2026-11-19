@@ -331,9 +331,9 @@
     {
       "name": "context-handoff",
       "source": {
-        "source": "git-subdir",
+        "source": "url",
         "url": "https://github.com/timyeou1234/context-handoff.git",
-        "path": "."
+        "sha": "00f4ad1af40ecdcd3bad1c7c9a31423b0fa1b272"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -379,9 +379,9 @@
     {
       "name": "chatgpt-codex-plugin-autopilot",
       "source": {
-        "source": "git-subdir",
+        "source": "url",
         "url": "https://github.com/imMamdouhaboammar/chatgpt-codex-plugin-autopilot.git",
-        "path": "."
+        "sha": "a01ba2d048db98726e58dcccc19e56b9590d5c06"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -395,9 +395,9 @@
     {
       "name": "skillquiver",
       "source": {
-        "source": "git-subdir",
+        "source": "url",
         "url": "https://github.com/Drizzy07x/Skillquiver.git",
-        "path": "."
+        "sha": "58ff9af6185ebc19980d483a02d3d74a8d1227dd"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -569,6 +569,23 @@
       "category": "Productivity",
       "interface": {
         "displayName": "Atlassian Rovo"
+      }
+    },
+    {
+      "name": "advisor",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/dave-schmidt-dev/advisor.git",
+        "path": "plugins/advisor",
+        "sha": "bfca6619adeb4d56d3cb5061c8aeac9bbed889d9"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "interface": {
+        "displayName": "Codex Advisor"
       }
     }
   ]

@@ -95,5 +95,9 @@
   {
     "publishedId": "atlassian-rovo@winrecoveryproject-digital",
     "catalogId": "atlassian-rovo@openai-curated-remote"
+  },
+  {
+    "publishedId": "advisor@winrecoveryproject-digital",
+    "catalogId": "advisor@openai-curated-remote"
   }
 ]
