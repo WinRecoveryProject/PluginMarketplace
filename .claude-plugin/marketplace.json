@@ -60,6 +60,37 @@
       "description": "AI-powered code review in Codex, powered by CodeRabbit.",
       "source": "./plugins/coderabbit",
       "strict": false
+    },
+    {
+      "name": "vercel-plugin",
+      "version": "0.56.0",
+      "description": "Build and deploy web apps and agents",
+      "author": {
+        "name": "Vercel"
+      },
+      "repository": "https://github.com/vercel/vercel-plugin",
+      "license": "Apache-2.0",
+      "source": {
+        "source": "github",
+        "repo": "vercel/vercel-plugin",
+        "sha": "e69e3ba0ac0d7d24033c5ba95041acc4fc656480"
+      }
+    },
+    {
+      "name": "skill-craft",
+      "version": "1.3.0",
+      "description": "Technical review, guided walkthroughs, and approval guidance for agent skills and plugins.",
+      "author": {
+        "name": "Muhammad Bahaa"
+      },
+      "repository": "https://github.com/MuhammadBahaa/majarrah-marketplace",
+      "license": "MIT",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/MuhammadBahaa/majarrah-marketplace.git",
+        "path": "plugins/skill-craft",
+        "sha": "4b22ec0e2645ce30059cfa7f35d37b03b60498f9"
+      }
     }
   ]
 }

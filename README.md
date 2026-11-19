@@ -85,11 +85,15 @@ Claude Desktop og Claude Code kan bruge samme GitHub-repository. Claude-kataloge
 
 Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
 
-Kør `node scripts/claude-marketplace.mjs --write`, når en af de fælles pakker får en ny version. Kør derefter `node scripts/claude-marketplace.mjs --check` og `claude plugin validate .`.
+Claude henter Skill Craft 1.3.0 direkte fra udgiverens pakkemappe og Vercels egen `vercel-plugin` 0.56.0 direkte fra udgivelsens commit. Vercel-pakken indeholder udgiverens kommandoer, skills, sessionshooks med skill-telemetri og officielle MCP-server. Pakken kræver Node.js og Bun til udgiverens værktøjer. Kontofunktionerne bruger Vercels OAuth i Claude. [Skill Craft](https://github.com/MuhammadBahaa/majarrah-marketplace/tree/4b22ec0e2645ce30059cfa7f35d37b03b60498f9/plugins/skill-craft) · [Vercel](https://github.com/vercel/vercel-plugin/tree/v0.56.0)
+
+Kør `node scripts/claude-marketplace.mjs --write`, når en pakke får en ny version. `--check` kontrollerer det genererede katalog lokalt. `--verify-sources` kontrollerer også de låste kataloger og manifester hos udgiverne. Kør derefter `claude plugin validate .`.
 
 ## Visual Studio Code
 
 WinRecoveryProjectLinter kan pakkes som en lokal VS Code-udvidelse. Den indeholder samme lintmotor som CLI-udgaven og viser fund i Problems samt checkerdækning i Output. [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProjectLinter/tree/main/editors/vscode)
+
+WinRecoveryProject DevSuite kan pakkes som en lokal VS Code-udvidelse. Den bruger DevSuites Python-router til at åbne en af pakkens 14 workflowguides og viser resultatet af den lokale pakkekontrol i Output. [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/vscode)
 
 ## Struktur
 
