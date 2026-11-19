@@ -109,13 +109,27 @@ function standaloneEntry(name) {
   }
   verify(folder, '');
   if (checked.size !== Object.keys(lock.files).length) throw new Error(`${name}: Claude package members are missing.`);
-  for (const member of ['.app.json', '.mcp.json', 'mcp.json', 'hooks', 'commands', 'agents', '.codex-plugin']) {
+  const excluded = ['.app.json', 'mcp.json', 'hooks', 'commands', 'agents', '.codex-plugin'];
+  if (name !== 'onedrive') excluded.push('.mcp.json');
+  for (const member of excluded) {
     if (existsSync(new URL(member, folder))) throw new Error(`${name}: Unexpected Claude component: ${member}`);
   }
   if (name === 'zilvereyes-context-handoff') {
     const helper = 'skills/zilvereyes-context-handoff/scripts/context_handoff.py';
     if (lock.files[helper] !== ledger.plugins[name]?.files[helper]) {
       throw new Error('Context Handoff: the packet helper differs from the Codex package.');
+    }
+  }
+  if (name === 'onedrive') {
+    const provenance = JSON.parse(readFileSync(new URL('plugins/onedrive/PROVENANCE.json', root), 'utf8'));
+    const mcp = JSON.parse(readFileSync(new URL('.mcp.json', folder), 'utf8'));
+    const servers = mcp?.mcpServers;
+    const onedrive = servers?.onedrive;
+    if (Object.keys(mcp ?? {}).length !== 1 || Object.keys(servers ?? {}).length !== 1 ||
+        Object.keys(onedrive ?? {}).length !== 2 || onedrive?.type !== 'http' ||
+        onedrive?.url !== provenance.canonicalMcp ||
+        lock.files['assets/icon.png'] !== ledger.plugins[name]?.files['assets/logo-512.png']) {
+      throw new Error('OneDrive: Claude package must preserve the canonical HTTP endpoint and logo.');
     }
   }
   return { name, version: manifest.version, description: manifest.description, source };
@@ -163,7 +177,7 @@ try {
     owner: { name: 'Zilvereyes' },
     plugins: [
       ...portablePackages.map(pluginEntry),
-      ...['winrecoveryproject-devsuite', 'zilvereyes-context-handoff'].map(standaloneEntry),
+      ...['winrecoveryproject-devsuite', 'zilvereyes-context-handoff', 'onedrive'].map(standaloneEntry),
       ...publisherPackages.map(({ manifestName, licenseFile, ...entry }) => entry),
     ],
   };

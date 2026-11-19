@@ -2599,6 +2599,19 @@
         "skills/zilvereyes-context-handoff/scripts/context_handoff.py": "30a29f6124fe8b425d0d6c0f7327e66406faeaf176414624975158163b2b5f18",
         "skills/zilvereyes-context-handoff/SKILL.md": "102b89438d2273168e523649481ada13f578b512d6cb06d4b5947d02211d489a"
       }
+    },
+    "onedrive": {
+      "repository": "https://github.com/WinRecoveryProject/PluginMarketplace",
+      "commit": "5203d18759845baac3ded54bb63ccad0c3d106fd",
+      "sourceSubdir": "plugins/onedrive",
+      "version": "1.2.2",
+      "files": {
+        ".claude-plugin/plugin.json": "d493f05f82311270f880486d7ec8c6b9c1ff330b94ced7717282db3eeb27eda4",
+        ".mcp.json": "071db649e939c9198d938d6c929f012c4bcdc26bc5871de5c15ae72591034348",
+        "assets/icon.png": "315b1b8bfa887d98b2d3da5d5c54a262348ea7f3118d2e93357fc1b52dbd4394",
+        "README.md": "635877dbadab8163591848ad50093aabdfc364e25d52fc3879a1d200c59887df",
+        "skills/onedrive/SKILL.md": "31e37f7a9667a319f2ee0db530206c59e1ed7b1e9b800a9719a57264cc550412"
+      }
     }
   }
 }

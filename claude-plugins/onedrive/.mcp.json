@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "onedrive": {
+      "type": "http",
+      "url": "https://cloudstorage-onedrive-mcp.vercel.app/mcp"
+    }
+  }
+}

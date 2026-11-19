@@ -74,6 +74,12 @@
       "source": "./claude-plugins/zilvereyes-context-handoff"
     },
     {
+      "name": "onedrive",
+      "version": "1.2.2",
+      "description": "Connect Claude Code on a local desktop to the existing WinRecoveryProject OneDrive MCP server.",
+      "source": "./claude-plugins/onedrive"
+    },
+    {
       "name": "vercel-plugin",
       "version": "0.56.0",
       "description": "Build and deploy web apps and agents",

@@ -96,6 +96,8 @@ WinRecoveryProject DevSuite 0.2.7 tilbyder syv lokale arbejdsgange og en startgu
 
 Zilvereyes Context Handoff bruger samme Python 3-hjælper i begge kataloger. Claude-skillen opretter og kontrollerer en lokal Markdown-pakke til overdragelse af en opgave. Installér via `claude plugin install zilvereyes-context-handoff@winrecoveryproject-digital`. Codex-versionen håndterer sine eksisterende hooks og chats. [Claude-pakken](./claude-plugins/zilvereyes-context-handoff)
 
+OneDrive 1.2.2 til lokal Claude Code bruger den eksisterende OneDrive-server og har en skill til at verificere Microsoft-kontoen og drevet før filhandlinger. Installér via `claude plugin install onedrive@winrecoveryproject-digital`. Brug `/mcp` til at forbinde den lokale klient med dens eget Microsoft-samtykke. [Claude-pakken](./claude-plugins/onedrive)
+
 Claude henter Skillquiver 2.2.0 fra udgiverens native Claude-pakke på den fastlåste kildecommit med 24 skills. Claude henter Skill Craft 1.3.0 direkte fra udgiverens pakkemappe og Vercels egen `vercel-plugin` 0.56.0 direkte fra udgivelsens commit. Vercel-pakken indeholder udgiverens kommandoer, skills, sessionshooks med skill-telemetri og officielle MCP-server. Pakken kræver Node.js og Bun til udgiverens værktøjer. Kontofunktionerne bruger Vercels OAuth i Claude. [Skill Craft](https://github.com/MuhammadBahaa/majarrah-marketplace/tree/4b22ec0e2645ce30059cfa7f35d37b03b60498f9/plugins/skill-craft) · [Vercel](https://github.com/vercel/vercel-plugin/tree/v0.56.0)
 
 Kør `node scripts/claude-marketplace.mjs --write`, når en pakke får en ny version. `--check` kontrollerer det genererede katalog lokalt. `--verify-sources` kontrollerer også de låste kataloger og manifester hos udgiverne. Kør derefter `claude plugin validate .`.
