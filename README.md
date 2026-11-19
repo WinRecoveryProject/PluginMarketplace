@@ -17,6 +17,8 @@ Seneste rettelser og praktiske regnearks-/PDF-prøver: [Marketplace-opfølgning]
 
 Praktiske prøver og resterende runtime-begrænsninger: [Studio 0.3.7](docs/PRACTICAL-STUDIO037-20261117.md).
 
+**Gemini:** [upload-klare færdigheder for alle plugins](gemini/README.md).
+
 Én samlet Git-markedsplads for de personlige Codex-plugins, der vedligeholdes under WinRecoveryProject/Zilvereyes.
 
 Seneste samlede installationskontrol: [fuld installationsliste og historisk afstemning med Studio 0.3.6/0.3.7](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).

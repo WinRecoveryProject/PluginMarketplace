@@ -1,0 +1,35 @@
+# Plugin files: component-forge — `.codex-plugin/`
+
+Source: `plugins/component-forge`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `.codex-plugin/plugin.json`
+
+```json
+{
+  "author": {
+    "email": "zilver.muhlig.hansen@gmail.com",
+    "name": "Zilvereyes"
+  },
+  "description": "Archive-first PowerShell component extraction, dependency contracts, composition and evidence-based documentation workflows.",
+  "license": "MIT",
+  "repository": "https://github.com/WinRecoveryProject/Component-Forge",
+  "interface": {
+    "capabilities": [],
+    "category": "Developer Tools",
+    "defaultPrompt": "Brug komponentarkivet først. Undersøg afhængigheder, opret sporbare PowerShell-komponenter og registrér afprøvede varianter.",
+    "developerName": "Zilvereyes",
+    "displayName": "Component Forge",
+    "websiteURL": "https://github.com/WinRecoveryProject/Component-Forge",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/Component-Forge/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/Component-Forge/blob/main/TERMS.md",
+    "logo": "./assets/logo-512.png",
+    "composerIcon": "./assets/composer-128.png",
+    "longDescription": "Guide an agent through scoped source inventory, dependency-aware component extraction, archive-first generation and composition. Includes contracts and evaluation scenarios. Does not supply an automatic parser or servicing engine.",
+    "shortDescription": "PowerShell komponentbyggesæt"
+  },
+  "keywords": [],
+  "name": "component-forge",
+  "skills": "./skills",
+  "version": "0.1.3"
+}
+```

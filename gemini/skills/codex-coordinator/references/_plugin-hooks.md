@@ -1,0 +1,38 @@
+# Plugin files: codex-coordinator — `hooks/`
+
+Source: `plugins/codex-coordinator`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `hooks/hooks.json`
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"${PLUGIN_ROOT}/scripts/codex_coordinator_session_start.py\"",
+            "commandWindows": "python -I \"${PLUGIN_ROOT}/scripts/codex_coordinator_session_start.py\"",
+            "timeout": 5,
+            "statusMessage": "Checking the Codex task-boundary board"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"${PLUGIN_ROOT}/scripts/codex_coordinator_stop_guard.py\"",
+            "commandWindows": "python -I \"${PLUGIN_ROOT}/scripts/codex_coordinator_stop_guard.py\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
+```

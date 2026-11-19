@@ -1,0 +1,53 @@
+# Plugin files: winrecoveryproject-devsuite — `.codex-plugin/`
+
+Source: `plugins/winrecoveryproject-devsuite`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `.codex-plugin/plugin.json`
+
+```json
+{
+  "name": "winrecoveryproject-devsuite",
+  "version": "0.2.7",
+  "description": "One development toolkit for planning, coding, security, testing, local processes and registered Codex tasks.",
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "license": "MIT",
+  "skills": "./skills/",
+  "apps": "./.app.json",
+  "keywords": [
+    "development",
+    "security",
+    "coordination",
+    "verification",
+    "cloud",
+    "conversion"
+  ],
+  "interface": {
+    "displayName": "WinRecoveryProject DevSuite",
+    "shortDescription": "Byg, test og koordinér kode",
+    "longDescription": "Fra idé til verificeret kode: planlægning, implementering, fejlfinding, tests, kodegennemgang, sikkerhed og kvalitetskontrol i én DevSuite. Følg lokale builds og processer med Windows-kompatibel styring, eller brug eksisterende registrerede Codex Tasks-miljøer, når det er bestilt. Bevarer forbindelser og skelner mellem tilgængelige værktøjer og faktisk testede resultater. Ingen nye konti eller betalte tjenester kræves til lokale funktioner.",
+    "developerName": "Zilvereyes",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "brandColor": "#00BDA5",
+    "logo": "./assets/logo.png",
+    "composerIcon": "./assets/composer-icon.png",
+    "defaultPrompt": [
+      "Planlæg og implementér denne ændring, og test resultatet.",
+      "Gennemgå projektet og ret de godkendte fejl med friske kontrolresultater.",
+      "Vis mine registrerede Codex-miljøer uden at oprette en opgave."
+    ],
+    "websiteURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/blob/main/TERMS.md",
+    "supportURL": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/blob/main/SUPPORT.md"
+  },
+  "homepage": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite",
+  "repository": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite"
+}
+```

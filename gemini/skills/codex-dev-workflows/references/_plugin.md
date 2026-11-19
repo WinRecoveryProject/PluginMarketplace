@@ -1,0 +1,220 @@
+# Plugin files: codex-dev-workflows — manifests and top-level files
+
+Source: `plugins/codex-dev-workflows`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `COPY-COMPLETE.json`
+
+```json
+{
+  "complete": true,
+  "files": 25,
+  "installedInHost": false
+}
+```
+
+## File: `IMPORT-RECEIPT.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "installer": "plugin-skill-studio",
+  "source": "selected-source:codex-dev-workflows",
+  "sourceHash": "690e96f676aeda8fa851edb65d8a3ef23dee3089bdafa5781e6f05d34c38aad9",
+  "target": "marketplace:plugins/codex-dev-workflows",
+  "files": [
+    {
+      "path": ".codex-plugin/assets/composer-icon.png",
+      "bytes": 662293,
+      "sha256": "9c075f7ed93868a156cdc051c626ca4df9122d89932d97e85881c2dc54c220ef"
+    },
+    {
+      "path": ".codex-plugin/assets/logo.png",
+      "bytes": 662293,
+      "sha256": "9c075f7ed93868a156cdc051c626ca4df9122d89932d97e85881c2dc54c220ef"
+    },
+    {
+      "path": ".codex-plugin/plugin.json",
+      "bytes": 1587,
+      "sha256": "998d4c1c3122f89251b654c53b167487f979b8b6a130fadcef46894842c8aee3"
+    },
+    {
+      "path": "assets/icon.png",
+      "bytes": 662293,
+      "sha256": "9c075f7ed93868a156cdc051c626ca4df9122d89932d97e85881c2dc54c220ef"
+    },
+    {
+      "path": "assets/logo.png",
+      "bytes": 662293,
+      "sha256": "9c075f7ed93868a156cdc051c626ca4df9122d89932d97e85881c2dc54c220ef"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1090,
+      "sha256": "c300da1844a533ce9234d26f70b2eaaeabcc8215d3f8ca3a3b738e456e4d90bb"
+    },
+    {
+      "path": "shared/platforms/flutter.md",
+      "bytes": 1729,
+      "sha256": "73e31274da236f72e741b78c69af3b2dfef8fe664f83a6009acd787aeb3faa23"
+    },
+    {
+      "path": "shared/platforms/javascript-typescript.md",
+      "bytes": 1392,
+      "sha256": "ee69429ef7927fa110207e29cd943d715020037b49a9a97f8f2299e811baf5ae"
+    },
+    {
+      "path": "shared/platforms/laravel-php.md",
+      "bytes": 1318,
+      "sha256": "cce09f56abbe30eb383e726a0e1e1908c3c145dd54ade76c706777f997bdad97"
+    },
+    {
+      "path": "shared/platforms/python.md",
+      "bytes": 1250,
+      "sha256": "f2e2d243db3413a616fe2efda430aa171fc8402ab76ff0ef8714c3cc4e344e62"
+    },
+    {
+      "path": "skills/bug-investigation/SKILL.md",
+      "bytes": 2155,
+      "sha256": "837e68069e423319d30ea1ac99587f31388c07aa2b9099072a4e459baa4f7b68"
+    },
+    {
+      "path": "skills/code-review/SKILL.md",
+      "bytes": 1965,
+      "sha256": "4e110b78955eb04b4039dbec2f9f709a55bd3663ef2498c46e4e63289b2cbada"
+    },
+    {
+      "path": "skills/comprehensive-qa/SKILL.md",
+      "bytes": 2975,
+      "sha256": "caa019878fd71155abd69fdcf9803ab7cc4814e839a943b781d3c80cbb4128af"
+    },
+    {
+      "path": "skills/create-agent-instructions/SKILL.md",
+      "bytes": 2534,
+      "sha256": "38d56143d32f34cbebe52ae4da05acbad5e9dc35c0f8108cba633532bd3e7340"
+    },
+    {
+      "path": "skills/feature-development/SKILL.md",
+      "bytes": 1810,
+      "sha256": "4a82018ae3e067795b3a700dd10ffe8d7f80f4e21f99baa7e201099ae3c15e9b"
+    },
+    {
+      "path": "skills/feature-testing/SKILL.md",
+      "bytes": 2310,
+      "sha256": "95bf9b4817925462704b38f93b6a33c0c6ada11a165253a82eb21e86b0b9a83a"
+    },
+    {
+      "path": "skills/new-project/SKILL.md",
+      "bytes": 2060,
+      "sha256": "b9c0c1ea98d98433260e84e0f8191a2f224740c61b684342729d948fcfd1409d"
+    },
+    {
+      "path": "skills/orchestrate-work/agents/openai.yaml",
+      "bytes": 287,
+      "sha256": "8d45273457411dcc95f993a392dfe88c22e2b0c874881bcee36819dca4130dee"
+    },
+    {
+      "path": "skills/orchestrate-work/SKILL.md",
+      "bytes": 3584,
+      "sha256": "607b237385756e76ad3217d3ac5751b5404fd28d0e3863ed05ddfc36a0311e35"
+    },
+    {
+      "path": "skills/platform-guidance/SKILL.md",
+      "bytes": 1119,
+      "sha256": "3f9ffbf5e5d90549210c02434bc75fa54b942a041bcbb95ea2f0aea45d1262be"
+    },
+    {
+      "path": "skills/pre-release-review/SKILL.md",
+      "bytes": 1584,
+      "sha256": "0961a2aff80b78665c6e97124a99d03aa391d25d600b72817de8657fbf91795e"
+    },
+    {
+      "path": "skills/resume-interrupted-task/SKILL.md",
+      "bytes": 2676,
+      "sha256": "299a7b5e9fdc5a13cfe97ef1d7a75cfed21706cfc8b21a1d69213c1b7a4917b6"
+    },
+    {
+      "path": "skills/session-handoff/SKILL.md",
+      "bytes": 1562,
+      "sha256": "4434c5406f86d1e4780d2950feb9b92cfcab0ff1644ac68e4a7caeda4d3ff417"
+    }
+  ],
+  "createdAt": "2026-11-16T01:16:27.975Z",
+  "state": "local-candidate",
+  "installedInHost": false,
+  "executedTarget": false,
+  "pathDisclosure": "portable",
+  "historicalReceipt": true
+}
+```
+
+## File: `LICENSE`
+
+```text
+MIT License
+
+Copyright (c) 2026 Codex Dev Workflows contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## File: `plugin.json`
+
+```json
+{
+  "author": {
+    "name": "Codex Dev Workflows contributors"
+  },
+  "description": "Reusable software-development workflows and platform guidance for Codex.",
+  "homepage": "https://github.com/srajpal/codex-dev-workflows",
+  "interface": {
+    "brandColor": "#0B1220",
+    "brandColorDark": "#DFE6F4",
+    "capabilities": [],
+    "category": "Productivity",
+    "composerIcon": "./.codex-plugin/assets/composer-icon.png",
+    "defaultPrompt": [
+      "Help me plan a new software project.",
+      "Test the feature I just implemented.",
+      "Review my changes for release readiness."
+    ],
+    "developerName": "SUNNY RAJPAL",
+    "displayName": "Codex Dev Workflows",
+    "logo": "./.codex-plugin/assets/logo.png",
+    "longDescription": "A skills-only library for planning, orchestration, feature work, testing, comprehensive QA, debugging, review, release readiness, and handoffs.",
+    "privacyPolicyURL": "https://github.com/srajpal/codex-dev-workflows/blob/master/PRIVACY.md",
+    "shortDescription": "Reusable developer workflows",
+    "supportURL": "https://github.com/srajpal/codex-dev-workflows/blob/master/SUPPORT.md",
+    "termsOfServiceURL": "https://github.com/srajpal/codex-dev-workflows/blob/master/TERMS.md",
+    "websiteURL": "https://github.com/srajpal/codex-dev-workflows"
+  },
+  "keywords": [
+    "codex",
+    "skills",
+    "workflows",
+    "prompts",
+    "software-development",
+    "qa"
+  ],
+  "license": "MIT",
+  "name": "codex-dev-workflows",
+  "repository": "https://github.com/srajpal/codex-dev-workflows",
+  "skills": "./skills/",
+  "version": "0.4.2"
+}
+```
