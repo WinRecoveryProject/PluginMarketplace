@@ -106,6 +106,8 @@ WinRecoveryProjectLinter 0.1.6 bruger samme lintmotor som CLI-udgaven og viser f
 
 WinRecoveryProject DevSuite 0.2.7 bruger Python til at åbne pakkens workflowguides og viser den lokale Doctor-kontrol i Output. [Download VSIX](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/releases/download/v0.2.7/winrecoveryproject-devsuite-0.2.7.vsix) · [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/vscode)
 
+Plugin-Skill-Studio 0.3.31 gennemgår en valgt lokal plugin- eller skill-mappe og viser statiske fund med fil og linjenummer i Output. Det kræver VS Code 1.96 eller nyere. Hent VSIX-filen med den eksisterende GitHub-adgang til Studio-repoet. [Download VSIX](https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio/releases/download/vscode-v0.3.31/plugin-skill-studio-0.3.31.vsix) · [Kilde og byggevejledning](https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio/tree/vscode-v0.3.31/editors/vscode)
+
 ## Struktur
 
 - `.agents/plugins/marketplace.json` er Codex-kataloget. `.claude-plugin/marketplace.json` er Claude-kataloget.
