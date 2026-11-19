@@ -11,8 +11,15 @@ import { verifyInstalledRelease } from '../src/services/installed-release.mjs';
 const id = 'studio@ours';
 const binary = Buffer.from([0x41, 0x0d, 0x0a, 0xff]);
 const digest = data => createHash('sha256').update(data).digest('hex');
+const upstream = {
+  repository: 'https://github.com/publisher/plugins.git',
+  commit: 'a'.repeat(40),
+  sourceSubdir: 'plugins/studio',
+};
+const sourceText = 'Instruction line\nNext line\n';
+const windowsText = sourceText.replaceAll('\n', '\r\n');
 
-async function fixture(t) {
+async function fixture(t, external = false) {
   const temp = await fs.realpath(os.tmpdir());
   const base = await fs.mkdtemp(path.join(temp, 'studio-release-proof-'));
   t.after(async () => {
@@ -29,11 +36,20 @@ async function fixture(t) {
   await fs.mkdir(path.join(checkout, '.agents', 'plugins'), { recursive: true });
   await fs.mkdir(packageRoot, { recursive: true });
   await fs.writeFile(dataFile, binary);
-  await fs.writeFile(ledger, JSON.stringify({
-    plugins: { studio: { version: '0.3.29', files: { 'card.bin': digest(binary) } } },
-  }));
+  const item = { version: '0.3.29', files: { 'card.bin': digest(binary) } };
+  const listing = { name: 'studio' };
+  if (external) {
+    Object.assign(item, upstream, {
+      sourceKind: 'reviewed-upstream-tree',
+      windowsCheckoutSha256: { 'guide.md': digest(windowsText) },
+    });
+    item.files['guide.md'] = digest(sourceText);
+    listing.source = { source: 'git-subdir', url: upstream.repository, path: upstream.sourceSubdir };
+    await fs.writeFile(path.join(packageRoot, 'guide.md'), sourceText);
+  }
+  await fs.writeFile(ledger, JSON.stringify({ plugins: { studio: item } }));
   await fs.writeFile(path.join(checkout, '.agents', 'plugins', 'marketplace.json'), JSON.stringify({
-    name: 'ours', plugins: [{ name: 'studio' }],
+    name: 'ours', plugins: [listing],
   }));
   git(['init', '-q']);
   git(['add', 'plugin-sources.lock.json', '.agents/plugins/marketplace.json']);
@@ -46,7 +62,12 @@ async function fixture(t) {
     installationCoverage: { cli: true },
     plugins: [{
       id, installation: 'INSTALLED', enabled: true, installedVersion: '0.3.29',
-      published: { version: '0.3.29', source: { revision } },
+      published: {
+        version: '0.3.29',
+        source: external
+          ? { url: upstream.repository, revision: upstream.commit, path: upstream.sourceSubdir + '/.codex-plugin/plugin.json' }
+          : { revision },
+      },
     }],
   };
   return { request: { checkout, cacheRoot, revision, ids: [id] }, audit, ledger, receipt, packageRoot, dataFile, base };
@@ -101,4 +122,37 @@ test('ancestor repositories and linked cache paths are rejected', async t => {
   const alias = path.join(base, 'alias');
   await fs.symlink(request.cacheRoot, alias, process.platform === 'win32' ? 'junction' : 'dir');
   assert.equal((await verifyInstalledRelease(audit, { ...request, cacheRoot: alias })).status, 'INCOMPLETE');
+});
+
+
+test('reviewed external cache matches the exact vendor Git revision and scoped Windows checkout hashes', async t => {
+  const { request, audit, packageRoot } = await fixture(t, true);
+  let result = await verifyInstalledRelease(audit, request);
+  assert.equal(result.status, 'MATCHED');
+  assert.equal(result.results[0].matchedFiles, 2);
+  assert.equal(result.results[0].windowsCheckoutMatches, 0);
+  await fs.writeFile(path.join(packageRoot, 'guide.md'), windowsText);
+  result = await verifyInstalledRelease(audit, request);
+  const onWindows = process.platform === 'win32';
+  assert.equal(result.status, onWindows ? 'MATCHED' : 'DIFFERENT');
+  assert.equal(result.results[0].windowsCheckoutMatches, onWindows ? 1 : 0);
+  await fs.writeFile(path.join(packageRoot, 'guide.md'), windowsText + 'Changed');
+  result = await verifyInstalledRelease(audit, request);
+  assert.equal(result.status, 'DIFFERENT');
+  assert.deepEqual(result.results[0].different, ['guide.md']);
+});
+
+test('changing a vendor repository, commit or manifest path invalidates the committed hashes', async t => {
+  const { request, audit } = await fixture(t, true);
+  for (const change of [
+    { url: 'https://github.com/unrelated/plugins.git' },
+    { revision: 'b'.repeat(40) },
+    { path: 'plugins/studio/plugin.json' },
+  ]) {
+    const current = structuredClone(audit);
+    Object.assign(current.plugins[0].published.source, change);
+    const report = await verifyInstalledRelease(current, request);
+    assert.equal(report.status, 'INCOMPLETE');
+    assert.equal(report.results[0].code, 'RELEASE_NOT_ATTESTED');
+  }
 });

@@ -57,6 +57,8 @@ node scripts/studio.mjs inventory-versions C:/private/capture.json --installed-f
 
 `installedFiles` records package versions and compares SHA-256 digests with the ledger committed at the requested revision. The managed checkout must be at that revision and, when present, its native receipt must match. Use the checkout and cache on the host where you took the capture. Installation and activation are observations from that capture. The file check reads the supplied cache and checks for changes during the read. Extra, missing and changed files make the result differ. The command returns the higher of the version audit and installed-file exit codes. This read-only check covers the observed installation and file contents. A functional test separately verifies the tools and connected account.
 
+For a reviewed external Git source, the committed ledger can record a separate provider revision. Studio requires the catalog locator and the captured repository, revision, and manifest path to agree with that record. If the provider moves, the old file hashes cannot establish the new release. On Windows, a reviewed record can additionally supply hashes for exact checkout line endings on specified files. The report counts those as `windowsCheckoutMatches`. Other mismatches still fail the comparison.
+
 ## Read the report
 
 - Exit `0` means the evidence is complete and the compared installed identities have no version differences. Uninstalled publications and newer counterpart channels still appear in the report.

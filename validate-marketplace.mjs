@@ -119,6 +119,24 @@ if(registry){
     }else check(name==='onedrive',`${name}: source provenance present`);
   }
 }
+if(registry&&lock){
+  const reviewed=Object.entries(lock.plugins??{}).filter(([,entry])=>entry.sourceKind==='reviewed-upstream-tree');
+  for(const [name,entry] of reviewed){
+    const locator=registry.plugins.find(row=>row.name===name)?.source;
+    const files=entry.files??{};
+    const windows=entry.windowsCheckoutSha256??{};
+    const validHash=digest=>typeof digest==='string'&&/^[0-9a-f]{64}$/.test(digest);
+    check(locator?.source==='git-subdir'&&locator.url===entry.repository&&locator.path===entry.sourceSubdir&&
+      (locator.sha==null||locator.sha===entry.commit),name+': reviewed upstream locator matches the catalog');
+    check(/^[0-9a-f]{40}$/.test(entry.commit)&&/^[0-9a-f]{40}$/.test(entry.treeSha)&&
+      typeof entry.version==='string'&&entry.version.length>0,name+': exact upstream commit, tree and version');
+    check(Object.keys(files).length>0&&Object.hasOwn(files,'.codex-plugin/plugin.json')&&
+      Object.entries(files).every(([path,digest])=>path.split('/').every(part=>/^[A-Za-z0-9._-]+$/.test(part)&&
+        part!=='.'&&part!=='..')&&validHash(digest)),name+': reviewed upstream file hashes');
+    check(Object.entries(windows).every(([path,digest])=>Object.hasOwn(files,path)&&validHash(digest)&&
+      files[path]!==digest),name+': scoped Windows checkout hashes');
+  }
+}
 const external=json('docs/external-plugin-collection-20261116.json');
 if(registry&&external){
   const expected=['sharepoint','vercel','github','google-drive','openai-developers','dropbox'];

@@ -23,7 +23,22 @@ async function git(root, ...args) {
   return stdout;
 }
 
-async function verifyPackage(cacheRoot, name, namespace, version, locked) {
+function publicationAttested(source, entry, published, marketplaceRevision) {
+  if (entry.sourceKind !== 'reviewed-upstream-tree') return published?.revision === marketplaceRevision;
+  return source?.source === 'git-subdir' && source.url === entry.repository && source.path === entry.sourceSubdir &&
+    (source.sha === undefined || source.sha === entry.commit) && revisionPattern.test(entry.commit ?? '') &&
+    published?.url === entry.repository && published?.revision === entry.commit &&
+    published?.path === entry.sourceSubdir + '/.codex-plugin/plugin.json';
+}
+
+function hasValidWindowsHashes(entry) {
+  if (entry.windowsCheckoutSha256 === undefined) return true;
+  return entry.sourceKind === 'reviewed-upstream-tree' && object(entry.windowsCheckoutSha256) &&
+    Object.entries(entry.windowsCheckoutSha256).every(([name, digest]) => Object.hasOwn(entry.files, name) &&
+      typeof digest === 'string' && digestPattern.test(digest) && digest !== entry.files[name]);
+}
+
+async function verifyPackage(cacheRoot, name, namespace, version, locked, windowsHashes) {
   let root;
   try {
     root = await containedPath(cacheRoot, [namespace, name, version], 'directory');
@@ -39,6 +54,7 @@ async function verifyPackage(cacheRoot, name, namespace, version, locked) {
   const extra = files.filter(file => !Object.hasOwn(locked, file.relative)).map(file => file.relative);
   const different = [];
   let matchedFiles = 0;
+  let windowsCheckoutMatches = 0;
   let bytesRead = 0;
   for (const file of files) {
     if (!Object.hasOwn(locked, file.relative)) continue;
@@ -48,8 +64,15 @@ async function verifyPackage(cacheRoot, name, namespace, version, locked) {
       const contents = await readBoundedBuffer(path, limit);
       bytesRead += contents.length;
       const hash = createHash('sha256').update(contents).digest('hex');
-      if (hash === locked[file.relative]) matchedFiles++;
-      else different.push(file.relative);
+      if (hash === locked[file.relative]) {
+        matchedFiles++;
+      } else if (process.platform === 'win32' && Object.hasOwn(windowsHashes, file.relative) &&
+                 hash === windowsHashes[file.relative]) {
+        windowsCheckoutMatches++;
+        matchedFiles++;
+      } else {
+        different.push(file.relative);
+      }
     } catch (error) {
       return { status: 'INCOMPLETE', code: 'FILE_READ_FAILED', file: file.relative, reason: error.code ?? error.message };
     }
@@ -64,7 +87,8 @@ async function verifyPackage(cacheRoot, name, namespace, version, locked) {
         stat.size !== before.size || stat.mtimeMs !== before.mtimeMs;
     })) return { status: 'INCOMPLETE', code: 'CACHE_CHANGED_DURING_CHECK' };
   }
-  return { status, matchedFiles, expectedFiles: Object.keys(locked).length, missing, extra, different };
+  return { status, matchedFiles, expectedFiles: Object.keys(locked).length, missing, extra, different,
+    ...(Object.keys(windowsHashes).length ? { windowsCheckoutMatches } : {}) };
 }
 
 export async function verifyInstalledRelease(audit, request) {
@@ -120,10 +144,12 @@ export async function verifyInstalledRelease(audit, request) {
     const [name, namespace] = id.split('@');
     const observed = audit.plugins.find(row => row.id === id);
     const entry = release.plugins[name];
-    if (namespace !== registry.name || !cacheComponent(name) || !registry.plugins.some(row => row.name === name) ||
+    const listing = registry.plugins.find(row => row.name === name);
+    if (namespace !== registry.name || !cacheComponent(name) || !listing ||
         !cacheComponent(entry?.version) || !object(entry?.files) || !Object.keys(entry.files).length ||
         Object.values(entry.files).some(digest => typeof digest !== 'string' || !digestPattern.test(digest)) ||
-        observed?.published?.source?.revision !== revision || observed.published.version !== entry.version) {
+        !hasValidWindowsHashes(entry) || !publicationAttested(listing.source, entry, observed?.published?.source, revision) ||
+        observed?.published?.version !== entry.version) {
       results.push({ id, status: 'INCOMPLETE', code: 'RELEASE_NOT_ATTESTED' });
       continue;
     }
@@ -134,7 +160,7 @@ export async function verifyInstalledRelease(audit, request) {
     } else if (observed.installation !== 'INSTALLED' || observed.installedVersion !== entry.version || !observed.enabled) {
       results.push({ ...packageEvidence, status: 'DIFFERENT', code: 'INSTALLATION_DIFFERS' });
     } else {
-      results.push({ ...packageEvidence, ...await verifyPackage(cache, name, namespace, entry.version, entry.files) });
+      results.push({ ...packageEvidence, ...await verifyPackage(cache, name, namespace, entry.version, entry.files, entry.windowsCheckoutSha256 ?? {}) });
     }
   }
   if ((await git(root, 'rev-parse', 'HEAD').catch(() => '')).trim() !== revision) return incomplete('CHECKOUT_CHANGED');

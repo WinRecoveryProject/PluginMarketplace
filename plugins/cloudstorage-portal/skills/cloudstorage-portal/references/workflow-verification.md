@@ -6,7 +6,7 @@ CloudStorage Portal declares the existing Dropbox, Google Drive and OneDrive App
 
 Run `node scripts/verify-provider-workflows.mjs . <provider-tool-catalog.json>` with the tool names observed on the current host. The catalog uses `dropbox.tools`, `googleDrive.tools` and `oneDrive.tools`. It checks the twelve imported Dropbox and Google workflows plus the hosted OneDrive requirements for identity, drive, search, folder listing and creation, exact metadata, reading, uploading, updating and content readback. A missing OneDrive catalog or required tool fails the check. Catalog results establish tool availability. A live account, operation and readback each require their own evidence.
 
-Google has exposed both schemas with multiple explicit `link_id` values and schemas without an account selector. Use the current schema and confirm the active account before writes. Local OneDrive sync-folder access provides filesystem metadata only.
+The Google Drive catalog check requires `get_profile` because workflows must confirm the active account when the connector exposes no account selector. Google has exposed schemas both with and without explicit `link_id` values. Use the current schema and confirm the active account before writes. Local OneDrive sync-folder access provides filesystem metadata only.
 
 Follow the [exact-child fallback](../../onedrive/SKILL.md#resolve-a-known-file-or-folder-after-an-empty-search) only with an already verified direct parent and a successful empty OneDrive search. Record search, full parent listing and exact item readback separately.
 

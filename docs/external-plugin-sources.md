@@ -1,5 +1,11 @@
 # External plugin sources
 
+## Genkontrol af OpenAI Developers-cachen
+
+Marketplace registrerer de 30 kildehashes for OpenAI Developers 1.2.3. Studio kontrollerer den aktive cache mod det observerede eksterne commit. På Windows kan 28 dokumenterede Git-checkout-varianter med CRLF godkendes med deres egne hashes. [Officiel kilde](https://github.com/openai/plugins/tree/981b02c0c44058b595f3b4180002c3ae3c806d40/plugins/openai-developers)
+
+Acers bulkopdatering kunne ikke omdøbe cachen til en backup. En skrivefri Windows-kontrol fik delingsfejl på versionsmappen. Cachen matchede fortsat den publicerede kilde. Den normale opdateringsrute og eksisterende App-binding bevares.
+
 ## Seneste versionsfund med Studio 0.3.29
 
 Acer og ASUS i Personlig læste alle 36 Marketplace-manifester. Ni modparter havde en nyere installeret udgave i OpenAI-kataloget på Acer. Marketplace henter udgaverne fra den verificerede Git-kilde. [Offentlig kilde](https://github.com/openai/plugins/tree/981b02c0c44058b595f3b4180002c3ae3c806d40/plugins)

@@ -21,7 +21,7 @@ const existingCatalog = {
     'bulk_update_file_comments', 'copy_file', 'create_file', 'create_presentation_from_template',
     'delete_file', 'export_file', 'fetch', 'fetch_file_revision', 'get_document',
     'get_document_comments', 'get_document_text', 'get_file_comments', 'get_file_metadata',
-    'get_presentation', 'get_presentation_comments', 'get_presentation_outline', 'get_slide',
+    'get_presentation', 'get_presentation_comments', 'get_presentation_outline', 'get_profile', 'get_slide',
     'get_spreadsheet_cells', 'get_spreadsheet_comments', 'get_spreadsheet_metadata',
     'get_spreadsheet_range', 'import_document', 'import_presentation', 'import_spreadsheet',
     'list_file_revisions', 'list_folder', 'recent_documents', 'search', 'share_file',
@@ -34,11 +34,11 @@ const oneDriveTools = [
   'onedrive_create_folder', 'onedrive_upload_file', 'onedrive_update_file_content',
 ];
 
-test('catalog gate requires hosted OneDrive search, folder creation, reads and writes', () => {
+test('catalog gate requires Google profile and hosted OneDrive search, folder creation, reads and writes', () => {
   const directory = mkdtempSync(path.join(tmpdir(), 'cloudstorage-workflow-catalog-'));
   const catalogFile = path.join(directory, 'catalog.json');
   try {
-    const verify = (catalog, expectedStatus) => {
+    const verify = (catalog, expectedStatus, oneDriveAvailable = expectedStatus === 0) => {
       writeFileSync(catalogFile, JSON.stringify(catalog), 'utf8');
       const run = spawnSync(process.execPath, [verifier, root, catalogFile], { encoding: 'utf8' });
       assert.ifError(run.error);
@@ -49,13 +49,19 @@ test('catalog gate requires hosted OneDrive search, folder creation, reads and w
       assert.equal(report.cloudReads, false);
       assert.equal(report.cloudWrites, false);
       assert.equal(report.passed, expectedStatus === 0);
-      assert.equal(report.oneDriveWorkflow.available, expectedStatus === 0);
+      assert.equal(report.oneDriveWorkflow.available, oneDriveAvailable);
       return report;
     };
 
     const complete = verify({ ...existingCatalog, oneDrive: { tools: oneDriveTools } }, 0);
     assert.deepEqual(complete.oneDriveWorkflow.missingTools, []);
     assert.equal(complete.providerCatalogs.oneDriveToolCount, 11);
+
+    const googleDrive = { tools: existingCatalog.googleDrive.tools.filter(tool => tool !== 'get_profile') };
+    const withoutProfile = verify({ ...existingCatalog, googleDrive, oneDrive: { tools: oneDriveTools } }, 1, true);
+    const googleWorkflow = withoutProfile.workflows.find(workflow => workflow.name === 'google-drive');
+    assert.equal(googleWorkflow.available, false);
+    assert.deepEqual(googleWorkflow.missingTools, ['get_profile']);
 
     const absent = verify(existingCatalog, 1);
     assert.deepEqual(absent.oneDriveWorkflow.missingTools, oneDriveTools);

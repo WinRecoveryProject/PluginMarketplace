@@ -43,6 +43,7 @@ const googleRequirements = {
     'fetch',
     'fetch_file_revision',
     'get_file_metadata',
+    'get_profile',
     'list_file_revisions',
     'list_folder',
     'recent_documents',
