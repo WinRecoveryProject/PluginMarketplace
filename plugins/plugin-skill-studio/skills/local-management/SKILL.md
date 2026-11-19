@@ -19,6 +19,8 @@ Use `node scripts/studio.mjs inventory-reconcile <input.json>` to reconcile data
 
 Use the [version audit](../../references/inventory-versions.md) to collect a scoped receipt and compare exact installed versions with the observed Git manifests. Use explicit counterpart IDs for comparisons with another catalog. The command includes available releases so users can compare without reinstalling duplicates. A result on one host or scope does not verify another.
 
+On a same-workspace comparison, pass the other host’s original capture as `--against <capture.json>`. Read `peerInstallation` for exact ID, version and activation differences. Review it alongside the current host’s publication status.
+
 ## Cache paths removed by an upgrade
 
 If an injected skill path returns ENOENT after a plugin upgrade, follow the host's

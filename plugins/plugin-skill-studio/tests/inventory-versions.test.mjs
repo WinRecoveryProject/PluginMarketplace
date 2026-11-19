@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
-import { auditInventoryVersions, compareVersions } from '../src/services/inventory-versions.mjs';
+import { auditInventoryVersions, compareHostInstallations, compareVersions } from '../src/services/inventory-versions.mjs';
 
 const owned = 'dropbox@winrecoveryproject-digital';
 const peer = 'app-69b31dc2110c8191b8b47dc98fe5a052@openai-curated-remote';
@@ -14,7 +14,10 @@ const studio = fileURLToPath(new URL('../scripts/studio.mjs', import.meta.url));
 
 function fixture() {
   return {
-    scope: { host: 'Acer', account: 'personal', observedAt: '2026-11-18T09:30:00.000Z' },
+    scope: {
+      host: 'Acer', account: 'personal', observedAt: '2026-11-18T09:30:00.000Z',
+      workspaceFingerprint: 'a'.repeat(64),
+    },
     inventory: { current: [
       { kind: 'cli', label: 'CLI', data: { installed: [{ pluginId: owned, version: '5.0.1', enabled: true }] } },
       { kind: 'catalog', label: 'Personal', data: { marketplaces: [{ name: 'created-by-me-remote', plugins: [] }], marketplaceLoadErrors: [] } },
@@ -53,7 +56,75 @@ test('a parallel catalog does not fill a missing exact installation', () => {
   const report = auditInventoryVersions(input);
   assert.equal(report.plugins[0].installation, 'NOT_INSTALLED');
   assert.equal(report.plugins[0].installedVersion, null);
+  assert.deepEqual(report.publicationInstallation, { installed: 0, exact: 0, absent: 1, uncertain: 0 });
   assert.equal(report.installedPluginIdentities, 1);
+});
+
+test('compares hosts by exact ID even when both publication checks match', async t => {
+  const current = fixture();
+  const other = fixture();
+  other.scope.host = 'ASUS';
+  current.inventory.current[0].data.installed[0].enabled = false;
+  current.inventory.current[0].data.installed.push({ pluginId: peer, version: '6.1.0', enabled: true });
+  other.inventory.current[0].data.installed.push({ pluginId: 'dropbox@other', version: '6.1.0', enabled: true });
+
+  const folder = await mkdtemp(path.join(tmpdir(), 'studio-peer-inventory-'));
+  t.after(() => rm(folder, { recursive: true, force: true }));
+  const currentPath = path.join(folder, 'current.json');
+  const peerPath = path.join(folder, 'peer.json');
+  await writeFile(currentPath, JSON.stringify(current));
+  await writeFile(peerPath, JSON.stringify(other));
+  const run = spawnSync(process.execPath, [studio, 'inventory-versions', currentPath, '--against', peerPath],
+    { encoding: 'utf8' });
+  assert.equal(run.status, 0, run.stderr);
+  const report = JSON.parse(run.stdout);
+  assert.equal(report.status, 'MATCHED');
+  assert.equal(report.plugins[0].enabled, false);
+  assert.equal(report.peerInstallation.status, 'DIFFERENCES');
+  assert.deepEqual(Object.fromEntries(report.peerInstallation.differences.map(row => [row.id, row.reasons])), {
+    [owned]: ['ACTIVATION_DIFFERS'],
+    [peer]: ['CURRENT_ONLY'],
+    'dropbox@other': ['PEER_ONLY'],
+  });
+  assert.deepEqual(report.peerInstallation.unverified, []);
+});
+
+test('peer comparison rejects other account scopes and treats incomplete absence as unverified', () => {
+  const current = auditInventoryVersions(fixture());
+  const other = fixture();
+  assert.throws(() => compareHostInstallations(current, auditInventoryVersions(other)), /distinct hosts/);
+  other.scope.host = 'ASUS';
+  assert.equal(compareHostInstallations(current, auditInventoryVersions(other)).status, 'ALIGNED');
+
+  const fingerprint = other.scope.workspaceFingerprint;
+  other.scope.workspaceFingerprint = 'b'.repeat(64);
+  assert.throws(() => compareHostInstallations(current, auditInventoryVersions(other)), /matching attested account/);
+  delete other.scope.workspaceFingerprint;
+  assert.throws(() => compareHostInstallations(current, auditInventoryVersions(other)), /matching attested account/);
+  other.scope.workspaceFingerprint = fingerprint;
+  other.inventory.current[0].data.installed[0].version = '5.0.2';
+  const drift = compareHostInstallations(current, auditInventoryVersions(other));
+  assert.deepEqual(drift.differences[0].reasons, ['VERSION_DIFFERS']);
+
+  other.inventory.current.shift();
+  const incomplete = compareHostInstallations(current, auditInventoryVersions(other));
+  assert.equal(incomplete.status, 'INCOMPLETE');
+  assert.deepEqual(incomplete.unverified, [{ id: owned, reason: 'ABSENCE_UNVERIFIED' }]);
+  assert.deepEqual(incomplete.differences, []);
+});
+
+test('an unrelated Git publication gap does not discard observed installation differences', () => {
+  const current = auditInventoryVersions(fixture());
+  const other = fixture();
+  other.scope.host = 'ASUS';
+  other.inventory.current[0].data.installed = [];
+  other.published.entries = [];
+  const peerReport = auditInventoryVersions(other);
+  assert.equal(peerReport.status, 'INCOMPLETE');
+  const peerComparison = compareHostInstallations(current, peerReport);
+  assert.equal(peerComparison.status, 'DIFFERENCES');
+  assert.deepEqual(peerComparison.differences[0].reasons, ['CURRENT_ONLY']);
+  assert.deepEqual(peerComparison.unverified, []);
 });
 
 test('history reports exact newly observed identities without merging provider aliases', () => {
@@ -210,6 +281,19 @@ test('native counterpart comparison requires an attested workspace', () => {
   assert.equal(report.outsidePublication.length, 0);
   assert.ok(report.gaps.some(gap => gap.code === 'NATIVE_SCOPE_UNATTESTED'));
   assert.equal(report.counterparts.find(row => row.catalogId === personalNative).comparison, 'UNKNOWN');
+});
+
+test('native inventory requires an attested workspace even without native counterparts', () => {
+  const input = fixture();
+  delete input.scope.workspaceFingerprint;
+  input.inventory.current[1].data.marketplaces[0].plugins.push({
+    id: personalNative, installed: true, localVersion: '4.9.0',
+  });
+  const report = auditInventoryVersions(input);
+  assert.equal(report.status, 'INCOMPLETE');
+  assert.equal(report.exitCode, 2);
+  assert.ok(report.gaps.some(gap => gap.code === 'NATIVE_SCOPE_UNATTESTED'));
+  assert.equal(report.outsidePublication.length, 0);
 });
 
 test('native catalogue errors and nonboolean installed state cannot source installation evidence', () => {

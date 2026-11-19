@@ -44,4 +44,16 @@ To include historical changes, pass a previous `codex plugin list --json` captur
 
 The report keeps each counterpart's installed and available versions separate, with `installedComparison` and `availableComparison` against the same published Git version. The existing `comparison` field still follows the available release when present and follows the observed installation otherwise. When a Git manifest is unavailable, observed counterpart versions are retained and the comparison remains unknown. The comparisons preserve exact versions and apply SemVer precedence when both versions support it. Different build metadata can have the same precedence. Review new and missing identities against the previous capture before any installation change.
 
+`publicationInstallation` counts installed, exact, absent, and uncertain publication identities. A publication can be installed with the matching version and still be disabled. Check the installed row's `enabled` value for that distinction. A native inventory without a verified workspace fingerprint gives an incomplete result even when no native counterparts were requested.
+
+## Compare installations across two hosts
+
+Use original capture JSON files from different hosts in the same verified account and workspace.
+
+```powershell
+node scripts/studio.mjs inventory-versions C:/private/acer-capture.json --against C:/private/asus-capture.json --out C:/private/host-report.json
+```
+
+`peerInstallation` shows installed IDs found on only one host and shared IDs with different installed versions or activation states. It includes packages outside the published Marketplace. It compares exact IDs and never treats cached directories, catalog availability or equivalent products as installations. It reports incomplete evidence and unverified differences separately, including when the other host lacks a full CLI observation for ordinary plugins or an attested native catalog for native plugins. A gap in Git or a vendor catalog does not invalidate independent installation evidence. `ALIGNED` means the captured installations, versions and activation states agree. The top-level status and exit code still refer to the current host's publication audit. Review both statuses. The peer section records both capture times so stale snapshots are visible. The comparison makes no installation changes.
+
 Run [installed path recovery](installed-cache-resolution.md) separately if a skill path fails. An old version-audit receipt cannot establish fresh path or account access. Use active host tests for login, tools and file operations.

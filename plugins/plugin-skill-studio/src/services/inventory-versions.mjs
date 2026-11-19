@@ -251,7 +251,7 @@ export function auditInventoryVersions(input) {
     .filter(snapshot => !isNativeNamespace(snapshot.namespace));
   if (nativeAttested) {
     catalogs.push(nativeCounterpartRows(nativeSections, nativeNamespace, wanted));
-  } else if (nativeObserved && [...wanted].some(key => namespaceOf(key) === nativeNamespace)) {
+  } else if (nativeObserved) {
     gaps.push({ code: 'NATIVE_SCOPE_UNATTESTED', namespace: nativeNamespace });
   }
   const catalog = catalogRows(catalogs, wanted, gaps, workspaceFingerprint !== null);
@@ -264,7 +264,8 @@ export function auditInventoryVersions(input) {
       local.status === 'CONSISTENT' ? 'INSTALLED' : 'UNCERTAIN';
     const installedVersion = installation === 'INSTALLED' ? release(local.versions[0]) : null;
     if (source && installedVersion) comparison = compareVersions(installedVersion, source.version);
-    return { id: key, installedVersion, installation, published: source, comparison };
+    const enabled = installation === 'INSTALLED' ? observedEnabled(local) : null;
+    return { id: key, installedVersion, installation, enabled, published: source, comparison };
   });
   const counterparts = pairs.sort((a, b) => a.publishedId.localeCompare(b.publishedId) || a.catalogId.localeCompare(b.catalogId))
     .map(pair => {
@@ -276,6 +277,7 @@ export function auditInventoryVersions(input) {
     });
   const outsidePublication = reconciled.plugins.filter(row => !expected.has(row.id)).map(row => ({
     id: row.id, versions: row.versions.map(release), status: row.status,
+    enabled: row.status === 'CONSISTENT' ? observedEnabled(row) : null,
   }));
   const history = {
     ...reconciled.historicalComparison,
@@ -293,13 +295,78 @@ export function auditInventoryVersions(input) {
     }),
   };
   const drift = plugins.filter(row => row.comparison !== 'EXACT' && row.comparison !== 'UNKNOWN').length;
+  const publicationInstallation = {
+    installed: plugins.filter(row => row.installation === 'INSTALLED').length,
+    exact: plugins.filter(row => row.comparison === 'EXACT').length,
+    absent: plugins.filter(row => row.installation === 'NOT_INSTALLED').length,
+    uncertain: plugins.filter(row => ['UNKNOWN', 'UNCERTAIN'].includes(row.installation)).length,
+  };
   return {
     schemaVersion: 1, status: gaps.length ? 'INCOMPLETE' : drift ? 'DRIFT' : 'MATCHED',
     exitCode: gaps.length ? 2 : drift ? 1 : 0,
     scope: { host, account, observedAt, workspaceFingerprint }, installedPluginIdentities: reconciled.installedPluginIdentities,
-    publicationsExpected: expected.size, sameIdentityDrift: drift, plugins, counterparts, gaps,
+    publicationsExpected: expected.size, sameIdentityDrift: drift, publicationInstallation, plugins, counterparts, gaps,
+    installationCoverage: { cli: fullCliObserved, native: nativeAttested },
     scopedCliNamespaces: [...new Set(reconciled.sources.filter(row => row.kind === 'scoped-cli').map(row => row.namespace))],
     history, outsidePublication,
     limitation: 'Cross-catalog rows compare explicitly related products. They do not establish identity, replacement eligibility, account access or permission to install.',
+  };
+}
+
+function observedEnabled(row) {
+  return row.observations.find(observation => observation.enabled !== null)?.enabled ?? null;
+}
+
+function peerRecords(report) {
+  const records = new Map();
+  for (const row of report.plugins) {
+    if (row.installation === 'INSTALLED' || row.installation === 'UNCERTAIN') {
+      records.set(row.id, { version: row.installedVersion, enabled: row.enabled });
+    }
+  }
+  for (const row of report.outsidePublication) {
+    records.set(row.id, {
+      version: row.status === 'CONSISTENT' ? row.versions[0] : null,
+      enabled: row.enabled,
+    });
+  }
+  return records;
+}
+
+function canVerifyAbsence(report, key) {
+  return isNativeNamespace(namespaceOf(key)) ? report.installationCoverage.native : report.installationCoverage.cli;
+}
+
+export function compareHostInstallations(current, peer) {
+  check(peer.scope, peer.scope.host.toLowerCase() !== current.scope.host.toLowerCase(), 'distinct hosts');
+  check(peer.scope, current.scope.account === peer.scope.account && current.scope.workspaceFingerprint !== null &&
+    current.scope.workspaceFingerprint === peer.scope.workspaceFingerprint, 'matching attested account scope');
+  const currentRows = peerRecords(current);
+  const peerRows = peerRecords(peer);
+  const differences = [];
+  const unverified = [];
+  for (const key of [...new Set([...currentRows.keys(), ...peerRows.keys()])].sort()) {
+    const a = currentRows.get(key) ?? null;
+    const b = peerRows.get(key) ?? null;
+    if (!a || !b) {
+      const other = a ? peer : current;
+      if (!canVerifyAbsence(other, key)) unverified.push({ id: key, reason: 'ABSENCE_UNVERIFIED' });
+      else differences.push({ id: key, reasons: [a ? 'CURRENT_ONLY' : 'PEER_ONLY'], current: a, peer: b });
+      continue;
+    }
+    const reasons = [];
+    if (a.version === null || b.version === null) unverified.push({ id: key, reason: 'VERSION_UNVERIFIED' });
+    else if (a.version !== b.version) reasons.push('VERSION_DIFFERS');
+    if (a.enabled === null || b.enabled === null) unverified.push({ id: key, reason: 'ACTIVATION_UNVERIFIED' });
+    else if (a.enabled !== b.enabled) reasons.push('ACTIVATION_DIFFERS');
+    if (reasons.length) differences.push({ id: key, reasons, current: a, peer: b });
+  }
+  const coverageComplete = [current, peer].every(({ installationCoverage }) =>
+    installationCoverage.cli && installationCoverage.native);
+  return {
+    status: !coverageComplete || unverified.length ? 'INCOMPLETE' : differences.length ? 'DIFFERENCES' : 'ALIGNED',
+    currentHost: current.scope.host, peerHost: peer.scope.host,
+    currentObservedAt: current.scope.observedAt, peerObservedAt: peer.scope.observedAt,
+    currentInstalled: currentRows.size, peerInstalled: peerRows.size, differences, unverified,
   };
 }

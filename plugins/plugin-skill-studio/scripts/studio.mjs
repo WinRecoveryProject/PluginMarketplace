@@ -94,8 +94,13 @@ export async function main(args=process.argv.slice(2)) {
     }
     case 'inventory-versions': {
       const {readBounded}=await import('../src/services/files.mjs');
-      const {auditInventoryVersions}=await import('../src/services/inventory-versions.mjs');
-      result=auditInventoryVersions(JSON.parse(await readBounded(path.resolve(required(target,'version audit input JSON')),32*1024*1024)));
+      const {auditInventoryVersions,compareHostInstallations}=await import('../src/services/inventory-versions.mjs');
+      const readAudit=async file=>auditInventoryVersions(JSON.parse(await readBounded(path.resolve(file),32*1024*1024)));
+      result=await readAudit(required(target,'version audit input JSON'));
+      if(opts.against!==undefined){
+        if(typeof opts.against!=='string')throw Error('--against requires the other host’s capture JSON');
+        result.peerInstallation=compareHostInstallations(result,await readAudit(opts.against));
+      }
       if(result.exitCode)process.exitCode=result.exitCode;
       break;
     }

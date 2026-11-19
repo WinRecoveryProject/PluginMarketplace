@@ -26,7 +26,7 @@ if(registry&&counterparts){
   }
 }
 const ownRepo='https://github.com/WinRecoveryProject/PluginMarketplace.git';
-const managed=['onedrive','cloudstorage-portal','powershell-workbench','plugin-skill-studio','component-forge','windows-dism-update-docs','codex-coordinator','codex-dev-workflows','codex-engineering-guardrails','codex-process-jobs','zilvereyes-context-handoff','winrecoveryproject-linter','winrecoveryproject-devsuite','coderabbit','agentmemory-asus'];
+const managed=['onedrive','cloudstorage-portal','powershell-workbench','plugin-skill-studio','component-forge','windows-dism-update-docs','codex-coordinator','codex-dev-workflows','codex-engineering-guardrails','codex-process-jobs','zilvereyes-context-handoff','winrecoveryproject-linter','winrecoveryproject-devsuite','coderabbit','agentmemory-asus','vercel'];
 if(registry){
   check(readFileSync(join(root,'.agents/plugins/marketplace.json'),'utf8').replaceAll('\r\n','\n')===JSON.stringify(registry,null,2)+'\n','canonical registry formatting');
   const entries=registry.plugins??[], names=entries.map(e=>e.name);
@@ -125,7 +125,23 @@ if(registry&&external){
   check(reference?.status==='REFERENCE_ONLY_NOT_INSTALLED_BY_THIS_CATALOG','MegaLinter reference cannot imply installation');
   for(const p of external.gitPlugins){
     const entry=registry.plugins.find(e=>e.name===p.name);
-    check(entry?.source?.source==='git-subdir'&&entry.source.url===p.repository&&entry.source.path===p.path,`${p.name}: original upstream source`);
+    if(p.name==='vercel'){
+      const adapted=lock?.plugins?.vercel;
+      const compatibility=adapted?.compatibilitySource;
+      const manifest=json('plugins/vercel/.codex-plugin/plugin.json');
+      check(adapted?.sourceKind==='upstream-with-local-patches'&&adapted?.upstreamUnmodified===false&&
+        adapted?.repository==='https://github.com/vercel/vercel-plugin.git'&&
+        typeof manifest?.version==='string'&&manifest.version.startsWith(`${adapted.upstreamVersion}-wrp.`),
+        'Vercel: adapted snapshot declares the vendor source and version');
+      check(compatibility?.repo+'.git'===p.repository&&compatibility?.path===p.path&&
+        /^[0-9a-f]{40}$/.test(compatibility?.commit??''), 'Vercel: Codex compatibility provenance');
+      const apps=json('plugins/vercel/.app.json');
+      const appIds=Object.values(apps?.apps??{}).map(app=>app?.id).sort();
+      check(appIds.length>0&&JSON.stringify(appIds)===JSON.stringify([...p.installedAppIds].sort()),
+        'Vercel: adapted snapshot preserves exactly the existing App bindings');
+    }else{
+      check(entry?.source?.source==='git-subdir'&&entry.source.url===p.repository&&entry.source.path===p.path,`${p.name}: original upstream source`);
+    }
     check(p.manifest?.name===p.name&&typeof p.manifest.version==='string',`${p.name}: observed upstream manifest identity`);
     check(/^[0-9a-f]{40}$/.test(p.observedCommit),`${p.name}: observed upstream revision`);
     check(entry?.interface?.displayName===p.manifest.interface?.displayName,`${p.name}: original display name`);
