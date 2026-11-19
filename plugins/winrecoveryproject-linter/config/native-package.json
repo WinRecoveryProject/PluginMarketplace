@@ -54,6 +54,7 @@
     "src/setup.mjs",
     "src/sql-process.mjs",
     "src/sql-worker.mjs",
+    "test/executable-discovery.test.mjs",
     "test/linter.test.mjs",
     "test/package.test.mjs",
     "test/powershell-batching.test.mjs",

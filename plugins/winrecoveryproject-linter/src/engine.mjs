@@ -405,5 +405,5 @@ export async function scan(root, { types, execute = run, toolProbe = probe, sqlD
   if (!inv.files.length) incomplete.push('No supported or recognized source files found');
   findings.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.column - b.column || a.rule.localeCompare(b.rule));
   const exitCode = incomplete.length ? 2 : findings.length ? 1 : 0;
-  return { schemaVersion: 1, product: 'WinRecoveryProjectLinter', version: '0.1.5', root: inv.root, status: ['CLEAN', 'FINDINGS', 'INCOMPLETE'][exitCode], exitCode, discovery: inv.discovery, detected, selected, coverage, findings, incomplete, notices, limits: { maxFiles, maxBytesPerFile: maxBytes }, budget: { paidServices: false, telemetry: false } };
+  return { schemaVersion: 1, product: 'WinRecoveryProjectLinter', version: '0.1.6', root: inv.root, status: ['CLEAN', 'FINDINGS', 'INCOMPLETE'][exitCode], exitCode, discovery: inv.discovery, detected, selected, coverage, findings, incomplete, notices, limits: { maxFiles, maxBytesPerFile: maxBytes }, budget: { paidServices: false, telemetry: false } };
 }

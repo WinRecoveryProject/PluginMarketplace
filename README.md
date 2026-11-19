@@ -36,7 +36,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | OneDrive | `1.2.1` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.9.11` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.3` | `codex plugin add component-forge@winrecoveryproject-digital` |
-| Plugin-Skill-Studio | `0.3.25` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
+| Plugin-Skill-Studio | `0.3.26` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.6` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.4` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.33` | `codex plugin add codex-security@winrecoveryproject-digital` |
@@ -46,7 +46,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
 | Codex Process Jobs | `0.5.3-wrp.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.5+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
-| WinRecoveryProjectLinter | `0.1.5` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
+| WinRecoveryProjectLinter | `0.1.6` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
 | WinRecoveryProject DevSuite | `0.2.6` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
@@ -71,7 +71,7 @@ Versionerne i tabellen er de udgaver, som Marketplace kan hente fra de respektiv
 
 Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Opgørelsen fra 17. november var 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den historiske kontrol og forklaringerne](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
-Studio 0.3.25 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322).
+Studio 0.3.26 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322).
 
 Kør `node scripts/check-documented-versions.mjs <rapport.json>` med en frisk Studio-rapport efter en udgivelse. Kontrollen sammenligner alle rækker med de observerede Git-manifester og melder manglende eller forældede versionsangivelser.
 
@@ -124,7 +124,7 @@ I Business har den eksisterende OneDrive-post under arbejdsområdefanen sin egen
 
 ## Egne udviklingsværktøjer
 
-WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Linter er 0.1.5, og DevSuite er 0.2.6. Begge har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
+WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Linter er 0.1.6, og DevSuite er 0.2.6. Begge har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
 
 [Udgivelse og testdækning](docs/product-release-20261116.md) · [Installeret plugin-gennemgang](docs/current-installed-audit-20261116.md).
 

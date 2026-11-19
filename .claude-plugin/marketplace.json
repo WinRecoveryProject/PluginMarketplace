@@ -7,14 +7,14 @@
   "plugins": [
     {
       "name": "winrecoveryproject-linter",
-      "version": "0.1.5",
+      "version": "0.1.6",
       "description": "Local read-only linting for selected source types with visible coverage, pinned tools and no paid services.",
       "source": "./plugins/winrecoveryproject-linter",
       "strict": false
     },
     {
       "name": "plugin-skill-studio",
-      "version": "0.3.25",
+      "version": "0.3.26",
       "description": "Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.",
       "source": "./plugins/plugin-skill-studio",
       "strict": false

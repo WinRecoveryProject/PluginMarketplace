@@ -355,11 +355,12 @@ test('scoped CLI snapshots reject a record from a different namespace', () => {
   assert.throws(() => auditInventoryVersions(input), /scoped CLI namespace/);
 });
 
-test('targeted vendor lookups retain exact installations and keep the broad gap', () => {
+test('targeted vendor lookups retain exact releases and keep the broad gap', () => {
   const input = fixture();
   const namespace = 'winrecoveryproject-digital';
   const vendor = 'openai-curated-remote';
   const unknown = 'unobserved@' + vendor;
+  const advertisedOnly = 'advertised-only@' + vendor;
   input.scope.workspaceFingerprint = 'b'.repeat(64);
   input.inventory.current[0] = { ...input.inventory.current[0], kind: 'scoped-cli', namespace };
   input.inventory.cliFailure = 'TIMEOUT';
@@ -367,8 +368,10 @@ test('targeted vendor lookups retain exact installations and keep the broad gap'
     { id: peer, installed: true, localVersion: '6.1.0', enabled: true },
     { id: 'different@other', installed: true, localVersion: '9.0.0', enabled: true },
   ] });
-  input.counterparts.push({ publishedId: owned, catalogId: unknown });
+  input.counterparts.push({ publishedId: owned, catalogId: unknown },
+    { publishedId: owned, catalogId: advertisedOnly });
   input.catalogs[0].scope = 'targeted';
+  input.catalogs[0].data.available.push({ pluginId: advertisedOnly, version: '6.2.0' });
   input.catalogs[0].data.installed.push({ pluginId: peer, version: '6.1.0' });
   const report = auditInventoryVersions(input);
   assert.equal(report.status, 'INCOMPLETE');
@@ -378,6 +381,11 @@ test('targeted vendor lookups retain exact installations and keep the broad gap'
   assert.equal(known.installedVersion, '6.1.0');
   assert.equal(known.availableVersion, '6.1.0');
   assert.equal(known.observationScope, 'TARGETED_VENDOR');
+  const onlyAvailable = report.counterparts.find(row => row.catalogId === advertisedOnly);
+  assert.equal(onlyAvailable.availableVersion, '6.2.0');
+  assert.equal(onlyAvailable.installedVersion, null);
+  assert.equal(onlyAvailable.observationScope, 'TARGETED_VENDOR');
+  assert.equal(report.outsidePublication.some(row => row.id === advertisedOnly), false);
   assert.equal(report.counterparts.find(row => row.catalogId === unknown).comparison, 'UNKNOWN');
   assert.ok(report.gaps.some(gap => gap.code === 'CATALOG_UNAVAILABLE' && gap.namespace === vendor));
 

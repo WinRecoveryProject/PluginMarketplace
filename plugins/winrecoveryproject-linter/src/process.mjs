@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { accessSync, constants, realpathSync } from 'node:fs';
 import path from 'node:path';
 
@@ -38,21 +38,63 @@ export function inside(root, candidate) {
   return relative === '' || (!relative.startsWith(`..${path.sep}`) && relative !== '..' && !path.isAbsolute(relative));
 }
 
+function usableExecutable(candidate, forbiddenRoot) {
+  try {
+    if (!path.isAbsolute(candidate)) return undefined;
+    const resolved = realpathSync(candidate);
+    if (forbiddenRoot && inside(forbiddenRoot, resolved)) return undefined;
+    accessSync(resolved, constants.X_OK);
+    return resolved;
+  } catch { /* A missing candidate is expected during discovery. */ }
+}
+
+function* executableCandidates(name, forbiddenRoot) {
+  const onWindows = process.platform === 'win32';
+  const extensions = onWindows ? ['.exe', ''] : [''];
+  for (const directory of (process.env.PATH || '').split(path.delimiter).filter(Boolean)) {
+    for (const extension of extensions) yield path.join(directory, name + extension);
+  }
+  if (!onWindows) return;
+  if (name === 'bash') {
+    const git = findExecutable('git', forbiddenRoot);
+    if (git && path.basename(git).toLowerCase() === 'git.exe') {
+      const directory = path.dirname(git);
+      if (['cmd', 'bin'].includes(path.basename(directory).toLowerCase())) {
+        const prefix = path.dirname(directory);
+        const root = /^mingw(?:32|64)$/i.test(path.basename(prefix)) ? path.dirname(prefix) : prefix;
+        yield path.join(root, 'bin', 'bash.exe');
+      }
+    }
+    yield 'C:/Program Files/Git/bin/bash.exe';
+  }
+  if (name === 'pwsh') {
+    const inbox = usableExecutable(path.join(process.env.SystemRoot || '',
+      'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe'), forbiddenRoot);
+    if (!inbox) return;
+    // Query only the current user's registered Microsoft Store PowerShell package.
+    const query = [
+      "$ErrorActionPreference = 'Stop'",
+      '[Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)',
+      "Import-Module -Name (Join-Path $PSHOME 'Modules/Appx/Appx.psd1')",
+      "Appx\\Get-AppxPackage -Name Microsoft.PowerShell | Where-Object PackageFamilyName -eq 'Microsoft.PowerShell_8wekyb3d8bbwe' | ForEach-Object { $_.InstallLocation }",
+    ].join('\n');
+    const result = spawnSync(inbox, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', query], {
+      cwd: path.dirname(inbox), encoding: 'utf8', shell: false, windowsHide: true,
+      stdio: ['ignore', 'pipe', 'pipe'], timeout: 10000, maxBuffer: 64 * 1024,
+    });
+    if (result.status === 0) {
+      for (const location of result.stdout.split(/\r?\n/).map(line => line.trim())) {
+        if (path.isAbsolute(location)) yield path.join(location, 'pwsh.exe');
+      }
+    }
+  }
+}
+
 export function findExecutable(name, forbiddenRoot) {
   const override = process.env[`WRP_LINT_${name.toUpperCase()}`];
-  const candidates = override ? [override] : (process.env.PATH || '').split(path.delimiter).filter(Boolean).flatMap(dir => {
-    const extensions = process.platform === 'win32' ? ['.exe', ''] : [''];
-    return extensions.map(ext => path.join(dir, name + ext));
-  });
-  if (!override && process.platform === 'win32' && name === 'bash') candidates.push('C:/Program Files/Git/bin/bash.exe');
-  for (const candidate of candidates) {
-    try {
-      if (!path.isAbsolute(candidate)) continue;
-      const resolved = realpathSync(candidate);
-      if (forbiddenRoot && inside(forbiddenRoot, resolved)) continue;
-      accessSync(resolved, constants.X_OK);
-      return resolved;
-    } catch { /* A missing candidate is expected during PATH discovery. */ }
+  if (override) return usableExecutable(override, forbiddenRoot);
+  for (const candidate of executableCandidates(name, forbiddenRoot)) {
+    const resolved = usableExecutable(candidate, forbiddenRoot);
+    if (resolved) return resolved;
   }
-  return undefined;
 }

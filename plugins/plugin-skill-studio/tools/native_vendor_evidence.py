@@ -1,4 +1,4 @@
-"""Capture positive evidence for exact counterparts from native vendor detail reads."""
+"""Capture positive evidence for exact counterparts from native vendor lookups."""
 
 from itertools import count
 from queue import Empty
@@ -9,8 +9,9 @@ import time
 
 NAMESPACE = "openai-curated-remote"
 IDENTITY = re.compile(r"[a-z0-9][a-z0-9._-]*@[a-z0-9][a-z0-9._-]*", re.ASCII | re.I)
-BACKEND_ID = re.compile(r"plugin_[a-z0-9_-]{1,128}", re.ASCII | re.I)
+BACKEND_ID = re.compile(r"[A-Za-z0-9_~-]{1,135}", re.ASCII)
 VERSION = re.compile(r"[a-z0-9][a-z0-9.+_-]{0,127}", re.ASCII | re.I)
+_REQUEST_ERRORS = (AttributeError, Empty, KeyError, TypeError, ValueError, OSError, subprocess.SubprocessError)
 
 
 def _targets(pairs):
@@ -37,7 +38,7 @@ def _targets(pairs):
         yield catalog_id, term
 
 
-def _read_detail(send, request_ids, catalog_id, term, deadline):
+def _search_match(send, request_ids, catalog_id, term):
     result = send("plugin/search", next(request_ids), {
         "searchTerm": term,
         "scope": "global",
@@ -52,12 +53,17 @@ def _read_detail(send, request_ids, catalog_id, term, deadline):
             continue
         plugin = row.get("plugin")
         if isinstance(plugin, dict) and plugin.get("id") == catalog_id:
-            matches.append(plugin)
-    if len(matches) != 1 or time.monotonic() >= deadline:
+            matches.append(row)
+    if len(matches) != 1:
         return None
-    backend_id = matches[0].get("remotePluginId")
+    match = matches[0]
+    backend_id = match["plugin"].get("remotePluginId")
     if not isinstance(backend_id, str) or not BACKEND_ID.fullmatch(backend_id):
         return None
+    return match
+
+
+def _read_detail(send, request_ids, catalog_id, backend_id):
     result = send("plugin/read", next(request_ids), {
         "pluginName": backend_id,
         "remoteMarketplaceName": NAMESPACE,
@@ -85,17 +91,37 @@ def capture_vendor_details(send, counterpart_pairs, *, timeout_seconds=75):
         if time.monotonic() >= deadline:
             break
         try:
-            summary = _read_detail(send, request_ids, catalog_id, term, deadline)
-        except (AttributeError, Empty, KeyError, TypeError, ValueError, OSError, subprocess.SubprocessError):
+            match = _search_match(send, request_ids, catalog_id, term)
+        except _REQUEST_ERRORS:
             continue
-        if summary is None:
+        if match is None:
             continue
-        local_version = summary.get("localVersion")
-        if summary.get("installed") is True and isinstance(local_version, str) and VERSION.fullmatch(local_version):
-            enabled = summary.get("enabled")
-            installed.append({"pluginId": catalog_id, "version": local_version, "installed": True,
-                              "enabled": enabled if isinstance(enabled, bool) else None})
-        version = summary.get("version")
-        if summary.get("availability") == "AVAILABLE" and isinstance(version, str) and VERSION.fullmatch(version):
+
+        detail = None
+        if time.monotonic() < deadline:
+            try:
+                detail = _read_detail(send, request_ids, catalog_id, match["plugin"]["remotePluginId"])
+            except _REQUEST_ERRORS:
+                pass
+            else:
+                # A conflicting detail reply is not a transport failure.
+                if detail is None:
+                    continue
+        if detail is not None:
+            local_version = detail.get("localVersion")
+            if detail.get("installed") is True and isinstance(local_version, str) and VERSION.fullmatch(local_version):
+                enabled = detail.get("enabled")
+                installed.append({"pluginId": catalog_id, "version": local_version, "installed": True,
+                                  "enabled": enabled if isinstance(enabled, bool) else None})
+
+        # The host can overlay installation fields on search rows. The remote
+        # advertised release is usable only with the explicit null catalog path.
+        advertised = detail
+        if advertised is None and "marketplacePath" in match and match["marketplacePath"] is None:
+            advertised = match["plugin"]
+        if advertised is None:
+            continue
+        version = advertised.get("version")
+        if advertised.get("availability") == "AVAILABLE" and isinstance(version, str) and VERSION.fullmatch(version):
             available.append({"pluginId": catalog_id, "version": version})
     return {"installed": installed, "available": available}

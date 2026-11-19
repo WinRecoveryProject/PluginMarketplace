@@ -1,6 +1,6 @@
 # WinRecoveryProjectLinter
 
-Version 0.1.5. An independent MIT local CLI and Codex plugin by Zilvereyes.
+Version 0.1.6. An independent MIT local CLI and Codex plugin by Zilvereyes.
 Scan selected source types without running project scripts or changing source.
 Paid service budget: **0 kr**. No cloud account, API key, telemetry or model API.
 
@@ -118,6 +118,11 @@ YAML, TOML and Python adapters run only when detected or explicitly selected.
 Recognized unsupported source formats (including SCSS/Less and Bats) are
 listed as INCOMPLETE. Images, archives and unknown non-source files are ignored.
 
+On Windows, a trusted executable on PATH is preferred. When PATH discovery
+fails, Linter can use Bash bundled with the selected Git for Windows installation
+or locate the current user's registered Microsoft Store PowerShell package.
+Absolute `WRP_LINT_BASH` and `WRP_LINT_PWSH` overrides still take precedence.
+
 PowerShell requires an existing trusted pwsh >=7.4.6 and PSScriptAnalyzer 1.25.0.
 The wrapper imports only that exact version and uses parser input snapshots and
 `Invoke-ScriptAnalyzer -ScriptDefinition` with a fixed built-in rule allowlist.
@@ -211,7 +216,7 @@ extracts that ZIP to a new directory, proves missing library failures, explicitl
 bootstraps its locked dependencies and then scans Lua/HTML/CSS fixtures. It never
 copies locks around a broken artifact or borrows the original node_modules.
 To prove a specific built ZIP, run
-`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.5.zip`.
+`node scripts/verify-fresh-runtime.mjs outputs/winrecoveryproject-linter-0.1.6.zip`.
 Unavailable external tools are explicitly skipped by the portable test suite;
 check the actual test receipt before claiming coverage for a machine.
 
