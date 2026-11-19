@@ -75,3 +75,9 @@ test('CLI consolidation-check exits 1 with JSON on a failing matrix and seed wri
  const checked=spawnSync(process.execPath,[cli,'consolidation-check',out,'--repo-root',root],{encoding:'utf8',windowsHide:true});
  assert.equal(checked.status,1,checked.stderr);const body=JSON.parse(checked.stdout);assert.equal(body.ok,false);assert.ok(body.errors.length>0);
 });
+
+test('lifecycle matrix has no unmapped capability',async()=>{
+ const m=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
+ assert.ok(m.entries.length>700);
+ assert.deepEqual(m.entries.filter(e=>e.status==='unmapped'||!e.target&&e.status==='covered').map(e=>e.id),[]);
+});

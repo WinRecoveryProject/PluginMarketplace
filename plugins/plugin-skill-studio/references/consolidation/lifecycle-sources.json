@@ -1,0 +1,94 @@
+[
+  {
+    "id": "studio.create-plugin",
+    "root": "plugins/plugin-skill-studio/skills/create-plugin"
+  },
+  {
+    "id": "studio.create-skill",
+    "root": "plugins/plugin-skill-studio/skills/create-skill"
+  },
+  {
+    "id": "studio.update-plugin",
+    "root": "plugins/plugin-skill-studio/skills/update-plugin"
+  },
+  {
+    "id": "studio.plugin-autopilot",
+    "root": "plugins/plugin-skill-studio/skills/plugin-autopilot"
+  },
+  {
+    "id": "studio.import-plugins",
+    "root": "plugins/plugin-skill-studio/skills/import-plugins"
+  },
+  {
+    "id": "studio.import-gpt",
+    "root": "plugins/plugin-skill-studio/skills/import-gpt"
+  },
+  {
+    "id": "studio.install-skill",
+    "root": "plugins/plugin-skill-studio/skills/install-skill"
+  },
+  {
+    "id": "studio.release-workflow",
+    "root": "plugins/plugin-skill-studio/skills/release-workflow"
+  },
+  {
+    "id": "studio.portfolio",
+    "root": "plugins/plugin-skill-studio/skills/portfolio"
+  },
+  {
+    "id": "studio.catalog",
+    "root": "plugins/plugin-skill-studio/skills/catalog"
+  },
+  {
+    "id": "studio.skill-conductor",
+    "root": "plugins/plugin-skill-studio/skills/skill-conductor"
+  },
+  {
+    "id": "studio.plugin-skill-studio",
+    "root": "plugins/plugin-skill-studio/skills/plugin-skill-studio"
+  },
+  {
+    "id": "studio.skill-eval",
+    "root": "plugins/plugin-skill-studio/skills/skill-eval"
+  },
+  {
+    "id": "studio.plugin-eval",
+    "root": "plugins/plugin-skill-studio/skills/plugin-eval"
+  },
+  {
+    "id": "studio.skill-review",
+    "root": "plugins/plugin-skill-studio/skills/skill-review"
+  },
+  {
+    "id": "studio.skill-walkthrough",
+    "root": "plugins/plugin-skill-studio/skills/skill-walkthrough"
+  },
+  {
+    "id": "studio.skillquiver-doctor",
+    "root": "plugins/plugin-skill-studio/skills/skillquiver-doctor"
+  },
+  {
+    "id": "studio.evidence-matrix",
+    "root": "plugins/plugin-skill-studio/skills/evidence-matrix"
+  },
+  {
+    "id": "studio.metric-pack",
+    "root": "plugins/plugin-skill-studio/skills/metric-pack"
+  },
+  {
+    "id": "studio.improve-skill",
+    "root": "plugins/plugin-skill-studio/skills/improve-skill"
+  },
+  {
+    "id": "plugin-eval",
+    "root": "plugins/plugin-eval"
+  },
+  {
+    "id": "skill-autoresearch",
+    "root": "plugins/plugin-skill-studio/references/consolidation/snapshots/skill-autoresearch"
+  },
+  {
+    "id": "auto-research",
+    "root": "plugins/plugin-skill-studio/references/consolidation/snapshots/auto-research"
+  }
+]
