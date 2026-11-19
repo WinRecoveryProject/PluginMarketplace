@@ -112,6 +112,8 @@ WinRecoveryProject DevSuite 0.2.7 bruger Python til at åbne pakkens workflowgui
 
 Plugin-Skill-Studio 0.3.31 gennemgår en valgt lokal plugin- eller skill-mappe og viser statiske fund med fil og linjenummer i Output. Det kræver VS Code 1.96 eller nyere. Hent VSIX-filen med den eksisterende GitHub-adgang til Studio-repoet. [Download VSIX](https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio/releases/download/vscode-v0.3.31/plugin-skill-studio-0.3.31.vsix) · [Kilde og byggevejledning](https://github.com/WinRecoveryProject/Zilvereyes-Plugin-Studio/tree/vscode-v0.3.31/editors/vscode)
 
+VS Code kan også læse Claude-kataloget direkte som agent-plugins (preview). Slå `chat.plugins.enabled` til, og tilføj `WinRecoveryProject/PluginMarketplace` i `chat.plugins.marketplaces` eller via Configure Marketplaces i Agent Customizations. Efter bekræftelse af tillid vises Claude-pakkerne i kataloget. Kun selve visningen i kataloget er kontrolleret. Det er ikke kontrolleret, at alle skills, kommandoer og hooks indlæses i VS Code. Pakker uden Claude-post (Codex-only) vises ikke.
+
 ## Struktur
 
 - `.agents/plugins/marketplace.json` er Codex-kataloget. `.claude-plugin/marketplace.json` er Claude-kataloget.
