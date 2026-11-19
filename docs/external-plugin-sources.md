@@ -1,5 +1,9 @@
 # External plugin sources
 
+## Codex Coordinator 0.5.0
+
+Den seneste stabile udgivelse er 0.5.0 på commit `75afa2866bedd2f2454f6e703b66a670ef67056a`. Marketplace fortsætter med 0.4.0, mens adfærdsændringerne vurderes. Den nye `UserPromptSubmit`-hook kan afvise koordinationsformaterede beskeder uden for projekter, der har aktiveret koordinering. Udgivelsen hæver standarden for eksisterende schema-2-projekter fra tre til fem samtidige opgaver og fjerner det tidligere maksimum på tolv. [Officiel udgivelse](https://github.com/eyeinthesky6/codex-coordinator/releases/tag/v0.5.0)
+
 ## Genkontrol af OpenAI Developers-cachen
 
 Marketplace registrerer de 30 kildehashes for OpenAI Developers 1.2.3. Studio kontrollerer den aktive cache mod det observerede eksterne commit. På Windows kan 28 dokumenterede Git-checkout-varianter med CRLF godkendes med deres egne hashes. [Officiel kilde](https://github.com/openai/plugins/tree/981b02c0c44058b595f3b4180002c3ae3c806d40/plugins/openai-developers)

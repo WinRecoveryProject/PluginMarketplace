@@ -78,8 +78,7 @@ function pluginEntry(name) {
   return { name, version: manifest.version, description: manifest.description, source, strict: false };
 }
 
-function devSuiteEntry() {
-  const name = 'winrecoveryproject-devsuite';
+function standaloneEntry(name) {
   const source = './claude-plugins/' + name;
   const folder = new URL(source + '/', root);
   const ledger = JSON.parse(readFileSync(new URL('plugin-sources.lock.json', root), 'utf8'));
@@ -87,8 +86,11 @@ function devSuiteEntry() {
   const manifest = JSON.parse(readFileSync(new URL('.claude-plugin/plugin.json', folder), 'utf8'));
   if (manifest.name !== name || manifest.version !== ledger.plugins[name]?.version ||
       manifest.version !== lock?.version || !/^[0-9a-f]{40}$/.test(lock.commit) ||
-      !/^[0-9a-f]{64}$/.test(lock.zipSha256) || !lock.files || Object.keys(lock.files).length === 0) {
-    throw new Error('DevSuite Claude metadata differs from its lock or Codex product version.');
+      !lock.files || Object.keys(lock.files).length === 0) {
+    throw new Error(`${name}: Claude metadata differs from its lock or Codex product version.`);
+  }
+  if (name === 'winrecoveryproject-devsuite' && !/^[0-9a-f]{64}$/.test(lock.zipSha256)) {
+    throw new Error('DevSuite Claude release archive hash is missing.');
   }
   const checked = new Set();
   function verify(directory, prefix) {
@@ -101,14 +103,20 @@ function devSuiteEntry() {
                  createHash('sha256').update(readFileSync(new URL(urlName, directory))).digest('hex') === lock.files[relative]) {
         checked.add(relative);
       } else {
-        throw new Error('DevSuite Claude package member differs from the lock: ' + relative);
+        throw new Error(`${name}: Claude package member differs from the lock: ${relative}`);
       }
     }
   }
   verify(folder, '');
-  if (checked.size !== Object.keys(lock.files).length) throw new Error('DevSuite Claude package members are missing.');
+  if (checked.size !== Object.keys(lock.files).length) throw new Error(`${name}: Claude package members are missing.`);
   for (const member of ['.app.json', '.mcp.json', 'mcp.json', 'hooks', 'commands', 'agents', '.codex-plugin']) {
-    if (existsSync(new URL(member, folder))) throw new Error('Unexpected DevSuite Claude component: ' + member);
+    if (existsSync(new URL(member, folder))) throw new Error(`${name}: Unexpected Claude component: ${member}`);
+  }
+  if (name === 'zilvereyes-context-handoff') {
+    const helper = 'skills/zilvereyes-context-handoff/scripts/context_handoff.py';
+    if (lock.files[helper] !== ledger.plugins[name]?.files[helper]) {
+      throw new Error('Context Handoff: the packet helper differs from the Codex package.');
+    }
   }
   return { name, version: manifest.version, description: manifest.description, source };
 }
@@ -153,7 +161,11 @@ try {
     name: 'winrecoveryproject-digital',
     description: 'WinRecoveryProject Digital plugins for local project and skill workflows.',
     owner: { name: 'Zilvereyes' },
-    plugins: [...portablePackages.map(pluginEntry), devSuiteEntry(), ...publisherPackages.map(({ manifestName, licenseFile, ...entry }) => entry)],
+    plugins: [
+      ...portablePackages.map(pluginEntry),
+      ...['winrecoveryproject-devsuite', 'zilvereyes-context-handoff'].map(standaloneEntry),
+      ...publisherPackages.map(({ manifestName, licenseFile, ...entry }) => entry),
+    ],
   };
   const expected = JSON.stringify(marketplace, null, 2) + '\n';
   if (mode === '--write') {
@@ -163,7 +175,7 @@ try {
   if (readFileSync(catalogFile, 'utf8').replace(/\r\n/g, '\n') !== expected) {
     throw new Error('Claude Marketplace metadata differs from the canonical package manifests.');
   }
-  console.log(`${portablePackages.length} local Codex skill packages, one standalone Claude package and ${publisherPackages.length} pinned publisher references match the generated Claude catalog.`);
+  console.log(`${marketplace.plugins.length} entries match the generated Claude catalog.`);
   if (mode === '--verify-sources') {
     await Promise.all(publisherPackages.map(verifyPublisher));
     console.log(`${publisherPackages.length} publisher catalogs and manifests match their pinned Claude references.`);

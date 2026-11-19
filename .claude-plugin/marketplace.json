@@ -68,6 +68,12 @@
       "source": "./claude-plugins/winrecoveryproject-devsuite"
     },
     {
+      "name": "zilvereyes-context-handoff",
+      "version": "0.3.5+zilvereyes.1",
+      "description": "Create and validate a local Markdown handoff packet for an in-progress task in Claude.",
+      "source": "./claude-plugins/zilvereyes-context-handoff"
+    },
+    {
       "name": "vercel-plugin",
       "version": "0.56.0",
       "description": "Build and deploy web apps and agents",

@@ -2585,6 +2585,20 @@
         "skills/devsuite-test/SKILL.md": "18a9e8d36344e7e73889d36812bbd63f2a0acc564620b0a96e0b70d2aa5636d1",
         "skills/devsuite/SKILL.md": "7bebdb2a9dc8ed16ae77b1de7181181e6cee27cf029a1fcb6f491c504ac66292"
       }
+    },
+    "zilvereyes-context-handoff": {
+      "repository": "https://github.com/WinRecoveryProject/PluginMarketplace",
+      "commit": "268b9004b27f83c55679680d97897d2438f8a7f9",
+      "sourceSubdir": "plugins/zilvereyes-context-handoff",
+      "version": "0.3.5+zilvereyes.1",
+      "files": {
+        ".claude-plugin/plugin.json": "cf2820a7ae756de2520bdb3349891b658b07a68106f4d446318d625a408c1fec",
+        "assets/icon.png": "948795ed240712413d2de9eed99672047d0a1061f611fd9ebab4b4a3d19235ff",
+        "LICENSE": "bb15f59523a82aea324cc43a123d86d5cbe98b617bbedfcfe9b37a0453f8b91b",
+        "README.md": "e15b7561664d3bf75335b725af1c47d80303c23c696eaf4b66dfb8b4be1b2d20",
+        "skills/zilvereyes-context-handoff/scripts/context_handoff.py": "30a29f6124fe8b425d0d6c0f7327e66406faeaf176414624975158163b2b5f18",
+        "skills/zilvereyes-context-handoff/SKILL.md": "102b89438d2273168e523649481ada13f578b512d6cb06d4b5947d02211d489a"
+      }
     }
   }
 }

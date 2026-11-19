@@ -1,0 +1,11 @@
+{
+  "name": "zilvereyes-context-handoff",
+  "version": "0.3.5+zilvereyes.1",
+  "description": "Create and validate a local Markdown handoff packet for an in-progress task in Claude.",
+  "author": {
+    "name": "Zilvereyes",
+    "url": "https://github.com/WinRecoveryProject"
+  },
+  "repository": "https://github.com/WinRecoveryProject/PluginMarketplace",
+  "license": "MIT"
+}
