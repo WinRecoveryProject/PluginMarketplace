@@ -12,6 +12,8 @@ const portablePackages = [
   'codex-dev-workflows',
   'codex-engineering-guardrails',
   'coderabbit',
+  'codex-process-jobs',
+  'plugin-eval',
 ];
 const publisherPackages = [
   {
