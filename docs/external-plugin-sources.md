@@ -1,5 +1,42 @@
 # External plugin sources
 
+## Seneste versionsfund med Studio 0.3.29
+
+Acer og ASUS i Personlig læste alle 36 Marketplace-manifester. Ni modparter havde en nyere installeret udgave i OpenAI-kataloget på Acer. Marketplace henter udgaverne fra den verificerede Git-kilde. [Offentlig kilde](https://github.com/openai/plugins/tree/981b02c0c44058b595f3b4180002c3ae3c806d40/plugins)
+
+| Plugin | Marketplace Git | OpenAI-katalog installeret |
+| --- | --- | --- |
+| `atlassian-rovo` | `1.0.6` | `1.0.7` |
+| `dropbox` | `5.0.1` | `6.1.0` |
+| `github` | `0.1.12` | `0.1.13-77c10e110b37` |
+| `gmail` | `0.1.9` | `0.1.10` |
+| `google-calendar` | `1.2.6` | `1.2.7` |
+| `google-drive` | `0.1.15` | `0.1.27` |
+| `openai-developers` | `1.2.3` | `1.3.16` |
+| `sharepoint` | `0.1.7` | `0.1.8` |
+| `slack` | `0.1.7` | `0.1.8` |
+
+## Installerede poster via originalkataloget
+
+Disse 12 identiteter er verificeret installeret på begge værter. Find dem via deres eksakte katalog-ID. Leverandørhenvisningerne fører til produktet eller kataloget.
+
+| Plugin | Katalog-ID | Installeret | Leverandør |
+| --- | --- | --- | --- |
+| Atlassian | `app-6a83901dde988191b3f3cefdcc19acfa@openai-curated-remote` | `2.0.2` | [Åbn](https://www.atlassian.com) |
+| Code Assistant | `codeassistant@openai-curated-remote` | `1.0.1` | [Åbn](https://github.com/Fasih38/plugin-pages/blob/main/README.md) |
+| Code Tutor | `code-tutor@openai-curated-remote` | `0.1.0` | [Åbn](https://thedoersfirm.com/) |
+| Code Tytor: Python | `app-695ff43f74488191a418ea8ac4f0f437@openai-curated-remote` | `1.0.0` | [Åbn](https://www.pyxl.pro) |
+| CodexPluginStats | `codex-plugin-stats@openai-curated-remote` | `0.1.2` | [Åbn](https://codex-plugin-stats.com) |
+| Create State | `app-69cd66d6b11081919d55522e4f136fec@openai-curated-remote` | `1.0.0` | [Åbn](https://www.createstate.ai) |
+| Google Contacts | `google-contacts@openai-curated-remote` | `1.0.0` | [Åbn](https://chatgpt.com/plugins/plugin_connector_1p_c97194162860819190a6f840a61b9889) |
+| Knowledge for Agents | `app-6aa47394ea708191bcef52a7c4bda7a2@openai-curated-remote` | `0.7.4` | Find i originalkataloget |
+| MemoryPlugin | `memoryplugin@openai-curated-remote` | `1.0.0` | [Åbn](https://www.memoryplugin.com) |
+| Notion | `notion@openai-curated-remote` | `3.0.9` | [Åbn](https://www.notion.com/) |
+| Pocket FM | `app-69a5a77581c881918f398b27591d685d@openai-curated-remote` | `1.0.0` | [Åbn](https://pocketfm.com/) |
+| Remote Desktop Commander | `app-6a057d268ebc81919918d37eec718425@openai-curated-remote` | `2.0.3` | [Åbn](https://mcp.desktopcommander.app) |
+
+Agent Memory 0.9.30 har en officiel kilde. Pakken registrerer `agentmemory` som MCP-server, et navn der allerede er konfigureret på begge værter. Pakken indeholder også seks lifecycle-hooks. [Udgiverens kilde](https://github.com/rohitg00/agentmemory/tree/8bf0c827aaaada297896b2b6efe2a64651ae9389/plugin)
+
 ## Seneste versionsfund med Studio 0.3.22
 
 Google Drive 0.1.27 er bekræftet installeret og aktiveret som `google-drive@openai-curated-remote` på både Acer og ASUS. Fra ASUS bekræftede opslaget samtidig 0.1.27 som tilgængelig i OpenAI-kataloget. De installerede pakker deklarerer samme App-ID som Marketplace-pakken. En afgrænset søgning gennem den eksisterende Google Drive-forbindelse lykkedes uden filændringer.

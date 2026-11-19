@@ -1,0 +1,12 @@
+{
+  "name": "winrecoveryproject-devsuite",
+  "version": "0.2.6",
+  "description": "Local workflows for planning, implementation, debugging, review, tests, quality and handoff in Claude Code.",
+  "author": {
+    "name": "Zilvereyes",
+    "url": "https://github.com/WinRecoveryProject"
+  },
+  "homepage": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite",
+  "repository": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite",
+  "license": "MIT"
+}

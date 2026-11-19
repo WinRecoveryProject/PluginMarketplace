@@ -70,13 +70,13 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Atlassian Rovo | `1.0.6` | `codex plugin add atlassian-rovo@winrecoveryproject-digital` |
 | Codex Advisor | `1.4.11` | `codex plugin add advisor@winrecoveryproject-digital` |
 
-Versionerne i tabellen er de udgaver, som Marketplace kan hente fra de respektive Git-kilder. Se [versionskontrollen](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322) for de senest kontrollerede katalogforskelle og [Vercel-opdateringen](docs/VERCEL-056-WRP-20261118.md).
+Versionerne i tabellen er de udgaver, som Marketplace kan hente fra de respektive Git-kilder. Se [versionskontrollen](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0329) for de senest kontrollerede katalogforskelle og [Vercel-opdateringen](docs/VERCEL-056-WRP-20261118.md).
 
 Game Development Studio følger udviklerens frigivne 1.4.0. Praktisk brug kræver den separate `game-dev`-CLI. Atlassian Rovo tilbyder den offentlige pakke 1.0.6 med det eksisterende Jira/Confluence-App-ID. Den kuraterede 1.0.7 er fortsat en separat udgivelseskanal. [Game Development Studio 1.4.0](https://github.com/theisegoria/game-development-studio-skills/tree/v1.4.0) · [Atlassian Rovos Git-manifest](https://github.com/openai/plugins/blob/981b02c0c44058b595f3b4180002c3ae3c806d40/plugins/atlassian-rovo/.codex-plugin/plugin.json)
 
 Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Opgørelsen fra 17. november var 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den historiske kontrol og forklaringerne](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
-Studio 0.3.29 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0322).
+Studio 0.3.29 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0329).
 
 Kør `node scripts/check-documented-versions.mjs <rapport.json>` med en frisk Studio-rapport efter en udgivelse. Kontrollen sammenligner alle rækker med de observerede Git-manifester og melder manglende eller forældede versionsangivelser.
 
@@ -89,6 +89,8 @@ Codex Advisor 1.4.11 kommer fra udgiverens tag og kræver Codex, Python, jq og e
 Claude Desktop og Claude Code kan bruge samme GitHub-repository. Claude-kataloget viser de lokale plugins, der kan indlæses uden Codex’ App-forbindelser. Brug `WinRecoveryProject/PluginMarketplace` i Claude Desktop eller kør `claude plugin marketplace add WinRecoveryProject/PluginMarketplace` i Claude Code.
 
 Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
+
+WinRecoveryProject DevSuite 0.2.6 tilbyder syv lokale arbejdsgange og en startguide i Claude. Installér via `claude plugin install winrecoveryproject-devsuite@winrecoveryproject-digital`. Codex-forbundne arbejdsgange bruger fortsat deres eksisterende plugin og App-forbindelser. [Kilde og testvejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/claude)
 
 Claude henter Skillquiver 2.2.0 fra udgiverens native Claude-pakke på den fastlåste kildecommit med 24 skills. Claude henter Skill Craft 1.3.0 direkte fra udgiverens pakkemappe og Vercels egen `vercel-plugin` 0.56.0 direkte fra udgivelsens commit. Vercel-pakken indeholder udgiverens kommandoer, skills, sessionshooks med skill-telemetri og officielle MCP-server. Pakken kræver Node.js og Bun til udgiverens værktøjer. Kontofunktionerne bruger Vercels OAuth i Claude. [Skill Craft](https://github.com/MuhammadBahaa/majarrah-marketplace/tree/4b22ec0e2645ce30059cfa7f35d37b03b60498f9/plugins/skill-craft) · [Vercel](https://github.com/vercel/vercel-plugin/tree/v0.56.0)
 

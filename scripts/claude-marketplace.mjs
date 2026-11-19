@@ -1,4 +1,5 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const root = new URL('../', import.meta.url);
 const catalogDirectory = new URL('.claude-plugin/', root);
@@ -77,6 +78,41 @@ function pluginEntry(name) {
   return { name, version: manifest.version, description: manifest.description, source, strict: false };
 }
 
+function devSuiteEntry() {
+  const name = 'winrecoveryproject-devsuite';
+  const source = './claude-plugins/' + name;
+  const folder = new URL(source + '/', root);
+  const ledger = JSON.parse(readFileSync(new URL('plugin-sources.lock.json', root), 'utf8'));
+  const lock = ledger.claudePackages?.[name];
+  const manifest = JSON.parse(readFileSync(new URL('.claude-plugin/plugin.json', folder), 'utf8'));
+  if (manifest.name !== name || manifest.version !== ledger.plugins[name]?.version ||
+      manifest.version !== lock?.version || !/^[0-9a-f]{40}$/.test(lock.commit) ||
+      !/^[0-9a-f]{64}$/.test(lock.zipSha256) || !lock.files || Object.keys(lock.files).length === 0) {
+    throw new Error('DevSuite Claude metadata differs from its lock or Codex product version.');
+  }
+  const checked = new Set();
+  function verify(directory, prefix) {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const relative = prefix + entry.name;
+      const urlName = encodeURIComponent(entry.name);
+      if (entry.isDirectory()) {
+        verify(new URL(urlName + '/', directory), relative + '/');
+      } else if (entry.isFile() && Object.hasOwn(lock.files, relative) &&
+                 createHash('sha256').update(readFileSync(new URL(urlName, directory))).digest('hex') === lock.files[relative]) {
+        checked.add(relative);
+      } else {
+        throw new Error('DevSuite Claude package member differs from the lock: ' + relative);
+      }
+    }
+  }
+  verify(folder, '');
+  if (checked.size !== Object.keys(lock.files).length) throw new Error('DevSuite Claude package members are missing.');
+  for (const member of ['.app.json', '.mcp.json', 'mcp.json', 'hooks', 'commands', 'agents', '.codex-plugin']) {
+    if (existsSync(new URL(member, folder))) throw new Error('Unexpected DevSuite Claude component: ' + member);
+  }
+  return { name, version: manifest.version, description: manifest.description, source };
+}
+
 async function publishedText(base, path) {
   const response = await fetch(`${base}/${path}`, { redirect: 'error', signal: AbortSignal.timeout(12000) });
   if (!response.ok) throw new Error(`${path} is unavailable at ${base} (HTTP ${response.status}).`);
@@ -117,7 +153,7 @@ try {
     name: 'winrecoveryproject-digital',
     description: 'WinRecoveryProject Digital plugins for local project and skill workflows.',
     owner: { name: 'Zilvereyes' },
-    plugins: [...portablePackages.map(pluginEntry), ...publisherPackages.map(({ manifestName, licenseFile, ...entry }) => entry)],
+    plugins: [...portablePackages.map(pluginEntry), devSuiteEntry(), ...publisherPackages.map(({ manifestName, licenseFile, ...entry }) => entry)],
   };
   const expected = JSON.stringify(marketplace, null, 2) + '\n';
   if (mode === '--write') {
@@ -127,7 +163,7 @@ try {
   if (readFileSync(catalogFile, 'utf8').replace(/\r\n/g, '\n') !== expected) {
     throw new Error('Claude Marketplace metadata differs from the canonical package manifests.');
   }
-  console.log(`${portablePackages.length} local packages and ${publisherPackages.length} pinned publisher references match the generated Claude catalog.`);
+  console.log(`${portablePackages.length} local Codex skill packages, one standalone Claude package and ${publisherPackages.length} pinned publisher references match the generated Claude catalog.`);
   if (mode === '--verify-sources') {
     await Promise.all(publisherPackages.map(verifyPublisher));
     console.log(`${publisherPackages.length} publisher catalogs and manifests match their pinned Claude references.`);

@@ -2446,5 +2446,44 @@
         "version": "0.21.4"
       }
     }
+  },
+  "claudePackages": {
+    "winrecoveryproject-devsuite": {
+      "repository": "https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite.git",
+      "commit": "53b4cd3de9415261759b246f04b55c47cc228d25",
+      "sourceDirectory": "editors/claude",
+      "version": "0.2.6",
+      "zipSha256": "0cc74bac222a70a720123f350207ea0b2019c8ffb9cdfcb7092f150f417e43c2",
+      "files": {
+        ".claude-plugin/plugin.json": "3bcb5c1e7519fa5df5f3574abcd7def7f4276e268da7ce9163b6346e9ae19fa4",
+        "LICENSE": "a2b395dbbc2e33b60248c0fd232a815399337a7aff58cee4545aacfa5b46fe3a",
+        "README.md": "7e21eeac73057818590ca6eff90f9aee4fe0a2c98d0574ab2a2abc4b9093a2b1",
+        "THIRD_PARTY_NOTICES.md": "49f5f65da9cd836ec37b275d236a08cad443f37c471018b1e5e5ea1c2084f82c",
+        "assets/logo.png": "6e5748be8419e57b66d060855087a968b5d0ee621cc00ec0d87257ba18ecd804",
+        "licenses/coordinator.txt": "517c6766637b324eff142e0693bd03c9845c441c3646d89e77f2500e94f836c1",
+        "licenses/guardrails-1.txt": "34990dad3c2a40bf33e54789793e5fb5d871eb5018a785cb1e9e497e41e3680b",
+        "licenses/guardrails.txt": "34990dad3c2a40bf33e54789793e5fb5d871eb5018a785cb1e9e497e41e3680b",
+        "licenses/workflows.txt": "563ffd0203ad266cb0d1ffcff21f450afce9c070eddce47be3a17800c55c6f52",
+        "references/engineering-decisions.md": "56e940b9f77ff0b3cc0d689d7f0b7c0f36364bfeda0bbad126e1717c3712ac0c",
+        "references/platforms.md": "928a44e79774b5748249fc03fbd44de9627939a28fb2e370588f53bdb3cf1403",
+        "references/platforms/flutter.md": "5072ea817416215c3cbba53a101003b619cbfdeaa240b467f29810cc1769dcb1",
+        "references/platforms/javascript-typescript.md": "e525fdb780fc1e64a0567a095a3cb4b6bfcc4502b519b2c2269a37ef6f4efb9b",
+        "references/platforms/laravel-php.md": "b7daac6b335925e6a69a4b9f55653f9453c7a06f9d358b5d7b8ed0e4a1de3a8e",
+        "references/platforms/python.md": "2d001e02ce24c678c083b0b028c09e2b3a4b8387ff17eabc331e9e9749417d05",
+        "references/policy.md": "bb3cfaed70a9151dd722df01776b4eb1ac8f8e2708ddf76477d5d2f040e11edd",
+        "references/verification-matrix.md": "cc1ae2653cc09aec66da16d24665df9012869b26a959b046edef08433d095376",
+        "runtime/__init__.py": "64c275b6dbfbcaebd331cf57cf3cbd578a44c6e4a480dc3561f3705d5c9b0ef7",
+        "runtime/routing.py": "9861ae8914f51355f8df0423eb7df3d8b8241bfbd047512689cf3e4a68454f22",
+        "scripts/devsuite.py": "a155c92562fef9c9bf015f5891f59cd113b0353101bfb4ec41b6af4292a13306",
+        "skills/devsuite-debug/SKILL.md": "6d6509e5d29f53d731197eef0c374fcd69b0d07bc4fa40ae3f1926c42c113291",
+        "skills/devsuite-handoff/SKILL.md": "ce6605acdfca24bf5625a92b38758010d73ec40b7d6cc08cb2900cb5db3a183f",
+        "skills/devsuite-implement/SKILL.md": "a81223adbcfcadd0be192023a02d0743919781e99160445c399d82649de5d2b6",
+        "skills/devsuite-planning/SKILL.md": "bd75764aa4162867c968ce557dae62bac1e1005738e01d9830d7b57ae4bddb04",
+        "skills/devsuite-quality/SKILL.md": "0ecbfc3faa7d072a12abab5f663cfa17a5f0b6ed43b5feb15ed799a7aac2f068",
+        "skills/devsuite-review/SKILL.md": "74e3896540d129cd121cac73de5c56915d303a054e4e71f1254722c4a524b29f",
+        "skills/devsuite-test/SKILL.md": "18a9e8d36344e7e73889d36812bbd63f2a0acc564620b0a96e0b70d2aa5636d1",
+        "skills/devsuite/SKILL.md": "7bebdb2a9dc8ed16ae77b1de7181181e6cee27cf029a1fcb6f491c504ac66292"
+      }
+    }
   }
 }
