@@ -1015,7 +1015,7 @@
       "sourcePath": "plugin-eval/0.1.2",
       "role": "preserved reference",
       "license": "MIT declared; full notice absent",
-      "integration": "independent",
+      "integration": "vendored",
       "files": {
         ".codex-plugin/plugin.json": "72b434478d5008496d17d43b9b847121f47145f71177540ab47893b1559c5aed",
         ".gitignore": "d28a5e1bf2e39e6bde3c828b13dc4ca8bb156a570592b65e0e08521ef54b1b8c",
@@ -1127,7 +1127,19 @@
           "acceptanceTest": "tests/eval*.test.mjs"
         }
       ],
-      "version": "0.1.2"
+      "version": "0.1.2",
+      "vendoredPaths": {
+        "engine": "src/eval/plugin-eval/",
+        "cli": "scripts/plugin-eval.js",
+        "references": "references/plugin-eval/",
+        "fixtures": "fixtures/plugin-eval/",
+        "tests": "tests/plugin-eval.test.mjs"
+      },
+      "localChanges": [
+        "tests: repoRoot via fileURLToPath (Windows C:\\C:\\ path bug)",
+        "evaluators/python.js, evaluators/typescript.js: normalize path separators in test-file detection",
+        "tests: fake-codex CLI benchmark test skipped on win32 (POSIX sh fixture)"
+      ]
     },
     {
       "id": "plugin-creator-plus",

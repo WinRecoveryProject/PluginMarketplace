@@ -151,6 +151,40 @@ The `Matrix` shape:
 
 ---
 
+### Task 2a: Port the plugin-eval engine into Studio (added 2026-11-19, owner decision)
+
+During execution it turned out that `plugins/plugin-eval` is a standalone engine: 6,741 lines of ESM with no dependencies. Studio does not have these parts of it:
+
+- the TS/Python code evaluators
+- coverage reading (lcov, cobertura, istanbul)
+- observed-usage ingestion
+- `measurement-plan`
+- `--brief-out` improvement briefs
+- `explain-budget`
+- the `start` chat router
+- `benchmark --dry-run`
+
+The owner chose to port the engine rather than drop these capabilities.
+
+**Files:**
+- Copy unchanged:
+  - `plugins/plugin-eval/src/**` → `plugins/plugin-skill-studio/src/eval/plugin-eval/**`
+  - `plugins/plugin-eval/references/*` → `plugins/plugin-skill-studio/references/plugin-eval/*`
+  - `plugins/plugin-eval/fixtures/*` → `plugins/plugin-skill-studio/fixtures/plugin-eval/*`
+- Create: `plugins/plugin-skill-studio/scripts/plugin-eval.js`. This is the upstream entry with its import changed to `../src/eval/plugin-eval/cli.js`.
+- Create: `plugins/plugin-skill-studio/tests/plugin-eval.test.mjs`. This is the upstream test with only these changes:
+  - the import paths;
+  - `repoRoot` computed with `fileURLToPath`, which fixes the `C:\C:\…` Windows path bug that made 19 of 28 upstream tests fail;
+  - `fixturesRoot` set to `fixtures/plugin-eval`;
+  - any test that reads plugin-eval's own `.codex-plugin/plugin.json` retargeted to `fixtures/plugin-eval/minimal-plugin`.
+- Modify: the `plugin-eval` entry in `references/integration-registry.json`. Set `integration:'vendored'` and record the target paths.
+
+**Expected:** all 28 ported tests pass under `npm test`, and `node scripts/plugin-eval.js analyze fixtures/plugin-eval/minimal-skill --format markdown` exits 0.
+
+**Commit:** `feat(studio): vendor plugin-eval engine with Windows path fix`
+
+---
+
 ### Task 2: Seed and fully map the lifecycle matrix (data only)
 
 **Files:**
