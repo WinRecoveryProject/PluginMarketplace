@@ -49,6 +49,15 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(provider_check(supplied, "cloudconvert", catalog)["status"], "NOT_VERIFIED")
         self.assertEqual(provider_check({"tools": ["unrelated"]}, "cloudconvert", catalog)["status"], "UNAVAILABLE")
 
+    def test_saved_environment_discovery_accepts_a_list_only_tool_surface(self):
+        catalog = read_json(ROOT / "references/provider-capabilities.json")
+        observed = {"tools": ["mcp__codex_apps__codex_tasks_list_environments"]}
+        listing = provider_check(observed, "codex-environment-list", catalog)
+        self.assertTrue(listing["toolNamesPresent"])
+        self.assertFalse(listing["canExecute"])
+        self.assertFalse(listing["authenticationVerified"])
+        self.assertEqual(provider_check(observed, "codex-tasks", catalog)["status"], "UNAVAILABLE")
+
     def test_insufficient_access_and_unknown_billing_never_ready(self):
         catalog = read_json(ROOT / "references/provider-capabilities.json")
         tools = ["mcp__codex_security__start_codex_security_deep_scan",

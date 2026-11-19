@@ -1,6 +1,6 @@
 {
   "name": "winrecoveryproject-devsuite",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "developerName": "Zilvereyes",
   "displayName": "WinRecoveryProject DevSuite",
   "shortDescription": "Byg, test og koordinér kode",
@@ -10,7 +10,7 @@
     "Gennemgå projektet og ret de godkendte fejl med friske kontrolresultater.",
     "Vis mine registrerede Codex-miljøer uden at oprette en opgave."
   ],
-  "testEvidence": "32 local tests plus separate Business read-only Codex Tasks environment discovery; no remote task, paid compute or conversion launched.",
+  "testEvidence": "34 local tests and read-only Personal Codex Tasks listing. Five configurations were visible and three marked runnable. No remote task or paid compute was launched.",
   "installation": "Parent integration owner performs authorized installation after tests",
   "publication": "Not published by source builder",
   "examples": "submission/examples.json",

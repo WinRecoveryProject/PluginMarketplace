@@ -1,9 +1,9 @@
 {
-  "version": "0.2.6",
+  "version": "0.2.7",
   "localTests": {
-    "passed": 32
+    "passed": 34
   },
-  "providerEvidence": "Read-only Codex Tasks discovery returned five configurations, three marked runnable. Remote creation, cancellation and interactive Cloud Environment login remain untested",
+  "providerEvidence": "Read-only discovery returned five Personal configurations, three marked runnable. The packaged helper listed all five and held an unnamed selection ambiguous. Interactive Cloud Environment login remains unverified.",
   "installed": false,
   "published": false,
   "costKr": 0

@@ -1,4 +1,12 @@
 {
+  "codex-environment-list": {
+    "provider": "existing Codex Tasks environment inventory",
+    "requiredToolGroups": [
+      [
+        "mcp__codex_apps__codex_tasks_list_environments"
+      ]
+    ]
+  },
   "security-standard": {
     "provider": "existing licensed Codex Security host",
     "requiredToolGroups": [

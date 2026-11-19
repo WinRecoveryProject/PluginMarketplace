@@ -1,4 +1,4 @@
-# WinRecoveryProject DevSuite 0.2.6
+# WinRecoveryProject DevSuite 0.2.7
 
 One owned development workflow combines planning/coordination, implementation,
 debugging, testing, independent review, quality gates, security assessment/remediation,
@@ -19,6 +19,9 @@ Read [policy](references/policy.md), [provider boundaries](references/providers.
 to 214 function-level rows, including the original source's non-triggered
 orchestrate-work workflow. CloudConvert source is unavailable; its actual App ID is
 verified and its original skill inventory remains UNKNOWN.
+
+The Claude Code edition packages local development workflows with the same router
+and separate host-native metadata. [Build and check the Claude package](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/claude)
 
 ```text
 python scripts/devsuite.py route "review this patch"
@@ -69,6 +72,8 @@ Version 0.2.1 preserves explicit remote-task and background-job intent when the
 workload contains test/fix/implement verbs. Code-maintenance requests keep their
 normal development route; negated lifecycle clauses do not start an execution
 workflow. Route suggestions never authorize execution.
+
+Version 0.2.7 lists available and unavailable saved environment configurations through the existing Codex Tasks connection. An unnamed selection requires one runnable candidate. The attached Cloud Environment desktop uses its own existing runtime access.
 
 Version 0.2.6 routes requests for saved Codex cloud environments to the
 read-only Codex Tasks listing, including Danish requests with gemte or

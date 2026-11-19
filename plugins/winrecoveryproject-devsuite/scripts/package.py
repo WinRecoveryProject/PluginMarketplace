@@ -57,7 +57,7 @@ def package(output: Path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--out", type=Path, default=ROOT / "dist/winrecoveryproject-devsuite-0.2.6.zip")
+    parser.add_argument("--out", type=Path, default=ROOT / "dist/winrecoveryproject-devsuite-0.2.7.zip")
     args = parser.parse_args()
     try:
         print(json.dumps(package(args.out), indent=2))

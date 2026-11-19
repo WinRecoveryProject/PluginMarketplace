@@ -47,7 +47,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Process Jobs | `0.5.3-wrp.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.5+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
 | WinRecoveryProjectLinter | `0.1.6` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
-| WinRecoveryProject DevSuite | `0.2.6` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
+| WinRecoveryProject DevSuite | `0.2.7` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
 | Vercel | `0.56.0-wrp.1` | `codex plugin add vercel@winrecoveryproject-digital` |
@@ -92,7 +92,7 @@ Claude Desktop og Claude Code kan bruge samme GitHub-repository. Claude-kataloge
 
 Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
 
-WinRecoveryProject DevSuite 0.2.6 tilbyder syv lokale arbejdsgange og en startguide i Claude. Installér via `claude plugin install winrecoveryproject-devsuite@winrecoveryproject-digital`. Codex-forbundne arbejdsgange bruger fortsat deres eksisterende plugin og App-forbindelser. [Kilde og testvejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/claude)
+WinRecoveryProject DevSuite 0.2.7 tilbyder syv lokale arbejdsgange og en startguide i Claude. Installér via `claude plugin install winrecoveryproject-devsuite@winrecoveryproject-digital`. Codex-forbundne arbejdsgange bruger fortsat deres eksisterende plugin og App-forbindelser. [Kilde og testvejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/claude)
 
 Claude henter Skillquiver 2.2.0 fra udgiverens native Claude-pakke på den fastlåste kildecommit med 24 skills. Claude henter Skill Craft 1.3.0 direkte fra udgiverens pakkemappe og Vercels egen `vercel-plugin` 0.56.0 direkte fra udgivelsens commit. Vercel-pakken indeholder udgiverens kommandoer, skills, sessionshooks med skill-telemetri og officielle MCP-server. Pakken kræver Node.js og Bun til udgiverens værktøjer. Kontofunktionerne bruger Vercels OAuth i Claude. [Skill Craft](https://github.com/MuhammadBahaa/majarrah-marketplace/tree/4b22ec0e2645ce30059cfa7f35d37b03b60498f9/plugins/skill-craft) · [Vercel](https://github.com/vercel/vercel-plugin/tree/v0.56.0)
 
@@ -102,7 +102,7 @@ Kør `node scripts/claude-marketplace.mjs --write`, når en pakke får en ny ver
 
 WinRecoveryProjectLinter 0.1.6 bruger samme lintmotor som CLI-udgaven og viser fund i Problems og checkerdækning i Output. [Download VSIX](https://github.com/WinRecoveryProject/WinRecoveryProjectLinter/releases/download/v0.1.6/winrecoveryproject-linter-0.1.6.vsix) · [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProjectLinter/tree/main/editors/vscode)
 
-WinRecoveryProject DevSuite 0.2.6 bruger Python til at åbne pakkens workflowguides og viser den lokale Doctor-kontrol i Output. [Download VSIX](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/releases/download/v0.2.6/winrecoveryproject-devsuite-0.2.6.vsix) · [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/vscode)
+WinRecoveryProject DevSuite 0.2.7 bruger Python til at åbne pakkens workflowguides og viser den lokale Doctor-kontrol i Output. [Download VSIX](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/releases/download/v0.2.7/winrecoveryproject-devsuite-0.2.7.vsix) · [Kilde og byggevejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/vscode)
 
 ## Struktur
 
@@ -147,7 +147,7 @@ I Business har den eksisterende OneDrive-post under arbejdsområdefanen sin egen
 
 ## Egne udviklingsværktøjer
 
-WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Linter er 0.1.6, og DevSuite er 0.2.6. Begge har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
+WinRecoveryProjectLinter er et lokalt CLI og plugin med fokuserede sprogkontroller. WinRecoveryProject DevSuite samler udvikling, koordinering, kvalitetskontrol og sikkerhedsarbejde og genbruger faktiske providerforbindelser. Linter er 0.1.6, og DevSuite er 0.2.7. Begge har selvstændige kilderepositories. MegaLinter bevares som dokumenteret designreference uden en installerbar Marketplace-post; eksisterende installationer fjernes ikke.
 
 [Udgivelse og testdækning](docs/product-release-20261116.md) · [Installeret plugin-gennemgang](docs/current-installed-audit-20261116.md).
 

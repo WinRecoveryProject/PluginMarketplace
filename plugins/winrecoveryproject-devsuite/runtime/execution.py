@@ -47,7 +47,7 @@ def process_plan(request):
             'limitation': 'Windows CPJ POSIX controller is unsupported; native detached work needs a reviewed result/exit receipt' if windows else 'POSIX detached lifecycle requires the existing verified CPJ controller; a plan is not a job'}
 
 
-def select_environment(inventory, requested_name=None):
+def select_environment(inventory, requested_name=None, *, list_only=False):
     """Select only actual connected executors or runnable managed configurations.
 
     A paginated snapshot must be complete. Identifiers are returned as data, never
@@ -61,25 +61,47 @@ def select_environment(inventory, requested_name=None):
         return {'status': 'INCOMPLETE', 'reason': 'Read remaining environment pages first', 'canExecute': False}
     if requested_name is not None:
         _text(requested_name, 'requested environment name')
-    selected = []
+    environments = {}
     for entry in inventory['data']:
         if not isinstance(entry, dict):
             raise ContractError("Environment entry must be an object")
         if 'displayName' in entry and not isinstance(entry['displayName'], str):
             raise ContractError("Environment display name must be text")
-        if requested_name is not None and entry.get('displayName', '').casefold() != requested_name.casefold():
+        executor = entry.get('environmentId')
+        configuration = entry.get('environmentConfigId')
+        has_executor = isinstance(executor, str) and bool(executor.strip())
+        connected = has_executor and entry.get('status') == 'connected'
+        if connected:
+            kind, key, runnable = 'connected-executor', 'environmentId', True
+        elif isinstance(configuration, str) and configuration.strip():
+            kind, key = 'managed-configuration', 'environmentConfigId'
+            runnable = entry.get('status') == 'ready' and entry.get('canRun') is True
+        elif has_executor:
+            kind, key, runnable = 'connected-executor', 'environmentId', False
+        else:
             continue
-        native = entry.get('status') == 'connected' and isinstance(entry.get('environmentId'), str) and bool(entry['environmentId'].strip())
-        cloud = entry.get('canRun') is True and entry.get('status') == 'ready' and isinstance(entry.get('environmentConfigId'), str) and bool(entry['environmentConfigId'].strip())
-        if native or cloud:
-            key = 'environmentId' if native else 'environmentConfigId'
-            selected.append({'kind': 'connected-executor' if native else 'managed-configuration',
-                             key: entry[key], 'displayName': entry.get('displayName'),
-                             'requiresRemoteAbsoluteCwd': native, 'costVerified': False})
+        target = (key, entry[key])
+        row = {'kind': kind, key: entry[key], 'displayName': entry.get('displayName'),
+               'status': entry.get('status'), 'providerRunnable': runnable,
+               'requiresRemoteAbsoluteCwd': kind == 'connected-executor', 'costVerified': False}
+        if target in environments and environments[target] != row:
+            raise ContractError("Conflicting observations for the same environment ID")
+        environments[target] = row
+    observed = list(environments.values())
+    if requested_name is not None:
+        observed = [row for row in observed if (row['displayName'] or '').casefold() == requested_name.casefold()]
+        if len(observed) > 1:
+            raise ContractError("Environment name is ambiguous; use a verified exact target")
+    if list_only:
+        return {'status': 'LISTED', 'environments': observed, 'canExecute': False,
+                'taskCreated': False, 'executionAuthorized': False}
+    selected = [entry for entry in observed if entry['providerRunnable']]
     if not selected:
         return {'status': 'UNAVAILABLE', 'reason': 'No matching connected executor or ready runnable configuration', 'canExecute': False}
-    if requested_name is not None and len(selected) != 1:
-        raise ContractError("Environment name is ambiguous; use a verified exact target")
+    if len(selected) > 1:
+        return {'status': 'AMBIGUOUS', 'environments': selected, 'canExecute': False,
+                'taskCreated': False, 'executionAuthorized': False,
+                'reason': 'Select the intended environment by its verified name'}
     return {'status': 'SELECTED', 'environment': selected[0], 'canExecute': False,
             'taskCreated': False, 'executionAuthorized': False,
             'requiresExplicitTaskRequest': True,

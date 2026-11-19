@@ -38,7 +38,10 @@ class ExecutionTests(unittest.TestCase):
         native={'displayName':'Computer','status':'connected','environmentId':'actual-executor'}
         original={'data':[cloud,native],'nextCursor':None}
         before=copy.deepcopy(original)
-        result=select_environment(original)
+        discovery=select_environment(original)
+        self.assertEqual(discovery['status'],'AMBIGUOUS')
+        self.assertEqual(len(discovery['environments']),2)
+        result=select_environment(original,'Default environment')
         self.assertEqual(result['environment']['environmentConfigId'],'actual-config')
         self.assertFalse(result['canExecute']);self.assertFalse(result['taskCreated'])
         self.assertFalse(result['environment']['costVerified'])
@@ -46,6 +49,24 @@ class ExecutionTests(unittest.TestCase):
         self.assertEqual(result['environment']['environmentId'],'actual-executor')
         self.assertTrue(result['environment']['requiresRemoteAbsoluteCwd'])
         self.assertEqual(original,before)
+
+    def test_listing_preserves_runnable_and_unavailable_cloud_configurations(self):
+        rows = [{'displayName': f'Cloud {i}', 'environmentConfigId': f'config-{i}',
+                 'status': 'ready', 'canRun': i < 3} for i in range(5)]
+        data = {'data': rows, 'nextCursor': None}
+        result = select_environment(data, list_only=True)
+        self.assertEqual(result['status'], 'LISTED')
+        self.assertEqual([row['providerRunnable'] for row in result['environments']], [True, True, True, False, False])
+        self.assertFalse(result['executionAuthorized'])
+        self.assertFalse(result['taskCreated'])
+        self.assertEqual(select_environment(data)['status'], 'AMBIGUOUS')
+        self.assertEqual(select_environment(data, 'Cloud 4')['status'], 'UNAVAILABLE')
+        self.assertEqual(select_environment(dict(data, nextCursor='more'), list_only=True)['status'], 'INCOMPLETE')
+        with self.assertRaises(ContractError):
+            select_environment({'data': [rows[0], dict(rows[4], displayName='cloud 0')]}, 'Cloud 0')
+        self.assertEqual(select_environment({'data': [rows[0], rows[0]]})['status'], 'SELECTED')
+        with self.assertRaises(ContractError):
+            select_environment({'data': [rows[0], dict(rows[0], canRun=False)]})
 
     def test_no_offline_unknown_canrun_or_missing_id_selection(self):
         for entry in [{'status':'offline','environmentId':'x'},{'status':'ready','canRun':False,'environmentConfigId':'x'},
@@ -71,6 +92,9 @@ class ExecutionTests(unittest.TestCase):
                'Find mine gemte Codex cloud-miljøer':'devsuite-tasks',
                'Vis alle gemte Codex-cloudmiljøer':'devsuite-tasks',
                'List all saved Codex cloud environments':'devsuite-tasks',
+               'List my saved Codex Cloud configurations':'devsuite-tasks',
+               'Vis de cloud-miljøer jeg har gemt':'devsuite-tasks',
+               'Kan ikke logge ind i Cloud Environment':'devsuite-environment',
                'open the Cloud Environment desktop':'devsuite-environment',
                'Log ind i det eksisterende Cloud Environment':'devsuite-environment',
                'vis log for baggrundsjob':'devsuite-jobs','resume process job result':'devsuite-jobs',

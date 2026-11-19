@@ -8,6 +8,10 @@ Den eksisterende Personlig-App er fælles for OneDrive og Portal. En afgrænset 
 
 Personlig remote er verificeret på 1.2.1. Værtens opdateringsværktøj afviste ændringen til den eksisterende App-post. Business-pakken bruger fortsat sit eget eksisterende App-ID, og den tilsvarende 1.2.2-ZIP er valideret. Business-pakkens aktivering og filadgang afventer den Business-scope, hvor posten er tilgængelig.
 
+## Tokenfornyelse i produktion
+
+Den 19. november kl. 07.42.14 dansk tid gennemførte den eksisterende OneDrive-broker en faktisk tokenfornyelse for Personlig. Efter fornyelsen viste samme diagnostiske ID et vellykket konto- og identitetskald. En rodlæsning med samme ID er dokumenteret i produktionskontrollen fra 16. november. Diagnostikken registrerer udfald og tidspunkt uden credentials. Den tilgængelige Business-post afventer separat livekontrol.
+
 ## Samling af forbindelsen
 
 OneDrive 1.2.0 bevarer den eksisterende registrerede OneDrive-app, logoet og to skills. CloudStorage Portal bruger fortsat samme app. Den ekstra native MCP-klient er fjernet fra pakken; den hosted MCP-server fortsætter bag appen.

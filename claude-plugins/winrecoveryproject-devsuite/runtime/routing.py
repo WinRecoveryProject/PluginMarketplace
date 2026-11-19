@@ -61,8 +61,8 @@ def route(request: str) -> dict:
     operation = bool(re.search(r"\b(fix|implement|build|debug|review|audit|test|tests|testing|refactor|ret|byg|gennemgå)\b", text))
     task_target = bool(re.search(TASK_TARGET + r"|registered (?:codex )?environment|registrerede? (?:codex.)?miljø", text))
     cloud_config_query = re.search(
-        r"\b(?:list|show|vis|oplist|find)\s+(?:(?:my|mine|the|all|alle|available|tilgængelige|saved|gemte)\s+){0,3}"
-        r"(?:codex[\s-]+)?cloud(?:[- ]?miljøer|\s+environments)\b", text
+        r"\b(?:list|show|vis|oplist|find)\s+(?:(?:my|mine|the|de|me|mig|all|alle|available|tilgængelige|saved|gemte)\s+){0,3}"
+        r"(?:codex[\s-]+)?cloud(?:[- ]?(?:miljøer|konfigurationer)|[\s-]+(?:environments|configurations))\b", text
     )
     job_target = bool(re.search(JOB_TARGET, text))
     if explicit_owner:
