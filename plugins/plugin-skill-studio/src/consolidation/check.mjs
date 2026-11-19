@@ -47,6 +47,9 @@ function instructions(body,offset){
  return out;
 }
 
+// The matrix is published with the package, so user names inside home paths never enter it.
+export function redactHome(text){return String(text).replace(/(\/Users\/|\/home\/|[A-Za-z]:[\\/]Users[\\/])[^/\\\s`'"<>)]+/g,'$1<user>');}
+
 function yamlTopKeys(text){return [...text.replaceAll('\r\n','\n').matchAll(/^([A-Za-z_][\w-]*):/gm)].map(m=>m[1]);}
 
 export async function seedMatrix(sources,{repoRoot}={}){
@@ -60,7 +63,7 @@ export async function seedMatrix(sources,{repoRoot}={}){
    const at=line=>`${source.id}/${rel}${line?':'+line:''}`;
    const owner=path.posix.dirname(rel.replace(/(^|\/)agents\/openai\.yaml$/,'$1SKILL.md'));
    const skillKey=owner==='.'?path.basename(root):path.posix.basename(owner);
-   const add=(id,src,kind,t)=>entries.push({id,source:src,kind,text:t,target:null,status:'unmapped'});
+   const add=(id,src,kind,t)=>entries.push({id,source:src,kind,text:redactHome(t),target:null,status:'unmapped'});
    if(path.posix.basename(rel)==='SKILL.md'){
     const key=path.posix.dirname(rel)==='.'?path.basename(root):path.posix.basename(path.posix.dirname(rel));
     const fm=frontmatter(text);

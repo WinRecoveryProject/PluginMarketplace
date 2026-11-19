@@ -19,11 +19,11 @@ test('all fifteen sources and every original workflow have real contained implem
  await assert.rejects(()=>fs.stat(path.join(packageRoot,'hooks')),e=>e.code==='ENOENT');
 });
 test('router selects only bundled workflows for Danish and English requests',async()=>{
- const cases=[['Vurder denne skill','studio-quality'],['Analyze this plugin','studio-quality'],['Find en skill til review','catalog'],['Lav en plan','writing-plans'],['HTML accessibility report','modern-web'],['evidence matrix','studio-quality']];
+ const cases=[['Vurder denne skill','studio-quality'],['Analyze this plugin','studio-quality'],['Find en skill til review','studio-build'],['Lav en plan','writing-plans'],['HTML accessibility report','modern-web'],['evidence matrix','studio-quality']];
  for(const [q,id]of cases){const result=await route(q);assert.equal(result.selected,id,q);assert.deepEqual(result.externalDependencies,[]);}
 });
 test('Autopilot metadata avoids the CHAT alias rejected by the current Codex host',async()=>{
- for(const name of ['plugin-autopilot','python-executor','workspace-operator']){
+ for(const name of ['studio-build','python-executor','workspace-operator']){
   const yaml=await fs.readFile(path.join(packageRoot,'skills',name,'agents/openai.yaml'),'utf8');
   assert.doesNotMatch(yaml,/^\s*-\s*CHAT\s*$/m);
   assert.match(yaml,/allow_implicit_invocation:\s*true/);

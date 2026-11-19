@@ -1,0 +1,11 @@
+{
+  "id": "studio.import-gpt",
+  "root": "plugins/plugin-skill-studio/skills/import-gpt",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "d7343a1f289c412f6625c5eb5d166e6bae98f9e67d9350767318350694523868",
+    "agents/openai.yaml": "efd0d09ddb9d47efc3768d02ce332d9902a7598fc541f94eff3eabe240ee5a55",
+    "assets/wrp-icon-128.png": "cee8fb94a962f64f8a7bb35db01ede56d1f816ae44baf5d0069c29d7581bca7f",
+    "assets/wrp-icon-256.png": "6cb7d6223c73ac264b01a7308e60acbdcf1d3edb002f3d99f8a5f5d5714cc787"
+  }
+}

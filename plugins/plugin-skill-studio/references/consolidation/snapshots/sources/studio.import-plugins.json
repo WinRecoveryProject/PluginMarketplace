@@ -1,0 +1,11 @@
+{
+  "id": "studio.import-plugins",
+  "root": "plugins/plugin-skill-studio/skills/import-plugins",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "51c5f5118a25ce48aa14a244f6cb359e70f46f42ce045247e3f9f09e2a477266",
+    "agents/openai.yaml": "4ef8d0f8572ddacd4793fdf4bd12f8beb5f22f46af7caa103e6c1bcbf6dff67b",
+    "assets/wrp-icon-128.png": "cee8fb94a962f64f8a7bb35db01ede56d1f816ae44baf5d0069c29d7581bca7f",
+    "assets/wrp-icon-256.png": "6cb7d6223c73ac264b01a7308e60acbdcf1d3edb002f3d99f8a5f5d5714cc787"
+  }
+}

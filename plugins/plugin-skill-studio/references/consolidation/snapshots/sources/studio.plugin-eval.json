@@ -1,0 +1,12 @@
+{
+  "id": "studio.plugin-eval",
+  "root": "plugins/plugin-skill-studio/skills/plugin-eval",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "dc1cb643fe0d4fd15442afc27b22a0fe758ad02282250ea113c9d2a672a44e0f",
+    "agents/openai.yaml": "e210d623012bbc23062b93c7f22ef0ddc90e5f7b4444c65cfa34a8ea7bb3cb5b",
+    "assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}

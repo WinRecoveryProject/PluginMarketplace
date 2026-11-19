@@ -5,7 +5,7 @@ import path from 'node:path';
 import os from 'node:os';
 import {spawnSync} from 'node:child_process';
 import {packageRoot} from '../src/registry.mjs';
-import {seedMatrix,checkMatrix,slug} from '../src/consolidation/check.mjs';
+import {seedMatrix,checkMatrix,slug,redactHome} from '../src/consolidation/check.mjs';
 
 const cli=path.join(packageRoot,'scripts/studio.mjs');
 async function repo(t){
@@ -94,4 +94,23 @@ test('lifecycle matrix targets in studio-quality all resolve',async()=>{
  const scoped={...m,sources:[],entries:m.entries.filter(e=>String(e.target).includes('skills/studio-quality/'))};
  const r=await checkMatrix(scoped,{repoRoot:path.resolve(packageRoot,'../..')});
  assert.deepEqual(r.errors,[]);
+});
+
+test('the whole lifecycle matrix passes consolidation-check',async()=>{
+ const m=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
+ const r=await checkMatrix(m,{repoRoot:path.resolve(packageRoot,'../..')});
+ assert.deepEqual(r.errors,[]);assert.equal(r.counts.unmapped,0);
+});
+
+test('snapshot sources keep proving coverage after the source is deleted',async t=>{
+ const {root,sources}=await repo(t);const m=cover(await seedMatrix(sources,{repoRoot:root}));
+ await fs.writeFile(path.join(root,'snap.json'),JSON.stringify({files:{'SKILL.md':'x','references/notes.md':'y','agents/openai.yaml':'z','references/extra.md':'w'}}));
+ m.sources=[{id:'src',snapshot:'snap.json'}];await fs.rm(path.join(root,'src-plugin'),{recursive:true});
+ const r=await checkMatrix(m,{repoRoot:root});assert.equal(r.ok,false);
+ assert.deepEqual(r.errors.filter(e=>e.startsWith('unrepresented')),['unrepresented source file: src/references/extra.md']);
+});
+
+test('seeded text never carries a user name from a home path',()=>{
+ assert.equal(redactHome('Apply `/Users/someone/.codex/skills/x/SKILL.md` now'),'Apply `/Users/<user>/.codex/skills/x/SKILL.md` now');
+ assert.equal(redactHome('C:\\Users\\someone\\a and /home/bob/b'),'C:\\Users\\<user>\\a and /home/<user>/b');
 });

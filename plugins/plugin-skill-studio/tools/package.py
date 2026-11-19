@@ -11,7 +11,7 @@ import tempfile
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
-ENGINE=ROOT/'skills/plugin-autopilot/scripts'
+ENGINE=ROOT/'skills/studio-build/scripts'
 ENV={**os.environ,'PYTHONDONTWRITEBYTECODE':'1','PYTHONIOENCODING':'utf-8'}
 MEMBERS=['plugin.json','.codex-plugin','package.json','README.md','LICENSE','THIRD_PARTY_NOTICES.md',
          'PRIVACY.md','TERMS.md','SUPPORT.md','AGENTS.md','assets','references','skills','scripts','src','schemas','tools']

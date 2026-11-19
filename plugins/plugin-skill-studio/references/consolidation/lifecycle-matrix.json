@@ -3,83 +3,83 @@
   "sources": [
     {
       "id": "studio.create-plugin",
-      "root": "plugins/plugin-skill-studio/skills/create-plugin"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.create-plugin.json"
     },
     {
       "id": "studio.create-skill",
-      "root": "plugins/plugin-skill-studio/skills/create-skill"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.create-skill.json"
     },
     {
       "id": "studio.update-plugin",
-      "root": "plugins/plugin-skill-studio/skills/update-plugin"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.update-plugin.json"
     },
     {
       "id": "studio.plugin-autopilot",
-      "root": "plugins/plugin-skill-studio/skills/plugin-autopilot"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.plugin-autopilot.json"
     },
     {
       "id": "studio.import-plugins",
-      "root": "plugins/plugin-skill-studio/skills/import-plugins"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.import-plugins.json"
     },
     {
       "id": "studio.import-gpt",
-      "root": "plugins/plugin-skill-studio/skills/import-gpt"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.import-gpt.json"
     },
     {
       "id": "studio.install-skill",
-      "root": "plugins/plugin-skill-studio/skills/install-skill"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.install-skill.json"
     },
     {
       "id": "studio.release-workflow",
-      "root": "plugins/plugin-skill-studio/skills/release-workflow"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.release-workflow.json"
     },
     {
       "id": "studio.portfolio",
-      "root": "plugins/plugin-skill-studio/skills/portfolio"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.portfolio.json"
     },
     {
       "id": "studio.catalog",
-      "root": "plugins/plugin-skill-studio/skills/catalog"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.catalog.json"
     },
     {
       "id": "studio.skill-conductor",
-      "root": "plugins/plugin-skill-studio/skills/skill-conductor"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skill-conductor.json"
     },
     {
       "id": "studio.plugin-skill-studio",
-      "root": "plugins/plugin-skill-studio/skills/plugin-skill-studio"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.plugin-skill-studio.json"
     },
     {
       "id": "studio.skill-eval",
-      "root": "plugins/plugin-skill-studio/skills/skill-eval"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skill-eval.json"
     },
     {
       "id": "studio.plugin-eval",
-      "root": "plugins/plugin-skill-studio/skills/plugin-eval"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.plugin-eval.json"
     },
     {
       "id": "studio.skill-review",
-      "root": "plugins/plugin-skill-studio/skills/skill-review"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skill-review.json"
     },
     {
       "id": "studio.skill-walkthrough",
-      "root": "plugins/plugin-skill-studio/skills/skill-walkthrough"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skill-walkthrough.json"
     },
     {
       "id": "studio.skillquiver-doctor",
-      "root": "plugins/plugin-skill-studio/skills/skillquiver-doctor"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skillquiver-doctor.json"
     },
     {
       "id": "studio.evidence-matrix",
-      "root": "plugins/plugin-skill-studio/skills/evidence-matrix"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.evidence-matrix.json"
     },
     {
       "id": "studio.metric-pack",
-      "root": "plugins/plugin-skill-studio/skills/metric-pack"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.metric-pack.json"
     },
     {
       "id": "studio.improve-skill",
-      "root": "plugins/plugin-skill-studio/skills/improve-skill"
+      "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.improve-skill.json"
     },
     {
       "id": "plugin-eval",
@@ -3955,7 +3955,7 @@
       "id": "plugin-eval.improve-skill.L14",
       "source": "plugin-eval/skills/improve-skill/SKILL.md:14",
       "kind": "instruction",
-      "text": "3. Apply the `skill-creator` guidance from `/Users/benlesh/.codex/skills/skill-creator/SKILL.md`.",
+      "text": "3. Apply the `skill-creator` guidance from `/Users/<user>/.codex/skills/skill-creator/SKILL.md`.",
       "target": "plugins/plugin-skill-studio/skills/studio-quality/modes/improve.md#src-pe-improve-skill-workflow",
       "status": "covered"
     },

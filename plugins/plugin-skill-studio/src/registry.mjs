@@ -15,6 +15,17 @@ export async function loadRegistry(root=packageRoot) {
 
 // [capability, mode|null, pattern]; the first match wins, so specific workflows precede broad ones.
 const rules=[
+ ['studio-build','lifecycle',/from scratch|full lifecycle|general software coding|pre-existing skills/i],
+ ['studio-build','autopilot',/agentic repo|autopilot|repo.{0,15}(to|into).{0,20}plugin/i],
+ ['risk-review',null,/risik|risk|malici|hemmelig|secret|sikkerhedsscan/i],
+ ['studio-build','import',/\bgpt\b|gpts/i],
+ ['studio-build','import',/(import|konvert|adapt).{0,25}(mappe|folder|skill|plugin)/i],
+ ['studio-build','catalog',/find.{0,25}(skill|plugin)|discover|katalog|catalog|radar/i],
+ ['studio-build','portfolio',/portfolio|worklist|directory of plugins/i],
+ ['studio-build','install',/\binstall\b|inventory, preview/i],
+ ['studio-build','update',/update an owned|git-managed plugin/i],
+ ['studio-build','create-skill',/create or update a codex skill|scoped instructions/i],
+ ['studio-build','create-plugin',/plugin candidate built|new local or marketplace plugin/i],
  ['studio-quality','doctor',/doctor|skillquiver|double-fire|conflicting skills|duplicate, shadow/i],
  ['studio-quality','improve',/improv|forbedr|rewrite brief|auto-?research|keep\/discard|pass count|research agents/i],
  ['studio-quality','metric-pack',/metric.?pack|verifiers and metrics|own evaluation criteria|rubric/i],
@@ -22,19 +33,15 @@ const rules=[
  ['studio-quality','review',/behavior-focused|technical review|review this skill/i],
  ['studio-quality','evidence',/evidensmatrix|evidence matrix|supplied evidence|freshwithin|kompetencebevis/i],
  ['studio-quality','eval',/skill.{0,35}(eval|vurder|test|analy[sz])|(?:eval|vurder|test|analy[sz]).{0,35}skill|plugin.{0,35}(eval|vurder|analy[sz])|(?:eval|vurder|analy[sz]).{0,35}plugin|evaluat|audit th|why did this .{0,10}score|fix first|token usage|assessing a plugin|benchmark/i],
- ['risk-review',null,/risik|risk|malici|hemmelig|secret|sikkerhedsscan/i],
- ['import-gpt',null,/\bgpt\b|gpts/i],
- ['release-workflow',null,/publicer|publish|release|submission|indsend|pakning|\bzip\b/i],
- ['import-plugins',null,/(import|konvert|adapt).{0,25}(mappe|folder|skill|plugin)/i],
- ['catalog',null,/find.{0,25}(skill|plugin)|discover|katalog|catalog|radar/i],
+ ['studio-build','release',/publicer|publish|release|submission|indsend|pakning|\bzip\b/i],
  ['local-management',null,/permission|tilladelse|installed|installeret|afhængighed|dependenc/i],
  ['modern-web',null,/html|css|\bdom\b|accessibility|tilgængelig|web\s*ui/i],
  ['writing-plans',null,/\bplan\b|planlæg|specifikation/i],
  ['diagnose-systematically',null,/fejlsøg|debug|diagnos|failing|fejler/i],
  ['test-driven-development',null,/\btdd\b|test.driven|testdrevet/i],
- ['create-skill',null,/(opret|create|byg|build|lav).{0,25}skill/i],
- ['create-plugin',null,/(opret|create|byg|build|lav).{0,25}plugin/i],
- ['update-plugin',null,/(opdat|update|extend|udvid).{0,25}plugin/i],
+ ['studio-build','create-skill',/(opret|create|byg|build|lav).{0,25}skill/i],
+ ['studio-build','create-plugin',/(opret|create|byg|build|lav).{0,25}plugin/i],
+ ['studio-build','update',/(opdat|update|extend|udvid).{0,25}plugin/i],
  ['automate-ui',null,/desktop|skærmfangst|museklik|screenshot|mouse.click/i],
 ];
 export async function route(request,root=packageRoot) {
@@ -42,7 +49,7 @@ export async function route(request,root=packageRoot) {
   const registry=await loadRegistry(root);
   const exact=registry.capabilities.find(x=>x.id===request.trim());
   const rule=exact?null:rules.find(([,,pattern])=>pattern.test(request));
-  const selected=exact?.id ?? rule?.[0] ?? 'plugin-skill-studio';
+  const selected=exact?.id ?? rule?.[0] ?? 'studio-build';
   const mode=rule?.[1]??null;
   const capability=registry.capabilities.find(x=>x.id===selected);
   if (!capability) throw new Error('Router target missing: '+selected);

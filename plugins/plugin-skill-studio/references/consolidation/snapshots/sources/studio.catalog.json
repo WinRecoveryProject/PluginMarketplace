@@ -1,0 +1,11 @@
+{
+  "id": "studio.catalog",
+  "root": "plugins/plugin-skill-studio/skills/catalog",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "7ce615b5829695ab13b4f500d980ee78106793e5ea5acd069e4a8182042230bd",
+    "agents/openai.yaml": "e7357ea7a49bf77b5f6646772829c7afb796e997ecb801a855b3f5bb772c7ca7",
+    "assets/wrp-icon-128.png": "21d925a6409d7fe1834bba8de13ff2459574227b3747c1f3cebac8573f1a16a1",
+    "assets/wrp-icon-256.png": "2c06a39c1a973bfbcf39c1ab54d2feed7714ec136a356a8db63151f4bc414293"
+  }
+}

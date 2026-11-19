@@ -1,0 +1,12 @@
+{
+  "id": "studio.portfolio",
+  "root": "plugins/plugin-skill-studio/skills/portfolio",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "7931a71ba399a4f890dbb26721d60c0e59f7cc8791997fed6ad2290187e818a5",
+    "agents/openai.yaml": "3fe737e63bd17804b27c3f3ce4c74ee60085a0f94a674431c39898f84e369a63",
+    "assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+    "assets/wrp-icon-128.png": "21d925a6409d7fe1834bba8de13ff2459574227b3747c1f3cebac8573f1a16a1",
+    "assets/wrp-icon-256.png": "2c06a39c1a973bfbcf39c1ab54d2feed7714ec136a356a8db63151f4bc414293"
+  }
+}

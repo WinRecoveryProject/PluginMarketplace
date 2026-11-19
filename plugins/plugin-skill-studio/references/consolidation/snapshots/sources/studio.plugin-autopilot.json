@@ -1,0 +1,27 @@
+{
+  "id": "studio.plugin-autopilot",
+  "root": "plugins/plugin-skill-studio/skills/plugin-autopilot",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "e0e4575f7fd40e0ce7db228d17e349e471911c0366e25f62c897fe5720374e6e",
+    "agents/openai.yaml": "f5d3c66c6bc95abd20e6f64b48241beea9990775b9cdcfd019595dbb57871deb",
+    "assets/wrp-icon-128.png": "a14c490f829d16e813e4872eebdbad94fc16f1773abe46cc787452291534bf43",
+    "assets/wrp-icon-256.png": "bf2dfd29a0ec54ca23b3a6a5616d969e1b6b1c6d907bf88aa41ebf55daa4ece3",
+    "references/architectures.md": "734cb258be2ae0c6e7c08173dc5ed1640e7b4a62effa710b283c3f70a04a71bb",
+    "references/branding-and-listing.md": "9253ba63c160bf828a857e6e39ae4557e5cdff04838de6cc11a3aced425970cc",
+    "references/conformance-matrix.md": "1b493f3d36a4f27d1231f5370d7902a3c4ccecf463ec5910763450f4f0ff5ea4",
+    "references/conversion-pipeline.md": "7fde26dccd0756485250484de53b6f22f00c6e4ff634150717f3811e6d78e98a",
+    "references/host-python-sandbox.md": "6bc4c0960a8a996bbe2234ab6ed05c520986e10a10306e5fba00491d393dee13",
+    "references/host-workspace-capabilities.md": "373de27b02207dac7a88c596695ccc502d75a399a142c7d8d06c54dcced6957c",
+    "references/official-contract.md": "a681f5b987cbc6a9a1d08c51977e83bc8c7d90d89f4939d75b70d2df979617e5",
+    "references/release-playbook.md": "de6eac63180c08a1109467d464829fd39735c69f490d36fb5990d31905569053",
+    "references/submission-checklist.md": "1b5026f0a8af4cb3939efe6df9c1a4a9925b61b9488a626b181fdf96f8789d37",
+    "references/submission-errors.md": "c101971d7be778bc1115c27fa93378b544f5e8eb0732f7245a681e78ff1ade15",
+    "scripts/analyze_repo.py": "6807bea9c031cd10beb8fb3a2f3ca1c070e3bc3939a002281810bd4f3ef85033",
+    "scripts/build_directory_pack.py": "2b5c0defcc9973e891cead5dd94d4bd61cd128f719174ebffb91eff0e0cf252a",
+    "scripts/install_host_workspace_skill.py": "807a1d25ddf018af8fce09a26aa90995f846399584ebe19893d3f11429910dd0",
+    "scripts/package_plugin.py": "724224268ddeab4c2cd725a8ec226aadaaf77648148127c7a9e6e1f81f00ea88",
+    "scripts/validate_plugin.py": "8e6980ba91657cf0c6a7bd47288f38e7003c507dc75192a5e6549dc4a0cd2c48",
+    "scripts/windows_directory.py": "a1c4f02899493bfe31fca8431805d0ff59cf46c436fcef28b70706a499974a3d"
+  }
+}
