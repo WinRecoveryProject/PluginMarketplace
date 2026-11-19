@@ -1,0 +1,33 @@
+{
+  "name": "onedrive",
+  "displayName": "OneDrive",
+  "description": "Connect VS Code to WinRecoveryProject’s existing OneDrive MCP server.",
+  "version": "1.2.2",
+  "publisher": "Zilvereyes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git"
+  },
+  "engines": {
+    "vscode": "^1.146.0"
+  },
+  "categories": ["Other"],
+  "main": "./extension.cjs",
+  "activationEvents": ["onMcpCollection:onedrive"],
+  "extensionKind": ["ui"],
+  "icon": "assets/logo.png",
+  "files": ["extension.cjs", "assets/logo.png", "README.md", "LICENSE"],
+  "capabilities": {
+    "untrustedWorkspaces": { "supported": false },
+    "virtualWorkspaces": false
+  },
+  "contributes": {
+    "mcpServerDefinitionProviders": [
+      { "id": "onedrive", "label": "OneDrive" }
+    ]
+  },
+  "scripts": {
+    "test": "node --test test/provider.test.cjs"
+  }
+}

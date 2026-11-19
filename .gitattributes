@@ -5,3 +5,5 @@ plugins/** -text
 # Security patch receipts and exact-source replacements must survive Windows checkout unchanged.
 remediations/** -text
 claude-plugins/** -text
+# Preserve the existing MIT notice bytes in the OneDrive VSIX.
+editors/vscode-onedrive/LICENSE -text

@@ -1,5 +1,11 @@
 # OneDrive: én appforbindelse og tydelig Entra-status
 
+## Broker 0.3.5 den 19. november
+
+Den eksisterende Vercel-adresse kører broker 0.3.5 på den aktive Hobby-plan. Alle 16 deployede kildefiler matchede den private Git-kilde. De 87 lokale tests bestod. Produktion accepterede VS Code 1.146's komplette DCR-profil og begyndte godkendelsen for både web-callback og en alternativ lokal port. Brokerens HTTPS-callback hos Microsoft og den præcise binding af autorisationskoden er bevaret. Faktisk login i VS Code afventer brugerens samtykke i klienten. [Brokerens kilde](https://github.com/WinRecoveryProject/CloudStorage-Portal/commit/cae4e761ac5f0026a11d0ada841a3b5c13227644)
+
+Den eksisterende Personlig-forbindelse genlæste en kendt testfil og oprettede én ny fil i den afgrænsede testmappe. Genlæsningen matchede alle 70 byte og SHA-256. Kontoens og drevets identitet matchede før og efter udrulningen. Business-postens pakke og live filadgang afventer fortsat kontrol i Business. Forbrug 0 kr.
+
 ## Marketplace 1.2.2
 
 OneDrive og CloudStorage Portal bruger den samme filopslagskode. Efter en tom, vellykket søgning kan opslaget finde ét eksakt match blandt alle direkte børn i en kendt mappe. Det kræver samme verificerede konto og en afsluttet mappeliste. Et nyt metadataopslag bekræfter navn, type og forældremappe før filhandlinger.
@@ -34,7 +40,7 @@ En verificeret profil kan nu gennemføre kontolæsning og værktøjsopdagelse. H
 
 Diagnostikken viser kun faste fase-/operationsnavne, HTTP-status, godkendte fejlkoder og validerede request-ID’er. Tokens, rå fejltekster, profiloplysninger og filnavne logges ikke.
 
-## Kontrol og økonomi
+## Historisk kontrol af broker 0.3.3
 
 - 69/69 lokale servertests består, herunder 11 nye tests for Entra-/drevadskillelse.
 - Den native pakkekontrol og Marketplace-valideringen består.

@@ -1,5 +1,9 @@
 # External plugin sources
 
+## Dropbox MCP på Acer og ASUS
+
+Begge værter returnerede 41 værktøjer fra `dropbox@winrecoveryproject-digital` 5.0.1, uden fejl i værktøjsopslaget. Manifest og App- og MCP-filer matchede byte for byte. Den tidligere Acer-log placerer fejlen i HTTP-opslaget efter OAuth-metadata, før værten brugte de gemte legitimationsoplysninger. Ved gentesten svarede Dropbox’ offentlige metadata HTTP 200. Den underliggende transportårsag er uafklaret. [Dropbox’ OAuth-metadata](https://mcp.dropbox.com/.well-known/oauth-protected-resource/mcp)
+
 ## Geninstallation ved ændret katalogrevision på Windows
 
 Codex CLI `0.169.0-alpha.11.1` forsøger at geninstallere de konfigurerede pakker, når det opgraderede Git-katalog skifter revision. Det gælder også ændringer i Claude-kataloget og dokumentationen. På Acer returnerede Windows delingsfejl 32 for versionsmappen til OpenAI Developers 1.2.3. Den aktive version og de 30 pakkefiler kunne stadig læses. [Codex’ opdateringskode](https://github.com/openai/codex/blob/rust-v0.169.0-alpha.11.1/codex-rs/core-plugins/src/manager.rs#L3123-L3158) · [Rapporteret versionsmappelås](https://github.com/openai/codex/issues/56718)
