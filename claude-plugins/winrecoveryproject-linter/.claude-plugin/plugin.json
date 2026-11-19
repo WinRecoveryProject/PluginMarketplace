@@ -1,0 +1,14 @@
+{
+  "name": "winrecoveryproject-linter",
+  "version": "0.1.7",
+  "description": "Run local lint checks with explicit language coverage and findings.",
+  "author": {
+    "name": "Zilvereyes",
+    "url": "https://github.com/WinRecoveryProject"
+  },
+  "repository": "https://github.com/WinRecoveryProject/WinRecoveryProjectLinter",
+  "license": "MIT",
+  "commands": [
+    "./commands/wrp-lint.md"
+  ]
+}

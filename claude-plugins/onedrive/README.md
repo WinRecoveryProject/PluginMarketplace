@@ -13,3 +13,5 @@ Once connected, ask the skill to verify the intended Microsoft account and its d
 Installation and account access are separate checks. The package contains the URL and transport. Use Claude Code's OAuth interface to authorize access.
 
 VS Code 1.146.0 displays `http://127.0.0.1:33418` and `https://vscode.dev/redirect` for OAuth client registration. The current broker requires the exact `/callback` path for loopback redirects and limits HTTPS redirects to ChatGPT and OpenAI domains. The two VS Code addresses fall outside that allowlist.
+
+[Privacy policy](https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md)

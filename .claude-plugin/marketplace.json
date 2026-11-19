@@ -7,10 +7,9 @@
   "plugins": [
     {
       "name": "winrecoveryproject-linter",
-      "version": "0.1.6",
-      "description": "Local read-only linting for selected source types with visible coverage, pinned tools and no paid services.",
-      "source": "./plugins/winrecoveryproject-linter",
-      "strict": false
+      "version": "0.1.7",
+      "description": "Run local lint checks with explicit language coverage and findings.",
+      "source": "./claude-plugins/winrecoveryproject-linter"
     },
     {
       "name": "plugin-skill-studio",
@@ -75,7 +74,7 @@
     },
     {
       "name": "onedrive",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "description": "Connect Claude Code on a local desktop to the existing WinRecoveryProject OneDrive MCP server.",
       "source": "./claude-plugins/onedrive"
     },

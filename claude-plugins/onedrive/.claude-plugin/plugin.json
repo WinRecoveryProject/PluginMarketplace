@@ -1,12 +1,11 @@
 {
   "name": "onedrive",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Connect Claude Code on a local desktop to the existing WinRecoveryProject OneDrive MCP server.",
   "author": {
     "name": "Zilvereyes",
     "url": "https://github.com/WinRecoveryProject"
   },
   "repository": "https://github.com/WinRecoveryProject/PluginMarketplace",
-  "privacyPolicyUrl": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
   "license": "MIT"
 }

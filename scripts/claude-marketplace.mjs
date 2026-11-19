@@ -5,7 +5,6 @@ const root = new URL('../', import.meta.url);
 const catalogDirectory = new URL('.claude-plugin/', root);
 const catalogFile = new URL('marketplace.json', catalogDirectory);
 const portablePackages = [
-  'winrecoveryproject-linter',
   'plugin-skill-studio',
   'powershell-workbench',
   'component-forge',
@@ -84,7 +83,7 @@ function standaloneEntry(name) {
   const ledger = JSON.parse(readFileSync(new URL('plugin-sources.lock.json', root), 'utf8'));
   const lock = ledger.claudePackages?.[name];
   const manifest = JSON.parse(readFileSync(new URL('.claude-plugin/plugin.json', folder), 'utf8'));
-  if (manifest.name !== name || manifest.version !== ledger.plugins[name]?.version ||
+  if (manifest.name !== name || (lock?.upstreamVersion ?? lock?.version) !== ledger.plugins[name]?.version ||
       manifest.version !== lock?.version || !/^[0-9a-f]{40}$/.test(lock.commit) ||
       !lock.files || Object.keys(lock.files).length === 0) {
     throw new Error(`${name}: Claude metadata differs from its lock or Codex product version.`);
@@ -109,10 +108,26 @@ function standaloneEntry(name) {
   }
   verify(folder, '');
   if (checked.size !== Object.keys(lock.files).length) throw new Error(`${name}: Claude package members are missing.`);
-  const excluded = ['.app.json', 'mcp.json', 'hooks', 'commands', 'agents', '.codex-plugin'];
+  const excluded = ['.app.json', 'mcp.json', 'hooks', 'agents', '.codex-plugin', 'bin'];
+  if (name !== 'winrecoveryproject-linter') excluded.push('commands');
   if (name !== 'onedrive') excluded.push('.mcp.json');
   for (const member of excluded) {
     if (existsSync(new URL(member, folder))) throw new Error(`${name}: Unexpected Claude component: ${member}`);
+  }
+  if (name === 'winrecoveryproject-linter') {
+    const canonical = ledger.plugins[name];
+    const launcher = 'scripts/wrp-lint.mjs';
+    if (lock.commit !== canonical.commit || lock.files[launcher] !== canonical.files['bin/wrp-lint.mjs'] ||
+        JSON.stringify(manifest.commands) !== JSON.stringify(['./commands/wrp-lint.md']) ||
+        !lock.files['commands/wrp-lint.md']) {
+      throw new Error('Linter: Claude must expose its locked launcher through the declared command.');
+    }
+    for (const file of ['skills/lint-project/SKILL.md', 'skills/setup-linters/SKILL.md']) {
+      const body = readFileSync(new URL(file, folder), 'utf8');
+      if (!body.includes(launcher) || body.includes('bin/wrp-lint.mjs')) {
+        throw new Error('Linter: Claude skill references an invalid launcher.');
+      }
+    }
   }
   if (name === 'zilvereyes-context-handoff') {
     const helper = 'skills/zilvereyes-context-handoff/scripts/context_handoff.py';
@@ -123,6 +138,11 @@ function standaloneEntry(name) {
   if (name === 'onedrive') {
     const provenance = JSON.parse(readFileSync(new URL('plugins/onedrive/PROVENANCE.json', root), 'utf8'));
     const mcp = JSON.parse(readFileSync(new URL('.mcp.json', folder), 'utf8'));
+    const readme = readFileSync(new URL('README.md', folder), 'utf8');
+    if (Object.keys(manifest).some(key => /^privacyPolicyUrl$/i.test(key)) ||
+        !readme.includes('/docs/cloudstorage-privacy.md)')) {
+      throw new Error('OneDrive: link the privacy policy from the Claude README.');
+    }
     const servers = mcp?.mcpServers;
     const onedrive = servers?.onedrive;
     if (Object.keys(mcp ?? {}).length !== 1 || Object.keys(servers ?? {}).length !== 1 ||
@@ -176,6 +196,7 @@ try {
     description: 'WinRecoveryProject Digital plugins for local project and skill workflows.',
     owner: { name: 'Zilvereyes' },
     plugins: [
+      standaloneEntry('winrecoveryproject-linter'),
       ...portablePackages.map(pluginEntry),
       ...['winrecoveryproject-devsuite', 'zilvereyes-context-handoff', 'onedrive'].map(standaloneEntry),
       ...publisherPackages.map(({ manifestName, licenseFile, ...entry }) => entry),
