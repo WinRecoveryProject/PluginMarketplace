@@ -176,7 +176,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.create-plugin.agents.policy.interface",
+      "id": "studio.create-plugin.create-plugin.policy.interface",
       "source": "studio.create-plugin/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -288,7 +288,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.create-skill.agents.policy.interface",
+      "id": "studio.create-skill.create-skill.policy.interface",
       "source": "studio.create-skill/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -384,7 +384,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.update-plugin.agents.policy.interface",
+      "id": "studio.update-plugin.update-plugin.policy.interface",
       "source": "studio.update-plugin/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -1448,7 +1448,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.plugin-autopilot.agents.policy.interface",
+      "id": "studio.plugin-autopilot.plugin-autopilot.policy.interface",
       "source": "studio.plugin-autopilot/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -1456,7 +1456,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.plugin-autopilot.agents.policy.policy",
+      "id": "studio.plugin-autopilot.plugin-autopilot.policy.policy",
       "source": "studio.plugin-autopilot/agents/openai.yaml",
       "kind": "policy",
       "text": "policy",
@@ -1632,7 +1632,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.import-plugins.agents.policy.interface",
+      "id": "studio.import-plugins.import-plugins.policy.interface",
       "source": "studio.import-plugins/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -1680,7 +1680,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.import-gpt.agents.policy.interface",
+      "id": "studio.import-gpt.import-gpt.policy.interface",
       "source": "studio.import-gpt/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -1776,7 +1776,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.install-skill.agents.policy.interface",
+      "id": "studio.install-skill.install-skill.policy.interface",
       "source": "studio.install-skill/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -1832,7 +1832,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.release-workflow.agents.policy.interface",
+      "id": "studio.release-workflow.release-workflow.policy.interface",
       "source": "studio.release-workflow/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -1928,7 +1928,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.portfolio.agents.policy.interface",
+      "id": "studio.portfolio.portfolio.policy.interface",
       "source": "studio.portfolio/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -1984,7 +1984,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.catalog.agents.policy.interface",
+      "id": "studio.catalog.catalog.policy.interface",
       "source": "studio.catalog/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -2360,7 +2360,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.skill-conductor.agents.policy.interface",
+      "id": "studio.skill-conductor.skill-conductor.policy.interface",
       "source": "studio.skill-conductor/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -2408,7 +2408,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.plugin-skill-studio.agents.policy.interface",
+      "id": "studio.plugin-skill-studio.plugin-skill-studio.policy.interface",
       "source": "studio.plugin-skill-studio/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -2464,7 +2464,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.skill-eval.agents.policy.interface",
+      "id": "studio.skill-eval.skill-eval.policy.interface",
       "source": "studio.skill-eval/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -2528,7 +2528,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.plugin-eval.agents.policy.interface",
+      "id": "studio.plugin-eval.plugin-eval.policy.interface",
       "source": "studio.plugin-eval/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -2592,7 +2592,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.skill-review.agents.policy.interface",
+      "id": "studio.skill-review.skill-review.policy.interface",
       "source": "studio.skill-review/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -2640,7 +2640,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.skill-walkthrough.agents.policy.interface",
+      "id": "studio.skill-walkthrough.skill-walkthrough.policy.interface",
       "source": "studio.skill-walkthrough/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -2944,7 +2944,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.skillquiver-doctor.agents.policy.interface",
+      "id": "studio.skillquiver-doctor.skillquiver-doctor.policy.interface",
       "source": "studio.skillquiver-doctor/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -2952,7 +2952,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.skillquiver-doctor.agents.policy.policy",
+      "id": "studio.skillquiver-doctor.skillquiver-doctor.policy.policy",
       "source": "studio.skillquiver-doctor/agents/openai.yaml",
       "kind": "policy",
       "text": "policy",
@@ -3024,7 +3024,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.evidence-matrix.agents.policy.interface",
+      "id": "studio.evidence-matrix.evidence-matrix.policy.interface",
       "source": "studio.evidence-matrix/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -3072,7 +3072,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.metric-pack.agents.policy.interface",
+      "id": "studio.metric-pack.metric-pack.policy.interface",
       "source": "studio.metric-pack/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -3160,7 +3160,7 @@
       "status": "covered"
     },
     {
-      "id": "studio.improve-skill.agents.policy.interface",
+      "id": "studio.improve-skill.improve-skill.policy.interface",
       "source": "studio.improve-skill/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -3680,7 +3680,7 @@
       "status": "covered"
     },
     {
-      "id": "plugin-eval.agents.policy.interface",
+      "id": "plugin-eval.evaluate-plugin.policy.interface",
       "source": "plugin-eval/skills/evaluate-plugin/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -3904,7 +3904,7 @@
       "status": "covered"
     },
     {
-      "id": "plugin-eval.agents.policy.interface",
+      "id": "plugin-eval.evaluate-skill.policy.interface",
       "source": "plugin-eval/skills/evaluate-skill/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -4048,7 +4048,7 @@
       "status": "covered"
     },
     {
-      "id": "plugin-eval.agents.policy.interface",
+      "id": "plugin-eval.improve-skill.policy.interface",
       "source": "plugin-eval/skills/improve-skill/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -4152,7 +4152,7 @@
       "status": "covered"
     },
     {
-      "id": "plugin-eval.agents.policy.interface",
+      "id": "plugin-eval.metric-pack-designer.policy.interface",
       "source": "plugin-eval/skills/metric-pack-designer/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",
@@ -4536,7 +4536,7 @@
       "status": "covered"
     },
     {
-      "id": "plugin-eval.agents.policy.interface",
+      "id": "plugin-eval.plugin-eval.policy.interface",
       "source": "plugin-eval/skills/plugin-eval/agents/openai.yaml",
       "kind": "policy",
       "text": "interface",

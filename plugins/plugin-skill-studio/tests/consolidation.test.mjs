@@ -65,6 +65,13 @@ test('checkMatrix accepts approved drops and valid merges and counts them',async
  assert.equal(r.counts.dropped,1);assert.equal(r.counts.merged,1);assert.equal(r.counts.covered,m.entries.length-2);
 });
 
+test('policy ids are unique across nested skills of one source',async t=>{
+ const {root}=await repo(t);await fs.cp(path.join(root,'src-plugin/skills/alpha'),path.join(root,'src-plugin/skills/beta'),{recursive:true});
+ const m=await seedMatrix([{id:'pkg',root:'src-plugin'}],{repoRoot:root});const ids=m.entries.map(e=>e.id);
+ assert.equal(new Set(ids).size,ids.length);
+ assert.ok(ids.includes('pkg.alpha.policy.interface')&&ids.includes('pkg.beta.policy.interface'));
+});
+
 test('slug follows GitHub heading anchors',()=>{assert.equal(slug('Held-out triggers'),'held-out-triggers');assert.equal(slug('Engine coverage (plugin-eval)'),'engine-coverage-plugin-eval');});
 
 test('CLI consolidation-check exits 1 with JSON on a failing matrix and seed writes a matrix',async t=>{
@@ -80,4 +87,11 @@ test('lifecycle matrix has no unmapped capability',async()=>{
  const m=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
  assert.ok(m.entries.length>700);
  assert.deepEqual(m.entries.filter(e=>e.status==='unmapped'||!e.target&&e.status==='covered').map(e=>e.id),[]);
+});
+
+test('lifecycle matrix targets in studio-quality all resolve',async()=>{
+ const m=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
+ const scoped={...m,sources:[],entries:m.entries.filter(e=>String(e.target).includes('skills/studio-quality/'))};
+ const r=await checkMatrix(scoped,{repoRoot:path.resolve(packageRoot,'../..')});
+ assert.deepEqual(r.errors,[]);
 });

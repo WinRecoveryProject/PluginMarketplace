@@ -19,7 +19,7 @@ test('all fifteen sources and every original workflow have real contained implem
  await assert.rejects(()=>fs.stat(path.join(packageRoot,'hooks')),e=>e.code==='ENOENT');
 });
 test('router selects only bundled workflows for Danish and English requests',async()=>{
- const cases=[['Vurder denne skill','skill-eval'],['Analyze this plugin','plugin-eval'],['Find en skill til review','catalog'],['Lav en plan','writing-plans'],['HTML accessibility report','modern-web'],['evidence matrix','evidence-matrix']];
+ const cases=[['Vurder denne skill','studio-quality'],['Analyze this plugin','studio-quality'],['Find en skill til review','catalog'],['Lav en plan','writing-plans'],['HTML accessibility report','modern-web'],['evidence matrix','studio-quality']];
  for(const [q,id]of cases){const result=await route(q);assert.equal(result.selected,id,q);assert.deepEqual(result.externalDependencies,[]);}
 });
 test('Autopilot metadata avoids the CHAT alias rejected by the current Codex host',async()=>{
@@ -30,9 +30,9 @@ test('Autopilot metadata avoids the CHAT alias rejected by the current Codex hos
  }
 });
 test('legacy command contracts work and deep static evaluation does not need installed sources',async()=>{
- const result=run(['skill-eval','skills/skill-eval','--format','json']);assert.equal(result.status,0,result.stderr);
+ const result=run(['skill-eval','skills/studio-quality','--format','json']);assert.equal(result.status,0,result.stderr);
  const report=JSON.parse(result.stdout);assert.equal(report.valid,true);assert.equal(report.observedUsage.status,'UNKNOWN');
- const legacy=spawnSync(process.execPath,[path.join(packageRoot,'scripts/skill-studio.mjs'),'evaluate',path.join(packageRoot,'skills/skill-eval')],{encoding:'utf8'});
+ const legacy=spawnSync(process.execPath,[path.join(packageRoot,'scripts/skill-studio.mjs'),'evaluate',path.join(packageRoot,'skills/studio-quality')],{encoding:'utf8'});
  assert.equal(legacy.status,0,legacy.stderr);assert.equal(JSON.parse(legacy.stdout).valid,true);
 });
 test('a local package skill may use package policy but cannot escape its package',async()=>{

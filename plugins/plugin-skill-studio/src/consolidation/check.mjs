@@ -58,7 +58,8 @@ export async function seedMatrix(sources,{repoRoot}={}){
   for(const rel of await sourceFiles(source,repoRoot)){
    const text=(await fs.readFile(path.join(root,rel),'utf8')).replaceAll('\r\n','\n');
    const at=line=>`${source.id}/${rel}${line?':'+line:''}`;
-   const skillKey=rel.includes('/')?path.posix.basename(path.posix.dirname(rel)):path.basename(root);
+   const owner=path.posix.dirname(rel.replace(/(^|\/)agents\/openai\.yaml$/,'$1SKILL.md'));
+   const skillKey=owner==='.'?path.basename(root):path.posix.basename(owner);
    const add=(id,src,kind,t)=>entries.push({id,source:src,kind,text:t,target:null,status:'unmapped'});
    if(path.posix.basename(rel)==='SKILL.md'){
     const key=path.posix.dirname(rel)==='.'?path.basename(root):path.posix.basename(path.posix.dirname(rel));

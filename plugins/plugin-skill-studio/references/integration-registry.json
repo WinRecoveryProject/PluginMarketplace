@@ -464,7 +464,7 @@
       "skills": [
         {
           "sourceSkill": "hosted behavior",
-          "implementation": "skills/evidence-matrix/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/services*.test.mjs"
         }
@@ -668,7 +668,7 @@
         {
           "sourceSkill": "skillquiver-doctor",
           "sourceFile": "skills/skillquiver-doctor/SKILL.md",
-          "implementation": "skills/skillquiver-doctor/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -761,14 +761,14 @@
         {
           "sourceSkill": "skill-craft-review",
           "sourceFile": "skills/skill-craft-review/SKILL.md",
-          "implementation": "skills/skill-review/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "skill-walkthrough",
           "sourceFile": "skills/skill-walkthrough/SKILL.md",
-          "implementation": "skills/skill-walkthrough/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/integration.test.mjs"
         }
@@ -1094,35 +1094,35 @@
         {
           "sourceSkill": "evaluate-plugin",
           "sourceFile": "skills/evaluate-plugin/SKILL.md",
-          "implementation": "skills/plugin-eval/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         },
         {
           "sourceSkill": "evaluate-skill",
           "sourceFile": "skills/evaluate-skill/SKILL.md",
-          "implementation": "skills/skill-eval/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         },
         {
           "sourceSkill": "improve-skill",
           "sourceFile": "skills/improve-skill/SKILL.md",
-          "implementation": "skills/improve-skill/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         },
         {
           "sourceSkill": "metric-pack-designer",
           "sourceFile": "skills/metric-pack-designer/SKILL.md",
-          "implementation": "skills/metric-pack/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         },
         {
           "sourceSkill": "plugin-eval",
           "sourceFile": "skills/plugin-eval/SKILL.md",
-          "implementation": "skills/plugin-eval/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         }
@@ -1785,12 +1785,22 @@
       "description": "Route engineering, AI/ML, cognitive, or productivity tasks to the narrowest effective specialist skill. Use when a task spans planning, implementation, debugging, review, architecture, research, setup, AI modeling, data remediation, or autonomous goals, when the user asks what to do next, or when unsure which workflow fits — even if they don't explicitly name a skill. Do NOT use when the specific specialist skill is already obvious and unambiguous."
     },
     {
-      "id": "evidence-matrix",
-      "entrypoint": "skills/evidence-matrix/SKILL.md",
+      "id": "studio-quality",
+      "entrypoint": "skills/studio-quality/SKILL.md",
       "sourceIds": [
-        "studio"
+        "studio",
+        "skillquiver"
       ],
-      "description": "Use when arranging explicitly supplied evidence by skill and source with an explicit snapshot date."
+      "modes": [
+        "eval",
+        "metric-pack",
+        "review",
+        "walkthrough",
+        "evidence",
+        "improve",
+        "doctor"
+      ],
+      "description": "Evaluate, review, explain, benchmark and improve skills and plugins; doctor host skill conflicts on explicit request."
     },
     {
       "id": "execute-durably",
@@ -1921,14 +1931,6 @@
       "description": "Survey codebases for shallow modules, weak seams, and deepening opportunities, producing a visual report. Use when conducting architectural reviews, identifying design debt, finding deepening opportunities, or preparing codebase refactors — even if the user says \\\"analyze our architecture\\\". Do NOT use for basic syntax linting or formatting."
     },
     {
-      "id": "improve-skill",
-      "entrypoint": "skills/improve-skill/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when the user wants to improve an existing Codex skill from evaluation evidence while preserving intent, invocation policy, provenance and rollback."
-    },
-    {
       "id": "install-skill",
       "entrypoint": "skills/install-skill/SKILL.md",
       "sourceIds": [
@@ -1961,14 +1963,6 @@
       "description": "Use when inspecting local plugin identities, dependencies and installation evidence, or comparing installed releases with Git and other catalogs."
     },
     {
-      "id": "metric-pack",
-      "entrypoint": "skills/metric-pack/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when adding task-specific verifiers and metrics to a plugin or skill evaluation."
-    },
-    {
       "id": "migrate-to-shoehorn",
       "entrypoint": "skills/migrate-to-shoehorn/SKILL.md",
       "sourceIds": [
@@ -1991,14 +1985,6 @@
         "zilvereyes-plugin-autopilot"
       ],
       "description": "Use when converting an agentic repository into a ChatGPT/Codex Plugin or when building, repairing, validating, packaging, submitting, publishing, or auditing an existing Plugin."
-    },
-    {
-      "id": "plugin-eval",
-      "entrypoint": "skills/plugin-eval/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when assessing a plugin package, its skills, runtime declarations, budget or release readiness."
     },
     {
       "id": "plugin-skill-studio",
@@ -2159,38 +2145,6 @@
         "matt-skills-curated"
       ],
       "description": "Author, refine, evaluate, and package agent skills across their full lifecycle. Use when building a new skill from scratch, improving an existing skill, fixing a skill that triggers unreliably, running skill evals, benchmarking skill performance, or packaging skills for distribution — even if they don't explicitly say \\\"skill conductor\\\". Do NOT use for general software coding tasks or using pre-existing skills."
-    },
-    {
-      "id": "skill-eval",
-      "entrypoint": "skills/skill-eval/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when evaluating an agent skill, testing its triggers or behavior, comparing revisions, or explaining its budget."
-    },
-    {
-      "id": "skill-review",
-      "entrypoint": "skills/skill-review/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when a skill needs a behavior-focused technical review beyond structural validation."
-    },
-    {
-      "id": "skill-walkthrough",
-      "entrypoint": "skills/skill-walkthrough/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when explaining what a skill does, what it can touch, and how to review it."
-    },
-    {
-      "id": "skillquiver-doctor",
-      "entrypoint": "skills/skillquiver-doctor/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Audits the current ChatGPT, Claude Code, or Codex host for conflicting skills, plugins, and persistent hooks, then offers reversible per-item repairs. Use when skills duplicate, shadow, double-fire, load at the wrong time, or when the user asks to doctor or clean up Skillquiver conflicts."
     },
     {
       "id": "solve-efficiently",

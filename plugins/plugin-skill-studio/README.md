@@ -13,10 +13,10 @@ From this package root:
 ```powershell
 node scripts/studio.mjs self-check
 node scripts/studio.mjs route "Vurder denne skill"
-node scripts/studio.mjs skill-eval skills/skill-eval --format markdown
-node scripts/studio.mjs skill-eval skills/skill-eval --format html --out report.html
+node scripts/studio.mjs skill-eval skills/studio-quality --format markdown
+node scripts/studio.mjs skill-eval skills/studio-quality --format html --out report.html
 node scripts/studio.mjs plugin-eval . --format markdown
-node scripts/studio.mjs risk-scan ./skills/skill-eval --format sarif
+node scripts/studio.mjs risk-scan ./skills/studio-quality --format sarif
 node scripts/studio.mjs capabilities
 ```
 
@@ -25,8 +25,8 @@ Report output files refuse overwrite. A static eval returns 1 for blocking findi
 ## Practical Skill Eval
 
 ```powershell
-node scripts/studio.mjs benchmark-init skills/skill-eval --out benchmark.json
-node scripts/studio.mjs skill-eval skills/skill-eval --mode benchmark --config benchmark.json --out benchmark-results
+node scripts/studio.mjs benchmark-init skills/studio-quality --out benchmark.json
+node scripts/studio.mjs skill-eval skills/studio-quality --mode benchmark --config benchmark.json --out benchmark-results
 node scripts/studio.mjs compare-reports before.json after.json
 ```
 
