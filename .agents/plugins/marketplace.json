@@ -7,11 +7,7 @@
     {
       "name": "onedrive",
       "pluginId": "plugin_asdk_app_6ae8b541a3d08191ae893ea0925a2fe5",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/onedrive"
-      },
+      "source": "./plugins/onedrive",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_USE"
@@ -23,11 +19,7 @@
     },
     {
       "name": "cloudstorage-portal",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/cloudstorage-portal"
-      },
+      "source": "./plugins/cloudstorage-portal",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_USE"
@@ -39,11 +31,7 @@
     },
     {
       "name": "component-forge",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/component-forge"
-      },
+      "source": "./plugins/component-forge",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -55,11 +43,7 @@
     },
     {
       "name": "plugin-skill-studio",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/plugin-skill-studio"
-      },
+      "source": "./plugins/plugin-skill-studio",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -71,11 +55,7 @@
     },
     {
       "name": "powershell-workbench",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/powershell-workbench"
-      },
+      "source": "./plugins/powershell-workbench",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -87,11 +67,7 @@
     },
     {
       "name": "windows-dism-update-docs",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/windows-dism-update-docs"
-      },
+      "source": "./plugins/windows-dism-update-docs",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -135,11 +111,7 @@
     },
     {
       "name": "codex-coordinator",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/codex-coordinator"
-      },
+      "source": "./plugins/codex-coordinator",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -151,11 +123,7 @@
     },
     {
       "name": "codex-dev-workflows",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/codex-dev-workflows"
-      },
+      "source": "./plugins/codex-dev-workflows",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -167,11 +135,7 @@
     },
     {
       "name": "codex-engineering-guardrails",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/codex-engineering-guardrails"
-      },
+      "source": "./plugins/codex-engineering-guardrails",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -183,11 +147,7 @@
     },
     {
       "name": "codex-process-jobs",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/codex-process-jobs"
-      },
+      "source": "./plugins/codex-process-jobs",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -199,11 +159,7 @@
     },
     {
       "name": "zilvereyes-context-handoff",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/zilvereyes-context-handoff"
-      },
+      "source": "./plugins/zilvereyes-context-handoff",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -231,11 +187,7 @@
     },
     {
       "name": "vercel",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/vercel"
-      },
+      "source": "./plugins/vercel",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
@@ -474,11 +426,7 @@
     },
     {
       "name": "winrecoveryproject-linter",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/winrecoveryproject-linter"
-      },
+      "source": "./plugins/winrecoveryproject-linter",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_USE"
@@ -490,11 +438,7 @@
     },
     {
       "name": "winrecoveryproject-devsuite",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/winrecoveryproject-devsuite"
-      },
+      "source": "./plugins/winrecoveryproject-devsuite",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_USE"
@@ -506,11 +450,7 @@
     },
     {
       "name": "coderabbit",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/coderabbit"
-      },
+      "source": "./plugins/coderabbit",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_USE"
@@ -523,11 +463,7 @@
     {
       "name": "agentmemory-asus",
       "pluginId": "plugin_asdk_app_6afcbaea744c8191bf18756ef4058cf0",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/WinRecoveryProject/PluginMarketplace.git",
-        "path": "plugins/agentmemory-asus"
-      },
+      "source": "./plugins/agentmemory-asus",
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_USE"

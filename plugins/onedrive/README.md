@@ -1,6 +1,6 @@
 # OneDrive — one App connection
 
-**Desktop package version:** 1.2.1
+**Desktop package version:** 1.2.2
 **Registered OneDrive App:** https://chatgpt.com/plugins/plugin_asdk_app_6ae8b541a3d08191ae893ea0925a2fe5
 
 OneDrive combines the existing registered App, its hosted CloudStorage Portal
@@ -26,6 +26,8 @@ Never paste credentials into chat, copy tokens between routes or reinstall the
 registered App merely to test sign-in. Microsoft sign-in, broker token exchange
 and access to a OneDrive drive are separate verification stages. A successful
 Microsoft login does not prove that Graph accepted the selected drive.
+
+Version 1.2.2 verifies the linked account before file operations. If search returns no matches and the direct parent is known, the skill checks the complete parent listing for one exact item and verifies its metadata before a read or write.
 
 ## Host presentation
 

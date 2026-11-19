@@ -1,5 +1,13 @@
 # OneDrive: én appforbindelse og tydelig Entra-status
 
+## Marketplace 1.2.2
+
+OneDrive og CloudStorage Portal bruger den samme filopslagskode. Efter en tom, vellykket søgning kan opslaget finde ét eksakt match blandt alle direkte børn i en kendt mappe. Det kræver samme verificerede konto og en afsluttet mappeliste. Et nyt metadataopslag bekræfter navn, type og forældremappe før filhandlinger.
+
+Den eksisterende Personlig-App er fælles for OneDrive og Portal. En afgrænset test gennem den fælles forbindelse oprettede én prøvefil. Genlæsningen matchede 72 byte og SHA-256, og Portals installerede mappelookup fandt filens eksakte ID. Oprettelsen var en særskilt test uden overskrivning.
+
+Personlig remote er verificeret på 1.2.1. Værtens opdateringsværktøj afviste ændringen til den eksisterende App-post. Business-pakken bruger fortsat sit eget eksisterende App-ID, og den tilsvarende 1.2.2-ZIP er valideret. Business-pakkens aktivering og filadgang afventer den Business-scope, hvor posten er tilgængelig.
+
 ## Samling af forbindelsen
 
 OneDrive 1.2.0 bevarer den eksisterende registrerede OneDrive-app, logoet og to skills. CloudStorage Portal bruger fortsat samme app. Den ekstra native MCP-klient er fjernet fra pakken; den hosted MCP-server fortsætter bag appen.

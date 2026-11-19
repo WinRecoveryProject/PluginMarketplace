@@ -1,7 +1,7 @@
 {
   "sourceArchive": "OneDrive_unified_v1.1.5.zip",
   "sha256": "1e72b800989c636eb1c0ead9eb9f049a5b77962249490a5cd73e3570a3c9e163",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "canonicalMcp": "https://cloudstorage-onedrive-mcp.vercel.app/mcp",
   "appBinding": "asdk_app_6ae8b541a3d08191ae893ea0925a2fe5",
   "personalAccountAppAccess": "CONNECTED_PRIMARY_ACCOUNT_UI_VERIFIED",
@@ -14,7 +14,8 @@
     "Correct setup link, align onboarding directory/name and distinguish App/native authentication routes.",
     "Version 1.2.0: preserve the existing OneDrive App, icon and two skills; remove the duplicate standalone native MCP login route.",
     "Archive historical top-level MCP declarations under references/legacy so the native loader does not auto-discover them.",
-    "Native candidate verification: one existing App, zero extra MCP declarations, two provider/setup skills. Account and Graph acceptance remain separate live tests."
+    "Native candidate verification: one existing App, zero extra MCP declarations, two provider/setup skills. Account and Graph acceptance remain separate live tests.",
+    "Version 1.2.2 verifies linked-account selection and reuses CloudStorage Portal 0.9.13 exact-parent resolution after a successful empty search."
   ],
   "loaderEvidence": "app-only-package-test.json",
   "historicalLoaderEvidence": "ONEDRIVE-MANIFEST-LOADER-TEST-20261102.json",
@@ -26,5 +27,10 @@
     "logo": "assets/logo-512.png",
     "composer": "assets/composer-128.png",
     "origin": "Original Zilvereyes icon designed for this package in November 2026"
+  },
+  "sharedResolver": {
+    "from": "CloudStorage Portal 0.9.13",
+    "path": "skills/onedrive/scripts/resolve-onedrive-child.mjs",
+    "sha256": "dda57aed33557d1246da1dc05a31c8769de4b6c74af0521dfe4e863e5543bd0c"
   }
 }

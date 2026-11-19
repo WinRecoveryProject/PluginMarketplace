@@ -37,7 +37,7 @@ if(registry){
   for(const name of managed){
     const entry=entries.find(e=>e.name===name);
     check(Boolean(entry),`${name}: registered`);
-    check(entry?.source?.source==='git-subdir'&&entry?.source?.url===ownRepo&&entry?.source?.path===`plugins/${name}`,`${name}: installable snapshot in this repository`);
+    check(entry?.source===`./plugins/${name}`,`${name}: installed Marketplace contains this package`);
     check(entry?.policy?.installation==='AVAILABLE',`${name}: installation policy`);
     const base=join(root,'plugins',name), m=json(`plugins/${name}/.codex-plugin/plugin.json`);
     if(!m)continue;
@@ -102,6 +102,9 @@ if(registry){
         check(source.originalPluginId===`plugin_${source.sourceAppId}`&&entry.pluginId===source.originalPluginId,`${name}: canonical original App identity preserved`);
         check(/^[0-9a-f]{64}$/.test(source.sourceHash)&&source.licenseScope?.includes('wrapper'),`${name}: hashed owned wrapper provenance and license boundary`);
         check(m.mcpServers==null&&!existsSync(join(base,'.mcp.json'))&&!existsSync(join(base,'hooks/hooks.json')),`${name}: no added MCP or hooks`);
+      }else if(source.sourceKind==='owned-marketplace-source'){
+        check(name==='onedrive'&&source.repository===ownRepo&&source.sourceSubdir===`plugins/${name}`&&
+          json('plugins/onedrive/PROVENANCE.json')?.version===m.version,`${name}: canonical owned package lives in this repository`);
       }else check(/^[0-9a-f]{40}$/.test(source.commit),`${name}: immutable source commit`);
       check(source.version===m.version,`${name}: source version`);
       const actual=[];

@@ -229,6 +229,76 @@ class CaptureInventoryVersionsTest(unittest.TestCase):
                 self.assertEqual(result, {"expected": ["example@market"], "entries": []})
                 read.assert_not_called()
 
+    def test_relative_marketplace_sources_read_exact_origin_revision(self):
+        origin = "https://github.com/example/marketplace.git"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+
+            def git(*args):
+                return subprocess.check_output(
+                    ["git", "-C", str(root), "-c", "user.name=Studio fixture",
+                     "-c", "user.email=studio@example.invalid", "-c", "commit.gpgsign=false",
+                     "-c", "core.hooksPath=.disabled-fixture-hooks", *args],
+                    stderr=subprocess.PIPE,
+                ).decode().strip()
+
+            def write(path, data):
+                file = root / path
+                file.parent.mkdir(parents=True, exist_ok=True)
+                file.write_text(json.dumps(data), encoding="utf-8")
+
+            git("-c", "init.templateDir=", "init", "--quiet")
+            git("remote", "add", "origin", origin)
+            catalog = ".agents/plugins/marketplace.json"
+            manifest = "plugins/example/.codex-plugin/plugin.json"
+            write(catalog, {"name": "market", "plugins": [
+                {"name": "example", "source": "./plugins/example"},
+                {"name": "root-plugin", "source": "./"},
+                {"name": "missing", "source": "./plugins/missing"},
+            ]})
+            write(manifest, {"name": "example", "version": "2.1.0"})
+            write("plugin.json", {"name": "root-plugin", "version": "1.0.0"})
+            git("add", "--all")
+            git("commit", "--quiet", "-m", "Publish fixture manifests")
+            published = git("rev-parse", "HEAD")
+            write(manifest, {"name": "example", "version": "9.0.0"})
+            git("commit", "--quiet", "-am", "Change the local fixture")
+            git("replace", published, git("rev-parse", "HEAD"))
+            write(manifest, {"name": "example", "version": "99.0.0"})
+            write(catalog, {"name": "tampered-working-tree", "plugins": []})
+
+            with patch.object(collector, "git_head", return_value=published) as resolve, \
+                 patch.object(collector, "remote_manifest_bytes") as remote:
+                result = collector.capture_publications(root)
+            resolve.assert_called_once_with(origin)
+            remote.assert_not_called()
+            self.assertEqual(result, {
+                "expected": ["example@market", "root-plugin@market", "missing@market"],
+                "entries": [
+                    {"id": "example@market", "version": "2.1.0",
+                     "source": {"url": origin, "revision": published, "path": manifest}},
+                    {"id": "root-plugin@market", "version": "1.0.0",
+                     "source": {"url": origin, "revision": published, "path": "plugin.json"}},
+                ],
+            })
+
+    def test_invalid_relative_marketplace_sources_do_not_read_plugin_objects(self):
+        origin = "https://github.com/example/marketplace.git"
+        paths = ("", "plugins/example", "../plugins/example", "./../plugins/example",
+                 "./plugins/../example", "././plugins/example", "/plugins/example",
+                 "C:/plugins/example", r"./plugins\example", ".//plugins/example",
+                 "./plugins/example ", "https://github.com/example/plugin")
+        catalog = {"name": "market", "plugins": [
+            {"name": f"example-{n}", "source": path} for n, path in enumerate(paths)
+        ]}
+        with patch.object(collector, "command", side_effect=[origin.encode(), json.dumps(catalog).encode()]) as git, \
+             patch.object(collector, "git_head", return_value="a" * 40), \
+             patch.object(collector, "remote_manifest_bytes") as remote:
+            result = collector.capture_publications(Path("market"))
+        self.assertEqual(result, {"expected": [f"example-{n}@market" for n in range(len(paths))], "entries": []})
+        self.assertEqual(git.call_count, 2)
+        remote.assert_not_called()
+
     def test_truncated_remote_head_preserves_available_and_pinned_publications(self):
         origin = "https://github.com/example/marketplace.git"
         unreliable = "https://github.com/example/unstable.git"

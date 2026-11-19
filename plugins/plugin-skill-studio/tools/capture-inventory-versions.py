@@ -157,7 +157,8 @@ def capture_publications(root):
     if not GITHUB.fullmatch(origin):
         raise ValueError("Expected an HTTPS GitHub origin")
     revision = git_head(origin)
-    rows = json.loads(command("git", "-C", root, "show", f"{revision}:.agents/plugins/marketplace.json"))
+    committed = ("git", "--no-replace-objects", "-C", root, "cat-file", "blob")
+    rows = json.loads(command(*committed, f"{revision}:.agents/plugins/marketplace.json"))
     namespace = rows["name"]
     expected = [f'{entry["name"]}@{namespace}' for entry in rows["plugins"]]
     if not 0 < len(expected) <= 500 or len(expected) != len(set(expected)) or not all(map(IDENTITY.fullmatch, expected)):
@@ -175,6 +176,11 @@ def capture_publications(root):
         identity, row = entry
         try:
             source = row["source"]
+            if isinstance(source, str):
+                if source != source.strip() or not (source == "." or source.startswith("./")):
+                    return None
+                source = {"source": "url", "url": origin, "sha": revision,
+                          "path": None if source in (".", "./") else source}
             url = source["url"]
             repository = GITHUB.fullmatch(url)
             source_type = source.get("source")
@@ -212,7 +218,7 @@ def capture_publications(root):
                 name = f"{location}/{filename}" if location else filename
                 try:
                     if read_local:
-                        raw = command("git", "-C", root, "show", f"{sha}:{name}")
+                        raw = command(*committed, f"{sha}:{name}")
                     else:
                         owner, repo = repository.groups()
                         raw = remote_manifest_bytes(owner, repo, sha, name)

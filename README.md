@@ -33,10 +33,10 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 
 | Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
-| OneDrive | `1.2.1` | `codex plugin add onedrive@winrecoveryproject-digital` |
+| OneDrive | `1.2.2` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.9.13` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.3` | `codex plugin add component-forge@winrecoveryproject-digital` |
-| Plugin-Skill-Studio | `0.3.29` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
+| Plugin-Skill-Studio | `0.3.30` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.6` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.4` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.33` | `codex plugin add codex-security@winrecoveryproject-digital` |
@@ -76,13 +76,15 @@ Game Development Studio følger udviklerens frigivne 1.4.0. Praktisk brug kræve
 
 Den historiske leverandøroversigt fra 16. november dækker **56 produkter**: 32 Marketplace-poster, 15 originale kataloglinks og 9 værtsbundne produkter. [Se samlingen](docs/full-plugin-list-check-20261116.md) og [de daværende 52 installationer](docs/installed-plugins-and-suppliers-20261116.md). Opgørelsen fra 17. november var 61 CLI-registreringer og 7 yderligere personlige remote-identiteter. [Se den historiske kontrol og forklaringerne](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
 
-Studio 0.3.29 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0329).
+Studio 0.3.30 kan genkøre sammenligningen med [modparternes katalog-ID'er](docs/catalog-counterparts.json). Brug filen som `--counterparts` i Studios versionskontrol. [Sådan læses de to udgivelseskanaler](docs/external-plugin-sources.md#seneste-versionsfund-med-studio-0329).
 
 Kør `node scripts/check-documented-versions.mjs <rapport.json>` med en frisk Studio-rapport efter en udgivelse. Kontrollen sammenligner alle rækker med de observerede Git-manifester og melder manglende eller forældede versionsangivelser.
 
 Plugin Autopilot 0.8.0, Context Handoff 0.3.7 og Skillquiver 2.2.0 hentes fra roden af deres respektive Git-kilder på fastlåste commits. De to første matcher udgivelserne med samme version. Skillquiver 2.2.0 er en kildeversion efter udgivelsestagget 2.1.0.
 
 Codex Advisor 1.4.11 kommer fra udgiverens tag og kræver Codex, Python, jq og en POSIX-shell til konsultationer. [Udgiverens version](https://github.com/dave-schmidt-dev/advisor/tree/v1.4.11)
+
+De 16 pakker, der ligger i dette repository, indlæses via relative stier i det installerede Marketplace. Codex kan derfor genbruge katalogets download til hver af de pakker. Eksterne pakker bevarer deres originale Git-kilder og fastlåste revisioner.
 
 ## Claude Desktop og Claude Code
 
