@@ -103,7 +103,32 @@ def paginated(query, method, normalizer, identity, extra, *, max_pages=MAX_PAGES
     return observation(rows, "PAGE_LIMIT")
 
 
+def skill_catalog(query, cwd):
+    marketplaces = []
+    try:
+        # An unscoped lookup loads curated skills into this app-server session.
+        # Force-refetch would refresh plugin caches instead of reading the catalog.
+        result = query("plugin/list", {"cwds": [cwd]})
+        sources = result["marketplaces"]
+        errors = result["marketplaceLoadErrors"]
+        if not isinstance(sources, list) or not isinstance(errors, list):
+            raise ValueError("Invalid native marketplace inventory")
+        marketplaces = sorted({text(source["name"]) for source in sources})
+        issue = None
+        if errors:
+            issue = "MARKETPLACE_LOAD_ERRORS"
+        elif "openai-curated-remote" not in marketplaces:
+            issue = "CURATED_MARKETPLACE_MISSING"
+    except (Empty, TimeoutError):
+        issue = "NATIVE_TIMEOUT"
+    except REQUEST_FAILURES:
+        issue = "NATIVE_REQUEST_OR_RESPONSE_FAILED"
+    return {"status": "OBSERVED" if issue is None else "INCOMPLETE",
+            "issue": issue, "marketplaces": marketplaces}
+
+
 def skills(query, cwd):
+    catalog = skill_catalog(query, cwd)
     rows = {}
     try:
         result = query("skills/list", {"cwds": [cwd], "forceReload": True})["data"]
@@ -118,11 +143,14 @@ def skills(query, cwd):
         for value in members:
             row = skill(value)
             keep_distinct(rows, (row["pluginId"], os.path.normcase(os.path.normpath(row["path"]))), row)
-        return observation(rows, "SKILL_DISCOVERY_ERRORS" if errors else None)
+        issue = "SKILL_DISCOVERY_ERRORS" if errors else None
+        if issue is None and catalog["status"] == "INCOMPLETE":
+            issue = "SKILL_CATALOG_INCOMPLETE"
     except (Empty, TimeoutError):
-        return observation(rows, "NATIVE_TIMEOUT")
+        issue = "NATIVE_TIMEOUT"
     except REQUEST_FAILURES:
-        return observation(rows, "NATIVE_REQUEST_OR_RESPONSE_FAILED")
+        issue = "NATIVE_REQUEST_OR_RESPONSE_FAILED"
+    return {**observation(rows, issue), "catalog": catalog}
 
 
 def capture_components(send, cwd, timeout_seconds=145):

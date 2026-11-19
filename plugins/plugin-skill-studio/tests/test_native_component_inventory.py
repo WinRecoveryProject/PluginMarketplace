@@ -12,6 +12,8 @@ class ComponentInventoryTests(unittest.TestCase):
 
     def responses(self):
         return {
+            "plugin/list": [{"marketplaces": [{"name": "openai-curated-remote"}],
+                             "marketplaceLoadErrors": []}],
             "app/list": [
                 {"data": [{"id": "app_one", "name": "Shared Name", "isEnabled": True,
                            "isAccessible": True, "logoUrl": "private-example"}], "nextCursor": "page-two"},
@@ -48,10 +50,12 @@ class ComponentInventoryTests(unittest.TestCase):
 
     def test_observes_exact_identities_without_unneeded_raw_fields(self):
         result, calls = self.run_capture(self.responses())
-        self.assertEqual([call[2].get("cursor") for call in calls[2:]], [None, "page-two"])
-        self.assertEqual([call[2]["forceRefetch"] for call in calls[2:]], [True, False])
-        self.assertEqual(calls[1][2], {"detail": "toolsAndAuthOnly", "limit": 100})
-        self.assertEqual(len({call[1] for call in calls}), 4)
+        self.assertEqual((calls[0][0], calls[0][2]), ("plugin/list", {"cwds": [self.cwd]}))
+        self.assertEqual((calls[1][0], calls[1][2]), ("skills/list", {"cwds": [self.cwd], "forceReload": True}))
+        self.assertEqual([call[2].get("cursor") for call in calls[3:]], [None, "page-two"])
+        self.assertEqual([call[2]["forceRefetch"] for call in calls[3:]], [True, False])
+        self.assertEqual(calls[2][2], {"detail": "toolsAndAuthOnly", "limit": 100})
+        self.assertEqual(len({call[1] for call in calls}), 5)
         self.assertTrue(all(group["status"] == "OBSERVED" and len(group["items"]) == 2
                             for group in result.values()))
         self.assertEqual([row["id"] for row in result["apps"]["items"]], ["app_one", "app_two"])
@@ -69,6 +73,29 @@ class ComponentInventoryTests(unittest.TestCase):
         self.assertEqual([row["id"] for row in result["apps"]["items"]], ["app_one"])
         self.assertEqual(result["mcpServers"]["status"], "OBSERVED")
         self.assertNotIn("private-example", str(result))
+
+    def test_incomplete_catalog_keeps_skill_evidence_and_other_components(self):
+        cases = [
+            ({"marketplaces": [], "marketplaceLoadErrors": []}, "CURATED_MARKETPLACE_MISSING"),
+            ({"marketplaces": [{"name": "openai-curated-remote"}],
+              "marketplaceLoadErrors": ["private-example"]}, "MARKETPLACE_LOAD_ERRORS"),
+            ({"marketplaces": {}}, "NATIVE_REQUEST_OR_RESPONSE_FAILED"),
+            (TimeoutError("private-example"), "NATIVE_TIMEOUT"),
+        ]
+        for catalog_response, issue in cases:
+            with self.subTest(issue=issue):
+                responses = self.responses()
+                responses["plugin/list"] = [catalog_response]
+                result, _ = self.run_capture(responses)
+                skills = result["skills"]
+                self.assertEqual(skills["status"], "INCOMPLETE")
+                self.assertEqual(skills["issue"], "SKILL_CATALOG_INCOMPLETE")
+                self.assertEqual(skills["catalog"]["status"], "INCOMPLETE")
+                self.assertEqual(skills["catalog"]["issue"], issue)
+                self.assertEqual(len(skills["items"]), 2)
+                self.assertEqual(result["apps"]["status"], "OBSERVED")
+                self.assertEqual(result["mcpServers"]["status"], "OBSERVED")
+                self.assertNotIn("private-example", str(result))
 
     def test_wrong_skill_workspace_and_cursor_loop_are_incomplete(self):
         responses = self.responses()
