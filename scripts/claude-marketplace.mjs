@@ -13,6 +13,12 @@ const portablePackages = [
   'codex-engineering-guardrails',
   'coderabbit',
 ];
+// Codex manifest descriptions that name Codex are reworded for the Claude catalog.
+const claudeDescriptions = {
+  'codex-dev-workflows': 'Reusable software-development workflows and platform guidance for coding agents.',
+  'codex-engineering-guardrails': 'Skills-only bundle for scoped software implementation and independent code verification.',
+  'coderabbit': 'AI-powered code review, powered by CodeRabbit.',
+};
 const publisherPackages = [
   {
     name: 'vercel-plugin',
@@ -74,7 +80,7 @@ function pluginEntry(name) {
       !/^\.\/skills\/?$/.test(manifest.skills) || !existsSync(new URL('skills/', folder))) {
     throw new Error(`${name} is missing its canonical skill or version metadata.`);
   }
-  return { name, version: manifest.version, description: manifest.description, source, strict: false };
+  return { name, version: manifest.version, description: claudeDescriptions[name] ?? manifest.description, source, strict: false };
 }
 
 function standaloneEntry(name) {
