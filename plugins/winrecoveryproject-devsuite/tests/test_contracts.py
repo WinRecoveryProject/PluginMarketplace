@@ -39,12 +39,12 @@ class ContractTests(unittest.TestCase):
             content = skill.read_text(encoding="utf-8")
             self.assertIn("../../references/policy.md", content)
             self.assertNotRegex(content, r"(?:load|install|invoke) (?:the )?(?:old|source) (?:plugin|skill)")
-        self.assertIn("UNAVAILABLE", (ROOT / "skills/devsuite-quality/SKILL.md").read_text(encoding="utf-8"))
+        self.assertIn("UNAVAILABLE", (ROOT / "skills/devsuite-review/modes/gate.md").read_text(encoding="utf-8"))
 
     def test_native_manifest_apps_and_no_duplicate_runtime(self):
         manifest = json.loads((ROOT / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["name"], "winrecoveryproject-devsuite")
-        self.assertEqual(manifest["version"], "0.2.7")
+        self.assertEqual(manifest["version"], "0.3.0")
         self.assertEqual(manifest["interface"]["developerName"], "Zilvereyes")
         self.assertLessEqual(len(manifest["interface"]["shortDescription"]), 30)
         self.assertLessEqual(len(manifest["interface"]["defaultPrompt"]), 3)
@@ -85,7 +85,7 @@ class ContractTests(unittest.TestCase):
         cases = {"deep security scan": "devsuite-security-assess", "review this patch risk": "devsuite-review",
                  "fix a vulnerability": "devsuite-security-fix", "diagnose a bug": "devsuite-debug",
                  "plan architecture": "devsuite-planning", "implement the feature": "devsuite-implement",
-                 "test user journeys": "devsuite-test", "run MegaLinter": "devsuite-quality",
+                 "test user journeys": "devsuite-test", "run MegaLinter": "devsuite-review",
                  "inspect Docker networking": "devsuite-environment", "resume interrupted work": "devsuite-handoff"}
         for prompt, owner in cases.items():
             self.assertEqual(cli.route(prompt)["skill"], owner)

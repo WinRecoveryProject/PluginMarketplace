@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.2.7",
+  "version": "0.3.0",
   "coverageStatement": "39 source skills map to 214 function-level rows. Jobs/Tasks add independent integration workflows and local planning/selection tests. Provider execution remains separate.",
   "capabilities": [
     {
@@ -1444,7 +1444,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-security/assess-patch-risk/2",
@@ -1462,7 +1463,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-security/assess-patch-risk/3",
@@ -1480,7 +1482,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-security/assess-patch-risk/4",
@@ -1498,7 +1501,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-security/assess-patch-risk/5",
@@ -1516,7 +1520,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-coordinator/codex-coordinator/1",
@@ -2673,7 +2678,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "code"
     },
     {
       "id": "codex-dev-workflows/code-review/2",
@@ -2692,7 +2698,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "code"
     },
     {
       "id": "codex-dev-workflows/code-review/3",
@@ -2711,7 +2718,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "code"
     },
     {
       "id": "codex-dev-workflows/code-review/4",
@@ -2730,7 +2738,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "code"
     },
     {
       "id": "codex-dev-workflows/code-review/5",
@@ -2749,7 +2758,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "code"
     },
     {
       "id": "codex-dev-workflows/pre-release-review/1",
@@ -2768,7 +2778,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-dev-workflows/pre-release-review/2",
@@ -2787,7 +2798,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-dev-workflows/pre-release-review/3",
@@ -2806,7 +2818,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-dev-workflows/pre-release-review/4",
@@ -2825,7 +2838,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-dev-workflows/pre-release-review/5",
@@ -2844,7 +2858,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "release"
     },
     {
       "id": "codex-dev-workflows/resume-interrupted-task/1",
@@ -3277,160 +3292,168 @@
       "source": "codex-engineering-guardrails",
       "originalSkill": "code-verification",
       "function": "independent specification and quality verdicts",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned merged workflow",
       "runtime": [],
       "externalProvider": null,
       "references": [
         "references/engineering-decisions.md",
         "references/verification-matrix.md",
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "gate"
     },
     {
       "id": "codex-engineering-guardrails/code-verification/2",
       "source": "codex-engineering-guardrails",
       "originalSkill": "code-verification",
       "function": "test quality/tautology/mocking inspection",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned merged workflow",
       "runtime": [],
       "externalProvider": null,
       "references": [
         "references/engineering-decisions.md",
         "references/verification-matrix.md",
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "gate"
     },
     {
       "id": "codex-engineering-guardrails/code-verification/3",
       "source": "codex-engineering-guardrails",
       "originalSkill": "code-verification",
       "function": "correctness/security/performance/operability review",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned merged workflow",
       "runtime": [],
       "externalProvider": null,
       "references": [
         "references/engineering-decisions.md",
         "references/verification-matrix.md",
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "gate"
     },
     {
       "id": "codex-engineering-guardrails/code-verification/4",
       "source": "codex-engineering-guardrails",
       "originalSkill": "code-verification",
       "function": "proportionate executable check selection",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned merged workflow",
       "runtime": [],
       "externalProvider": null,
       "references": [
         "references/engineering-decisions.md",
         "references/verification-matrix.md",
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "gate"
     },
     {
       "id": "codex-engineering-guardrails/code-verification/5",
       "source": "codex-engineering-guardrails",
       "originalSkill": "code-verification",
       "function": "independent parallel review and contention control",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned merged workflow",
       "runtime": [],
       "externalProvider": null,
       "references": [
         "references/engineering-decisions.md",
         "references/verification-matrix.md",
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "gate"
     },
     {
       "id": "codex-engineering-guardrails/code-verification/6",
       "source": "codex-engineering-guardrails",
       "originalSkill": "code-verification",
       "function": "fresh evidence and classified failures",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned merged workflow",
       "runtime": [],
       "externalProvider": null,
       "references": [
         "references/engineering-decisions.md",
         "references/verification-matrix.md",
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "gate"
     },
     {
       "id": "codex-engineering-guardrails/code-verification/7",
       "source": "codex-engineering-guardrails",
       "originalSkill": "code-verification",
       "function": "PASS PARTIAL FAIL INCONCLUSIVE verdicts",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned merged workflow",
       "runtime": [],
       "externalProvider": null,
       "references": [
         "references/engineering-decisions.md",
         "references/verification-matrix.md",
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "gate"
     },
     {
       "id": "codex-engineering-guardrails/code-verification/8",
       "source": "codex-engineering-guardrails",
       "originalSkill": "code-verification",
       "function": "severity/confidence/actionable finding evidence",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned merged workflow",
       "runtime": [],
       "externalProvider": null,
       "references": [
         "references/engineering-decisions.md",
         "references/verification-matrix.md",
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "gate"
     },
     {
       "id": "cloud-environment/runtime/1",
@@ -3959,72 +3982,76 @@
       "source": "devsuite-original",
       "originalSkill": "quality-integration",
       "function": "existing optional Linter/MegaLinter reuse",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned workflow + existing external provider",
       "runtime": [],
       "externalProvider": "existing project runner or CI",
       "references": [
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "executable local behavior",
-      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "mode": "gate"
     },
     {
       "id": "devsuite-original/quality-integration/2",
       "source": "devsuite-original",
       "originalSkill": "quality-integration",
       "function": "no runner download or extra auth",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned workflow + existing external provider",
       "runtime": [],
       "externalProvider": "existing project runner or CI",
       "references": [
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "executable local behavior",
-      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "mode": "gate"
     },
     {
       "id": "devsuite-original/quality-integration/3",
       "source": "devsuite-original",
       "originalSkill": "quality-integration",
       "function": "missing layer not PASS",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned workflow + existing external provider",
       "runtime": [],
       "externalProvider": "existing project runner or CI",
       "references": [
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "executable local behavior",
-      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "mode": "gate"
     },
     {
       "id": "devsuite-original/quality-integration/4",
       "source": "devsuite-original",
       "originalSkill": "quality-integration",
       "function": "fresh requirement-to-evidence gate",
-      "owner": "devsuite-quality",
+      "owner": "devsuite-review",
       "implementation": "owned workflow + existing external provider",
       "runtime": [],
       "externalProvider": "existing project runner or CI",
       "references": [
-        "skills/devsuite-quality/SKILL.md"
+        "skills/devsuite-review/modes/gate.md"
       ],
       "tests": [
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "executable local behavior",
-      "availability": "conditional actual host tool/access; UNAVAILABLE if absent"
+      "availability": "conditional actual host tool/access; UNAVAILABLE if absent",
+      "mode": "gate"
     },
     {
       "id": "devsuite-original/local-evidence/1",
@@ -4246,6 +4273,126 @@
       "evidenceType": "local route/selection behavior; lifecycle/provider execution separately verified",
       "availability": "conditional actual host tools, platform and access; planning is not execution",
       "verificationLimit": "Tests cover selection/planning; no claim of remote launch, CPJ cancellation or automatic completion delivery"
+    },
+    {
+      "id": "plugin-skill-studio/code-review/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "code-review",
+      "function": "two-axis standards and spec review of a fixed-point diff",
+      "owner": "devsuite-review",
+      "mode": "code",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-review)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-review/modes/code.md",
+        "references/consolidation/review-matrix.json"
+      ],
+      "tests": [
+        "tests/test_review_consolidation.py::test_review_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/requesting-code-review/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "requesting-code-review",
+      "function": "bounded read-only reviewer dispatch with preserved findings",
+      "owner": "devsuite-review",
+      "mode": "request",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-review)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-review/modes/request.md",
+        "references/consolidation/review-matrix.json"
+      ],
+      "tests": [
+        "tests/test_review_consolidation.py::test_review_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/receiving-code-review/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "receiving-code-review",
+      "function": "evidence-checked reception of review feedback and pushback",
+      "owner": "devsuite-review",
+      "mode": "receive",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-review)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-review/modes/receive.md",
+        "references/consolidation/review-matrix.json"
+      ],
+      "tests": [
+        "tests/test_review_consolidation.py::test_review_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/review-decision/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "review-decision",
+      "function": "minimal, targeted or deep human-review decision with cited lines",
+      "owner": "devsuite-review",
+      "mode": "decide",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-review)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-review/modes/decide.md",
+        "references/consolidation/review-matrix.json"
+      ],
+      "tests": [
+        "tests/test_review_consolidation.py::test_review_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/verification-before-completion/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "verification-before-completion",
+      "function": "fresh verification output before any completion claim",
+      "owner": "devsuite-review",
+      "mode": "verify",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-review)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-review/modes/verify.md",
+        "references/consolidation/review-matrix.json"
+      ],
+      "tests": [
+        "tests/test_review_consolidation.py::test_review_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/verify-work/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "verify-work",
+      "function": "independent audit of a delivery or completion claim",
+      "owner": "devsuite-review",
+      "mode": "verify",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-review)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-review/modes/verify.md",
+        "references/consolidation/review-matrix.json"
+      ],
+      "tests": [
+        "tests/test_review_consolidation.py::test_review_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
     }
   ]
 }

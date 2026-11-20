@@ -1,0 +1,11 @@
+{
+  "id": "studio.review-decision",
+  "root": "skills/review-decision",
+  "commit": "9594376",
+  "files": {
+    "SKILL.md": "c112e5db6a4f7b0abfc619ef92b2b454459b9053b0cc95d186281d5dc81b6b42",
+    "agents/openai.yaml": "744ba467e450a3db1a7715e672908eb7d577f77204ca744bb54a8b59f7f0bdcc",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}

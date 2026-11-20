@@ -14,7 +14,7 @@ CLI = ROOT / "scripts/devsuite.py"
 class PracticalRegressionTests(unittest.TestCase):
     def test_danish_routes(self):
         for request, expected in [
-            ("Kør lintkontrol af projektet", "devsuite-quality"),
+            ("Kør lintkontrol af projektet", "devsuite-review"),
             ("Gennemgå ændringerne for fejl", "devsuite-review"),
             ("Test læsning og skrivning", "devsuite-test"),
         ]:

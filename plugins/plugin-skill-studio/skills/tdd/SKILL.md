@@ -37,7 +37,7 @@ Implement robust, maintainable functionality through disciplined red â†’ green â
 | **Public Seams** | Identify module boundaries and observable behaviors | `codebase-design` |
 | **Test Examples** | Concrete patterns for unit and integration assertions | `tests.md` |
 | **Mocking Guidelines** | Safe boundary isolation rules without over-mocking | `mocking.md` |
-| **Review & Refactor** | Clean code review after reaching green | `code-review` |
+| **Review & Refactor** | Clean code review after reaching green | `studio-review` (code mode) |
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: studio-quality
-description: "Use when evaluating, auditing, reviewing, explaining, benchmarking or improving an agent skill or plugin: static and benchmark evals, why it scored that way, what to fix first, token budget and real usage, trigger tests, comparing revisions, custom metric packs, behavior reviews, walkthroughs, evidence matrices, autoresearch keep/discard improvement loops, or doctoring conflicting skills, plugins and hooks on the host. Do NOT use for creating, importing, installing, packaging or publishing plugins and skills; use studio-build."
+description: "Use when evaluating, auditing, reviewing, explaining, benchmarking or improving an agent skill or plugin: static and benchmark evals, why it scored that way, what to fix first, token budget and real usage, trigger tests, comparing revisions, custom metric packs, deterministic risk scans, behavior reviews, walkthroughs, evidence matrices, autoresearch keep/discard improvement loops, or doctoring conflicting skills, plugins and hooks on the host. Do NOT use for creating, importing, installing, packaging or publishing plugins and skills; use studio-build."
 ---
 
 # Studio Quality
@@ -15,6 +15,7 @@ Read [Studio policy](../../references/studio-policy.md) first. Pick one mode, re
 | <a id="mode-walkthrough"></a>walkthrough | Explain what a skill does, what it can touch and how to review it | [modes/walkthrough.md](modes/walkthrough.md) |
 | <a id="mode-evidence"></a>evidence | Arrange explicitly supplied evidence by skill and source with a snapshot date | [modes/evidence.md](modes/evidence.md) |
 | <a id="mode-improve"></a>improve | Improve an existing skill from evaluation evidence, a rewrite brief, or an autoresearch keep/discard loop with locked benchmark tasks | [modes/improve.md](modes/improve.md) |
+| <a id="mode-risk"></a>risk | Deterministic risk scan of a skill or plugin: secrets, malicious patterns, Dockerfiles, with exact suppressions and SARIF output | [modes/risk.md](modes/risk.md) |
 | <a id="mode-doctor"></a>doctor | Audit the current host for duplicate, shadowing or double-firing skills, plugins and persistent hooks, with reversible per-item repairs. Only on the user's explicit request | [modes/doctor.md](modes/doctor.md) |
 
 Rules shared by every mode:

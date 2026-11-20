@@ -1,0 +1,8 @@
+interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
+  display_name: "Studio Review"
+  short_description: "Review code, request and receive reviews, verify claims"
+  default_prompt: "Gather proportionate evidence for this change."
+policy:
+  allow_implicit_invocation: true

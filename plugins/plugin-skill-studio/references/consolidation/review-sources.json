@@ -1,0 +1,30 @@
+[
+  {
+    "id": "studio.code-review",
+    "snapshot": "references/consolidation/snapshots/sources/studio.code-review.json"
+  },
+  {
+    "id": "studio.requesting-code-review",
+    "snapshot": "references/consolidation/snapshots/sources/studio.requesting-code-review.json"
+  },
+  {
+    "id": "studio.receiving-code-review",
+    "snapshot": "references/consolidation/snapshots/sources/studio.receiving-code-review.json"
+  },
+  {
+    "id": "studio.review-decision",
+    "snapshot": "references/consolidation/snapshots/sources/studio.review-decision.json"
+  },
+  {
+    "id": "studio.verification-before-completion",
+    "snapshot": "references/consolidation/snapshots/sources/studio.verification-before-completion.json"
+  },
+  {
+    "id": "studio.verify-work",
+    "snapshot": "references/consolidation/snapshots/sources/studio.verify-work.json"
+  },
+  {
+    "id": "studio.risk-review",
+    "snapshot": "references/consolidation/snapshots/sources/studio.risk-review.json"
+  }
+]

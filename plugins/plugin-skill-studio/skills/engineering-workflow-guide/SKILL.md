@@ -37,7 +37,7 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
     ▼                      ▼                      ▼
 [ Discovery & Plan ]   [ Code & Architecture ]   [ AI, ML & Automation ]
 - `grill-with-docs`    - `implement`             - `ai-engineering`
-- `to-spec`            - `code-review`           - `ai-data-remediation`
+- `to-spec`            - `studio-review` (code mode)           - `ai-data-remediation`
 - `to-tickets`         - `diagnosing-bugs`       - `ml-best-practices`
 - `wayfinder`          - `domain-modeling`       - `j-space`
 - `prototype`          - `setup-ts-deep-modules` - `goal`
@@ -60,7 +60,7 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
 |---|---|
 | **Fuzzy Greenfield Feature** | `grill-with-docs` $\rightarrow$ `to-spec` $\rightarrow$ `to-tickets` $\rightarrow$ `implement` |
 | **Hard Bug or Regression** | `diagnosing-bugs` $\rightarrow$ `tdd` |
-| **Pull Request Review** | `code-review` (Two-axis: Standards & Spec) |
+| **Pull Request Review** | `studio-review` (code mode) (Two-axis: Standards & Spec) |
 | **Deep Module Restructuring** | `improve-codebase-architecture` $\rightarrow$ `setup-ts-deep-modules` |
 | **Large Multi-Session Map** | `wayfinder` $\rightarrow$ `to-spec` $\rightarrow$ `to-tickets` |
 | **Deep Multi-Step Reasoning** | `j-space` (Cognitive registers & seam audits) |

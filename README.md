@@ -36,7 +36,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | OneDrive | `1.2.2` | `codex plugin add onedrive@winrecoveryproject-digital` |
 | CloudStorage Portal | `0.9.14` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.3` | `codex plugin add component-forge@winrecoveryproject-digital` |
-| Plugin-Skill-Studio | `0.4.0` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
+| Plugin-Skill-Studio | `0.5.0` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.6` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.4` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.33` | `codex plugin add codex-security@winrecoveryproject-digital` |
@@ -47,7 +47,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Process Jobs | `0.5.3-wrp.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.5+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
 | WinRecoveryProjectLinter | `0.1.6` | `codex plugin add winrecoveryproject-linter@winrecoveryproject-digital` |
-| WinRecoveryProject DevSuite | `0.2.7` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
+| WinRecoveryProject DevSuite | `0.3.0` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
 | Vercel | `0.56.0-wrp.1` | `codex plugin add vercel@winrecoveryproject-digital` |
@@ -91,7 +91,7 @@ Claude Desktop og Claude Code kan bruge samme GitHub-repository. Claude-kataloge
 
 Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
 
-WinRecoveryProject DevSuite 0.2.7 tilbyder syv lokale arbejdsgange og en startguide i Claude. Installér via `claude plugin install winrecoveryproject-devsuite@winrecoveryproject-digital`. Codex-forbundne arbejdsgange bruger fortsat deres eksisterende plugin og App-forbindelser. [Kilde og testvejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/claude)
+WinRecoveryProject DevSuite 0.3.0 tilbyder seks lokale arbejdsgange og en startguide i Claude; `devsuite-review` samler kodegennemgang, verifikation og kvalitetskontrol. Installér via `claude plugin install winrecoveryproject-devsuite@winrecoveryproject-digital`. Codex-forbundne arbejdsgange bruger fortsat deres eksisterende plugin og App-forbindelser. [Kilde og testvejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/claude)
 
 Zilvereyes Context Handoff bruger samme Python 3-hjælper i begge kataloger. Claude-skillen opretter og kontrollerer en lokal Markdown-pakke til overdragelse af en opgave. Installér via `claude plugin install zilvereyes-context-handoff@winrecoveryproject-digital`. Codex-versionen håndterer sine eksisterende hooks og chats. [Claude-pakken](./claude-plugins/zilvereyes-context-handoff)
 
