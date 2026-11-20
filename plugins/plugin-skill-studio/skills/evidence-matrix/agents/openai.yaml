@@ -1,6 +1,0 @@
-interface:
-  icon_small: "./assets/wrp-icon-128.png"
-  icon_large: "./assets/wrp-icon-256.png"
-  display_name: "Skills Evidence Matrix"
-  short_description: "Use when arranging explicitly supplied evidence by skill and source with an exp"
-  default_prompt: "Use $evidence-matrix for this task."

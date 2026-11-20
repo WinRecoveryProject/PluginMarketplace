@@ -1,7 +1,0 @@
-interface:
-  icon_small: "./assets/wrp-icon-128.png"
-  icon_large: "./assets/wrp-icon-256.png"
-  display_name: "Plugin Portfolio"
-  short_description: "Map plugin and skill sources"
-  brand_color: "#635BFF"
-  default_prompt: "Use $portfolio to classify these plugin and skill sources without deleting or merging unknown items."

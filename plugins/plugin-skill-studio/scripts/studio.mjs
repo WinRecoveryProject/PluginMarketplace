@@ -64,6 +64,24 @@ export async function main(args=process.argv.slice(2)) {
       const engine=await import('../src/eval/index.mjs');
       result=engine.compareReports(await json(required(target,'before report')),await json(required(more[0],'after report'))); break;
     }
+    case 'consolidation-seed': {
+      const engine=await import('../src/consolidation/check.mjs');
+      result=await engine.seedMatrix(await json(required(target,'sources JSON')),{repoRoot:path.resolve(opts['repo-root']??'.')}); break;
+    }
+    case 'consolidation-check': {
+      const engine=await import('../src/consolidation/check.mjs');
+      result=await engine.checkMatrix(await json(required(target,'matrix JSON')),{repoRoot:path.resolve(opts['repo-root']??'.')});
+      if(!result.ok)process.exitCode=1; break;
+    }
+    case 'autoresearch-start': case 'autoresearch-judge': case 'autoresearch-report': {
+      const engine=await import('../src/eval/autoresearch.mjs');
+      try {
+        if(command==='autoresearch-start') result=await engine.startRun(required(target,'skill root'),{configPath:opts.config,runsRoot:opts['runs-root']});
+        else if(command==='autoresearch-judge') { result=await engine.judgeExperiment(required(target,'run directory'),{description:typeof opts.description==='string'?opts.description:''}); process.exitCode={KEEP:0,DISCARD:3,UNKNOWN:2}[result.verdict]; }
+        else result=await engine.reportRun(required(target,'run directory'));
+      } catch(error) { result={ok:false,error:error.message}; process.exitCode=1; }
+      break;
+    }
     case 'risk-scan': {
       const service=await import('../src/services/index.mjs');
       result=await service.scanRisk(required(target,'target'),{suppressions:opts.suppressions?await json(opts.suppressions):undefined});
@@ -136,7 +154,7 @@ export async function main(args=process.argv.slice(2)) {
     case 'release-advance': {
       const engine=await import('../src/conversion/index.mjs'); result=engine.advanceRelease(await json(required(target,'checkpoint')),await json(required(more[0],'event'))); break;
     }
-    default: throw new Error('Commands: capabilities, route, self-check, skill-eval, plugin-eval, benchmark-init, compare-reports, risk-scan, evidence-matrix, catalog-snapshot, catalog-search, catalog-compare, local-inventory, inventory-reconcile, inventory-versions, resolve-installed, import-preview, import-apply, gpt-import, release-checkpoint, release-advance, desktop-windows, desktop-scope, desktop-inspect, desktop-activate, desktop-capture, desktop-click, desktop-scroll. Legacy commands remain in plugin-studio.mjs and skill-studio.mjs.');
+    default: throw new Error('Commands: capabilities, route, self-check, skill-eval, plugin-eval, benchmark-init, compare-reports, consolidation-seed, consolidation-check, autoresearch-start, autoresearch-judge, autoresearch-report, risk-scan, evidence-matrix, catalog-snapshot, catalog-search, catalog-compare, local-inventory, inventory-reconcile, inventory-versions, resolve-installed, import-preview, import-apply, gpt-import, release-checkpoint, release-advance, desktop-windows, desktop-scope, desktop-inspect, desktop-activate, desktop-capture, desktop-click, desktop-scroll. Legacy commands remain in plugin-studio.mjs and skill-studio.mjs.');
   }
   const output=rendered??JSON.stringify(result,null,2);
   // --out is a directory for mutating workflows and benchmarks; only reports use a file path.

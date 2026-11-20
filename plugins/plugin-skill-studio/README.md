@@ -1,10 +1,14 @@
 # Plugin-Skill-Studio
 
-Version **0.3.33**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
+Version **0.4.0**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
 
 All required skills, scripts, policies and references are bundled. Node 20+ and Python 3.10+ are host runtimes, not companion plugins. Optional Windows desktop commands use the already installed Windows PowerShell 5.1 and .NET components. No npm/pip install, npx, external plugin, App binding or MCP server is required. Model benchmarks use the user's existing Codex CLI and login; host terminal/browser capabilities are required for corresponding operations. Direct public lookups are explicit and bounded. No telemetry is added.
 
 Windows desktop capture, inspection and guarded mouse operations are integrated in the existing `automate-ui` workflow. Read [the local Desktop guide](references/windows-desktop.md). This is an alternative local backend; OpenAI's native Computer Use binary and existing App/OAuth connections are unchanged.
+
+## Skills in 0.4.0
+
+Two skills cover the whole lifecycle. `studio-build` creates, updates, imports, installs, converts, releases and manages plugins and skills. `studio-quality` evaluates, reviews, explains, benchmarks and improves them, and doctors host conflicts on explicit request. Each skill reads only the mode file it needs. [CHANGELOG.md](CHANGELOG.md) maps every removed skill name to its new skill and mode.
 
 ## Start
 
@@ -13,10 +17,10 @@ From this package root:
 ```powershell
 node scripts/studio.mjs self-check
 node scripts/studio.mjs route "Vurder denne skill"
-node scripts/studio.mjs skill-eval skills/skill-eval --format markdown
-node scripts/studio.mjs skill-eval skills/skill-eval --format html --out report.html
+node scripts/studio.mjs skill-eval skills/studio-quality --format markdown
+node scripts/studio.mjs skill-eval skills/studio-quality --format html --out report.html
 node scripts/studio.mjs plugin-eval . --format markdown
-node scripts/studio.mjs risk-scan ./skills/skill-eval --format sarif
+node scripts/studio.mjs risk-scan ./skills/studio-quality --format sarif
 node scripts/studio.mjs capabilities
 ```
 
@@ -25,8 +29,8 @@ Report output files refuse overwrite. A static eval returns 1 for blocking findi
 ## Practical Skill Eval
 
 ```powershell
-node scripts/studio.mjs benchmark-init skills/skill-eval --out benchmark.json
-node scripts/studio.mjs skill-eval skills/skill-eval --mode benchmark --config benchmark.json --out benchmark-results
+node scripts/studio.mjs benchmark-init skills/studio-quality --out benchmark.json
+node scripts/studio.mjs skill-eval skills/studio-quality --mode benchmark --config benchmark.json --out benchmark-results
 node scripts/studio.mjs compare-reports before.json after.json
 ```
 
@@ -67,7 +71,7 @@ GPT import accepts user-supplied text/configuration and previously authorized vi
 
 ## Creation, packaging and release
 
-The compatible commands `scripts/plugin-studio.mjs` and `scripts/skill-studio.mjs` remain available. Autopilot's local analyzer, validator and packager live under `skills/plugin-autopilot/scripts/`. `python -B tools/package.py --out <new-output-directory>` builds two byte-identical ZIPs, validates a fresh extraction and writes SHA256SUMS and a verification receipt. Development tests/fixtures are excluded from the runtime ZIP.
+The compatible commands `scripts/plugin-studio.mjs` and `scripts/skill-studio.mjs` remain available. Autopilot's local analyzer, validator and packager live under `skills/studio-build/scripts/`. `python -B tools/package.py --out <new-output-directory>` builds two byte-identical ZIPs, validates a fresh extraction and writes SHA256SUMS and a verification receipt. Development tests/fixtures are excluded from the runtime ZIP.
 
 `release-checkpoint <input.json>` and `release-advance <checkpoint.json> <event.json>` record bounded, identity-checked release observations. They do not perform remote publication. Authorized browser operations use actual native host capabilities, never companion plugins. Prepared, uploaded, scanned, submitted and published are separate states; published requires observed evidence and a directory URL.
 

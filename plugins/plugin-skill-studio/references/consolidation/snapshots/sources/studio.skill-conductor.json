@@ -1,0 +1,11 @@
+{
+  "id": "studio.skill-conductor",
+  "root": "plugins/plugin-skill-studio/skills/skill-conductor",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "27d9e8a3f9b8a29daca4eef0afa11a88b988f007e4373f76ef697187e86bbb53",
+    "agents/openai.yaml": "d8924089055e1376ea2c5c5392754382f37f09e78af79c7ab8a646dd6019dd55",
+    "assets/wrp-icon-128.png": "a14c490f829d16e813e4872eebdbad94fc16f1773abe46cc787452291534bf43",
+    "assets/wrp-icon-256.png": "bf2dfd29a0ec54ca23b3a6a5616d969e1b6b1c6d907bf88aa41ebf55daa4ece3"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "plugin-skill-studio",
-  "version": "0.3.33",
+  "version": "0.4.0",
   "sources": [
     {
       "id": "matt-skills-curated",
@@ -338,7 +338,7 @@
         {
           "sourceSkill": "skill-conductor",
           "sourceFile": "skills/skill-conductor/SKILL.md",
-          "implementation": "skills/skill-conductor/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -464,7 +464,7 @@
       "skills": [
         {
           "sourceSkill": "hosted behavior",
-          "implementation": "skills/evidence-matrix/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/services*.test.mjs"
         }
@@ -668,7 +668,7 @@
         {
           "sourceSkill": "skillquiver-doctor",
           "sourceFile": "skills/skillquiver-doctor/SKILL.md",
-          "implementation": "skills/skillquiver-doctor/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -761,14 +761,14 @@
         {
           "sourceSkill": "skill-craft-review",
           "sourceFile": "skills/skill-craft-review/SKILL.md",
-          "implementation": "skills/skill-review/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "skill-walkthrough",
           "sourceFile": "skills/skill-walkthrough/SKILL.md",
-          "implementation": "skills/skill-walkthrough/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/integration.test.mjs"
         }
@@ -872,84 +872,84 @@
         {
           "sourceSkill": "compliance-and-final-submission",
           "sourceFile": "skills/compliance-and-final-submission/SKILL.md",
-          "implementation": "skills/release-workflow/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "dashboard-upload-and-remediation",
           "sourceFile": "skills/dashboard-upload-and-remediation/SKILL.md",
-          "implementation": "skills/release-workflow/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "error-diagnosis-and-fixing",
           "sourceFile": "skills/error-diagnosis-and-fixing/SKILL.md",
-          "implementation": "skills/release-workflow/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "gpts-to-plugin",
           "sourceFile": "skills/gpts-to-plugin/SKILL.md",
-          "implementation": "skills/import-gpt/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "instruction-preservation-and-improvement",
           "sourceFile": "skills/instruction-preservation-and-improvement/SKILL.md",
-          "implementation": "skills/import-gpt/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "multi-skill-architecture",
           "sourceFile": "skills/multi-skill-architecture/SKILL.md",
-          "implementation": "skills/import-gpt/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "plugin-manifest-and-metadata",
           "sourceFile": "skills/plugin-manifest-and-metadata/SKILL.md",
-          "implementation": "skills/create-plugin/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "reliable-dashboard-recovery",
           "sourceFile": "skills/reliable-dashboard-recovery/SKILL.md",
-          "implementation": "skills/release-workflow/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "source-and-browser-extraction",
           "sourceFile": "skills/source-and-browser-extraction/SKILL.md",
-          "implementation": "skills/import-gpt/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "submission-json-and-review",
           "sourceFile": "skills/submission-json-and-review/SKILL.md",
-          "implementation": "skills/release-workflow/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "submission-preflight",
           "sourceFile": "skills/submission-preflight/SKILL.md",
-          "implementation": "skills/release-workflow/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "validation-and-packaging",
           "sourceFile": "skills/validation-and-packaging/SKILL.md",
-          "implementation": "skills/release-workflow/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         }
@@ -980,7 +980,7 @@
         {
           "sourceSkill": "universal-plugin-installer",
           "sourceFile": "skills/universal-plugin-installer/SKILL.md",
-          "implementation": "skills/import-plugins/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         }
@@ -1003,7 +1003,7 @@
       "skills": [
         {
           "sourceSkill": "hosted behavior",
-          "implementation": "skills/catalog/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/services*.test.mjs"
         }
@@ -1015,7 +1015,7 @@
       "sourcePath": "plugin-eval/0.1.2",
       "role": "preserved reference",
       "license": "MIT declared; full notice absent",
-      "integration": "independent",
+      "integration": "vendored",
       "files": {
         ".codex-plugin/plugin.json": "72b434478d5008496d17d43b9b847121f47145f71177540ab47893b1559c5aed",
         ".gitignore": "d28a5e1bf2e39e6bde3c828b13dc4ca8bb156a570592b65e0e08521ef54b1b8c",
@@ -1094,40 +1094,52 @@
         {
           "sourceSkill": "evaluate-plugin",
           "sourceFile": "skills/evaluate-plugin/SKILL.md",
-          "implementation": "skills/plugin-eval/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         },
         {
           "sourceSkill": "evaluate-skill",
           "sourceFile": "skills/evaluate-skill/SKILL.md",
-          "implementation": "skills/skill-eval/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         },
         {
           "sourceSkill": "improve-skill",
           "sourceFile": "skills/improve-skill/SKILL.md",
-          "implementation": "skills/improve-skill/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         },
         {
           "sourceSkill": "metric-pack-designer",
           "sourceFile": "skills/metric-pack-designer/SKILL.md",
-          "implementation": "skills/metric-pack/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         },
         {
           "sourceSkill": "plugin-eval",
           "sourceFile": "skills/plugin-eval/SKILL.md",
-          "implementation": "skills/plugin-eval/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/eval*.test.mjs"
         }
       ],
-      "version": "0.1.2"
+      "version": "0.1.2",
+      "vendoredPaths": {
+        "engine": "src/eval/plugin-eval/",
+        "cli": "scripts/plugin-eval.js",
+        "references": "references/plugin-eval/",
+        "fixtures": "fixtures/plugin-eval/",
+        "tests": "tests/plugin-eval.test.mjs"
+      },
+      "localChanges": [
+        "tests: repoRoot via fileURLToPath (Windows C:\\C:\\ path bug)",
+        "evaluators/python.js, evaluators/typescript.js: normalize path separators in test-file detection",
+        "tests: fake-codex CLI benchmark test skipped on win32 (POSIX sh fixture)"
+      ]
     },
     {
       "id": "plugin-creator-plus",
@@ -1152,7 +1164,7 @@
         {
           "sourceSkill": "plugin-creator-plus",
           "sourceFile": "skills/plugin-creator-plus/SKILL.md",
-          "implementation": "skills/release-workflow/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         }
@@ -1195,21 +1207,21 @@
         {
           "sourceSkill": "create-plugin",
           "sourceFile": "skills/create-plugin/SKILL.md",
-          "implementation": "skills/create-plugin/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "prepare-plugin-submission",
           "sourceFile": "skills/prepare-plugin-submission/SKILL.md",
-          "implementation": "skills/release-workflow/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         },
         {
           "sourceSkill": "update-plugin",
           "sourceFile": "skills/update-plugin/SKILL.md",
-          "implementation": "skills/update-plugin/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/conversion*.test.mjs"
         }
@@ -1252,7 +1264,7 @@
         {
           "sourceSkill": "find-skills",
           "sourceFile": "SKILL.md",
-          "implementation": "skills/catalog/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/services*.test.mjs"
         }
@@ -1387,7 +1399,7 @@
         {
           "sourceSkill": "zilvereyes-plugin-autopilot",
           "sourceFile": "skills/zilvereyes-plugin-autopilot/SKILL.md",
-          "implementation": "skills/plugin-autopilot/SKILL.md",
+          "implementation": "skills/studio-build/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -1625,6 +1637,27 @@
           "acceptanceTest": "tests/integration.test.mjs"
         }
       ]
+    },
+    {
+      "id": "auto-research",
+      "sourcePath": "gyoz-ai/auto-research/1.0.0",
+      "version": "1.0.0",
+      "repository": "https://github.com/gyoz-ai/auto-research",
+      "role": "preserved reference",
+      "license": "MIT",
+      "integration": "adapt",
+      "files": {
+        "skills/auto-research/SKILL.md": "0dddaf58d24ee601ada20450865acb7212c701cc64a11675a6cb6a4e992f1130"
+      },
+      "skills": [
+        {
+          "sourceSkill": "auto-research",
+          "sourceFile": "skills/auto-research/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
+          "mode": "adapted: improve mode autoresearch loop; code judge replaces self-scoring, no subagents, web opt-in",
+          "acceptanceTest": "tests/autoresearch.test.mjs"
+        }
+      ]
     }
   ],
   "capabilities": [
@@ -1669,12 +1702,26 @@
       "description": "Use when a ChatGPT/Codex Plugin needs a production-ready visual identity and SVG logo system that clearly expresses the Plugin's job across light and dark surfaces."
     },
     {
-      "id": "catalog",
-      "entrypoint": "skills/catalog/SKILL.md",
+      "id": "studio-build",
+      "entrypoint": "skills/studio-build/SKILL.md",
       "sourceIds": [
-        "studio"
+        "studio",
+        "zilvereyes-plugin-autopilot",
+        "matt-skills-curated"
       ],
-      "description": "Use when finding local skills or analyzing public directory snapshots, listing coverage and observed changes."
+      "modes": [
+        "create-plugin",
+        "create-skill",
+        "update",
+        "import",
+        "install",
+        "autopilot",
+        "release",
+        "portfolio",
+        "catalog",
+        "lifecycle"
+      ],
+      "description": "Create, update, import, install, convert, package, release and manage plugins and skills, including the full skill authoring lifecycle."
     },
     {
       "id": "code-review",
@@ -1699,22 +1746,6 @@
         "skillquiver"
       ],
       "description": "Controls report length while preserving evidence and explains external sources without overstating them. Use when a user requests concise handoffs, set verbosity, or plain-language explanations of dense material."
-    },
-    {
-      "id": "create-plugin",
-      "entrypoint": "skills/create-plugin/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when the user wants a new local or marketplace plugin candidate built from selected sources with provenance, compatibility and no-overwrite guarantees."
-    },
-    {
-      "id": "create-skill",
-      "entrypoint": "skills/create-skill/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when the user wants to create or update a Codex skill with scoped instructions, progressive disclosure, validation and no overwrite of upstream or installed sources."
     },
     {
       "id": "design-ui",
@@ -1773,12 +1804,22 @@
       "description": "Route engineering, AI/ML, cognitive, or productivity tasks to the narrowest effective specialist skill. Use when a task spans planning, implementation, debugging, review, architecture, research, setup, AI modeling, data remediation, or autonomous goals, when the user asks what to do next, or when unsure which workflow fits — even if they don't explicitly name a skill. Do NOT use when the specific specialist skill is already obvious and unambiguous."
     },
     {
-      "id": "evidence-matrix",
-      "entrypoint": "skills/evidence-matrix/SKILL.md",
+      "id": "studio-quality",
+      "entrypoint": "skills/studio-quality/SKILL.md",
       "sourceIds": [
-        "studio"
+        "studio",
+        "skillquiver"
       ],
-      "description": "Use when arranging explicitly supplied evidence by skill and source with an explicit snapshot date."
+      "modes": [
+        "eval",
+        "metric-pack",
+        "review",
+        "walkthrough",
+        "evidence",
+        "improve",
+        "doctor"
+      ],
+      "description": "Evaluate, review, explain, benchmark and improve skills and plugins; doctor host skill conflicts on explicit request."
     },
     {
       "id": "execute-durably",
@@ -1885,44 +1926,12 @@
       "description": "Execute a full specification across task tickets using isolated subagent branches into a unified PR. Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated worktrees, and the goal is a complete pull request on a single branch — even if the user says \\\"build the whole spec\\\". Do NOT use for single isolated bug fixes or exploratory coding without tickets."
     },
     {
-      "id": "import-gpt",
-      "entrypoint": "skills/import-gpt/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when converting user-supplied GPT instructions or an authorized export into a local plugin candidate."
-    },
-    {
-      "id": "import-plugins",
-      "entrypoint": "skills/import-plugins/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when adapting a selected folder of local skills or plugins into independent candidate packages."
-    },
-    {
       "id": "improve-codebase-architecture",
       "entrypoint": "skills/improve-codebase-architecture/SKILL.md",
       "sourceIds": [
         "matt-skills-curated"
       ],
       "description": "Survey codebases for shallow modules, weak seams, and deepening opportunities, producing a visual report. Use when conducting architectural reviews, identifying design debt, finding deepening opportunities, or preparing codebase refactors — even if the user says \\\"analyze our architecture\\\". Do NOT use for basic syntax linting or formatting."
-    },
-    {
-      "id": "improve-skill",
-      "entrypoint": "skills/improve-skill/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when the user wants to improve an existing Codex skill from evaluation evidence while preserving intent, invocation policy, provenance and rollback."
-    },
-    {
-      "id": "install-skill",
-      "entrypoint": "skills/install-skill/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when the user wants to inventory, preview or install a Codex skill from a local directory or GitHub URL with validation, hashes, receipts and no overwrite."
     },
     {
       "id": "j-space",
@@ -1949,14 +1958,6 @@
       "description": "Use when inspecting local plugin identities, dependencies and installation evidence, or comparing installed releases with Git and other catalogs."
     },
     {
-      "id": "metric-pack",
-      "entrypoint": "skills/metric-pack/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when adding task-specific verifiers and metrics to a plugin or skill evaluation."
-    },
-    {
       "id": "migrate-to-shoehorn",
       "entrypoint": "skills/migrate-to-shoehorn/SKILL.md",
       "sourceIds": [
@@ -1971,38 +1972,6 @@
         "matt-skills-curated"
       ],
       "description": "Statistical machine learning best practices, exploratory data analysis, feature engineering, and rigorous model evaluation. Use when analyzing tabular datasets, engineering features, training classifiers or regressors, forecasting time series, or computing 95% bootstrap confidence intervals — even if they don't explicitly say \\\"ml best practices\\\". Do NOT use for standard database queries without ML, basic spreadsheet formatting, or general application backend logic."
-    },
-    {
-      "id": "plugin-autopilot",
-      "entrypoint": "skills/plugin-autopilot/SKILL.md",
-      "sourceIds": [
-        "zilvereyes-plugin-autopilot"
-      ],
-      "description": "Use when converting an agentic repository into a ChatGPT/Codex Plugin or when building, repairing, validating, packaging, submitting, publishing, or auditing an existing Plugin."
-    },
-    {
-      "id": "plugin-eval",
-      "entrypoint": "skills/plugin-eval/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when assessing a plugin package, its skills, runtime declarations, budget or release readiness."
-    },
-    {
-      "id": "plugin-skill-studio",
-      "entrypoint": "skills/plugin-skill-studio/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when building, discovering, reviewing, importing or managing plugins and skills with the self-contained Studio."
-    },
-    {
-      "id": "portfolio",
-      "entrypoint": "skills/portfolio/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when the user wants to inspect a directory of plugins and skills, maintain the complete worklist, distinguish duplicates from references, or choose the next candidate."
     },
     {
       "id": "prototype",
@@ -2035,14 +2004,6 @@
         "skillquiver"
       ],
       "description": "Refactors working or legacy code without changing observable behavior, using characterization tests when needed. Use when code is messy, nested, duplicated, or uncovered."
-    },
-    {
-      "id": "release-workflow",
-      "entrypoint": "skills/release-workflow/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when preparing, packaging or resuming a plugin release with evidence and bounded retries."
     },
     {
       "id": "repo-discovery",
@@ -2141,46 +2102,6 @@
       "description": "Enforce TypeScript package boundaries, entry points, and cyclic dependency rules with dependency-cruiser. Use when structuring monorepo packages, establishing public API entry points, or preventing circular imports — even if the user says \\\"fix TS package boundaries\\\". Do NOT use for non-TypeScript repositories."
     },
     {
-      "id": "skill-conductor",
-      "entrypoint": "skills/skill-conductor/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Author, refine, evaluate, and package agent skills across their full lifecycle. Use when building a new skill from scratch, improving an existing skill, fixing a skill that triggers unreliably, running skill evals, benchmarking skill performance, or packaging skills for distribution — even if they don't explicitly say \\\"skill conductor\\\". Do NOT use for general software coding tasks or using pre-existing skills."
-    },
-    {
-      "id": "skill-eval",
-      "entrypoint": "skills/skill-eval/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when evaluating an agent skill, testing its triggers or behavior, comparing revisions, or explaining its budget."
-    },
-    {
-      "id": "skill-review",
-      "entrypoint": "skills/skill-review/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when a skill needs a behavior-focused technical review beyond structural validation."
-    },
-    {
-      "id": "skill-walkthrough",
-      "entrypoint": "skills/skill-walkthrough/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when explaining what a skill does, what it can touch, and how to review it."
-    },
-    {
-      "id": "skillquiver-doctor",
-      "entrypoint": "skills/skillquiver-doctor/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Audits the current ChatGPT, Claude Code, or Codex host for conflicting skills, plugins, and persistent hooks, then offers reversible per-item repairs. Use when skills duplicate, shadow, double-fire, load at the wrong time, or when the user asks to doctor or clean up Skillquiver conflicts."
-    },
-    {
       "id": "solve-efficiently",
       "entrypoint": "skills/solve-efficiently/SKILL.md",
       "sourceIds": [
@@ -2259,14 +2180,6 @@
         "matt-skills-curated"
       ],
       "description": "Classify, verify, and prepare external bug reports and feature requests into agent-ready briefs. Use when processing incoming issues, validating bug reproductions, rejecting out-of-scope requests, or structuring contributor tickets — even if the user says \\\"triage these issues\\\". Do NOT use for internal tickets already produced by to-tickets."
-    },
-    {
-      "id": "update-plugin",
-      "entrypoint": "skills/update-plugin/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when the user wants to inspect or update an owned local or Git-managed plugin while preserving identity, App/MCP bindings, provenance and release boundaries."
     },
     {
       "id": "using-git-worktrees",
