@@ -59,29 +59,29 @@ Keep a review-only request at review until the user asks for a draft or edit. Le
 Use the sections that help a reviewer decide what is and is not a finding:
 
 ```markdown
-### Security Policy
+# Security Policy
 
-#### System and Scope
+## System and Scope
 
 <system purpose, deployment and exposure, covered components, owners>
 
-#### Threat Model and Trust Boundaries
+## Threat Model and Trust Boundaries
 
 <assets, trusted actors, attacker-controlled inputs, important boundaries and assumptions>
 
-#### Security Invariants
+## Security Invariants
 
 <controls and properties that must hold>
 
-#### Reportable Findings and Severity Context
+## Reportable Findings and Severity Context
 
 <what is reportable here, realistic impact and reachability, product-specific severity context>
 
-#### Out of Scope, Exclusions, and Accepted Risk
+## Out of Scope, Exclusions, and Accepted Risk
 
 <owner-confirmed exclusions and why they are not reportable>
 
-#### Known Limitations and Compensating Controls
+## Known Limitations and Compensating Controls
 
 <known gaps, dependencies, and controls relevant to assessment>
 ```

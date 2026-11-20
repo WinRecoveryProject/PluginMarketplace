@@ -160,20 +160,20 @@ async function getData() {
 #### CLI Cache Commands
 
 ```bash
-### Purge all cached data
+# Purge all cached data
 vercel cache purge                    # CDN + Runtime + Data cache
 vercel cache purge --type cdn         # CDN only
 vercel cache purge --type data        # Runtime + Data cache
 vercel cache purge --yes              # skip confirmation
 
-### Invalidate by tag (stale-while-revalidate)
+# Invalidate by tag (stale-while-revalidate)
 vercel cache invalidate --tag blog-posts,user-profiles
 
-### Hard delete by tag (blocks until revalidated)
+# Hard delete by tag (blocks until revalidated)
 vercel cache dangerously-delete --tag blog-posts
 vercel cache dangerously-delete --tag blog-posts --revalidation-deadline-seconds 3600
 
-### Image invalidation
+# Image invalidation
 vercel cache invalidate --srcimg /images/hero.jpg
 ```
 

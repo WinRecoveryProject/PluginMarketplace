@@ -40,7 +40,7 @@ If the user's work is request-driven, prefer Functions or Queues push mode. Reac
 Add a `Dockerfile` in the worker's source directory:
 
 ```docker
-### worker/Dockerfile
+# worker/Dockerfile
 FROM node:24-slim
 WORKDIR /app
 COPY package.json package-lock.json ./
@@ -136,7 +136,7 @@ void main();
 ```
 
 ```python
-### worker/worker.py
+# worker/worker.py
 import signal
 from threading import Event
 

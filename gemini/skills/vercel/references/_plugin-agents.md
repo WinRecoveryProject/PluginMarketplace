@@ -657,13 +657,13 @@ Domain issues?
 
 <!-- Sourced from deployments-cicd skill: Promote & Rollback -->
 ```bash
-### Promote a preview deployment to production
+# Promote a preview deployment to production
 vercel promote <deployment-url-or-id>
 
-### Rollback to the previous production deployment
+# Rollback to the previous production deployment
 vercel rollback
 
-### Rollback to a specific deployment
+# Rollback to a specific deployment
 vercel rollback <deployment-url-or-id>
 ```
 
@@ -741,7 +741,7 @@ jobs:
 ##### Preview Deployments on PRs
 
 ```yaml
-### GitHub Actions
+# GitHub Actions
 on:
   pull_request:
     types: [opened, synchronize]
@@ -1124,13 +1124,13 @@ Choosing a rendering strategy?
 Built-in bundle analyzer that works with Turbopack (available since Next.js 16.1):
 
 ```bash
-### Analyze and serve results in browser
+# Analyze and serve results in browser
 next experimental-analyze --serve
 
-### Analyze with custom port
+# Analyze with custom port
 next experimental-analyze --serve --port 4001
 
-### Write analysis to .next/diagnostics/analyze (no server)
+# Write analysis to .next/diagnostics/analyze (no server)
 next experimental-analyze
 ```
 

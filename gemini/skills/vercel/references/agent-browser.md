@@ -31,7 +31,7 @@ agent-browser snapshot -i
 When a dev server starts, use agent-browser to verify it's working:
 
 ```bash
-### After starting a dev server (next dev, vite, etc.)
+# After starting a dev server (next dev, vite, etc.)
 agent-browser open http://localhost:3000
 agent-browser wait --load networkidle
 agent-browser screenshot dev-check.png
@@ -49,16 +49,16 @@ agent-browser open http://localhost:3000 && agent-browser wait --load networkidl
 #### Essential Commands
 
 ```bash
-### Navigation
+# Navigation
 agent-browser open <url>              # Navigate (aliases: goto, navigate)
 agent-browser close                   # Close browser
 
-### Snapshot
+# Snapshot
 agent-browser snapshot -i             # Interactive elements with refs
 agent-browser snapshot -i -C          # Include cursor-interactive elements
 agent-browser snapshot -s "#selector" # Scope to CSS selector
 
-### Interaction (use @refs from snapshot)
+# Interaction (use @refs from snapshot)
 agent-browser click @e1               # Click element
 agent-browser fill @e2 "text"         # Clear and type text
 agent-browser type @e2 "text"         # Type without clearing
@@ -67,24 +67,24 @@ agent-browser check @e1               # Check checkbox
 agent-browser press Enter             # Press key
 agent-browser scroll down 500         # Scroll page
 
-### Get information
+# Get information
 agent-browser get text @e1            # Get element text
 agent-browser get url                 # Get current URL
 agent-browser get title               # Get page title
 
-### Wait
+# Wait
 agent-browser wait @e1                # Wait for element
 agent-browser wait --load networkidle # Wait for network idle
 agent-browser wait --url "**/page"    # Wait for URL pattern
 agent-browser wait 2000               # Wait milliseconds
 
-### Capture
+# Capture
 agent-browser screenshot              # Screenshot to temp dir
 agent-browser screenshot --full       # Full page screenshot
 agent-browser screenshot --annotate   # Annotated screenshot with numbered labels
 agent-browser pdf output.pdf          # Save as PDF
 
-### Diff (compare page states)
+# Diff (compare page states)
 agent-browser diff snapshot           # Compare current vs last snapshot
 agent-browser diff screenshot --baseline before.png  # Visual pixel diff
 ```
@@ -105,7 +105,7 @@ agent-browser wait --load networkidle
 ##### Authentication with State Persistence
 
 ```bash
-### Login once and save state
+# Login once and save state
 agent-browser open http://localhost:3000/login
 agent-browser snapshot -i
 agent-browser fill @e1 "$USERNAME"
@@ -114,7 +114,7 @@ agent-browser click @e3
 agent-browser wait --url "**/dashboard"
 agent-browser state save auth.json
 
-### Reuse in future sessions
+# Reuse in future sessions
 agent-browser state load auth.json
 agent-browser open http://localhost:3000/dashboard
 ```
@@ -156,7 +156,7 @@ Use `--annotate` for screenshots with numbered labels on interactive elements:
 
 ```bash
 agent-browser screenshot --annotate
-### Output: [1] @e1 button "Submit", [2] @e2 link "Home", ...
+# Output: [1] @e1 button "Submit", [2] @e2 link "Home", ...
 agent-browser click @e2
 ```
 
@@ -171,10 +171,10 @@ agent-browser find role button click --name "Submit"
 #### JavaScript Evaluation
 
 ```bash
-### Simple expressions
+# Simple expressions
 agent-browser eval 'document.title'
 
-### Complex JS: use --stdin with heredoc
+# Complex JS: use --stdin with heredoc
 agent-browser eval --stdin <<'EVALEOF'
 JSON.stringify(
   Array.from(document.querySelectorAll("img"))

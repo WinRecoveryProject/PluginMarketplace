@@ -38,8 +38,8 @@ Tests failing (<N> failures). Must fix before completing:
 ```bash
 GIT_DIR=$(cd "$(git rev-parse --git-dir)" 2>/dev/null && pwd -P)
 GIT_COMMON=$(cd "$(git rev-parse --git-common-dir)" 2>/dev/null && pwd -P)
-### Capture now, while still inside the workspace — Step 5 changes directory
-### before cleanup (Step 6) needs this value
+# Capture now, while still inside the workspace — Step 5 changes directory
+# before cleanup (Step 6) needs this value
 WORKTREE_PATH=$(git rev-parse --show-toplevel)
 BRANCH=$(git branch --show-current)
 echo "GIT_DIR=$GIT_DIR"
@@ -102,16 +102,16 @@ is theirs.
 ##### Option 1: Merge Locally
 
 ```bash
-### Get main repo root for CWD safety
+# Get main repo root for CWD safety
 MAIN_ROOT=$(git -C "$(git rev-parse --git-common-dir)/.." rev-parse --show-toplevel)
 cd "$MAIN_ROOT"
 
-### Merge first — verify success before removing anything
+# Merge first — verify success before removing anything
 git checkout <base-branch>
 git pull
 git merge <feature-branch>
 
-### Verify tests on merged result
+# Verify tests on merged result
 <test command>
 ```
 
@@ -130,8 +130,8 @@ git branch -d <feature-branch>
 
 ```bash
 git push -u origin <feature-branch>
-### From a detached HEAD, name the new branch on the remote:
-### git push origin HEAD:refs/heads/<new-branch>
+# From a detached HEAD, name the new branch on the remote:
+# git push origin HEAD:refs/heads/<new-branch>
 ```
 
 Then create the pull/merge request against <base-branch> with the forge's

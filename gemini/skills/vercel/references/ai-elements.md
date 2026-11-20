@@ -70,13 +70,13 @@ AI Elements solves message rendering, not the whole product aesthetic. Surround 
 **Install only the components you actually use.** Do NOT run `npx ai-elements@latest` without arguments or install `all.json` — this installs 48 components, most of which you won't need, and may introduce type conflicts between unused components and your dependency versions.
 
 ```bash
-### Install specific components (RECOMMENDED)
+# Install specific components (RECOMMENDED)
 npx ai-elements@latest add message          # MessageResponse — required for any AI text
 npx ai-elements@latest add conversation     # Full chat UI container
 npx ai-elements@latest add code-block       # Syntax-highlighted code
 npx ai-elements@latest add tool             # Tool call display
 
-### Or use shadcn CLI directly with the registry URL
+# Or use shadcn CLI directly with the registry URL
 npx shadcn@latest add https://elements.ai-sdk.dev/api/registry/message.json
 npx shadcn@latest add https://elements.ai-sdk.dev/api/registry/conversation.json
 ```
@@ -223,7 +223,7 @@ import { PromptInput } from '@/components/ai-elements/prompt-input'
 Six components for building voice agents, transcription apps, and speech-powered interfaces. Integrates with AI SDK's Transcription and Speech functions.
 
 ```bash
-### Install all voice components
+# Install all voice components
 npx ai-elements@latest add persona speech-input transcription audio-player mic-selector voice-selector
 ```
 
@@ -270,7 +270,7 @@ import { VoiceSelector } from '@/components/ai-elements/voice-selector' // searc
 Thirteen components for building IDEs, coding apps, and background agents. Designed for developer tooling with streaming indicators, status tracking, and syntax highlighting.
 
 ```bash
-### Install code element components
+# Install code element components
 npx ai-elements@latest add agent code-block commit environment-variables file-tree package-info sandbox schema-display snippet stack-trace terminal test-results attachments
 ```
 

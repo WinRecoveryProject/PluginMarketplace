@@ -157,7 +157,7 @@ If verification fails, stop and report exact failing step plus remediation.
 Return a final bootstrap summary in this format:
 
 ```md
-#### Bootstrap Result
+## Bootstrap Result
 - **Linked Project**: <team>/<project>
 - **Resource Path**: vercel-integration-prisma | vercel-integration-neon | dashboard-neon | neon-cli
 - **Env Keys**: <count> required, <count> present, <count> missing

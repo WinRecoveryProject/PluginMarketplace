@@ -1,0 +1,54 @@
+# Source path index: codex-process-jobs
+
+Every file and skill folder of `plugins/codex-process-jobs` and where its content lives in this upload. When an instruction tells you to read a path such as `../../shared/x.md` or `references/y.md`, resolve it against the `Source:` or `File:` path of the text you are reading, then look the result up here (paths are relative to the plugin root).
+
+| Source path | Read in this upload |
+| --- | --- |
+| `.codex-plugin/plugin.json` | `references/_plugin-codex-plugin.md#file-codex-pluginpluginjson` |
+| `.codexignore` | `references/_plugin.md#file-codexignore` |
+| `assets/icon.png` | `references/_plugin-assets.md#not-embedded` |
+| `COPY-COMPLETE.json` | `references/_plugin.md#file-copy-completejson` |
+| `IMPORT-RECEIPT.json` | `references/_plugin.md#file-import-receiptjson` |
+| `LICENSE` | `references/_plugin.md#file-license` |
+| `plugin.json` | `references/_plugin.md#file-pluginjson` |
+| `PRIVACY.md` | `references/_plugin.md#file-privacymd` |
+| `README.md` | `references/_plugin.md#file-readmemd` |
+| `references/windows-process-execution.md` | `references/_plugin-references.md#file-referenceswindows-process-executionmd` |
+| `scripts/cli-app-server-ipc.mjs` | `references/_plugin-scripts.md#file-scriptscli-app-server-ipcmjs` |
+| `scripts/cli-entry.mjs` | `references/_plugin-scripts.md#file-scriptscli-entrymjs` |
+| `scripts/client-surface.mjs` | `references/_plugin-scripts.md#file-scriptsclient-surfacemjs` |
+| `scripts/codex-queue.mjs` | `references/_plugin-scripts.md#file-scriptscodex-queuemjs` |
+| `scripts/cpj-command.mjs` | `references/_plugin-scripts.md#file-scriptscpj-commandmjs` |
+| `scripts/desktop-ipc.mjs` | `references/_plugin-scripts.md#file-scriptsdesktop-ipcmjs` |
+| `scripts/execution.mjs` | `references/_plugin-scripts.md#file-scriptsexecutionmjs` |
+| `scripts/job.mjs` | `references/_plugin-scripts.md#file-scriptsjobmjs` |
+| `scripts/logs.mjs` | `references/_plugin-scripts.md#file-scriptslogsmjs` |
+| `scripts/logs.test.mjs` | `references/_plugin-scripts.md#file-scriptslogstestmjs` |
+| `scripts/notifier.mjs` | `references/_plugin-scripts.md#file-scriptsnotifiermjs` |
+| `scripts/plugin-identity.mjs` | `references/_plugin-scripts.md#file-scriptsplugin-identitymjs` |
+| `scripts/preferences.mjs` | `references/_plugin-scripts.md#file-scriptspreferencesmjs` |
+| `scripts/process-control.mjs` | `references/_plugin-scripts.md#file-scriptsprocess-controlmjs` |
+| `scripts/session.mjs` | `references/_plugin-scripts.md#file-scriptssessionmjs` |
+| `scripts/state.mjs` | `references/_plugin-scripts.md#file-scriptsstatemjs` |
+| `scripts/worker.mjs` | `references/_plugin-scripts.md#file-scriptsworkermjs` |
+| `SECURITY.md` | `references/_plugin.md#file-securitymd` |
+| `skills/cancel` | `references/cancel.md` |
+| `skills/cancel/agents/openai.yaml` | `references/cancel.md#file-agentsopenaiyaml` |
+| `skills/cancel/SKILL.md` | `references/cancel.md` |
+| `skills/rerun` | `references/rerun.md` |
+| `skills/rerun/agents/openai.yaml` | `references/rerun.md#file-agentsopenaiyaml` |
+| `skills/rerun/SKILL.md` | `references/rerun.md` |
+| `skills/result` | `references/result.md` |
+| `skills/result/agents/openai.yaml` | `references/result.md#file-agentsopenaiyaml` |
+| `skills/result/references/options.md` | `references/result.md#file-referencesoptionsmd` |
+| `skills/result/SKILL.md` | `references/result.md` |
+| `skills/start` | `references/start.md` |
+| `skills/start/agents/openai.yaml` | `references/start.md#file-agentsopenaiyaml` |
+| `skills/start/SKILL.md` | `references/start.md` |
+| `skills/status` | `references/status.md` |
+| `skills/status/agents/openai.yaml` | `references/status.md#file-agentsopenaiyaml` |
+| `skills/status/SKILL.md` | `references/status.md` |
+| `skills/tail` | `references/tail.md` |
+| `skills/tail/agents/openai.yaml` | `references/tail.md#file-agentsopenaiyaml` |
+| `skills/tail/SKILL.md` | `references/tail.md` |
+| `WRP-MODIFICATIONS.md` | `references/_plugin.md#file-wrp-modificationsmd` |

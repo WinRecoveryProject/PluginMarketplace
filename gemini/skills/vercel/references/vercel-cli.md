@@ -37,7 +37,7 @@ Being inside an app directory is not proof that the intended project was selecte
 npm i -g vercel
 vercel login
 vercel link              # single project
-### OR
+# OR
 vercel link --repo       # monorepo
 vercel pull
 vercel dev        # local development
@@ -665,7 +665,7 @@ printf '%s' "$VERCEL_OIDC_TOKEN" | docker login vcr.vercel.com --username oidc -
 Pushing/pulling is done with your container tool against the full image reference (there is no `vercel vcr push`). VCR creates the repository automatically on first push when the authenticated account has access to the project.
 
 ```bash
-#### zstd compression is recommended for VCR
+# zstd compression is recommended for VCR
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
   --output "type=image,name=vcr.vercel.com/team-slug/project-slug/my-repo:latest,push=true,oci-mediatypes=true,compression=zstd,compression-level=3,force-compression=true" \
@@ -708,7 +708,7 @@ If build and deploy run in **separate CI jobs**, use `--standalone` so artifacts
 
 ```bash
 vercel build --prod --standalone
-#### (upload .vercel/output/ as artifact, then in deploy job:)
+# (upload .vercel/output/ as artifact, then in deploy job:)
 vercel deploy --prebuilt --prod
 ```
 
@@ -882,7 +882,7 @@ Variables can be plain text or sensitive (encrypted, not readable after creation
 For metadata-oriented investigations, start with:
 
 ```bash
-#### Run from a linked project directory
+# Run from a linked project directory
 vercel env ls --format json
 vercel env ls production --format json
 ```
@@ -1025,31 +1025,31 @@ vercel firewall rules inspect "My Rule" --json        # JSON detail
 Four modes (mutually exclusive):
 
 ```bash
-#### AI — interactive only, blocked for agents/scripts
+# AI — interactive only, blocked for agents/scripts
 vercel firewall rules add --ai "Rate limit /api to 100 requests per minute by IP"
 
-#### Interactive wizard — interactive only
+# Interactive wizard — interactive only
 vercel firewall rules add
 
-#### Flags — works in scripts and agents
+# Flags — works in scripts and agents
 vercel firewall rules add "Block bots" \
   --condition '{"type":"user_agent","op":"sub","value":"crawler"}' \
   --action deny --yes
 
-#### JSON — full rule payload, works in scripts and agents
+# JSON — full rule payload, works in scripts and agents
 vercel firewall rules add --json '{"name":"Block bots","conditionGroup":[{"conditions":[{"type":"user_agent","op":"sub","value":"crawler"}]}],"action":{"mitigate":{"action":"deny"}}}' --yes
 ```
 
 ###### Multiple conditions (AND) and OR groups
 
 ```bash
-#### AND — multiple --condition flags in the same group
+# AND — multiple --condition flags in the same group
 vercel firewall rules add "Secure admin" \
   --condition '{"type":"path","op":"pre","value":"/admin"}' \
   --condition '{"type":"geo_country","op":"eq","neg":true,"value":"US"}' \
   --action deny --yes
 
-#### OR — use --or to start a new group
+# OR — use --or to start a new group
 vercel firewall rules add "Block methods" \
   --condition '{"type":"method","op":"eq","value":"DELETE"}' \
   --or \
@@ -1323,32 +1323,32 @@ vercel firewall discard --yes                         # throw away all draft cha
 ##### Subcommand Map
 
 ```bash
-#### Read
+# Read
 vercel flags list                 # flags in the project (alias: ls)
 vercel flags inspect <flag>       # kind, variants, what each environment serves
 vercel flags versions <flag>      # revision history (subcommands: list, diff)
 vercel flags evaluations <flag>   # evaluation metrics
 
-#### Change what an environment serves
+# Change what an environment serves
 vercel flags set <flag>           # serve one variant (all kinds)
 vercel flags enable <flag>        # boolean shortcut for true
 vercel flags disable <flag>       # boolean shortcut for false
 vercel flags use-targeting <flag> # enable targeting for an environment
 
-#### Targeting
+# Targeting
 vercel flags split <flag>         # weighted traffic split across variants
 vercel flags rollout <flag>       # staged rollout from one variant to another
 vercel flags rules <flag>         # targeting rules (subcommands: list, add, update, remove, move)
 vercel flags segments             # reusable audience segments (subcommands: list, inspect, create, update, remove)
 
-#### Lifecycle
+# Lifecycle
 vercel flags create <flag>        # new flag (alias: add)
 vercel flags update <flag>        # variant values and labels
 vercel flags archive <flag>       # required before rm
 vercel flags unarchive <flag>
 vercel flags rm <flag>            # delete an archived flag (alias of remove)
 
-#### Tooling
+# Tooling
 vercel flags sdk-keys             # SDK keys (subcommands: list, add, remove)
 vercel flags prepare              # flag definition fallbacks for builds outside Vercel
 vercel flags override             # encrypt or decrypt a vercel-flag-overrides cookie token
@@ -1450,21 +1450,21 @@ vercel ir -h                                       # integration-resource subcom
 The Marketplace organizes integrations by category. For category-shaped user intent ("monitoring", "storage", "commerce", "ai"), prefer `--category <slug>` over substring search — it returns the canonical set rather than relying on description text matching.
 
 ```bash
-#### Step 1: list valid category slugs
+# Step 1: list valid category slugs
 vercel integration categories                          # slugs + titles
 vercel integration categories --json                   # machine-readable
 
-#### Step 2: filter discover by category
+# Step 2: filter discover by category
 vercel integration discover --category storage
 vercel integration discover --category monitoring
 vercel integration discover -c ai                      # shorthand
 vercel integration discover <query> --category <slug>  # combine substring + filter
 
-#### Specific integration by name (substring across slug/name/description)
+# Specific integration by name (substring across slug/name/description)
 vercel integration discover postgres
 vercel integration discover sentry
 
-#### Full catalog (rare — usually narrow first)
+# Full catalog (rare — usually narrow first)
 vercel integration discover
 vercel integration discover --format=json
 ```
@@ -2105,9 +2105,9 @@ Vercel supports Node.js backend frameworks as first-class apps. Express and Hono
 ##### Quick Start
 
 ```bash
-#### Express
+# Express
 npm init -y && npm i express
-#### Create server.ts that exports default app
+# Create server.ts that exports default app
 vc dev       # local development
 vc deploy    # deploy
 ```
@@ -2493,17 +2493,17 @@ A routing rule without a primary action can still set response headers or apply 
 Conditions control when a routing rule matches. Use `--has` to require something is present, and `--missing` to require it is absent. Supported types are `header`, `cookie`, `query`, and `host`. Conditions are repeatable, up to 16 per rule.
 
 ```bash
-#### Existence check
+# Existence check
 --has "cookie:session"
 --missing "header:Authorization"
 
-#### Value matching
+# Value matching
 --has "header:X-API-Key:eq=my-secret"          # exact match
 --has "cookie:theme:contains=dark"              # value contains substring
 --has "header:Accept:re=application/json.*"     # regex match
 --missing "query:debug:eq=true"                 # must NOT have debug=true
 
-#### Host matching (no key, just value)
+# Host matching (no key, just value)
 --has "host:eq=example.com"
 ```
 
@@ -2520,24 +2520,24 @@ Response headers, request headers, and request query parameters can each be set,
 ###### Examples
 
 ```bash
-#### AI — describe what you want
+# AI — describe what you want
 vercel routes add --ai "Rewrite /api/* to https://backend.example.com/*"
 
-#### Interactive — guided builder with prompts
+# Interactive — guided builder with prompts
 vercel routes add
 
-#### Rewrite with path-to-regexp syntax and a request header
+# Rewrite with path-to-regexp syntax and a request header
 vercel routes add "API Proxy" \
   --src "/api/:path*" --src-syntax path-to-regexp \
   --action rewrite --dest "https://api.example.com/:path*" \
   --set-request-header "X-Forwarded-Host=myapp.com" --yes
 
-#### Redirect with status
+# Redirect with status
 vercel routes add "Legacy Redirect" \
   --src "/old-blog" --src-syntax equals \
   --action redirect --dest "/blog" --status 301 --yes
 
-#### Routing rule with conditions and a description
+# Routing rule with conditions and a description
 vercel routes add "Auth Required" \
   --src "/dashboard/:path*" --src-syntax path-to-regexp \
   --action redirect --dest "/login" --status 307 \
@@ -2548,13 +2548,13 @@ vercel routes add "Auth Required" \
 ##### Editing Routing Rules
 
 ```bash
-#### AI — describe the changes
+# AI — describe the changes
 vercel routes edit "My Route" --ai "Add CORS headers and change to 308 redirect"
 
-#### Interactive — choose which fields to modify
+# Interactive — choose which fields to modify
 vercel routes edit "My Route"
 
-#### Change specific fields
+# Change specific fields
 vercel routes edit "My Route" --dest "https://new-api.example.com/:path*" --yes
 vercel routes edit "My Route" --action redirect --dest "/new" --status 301 --yes
 vercel routes edit "My Route" --name "New Name" --yes
@@ -2736,10 +2736,10 @@ Resolution order (first match wins):
 3. **Linked project.** Run `vercel link` (or `vercel env pull`) in a folder linked to a project that has a Blob store connected, and the credentials are pulled into `.env.local` for you.
 
 ```bash
-#### Non-interactive / CI — prefer the read-write token
+# Non-interactive / CI — prefer the read-write token
 BLOB_READ_WRITE_TOKEN=vercel_blob_rw_… vercel blob list
 
-#### OIDC — store id comes from BLOB_STORE_ID, no --store-id flag needed
+# OIDC — store id comes from BLOB_STORE_ID, no --store-id flag needed
 VERCEL_OIDC_TOKEN=… BLOB_STORE_ID=store_… vercel blob list
 ```
 
@@ -2768,7 +2768,7 @@ In this mode a command never blocks on input. Anything it would otherwise prompt
 `--yes` and `--non-interactive` are **independent**: `--non-interactive` suppresses prompts but never implies consent, so the commands above still require `--yes`. `--yes` is declared per command (only the ones that confirm a mutation); `--non-interactive` is global. Read-only/idempotent commands (`list`, `get`, `list-stores`) just run — `list-stores` skips its interactive store picker rather than prompting — and `del` deletes immediately with no confirmation.
 
 ```bash
-#### Agent / CI: supply every required value as a flag, and --yes for destructive ops
+# Agent / CI: supply every required value as a flag, and --yes for destructive ops
 vercel blob create-store my-store --access private --yes   # --yes also links to the current project
 vercel blob delete-store <store-id> --yes
 vercel blob empty-store --yes
@@ -2811,7 +2811,7 @@ Being inside an app directory is not proof that the intended project was selecte
 npm i -g vercel
 vercel login
 vercel link              # single project
-#### OR
+# OR
 vercel link --repo       # monorepo
 vercel pull
 vercel dev        # local development
@@ -3333,7 +3333,7 @@ printf '%s' "$VERCEL_OIDC_TOKEN" | docker login vcr.vercel.com --username oidc -
 Pushing/pulling is done with your container tool against the full image reference (there is no `vercel vcr push`). VCR creates the repository automatically on first push when the authenticated account has access to the project.
 
 ```bash
-#### zstd compression is recommended for VCR
+# zstd compression is recommended for VCR
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
   --output "type=image,name=vcr.vercel.com/team-slug/project-slug/my-repo:latest,push=true,oci-mediatypes=true,compression=zstd,compression-level=3,force-compression=true" \
@@ -3376,7 +3376,7 @@ If build and deploy run in **separate CI jobs**, use `--standalone` so artifacts
 
 ```bash
 vercel build --prod --standalone
-#### (upload .vercel/output/ as artifact, then in deploy job:)
+# (upload .vercel/output/ as artifact, then in deploy job:)
 vercel deploy --prebuilt --prod
 ```
 
@@ -3550,7 +3550,7 @@ Variables can be plain text or sensitive (encrypted, not readable after creation
 For metadata-oriented investigations, start with:
 
 ```bash
-#### Run from a linked project directory
+# Run from a linked project directory
 vercel env ls --format json
 vercel env ls production --format json
 ```
@@ -3693,31 +3693,31 @@ vercel firewall rules inspect "My Rule" --json        # JSON detail
 Four modes (mutually exclusive):
 
 ```bash
-#### AI — interactive only, blocked for agents/scripts
+# AI — interactive only, blocked for agents/scripts
 vercel firewall rules add --ai "Rate limit /api to 100 requests per minute by IP"
 
-#### Interactive wizard — interactive only
+# Interactive wizard — interactive only
 vercel firewall rules add
 
-#### Flags — works in scripts and agents
+# Flags — works in scripts and agents
 vercel firewall rules add "Block bots" \
   --condition '{"type":"user_agent","op":"sub","value":"crawler"}' \
   --action deny --yes
 
-#### JSON — full rule payload, works in scripts and agents
+# JSON — full rule payload, works in scripts and agents
 vercel firewall rules add --json '{"name":"Block bots","conditionGroup":[{"conditions":[{"type":"user_agent","op":"sub","value":"crawler"}]}],"action":{"mitigate":{"action":"deny"}}}' --yes
 ```
 
 ###### Multiple conditions (AND) and OR groups
 
 ```bash
-#### AND — multiple --condition flags in the same group
+# AND — multiple --condition flags in the same group
 vercel firewall rules add "Secure admin" \
   --condition '{"type":"path","op":"pre","value":"/admin"}' \
   --condition '{"type":"geo_country","op":"eq","neg":true,"value":"US"}' \
   --action deny --yes
 
-#### OR — use --or to start a new group
+# OR — use --or to start a new group
 vercel firewall rules add "Block methods" \
   --condition '{"type":"method","op":"eq","value":"DELETE"}' \
   --or \
@@ -3991,32 +3991,32 @@ vercel firewall discard --yes                         # throw away all draft cha
 ##### Subcommand Map
 
 ```bash
-#### Read
+# Read
 vercel flags list                 # flags in the project (alias: ls)
 vercel flags inspect <flag>       # kind, variants, what each environment serves
 vercel flags versions <flag>      # revision history (subcommands: list, diff)
 vercel flags evaluations <flag>   # evaluation metrics
 
-#### Change what an environment serves
+# Change what an environment serves
 vercel flags set <flag>           # serve one variant (all kinds)
 vercel flags enable <flag>        # boolean shortcut for true
 vercel flags disable <flag>       # boolean shortcut for false
 vercel flags use-targeting <flag> # enable targeting for an environment
 
-#### Targeting
+# Targeting
 vercel flags split <flag>         # weighted traffic split across variants
 vercel flags rollout <flag>       # staged rollout from one variant to another
 vercel flags rules <flag>         # targeting rules (subcommands: list, add, update, remove, move)
 vercel flags segments             # reusable audience segments (subcommands: list, inspect, create, update, remove)
 
-#### Lifecycle
+# Lifecycle
 vercel flags create <flag>        # new flag (alias: add)
 vercel flags update <flag>        # variant values and labels
 vercel flags archive <flag>       # required before rm
 vercel flags unarchive <flag>
 vercel flags rm <flag>            # delete an archived flag (alias of remove)
 
-#### Tooling
+# Tooling
 vercel flags sdk-keys             # SDK keys (subcommands: list, add, remove)
 vercel flags prepare              # flag definition fallbacks for builds outside Vercel
 vercel flags override             # encrypt or decrypt a vercel-flag-overrides cookie token
@@ -4118,21 +4118,21 @@ vercel ir -h                                       # integration-resource subcom
 The Marketplace organizes integrations by category. For category-shaped user intent ("monitoring", "storage", "commerce", "ai"), prefer `--category <slug>` over substring search — it returns the canonical set rather than relying on description text matching.
 
 ```bash
-#### Step 1: list valid category slugs
+# Step 1: list valid category slugs
 vercel integration categories                          # slugs + titles
 vercel integration categories --json                   # machine-readable
 
-#### Step 2: filter discover by category
+# Step 2: filter discover by category
 vercel integration discover --category storage
 vercel integration discover --category monitoring
 vercel integration discover -c ai                      # shorthand
 vercel integration discover <query> --category <slug>  # combine substring + filter
 
-#### Specific integration by name (substring across slug/name/description)
+# Specific integration by name (substring across slug/name/description)
 vercel integration discover postgres
 vercel integration discover sentry
 
-#### Full catalog (rare — usually narrow first)
+# Full catalog (rare — usually narrow first)
 vercel integration discover
 vercel integration discover --format=json
 ```
@@ -4773,9 +4773,9 @@ Vercel supports Node.js backend frameworks as first-class apps. Express and Hono
 ##### Quick Start
 
 ```bash
-#### Express
+# Express
 npm init -y && npm i express
-#### Create server.ts that exports default app
+# Create server.ts that exports default app
 vc dev       # local development
 vc deploy    # deploy
 ```
@@ -5161,17 +5161,17 @@ A routing rule without a primary action can still set response headers or apply 
 Conditions control when a routing rule matches. Use `--has` to require something is present, and `--missing` to require it is absent. Supported types are `header`, `cookie`, `query`, and `host`. Conditions are repeatable, up to 16 per rule.
 
 ```bash
-#### Existence check
+# Existence check
 --has "cookie:session"
 --missing "header:Authorization"
 
-#### Value matching
+# Value matching
 --has "header:X-API-Key:eq=my-secret"          # exact match
 --has "cookie:theme:contains=dark"              # value contains substring
 --has "header:Accept:re=application/json.*"     # regex match
 --missing "query:debug:eq=true"                 # must NOT have debug=true
 
-#### Host matching (no key, just value)
+# Host matching (no key, just value)
 --has "host:eq=example.com"
 ```
 
@@ -5188,24 +5188,24 @@ Response headers, request headers, and request query parameters can each be set,
 ###### Examples
 
 ```bash
-#### AI — describe what you want
+# AI — describe what you want
 vercel routes add --ai "Rewrite /api/* to https://backend.example.com/*"
 
-#### Interactive — guided builder with prompts
+# Interactive — guided builder with prompts
 vercel routes add
 
-#### Rewrite with path-to-regexp syntax and a request header
+# Rewrite with path-to-regexp syntax and a request header
 vercel routes add "API Proxy" \
   --src "/api/:path*" --src-syntax path-to-regexp \
   --action rewrite --dest "https://api.example.com/:path*" \
   --set-request-header "X-Forwarded-Host=myapp.com" --yes
 
-#### Redirect with status
+# Redirect with status
 vercel routes add "Legacy Redirect" \
   --src "/old-blog" --src-syntax equals \
   --action redirect --dest "/blog" --status 301 --yes
 
-#### Routing rule with conditions and a description
+# Routing rule with conditions and a description
 vercel routes add "Auth Required" \
   --src "/dashboard/:path*" --src-syntax path-to-regexp \
   --action redirect --dest "/login" --status 307 \
@@ -5216,13 +5216,13 @@ vercel routes add "Auth Required" \
 ##### Editing Routing Rules
 
 ```bash
-#### AI — describe the changes
+# AI — describe the changes
 vercel routes edit "My Route" --ai "Add CORS headers and change to 308 redirect"
 
-#### Interactive — choose which fields to modify
+# Interactive — choose which fields to modify
 vercel routes edit "My Route"
 
-#### Change specific fields
+# Change specific fields
 vercel routes edit "My Route" --dest "https://new-api.example.com/:path*" --yes
 vercel routes edit "My Route" --action redirect --dest "/new" --status 301 --yes
 vercel routes edit "My Route" --name "New Name" --yes
@@ -5404,10 +5404,10 @@ Resolution order (first match wins):
 3. **Linked project.** Run `vercel link` (or `vercel env pull`) in a folder linked to a project that has a Blob store connected, and the credentials are pulled into `.env.local` for you.
 
 ```bash
-#### Non-interactive / CI — prefer the read-write token
+# Non-interactive / CI — prefer the read-write token
 BLOB_READ_WRITE_TOKEN=vercel_blob_rw_… vercel blob list
 
-#### OIDC — store id comes from BLOB_STORE_ID, no --store-id flag needed
+# OIDC — store id comes from BLOB_STORE_ID, no --store-id flag needed
 VERCEL_OIDC_TOKEN=… BLOB_STORE_ID=store_… vercel blob list
 ```
 
@@ -5436,7 +5436,7 @@ In this mode a command never blocks on input. Anything it would otherwise prompt
 `--yes` and `--non-interactive` are **independent**: `--non-interactive` suppresses prompts but never implies consent, so the commands above still require `--yes`. `--yes` is declared per command (only the ones that confirm a mutation); `--non-interactive` is global. Read-only/idempotent commands (`list`, `get`, `list-stores`) just run — `list-stores` skips its interactive store picker rather than prompting — and `del` deletes immediately with no confirmation.
 
 ```bash
-#### Agent / CI: supply every required value as a flag, and --yes for destructive ops
+# Agent / CI: supply every required value as a flag, and --yes for destructive ops
 vercel blob create-store my-store --access private --yes   # --yes also links to the current project
 vercel blob delete-store <store-id> --yes
 vercel blob empty-store --yes

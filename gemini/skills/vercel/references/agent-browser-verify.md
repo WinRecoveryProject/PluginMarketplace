@@ -14,17 +14,17 @@
 #### Quick Verification Flow
 
 ```bash
-### 1. Open the dev server
+# 1. Open the dev server
 agent-browser open http://localhost:3000
 agent-browser wait --load networkidle
 
-### 2. Screenshot for visual check
+# 2. Screenshot for visual check
 agent-browser screenshot --annotate
 
-### 3. Check for errors
+# 3. Check for errors
 agent-browser eval 'JSON.stringify(window.__consoleErrors || [])'
 
-### 4. Snapshot interactive elements
+# 4. Snapshot interactive elements
 agent-browser snapshot -i
 ```
 
@@ -42,10 +42,10 @@ Run each check and report results:
 #### Error Detection
 
 ```bash
-### Check for framework error overlays
+# Check for framework error overlays
 agent-browser eval 'document.querySelector("[data-nextjs-dialog], .vite-error-overlay, #webpack-dev-server-client-overlay") ? "ERROR_OVERLAY" : "OK"'
 
-### Check page isn't blank
+# Check page isn't blank
 agent-browser eval 'document.body.innerText.trim().length > 0 ? "HAS_CONTENT" : "BLANK"'
 ```
 
@@ -66,16 +66,16 @@ When the page appears stuck (spinner, blank content after load, frozen UI), the 
 ##### 1. Capture Browser Evidence
 
 ```bash
-### Screenshot the stuck state
+# Screenshot the stuck state
 agent-browser screenshot stuck-state.png
 
-### Check for pending network requests (XHR/fetch that never resolved)
+# Check for pending network requests (XHR/fetch that never resolved)
 agent-browser eval 'JSON.stringify(performance.getEntriesByType("resource").filter(r => r.duration === 0).map(r => r.name))'
 
-### Check console for errors or warnings
+# Check console for errors or warnings
 agent-browser eval 'JSON.stringify(window.__consoleErrors || [])'
 
-### Look for fetch calls to workflow/API routes that are pending
+# Look for fetch calls to workflow/API routes that are pending
 agent-browser eval 'document.querySelector("[data-nextjs-dialog]") ? "ERROR_OVERLAY" : "OK"'
 ```
 
@@ -84,14 +84,14 @@ agent-browser eval 'document.querySelector("[data-nextjs-dialog]") ? "ERROR_OVER
 After capturing browser state, immediately check the backend:
 
 ```bash
-### Stream Vercel runtime logs for the deployment
+# Stream Vercel runtime logs for the deployment
 vercel logs --follow
 
-### If using Workflow DevKit, check run status
+# If using Workflow DevKit, check run status
 npx workflow inspect runs
 npx workflow inspect run <run_id>
 
-### Check workflow health
+# Check workflow health
 npx workflow health
 ```
 
@@ -111,7 +111,7 @@ npx workflow health
 After fixing the issue:
 
 ```bash
-### Re-open and verify the fix
+# Re-open and verify the fix
 agent-browser open http://localhost:3000
 agent-browser wait --load networkidle
 agent-browser screenshot after-fix.png

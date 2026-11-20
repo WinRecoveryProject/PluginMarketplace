@@ -48,31 +48,31 @@ vercel firewall rules inspect "My Rule" --json
 ##### Create — four modes
 
 ```bash
-### AI — TTY only, BLOCKED FOR AGENTS/SCRIPTS
+# AI — TTY only, BLOCKED FOR AGENTS/SCRIPTS
 vercel firewall rules add --ai "Rate limit /api to 100 requests per minute by IP"
 
-### Interactive wizard — TTY only, BLOCKED FOR AGENTS/SCRIPTS
+# Interactive wizard — TTY only, BLOCKED FOR AGENTS/SCRIPTS
 vercel firewall rules add
 
-### Flags — works in scripts and agents
+# Flags — works in scripts and agents
 vercel firewall rules add "Block crawlers" \
   --condition '{"type":"user_agent","op":"sub","value":"crawler"}' \
   --action deny --yes
 
-### JSON payload — works in scripts and agents (`--data` needs CLI 64.2+; older CLIs use `--json <payload>`)
+# JSON payload — works in scripts and agents (`--data` needs CLI 64.2+; older CLIs use `--json <payload>`)
 vercel firewall rules add --data '{"name":"Block crawlers","conditionGroup":[{"conditions":[{"type":"user_agent","op":"sub","value":"crawler"}]}],"action":{"mitigate":{"action":"deny"}}}' --yes
 ```
 
 ##### Multiple conditions (AND) and OR groups
 
 ```bash
-### AND — multiple --condition flags in the same group
+# AND — multiple --condition flags in the same group
 vercel firewall rules add "Secure admin" \
   --condition '{"type":"path","op":"pre","value":"/admin"}' \
   --condition '{"type":"geo_country","op":"eq","neg":true,"value":"US"}' \
   --action deny --yes
 
-### OR — use --or to start a new group
+# OR — use --or to start a new group
 vercel firewall rules add "Block dangerous methods" \
   --condition '{"type":"method","op":"eq","value":"DELETE"}' \
   --or \

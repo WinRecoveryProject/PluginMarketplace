@@ -1144,7 +1144,7 @@ Three distinct caching systems serve different purposes. They can be used indepe
 **OIDC Authentication (default):** When you run `vercel env pull`, it provisions a `VERCEL_OIDC_TOKEN` — a short-lived JWT that the AI Gateway uses automatically. No manual API keys needed. The `@ai-sdk/gateway` package reads `VERCEL_OIDC_TOKEN` from the environment via `@vercel/oidc`. On Vercel deployments, OIDC tokens are auto-refreshed. For local dev, re-run `vercel env pull` if the token expires (~24h).
 ```
 
-##### 2. Build a Multi-Platform Chat Bot
+### 2. Build a Multi-Platform Chat Bot
 ```
 1. npm install chat @chat-adapter/slack @chat-adapter/telegram @chat-adapter/state-redis
 2. Create lib/bot.ts → new Chat({ adapters: { slack, telegram }, state: createRedisState() })
@@ -1158,7 +1158,7 @@ Three distinct caching systems serve different purposes. They can be used indepe
    → add to adapters map → one webhook route per platform
 ```
 
-##### 3. Build a Durable AI Agent
+### 3. Build a Durable AI Agent
 ```
 1. vercel link → enable AI Gateway → vercel env pull (OIDC credentials required)
 2. Next.js (API Route) → Workflow DevKit (DurableAgent) → AI SDK (tool calling)
@@ -1168,7 +1168,7 @@ Three distinct caching systems serve different purposes. They can be used indepe
 4. For AI text in workflow events: use <MessageResponse> from AI Elements (not raw text)
 ```
 
-##### 4. Full-Stack SaaS App
+### 4. Full-Stack SaaS App
 ```
 Next.js (App Router) → Neon Postgres (data) → Clerk (auth, via Marketplace)
                      → Stripe (payments, via Marketplace) → Vercel Blob (uploads)
@@ -1184,7 +1184,7 @@ Next.js (App Router) → Neon Postgres (data) → Clerk (auth, via Marketplace)
 - **Organization flow**: After sign-in, if the user has no organization, `auth()` returns `{ userId, orgSlug: null }`. Handle this explicitly — redirect to an org creation page or show `<CreateOrganization />`. Without this, the app will loop back to the landing page endlessly.
 - The `proxy.ts` (or `middleware.ts`) must call `clerkMiddleware()` for `auth()` to work in Server Components. If proxy is in the wrong location, you get: `Clerk: auth() was called without Clerk middleware`
 
-##### 5. Monorepo with Multiple Apps
+### 5. Monorepo with Multiple Apps
 ```
 Turborepo (orchestration) → Next.js App A → Vercel Platform (deploy)
                           → Next.js App B → Vercel Platform (deploy)
@@ -1192,7 +1192,7 @@ Turborepo (orchestration) → Next.js App A → Vercel Platform (deploy)
                           → Remote Cache → Vercel (shared across CI)
 ```
 
-##### 6. Deploy with Custom CI
+### 6. Deploy with Custom CI
 ```
 Git Push → CI Pipeline → vercel build → vercel deploy --prebuilt
         → VERCEL_TOKEN auth → Preview URL → vercel promote (production)
@@ -1200,7 +1200,7 @@ Git Push → CI Pipeline → vercel build → vercel deploy --prebuilt
 
 ---
 
-#### 12. Migration Awareness
+## 12. Migration Awareness
 
 | Deprecated | Replacement | Migration Path |
 |-----------|-------------|----------------|
@@ -1238,9 +1238,9 @@ Git Push → CI Pipeline → vercel build → vercel deploy --prebuilt
 
 ---
 
-#### Conventions
+## Conventions
 
-##### UI Design Defaults
+### UI Design Defaults
 
 - For application UI, default to **shadcn/ui + Geist**. Do not build core controls from raw HTML plus ad-hoc Tailwind when design-system primitives exist.
 - Default to **dark mode** for dashboards, AI products, internal tools, and developer surfaces. Use light mode when the product is clearly content-first or editorial.
@@ -1249,7 +1249,7 @@ Git Push → CI Pipeline → vercel build → vercel deploy --prebuilt
 - Use **Geist Sans** for interface text and **Geist Mono** for code, metrics, IDs, timestamps, and commands.
 - Avoid generic UI output: raw buttons, clickable divs, repeated bordered card grids, inconsistent radii, and forgotten empty/loading/error states.
 
-##### Next.js 16
+### Next.js 16
 
 - Default to Server Components. Only add `'use client'` when you need interactivity or browser APIs.
 - Push `'use client'` boundaries as far down the component tree as possible.
@@ -1261,7 +1261,7 @@ Git Push → CI Pipeline → vercel build → vercel deploy --prebuilt
 - Prefer `next/image` for images and `next/font` for fonts — both optimize automatically on Vercel.
 - `@vercel/postgres` and `@vercel/kv` are sunset — use `@neondatabase/serverless` and `@upstash/redis`.
 
-##### AI SDK v6
+### AI SDK v6
 
 - **Default to AI Gateway** — pass `"provider/model"` strings directly (e.g., `model: 'anthropic/claude-sonnet-4.6'`) — they route through the AI Gateway automatically. The `gateway()` wrapper from `'ai'` is optional and only needed when using `providerOptions.gateway` for routing/failover/tags. Do NOT install or import direct provider SDKs (`@ai-sdk/anthropic`, `@ai-sdk/openai`, etc.) unless you need provider-specific features not exposed through the gateway.
 - **Install `@ai-sdk/react` for React hooks** — `useChat`, `useCompletion`, and `useObject` live in `@ai-sdk/react` (not `ai`). Always `npm install ai @ai-sdk/react` together for React/Next.js projects.
@@ -1281,7 +1281,7 @@ Git Push → CI Pipeline → vercel build → vercel deploy --prebuilt
 - Use `mcp-to-ai-sdk` CLI to generate static tool definitions from MCP servers for security.
 - Use AI SDK DevTools (`npx @ai-sdk/devtools`) during development for debugging.
 
-##### Vercel Platform
+### Vercel Platform
 
 - Never hardcode secrets — use environment variables via `vercel env` or Marketplace auto-provisioning.
 - Add `.env*.local` to `.gitignore` — these files contain pulled secrets.
@@ -1293,6 +1293,6 @@ Git Push → CI Pipeline → vercel build → vercel deploy --prebuilt
 
 ---
 
-#### Plugin Mechanics
+## Plugin Mechanics
 
 This document is part of the **Vercel plugin for Codex**. Skills are discovered automatically by Codex via SKILL.md frontmatter metadata (`retrieval.aliases`, `intents`, `entities`, `pathPatterns`, `bashPatterns`). The `vercel.md` ecosystem graph is available as a reference for the full Vercel knowledge graph.

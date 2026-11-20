@@ -20,7 +20,7 @@ Resend is a native Vercel Marketplace integration with auto-provisioned API keys
 ##### Install via Marketplace
 
 ```bash
-### Install Resend from Vercel Marketplace (auto-provisions env vars)
+# Install Resend from Vercel Marketplace (auto-provisions env vars)
 vercel integration add resend
 ```
 
@@ -30,10 +30,10 @@ Auto-provisioned environment variables:
 ##### SDK Setup
 
 ```bash
-### Install the Resend SDK
+# Install the Resend SDK
 npm install resend
 
-### Install React Email for building templates
+# Install React Email for building templates
 npm install react-email @react-email/components
 ```
 
@@ -155,7 +155,7 @@ export default function WelcomeEmail({ name }: WelcomeEmailProps) {
 ##### Preview Templates Locally
 
 ```bash
-### Start the React Email dev server to preview templates
+# Start the React Email dev server to preview templates
 npx react-email dev
 ```
 
@@ -164,7 +164,7 @@ This opens a browser preview at `http://localhost:3000` where you can view and i
 ##### Upload Templates to Resend (React Email 5.0)
 
 ```bash
-### Upload templates directly from the CLI
+# Upload templates directly from the CLI
 npx react-email@latest resend setup
 ```
 

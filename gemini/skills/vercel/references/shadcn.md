@@ -41,17 +41,17 @@ shadcn/ui is **not a component library** in the traditional sense. You don't ins
 **IMPORTANT**: `shadcn init` is interactive by default. Always use `-d` (defaults) for non-interactive initialization:
 
 ```bash
-#### Non-interactive init with defaults — USE THIS
+# Non-interactive init with defaults — USE THIS
 npx shadcn@latest init -d
 
-#### Non-interactive with a preset (recommended for consistent design systems)
+# Non-interactive with a preset (recommended for consistent design systems)
 npx shadcn@latest init --preset <code> -f
 
-#### Non-interactive with explicit base library choice
+# Non-interactive with explicit base library choice
 npx shadcn@latest init -d --base radix
 npx shadcn@latest init -d --base base-ui
 
-#### Scaffold a full project template (CLI v4)
+# Scaffold a full project template (CLI v4)
 ```
 
 > **AI Elements compatibility**: Always use `--base radix` (the default) when the project uses or may use AI Elements. AI Elements components rely on Radix APIs and have type errors with Base UI.
@@ -84,17 +84,17 @@ The init command:
 ###### Add Components
 
 ```bash
-#### Add specific components
+# Add specific components
 npx shadcn@latest add button dialog card
 
-#### Add all available components
+# Add all available components
 npx shadcn@latest add --all
 
-#### Add from a custom registry
+# Add from a custom registry
 npx shadcn@latest add @v0/dashboard
 npx shadcn@latest add @acme/custom-button
 
-#### Add from AI Elements registry
+# Add from AI Elements registry
 npx shadcn@latest add https://elements.ai-sdk.dev/api/registry/all.json
 ```
 
@@ -123,13 +123,13 @@ npx shadcn@latest build ./registry.json -o ./public/r
 ###### View, Info & Docs (CLI v4)
 
 ```bash
-#### View a registry item's source before installing
+# View a registry item's source before installing
 npx shadcn@latest view button
 
-#### Show project diagnostics — config, installed components, dependencies
+# Show project diagnostics — config, installed components, dependencies
 npx shadcn@latest info
 
-#### Get docs, code, and examples for any component (agent-friendly output)
+# Get docs, code, and examples for any component (agent-friendly output)
 npx shadcn@latest docs button
 npx shadcn@latest docs dialog
 ```
@@ -143,7 +143,7 @@ npx shadcn@latest migrate rtl    # RTL support migration
 npx shadcn@latest migrate radix  # Migrate to unified radix-ui package
 npx shadcn@latest migrate icons  # Icon library changes
 
-#### Migrate components outside the default ui directory
+# Migrate components outside the default ui directory
 npx shadcn@latest migrate radix src/components/custom
 ```
 
@@ -420,7 +420,7 @@ Create your own component registry to share across projects:
 
 ```bash
 npx shadcn@latest build
-#### Outputs to public/r/my-component.json
+# Outputs to public/r/my-component.json
 ```
 
 ###### 3. Consume
@@ -546,10 +546,10 @@ export default function RootLayout({ children }) {
 Presets bundle your entire design system config (colors, theme, icon library, fonts, radius) into a single shareable code. One string configures everything:
 
 ```bash
-#### Apply a preset during init
+# Apply a preset during init
 npx shadcn@latest init --preset <code>
 
-#### Switch presets in an existing project (reconfigures everything including components)
+# Switch presets in an existing project (reconfigures everything including components)
 npx shadcn@latest init --preset <code>
 ```
 

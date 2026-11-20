@@ -115,7 +115,7 @@ export default (req: IncomingMessage, res: ServerResponse) => {
 ```bash
 npm install --save-dev micro-dev
 
-### Run in dev mode
+# Run in dev mode
 npx micro-dev index.js
 ```
 

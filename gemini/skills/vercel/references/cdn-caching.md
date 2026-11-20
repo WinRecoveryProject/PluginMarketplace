@@ -124,11 +124,11 @@ vercel metrics vercel.isr_operation.write_units -S <team> -p <project> --aggrega
 **Write utilization = cache serves ÷ ISR writes** — cached reads per regeneration.
 
 ```bash
-### numerator: cache serves — sum the HIT + STALE + PRERENDER buckets
+# numerator: cache serves — sum the HIT + STALE + PRERENDER buckets
 vercel metrics vercel.request.count -S <team> -p <project> \
   --environment production -q "cache_result:(HIT OR STALE)" \
   --group-by route --aggregation sum --since 24h
-### denominator: ISR writes
+# denominator: ISR writes
 vercel metrics vercel.isr_operation.write_units -S <team> -p <project> \
   --environment production --group-by route --aggregation sum --since 24h
 ```

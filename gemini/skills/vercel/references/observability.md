@@ -343,7 +343,7 @@ Vercel exports traces in OpenTelemetry-compatible format via Drains. Configure a
 ###### Vendor Integrations
 
 ```bash
-#### Install via Marketplace (recommended — auto-configures drain)
+# Install via Marketplace (recommended — auto-configures drain)
 vercel integration add datadog
 ```
 
@@ -405,10 +405,10 @@ Or via MCP if available: use `get_runtime_logs` with level filter `error`.
 If no drains are configured, the error scan relies on CLI and Dashboard:
 
 ```bash
-#### Stream live errors
+# Stream live errors
 vercel logs <deployment-url> --level error --follow
 
-#### JSON output for parsing
+# JSON output for parsing
 vercel logs <deployment-url> --level error --since 1h --json
 ```
 
@@ -491,7 +491,7 @@ Native Vercel Marketplace integration. Auto-configures source maps and release t
 
 ```bash
 npx @sentry/wizard@latest -i nextjs
-#### Or install manually:
+# Or install manually:
 npm install @sentry/nextjs
 ```
 

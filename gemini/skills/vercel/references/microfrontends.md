@@ -506,13 +506,13 @@ If you omit `--group`, the command is interactive and lets you select a group. I
 ###### Examples
 
 ```bash
-#### Interactive selection
+# Interactive selection
 vercel microfrontends inspect-group
 
-#### JSON output for scripting/agents (`--json` needs CLI 58.1+; older CLIs use `--format=json`)
+# JSON output for scripting/agents (`--json` needs CLI 58.1+; older CLIs use `--format=json`)
 vercel mf inspect-group --group="My Group" --json
 
-#### With a custom config filename
+# With a custom config filename
 vercel mf inspect-group --group="My Group" --config-file-name=microfrontends.jsonc --json
 ```
 
@@ -524,7 +524,7 @@ vercel mf inspect-group --group="My Group" --config-file-name=microfrontends.jso
 
 ```bash
 vercel microfrontends add-to-group
-#### or with flags:
+# or with flags:
 vercel mf add-to-group --group="My Group" --default-route=/docs
 ```
 
@@ -557,7 +557,7 @@ This action is not reversible. You can delete a group even with projects still i
 
 ```bash
 vercel microfrontends delete-group
-#### or pre-select the group with a flag:
+# or pre-select the group with a flag:
 vercel mf delete-group --group="My Group"
 ```
 

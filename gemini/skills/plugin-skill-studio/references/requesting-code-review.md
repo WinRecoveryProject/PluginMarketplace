@@ -231,14 +231,14 @@ Worker dispatch (use the host's general-purpose or closest equivalent role):
 ##### Example Output
 
 ```
-###### Strengths
+### Strengths
 - Clean database schema with proper migrations (db.ts:15-42)
 - Comprehensive test coverage (18 tests, all edge cases)
 - Good error handling with fallbacks (summarizer.ts:85-92)
 
-###### Issues
+### Issues
 
-###### Important
+#### Important
 1. **Missing help text in CLI wrapper**
    - File: index-conversations:1-31
    - Issue: No --help flag, users won't discover --concurrency
@@ -249,17 +249,17 @@ Worker dispatch (use the host's general-purpose or closest equivalent role):
    - Issue: Invalid dates silently return no results
    - Fix: Validate ISO format, throw error with example
 
-###### Minor
+#### Minor
 1. **Progress indicators**
    - File: indexer.ts:130
    - Issue: No "X of Y" counter for long operations
    - Impact: Users don't know how long to wait
 
-###### Recommendations
+### Recommendations
 - Add progress reporting for user experience
 - Consider config file for excluded projects (portability)
 
-###### Assessment
+### Assessment
 
 **Ready to merge: With fixes**
 

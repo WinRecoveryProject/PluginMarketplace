@@ -4490,7 +4490,7 @@ impactDescription: Optional description
 tags: tag1, tag2, tag3
 ---
 
-##### Rule Title Here
+## Rule Title Here
 
 Brief explanation of the rule and why it matters.
 
@@ -4510,7 +4510,7 @@ Optional explanatory text after examples.
 
 Reference: [Link](https://example.com)
 
-##### File Naming Convention
+## File Naming Convention
 
 - Files starting with `_` are special (excluded from build)
 - Rule files: `area-description.md` (e.g., `async-parallel.md`)
@@ -4518,7 +4518,7 @@ Reference: [Link](https://example.com)
 - Rules are sorted alphabetically by title within each section
 - IDs (e.g., 1.1, 1.2) are auto-generated during build
 
-##### Impact Levels
+## Impact Levels
 
 - `CRITICAL` - Highest priority, major performance gains
 - `HIGH` - Significant performance improvements
@@ -4527,14 +4527,14 @@ Reference: [Link](https://example.com)
 - `LOW-MEDIUM` - Low-medium gains
 - `LOW` - Incremental improvements
 
-##### Scripts
+## Scripts
 
 - `pnpm build` - Compile rules into AGENTS.md
 - `pnpm validate` - Validate all rule files
 - `pnpm extract-tests` - Extract test cases for LLM evaluation
 - `pnpm dev` - Build and validate
 
-##### Contributing
+## Contributing
 
 When adding or modifying rules:
 
@@ -4545,7 +4545,7 @@ When adding or modifying rules:
 5. Run `pnpm build` to regenerate AGENTS.md and test-cases.json
 6. Rules are automatically sorted by title - no need to manage numbers!
 
-##### Acknowledgments
+## Acknowledgments
 
 Originally created by [@shuding](https://x.com/shuding) at [Vercel](https://vercel.com).
 

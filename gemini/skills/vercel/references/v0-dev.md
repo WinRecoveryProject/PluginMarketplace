@@ -33,13 +33,13 @@ v0 transforms prompts into working React/Next.js code. It supports 6M+ developer
 Install and pull v0-generated components into your Next.js project:
 
 ```bash
-### Initialize v0 in an existing Next.js project (one-time setup)
+# Initialize v0 in an existing Next.js project (one-time setup)
 npx v0@latest init
 
-### Add a specific v0-generated component by ID
+# Add a specific v0-generated component by ID
 npx v0@latest add <component-id>
 
-### With pnpm
+# With pnpm
 pnpm dlx v0@latest init
 pnpm dlx v0@latest add <component-id>
 ```
@@ -59,26 +59,26 @@ Run this in your project root to pull the entire generated project into your cod
 ##### Typical Workflow
 
 ```bash
-### 1. Scaffold a Next.js app
+# 1. Scaffold a Next.js app
 npx create-next-app@latest --typescript --tailwind --eslint
 
-### 2. Initialize v0 integration
+# 2. Initialize v0 integration
 npx v0@latest init
 
-### 3. Generate a component on v0.dev, get its ID
-### 4. Add the component locally
+# 3. Generate a component on v0.dev, get its ID
+# 4. Add the component locally
 npx v0@latest add a1B2c3d4
 
-### 5. Import and use in your app
+# 5. Import and use in your app
 ```
 
 ##### Project Scaffolding CLI
 
 ```bash
-### Create a new project from v0 templates
+# Create a new project from v0 templates
 npx create-v0-sdk-app@latest my-v0-app
 
-### Use the v0-clone template (full v0.dev replica with auth, DB, streaming)
+# Use the v0-clone template (full v0.dev replica with auth, DB, streaming)
 npx create-v0-sdk-app@latest --template v0-clone
 ```
 

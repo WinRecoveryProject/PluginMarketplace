@@ -47,10 +47,10 @@ For exact setup, authentication, and usage, read the bundled guide and the AI Ga
 Never use model IDs from memory — models are released and retired frequently. Fetch the current list before writing code that references a model. Do not truncate the list (e.g. with `head`) so you can find the newest models:
 
 ```bash
-### All available models
+# All available models
 curl -s https://ai-gateway.vercel.sh/v1/models | jq -r '.data[].id'
 
-### Filter by provider (e.g. anthropic, openai, google)
+# Filter by provider (e.g. anthropic, openai, google)
 curl -s https://ai-gateway.vercel.sh/v1/models | jq -r '[.data[] | select(.id | startswith("anthropic/")) | .id] | reverse | .[]'
 ```
 
@@ -452,10 +452,10 @@ For exact setup, authentication, and usage, read the bundled guide and the AI Ga
 Never use model IDs from memory — models are released and retired frequently. Fetch the current list before writing code that references a model. Do not truncate the list (e.g. with `head`) so you can find the newest models:
 
 ```bash
-#### All available models
+# All available models
 curl -s https://ai-gateway.vercel.sh/v1/models | jq -r '.data[].id'
 
-#### Filter by provider (e.g. anthropic, openai, google)
+# Filter by provider (e.g. anthropic, openai, google)
 curl -s https://ai-gateway.vercel.sh/v1/models | jq -r '[.data[] | select(.id | startswith("anthropic/")) | .id] | reverse | .[]'
 ```
 

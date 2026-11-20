@@ -70,11 +70,11 @@ At each boundary, check for these common breaks:
 Summarize findings in a structured report:
 
 ```
-#### Verification Report: [Feature Name]
+## Verification Report: [Feature Name]
 
 **Story**: [one-sentence description of the user story]
 
-##### Flow Status
+### Flow Status
 | Boundary | Status | Evidence |
 |----------|--------|----------|
 | UI renders | ✅/❌ | [screenshot or console output] |
@@ -83,10 +83,10 @@ Summarize findings in a structured report:
 | Data → Response | ✅/❌ | [response shape or error] |
 | Response → UI | ✅/❌ | [rendered output or error] |
 
-##### Issues Found
+### Issues Found
 1. [Issue]: [evidence] → [fix]
 
-##### Verified Working
+### Verified Working
 - [What was confirmed working with evidence]
 ```
 

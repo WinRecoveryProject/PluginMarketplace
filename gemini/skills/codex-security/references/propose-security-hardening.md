@@ -540,13 +540,13 @@ When an option maps to disclosure documents rather than canonical scan findings,
 Write `hardening.md` with these headings in order. Use `Evidence Basis` for an ordinary or mixed collection; `Source Scan` remains acceptable for analysis derived solely from a Codex Security scan.
 
 ```markdown
-#### Security Hardening Review: <target>
+# Security Hardening Review: <target>
 
-##### Evidence Basis
-##### Constraints
-##### Opportunity Portfolio
-##### Recommendation Summary
-##### Next Decisions
+## Evidence Basis
+## Constraints
+## Opportunity Portfolio
+## Recommendation Summary
+## Next Decisions
 ```
 
 Under `Opportunity Portfolio`, use a compact table:
@@ -565,25 +565,25 @@ For a `local_remediation_preferred` assessment, retain all required portfolio he
 Name each proposal `proposals/<opportunity-id>.md` and use these headings in order:
 
 ```markdown
-#### Security Hardening Proposal: <title>
+# Security Hardening Proposal: <title>
 
-##### Decision
-##### Executive Recommendation
-##### Evidence
-##### Current Design And Failure Mode
-##### Desired Invariants
-##### Constraints And Non-Goals
-##### Before Architecture
-##### Options
-###### Option 1: <baseline, when useful>
-###### Option 2: <first alternative>
-##### Comparison
-##### Recommendation
-##### Evidence Coverage And Residual Risk
-##### Migration And Rollout
-##### Validation Plan
-##### Implementation Work Packages
-##### Open Questions
+## Decision
+## Executive Recommendation
+## Evidence
+## Current Design And Failure Mode
+## Desired Invariants
+## Constraints And Non-Goals
+## Before Architecture
+## Options
+### Option 1: <baseline, when useful>
+### Option 2: <first alternative>
+## Comparison
+## Recommendation
+## Evidence Coverage And Residual Risk
+## Migration And Rollout
+## Validation Plan
+## Implementation Work Packages
+## Open Questions
 ```
 
 Requirements:
@@ -663,19 +663,19 @@ For unmeasured effects, name the likely mechanism and a measurement plan. A usef
 After selection, write `implementation/<option-id>.md` with:
 
 ```markdown
-#### Implementation Plan: <option title>
+# Implementation Plan: <option title>
 
-##### Selected Design And Constraints
-##### Source Revision And Drift Check
-##### Affected Components
-##### Ordered Work Packages
-##### Compatibility And Migration
-##### Tactical Protections During Migration
-##### Tests And Security Validation
-##### Performance And Resource Benchmarks
-##### Rollout And Rollback
-##### Acceptance Criteria
-##### Open Decisions
+## Selected Design And Constraints
+## Source Revision And Drift Check
+## Affected Components
+## Ordered Work Packages
+## Compatibility And Migration
+## Tactical Protections During Migration
+## Tests And Security Validation
+## Performance And Resource Benchmarks
+## Rollout And Rollback
+## Acceptance Criteria
+## Open Decisions
 ```
 
 Anchor the plan to the scan manifest digest or evidence collection digest and,

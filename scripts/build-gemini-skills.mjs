@@ -11,7 +11,7 @@
 //   node scripts/build-gemini-skills.mjs --out DIR  write to another folder
 
 import {readFileSync, readdirSync, statSync, existsSync, mkdirSync, writeFileSync, rmSync} from 'node:fs';
-import {dirname, join, relative, extname, basename, resolve} from 'node:path';
+import {dirname, join, relative, extname, basename, resolve, isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -227,6 +227,22 @@ export function rewriteLinks(markdown, sourceFile, linkMap) {
 
 // ---------- rendering ----------
 
+// Shift Markdown headings down by `levels`, leaving fenced code (templates,
+// examples) byte-for-byte unchanged.
+export function demoteHeadings(markdown, levels) {
+  let inFence = null;
+  return markdown.split('\n').map(line => {
+    const m = /^\s*(`{3,}|~{3,})/.exec(line);
+    if (m) {
+      if (!inFence) inFence = m[1];
+      else if (m[1][0] === inFence[0] && m[1].length >= inFence.length) inFence = null;
+      return line;
+    }
+    if (inFence) return line;
+    return line.replace(/^(#{1,5}) /, (_, hs) => '#'.repeat(Math.min(6, hs.length + levels)) + ' ');
+  }).join('\n');
+}
+
 function embedFile(file, relBase) {
   const abs = resolve(file);
   const rel = toPosix(relative(relBase, file));
@@ -249,7 +265,7 @@ function renderEmbeds(embeds, headingLevel, linkMap) {
     if (e.kind === 'large') { skipped.push(`- \`${e.rel}\` (${Math.round(e.size / 1024)} KB, too large to embed — read it in the repository)`); continue; }
     if (e.kind === 'markdown') {
       // Demote headings so they nest under the file heading.
-      const demoted = rewriteLinks(e.text, e.abs, linkMap).replace(/^(#{1,5}) /gm, (_, hs) => '#'.repeat(Math.min(6, hs.length + headingLevel)) + ' ');
+      const demoted = demoteHeadings(rewriteLinks(e.text, e.abs, linkMap), headingLevel);
       parts.push(`${h} File: \`${e.rel}\`\n\n${demoted.trim()}\n`);
     } else {
       const f = fence(e.text);
@@ -272,7 +288,7 @@ function renderSkillReference(pkg, skill, linkMap) {
     '',
     '## Instructions',
     '',
-    rewriteLinks(skill.body.trim(), skill.file, linkMap).replace(/^(#{1,5}) /gm, (_, hs) => '#'.repeat(Math.min(6, hs.length + 2)) + ' '),
+    demoteHeadings(rewriteLinks(skill.body.trim(), skill.file, linkMap), 2),
     '',
     embeds.length ? '## Bundled files\n\n' + renderEmbeds(embeds, 3, linkMap) : '',
   ].join('\n').replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';
@@ -306,6 +322,7 @@ function renderPluginSkill(pkg, pluginRefs) {
     '3. Scripts are shown for reading, adapting and explaining. Gemini cannot run them here; give the user the exact command to run locally (PowerShell/Node/Python as written in the file) and ask for the output when it matters.',
     '4. Treat the original instructions as authoritative. Where they mention Codex- or Claude-only tools, use the closest Gemini capability or tell the user what to run.',
     '5. When you propose a change to this plugin, name the original repository path (shown in each reference) so it can be applied in PluginMarketplace.',
+    '6. Instructions sometimes name another file by its original path (for example `../../shared/x.md` or `references/y.md`). Those paths do not exist in this upload: resolve them against the `Source:`/`File:` path of the text you are reading and look them up in `references/_index.md`, which says which reference file and section holds the content.',
     '',
     pkg.skills.length ? '## Sub-skills\n\n| Skill | When to use | Reference |\n| --- | --- | --- |\n' + rows.join('\n') + '\n' : '## Sub-skills\n\nThis plugin ships no skills; see `references/_plugin.md`.\n',
     pkg.defaultPrompts.length ? '## Example prompts\n\n' + pkg.defaultPrompts.map(p => `- ${p}`).join('\n') + '\n' : '',
@@ -358,6 +375,28 @@ function renderPluginLevel(pkg, plan, linkMap) {
     out.set(`references/${name}.md`, (header.join('\n') + '\n' + (pieces.join('\n') || '_No files._')).replace(/\n{3,}/g, '\n\n').trimEnd() + '\n');
   }
   return out;
+}
+
+// Source-path lookup: instructions often name files as bare paths or inline code
+// (`../../shared/x.md`) that no longer exist in the upload. This table maps every
+// plugin-relative source path to the exported reference and section that holds it.
+function renderPathIndex(pkg, linkMap) {
+  const rows = [];
+  for (const [abs, hit] of linkMap) {
+    const rel = toPosix(relative(pkg.dir, abs));
+    if (!rel || rel.startsWith('..')) continue;
+    rows.push([rel, `${hit.ref}${hit.anchor}`]);
+  }
+  rows.sort((a, b) => a[0].localeCompare(b[0]));
+  return [
+    `# Source path index: ${pkg.name}`,
+    '',
+    `Every file and skill folder of \`${pkg.rel}\` and where its content lives in this upload. When an instruction tells you to read a path such as \`../../shared/x.md\` or \`references/y.md\`, resolve it against the \`Source:\` or \`File:\` path of the text you are reading, then look the result up here (paths are relative to the plugin root).`,
+    '',
+    '| Source path | Read in this upload |',
+    '| --- | --- |',
+    ...rows.map(([rel, target]) => `| \`${rel}\` | \`references/${target}\` |`),
+  ].join('\n') + '\n';
 }
 
 // Maps every embedded source file (absolute path) to its exported reference and anchor.
@@ -457,6 +496,7 @@ export function buildOutputs(packages) {
     const plan = planPluginLevel(p);
     const linkMap = buildLinkMap(p, plan);
     const pluginLevel = renderPluginLevel(p, plan, linkMap);
+    pluginLevel.set('references/_index.md', renderPathIndex(p, linkMap));
     files.set(`${p.name}/SKILL.md`, renderPluginSkill(p, [...pluginLevel.keys()]));
     for (const [rel, content] of pluginLevel) files.set(`${p.name}/${rel}`, content);
     for (const s of p.skills) files.set(`${p.name}/references/${s.id}.md`, renderSkillReference(p, s, linkMap));
@@ -512,6 +552,11 @@ function main() {
     console.log(`Gemini skills up to date: ${files.size} files in ${folderCount(files)} skill folders.`);
     return;
   }
+  const problem = unsafeOutputDir(outDir, root);
+  if (problem) {
+    console.error(`Refusing to write to ${outDir}: ${problem}`);
+    process.exit(2);
+  }
   rmSync(outDir, {recursive: true, force: true});
   for (const [rel, content] of files) {
     const target = join(outDir, rel);
@@ -527,6 +572,28 @@ function main() {
   for (const [folder, size] of [...sizes].sort((a, b) => b[1] - a[1])) {
     console.log(`  ${folder.padEnd(32)} ${(size / 1024).toFixed(0).padStart(6)} KB`);
   }
+}
+
+// The output folder is deleted and rewritten, so it must be generated output:
+// missing, empty, or only skill folders that each hold a SKILL.md. It may never be
+// the repository, one of its parents, or a folder inside it outside gemini/.
+export function unsafeOutputDir(dir, repoRoot) {
+  const out = resolve(dir), base = resolve(repoRoot);
+  const rel = relative(out, base);
+  if (out === base || (rel && !rel.startsWith('..') && !isAbsolute(rel))) return 'it is the repository or contains it';
+  const inside = relative(base, out);
+  if (!inside.startsWith('..') && !isAbsolute(inside) && toPosix(inside).split('/')[0] !== 'gemini') {
+    return 'inside the repository it must be under gemini/';
+  }
+  if (!existsSync(out)) return null;
+  if (!statSync(out).isDirectory()) return 'it is a file';
+  for (const name of readdirSync(out)) {
+    const entry = join(out, name);
+    if (!statSync(entry).isDirectory() || !existsSync(join(entry, 'SKILL.md'))) {
+      return `it contains ${name}, which is not a generated skill folder`;
+    }
+  }
+  return null;
 }
 
 function folderCount(files) {

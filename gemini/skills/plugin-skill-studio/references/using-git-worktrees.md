@@ -34,7 +34,7 @@ BRANCH=$(git branch --show-current)
 **Submodule guard:** As a belt-and-braces check before concluding "already in a worktree," confirm you are not inside a git submodule:
 
 ```bash
-### If this returns a path, you're in a submodule, not a worktree — treat as normal repo
+# If this returns a path, you're in a submodule, not a worktree — treat as normal repo
 git rev-parse --show-superproject-working-tree 2>/dev/null
 ```
 
@@ -88,7 +88,7 @@ Follow this priority order. Explicit user preference always beats observed files
 **MUST verify the chosen directory is ignored before creating worktree** — test a child path so the check works before the directory exists and with both `dir` and `dir/` gitignore styles:
 
 ```bash
-### $LOCATION is the worktree parent chosen in Directory Selection
+# $LOCATION is the worktree parent chosen in Directory Selection
 git check-ignore -q "$LOCATION/x"
 ```
 
@@ -99,7 +99,7 @@ git check-ignore -q "$LOCATION/x"
 ###### Create the Worktree
 
 ```bash
-### Determine path based on chosen location
+# Determine path based on chosen location
 path="$LOCATION/$BRANCH_NAME"
 
 git worktree add "$path" -b "$BRANCH_NAME"
@@ -113,18 +113,18 @@ cd "$path"
 Auto-detect and run appropriate setup:
 
 ```bash
-### Node.js
+# Node.js
 if [ -f package.json ]; then npm install; fi
 
-### Rust
+# Rust
 if [ -f Cargo.toml ]; then cargo build; fi
 
-### Python
+# Python
 if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 if [ -f pyproject.toml ] && grep -q '\[tool\.poetry\]' pyproject.toml; then poetry install
 elif [ -f pyproject.toml ] && [ ! -f requirements.txt ]; then pip install -e .; fi
 
-### Go
+# Go
 if [ -f go.mod ]; then go mod download; fi
 ```
 
@@ -133,7 +133,7 @@ if [ -f go.mod ]; then go mod download; fi
 Run tests to ensure workspace starts clean:
 
 ```bash
-### Use project-appropriate command
+# Use project-appropriate command
 npm test / cargo test / pytest / go test ./...
 ```
 

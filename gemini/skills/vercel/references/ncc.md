@@ -25,20 +25,20 @@ ncc bundles a Node.js application and all of its `node_modules` into a single ou
 ```bash
 npm install -g @vercel/ncc
 
-### Or as a dev dependency
+# Or as a dev dependency
 npm install --save-dev @vercel/ncc
 ```
 
 #### Basic Usage
 
 ```bash
-### Compile index.js into dist/index.js
+# Compile index.js into dist/index.js
 ncc build input.js -o dist/
 
-### Watch mode for development
+# Watch mode for development
 ncc build input.js -o dist/ -w
 
-### Run directly without writing to disk
+# Run directly without writing to disk
 ncc run input.js
 ```
 
@@ -78,10 +78,10 @@ ncc run input.js
 ncc natively supports TypeScript — no separate `tsc` step needed:
 
 ```bash
-### Compiles TypeScript directly
+# Compiles TypeScript directly
 ncc build src/index.ts -o dist/
 
-### Skip type checking for faster builds
+# Skip type checking for faster builds
 ncc build src/index.ts -o dist/ -t
 ```
 
@@ -92,10 +92,10 @@ ncc uses the project's `tsconfig.json` automatically.
 Keep specific modules out of the bundle (useful for native modules or optional dependencies):
 
 ```bash
-### Single external
+# Single external
 ncc build input.js -e aws-sdk
 
-### Multiple externals
+# Multiple externals
 ncc build input.js -e aws-sdk -e sharp
 ```
 
@@ -110,7 +110,7 @@ ncc handles non-JS assets (`.json`, `.node`, binary files) by copying them to th
 ##### Serverless Function Bundling
 
 ```bash
-### Build a minimal serverless handler
+# Build a minimal serverless handler
 ncc build api/handler.ts -o .output/ -m --no-cache
 ```
 
@@ -128,7 +128,7 @@ ncc build api/handler.ts -o .output/ -m --no-cache
 ##### GitHub Actions
 
 ```bash
-### Bundle a GitHub Action into a single file
+# Bundle a GitHub Action into a single file
 ncc build src/index.ts -o dist/ -m --license licenses.txt
 ```
 

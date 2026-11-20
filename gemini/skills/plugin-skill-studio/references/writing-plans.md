@@ -136,7 +136,7 @@ Within each task, use small ordered actions:
 Every plan MUST start with this header:
 
 ```markdown
-#### [Feature Name] Implementation Plan
+# [Feature Name] Implementation Plan
 
 > **For agentic workers:** Use the host's available task-by-task implementation workflow. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -146,7 +146,7 @@ Every plan MUST start with this header:
 
 **Tech Stack:** [Relevant languages, frameworks, and tools]
 
-##### Global Constraints
+## Global Constraints
 
 [Exact project-wide requirements copied from the specification]
 
@@ -158,7 +158,7 @@ Every plan MUST start with this header:
 Use this shape for each task:
 
 ````markdown
-###### Task N: [Deliverable]
+### Task N: [Deliverable]
 
 **Files:**
 - Create: `exact/proposed/or/observed/path`

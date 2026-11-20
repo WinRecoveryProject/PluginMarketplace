@@ -20,7 +20,7 @@ Sanity is the primary CMS integration on the Vercel Marketplace with first-class
 ##### Install via Marketplace
 
 ```bash
-### Install Sanity from Vercel Marketplace (auto-provisions env vars)
+# Install Sanity from Vercel Marketplace (auto-provisions env vars)
 vercel integration add sanity
 ```
 
@@ -34,10 +34,10 @@ Auto-provisioned environment variables:
 ##### SDK Setup
 
 ```bash
-### Install Sanity packages for Next.js
+# Install Sanity packages for Next.js
 npm install next-sanity @sanity/client @sanity/image-url
 
-### For embedded studio (optional)
+# For embedded studio (optional)
 npm install sanity @sanity/vision
 ```
 

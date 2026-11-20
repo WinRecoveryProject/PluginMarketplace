@@ -1664,14 +1664,14 @@ The server watches a directory for HTML files and serves the newest one to the b
 Require an existing Bash-compatible shell and Node.js runtime. On Windows, run the script through Git Bash. If either prerequisite is unavailable, report the companion as unavailable; do not install it without authorization.
 
 ```bash
-#### Start AFTER the user approves the companion. --open auto-opens their browser on
-#### the first screen; --project-dir persists mockups and enables same-port restart.
+# Start AFTER the user approves the companion. --open auto-opens their browser on
+# the first screen; --project-dir persists mockups and enables same-port restart.
 scripts/start-server.sh --project-dir /path/to/project --open
 
-#### Returns: {"type":"server-started","port":52341,
-####           "url":"http://localhost:52341/?key=ab12…",
-####           "screen_dir":"/path/to/project/.skillquiver/brainstorm/12345-1706000000/content",
-####           "state_dir":"/path/to/project/.skillquiver/brainstorm/12345-1706000000/state"}
+# Returns: {"type":"server-started","port":52341,
+#           "url":"http://localhost:52341/?key=ab12…",
+#           "screen_dir":"/path/to/project/.skillquiver/brainstorm/12345-1706000000/content",
+#           "state_dir":"/path/to/project/.skillquiver/brainstorm/12345-1706000000/state"}
 ```
 
 Save `screen_dir` and `state_dir` from the response. With `--open`, the browser opens itself when you push the first screen — you don't need to ask the user to open it, but still share the URL as a fallback (headless/remote setups won't auto-open).
@@ -1692,7 +1692,7 @@ without repeating it.
 
 **Claude Code:**
 ```bash
-#### Default mode works — the script backgrounds the server itself.
+# Default mode works — the script backgrounds the server itself.
 scripts/start-server.sh --project-dir /path/to/project --open
 ```
 

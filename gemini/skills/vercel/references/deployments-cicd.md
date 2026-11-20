@@ -18,10 +18,10 @@ You are an expert in Vercel deployment workflows — `vercel deploy`, `vercel pr
 ##### Preview Deployment
 
 ```bash
-### Deploy from project root (creates preview URL)
+# Deploy from project root (creates preview URL)
 vercel
 
-### Equivalent explicit form
+# Equivalent explicit form
 vercel deploy
 ```
 
@@ -30,24 +30,24 @@ Git pushes to non-production branches make previews. A project's first deploy go
 ##### Production Deployment
 
 ```bash
-### Deploy directly to production
+# Deploy directly to production
 vercel --prod
 vercel deploy --prod
 
-### Force a new deployment (skip cache)
+# Force a new deployment (skip cache)
 vercel --prod --force
 ```
 
 ##### Build Locally, Deploy Build Output
 
 ```bash
-### Build locally (uses preview env vars by default)
+# Build locally (uses preview env vars by default)
 vercel build
 
-### Build with production env vars
+# Build with production env vars
 vercel build --prod
 
-### Deploy only the build output (no remote build)
+# Deploy only the build output (no remote build)
 vercel deploy --prebuilt
 vercel deploy --prebuilt --prod
 ```
@@ -59,16 +59,16 @@ vercel deploy --prebuilt --prod
 ##### Promote & Rollback
 
 ```bash
-### Stage a production deployment without assigning domains
+# Stage a production deployment without assigning domains
 vercel deploy --prod --skip-domain
 
-### Promote it (instant, no rebuild)
+# Promote it (instant, no rebuild)
 vercel promote <deployment-url-or-id>
 
-### Show pending rollback status (no argument does not roll back)
+# Show pending rollback status (no argument does not roll back)
 vercel rollback status
 
-### Rollback to a specific deployment
+# Rollback to a specific deployment
 vercel rollback <deployment-url-or-id>
 ```
 
@@ -79,13 +79,13 @@ vercel rollback <deployment-url-or-id>
 ##### Inspect Deployments
 
 ```bash
-### View deployment details (build info, functions, metadata)
+# View deployment details (build info, functions, metadata)
 vercel inspect <deployment-url>
 
-### List recent deployments
+# List recent deployments
 vercel ls
 
-### View recent runtime logs for a deployment
+# View recent runtime logs for a deployment
 vercel logs --deployment <url>
 ```
 
@@ -234,7 +234,7 @@ jobs:
 Present a structured deploy result block:
 
 ```
-#### Deploy Result
+## Deploy Result
 - **URL**: <deployment-url>
 - **Target**: production | preview
 - **Status**: READY | ERROR | BUILDING | QUEUED
@@ -252,7 +252,7 @@ If the deployment failed, append:
 For production deploys, also include:
 
 ```
-##### Post-Deploy Observability
+### Post-Deploy Observability
 - **Error scan**: <N errors found / clean> (scanned via vercel logs -q level:error --since 1h)
 - **Drains**: <N configured / none>
 - **Monitoring**: <active / gaps identified>
@@ -302,7 +302,7 @@ These pipelines build and deploy with the Vercel CLI. Each needs the `VERCEL_TOK
 The Git integration posts preview URLs on pull requests automatically. A CLI pipeline posts them itself:
 
 ```yaml
-#### GitHub Actions
+# GitHub Actions
 on:
   pull_request:
     types: [opened, synchronize]

@@ -47,18 +47,18 @@ Vercel and Next.js load environment variables in a specific order. Later files o
 ##### Pull Environment Variables
 
 ```bash
-### Pull all env vars for the current environment into .env.local
+# Pull all env vars for the current environment into .env.local
 vercel env pull .env.local
 
-### Pull for a specific environment
+# Pull for a specific environment
 vercel env pull .env.local --environment=production
 vercel env pull .env.local --environment=preview
 vercel env pull .env.local --environment=development
 
-### Overwrite existing file without prompting
+# Overwrite existing file without prompting
 vercel env pull .env.local --yes
 
-### Pull to a custom file
+# Pull to a custom file
 vercel env pull .env.production.local --environment=production
 ```
 
@@ -74,24 +74,24 @@ Every variable has a type:
 Deployments receive both types at build time and runtime. Secret and Config replaced the Sensitive toggle; existing Sensitive variables are Secrets.
 
 ```bash
-### Interactive — prompts for value, environments, and type
+# Interactive — prompts for value, environments, and type
 vercel env add MY_SECRET
 
-### Non-interactive: read the value from a file so it never lands in shell
-### history or process arguments (echo "value" | ... and --value do both)
+# Non-interactive: read the value from a file so it never lands in shell
+# history or process arguments (echo "value" | ... and --value do both)
 vercel env add MY_SECRET production < ./secret.txt
 
-### Add to production and preview in one command
+# Add to production and preview in one command
 vercel env add MY_SECRET production,preview < ./secret.txt
 
-### Set the type explicitly
+# Set the type explicitly
 vercel env add MY_SECRET production --type secret < ./secret.txt
 vercel env add SITE_REGION production --type config < ./region.txt
 
-### Add development in its own command; development-only adds default to Config
+# Add development in its own command; development-only adds default to Config
 vercel env add MY_SECRET development < ./dev-secret.txt
 
-### Update an existing value
+# Update an existing value
 vercel env update MY_SECRET production < ./secret.txt
 ```
 
@@ -103,20 +103,20 @@ vercel env update MY_SECRET production < ./secret.txt
 ##### List Environment Variables
 
 ```bash
-### List all environment variables
+# List all environment variables
 vercel env ls
 
-### Filter by environment
+# Filter by environment
 vercel env ls production
 ```
 
 ##### Remove Environment Variables
 
 ```bash
-### Remove from specific environment
+# Remove from specific environment
 vercel env rm MY_SECRET production
 
-### Remove from all environments
+# Remove from all environments
 vercel env rm MY_SECRET
 ```
 
@@ -125,13 +125,13 @@ vercel env rm MY_SECRET
 Use this sequence when setting up a project from scratch:
 
 ```bash
-### 1) Link first so pulls target the correct Vercel project
+# 1) Link first so pulls target the correct Vercel project
 vercel link --yes --project <name-or-id> --scope <team>
 
-### 2) Pull env vars into .env.local
+# 2) Pull env vars into .env.local
 vercel env pull .env.local --yes
 
-### 3) Verify required keys from .env.example exist in .env.local
+# 3) Verify required keys from .env.example exist in .env.local
 while IFS='=' read -r key _; do
   [[ -z "$key" || "$key" == \#* ]] && continue
   grep -q "^${key}=" .env.local || echo "Missing in .env.local: $key"
@@ -215,7 +215,7 @@ A variable can be assigned to one, two, or all three environments.
 Preview environment variables can be scoped to specific Git branches:
 
 ```bash
-### Add a variable only for the "staging" branch
+# Add a variable only for the "staging" branch
 vercel env add DATABASE_URL preview --git-branch=staging < ./staging-database-url.txt
 ```
 
@@ -226,7 +226,7 @@ vercel env add DATABASE_URL preview --git-branch=staging < ./staging-database-ur
 `vercel env pull .env.local` merges into an existing file. Variables defined only locally are kept (logged as `Kept <KEYS>`; Vercel CLI 56+). Keys that also exist on Vercel take the pulled value, so a local override of one is replaced. Current CLIs also keep a real local value for a Secret they cannot read, and always refresh `VERCEL_OIDC_TOKEN`. Older CLIs replace the entire file, so back up custom vars first:
 
 ```bash
-### Save custom vars before pulling
+# Save custom vars before pulling
 grep -v '^#' .env.local | grep -v '^VERCEL_\|^POSTGRES_\|^NEXT_PUBLIC_' > .env.custom.bak
 vercel env pull .env.local --yes
 cat .env.custom.bak >> .env.local  # Re-append custom vars
@@ -243,12 +243,12 @@ Or maintain custom vars in a separate `.env.development.local` file (loaded afte
 Only Next.js auto-loads `.env.local`. Standalone scripts (`drizzle-kit`, `tsx`, custom Node scripts) need explicit loading:
 
 ```bash
-### Use dotenv-cli
+# Use dotenv-cli
 npm install -D dotenv-cli
 npx dotenv -e .env.local -- npx drizzle-kit push
 npx dotenv -e .env.local -- npx tsx scripts/seed.ts
 
-### Or source manually
+# Or source manually
 source <(grep -v '^#' .env.local | sed 's/^/export /') && node scripts/migrate.js
 ```
 

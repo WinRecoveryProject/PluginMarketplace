@@ -80,11 +80,29 @@ $selected = if ($All) { $available } else {
     }
 }
 
-New-Item -ItemType Directory -Path $Destination -Force | Out-Null
+# Never write into the repository (that includes gemini\skills, the source of the
+# copy) or into a folder that contains the repository.
+# Resolve against the PowerShell location, not the process working directory.
+$destinationFull = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Destination).TrimEnd('\', '/')
+$repoFull = [System.IO.Path]::GetFullPath($repoRoot).TrimEnd('\', '/')
+$isSameOrInside = {
+    param([string]$Path, [string]$Parent)
+    $Path.Equals($Parent, [System.StringComparison]::OrdinalIgnoreCase) -or
+        $Path.StartsWith($Parent + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)
+}
+if ((& $isSameOrInside $destinationFull $repoFull) -or (& $isSameOrInside $repoFull $destinationFull)) {
+    throw "Destination '$destinationFull' overlaps the repository '$repoFull'. Choose a folder outside it."
+}
+
+New-Item -ItemType Directory -Path $destinationFull -Force | Out-Null
 
 foreach ($skill in $selected) {
-    $target = Join-Path $Destination $skill.Name
+    $target = Join-Path $destinationFull $skill.Name
     if (Test-Path -LiteralPath $target) {
+        # Replace only a previous export of this skill, never an unrelated folder.
+        if (-not (Test-Path -LiteralPath (Join-Path $target 'SKILL.md') -PathType Leaf)) {
+            throw "'$target' exists but is not an exported skill (no SKILL.md). Move it away first."
+        }
         Remove-Item -LiteralPath $target -Recurse -Force
     }
     Copy-Item -LiteralPath $skill.FullName -Destination $target -Recurse

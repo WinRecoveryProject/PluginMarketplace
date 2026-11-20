@@ -151,7 +151,7 @@ Every create or update body must include the canonical finding id and primary fi
 For a verified `git_revision`, include this compact source block in the create or update body:
 
 ```markdown
-#### Source
+## Source
 
 Repository: <verified repository URL or owner/name>
 Revision: <full immutable revision>

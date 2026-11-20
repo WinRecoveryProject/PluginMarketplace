@@ -87,11 +87,11 @@ Transform the current workspace into an interactive, stateful learning laborator
 ##### Structure
 
 ```md
-#### {Topic} Glossary
+# {Topic} Glossary
 
 {One or two sentence description of the topic this glossary covers.}
 
-##### Terms
+## Terms
 
 **Hypertrophy**:
 Muscle growth driven by mechanical tension and metabolic stress over repeated training sessions.
@@ -127,7 +127,7 @@ They are the teaching equivalent of ADRs: they capture non-obvious lessons, key 
 ##### Template
 
 ```md
-#### {Short title of what was learned or established}
+# {Short title of what was learned or established}
 
 {1-3 sentences: what was learned (or what prior knowledge was established), and why it matters for future sessions.}
 ```
@@ -174,20 +174,20 @@ When a later record contradicts an earlier one (the user's understanding deepene
 ##### Template
 
 ```md
-#### Mission: {Topic}
+# Mission: {Topic}
 
-##### Why
+## Why
 {1-3 sentences. The concrete real-world goal the user is chasing. What changes in their life or work when they have this skill? Avoid abstract framings like "to understand X"; push for the underlying outcome.}
 
-##### Success looks like
+## Success looks like
 - {A specific, observable thing the user will be able to do}
 - {Another specific thing}
 - {…}
 
-##### Constraints
+## Constraints
 - {Time, budget, prior commitments, learning preferences, anything that bounds the approach}
 
-##### Out of scope
+## Out of scope
 - {Adjacent topics the user explicitly does not want to chase right now, protecting the zone of proximal development}
 ```
 
@@ -208,16 +208,16 @@ When a later record contradicts an earlier one (the user's understanding deepene
 ##### Structure
 
 ```md
-#### {Topic} Resources
+# {Topic} Resources
 
-##### Knowledge
+## Knowledge
 
 - [Book: _The Science and Practice of Strength Training_ by Zatsiorsky & Kraemer](https://example.com)
   Foundational text on programming and adaptation. Use for: anything to do with periodisation, recovery, intensity zones.
 - [Article: "How Much Should I Train?" by Greg Nuckols (Stronger By Science)](https://example.com)
   Evidence-based review of volume landmarks. Use for: weekly set targets per muscle group.
 
-##### Wisdom (Communities)
+## Wisdom (Communities)
 
 - [r/weightroom](https://reddit.com/r/weightroom)
   High-signal subreddit, moderated against bro-science. Use for: programme critique, plateau troubleshooting.

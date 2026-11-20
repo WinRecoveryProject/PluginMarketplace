@@ -3,7 +3,7 @@ import test from 'node:test';
 import {mkdtempSync, mkdirSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join, dirname, extname} from 'node:path';
-import {parseFrontmatter, kebab, rewriteLinks, slug, describeSource, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME} from './build-gemini-skills.mjs';
+import {parseFrontmatter, kebab, rewriteLinks, slug, describeSource, demoteHeadings, unsafeOutputDir, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME} from './build-gemini-skills.mjs';
 
 function fixture() {
   const base = mkdtempSync(join(tmpdir(), 'gemini-skills-'));
@@ -80,4 +80,29 @@ test('marks plugins the Marketplace installs from upstream', () => {
   assert.deepEqual(describeSource('./plugins/x', 'x'), {kind: 'local', label: 'plugins/x'});
   assert.deepEqual(describeSource({source: 'git-subdir', url: 'https://github.com/o/r.git', path: 'plugins/x'}, 'x'),
     {kind: 'upstream', label: 'https://github.com/o/r (plugins/x)'});
+});
+
+test('heading demotion leaves fenced templates untouched', () => {
+  const md = '# Title\n\n```markdown\n# Plan header\n### Task\n```\n\n## After';
+  assert.equal(demoteHeadings(md, 2), '### Title\n\n```markdown\n# Plan header\n### Task\n```\n\n#### After');
+});
+
+test('--out refuses the repository, its inputs and foreign folders', () => {
+  const base = fixture();
+  assert.ok(unsafeOutputDir(base, base));
+  assert.ok(unsafeOutputDir(dirname(base), base));
+  assert.ok(unsafeOutputDir(join(base, 'plugins'), base));
+  assert.equal(unsafeOutputDir(join(base, 'gemini', 'skills'), base), null);
+  const outside = mkdtempSync(join(tmpdir(), 'gemini-out-'));
+  assert.equal(unsafeOutputDir(outside, base), null);
+  writeFileSync(join(outside, 'notes.txt'), 'keep');
+  assert.ok(unsafeOutputDir(outside, base));
+});
+
+test('each plugin gets a source path index for bare path references', () => {
+  const files = buildOutputs(collectPackages(fixture()));
+  const index = files.get('demo-plugin/references/_index.md');
+  assert.match(index, /\| `references\/policy\.md` \| `references\/_plugin-references\.md#file-referencespolicymd` \|/);
+  assert.match(index, /\| `skills\/do-thing\/references\/notes\.md` \| `references\/do-thing\.md#/);
+  assert.match(files.get('demo-plugin/SKILL.md'), /references\/_index\.md/);
 });

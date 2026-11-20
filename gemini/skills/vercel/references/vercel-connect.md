@@ -43,18 +43,18 @@ The `vercel connect` CLI operates in the selected Vercel team and supports machi
 Use the full lifecycle instead of assuming connector creation also authorizes a project:
 
 ```bash
-### Inspect connectors linked to the current project, or all team connectors
+# Inspect connectors linked to the current project, or all team connectors
 vercel connect list
 vercel connect list --all-projects
 
-### Inspect supported setup options, then create a connector
+# Inspect supported setup options, then create a connector
 vercel connect create <service> --help
 vercel connect create <service>
 
-### Link the connector to the current project and selected environments
+# Link the connector to the current project and selected environments
 vercel connect attach <connector>
 
-### Request a scoped provider token
+# Request a scoped provider token
 vercel connect token <connector> --subject app
 ```
 
@@ -218,7 +218,7 @@ For other languages, request a token directly from the Vercel API. Authenticate 
 With a Vercel access token, request only an `app` subject or the access-token owner's own user subject. Use a project OIDC token to request a provider credential for a different user subject.
 
 ```bash
-### Get a token via HTTP
+# Get a token via HTTP
 POST https://api.vercel.com/v1/connect/token/slack%2Facme-slack
 Authorization: Bearer <VERCEL_OIDC_TOKEN | Vercel access token>
 Content-Type: application/json
@@ -234,7 +234,7 @@ The response is JSON with a `token` field (plus `expiresAt`, `connector`, and ot
 import os
 import requests
 
-### Get token from Vercel Connect
+# Get token from Vercel Connect
 connect_response = requests.post(
     "https://api.vercel.com/v1/connect/token/slack%2Facme-slack",
     headers={"Authorization": f"Bearer {os.environ['VERCEL_OIDC_TOKEN']}"},
@@ -244,7 +244,7 @@ connect_response = requests.post(
 )
 token = connect_response.json()["token"]
 
-### Use the token
+# Use the token
 slack_response = requests.post(
     "https://slack.com/api/chat.postMessage",
     headers={"Authorization": f"Bearer {token}"},

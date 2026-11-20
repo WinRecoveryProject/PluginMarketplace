@@ -141,7 +141,7 @@ State what is out of scope. This prevents the agent from gold-plating or making 
 ##### Template
 
 ```markdown
-##### Agent Brief
+## Agent Brief
 
 **Category:** bug / enhancement
 **Summary:** one-line description of what needs to happen
@@ -174,7 +174,7 @@ Be specific about edge cases and error conditions.
 ###### Good agent brief (bug)
 
 ```markdown
-##### Agent Brief
+## Agent Brief
 
 **Category:** bug
 **Summary:** Skill description truncation drops mid-word, producing broken output
@@ -209,7 +209,7 @@ and append "..." to indicate truncation.
 ###### Good agent brief (enhancement)
 
 ```markdown
-##### Agent Brief
+## Agent Brief
 
 **Category:** enhancement
 **Summary:** Add `.out-of-scope/` directory support for tracking rejected feature requests
@@ -252,7 +252,7 @@ checked for matches.
 For a PR, "Current behavior" describes the state of the diff, and the brief asks the agent to finish or fix it rather than build from scratch.
 
 ```markdown
-##### Agent Brief
+## Agent Brief
 
 **Category:** enhancement
 **Summary:** Finish the contributor's `--json` output flag for `triage list`
@@ -287,7 +287,7 @@ is untouched when the flag is absent.
 ###### Bad agent brief
 
 ```markdown
-##### Agent Brief
+## Agent Brief
 
 **Summary:** Fix the triage bug
 
@@ -333,11 +333,11 @@ One file per **concept**, not per issue. Multiple issues requesting the same thi
 The file should be written in a relaxed, readable style, more like a short design document than a database entry. Use paragraphs, code samples, and examples to make the reasoning clear and useful to someone encountering it for the first time.
 
 ```markdown
-#### Dark Mode
+# Dark Mode
 
 This project does not support dark mode or user-facing theming.
 
-##### Why this is out of scope
+## Why this is out of scope
 
 The rendering pipeline assumes a single color palette defined in
 `ThemeConfig`. Supporting multiple themes would require:
@@ -358,7 +358,7 @@ interface ThemeConfig {
 }
 ```
 
-##### Prior requests
+## Prior requests
 
 - #42: "Add dark mode support"
 - #87: "Night theme for accessibility"

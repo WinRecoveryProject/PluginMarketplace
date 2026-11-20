@@ -575,30 +575,30 @@ For long-running sessions (50+ minutes), namespaced streams help manage replay p
 ##### Debugging
 
 ```bash
-#### Check workflow endpoints are reachable
+# Check workflow endpoints are reachable
 npx workflow health
 npx workflow health --port 3001  # Non-default port
 
-#### Visual dashboard for runs
+# Visual dashboard for runs
 npx workflow web
 npx workflow web <run_id>
 
-#### CLI inspection (use --json for machine-readable output, --help for full usage)
+# CLI inspection (use --json for machine-readable output, --help for full usage)
 npx workflow inspect runs
 npx workflow inspect run <run_id>
 
-#### For Vercel-deployed projects, specify backend and project
+# For Vercel-deployed projects, specify backend and project
 npx workflow inspect runs --backend vercel --project <project-name> --team <team-slug>
 npx workflow inspect run <run_id> --backend vercel --project <project-name> --team <team-slug>
 
-#### Open Vercel dashboard in browser for a specific run
+# Open Vercel dashboard in browser for a specific run
 npx workflow inspect run <run_id> --web
 npx workflow web <run_id> --backend vercel --project <project-name> --team <team-slug>
 
-#### Cancel a running workflow
+# Cancel a running workflow
 npx workflow cancel <run_id>
 npx workflow cancel <run_id> --backend vercel --project <project-name> --team <team-slug>
-#### --env defaults to "production"; use --env preview for preview deployments
+# --env defaults to "production"; use --env preview for preview deployments
 ```
 
 ###### Deep-linking to a run (share a URL, no browser)
@@ -609,14 +609,14 @@ clickable link (PR comment, Slack message, debugging summary) rather than open a
 UI. (`--web` opens the dashboard; `--url` only prints the link.)
 
 ```bash
-#### Vercel run: prints the Vercel dashboard URL for the run
+# Vercel run: prints the Vercel dashboard URL for the run
 npx workflow inspect run <run_id> --backend vercel --project <project> --team <team> --url
 npx workflow web <run_id> --backend vercel --project <project> --team <team> --env preview --url
 
-#### Local run: prints the local web UI deep link
+# Local run: prints the local web UI deep link
 npx workflow inspect run <run_id> --url
 
-#### Machine-readable: --url --json prints { "url": "..." } to stdout
+# Machine-readable: --url --json prints { "url": "..." } to stdout
 npx workflow inspect run <run_id> --backend vercel --url --json
 ```
 
@@ -1845,30 +1845,30 @@ For long-running sessions (50+ minutes), namespaced streams help manage replay p
 ##### Debugging
 
 ```bash
-#### Check workflow endpoints are reachable
+# Check workflow endpoints are reachable
 npx workflow health
 npx workflow health --port 3001  # Non-default port
 
-#### Visual dashboard for runs
+# Visual dashboard for runs
 npx workflow web
 npx workflow web <run_id>
 
-#### CLI inspection (use --json for machine-readable output, --help for full usage)
+# CLI inspection (use --json for machine-readable output, --help for full usage)
 npx workflow inspect runs
 npx workflow inspect run <run_id>
 
-#### For Vercel-deployed projects, specify backend and project
+# For Vercel-deployed projects, specify backend and project
 npx workflow inspect runs --backend vercel --project <project-name> --team <team-slug>
 npx workflow inspect run <run_id> --backend vercel --project <project-name> --team <team-slug>
 
-#### Open Vercel dashboard in browser for a specific run
+# Open Vercel dashboard in browser for a specific run
 npx workflow inspect run <run_id> --web
 npx workflow web <run_id> --backend vercel --project <project-name> --team <team-slug>
 
-#### Cancel a running workflow
+# Cancel a running workflow
 npx workflow cancel <run_id>
 npx workflow cancel <run_id> --backend vercel --project <project-name> --team <team-slug>
-#### --env defaults to "production"; use --env preview for preview deployments
+# --env defaults to "production"; use --env preview for preview deployments
 ```
 
 ###### Deep-linking to a run (share a URL, no browser)
@@ -1879,14 +1879,14 @@ clickable link (PR comment, Slack message, debugging summary) rather than open a
 UI. (`--web` opens the dashboard; `--url` only prints the link.)
 
 ```bash
-#### Vercel run: prints the Vercel dashboard URL for the run
+# Vercel run: prints the Vercel dashboard URL for the run
 npx workflow inspect run <run_id> --backend vercel --project <project> --team <team> --url
 npx workflow web <run_id> --backend vercel --project <project> --team <team> --env preview --url
 
-#### Local run: prints the local web UI deep link
+# Local run: prints the local web UI deep link
 npx workflow inspect run <run_id> --url
 
-#### Machine-readable: --url --json prints { "url": "..." } to stdout
+# Machine-readable: --url --json prints { "url": "..." } to stdout
 npx workflow inspect run <run_id> --backend vercel --url --json
 ```
 

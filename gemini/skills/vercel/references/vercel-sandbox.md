@@ -940,7 +940,7 @@ await sandbox.extendTimeout(ms("5m"));
 ###### Vercel OIDC Token (Recommended)
 
 ```bash
-#### Pull development credentials
+# Pull development credentials
 
 Confirm the target Sandbox and authorized cost before running commands. Run ordinary tasks as the scoped sandbox user. Escalate privileges or add packages only for an explicitly required operation in that sandbox.
 vercel link
@@ -1036,14 +1036,14 @@ environment, use a [custom image](#from-a-custom-image-vcr) instead.
 ##### CLI Quick Reference
 
 ```bash
-#### Install CLI
+# Install CLI
 pnpm i -g sandbox
 
-#### Login / Logout
+# Login / Logout
 sandbox login
 sandbox logout
 
-#### Create and connect
+# Create and connect
 sandbox create --connect
 sandbox create --name my-app
 sandbox create --image my-repo:v1            # Boot from a VCR image
@@ -1055,45 +1055,45 @@ sandbox create --region <region>             # Defaults to iad1; any Vercel regi
 sandbox create --failover-regions <region>,<region>  # Comma-separated
 sandbox create --failover-regions none               # No failover, overrides the project default
 
-#### Start a coding agent (interactive terminal required)
+# Start a coding agent (interactive terminal required)
 sandbox create opencode
 sandbox create pi
 sandbox create claude
 sandbox create codex
 sandbox create fx
 
-#### Fork an existing sandbox (inherits config, incl. env; --env replaces it)
+# Fork an existing sandbox (inherits config, incl. env; --env replaces it)
 sandbox fork <source>
 sandbox fork <source> --name my-fork --vcpus 4 --env FOO=1
 sandbox fork <source> --region <region>      # Override the region copied from the source
 
-#### List sandboxes (paginated, filterable)
+# List sandboxes (paginated, filterable)
 sandbox ls
 sandbox ls --name-prefix ci- --sort-by name
 sandbox ls --tag env=staging --limit 100 --cursor <token>
 
-#### Run a command in a new sandbox (create + exec in one step)
+# Run a command in a new sandbox (create + exec in one step)
 sandbox run -- node -e "console.log('hello')"
 sandbox run --name my-app -- npm test        # Resumes existing sandbox if present
 sandbox run --stop -- npm build              # Stop the session when the command exits
 sandbox run --rm -- npm build                # DELETES the sandbox after running
 
-#### Execute command in an existing sandbox
+# Execute command in an existing sandbox
 sandbox exec <name> -- npm install
 sandbox exec <name> -- npm build
 sandbox stop <name>
 
-#### Start an interactive shell
+# Start an interactive shell
 sandbox connect <name>
 
-#### Copy files
+# Copy files
 sandbox cp local-file.txt <name>:/vercel/sandbox/local-file.txt
 sandbox cp -r ./my-app <name>:/vercel/sandbox/app    # Directory: contents of ./my-app land in /app
 sandbox cp -r <name>:/vercel/sandbox/dist ./dist     # And back
-#### Recursive copies preserve empty directories, symlinks, and permissions.
-#### Windows downloads reject filenames containing backslashes or colons.
+# Recursive copies preserve empty directories, symlinks, and permissions.
+# Windows downloads reject filenames containing backslashes or colons.
 
-#### Read and write single files (handy for coding agents)
+# Read and write single files (handy for coding agents)
 sandbox read <name> /vercel/sandbox/package.json     # Raw bytes to stdout
 sandbox write <name> /vercel/sandbox/index.js < ./index.js
 sandbox write --mode 755 <name> /vercel/sandbox/run.sh <<'EOF'
@@ -1101,51 +1101,51 @@ sandbox write --mode 755 <name> /vercel/sandbox/run.sh <<'EOF'
 npm test
 EOF
 
-#### Start a command and retrieve its ID for later inspection
+# Start a command and retrieve its ID for later inspection
 sandbox exec --detach <name> -- npm run dev
 sandbox commands get <name> <command-id>
 sandbox commands logs <name> <command-id>
 sandbox commands wait <name> <command-id>
 sandbox commands kill <name> <command-id> --signal SIGTERM  # Also SIGKILL, SIGINT, SIGHUP, SIGQUIT
 
-#### Pipe local input into a command and stream its output in one invocation
+# Pipe local input into a command and stream its output in one invocation
 printf 'hello\n' | sandbox exec --stdin <name> -- cat
 
-#### --stdin cannot be combined with --interactive
+# --stdin cannot be combined with --interactive
 
-#### Keep stdin open when later processes need to write to a detached command
-#### Wait for each write to finish before another process writes to the same command
+# Keep stdin open when later processes need to write to a detached command
+# Wait for each write to finish before another process writes to the same command
 command_id=$(sandbox exec --detach --stdin <name> -- cat)
 printf 'hello\n' | sandbox commands write <name> "$command_id"
 sandbox commands close-stdin <name> "$command_id"
-#### output waits for exit; use commands logs to stream while running
-#### CLI output is text and does not preserve arbitrary binary bytes
+# output waits for exit; use commands logs to stream while running
+# CLI output is text and does not preserve arbitrary binary bytes
 sandbox commands output <name> "$command_id" --stream stdout  # Also accepts stderr or both
 
-#### Get the public URL for a published port in the running session
+# Get the public URL for a published port in the running session
 sandbox domain <name> 3000
 
-#### Create a Linux user and shared group, then run a command as that user
+# Create a Linux user and shared group, then run a command as that user
 sandbox users create <name> alice
 sandbox groups create <name> devs
 sandbox groups add-user <name> devs alice
 sandbox users exec <name> alice -- id
 sandbox groups remove-user <name> devs alice
 
-#### Add time to the current running session without changing future defaults
+# Add time to the current running session without changing future defaults
 sandbox extend <name> <duration>
 
-#### Stop sandbox (synchronous; reports snapshot + usage)
+# Stop sandbox (synchronous; reports snapshot + usage)
 sandbox stop <name>
 
-#### Permanently delete sandbox; its snapshots are kept until they expire
+# Permanently delete sandbox; its snapshots are kept until they expire
 sandbox remove <name>
 sandbox remove <name> --delete-orphan-snapshots  # Also delete snapshots no other sandbox uses
 
-#### Sessions
+# Sessions
 sandbox sessions list <name>
 
-#### Snapshots
+# Snapshots
 sandbox snapshot <name>
 sandbox snapshots list --name <name>
 sandbox snapshots get <snapshot-id>
@@ -1153,12 +1153,12 @@ sandbox snapshots remove <snapshot-id>
 sandbox snapshots tree <name>                # Walk the tree from the sandbox's current snapshot
 sandbox snapshots tree <name> --cursor <snapshot-id> --sort-order asc
 
-#### Create or retrieve a drive; size is fixed at creation
+# Create or retrieve a drive; size is fixed at creation
 sandbox drives get-or-create workspace --max-size 200GiB
 sandbox drives get-or-create archive --max-size 2TiB
 sandbox drives get-or-create workspace --max-size 214748364800  # Raw bytes
 
-#### Config (view + update any sandbox parameter)
+# Config (view + update any sandbox parameter)
 sandbox config list <name>
 sandbox config vcpus <name> <count>
 sandbox config timeout <name> <duration>  # Total runtime; a higher value also extends the running session
@@ -2333,7 +2333,7 @@ await sandbox.extendTimeout(ms("5m"));
 ###### Vercel OIDC Token (Recommended)
 
 ```bash
-#### Pull development credentials
+# Pull development credentials
 
 Confirm the target Sandbox and authorized cost before running commands. Run ordinary tasks as the scoped sandbox user. Escalate privileges or add packages only for an explicitly required operation in that sandbox.
 vercel link
@@ -2429,14 +2429,14 @@ environment, use a [custom image](#from-a-custom-image-vcr) instead.
 ##### CLI Quick Reference
 
 ```bash
-#### Install CLI
+# Install CLI
 pnpm i -g sandbox
 
-#### Login / Logout
+# Login / Logout
 sandbox login
 sandbox logout
 
-#### Create and connect
+# Create and connect
 sandbox create --connect
 sandbox create --name my-app
 sandbox create --image my-repo:v1            # Boot from a VCR image
@@ -2448,45 +2448,45 @@ sandbox create --region <region>             # Defaults to iad1; any Vercel regi
 sandbox create --failover-regions <region>,<region>  # Comma-separated
 sandbox create --failover-regions none               # No failover, overrides the project default
 
-#### Start a coding agent (interactive terminal required)
+# Start a coding agent (interactive terminal required)
 sandbox create opencode
 sandbox create pi
 sandbox create claude
 sandbox create codex
 sandbox create fx
 
-#### Fork an existing sandbox (inherits config, incl. env; --env replaces it)
+# Fork an existing sandbox (inherits config, incl. env; --env replaces it)
 sandbox fork <source>
 sandbox fork <source> --name my-fork --vcpus 4 --env FOO=1
 sandbox fork <source> --region <region>      # Override the region copied from the source
 
-#### List sandboxes (paginated, filterable)
+# List sandboxes (paginated, filterable)
 sandbox ls
 sandbox ls --name-prefix ci- --sort-by name
 sandbox ls --tag env=staging --limit 100 --cursor <token>
 
-#### Run a command in a new sandbox (create + exec in one step)
+# Run a command in a new sandbox (create + exec in one step)
 sandbox run -- node -e "console.log('hello')"
 sandbox run --name my-app -- npm test        # Resumes existing sandbox if present
 sandbox run --stop -- npm build              # Stop the session when the command exits
 sandbox run --rm -- npm build                # DELETES the sandbox after running
 
-#### Execute command in an existing sandbox
+# Execute command in an existing sandbox
 sandbox exec <name> -- npm install
 sandbox exec <name> -- npm build
 sandbox stop <name>
 
-#### Start an interactive shell
+# Start an interactive shell
 sandbox connect <name>
 
-#### Copy files
+# Copy files
 sandbox cp local-file.txt <name>:/vercel/sandbox/local-file.txt
 sandbox cp -r ./my-app <name>:/vercel/sandbox/app    # Directory: contents of ./my-app land in /app
 sandbox cp -r <name>:/vercel/sandbox/dist ./dist     # And back
-#### Recursive copies preserve empty directories, symlinks, and permissions.
-#### Windows downloads reject filenames containing backslashes or colons.
+# Recursive copies preserve empty directories, symlinks, and permissions.
+# Windows downloads reject filenames containing backslashes or colons.
 
-#### Read and write single files (handy for coding agents)
+# Read and write single files (handy for coding agents)
 sandbox read <name> /vercel/sandbox/package.json     # Raw bytes to stdout
 sandbox write <name> /vercel/sandbox/index.js < ./index.js
 sandbox write --mode 755 <name> /vercel/sandbox/run.sh <<'EOF'
@@ -2494,51 +2494,51 @@ sandbox write --mode 755 <name> /vercel/sandbox/run.sh <<'EOF'
 npm test
 EOF
 
-#### Start a command and retrieve its ID for later inspection
+# Start a command and retrieve its ID for later inspection
 sandbox exec --detach <name> -- npm run dev
 sandbox commands get <name> <command-id>
 sandbox commands logs <name> <command-id>
 sandbox commands wait <name> <command-id>
 sandbox commands kill <name> <command-id> --signal SIGTERM  # Also SIGKILL, SIGINT, SIGHUP, SIGQUIT
 
-#### Pipe local input into a command and stream its output in one invocation
+# Pipe local input into a command and stream its output in one invocation
 printf 'hello\n' | sandbox exec --stdin <name> -- cat
 
-#### --stdin cannot be combined with --interactive
+# --stdin cannot be combined with --interactive
 
-#### Keep stdin open when later processes need to write to a detached command
-#### Wait for each write to finish before another process writes to the same command
+# Keep stdin open when later processes need to write to a detached command
+# Wait for each write to finish before another process writes to the same command
 command_id=$(sandbox exec --detach --stdin <name> -- cat)
 printf 'hello\n' | sandbox commands write <name> "$command_id"
 sandbox commands close-stdin <name> "$command_id"
-#### output waits for exit; use commands logs to stream while running
-#### CLI output is text and does not preserve arbitrary binary bytes
+# output waits for exit; use commands logs to stream while running
+# CLI output is text and does not preserve arbitrary binary bytes
 sandbox commands output <name> "$command_id" --stream stdout  # Also accepts stderr or both
 
-#### Get the public URL for a published port in the running session
+# Get the public URL for a published port in the running session
 sandbox domain <name> 3000
 
-#### Create a Linux user and shared group, then run a command as that user
+# Create a Linux user and shared group, then run a command as that user
 sandbox users create <name> alice
 sandbox groups create <name> devs
 sandbox groups add-user <name> devs alice
 sandbox users exec <name> alice -- id
 sandbox groups remove-user <name> devs alice
 
-#### Add time to the current running session without changing future defaults
+# Add time to the current running session without changing future defaults
 sandbox extend <name> <duration>
 
-#### Stop sandbox (synchronous; reports snapshot + usage)
+# Stop sandbox (synchronous; reports snapshot + usage)
 sandbox stop <name>
 
-#### Permanently delete sandbox; its snapshots are kept until they expire
+# Permanently delete sandbox; its snapshots are kept until they expire
 sandbox remove <name>
 sandbox remove <name> --delete-orphan-snapshots  # Also delete snapshots no other sandbox uses
 
-#### Sessions
+# Sessions
 sandbox sessions list <name>
 
-#### Snapshots
+# Snapshots
 sandbox snapshot <name>
 sandbox snapshots list --name <name>
 sandbox snapshots get <snapshot-id>
@@ -2546,12 +2546,12 @@ sandbox snapshots remove <snapshot-id>
 sandbox snapshots tree <name>                # Walk the tree from the sandbox's current snapshot
 sandbox snapshots tree <name> --cursor <snapshot-id> --sort-order asc
 
-#### Create or retrieve a drive; size is fixed at creation
+# Create or retrieve a drive; size is fixed at creation
 sandbox drives get-or-create workspace --max-size 200GiB
 sandbox drives get-or-create archive --max-size 2TiB
 sandbox drives get-or-create workspace --max-size 214748364800  # Raw bytes
 
-#### Config (view + update any sandbox parameter)
+# Config (view + update any sandbox parameter)
 sandbox config list <name>
 sandbox config vcpus <name> <count>
 sandbox config timeout <name> <duration>  # Total runtime; a higher value also extends the running session

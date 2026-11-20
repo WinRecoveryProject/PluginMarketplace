@@ -186,10 +186,10 @@ export function getDb() {
 **Drizzle Kit migrations**: `drizzle-kit` and `tsx` do NOT auto-load `.env.local`. Source env vars manually or use `dotenv`:
 
 ```bash
-#### Option 1: Source env vars before running
+# Option 1: Source env vars before running
 source <(grep -v '^#' .env.local | sed 's/^/export /') && npx drizzle-kit push
 
-#### Option 2: Use dotenv-cli (recommended for scripts)
+# Option 2: Use dotenv-cli (recommended for scripts)
 npm install -D dotenv-cli
 npx dotenv -e .env.local -- npx drizzle-kit push
 npx dotenv -e .env.local -- npx tsx scripts/seed.ts
@@ -396,22 +396,22 @@ Install via Vercel Marketplace: `vercel integration add tursocloud`
 `vercel storage create` only creates first-party stores (`--type blob` or `--type global-config`). Redis, Postgres, and every other Marketplace database are provisioned with `vercel install` (alias of `vercel integration add`), which installs the integration if needed, creates the resource, connects it to the linked project, and runs `vercel env pull`:
 
 ```bash
-#### Find storage integrations and their product slugs
+# Find storage integrations and their product slugs
 vercel integration discover --category storage
 
-#### See the products, metadata keys, and billing plans for one integration
+# See the products, metadata keys, and billing plans for one integration
 vercel install upstash --help
 
-#### Provision without prompts (name, plan, and metadata come from --help above)
+# Provision without prompts (name, plan, and metadata come from --help above)
 vercel install upstash --name my-redis --billing-plan <plan-id> --meta primaryRegion=iad1
 
-#### Pick a product from a multi-product integration
+# Pick a product from a multi-product integration
 vercel install <integration>/<product>
 
-#### Provision without connecting to the linked project (also skips env pull)
+# Provision without connecting to the linked project (also skips env pull)
 vercel install neon --name my-db --no-connect
 
-#### List installed integrations
+# List installed integrations
 vercel integration list
 ```
 

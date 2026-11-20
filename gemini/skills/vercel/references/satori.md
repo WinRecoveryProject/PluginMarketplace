@@ -20,10 +20,10 @@ You are an expert in Satori and `@vercel/og` for generating dynamic Open Graph i
 #### Installation
 
 ```bash
-### For Next.js projects (recommended — includes Satori + PNG rendering)
+# For Next.js projects (recommended — includes Satori + PNG rendering)
 npm install @vercel/og
 
-### Standalone Satori (SVG output only)
+# Standalone Satori (SVG output only)
 npm install satori
 ```
 

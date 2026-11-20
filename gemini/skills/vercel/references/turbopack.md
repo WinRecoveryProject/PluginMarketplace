@@ -223,10 +223,10 @@ import 'server-only' // Build fails if imported in a client component
 Run both bundlers and compare:
 
 ```bash
-### Turbopack build (default in Next.js 16)
+# Turbopack build (default in Next.js 16)
 next build
 
-### Webpack build
+# Webpack build
 BUNDLER=webpack next build
 ```
 

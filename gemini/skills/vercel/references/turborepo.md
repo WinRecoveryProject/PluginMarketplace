@@ -49,9 +49,9 @@ You are an expert in Turborepo v2.8 — "the build system for agentic coding" �
 
 ```bash
 npx create-turbo@latest
-#### or add to existing monorepo:
+# or add to existing monorepo:
 npm install turbo --save-dev
-#### upgrade existing Turborepo:
+# upgrade existing Turborepo:
 npx @turbo/codemod migrate
 ```
 
@@ -146,31 +146,31 @@ The `turbo.json` file defines your task dependency graph. Here are comprehensive
 Run tasks in specific packages or subsets of your monorepo:
 
 ```bash
-#### Single package
+# Single package
 turbo build --filter=web
 
-#### Package and its dependencies
+# Package and its dependencies
 turbo build --filter=web...
 
-#### Package and its dependents (what depends on it)
+# Package and its dependents (what depends on it)
 turbo build --filter=...ui
 
-#### Multiple packages
+# Multiple packages
 turbo build --filter=web --filter=api
 
-#### By directory
+# By directory
 turbo build --filter=./apps/*
 
-#### Packages that changed since main
+# Packages that changed since main
 turbo build --filter=[main]
 
-#### Combine: changed packages and their dependents
+# Combine: changed packages and their dependents
 turbo build --filter=...[main]
 
-#### Exclude a package
+# Exclude a package
 turbo build --filter=!docs
 
-#### Packages matching a pattern
+# Packages matching a pattern
 turbo build --filter=@myorg/*
 ```
 
@@ -255,11 +255,11 @@ jobs:
 ###### Remote caching in CI
 
 ```bash
-#### Set in CI environment
+# Set in CI environment
 TURBO_TOKEN=your-vercel-token
 TURBO_TEAM=your-vercel-team
 
-#### Builds automatically use remote cache
+# Builds automatically use remote cache
 turbo build
 ```
 
@@ -268,13 +268,13 @@ turbo build
 Run tasks in watch mode for development — re-executes when source files change:
 
 ```bash
-#### Watch a specific task
+# Watch a specific task
 turbo watch test
 
-#### Watch with a filter
+# Watch with a filter
 turbo watch test --filter=web
 
-#### Watch multiple tasks
+# Watch multiple tasks
 turbo watch test lint
 ```
 
@@ -318,10 +318,10 @@ This enforces:
 - Violations produce build-time errors with `turbo boundaries`
 
 ```bash
-#### Check boundary compliance
+# Check boundary compliance
 turbo boundaries
 
-#### Add to your pipeline
+# Add to your pipeline
 {
   "tasks": {
     "check": {
@@ -337,26 +337,26 @@ turbo boundaries
 Inspect your task dependency graph:
 
 ```bash
-#### Print graph to terminal
+# Print graph to terminal
 turbo build --graph
 
-#### Output as DOT format (Graphviz)
+# Output as DOT format (Graphviz)
 turbo build --graph=graph.dot
 
-#### Output as JSON
+# Output as JSON
 turbo build --graph=graph.json
 
-#### Open interactive graph in browser
+# Open interactive graph in browser
 turbo build --graph=graph.html
 ```
 
 ###### Dry run — see what would execute
 
 ```bash
-#### Show tasks that would run without executing them
+# Show tasks that would run without executing them
 turbo build --dry-run
 
-#### JSON output for programmatic use
+# JSON output for programmatic use
 turbo build --dry-run=json
 ```
 
@@ -369,13 +369,13 @@ The dry run output shows:
 ##### Devtools & Docs (2.8+)
 
 ```bash
-#### Visual package/task graph explorer (hot-reloads on changes)
+# Visual package/task graph explorer (hot-reloads on changes)
 turbo devtools
 
-#### Search Turborepo docs from the terminal (returns agent-friendly markdown)
+# Search Turborepo docs from the terminal (returns agent-friendly markdown)
 turbo docs
 
-#### Upgrade to latest Turborepo
+# Upgrade to latest Turborepo
 npx @turbo/codemod migrate
 ```
 
@@ -400,38 +400,38 @@ Package configs can now extend from any workspace package, not just the root:
 ##### Common Commands
 
 ```bash
-#### Run build across all packages
+# Run build across all packages
 turbo build
 
-#### Run only affected packages (changed since main branch)
+# Run only affected packages (changed since main branch)
 turbo build --affected
 
-#### Run specific tasks in specific packages
+# Run specific tasks in specific packages
 turbo build --filter=web
 
-#### Run with remote caching
+# Run with remote caching
 turbo build --remote-cache
 
-#### Prune monorepo for a single app deployment
+# Prune monorepo for a single app deployment
 turbo prune web --docker
 
-#### List all packages
+# List all packages
 turbo ls
 
-#### List affected packages
+# List affected packages
 turbo ls --affected
 ```
 
 ##### Remote Caching
 
 ```bash
-#### Login to Vercel for remote caching
+# Login to Vercel for remote caching
 turbo login
 
-#### Link to a Vercel team
+# Link to a Vercel team
 turbo link
 
-#### Now builds share cache across all machines
+# Now builds share cache across all machines
 turbo build  # Cache hits from CI, teammates, etc.
 ```
 
@@ -463,7 +463,7 @@ my-monorepo/
 The most important optimization for CI pipelines:
 
 ```bash
-#### Only build/test packages that changed since main
+# Only build/test packages that changed since main
 turbo build test lint --affected
 ```
 
@@ -499,13 +499,13 @@ my-platform/
 Each micro-app is a separate Vercel project with its own build and deploy lifecycle:
 
 ```bash
-#### Deploy only the dashboard micro-app
+# Deploy only the dashboard micro-app
 turbo build --filter=dashboard
 
-#### Deploy all micro-apps in parallel
+# Deploy all micro-apps in parallel
 turbo build --filter=./apps/*
 
-#### Deploy only micro-apps that changed since main
+# Deploy only micro-apps that changed since main
 turbo build --filter=./apps/*...[main]
 ```
 
@@ -589,10 +589,10 @@ Turborepo 2.6+ has **stable Bun support** with granular lockfile analysis:
 - **Skip-builds detection**: On Vercel, monorepo workspace detection automatically skips unaffected projects when `bun.lock` changes don't touch a project's dependencies. Combined with `--affected`, only changed packages and their dependents rebuild.
 
 ```bash
-#### Ensure text lockfile for Turborepo compatibility
+# Ensure text lockfile for Turborepo compatibility
 bun install --save-text-lockfile
 
-#### Run only affected packages (works with Bun lockfile detection)
+# Run only affected packages (works with Bun lockfile detection)
 turbo build --affected
 ```
 

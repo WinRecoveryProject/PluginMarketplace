@@ -509,7 +509,7 @@ Save output for comparison:
 
 ```bash
 next experimental-analyze --output
-#### Output saved to .next/diagnostics/analyze
+# Output saved to .next/diagnostics/analyze
 ```
 
 Reference: https://nextjs.org/docs/app/guides/package-bundling
@@ -927,13 +927,13 @@ curl -X POST http://localhost:<port>/_next/mcp \
 Use `--debug-build-paths` to rebuild only specific routes instead of the entire app:
 
 ```bash
-#### Rebuild a specific route
+# Rebuild a specific route
 next build --debug-build-paths "/dashboard"
 
-#### Rebuild routes matching a glob
+# Rebuild routes matching a glob
 next build --debug-build-paths "/api/*"
 
-#### Dynamic routes
+# Dynamic routes
 next build --debug-build-paths "/blog/[slug]"
 ```
 
@@ -3146,30 +3146,30 @@ This creates a minimal `standalone` folder with only production dependencies:
 ```dockerfile
 FROM node:20-alpine AS base
 
-#### Install dependencies
+# Install dependencies
 FROM base AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-#### Build
+# Build
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-#### Production
+# Production
 FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-#### Create non-root user
+# Create non-root user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-#### Copy standalone output
+# Copy standalone output
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
@@ -3427,7 +3427,7 @@ export async function GET() {
 
 ```bash
 npx create-sst@latest
-#### or
+# or
 npx @opennextjs/aws build
 ```
 
@@ -3472,17 +3472,17 @@ export async function GET() {
 **Critical**: Test your cache handler on every Next.js upgrade:
 
 ```bash
-#### Start multiple instances
+# Start multiple instances
 PORT=3001 node .next/standalone/server.js &
 PORT=3002 node .next/standalone/server.js &
 
-#### Trigger ISR revalidation
+# Trigger ISR revalidation
 curl http://localhost:3001/api/revalidate?path=/posts
 
-#### Verify both instances see the update
+# Verify both instances see the update
 curl http://localhost:3001/posts
 curl http://localhost:3002/posts
-#### Should return identical content
+# Should return identical content
 ```
 
 ### File: `references/suspense-boundaries.md`

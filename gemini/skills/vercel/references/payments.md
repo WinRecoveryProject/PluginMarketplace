@@ -20,7 +20,7 @@ Stripe is a native Vercel Marketplace integration with sandbox provisioning and 
 ##### Install via Marketplace
 
 ```bash
-### Install Stripe from Vercel Marketplace (auto-provisions sandbox + env vars)
+# Install Stripe from Vercel Marketplace (auto-provisions sandbox + env vars)
 vercel integration add stripe
 ```
 
@@ -32,10 +32,10 @@ Auto-provisioned environment variables:
 ##### SDK Setup
 
 ```bash
-### Server-side SDK
+# Server-side SDK
 npm install stripe
 
-### Client-side SDK (for Stripe Elements / Checkout)
+# Client-side SDK (for Stripe Elements / Checkout)
 npm install @stripe/stripe-js @stripe/react-stripe-js
 ```
 

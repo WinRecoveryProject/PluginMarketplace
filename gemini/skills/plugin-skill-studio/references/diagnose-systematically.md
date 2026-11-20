@@ -517,13 +517,13 @@ npm test 2>&1 | grep 'DEBUG git init'
 When the path runs through several components (CI → build → deploy, API → service → database), instrument every boundary before proposing fixes: log what enters and what exits each component, and confirm config/environment propagation at each hop. One instrumented run shows which layer the data dies in; investigate that layer.
 
 ```bash
-#### Layer 1: entry point - is the value present at all?
+# Layer 1: entry point - is the value present at all?
 if [ -n "${API_KEY:-}" ]; then echo "API_KEY: SET"; else echo "API_KEY: UNSET"; fi
 
-#### Layer 2: intermediate script - did it propagate?
+# Layer 2: intermediate script - did it propagate?
 if [ "${API_KEY+x}" = x ]; then echo "API_KEY propagated: SET"; else echo "API_KEY propagated: UNSET"; fi
 
-#### Layer 3: consumer - what does the application actually see?
+# Layer 3: consumer - what does the application actually see?
 node -e "console.log('key seen by app:', process.env.API_KEY ? 'SET' : 'UNSET')"
 ```
 

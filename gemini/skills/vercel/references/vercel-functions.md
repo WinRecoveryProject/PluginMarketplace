@@ -365,14 +365,14 @@ Vercel Functions run **OCI-compatible container images**. This is first-class Do
 Create `Dockerfile.vercel` (or `Containerfile.vercel`) at the project root. Vercel detects it automatically and adds a rewrite routing all traffic to the image.
 
 ```docker
-#### Dockerfile.vercel
+# Dockerfile.vercel
 FROM node:26-alpine
 
 RUN npm i -g srvx
 WORKDIR /app
 COPY server.ts .
 
-#### srvx listens on $PORT by default
+# srvx listens on $PORT by default
 CMD ["srvx", "--prod"]
 ```
 

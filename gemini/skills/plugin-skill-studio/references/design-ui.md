@@ -185,7 +185,7 @@ Fill every field with concrete values. An adjective without a token, dimension,
 or consequence leaves the decision to the implementer.
 
 ```text
-##### Direction
+## Direction
 
 color
   surface: <hex, role>

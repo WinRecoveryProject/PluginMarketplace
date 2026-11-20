@@ -51,7 +51,7 @@ After execution, confirm the outcome:
 Present a concise result block:
 
 ```
-#### Result
+## Result
 - **Action**: what was done
 - **Status**: success | partial | failed
 - **Details**: key output (URL, counts, config changes)
@@ -254,7 +254,7 @@ If verification fails, stop and report exact failing step plus remediation.
 Return a final bootstrap summary in this format:
 
 ```md
-#### Bootstrap Result
+## Bootstrap Result
 - **Linked Project**: <team>/<project>
 - **Resource Path**: vercel-integration-neon | dashboard-neon | neon-cli
 - **Env Keys**: <count> required, <count> present, <count> missing
@@ -412,10 +412,10 @@ If "$ARGUMENTS" does not indicate production:
 
 <!-- Sourced from deployments-cicd skill: Deployment Commands > Preview Deployment -->
 ```bash
-### Deploy from project root (creates preview URL)
+# Deploy from project root (creates preview URL)
 vercel
 
-### Equivalent explicit form
+# Equivalent explicit form
 vercel deploy
 ```
 
@@ -425,11 +425,11 @@ Preview deployments are created automatically for every push to a non-production
 
 <!-- Sourced from deployments-cicd skill: Deployment Commands > Production Deployment -->
 ```bash
-### Deploy directly to production
+# Deploy directly to production
 vercel --prod
 vercel deploy --prod
 
-### Force a new deployment (skip cache)
+# Force a new deployment (skip cache)
 vercel --prod --force
 ```
 
@@ -449,13 +449,13 @@ After deployment completes, verify the result:
 
 <!-- Sourced from deployments-cicd skill: Deployment Commands > Inspect Deployments -->
 ```bash
-### View deployment details (build info, functions, metadata)
+# View deployment details (build info, functions, metadata)
 vercel inspect <deployment-url>
 
-### List recent deployments
+# List recent deployments
 vercel ls
 
-### View logs for a deployment
+# View logs for a deployment
 vercel logs <deployment-url>
 vercel logs <deployment-url> --follow
 ```
@@ -501,10 +501,10 @@ Or via MCP if available: use `get_runtime_logs` with level filter `error`.
 If no drains are configured, the error scan relies on CLI and Dashboard:
 
 ```bash
-### Stream live errors
+# Stream live errors
 vercel logs <deployment-url> --level error --follow
 
-### JSON output for parsing
+# JSON output for parsing
 vercel logs <deployment-url> --level error --since 1h --json
 ```
 
@@ -516,7 +516,7 @@ vercel logs <deployment-url> --level error --since 1h --json
 Present a structured deploy result block:
 
 ```
-#### Deploy Result
+## Deploy Result
 - **URL**: <deployment-url>
 - **Target**: production | preview
 - **Status**: READY | ERROR | BUILDING | QUEUED
@@ -534,7 +534,7 @@ If the deployment failed, append:
 For production deploys, also include:
 
 ```
-##### Post-Deploy Observability
+### Post-Deploy Observability
 - **Error scan**: <N errors found / clean> (scanned via vercel logs --level error --since 1h)
 - **Drains**: <N configured / none>
 - **Monitoring**: <active / gaps identified>
@@ -706,10 +706,10 @@ For any operation that mutates **production** environment variables (`add` or `r
 
 <!-- Sourced from env-vars skill: vercel env CLI > List Environment Variables -->
 ```bash
-### List all environment variables
+# List all environment variables
 vercel env ls
 
-### Filter by environment
+# Filter by environment
 vercel env ls production
 ```
 
@@ -724,18 +724,18 @@ Present results as a table of variable **names only** grouped by environment. **
 
 <!-- Sourced from env-vars skill: vercel env CLI > Pull Environment Variables -->
 ```bash
-### Pull all env vars for the current environment into .env.local
+# Pull all env vars for the current environment into .env.local
 vercel env pull .env.local
 
-### Pull for a specific environment
+# Pull for a specific environment
 vercel env pull .env.local --environment=production
 vercel env pull .env.local --environment=preview
 vercel env pull .env.local --environment=development
 
-### Overwrite existing file without prompting
+# Overwrite existing file without prompting
 vercel env pull .env.local --yes
 
-### Pull to a custom file
+# Pull to a custom file
 vercel env pull .env.production.local --environment=production
 ```
 
@@ -751,16 +751,16 @@ After pulling, remind the user:
 
 <!-- Sourced from env-vars skill: vercel env CLI > Add Environment Variables -->
 ```bash
-### Interactive — prompts for value and environments
+# Interactive — prompts for value and environments
 vercel env add MY_SECRET
 
-### Non-interactive
+# Non-interactive
 echo "secret-value" | vercel env add MY_SECRET production
 
-### Add to multiple environments
+# Add to multiple environments
 echo "secret-value" | vercel env add MY_SECRET production preview development
 
-### Add a sensitive variable (encrypted, not shown in logs)
+# Add a sensitive variable (encrypted, not shown in logs)
 vercel env add MY_SECRET --sensitive
 ```
 
@@ -773,10 +773,10 @@ The CLI will prompt for the value interactively — **do not pass the value as a
 
 <!-- Sourced from env-vars skill: vercel env CLI > Remove Environment Variables -->
 ```bash
-### Remove from specific environment
+# Remove from specific environment
 vercel env rm MY_SECRET production
 
-### Remove from all environments
+# Remove from all environments
 vercel env rm MY_SECRET
 ```
 
@@ -803,17 +803,17 @@ Parse the output to extract variable names for the target environment (default: 
 3. Present the diff:
 
 ```
-#### Env Diff — Local vs Vercel (development)
+## Env Diff — Local vs Vercel (development)
 
-##### In local but NOT on Vercel:
+### In local but NOT on Vercel:
 - EXTRA_LOCAL_VAR
 - DEBUG_MODE
 
-##### On Vercel but NOT in local:
+### On Vercel but NOT in local:
 - ANALYTICS_KEY
 - SENTRY_DSN
 
-##### In both:
+### In both:
 - DATABASE_URL
 - API_KEY
 - NEXT_PUBLIC_APP_URL
@@ -848,7 +848,7 @@ A variable can be assigned to one, two, or all three environments.
 Preview environment variables can be scoped to specific Git branches:
 
 ```bash
-### Add a variable only for the "staging" branch
+# Add a variable only for the "staging" branch
 echo "staging-value" | vercel env add DATABASE_URL preview --git-branch=staging
 ```
 
@@ -860,7 +860,7 @@ echo "staging-value" | vercel env add DATABASE_URL preview --git-branch=staging
 `vercel env pull .env.local` **replaces the entire file** — any manually added variables (custom secrets, local overrides, debug flags) are lost. Always back up or re-add custom vars after pulling:
 
 ```bash
-### Save custom vars before pulling
+# Save custom vars before pulling
 grep -v '^#' .env.local | grep -v '^VERCEL_\|^POSTGRES_\|^NEXT_PUBLIC_' > .env.custom.bak
 vercel env pull .env.local --yes
 cat .env.custom.bak >> .env.local  # Re-append custom vars
@@ -873,12 +873,12 @@ Or maintain custom vars in a separate `.env.development.local` file (loaded afte
 Only Next.js auto-loads `.env.local`. Standalone scripts (`drizzle-kit`, `tsx`, custom Node scripts) need explicit loading:
 
 ```bash
-### Use dotenv-cli
+# Use dotenv-cli
 npm install -D dotenv-cli
 npx dotenv -e .env.local -- npx drizzle-kit push
 npx dotenv -e .env.local -- npx tsx scripts/seed.ts
 
-### Or source manually
+# Or source manually
 source <(grep -v '^#' .env.local | sed 's/^/export /') && node scripts/migrate.js
 ```
 
@@ -902,7 +902,7 @@ If verification fails (variable still present after remove, or missing after add
 Present a structured result block:
 
 ```
-#### Env Result
+## Env Result
 - **Action**: list | pull | add | remove | diff
 - **Status**: success | failed
 - **Variable**: <NAME> (for add/remove)
@@ -1153,15 +1153,15 @@ No destructive operations unless the user explicitly confirms. Package installs 
 ##### 1. Discover — Search the Marketplace Catalog
 
 ```bash
-### Search all available integrations
+# Search all available integrations
 vercel integration discover
 
-### Filter by category
+# Filter by category
 vercel integration discover --category databases
 vercel integration discover --category monitoring
 vercel integration discover --category auth
 
-### List integrations already installed on this project
+# List integrations already installed on this project
 vercel integration list
 ```
 
@@ -1188,7 +1188,7 @@ If the user hasn't specified one in "$ARGUMENTS", ask which integration to set u
 ##### 3. Guide — Fetch Setup Steps
 
 ```bash
-### Get agent-friendly setup guide
+# Get agent-friendly setup guide
 vercel integration guide <name> --framework <fw>
 ```
 
@@ -1272,10 +1272,10 @@ Follow this sequence when setting up an observability integration:
 ###### 1. Pick Vendor
 
 ```bash
-### Discover observability integrations
+# Discover observability integrations
 vercel integration discover --category monitoring
 
-### Get setup guide for chosen vendor
+# Get setup guide for chosen vendor
 vercel integration guide datadog
 ```
 
@@ -1294,10 +1294,10 @@ A drain test sends a payload to the destination. Use the connected Vercel App to
 ###### 5. Smoke Log Check
 
 ```bash
-### Trigger a deployment and check logs flow through
+# Trigger a deployment and check logs flow through
 vercel logs <deployment-url> --follow --since 5m
 
-### Check integration balance to confirm data is flowing
+# Check integration balance to confirm data is flowing
 vercel integration balance datadog
 ```
 
@@ -1353,7 +1353,7 @@ If any step fails, report the specific error and suggest remediation before cont
 Present a structured result block:
 
 ```
-#### Marketplace Result
+## Marketplace Result
 - **Integration**: <name>
 - **Status**: installed | partially configured | failed
 - **Package**: <sdk-package>@<version>
@@ -1800,33 +1800,33 @@ If any check fails, report the specific error and continue with remaining checks
 Present the diagnostic report:
 
 ```
-#### Vercel Doctor — Project Status
+## Vercel Doctor — Project Status
 
 **Project**: <name> (<org>)
 **Latest Deployment**: <url> — <state> (<target>, <timestamp>)
 **Build**: <duration>, <framework>, Node <version>
 
-##### Deployments (last 5)
+### Deployments (last 5)
 | URL | State | Target | Created |
 |-----|-------|--------|---------|
 | ... | ...   | ...    | ...     |
 
-##### Environment Variables
+### Environment Variables
 | Environment | Count |
 |-------------|-------|
 | Production  | N     |
 | Preview     | N     |
 | Development | N     |
 
-##### Domains
+### Domains
 | Domain | DNS | SSL |
 |--------|-----|-----|
 | ...    | ... | ... |
 
-##### Config Highlights
+### Config Highlights
 - <key settings from vercel.json>
 
-##### Observability
+### Observability
 | Check | Status |
 |-------|--------|
 | Drains configured | N configured (N healthy, N errored) |

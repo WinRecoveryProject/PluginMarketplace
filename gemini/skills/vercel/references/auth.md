@@ -41,7 +41,7 @@ Clerk is a native Vercel Marketplace integration with auto-provisioned environme
 ###### Install via Marketplace
 
 ```bash
-#### Install Clerk from Vercel Marketplace (auto-provisions env vars)
+# Install Clerk from Vercel Marketplace (auto-provisions env vars)
 vercel integration add clerk
 ```
 
@@ -52,7 +52,7 @@ Auto-provisioned environment variables:
 ###### SDK Setup
 
 ```bash
-#### Install the Clerk Next.js SDK
+# Install the Clerk Next.js SDK
 npm install @clerk/nextjs
 ```
 
@@ -206,7 +206,7 @@ Better Auth is a framework-agnostic TypeScript auth library that runs inside you
 
 ```bash
 npm install better-auth pg
-#### Postgres from the Marketplace (auto-provisions DATABASE_URL)
+# Postgres from the Marketplace (auto-provisions DATABASE_URL)
 vercel integration add neon
 ```
 

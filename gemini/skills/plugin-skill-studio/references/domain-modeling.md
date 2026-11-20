@@ -93,7 +93,7 @@ Create the `docs/adr/` directory lazily: only when the first ADR is needed.
 ##### Template
 
 ```md
-#### {Short title of the decision}
+# {Short title of the decision}
 
 {1-3 sentences: what's the context, what did we decide, and why.}
 ```
@@ -139,11 +139,11 @@ If a decision is easy to reverse, skip it: you'll just reverse it. If it's not s
 ##### Structure
 
 ```md
-#### {Context Name}
+# {Context Name}
 
 {One or two sentence description of what this context is and why it exists.}
 
-##### Language
+## Language
 
 **Order**:
 {A one or two sentence description of the term}
@@ -172,15 +172,15 @@ _Avoid_: Client, buyer, account
 **Multiple contexts:** A `CONTEXT-MAP.md` at the repo root lists the contexts, where they live, and how they relate to each other:
 
 ```md
-#### Context Map
+# Context Map
 
-##### Contexts
+## Contexts
 
 - [Ordering](./src/ordering/CONTEXT.md): receives and tracks customer orders
 - [Billing](./src/billing/CONTEXT.md): generates invoices and processes payments
 - [Fulfillment](./src/fulfillment/CONTEXT.md): manages warehouse picking and shipping
 
-##### Relationships
+## Relationships
 
 - **Ordering → Fulfillment**: Ordering emits `OrderPlaced` events; Fulfillment consumes them to start picking
 - **Fulfillment → Billing**: Fulfillment emits `ShipmentDispatched` events; Billing consumes them to generate invoices

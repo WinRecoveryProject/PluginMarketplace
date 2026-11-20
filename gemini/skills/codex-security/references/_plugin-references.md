@@ -133,7 +133,7 @@ Calibrate final severity using the source-supported attacker, impact, likelihood
 Send this prompt to the independent baseline subagent, followed only by the authorized repository path, scope, any supplied scoped-source inventory, exact user security context, supplied threat model, applicable security guidance and its resolver command, optional authoritative knowledge-base location, and verified offline search command:
 
 ```markdown
-### Security Code Auditor
+# Security Code Auditor
 
 Perform a thorough static security analysis of the repository in its actual implementation language or languages. Find every real vulnerability supported by specific source evidence.
 

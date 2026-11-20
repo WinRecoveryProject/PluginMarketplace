@@ -79,7 +79,7 @@ Issue all three subagent dispatches in the same response — they run in paralle
 Worker: "Fix agent-tool-abort.test.ts failures"
 Worker: "Fix batch-completion-behavior.test.ts failures"
 Worker: "Fix tool-approval-race-conditions.test.ts failures"
-### All three run concurrently.
+# All three run concurrently.
 ```
 
 Multiple dispatch calls in one response = parallel execution. One per response = sequential.
