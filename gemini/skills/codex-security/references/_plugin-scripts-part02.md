@@ -1835,9 +1835,9 @@ def _generic_surface_updates(
     return replaced, updates
 ```
 
-## Not embedded
+## File: `scripts/workbench_db.py`
 
-- `scripts/workbench_db.py` (146 KB, too large to embed — read it in the repository)
+_146 KB, too large to embed. Read it in the repository._
 
 ## File: `scripts/workbench_feedback.py`
 
@@ -4574,9 +4574,9 @@ if __name__ == "__main__":
     argparse.ArgumentParser(description=__doc__).parse_args()
 ```
 
-## Not embedded
+## File: `scripts/workbench_saved_results.py`
 
-- `scripts/workbench_saved_results.py` (70 KB, too large to embed — read it in the repository)
+_70 KB, too large to embed. Read it in the repository._
 
 ## File: `scripts/workbench_scan_history.py`
 

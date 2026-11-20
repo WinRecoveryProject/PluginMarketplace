@@ -129,6 +129,6 @@ interface:
   default_prompt: "Use $onedrive to route this OneDrive request through the verified Microsoft App or the explicitly selected Portal connection."
 ```
 
-### Not embedded
+### File: `assets/onedrive.png`
 
-- `assets/onedrive.png` (binary asset, not embedded)
+_Binary asset, not embedded._

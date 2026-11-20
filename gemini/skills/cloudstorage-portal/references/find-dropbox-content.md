@@ -70,6 +70,6 @@ interface:
   default_prompt: "Use $find-dropbox-content to locate the relevant Dropbox file or folder before reading, sharing, organizing, or restoring it."
 ```
 
-### Not embedded
+### File: `assets/dropbox.png`
 
-- `assets/dropbox.png` (binary asset, not embedded)
+_Binary asset, not embedded._

@@ -50,6 +50,14 @@ interface:
   default_prompt: "Use $cloudstorage-setup-docs to help with this task."
 ```
 
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
+
 ### File: `references/architecture.md`
 
 #### Arkitektur og konti
@@ -379,8 +387,3 @@ Login og driveadgang er separate kontrolpunkter. Når brugeren allerede har bekr
 Registrér tenant, kontotype og immutable identitet uden tokens. En gæst/EXT-bruger er ikke automatisk en provisioneret OneDrive for Business-bruger. Hvis login accepteres men drive mangler, behold begge fund: login PASS, driveadgang FAIL med præcis fejl. Opret ingen betalte licenser som stiltiende del af 0 kr.-testen.
 
 Ved funktionel udvidelse vurderes referencebibliotekerne særskilt. Kopieret workflow er ikke implementeret Graph-operation, tilladelse eller værktøjsbevis. Kontroller licens, kontotype, aktuelle endpoints, scopes og read/write-tests før integration.
-
-### Not embedded
-
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)

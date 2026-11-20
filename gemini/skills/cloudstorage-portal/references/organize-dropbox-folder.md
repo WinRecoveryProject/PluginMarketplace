@@ -91,6 +91,6 @@ interface:
   default_prompt: "Use $organize-dropbox-folder to plan and perform the explicitly requested Dropbox folder organization."
 ```
 
-### Not embedded
+### File: `assets/dropbox.png`
 
-- `assets/dropbox.png` (binary asset, not embedded)
+_Binary asset, not embedded._

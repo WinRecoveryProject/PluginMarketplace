@@ -89,6 +89,6 @@ interface:
   default_prompt: "Use $collect-files-with-request to create, inspect, or manage a Dropbox file request for collecting uploads."
 ```
 
-### Not embedded
+### File: `assets/dropbox.png`
 
-- `assets/dropbox.png` (binary asset, not embedded)
+_Binary asset, not embedded._

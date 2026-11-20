@@ -34,6 +34,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for lua components."
 ```
 
-### Not embedded
+### File: `assets/lua-original.svg`
 
-- `assets/lua-original.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

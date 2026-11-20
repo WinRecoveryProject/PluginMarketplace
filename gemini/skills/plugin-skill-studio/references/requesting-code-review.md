@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#file-referencesintegration-registryjson); never load companion plugins.
 
 ### Requesting Code Review
 
@@ -90,6 +90,14 @@ interface:
 policy:
   allow_implicit_invocation: true
 ```
+
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
 
 ### File: `code-reviewer.md`
 
@@ -265,8 +273,3 @@ Worker dispatch (use the host's general-purpose or closest equivalent role):
 
 **Reasoning:** Core implementation is solid with good architecture and tests. Important issues (help text, date validation) are easily fixed and don't affect core functionality.
 ```
-
-### Not embedded
-
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)

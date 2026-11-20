@@ -2,9 +2,9 @@
 
 Source: `plugins/winrecoveryproject-devsuite`. Files outside the `skills/*` folders, embedded as text.
 
-## Not embedded
+## File: `references/capability-matrix.json`
 
-- `references/capability-matrix.json` (169 KB, too large to embed — read it in the repository)
+_169 KB, too large to embed. Read it in the repository._
 
 ## File: `references/conversion.md`
 

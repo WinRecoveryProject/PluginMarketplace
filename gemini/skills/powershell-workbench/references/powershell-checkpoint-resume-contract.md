@@ -52,6 +52,6 @@ interface:
   default_prompt: "Use $powershell-checkpoint-resume-contract to create or validate this checkpoint and resume contract."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.png`
 
-- `assets/skill-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._

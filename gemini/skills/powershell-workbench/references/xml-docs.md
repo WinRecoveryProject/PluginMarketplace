@@ -34,6 +34,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for xml components."
 ```
 
-### Not embedded
+### File: `assets/xml-original.svg`
 
-- `assets/xml-original.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

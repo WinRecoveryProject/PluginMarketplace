@@ -47,6 +47,6 @@ interface:
   default_prompt: "Use $powershell-quality-gate to run the requested PowerShell quality checks and report unavailable gates."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.png`
 
-- `assets/skill-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._

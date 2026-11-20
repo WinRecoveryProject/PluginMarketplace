@@ -39,6 +39,10 @@ interface:
   default_prompt: "Use $game-tooling-development to develop this PowerShell-centered game tooling workflow."
 ```
 
+### File: `assets/skill-icon.png`
+
+_Binary asset, not embedded._
+
 ### File: `references/wow-ecosystem.md`
 
 #### World of Warcraft tooling context
@@ -54,7 +58,3 @@ Verify details at task time because APIs and client behavior change.
 - User project signals: `vscode-wow-toc`, `wow.tools.local`, `wow.export`, and `gwa2`.
 
 Treat repository source and tests as primary evidence. Treat wiki/API pages as version-sensitive documentation, and distinguish retail, classic, PTR, beta, and build-specific behavior.
-
-### Not embedded
-
-- `assets/skill-icon.png` (binary asset, not embedded)

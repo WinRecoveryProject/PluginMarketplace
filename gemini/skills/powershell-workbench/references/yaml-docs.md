@@ -34,6 +34,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for yaml components."
 ```
 
-### Not embedded
+### File: `assets/yaml-original.svg`
 
-- `assets/yaml-original.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

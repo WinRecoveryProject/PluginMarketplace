@@ -32,6 +32,6 @@ interface:
   default_prompt: "Use $powershell-portfolio-discovery to inventory these explicitly scoped PowerShell project roots."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.png`
 
-- `assets/skill-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._

@@ -2,10 +2,10 @@
 
 Source: `plugins/codex-dev-workflows`. Files outside the `skills/*` folders, embedded as text.
 
-## Not embedded
+## File: `assets/icon.png`
 
-- `assets/icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo.png`
 
-- `assets/logo.png` (binary asset, not embedded)
+_Binary asset, not embedded._

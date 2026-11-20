@@ -11,10 +11,10 @@ Source: `plugins/codex-engineering-guardrails`. Files outside the `skills/*` fol
 
 Both assets use the shared Codex Engineering Guardrails visual identity.
 
-## Not embedded
+## File: `assets/icon.png`
 
-- `assets/icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/social-preview.png`
 
-- `assets/social-preview.png` (binary asset, not embedded)
+_Binary asset, not embedded._

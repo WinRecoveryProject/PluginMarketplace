@@ -4,11 +4,11 @@ Every file and skill folder of `plugins/codex-dev-workflows` and where its conte
 
 | Source path | Read in this upload |
 | --- | --- |
-| `.codex-plugin/assets/composer-icon.png` | `references/_plugin-codex-plugin.md#not-embedded` |
-| `.codex-plugin/assets/logo.png` | `references/_plugin-codex-plugin.md#not-embedded` |
+| `.codex-plugin/assets/composer-icon.png` | `references/_plugin-codex-plugin.md#file-codex-pluginassetscomposer-iconpng` |
+| `.codex-plugin/assets/logo.png` | `references/_plugin-codex-plugin.md#file-codex-pluginassetslogopng` |
 | `.codex-plugin/plugin.json` | `references/_plugin-codex-plugin.md#file-codex-pluginpluginjson` |
-| `assets/icon.png` | `references/_plugin-assets.md#not-embedded` |
-| `assets/logo.png` | `references/_plugin-assets.md#not-embedded` |
+| `assets/icon.png` | `references/_plugin-assets.md#file-assetsiconpng` |
+| `assets/logo.png` | `references/_plugin-assets.md#file-assetslogopng` |
 | `COPY-COMPLETE.json` | `references/_plugin.md#file-copy-completejson` |
 | `IMPORT-RECEIPT.json` | `references/_plugin.md#file-import-receiptjson` |
 | `LICENSE` | `references/_plugin.md#file-license` |

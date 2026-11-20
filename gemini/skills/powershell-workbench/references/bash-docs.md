@@ -34,6 +34,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for bash components."
 ```
 
-### Not embedded
+### File: `assets/bash-original.svg`
 
-- `assets/bash-original.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

@@ -75,6 +75,6 @@ interface:
   default_prompt: "Use $inspect-dropbox-file to inspect the selected Dropbox file or folder, including its metadata, links, and content when needed."
 ```
 
-### Not embedded
+### File: `assets/dropbox.png`
 
-- `assets/dropbox.png` (binary asset, not embedded)
+_Binary asset, not embedded._

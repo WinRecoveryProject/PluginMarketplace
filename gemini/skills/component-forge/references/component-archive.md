@@ -39,6 +39,18 @@ interface:
   default_prompt: "Search the archive before generating PowerShell code and register component contracts."
 ```
 
+### File: `assets/component-forge.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
+
 ### File: `references/contract.md`
 
 #### Component contract v1
@@ -108,9 +120,3 @@ Add archive lookup before selection; add dependency contracts before extraction;
 Before applying a patch to Workbench, resolve its actual repository layout and revision, read helper implementations and tests, then prepare a minimal change against that source. Never edit a version cache as the canonical source. Do not claim the extension is installed until updated files and actual helper behavior are verified.
 
 GitHub stores code, contracts, pins, tests and revisions. Linear stores milestones, blockers and links to exact revisions; it is not the component source of truth. Resolve the intended repository/project before remote writes. Failure of a connector must not be represented as a created issue or pushed commit.
-
-### Not embedded
-
-- `assets/component-forge.png` (binary asset, not embedded)
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)

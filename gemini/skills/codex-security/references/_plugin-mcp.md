@@ -49,25 +49,25 @@ runtimeModule._compile(runtimeSource, loaderPath);
 export default runtimeModule.exports;
 ```
 
-## Not embedded
+## File: `mcp/helpers.mjs.br`
 
-- `mcp/helpers.mjs.br` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `mcp/native/COPYRIGHT-library.html`
 
-- `mcp/native/COPYRIGHT-library.html` (273 KB, too large to embed — read it in the repository)
+_273 KB, too large to embed. Read it in the repository._
 
-## Not embedded
+## File: `mcp/native/THIRD_PARTY_NOTICES.txt`
 
-- `mcp/native/THIRD_PARTY_NOTICES.txt` (280 KB, too large to embed — read it in the repository)
+_280 KB, too large to embed. Read it in the repository._
 
-## Not embedded
+## File: `mcp/native/darwin-arm64/unix.node`
 
-- `mcp/native/darwin-arm64/unix.node` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `mcp/native/darwin-x64/unix.node`
 
-- `mcp/native/darwin-x64/unix.node` (binary asset, not embedded)
+_Binary asset, not embedded._
 
 ## File: `mcp/native/licenses/Apache-2.0.txt`
 
@@ -219,29 +219,29 @@ dealings in these Data Files or Software without prior written
 authorization of the copyright holder.
 ```
 
-## Not embedded
+## File: `mcp/native/linux-arm64-gnu/unix.node`
 
-- `mcp/native/linux-arm64-gnu/unix.node` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `mcp/native/linux-arm64-musl/unix.node`
 
-- `mcp/native/linux-arm64-musl/unix.node` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `mcp/native/linux-x64-gnu/unix.node`
 
-- `mcp/native/linux-x64-gnu/unix.node` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `mcp/native/linux-x64-musl/unix.node`
 
-- `mcp/native/linux-x64-musl/unix.node` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `mcp/native/win32-arm64/windows.node`
 
-- `mcp/native/win32-arm64/windows.node` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `mcp/native/win32-x64/windows.node`
 
-- `mcp/native/win32-x64/windows.node` (binary asset, not embedded)
+_Binary asset, not embedded._
 
 ## File: `mcp/package.json`
 
@@ -919,9 +919,9 @@ runtimeModule._compile(runtimeSource, loaderPath);
 export default runtimeModule.exports;
 ```
 
-## Not embedded
+## File: `mcp/server.mjs.br`
 
-- `mcp/server.mjs.br` (binary asset, not embedded)
+_Binary asset, not embedded._
 
 ## File: `mcp/session-decompression.mjs`
 

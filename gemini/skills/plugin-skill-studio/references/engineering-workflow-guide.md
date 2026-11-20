@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#file-referencesintegration-registryjson); never load companion plugins.
 
 ### Engineering Workflow Guide
 
@@ -171,6 +171,14 @@ interface:
   display_name: "Engineering Workflow Guide"
   short_description: "Route work to the right skill"
 ```
+
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
 
 ### File: `references/catalog.md`
 
@@ -359,8 +367,3 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Shape notes into draft", "Block-by-block article assembly" | `writing-shape` | `writing-shape` ➔ `writing-beats` | Initial raw fragment generation |
 | "Narrative beats", "Beat-by-beat drafting journey" | `writing-beats` | `writing-beats` | Quick single-sentence edits |
 | "Scaffold exercise folders", "Workshop tutorial boilerplate" | `scaffold-exercises` | `scaffold-exercises` ➔ `code-review` | Application feature scaffolding |
-
-### Not embedded
-
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)

@@ -44,6 +44,10 @@ interface:
   default_prompt: "Use $powershell-workbench-portability to prepare this PowerShell Workbench package for another machine or marketplace."
 ```
 
+### File: `assets/skill-icon.png`
+
+_Binary asset, not embedded._
+
 ### File: `references/release-channels.md`
 
 #### Release channels
@@ -63,7 +67,3 @@ Official host documentation checked 2026-10-20: https://developers.openai.com/pl
 This documents local marketplace add/list/upgrade/remove and Desktop discovery. Check the installed CLI help before any add/remove sequence; do not uninstall merely to refresh.
 
 Private project archives, registry paths and host settings are not bundled into the public plugin repository. Synchronize reusable project component archives through a deliberately selected Git project separately. Keep account channel and marketplace channel provenance visible if both installations are enabled, and diagnose duplicate roots instead of editing version caches.
-
-### Not embedded
-
-- `assets/skill-icon.png` (binary asset, not embedded)

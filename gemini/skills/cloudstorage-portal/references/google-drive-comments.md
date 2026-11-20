@@ -63,6 +63,6 @@ interface:
   default_prompt: "Use $google-drive-comments to leave, reply to, or resolve comments on Google Docs, Sheets, Slides, or Drive files with precise evidence."
 ```
 
-### Not embedded
+### File: `assets/google-drive.png`
 
-- `assets/google-drive.png` (binary asset, not embedded)
+_Binary asset, not embedded._

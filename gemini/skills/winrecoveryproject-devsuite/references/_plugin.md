@@ -119,7 +119,7 @@ tool availability or successful execution. Cost budget is 0 kr; no new keys, OAu
 MCP servers, purchases, subscriptions or billable infrastructure are introduced.
 
 Read [policy](_plugin-references.md#file-referencespolicymd), [provider boundaries](_plugin-references.md#file-referencesprovidersmd),
-[function coverage](_plugin-references.md#not-embedded),
+[function coverage](_plugin-references.md#file-referencescapability-matrixjson),
 [source hashes](_plugin-references.md#file-referencessource-provenancejson) and
 [migration proposal](_plugin-references.md#file-referencesmigrationmd). All 39 inspected source skills map
 to 214 function-level rows, including the original source's non-triggered

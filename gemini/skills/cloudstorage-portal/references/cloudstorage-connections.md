@@ -40,6 +40,6 @@ interface:
   default_prompt: "Use $cloudstorage-connections to inspect Dropbox, Google Drive, and OneDrive connection readiness without changing an account or grant."
 ```
 
-### Not embedded
+### File: `assets/cloudstorage-portal.png`
 
-- `assets/cloudstorage-portal.png` (binary asset, not embedded)
+_Binary asset, not embedded._

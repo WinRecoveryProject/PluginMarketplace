@@ -93,6 +93,22 @@ $isSameOrInside = {
 if ((& $isSameOrInside $destinationFull $repoFull) -or (& $isSameOrInside $repoFull $destinationFull)) {
     throw "Destination '$destinationFull' overlaps the repository '$repoFull'. Choose a folder outside it."
 }
+# A junction or symbolic link anywhere on the destination path could point back into
+# the repository and defeat the check above, so refuse such destinations outright.
+# LinkType (not the ReparsePoint attribute) is checked: OneDrive folders, such as an
+# OneDrive-backed Desktop, are reparse points too but are not links.
+$probe = $destinationFull
+while ($probe) {
+    if (Test-Path -LiteralPath $probe) {
+        $item = Get-Item -LiteralPath $probe -Force
+        if ($item.LinkType -in @('Junction', 'SymbolicLink')) {
+            throw "Destination path goes through a junction or symbolic link ('$probe'). Use a plain folder."
+        }
+    }
+    $parent = Split-Path -Parent $probe
+    if (-not $parent -or $parent -eq $probe) { break }
+    $probe = $parent
+}
 
 New-Item -ItemType Directory -Path $destinationFull -Force | Out-Null
 

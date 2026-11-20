@@ -33,8 +33,14 @@ interface:
   default_prompt: "Use $create-plugin to create a new plugin candidate without overwriting existing sources."
 ```
 
-### Not embedded
+### File: `assets/plugin-studio.svg`
 
-- `assets/plugin-studio.svg` (binary asset, not embedded)
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._

@@ -2,13 +2,13 @@
 
 Source: `plugins/codex-dev-workflows`. Files outside the `skills/*` folders, embedded as text.
 
-## Not embedded
+## File: `.codex-plugin/assets/composer-icon.png`
 
-- `.codex-plugin/assets/composer-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `.codex-plugin/assets/logo.png`
 
-- `.codex-plugin/assets/logo.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
 ## File: `.codex-plugin/plugin.json`
 

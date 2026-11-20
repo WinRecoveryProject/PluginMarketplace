@@ -237,37 +237,37 @@ Source: `plugins/winrecoveryproject-linter`. Files outside the `skills/*` folder
 }
 ```
 
-## Not embedded
+## File: `assets/composer-icon.png`
 
-- `assets/composer-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon-16.png`
 
-- `assets/favicon-16.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon-32.png`
 
-- `assets/favicon-32.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon-48.png`
 
-- `assets/favicon-48.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon.ico`
 
-- `assets/favicon.ico` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo.png`
 
-- `assets/logo.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/source/alpha-cleaned.png`
 
-- `assets/source/alpha-cleaned.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/source/generated-raw.png`
 
-- `assets/source/generated-raw.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
 ## File: `assets/source/logo-preparation.json`
 
@@ -328,6 +328,6 @@ Source: `plugins/winrecoveryproject-linter`. Files outside the `skills/*` folder
 Use case: logo-brand. Asset type: production software plugin icon, square transparent PNG. Create a unique polished minimal emblem for WinRecoveryProject Linter. Subject: two bold angular code brackets enclosing one confident lime green checkmark, in a compact cohesive silhouette. Dark graphite structural bracket bodies with bright teal edges, lime checkmark. Flat vector-like filled geometry, crisp clean edge, simple heavy strokes that remain recognizable at 16 pixels. Centered front view with generous transparent padding, design fills about 78% of canvas. No lettering, no text, no numbers, no third-party logos, no shadows, no gradients, no glow, no backdrop, no border square. Genuine transparent background. One single isolated emblem only.
 ```
 
-## Not embedded
+## File: `assets/thumbnail.png`
 
-- `assets/thumbnail.png` (binary asset, not embedded)
+_Binary asset, not embedded._

@@ -578,9 +578,9 @@ if __name__ == "__main__":
 }
 ```
 
-## Not embedded
+## File: `scripts/deep_scan_workbench.py`
 
-- `scripts/deep_scan_workbench.py` (76 KB, too large to embed — read it in the repository)
+_76 KB, too large to embed. Read it in the repository._
 
 ## File: `scripts/dispatch_inventory_tool`
 
@@ -623,9 +623,9 @@ if __name__ == "__main__":
     argparse.ArgumentParser(description=__doc__).parse_args()
 ```
 
-## Not embedded
+## File: `scripts/finalize_scan_contract.py`
 
-- `scripts/finalize_scan_contract.py` (144 KB, too large to embed — read it in the repository)
+_144 KB, too large to embed. Read it in the repository._
 
 ## File: `scripts/finding_preview.py`
 
@@ -4964,9 +4964,9 @@ def mark_handoff_delivered(
     return context
 ```
 
-## Not embedded
+## File: `scripts/workbench/retained_coverage.py`
 
-- `scripts/workbench/retained_coverage.py` (145 KB, too large to embed — read it in the repository)
+_145 KB, too large to embed. Read it in the repository._
 
 ## File: `scripts/workbench/retained_records.py`
 

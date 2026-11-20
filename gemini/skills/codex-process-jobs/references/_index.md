@@ -6,7 +6,7 @@ Every file and skill folder of `plugins/codex-process-jobs` and where its conten
 | --- | --- |
 | `.codex-plugin/plugin.json` | `references/_plugin-codex-plugin.md#file-codex-pluginpluginjson` |
 | `.codexignore` | `references/_plugin.md#file-codexignore` |
-| `assets/icon.png` | `references/_plugin-assets.md#not-embedded` |
+| `assets/icon.png` | `references/_plugin-assets.md#file-assetsiconpng` |
 | `COPY-COMPLETE.json` | `references/_plugin.md#file-copy-completejson` |
 | `IMPORT-RECEIPT.json` | `references/_plugin.md#file-import-receiptjson` |
 | `LICENSE` | `references/_plugin.md#file-license` |

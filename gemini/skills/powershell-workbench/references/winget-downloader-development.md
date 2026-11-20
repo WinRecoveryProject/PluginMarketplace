@@ -37,6 +37,6 @@ interface:
   default_prompt: "Use $winget-downloader-development to modernize WingetDownloader with explicit exports, tests and cache integrity."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.svg`
 
-- `assets/skill-icon.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

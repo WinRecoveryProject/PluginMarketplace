@@ -81,6 +81,6 @@ interface:
   default_prompt: "Use $share-dropbox-content to inspect sharing state or create the Dropbox shared link I explicitly requested."
 ```
 
-### Not embedded
+### File: `assets/dropbox.png`
 
-- `assets/dropbox.png` (binary asset, not embedded)
+_Binary asset, not embedded._

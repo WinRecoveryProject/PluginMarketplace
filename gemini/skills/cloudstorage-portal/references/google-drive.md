@@ -75,6 +75,22 @@ interface:
   default_prompt: "Use $google-drive to find the right Drive file, then summarize a Doc, update a Sheet, or edit a Slides deck through the unified Google Drive workflow, including refreshing linked charts or replacing static chart content from an existing connected source such as Google Sheets."
 ```
 
+### File: `assets/app-icon.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/google-drive-small.svg`
+
+_Binary asset, not embedded._
+
+### File: `assets/google-drive.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/google-drive.svg`
+
+_Binary asset, not embedded._
+
 ### File: `references/slides/chart-refresh-workflows.md`
 
 #### Chart Refresh And Replacement Workflows
@@ -304,10 +320,3 @@ Use this recipe whenever a Slides write can change anything the user will see, e
 - Stop when the third fresh review finds no meaningful remaining issue.
 - Continue to a fourth loop only if the slide still has visible defects after the third review.
 - Use the Google Slides structural repair guidance when repeated passes still cannot cleanly fix the structure or when the same defect repeats across multiple slides.
-
-### Not embedded
-
-- `assets/app-icon.png` (binary asset, not embedded)
-- `assets/google-drive-small.svg` (binary asset, not embedded)
-- `assets/google-drive.png` (binary asset, not embedded)
-- `assets/google-drive.svg` (binary asset, not embedded)

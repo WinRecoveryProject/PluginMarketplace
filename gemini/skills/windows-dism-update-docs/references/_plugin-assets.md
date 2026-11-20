@@ -2,22 +2,22 @@
 
 Source: `plugins/windows-dism-update-docs`. Files outside the `skills/*` folders, embedded as text.
 
-## Not embedded
+## File: `assets/composer-128.png`
 
-- `assets/composer-128.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon.ico`
 
-- `assets/favicon.ico` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/icon-small-64.png`
 
-- `assets/icon-small-64.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo-512.png`
 
-- `assets/logo-512.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/windows-dism-update-docs.png`
 
-- `assets/windows-dism-update-docs.png` (binary asset, not embedded)
+_Binary asset, not embedded._

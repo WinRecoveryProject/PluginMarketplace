@@ -36,6 +36,6 @@ interface:
   default_prompt: "Use $upload-to-dropbox to save my selected file to the full Dropbox path I give you."
 ```
 
-### Not embedded
+### File: `assets/dropbox.png`
 
-- `assets/dropbox.png` (binary asset, not embedded)
+_Binary asset, not embedded._

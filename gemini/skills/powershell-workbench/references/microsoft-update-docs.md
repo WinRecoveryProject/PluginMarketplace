@@ -34,6 +34,6 @@ interface:
   default_prompt: "Use $microsoft-update-docs to research Windows Update, UUP and build history from official Microsoft sources."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.svg`
 
-- `assets/skill-icon.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

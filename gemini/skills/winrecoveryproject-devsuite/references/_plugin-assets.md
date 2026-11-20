@@ -100,33 +100,33 @@ Source: `plugins/winrecoveryproject-devsuite`. Files outside the `skills/*` fold
 }
 ```
 
-## Not embedded
+## File: `assets/composer-icon.png`
 
-- `assets/composer-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon-16.png`
 
-- `assets/favicon-16.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon-32.png`
 
-- `assets/favicon-32.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon-48.png`
 
-- `assets/favicon-48.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon.ico`
 
-- `assets/favicon.ico` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo.png`
 
-- `assets/logo.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/source/generated-raw.png`
 
-- `assets/source/generated-raw.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
 ## File: `assets/source/logo-preparation.json`
 
@@ -167,6 +167,6 @@ Source: `plugins/winrecoveryproject-devsuite`. Files outside the `skills/*` fold
 Refine the existing DevSuite turquoise three-node development network and violet shield into a polished transparent production app icon. Preserve recognizable identity, substantial clean geometry, restrained bevels, crisp detail and readability at small sizes. No lettering, extra logos or third-party marks. One isolated square icon.
 ```
 
-## Not embedded
+## File: `assets/thumbnail.png`
 
-- `assets/thumbnail.png` (binary asset, not embedded)
+_Binary asset, not embedded._

@@ -38,6 +38,6 @@ interface:
   default_prompt: "Use $powershell-centered-project-development to develop this mixed-language PowerShell-centered project."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.png`
 
-- `assets/skill-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._

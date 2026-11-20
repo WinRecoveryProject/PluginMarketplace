@@ -2,22 +2,22 @@
 
 Source: `plugins/onedrive`. Files outside the `skills/*` folders, embedded as text.
 
-## Not embedded
+## File: `assets/composer-128.png`
 
-- `assets/composer-128.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon.ico`
 
-- `assets/favicon.ico` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/icon-small-64.png`
 
-- `assets/icon-small-64.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo-512.png`
 
-- `assets/logo-512.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/onedrive.png`
 
-- `assets/onedrive.png` (binary asset, not embedded)
+_Binary asset, not embedded._

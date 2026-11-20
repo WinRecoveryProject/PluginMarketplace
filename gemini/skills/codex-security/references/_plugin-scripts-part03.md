@@ -499,9 +499,9 @@ if __name__ == "__main__":
     argparse.ArgumentParser(description=__doc__).parse_args()
 ```
 
-## Not embedded
+## File: `scripts/workbench_scan_usage.py`
 
-- `scripts/workbench_scan_usage.py` (64 KB, too large to embed — read it in the repository)
+_64 KB, too large to embed. Read it in the repository._
 
 ## File: `scripts/workbench_schema.py`
 
@@ -1715,9 +1715,9 @@ if __name__ == "__main__":
     main()
 ```
 
-## Not embedded
+## File: `scripts/workbench_target.py`
 
-- `scripts/workbench_target.py` (70 KB, too large to embed — read it in the repository)
+_70 KB, too large to embed. Read it in the repository._
 
 ## File: `scripts/workbench_target_state.py`
 

@@ -181,6 +181,14 @@ interface:
   default_prompt: "Use $zilvereyes-context-handoff to assess this task, checkpoint it safely, and continue in a fresh verified thread when warranted."
 ```
 
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
+
 ### File: `scripts/context_handoff.py`
 
 ```python
@@ -661,8 +669,3 @@ def main() -> int:
 if __name__ == "__main__":
     sys.exit(main())
 ```
-
-### Not embedded
-
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)

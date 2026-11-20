@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#file-referencesintegration-registryjson); never load companion plugins.
 
 Read `../../references/studio-policy.md` before acting. Its derivative-specific rules override inherited defaults where they differ.
 
@@ -287,6 +287,14 @@ interface:
 policy:
   allow_implicit_invocation: true
 ```
+
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
 
 ### File: `references/architectures.md`
 
@@ -2340,6 +2348,10 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
+### File: `scripts/validate_plugin.py`
+
+_74 KB, too large to embed. Read it in the repository._
+
 ### File: `scripts/windows_directory.py`
 
 ```python
@@ -2411,9 +2423,3 @@ def list_locked_directory(root: Path, path: Path, before):
         for handle in reversed(handles):
             close(handle)
 ```
-
-### Not embedded
-
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)
-- `scripts/validate_plugin.py` (74 KB, too large to embed — read it in the repository)

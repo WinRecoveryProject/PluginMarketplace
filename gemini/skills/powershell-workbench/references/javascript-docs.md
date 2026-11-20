@@ -34,6 +34,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for javascript components."
 ```
 
-### Not embedded
+### File: `assets/javascript-original.svg`
 
-- `assets/javascript-original.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

@@ -31,7 +31,10 @@ interface:
   short_description: "Review accessible, responsive and safe web reports"
 ```
 
-### Not embedded
+### File: `assets/wrp-icon-128.png`
 
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._

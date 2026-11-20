@@ -126,9 +126,9 @@ fail after another upgrade; the host's stale injected references remain a separa
 limitation. The helper performs no network calls, mutations, installs, target
 execution, configuration changes or cache restoration. Budget: 0 kr.
 
-## Not embedded
+## File: `references/integration-registry.json`
 
-- `references/integration-registry.json` (160 KB, too large to embed — read it in the repository)
+_160 KB, too large to embed. Read it in the repository._
 
 ## File: `references/inventory-versions.md`
 

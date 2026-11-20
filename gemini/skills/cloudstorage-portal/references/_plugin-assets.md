@@ -2,10 +2,10 @@
 
 Source: `plugins/cloudstorage-portal`. Files outside the `skills/*` folders, embedded as text.
 
-## Not embedded
+## File: `assets/cloudstorage-portal-composer.png`
 
-- `assets/cloudstorage-portal-composer.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/cloudstorage-portal.png`
 
-- `assets/cloudstorage-portal.png` (binary asset, not embedded)
+_Binary asset, not embedded._

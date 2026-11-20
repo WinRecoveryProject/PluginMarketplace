@@ -34,6 +34,6 @@ interface:
   default_prompt: "Use $ollama-docs to research version-specific Ollama runtime and API behavior."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.svg`
 
-- `assets/skill-icon.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

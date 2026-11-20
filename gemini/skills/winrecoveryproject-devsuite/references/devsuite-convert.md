@@ -29,8 +29,14 @@ interface:
   default_prompt: "Brug $devsuite-convert til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."
 ```
 
-### Not embedded
+### File: `assets/icon.png`
 
-- `assets/icon.png` (binary asset, not embedded)
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._

@@ -303,6 +303,10 @@ interface:
 }
 ```
 
+### File: `assets/skill-icon.png`
+
+_Binary asset, not embedded._
+
 ### File: `assets/templates/handoff-input.json.tmpl`
 
 ```text
@@ -763,7 +767,3 @@ try {
 - Give every gate and group a stable exact name. Reject duplicate gates, duplicate groups, unknown gate references, and non-boolean gate results.
 - Select the narrowest group authorized for the action. A loopback runtime preparation group may omit host elevation and clipboard gates; host certification must retain them.
 - Preserve failed-gate names and declaration order so callers can diagnose the precise blocking boundary.
-
-### Not embedded
-
-- `assets/skill-icon.png` (binary asset, not embedded)

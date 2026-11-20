@@ -112,6 +112,14 @@ interface:
   default_prompt: "Use $google-docs to create or edit a native Google Doc while preserving its styles and structure."
 ```
 
+### File: `assets/google-docs-small.svg`
+
+_Binary asset, not embedded._
+
+### File: `assets/google-docs.png`
+
+_Binary asset, not embedded._
+
 ### File: `host/docs-dropdown-executor.mjs`
 
 ```javascript
@@ -3806,8 +3814,3 @@ await writeJson(values.output, {
   summary: validation.summary,
 });
 ```
-
-### Not embedded
-
-- `assets/google-docs-small.svg` (binary asset, not embedded)
-- `assets/google-docs.png` (binary asset, not embedded)

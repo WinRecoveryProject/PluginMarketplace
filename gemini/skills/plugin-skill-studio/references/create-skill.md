@@ -34,8 +34,14 @@ interface:
   default_prompt: "Use $create-skill to create or update a scoped Codex skill with validation and no overwrite."
 ```
 
-### Not embedded
+### File: `assets/plugin-studio.svg`
 
-- `assets/plugin-studio.svg` (binary asset, not embedded)
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._

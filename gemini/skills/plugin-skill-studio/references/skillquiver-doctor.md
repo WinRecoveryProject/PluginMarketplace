@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#file-referencesintegration-registryjson); never load companion plugins.
 
 ### Skillquiver Doctor
 
@@ -87,6 +87,14 @@ interface:
 policy:
   allow_implicit_invocation: false
 ```
+
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
 
 ### File: `references/chatgpt.md`
 
@@ -275,8 +283,3 @@ Use one backup directory per run:
 - Re-run `codex plugin list --json` after an uninstall.
 - Re-run the complete inventory, verify exact backup contents, and tell the
   user to restart Codex or begin a new task.
-
-### Not embedded
-
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)

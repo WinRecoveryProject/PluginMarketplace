@@ -2,14 +2,14 @@
 
 Source: `plugins/coderabbit`. Files outside the `skills/*` folders, embedded as text.
 
-## Not embedded
+## File: `assets/coderabbit-small.png`
 
-- `assets/coderabbit-small.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/coderabbit.png`
 
-- `assets/coderabbit.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo.png`
 
-- `assets/logo.png` (binary asset, not embedded)
+_Binary asset, not embedded._

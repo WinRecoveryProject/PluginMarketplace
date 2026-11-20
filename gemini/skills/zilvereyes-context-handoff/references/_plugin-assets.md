@@ -2,42 +2,42 @@
 
 Source: `plugins/zilvereyes-context-handoff`. Files outside the `skills/*` folders, embedded as text.
 
-## Not embedded
+## File: `assets/composer-128.png`
 
-- `assets/composer-128.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon.ico`
 
-- `assets/favicon.ico` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/icon-small-64.png`
 
-- `assets/icon-small-64.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/icon.png`
 
-- `assets/icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/icon.svg`
 
-- `assets/icon.svg` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo-512.png`
 
-- `assets/logo-512.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo-dark.svg`
 
-- `assets/logo-dark.svg` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo-light.svg`
 
-- `assets/logo-light.svg` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo.png`
 
-- `assets/logo.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo.svg`
 
-- `assets/logo.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

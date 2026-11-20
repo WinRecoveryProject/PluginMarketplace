@@ -156,6 +156,10 @@ For the complete guide with all rules expanded: `AGENTS.md`
 @aurorascharff
 ```
 
+### File: `AGENTS.md`
+
+_106 KB, too large to embed. Read it in the repository._
+
 ### File: `overlay.yaml`
 
 ```yaml
@@ -4423,6 +4427,10 @@ function Profile({ name }: { name: string }) {
 }
 ```
 
+### File: `upstream/AGENTS.md`
+
+_106 KB, too large to embed. Read it in the repository._
+
 ### File: `upstream/README.md`
 
 #### React Best Practices
@@ -5059,7 +5067,7 @@ tags: async, await, feature-flags, short-circuit, conditional
 
 When a branch uses `await` for a flag or remote value and also requires a **cheap synchronous** condition (local props, request metadata, already-loaded state), evaluate the cheap condition **first**. Otherwise you pay for the async call even when the compound condition can never be true.
 
-This is a specialization of [Defer Await Until Needed](react-best-practices.md#file-upstreamrulesasync-defer-awaitmd) for `flag && cheapCondition` style checks.
+This is a specialization of [Defer Await Until Needed](react-best-practices.md) for `flag && cheapCondition` style checks.
 
 **Incorrect:**
 
@@ -5169,7 +5177,7 @@ async function updateResource(resourceId: string, userId: string) {
 
 This optimization is especially valuable when the skipped branch is frequently taken, or when the deferred operation is expensive.
 
-For `await getFlag()` combined with a cheap synchronous guard (`flag && someCondition`), see [Check Cheap Conditions Before Async Flags](react-best-practices.md#file-upstreamrulesasync-cheap-condition-before-awaitmd).
+For `await getFlag()` combined with a cheap synchronous guard (`flag && someCondition`), see [Check Cheap Conditions Before Async Flags](react-best-practices.md).
 
 ### File: `upstream/rules/async-dependencies.md`
 
@@ -8770,7 +8778,7 @@ Safe exceptions:
 - Shared caches intentionally designed for cross-request reuse and keyed correctly
 - Process-wide singletons that do not store request- or user-specific mutable data
 
-For static assets and config, see [Hoist Static I/O to Module Level](react-best-practices.md#file-upstreamrulesserver-hoist-static-iomd).
+For static assets and config, see [Hoist Static I/O to Module Level](react-best-practices.md).
 
 ### File: `upstream/rules/server-parallel-fetching.md`
 
@@ -8935,8 +8943,3 @@ function Profile({ name }: { name: string }) {
   return <div>{name}</div>
 }
 ```
-
-### Not embedded
-
-- `AGENTS.md` (106 KB, too large to embed — read it in the repository)
-- `upstream/AGENTS.md` (106 KB, too large to embed — read it in the repository)

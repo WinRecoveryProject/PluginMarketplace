@@ -163,6 +163,14 @@ interface:
   display_name: "OneDrive"
 ```
 
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
+
 ### File: `scripts/resolve-onedrive-child.mjs`
 
 ```javascript
@@ -217,8 +225,3 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   process.exitCode = report.status === 'MATCHED' ? 0 : 1;
 }
 ```
-
-### Not embedded
-
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)

@@ -25,6 +25,6 @@ interface:
   default_prompt: "Use $toc-docs to research branch-specific WoW TOC metadata and addon load behavior."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.svg`
 
-- `assets/skill-icon.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

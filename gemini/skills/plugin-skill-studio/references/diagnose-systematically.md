@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#file-referencesintegration-registryjson); never load companion plugins.
 
 ### Diagnose Systematically
 
@@ -102,6 +102,14 @@ interface:
 policy:
   allow_implicit_invocation: true
 ```
+
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
 
 ### File: `condition-based-waiting.md`
 
@@ -575,8 +583,3 @@ From the immediate cause, keep asking what called this, and with what value, one
 **Before operation:** Log before the dangerous operation, not after it fails
 **Include context:** Directory, cwd, environment variables, timestamps
 **Capture stack:** `new Error().stack` shows complete call chain
-
-### Not embedded
-
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)

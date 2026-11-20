@@ -38,6 +38,6 @@ interface:
   default_prompt: "Use $powershell-refactor to refactor this PowerShell code while preserving behavior and compatibility."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.png`
 
-- `assets/skill-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._

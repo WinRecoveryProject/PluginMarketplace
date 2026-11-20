@@ -34,6 +34,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for typescript components."
 ```
 
-### Not embedded
+### File: `assets/typescript-original.svg`
 
-- `assets/typescript-original.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

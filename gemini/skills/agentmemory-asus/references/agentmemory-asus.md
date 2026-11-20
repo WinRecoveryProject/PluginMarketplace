@@ -45,6 +45,6 @@ interface:
   brand_color: "#F5A623"
 ```
 
-### Not embedded
+### File: `assets/icon.png`
 
-- `assets/icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._

@@ -192,6 +192,10 @@ interface:
 }
 ```
 
+### File: `assets/skill-icon.png`
+
+_Binary asset, not embedded._
+
 ### File: `assets/templates/PSScriptAnalyzerSettings.psd1.tmpl`
 
 ```text
@@ -699,7 +703,3 @@ Use this shape only when ancestor discovery is insufficient:
   ]
 }
 ```
-
-### Not embedded
-
-- `assets/skill-icon.png` (binary asset, not embedded)

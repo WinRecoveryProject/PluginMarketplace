@@ -33,6 +33,6 @@ interface:
   default_prompt: "Use $powershell-environment-bootstrap to inspect this Windows development environment before suggesting setup changes."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.png`
 
-- `assets/skill-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._

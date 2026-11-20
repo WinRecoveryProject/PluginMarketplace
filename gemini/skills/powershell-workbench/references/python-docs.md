@@ -34,6 +34,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for python components."
 ```
 
-### Not embedded
+### File: `assets/python-original-wordmark.svg`
 
-- `assets/python-original-wordmark.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

@@ -33,6 +33,6 @@ interface:
   default_prompt: "Use $recovery-toolkit-development to develop or review RecoveryToolkit within its non-executable safety boundaries."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.webp`
 
-- `assets/skill-icon.webp` (binary asset, not embedded)
+_Binary asset, not embedded._

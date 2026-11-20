@@ -34,6 +34,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for css components."
 ```
 
-### Not embedded
+### File: `assets/css3-original-wordmark.svg`
 
-- `assets/css3-original-wordmark.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

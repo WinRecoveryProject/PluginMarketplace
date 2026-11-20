@@ -141,9 +141,9 @@ console.log(
 }
 ```
 
-## Not embedded
+## File: `fixtures/minimal-plugin/assets/minimal.svg`
 
-- `fixtures/minimal-plugin/assets/minimal.svg` (binary asset, not embedded)
+_Binary asset, not embedded._
 
 ## File: `fixtures/minimal-plugin/skills/minimal-plugin-skill/SKILL.md`
 
@@ -223,9 +223,9 @@ This file exists so deferred supporting context can be counted without making `S
 }
 ```
 
-## Not embedded
+## File: `fixtures/multi-skill-plugin/assets/multi.svg`
 
-- `fixtures/multi-skill-plugin/assets/multi.svg` (binary asset, not embedded)
+_Binary asset, not embedded._
 
 ## File: `fixtures/multi-skill-plugin/skills/alpha/SKILL.md`
 

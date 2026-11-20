@@ -146,6 +146,14 @@ interface:
   default_prompt: "Use $google-sheets to find the right spreadsheet, inspect a range, search rows, or plan an exact batch_update."
 ```
 
+### File: `assets/google-sheets-small.svg`
+
+_Binary asset, not embedded._
+
+### File: `assets/google-sheets.png`
+
+_Binary asset, not embedded._
+
 ### File: `references/reference-batch-update-recipes.md`
 
 #### Batch Update Recipes
@@ -1527,8 +1535,3 @@ Avoid unless requested:
 - per-sheet or imported styles that make one tab visually inconsistent with the rest of the workbook
 - heavy theme accents
 - dashboard cards or report-style panels
-
-### Not embedded
-
-- `assets/google-sheets-small.svg` (binary asset, not embedded)
-- `assets/google-sheets.png` (binary asset, not embedded)

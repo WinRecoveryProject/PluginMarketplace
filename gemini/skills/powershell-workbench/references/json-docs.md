@@ -34,6 +34,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for json components."
 ```
 
-### Not embedded
+### File: `assets/json-original.svg`
 
-- `assets/json-original.svg` (binary asset, not embedded)
+_Binary asset, not embedded._

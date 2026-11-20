@@ -36,14 +36,14 @@ Source: `plugins/agentmemory-asus`. Files outside the `skills/*` folders, embedd
 }
 ```
 
-## Not embedded
+## File: `assets/composer-icon.png`
 
-- `assets/composer-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/favicon.png`
 
-- `assets/favicon.png` (binary asset, not embedded)
+_Binary asset, not embedded._
 
-## Not embedded
+## File: `assets/logo.png`
 
-- `assets/logo.png` (binary asset, not embedded)
+_Binary asset, not embedded._

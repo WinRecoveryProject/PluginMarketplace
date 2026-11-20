@@ -34,6 +34,6 @@ interface:
   default_prompt: "Use $microsoft-dism-docs to research version-specific DISM and Windows image servicing documentation."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.webp`
 
-- `assets/skill-icon.webp` (binary asset, not embedded)
+_Binary asset, not embedded._

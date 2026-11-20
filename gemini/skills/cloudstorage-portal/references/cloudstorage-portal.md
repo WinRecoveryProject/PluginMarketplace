@@ -62,6 +62,10 @@ interface:
   default_prompt: "Use $cloudstorage-portal to inspect my available cloud connections and route this task to Dropbox, Google Drive, or OneDrive."
 ```
 
+### File: `assets/cloudstorage-portal.png`
+
+_Binary asset, not embedded._
+
 ### File: `references/inspection.md`
 
 #### Provider package inspection, 2026-10-21
@@ -799,7 +803,3 @@ Authorized isolated test artifacts have demonstrated native provider folder crea
 These observations are dated integration evidence, not guaranteed current availability. Dropbox later returned Unknown tool for copy and read-only listing while the catalog still reported it installed. Google account-selector schemas changed during testing. Microsoft browser-link content resolution returned a serviceReadOnly error, whereas an authorized fetch of the same verified Graph drive/item succeeded. Record these distinct results; do not generalize one failed resolver to all account permissions or erase the resolver defect after another route works.
 
 No sharing, file requests, destructive cleanup or Google comment lifecycle was tested under the isolated folder authorization. Advanced Docs/Sheets/Slides features and full render pipelines are not verified by text/cell smoke tests. Successful content extraction is not a byte-hash check. A copied item observed in the destination is not the same evidence as a polled terminal async monitor status.
-
-### Not embedded
-
-- `assets/cloudstorage-portal.png` (binary asset, not embedded)

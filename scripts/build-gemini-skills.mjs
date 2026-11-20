@@ -10,7 +10,7 @@
 //   node scripts/build-gemini-skills.mjs --check    fail if gemini/skills/ is stale
 //   node scripts/build-gemini-skills.mjs --out DIR  write to another folder
 
-import {readFileSync, readdirSync, statSync, existsSync, mkdirSync, writeFileSync, rmSync} from 'node:fs';
+import {readFileSync, readdirSync, statSync, existsSync, mkdirSync, writeFileSync, rmSync, realpathSync, lstatSync} from 'node:fs';
 import {dirname, join, relative, extname, basename, resolve, isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
@@ -188,12 +188,52 @@ export function slug(heading) {
   return heading.toLowerCase().replace(/[^\p{L}\p{N} _-]/gu, '').trim().replace(/ /g, '-');
 }
 
-const fileAnchor = rel => '#' + slug(`File: \`${rel}\``);
+// Anchors are placeholders until the reference file is rendered, because GitHub
+// suffixes duplicate slugs (-1, -2, …) by position: `.mcp.json` and `mcp.json`
+// both slug to `file-mcpjson`. resolveAnchors() replaces them with the real slug.
+const fileAnchor = rel => `#@@FILE:${rel}@@`;
 
-// Large or binary files are only listed under "Not embedded", so link there instead.
 function anchorFor(file, rel) {
-  const kind = embedFile(file, dirname(file)).kind;
-  return kind === 'binary' || kind === 'large' ? '#not-embedded' : fileAnchor(rel);
+  return fileAnchor(rel);
+}
+
+// GitHub-style heading anchors for one Markdown file, outside fenced code, with
+// -1/-2 suffixes for repeated slugs. Returns heading text → first anchor per text.
+export function headingAnchors(markdown) {
+  const counts = new Map();
+  const byText = new Map();
+  let inFence = null;
+  for (const line of markdown.split('\n')) {
+    const f = /^\s*(`{3,}|~{3,})/.exec(line);
+    if (f) {
+      if (!inFence) inFence = f[1];
+      else if (f[1][0] === inFence[0] && f[1].length >= inFence.length) inFence = null;
+      continue;
+    }
+    if (inFence) continue;
+    const h = /^#{1,6} (.*)$/.exec(line);
+    if (!h) continue;
+    const base = slug(h[1]);
+    const n = counts.get(base) ?? 0;
+    counts.set(base, n + 1);
+    if (!byText.has(h[1])) byText.set(h[1], n ? `${base}-${n}` : base);
+  }
+  return byText;
+}
+
+// Replace `<ref>#@@FILE:<rel>@@` placeholders in one plugin's outputs with the
+// anchor the file heading really gets in <ref>.
+function resolveAnchors(outputs) {
+  const anchors = new Map();
+  for (const [name, content] of outputs) anchors.set(name.split('/').pop(), headingAnchors(content));
+  const out = new Map();
+  for (const [name, content] of outputs) {
+    out.set(name, content.replace(/([A-Za-z0-9_.-]+\.md)#@@FILE:(.+?)@@/g, (all, ref, rel) => {
+      const a = anchors.get(ref)?.get(`File: \`${rel}\``);
+      return a ? `${ref}#${a}` : ref;
+    }));
+  }
+  return out;
 }
 
 // Rewrites relative Markdown links (outside fenced code) that point at files the
@@ -261,8 +301,8 @@ function renderEmbeds(embeds, headingLevel, linkMap) {
   const parts = [];
   const skipped = [];
   for (const e of embeds) {
-    if (e.kind === 'binary') { skipped.push(`- \`${e.rel}\` (binary asset, not embedded)`); continue; }
-    if (e.kind === 'large') { skipped.push(`- \`${e.rel}\` (${Math.round(e.size / 1024)} KB, too large to embed — read it in the repository)`); continue; }
+    if (e.kind === 'binary') { parts.push(`${h} File: \`${e.rel}\`\n\n_Binary asset, not embedded._\n`); continue; }
+    if (e.kind === 'large') { parts.push(`${h} File: \`${e.rel}\`\n\n_${Math.round(e.size / 1024)} KB, too large to embed. Read it in the repository._\n`); continue; }
     if (e.kind === 'markdown') {
       // Demote headings so they nest under the file heading.
       const demoted = demoteHeadings(rewriteLinks(e.text, e.abs, linkMap), headingLevel);
@@ -497,9 +537,11 @@ export function buildOutputs(packages) {
     const linkMap = buildLinkMap(p, plan);
     const pluginLevel = renderPluginLevel(p, plan, linkMap);
     pluginLevel.set('references/_index.md', renderPathIndex(p, linkMap));
-    files.set(`${p.name}/SKILL.md`, renderPluginSkill(p, [...pluginLevel.keys()]));
-    for (const [rel, content] of pluginLevel) files.set(`${p.name}/${rel}`, content);
-    for (const s of p.skills) files.set(`${p.name}/references/${s.id}.md`, renderSkillReference(p, s, linkMap));
+    const own = new Map();
+    own.set('SKILL.md', renderPluginSkill(p, [...pluginLevel.keys()]));
+    for (const [rel, content] of pluginLevel) own.set(rel, content);
+    for (const s of p.skills) own.set(`references/${s.id}.md`, renderSkillReference(p, s, linkMap));
+    for (const [rel, content] of resolveAnchors(own)) files.set(`${p.name}/${rel}`, content);
   }
   return files;
 }
@@ -577,8 +619,22 @@ function main() {
 // The output folder is deleted and rewritten, so it must be generated output:
 // missing, empty, or only skill folders that each hold a SKILL.md. It may never be
 // the repository, one of its parents, or a folder inside it outside gemini/.
+// Physical path: realpath of the deepest existing ancestor plus the components that
+// do not exist yet, so a symlink or junction cannot hide that `dir` is in the repo.
+export function physicalPath(p) {
+  let current = resolve(p);
+  const rest = [];
+  while (!existsSync(current)) {
+    const parent = dirname(current);
+    if (parent === current) break;
+    rest.unshift(basename(current));
+    current = parent;
+  }
+  return join(realpathSync.native(current), ...rest);
+}
+
 export function unsafeOutputDir(dir, repoRoot) {
-  const out = resolve(dir), base = resolve(repoRoot);
+  const out = physicalPath(dir), base = physicalPath(repoRoot);
   const rel = relative(out, base);
   if (out === base || (rel && !rel.startsWith('..') && !isAbsolute(rel))) return 'it is the repository or contains it';
   const inside = relative(base, out);
@@ -589,7 +645,7 @@ export function unsafeOutputDir(dir, repoRoot) {
   if (!statSync(out).isDirectory()) return 'it is a file';
   for (const name of readdirSync(out)) {
     const entry = join(out, name);
-    if (!statSync(entry).isDirectory() || !existsSync(join(entry, 'SKILL.md'))) {
+    if (lstatSync(entry).isSymbolicLink() || !statSync(entry).isDirectory() || !existsSync(join(entry, 'SKILL.md'))) {
       return `it contains ${name}, which is not a generated skill folder`;
     }
   }

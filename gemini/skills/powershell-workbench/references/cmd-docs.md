@@ -35,6 +35,6 @@ interface:
   default_prompt: "Find version-specific primary documentation for cmd components."
 ```
 
-### Not embedded
+### File: `assets/powershell.png`
 
-- `assets/powershell.png` (binary asset, not embedded)
+_Binary asset, not embedded._

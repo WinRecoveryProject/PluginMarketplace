@@ -211,6 +211,14 @@ interface:
   default_prompt: "Use $google-slides to create, adapt, inspect, summarize, or edit a Google Slides deck, including following a native Slides template/reference deck or importing a PPTX."
 ```
 
+### File: `assets/google-slides-small.svg`
+
+_Binary asset, not embedded._
+
+### File: `assets/google-slides.png`
+
+_Binary asset, not embedded._
+
 ### File: `host/export-and-render-slides.mjs`
 
 ```javascript
@@ -3799,8 +3807,3 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 ```
-
-### Not embedded
-
-- `assets/google-slides-small.svg` (binary asset, not embedded)
-- `assets/google-slides.png` (binary asset, not embedded)

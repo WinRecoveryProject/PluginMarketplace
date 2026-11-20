@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {mkdtempSync, mkdirSync, writeFileSync} from 'node:fs';
+import {mkdtempSync, mkdirSync, writeFileSync, symlinkSync, realpathSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join, dirname, extname} from 'node:path';
-import {parseFrontmatter, kebab, rewriteLinks, slug, describeSource, demoteHeadings, unsafeOutputDir, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME} from './build-gemini-skills.mjs';
+import {parseFrontmatter, kebab, rewriteLinks, slug, describeSource, demoteHeadings, unsafeOutputDir, physicalPath, headingAnchors, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME} from './build-gemini-skills.mjs';
 
 function fixture() {
   const base = mkdtempSync(join(tmpdir(), 'gemini-skills-'));
@@ -44,7 +44,7 @@ test('builds upload-ready folders with embedded sources', () => {
   const pluginLevel = [...files.keys()].filter(k => k.startsWith('demo-plugin/references/_plugin'));
   const text = pluginLevel.map(k => files.get(k)).join('\n');
   assert.match(text, /````powershell\nWrite-Host "```hi```"\n````/, 'longer fence protects embedded backticks');
-  assert.match(text, /assets\/icon\.png` \(binary asset, not embedded\)/);
+  assert.match(text, /File: `assets\/icon\.png`\n\n_Binary asset, not embedded\._/);
 
   assert.match(files.get(`${HUB_NAME}/SKILL.md`), /1 plugins, 2 skills/);
   assert.match(files.get(`${HUB_NAME}/references/catalog.csv`), /^plugin,plugin_version,installed_version,installs_from,skill/);
@@ -105,4 +105,26 @@ test('each plugin gets a source path index for bare path references', () => {
   assert.match(index, /\| `references\/policy\.md` \| `references\/_plugin-references\.md#file-referencespolicymd` \|/);
   assert.match(index, /\| `skills\/do-thing\/references\/notes\.md` \| `references\/do-thing\.md#/);
   assert.match(files.get('demo-plugin/SKILL.md'), /references\/_index\.md/);
+});
+
+test('duplicate heading slugs get GitHub-style suffixes in links and the index', () => {
+  const base = fixture();
+  const put = (rel, content) => { const f = join(base, rel); mkdirSync(dirname(f), {recursive: true}); writeFileSync(f, content); };
+  put('plugins/demo-plugin/references/legacy/.mcp.json', '{"a":1}\n');
+  put('plugins/demo-plugin/references/legacy/mcp.json', '{"b":2}\n');
+  const files = buildOutputs(collectPackages(base));
+  const index = files.get('demo-plugin/references/_index.md');
+  assert.match(index, /`references\/legacy\/\.mcp\.json` \| `references\/_plugin-references\.md#file-referenceslegacymcpjson` \|/);
+  assert.match(index, /`references\/legacy\/mcp\.json` \| `references\/_plugin-references\.md#file-referenceslegacymcpjson-1` \|/);
+  assert.ok(![...files.values()].some(t => t.includes('@@FILE:')));
+  assert.deepEqual([...headingAnchors('# A\n```\n# A\n```\n## A').values()], ['a']);
+});
+
+test('--out resolves symlinked ancestors before the overlap check', () => {
+  const base = fixture();
+  const alias = join(mkdtempSync(join(tmpdir(), 'gemini-alias-')), 'alias');
+  symlinkSync(base, alias, 'dir');
+  assert.ok(unsafeOutputDir(join(alias, 'plugins', 'demo-plugin', 'skills'), base));
+  assert.ok(unsafeOutputDir(join(alias, 'new', 'deeper'), base));
+  assert.equal(physicalPath(join(alias, 'gemini', 'x')), join(realpathSync(base), 'gemini', 'x'));
 });

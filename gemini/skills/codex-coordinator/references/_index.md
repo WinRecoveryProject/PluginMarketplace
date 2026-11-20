@@ -4,10 +4,10 @@ Every file and skill folder of `plugins/codex-coordinator` and where its content
 
 | Source path | Read in this upload |
 | --- | --- |
-| `.codex-plugin/assets/composer-icon.png` | `references/_plugin-codex-plugin.md#not-embedded` |
-| `.codex-plugin/assets/logo.png` | `references/_plugin-codex-plugin.md#not-embedded` |
+| `.codex-plugin/assets/composer-icon.png` | `references/_plugin-codex-plugin.md#file-codex-pluginassetscomposer-iconpng` |
+| `.codex-plugin/assets/logo.png` | `references/_plugin-codex-plugin.md#file-codex-pluginassetslogopng` |
 | `.codex-plugin/plugin.json` | `references/_plugin-codex-plugin.md#file-codex-pluginpluginjson` |
-| `assets/logo.png` | `references/_plugin-assets.md#not-embedded` |
+| `assets/logo.png` | `references/_plugin-assets.md#file-assetslogopng` |
 | `COPY-COMPLETE.json` | `references/_plugin.md#file-copy-completejson` |
 | `hooks/hooks.json` | `references/_plugin-hooks.md#file-hookshooksjson` |
 | `IMPORT-RECEIPT.json` | `references/_plugin.md#file-import-receiptjson` |

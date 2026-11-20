@@ -94,6 +94,6 @@ interface:
   default_prompt: "Use $clean-up-dropbox-content to review obsolete or duplicate Dropbox content and do not delete anything without my explicit approval."
 ```
 
-### Not embedded
+### File: `assets/dropbox.png`
 
-- `assets/dropbox.png` (binary asset, not embedded)
+_Binary asset, not embedded._

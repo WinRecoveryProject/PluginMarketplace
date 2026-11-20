@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#file-referencesintegration-registryjson); never load companion plugins.
 
 ### Git Safety Guardrails
 
@@ -95,6 +95,14 @@ interface:
   short_description: "Protect destructive git operations"
 ```
 
+### File: `assets/wrp-icon-128.png`
+
+_Binary asset, not embedded._
+
+### File: `assets/wrp-icon-256.png`
+
+_Binary asset, not embedded._
+
 ### File: `scripts/block-dangerous-git.sh`
 
 ```bash
@@ -144,8 +152,3 @@ reason = next((reason for pattern, reason in patterns if re.search(pattern, comm
 print(json.dumps({"command": command, "classification": "review" if reason else "allow", "reason": reason}, separators=(",", ":")))
 sys.exit(2 if reason else 0)
 ```
-
-### Not embedded
-
-- `assets/wrp-icon-128.png` (binary asset, not embedded)
-- `assets/wrp-icon-256.png` (binary asset, not embedded)

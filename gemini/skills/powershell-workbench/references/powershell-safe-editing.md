@@ -42,6 +42,6 @@ interface:
   default_prompt: "Use $powershell-safe-editing to make a precise, low-churn edit without executing the edited payload."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.png`
 
-- `assets/skill-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._

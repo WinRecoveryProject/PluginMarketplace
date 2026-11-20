@@ -56,6 +56,6 @@ interface:
   default_prompt: "Use $powershell-project-profile-portal to show or safely update this portable project profile."
 ```
 
-### Not embedded
+### File: `assets/skill-icon.png`
 
-- `assets/skill-icon.png` (binary asset, not embedded)
+_Binary asset, not embedded._
