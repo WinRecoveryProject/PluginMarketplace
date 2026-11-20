@@ -64,7 +64,6 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Gmail | `0.1.9` | `codex plugin add gmail@winrecoveryproject-digital` |
 | Google Calendar | `1.2.6` | `codex plugin add google-calendar@winrecoveryproject-digital` |
 | Slack | `0.1.7` | `codex plugin add slack@winrecoveryproject-digital` |
-| Plugin Eval | `0.1.2` | `codex plugin add plugin-eval@winrecoveryproject-digital` |
 | AgentMemory-ASUS | `1.0.0` | `codex plugin add agentmemory-asus@winrecoveryproject-digital` |
 | Game Development Studio | `1.4.0` | `codex plugin add game-development-studio@winrecoveryproject-digital` |
 | Atlassian Rovo | `1.0.6` | `codex plugin add atlassian-rovo@winrecoveryproject-digital` |
@@ -118,7 +117,7 @@ Plugin-Skill-Studio 0.3.31 gennemgår en valgt lokal plugin- eller skill-mappe o
 - `plugins/` indeholder versionsfrosne, selvstændigt installerbare pluginpakker.
 - De selvstændige kilde-repositories bevares. `plugin-sources.lock.json` fastlåser commit og filhash for deres marketplace-snapshots; se [kildeoversigten](docs/marketplace-sources-20261102.md).
 - `cloudstorage-portal-local` er udgået og fjernet fra både kataloget og den publicerede pakkemappe. OneDrive og CloudStorage Portal er de to aktive cloudpakker.
-- `plugins/plugin-eval/` bevares som en lokal sammenligningsreference. Marketplace-posten peger direkte på OpenAIs originale Git-kilde; den bevarede mappe er ikke publiceringskilden.
+- `plugin-eval` er udgået af kataloget. Motoren og dens tests er portet ind i Plugin-Skill-Studio (`studio-quality`, eval-tilstand, `scripts/plugin-eval.js`), og hver evne er dokumenteret i `plugins/plugin-skill-studio/references/consolidation/lifecycle-matrix.json`. OpenAIs original findes fortsat i OpenAIs eget katalog.
 - OpenAI-ejede publiceringsposter bruger en direkte `git-subdir`-reference til `https://github.com/openai/plugins.git`; en bevaret lokal sammenligningsmappe er ikke publiceringskilden.
 - `docs/onedrive-skills-inventory.md` dokumenterer de lokale OneDrive-relaterede skills, som ikke automatisk er separate plugins.
 - `docs/consolidation-audit-2026-10-25.md` fastlægger de kanoniske kilder og den sikre oprydningsrækkefølge.

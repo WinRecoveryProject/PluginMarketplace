@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-20",
+  "baseline": "catalog-additions-20261118.json",
+  "countMeaning": "Current counts after retirements. Historical baseline and addition records stay unchanged.",
+  "retiredEntries": [
+    {
+      "name": "plugin-eval",
+      "previousSource": {
+        "source": "git-subdir",
+        "url": "https://github.com/openai/plugins.git",
+        "path": "plugins/plugin-eval"
+      },
+      "absorbedBy": "plugin-skill-studio",
+      "absorbedInto": "studio-quality skill, eval mode, with the vendored engine at scripts/plugin-eval.js",
+      "capabilityMatrix": "plugins/plugin-skill-studio/references/consolidation/lifecycle-matrix.json",
+      "upstreamStillAvailableAs": "plugin-eval@openai-curated-remote"
+    }
+  ],
+  "currentNativeMarketplaceEntries": 35,
+  "currentCollectionRecords": 59
+}

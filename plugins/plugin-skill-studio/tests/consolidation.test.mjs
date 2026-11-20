@@ -92,13 +92,13 @@ test('lifecycle matrix has no unmapped capability',async()=>{
 test('lifecycle matrix targets in studio-quality all resolve',async()=>{
  const m=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
  const scoped={...m,sources:[],entries:m.entries.filter(e=>String(e.target).includes('skills/studio-quality/'))};
- const r=await checkMatrix(scoped,{repoRoot:path.resolve(packageRoot,'../..')});
+ const r=await checkMatrix(scoped,{repoRoot:packageRoot});
  assert.deepEqual(r.errors,[]);
 });
 
 test('the whole lifecycle matrix passes consolidation-check',async()=>{
  const m=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
- const r=await checkMatrix(m,{repoRoot:path.resolve(packageRoot,'../..')});
+ const r=await checkMatrix(m,{repoRoot:packageRoot});
  assert.deepEqual(r.errors,[]);assert.equal(r.counts.unmapped,0);
 });
 

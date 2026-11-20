@@ -1,94 +1,94 @@
 [
   {
     "id": "studio.create-plugin",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.create-plugin.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.create-plugin.json"
   },
   {
     "id": "studio.create-skill",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.create-skill.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.create-skill.json"
   },
   {
     "id": "studio.update-plugin",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.update-plugin.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.update-plugin.json"
   },
   {
     "id": "studio.plugin-autopilot",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.plugin-autopilot.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.plugin-autopilot.json"
   },
   {
     "id": "studio.import-plugins",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.import-plugins.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.import-plugins.json"
   },
   {
     "id": "studio.import-gpt",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.import-gpt.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.import-gpt.json"
   },
   {
     "id": "studio.install-skill",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.install-skill.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.install-skill.json"
   },
   {
     "id": "studio.release-workflow",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.release-workflow.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.release-workflow.json"
   },
   {
     "id": "studio.portfolio",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.portfolio.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.portfolio.json"
   },
   {
     "id": "studio.catalog",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.catalog.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.catalog.json"
   },
   {
     "id": "studio.skill-conductor",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skill-conductor.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.skill-conductor.json"
   },
   {
     "id": "studio.plugin-skill-studio",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.plugin-skill-studio.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.plugin-skill-studio.json"
   },
   {
     "id": "studio.skill-eval",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skill-eval.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.skill-eval.json"
   },
   {
     "id": "studio.plugin-eval",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.plugin-eval.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.plugin-eval.json"
   },
   {
     "id": "studio.skill-review",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skill-review.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.skill-review.json"
   },
   {
     "id": "studio.skill-walkthrough",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skill-walkthrough.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.skill-walkthrough.json"
   },
   {
     "id": "studio.skillquiver-doctor",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.skillquiver-doctor.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.skillquiver-doctor.json"
   },
   {
     "id": "studio.evidence-matrix",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.evidence-matrix.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.evidence-matrix.json"
   },
   {
     "id": "studio.metric-pack",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.metric-pack.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.metric-pack.json"
   },
   {
     "id": "studio.improve-skill",
-    "snapshot": "plugins/plugin-skill-studio/references/consolidation/snapshots/sources/studio.improve-skill.json"
+    "snapshot": "references/consolidation/snapshots/sources/studio.improve-skill.json"
   },
   {
     "id": "plugin-eval",
-    "root": "plugins/plugin-eval"
+    "snapshot": "references/consolidation/snapshots/sources/plugin-eval.json"
   },
   {
     "id": "skill-autoresearch",
-    "root": "plugins/plugin-skill-studio/references/consolidation/snapshots/skill-autoresearch"
+    "root": "references/consolidation/snapshots/skill-autoresearch"
   },
   {
     "id": "auto-research",
-    "root": "plugins/plugin-skill-studio/references/consolidation/snapshots/auto-research"
+    "root": "references/consolidation/snapshots/auto-research"
   }
 ]

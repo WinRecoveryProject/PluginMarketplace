@@ -19,7 +19,6 @@ import { renderPayload } from "../src/eval/plugin-eval/renderers/index.js";
 
 const execFileAsync = promisify(execFile);
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const upstreamRoot = path.resolve(repoRoot, "..", "plugin-eval");
 const fixturesRoot = path.join(repoRoot, "fixtures", "plugin-eval");
 const cliPath = path.join(repoRoot, "scripts", "plugin-eval.js");
 const nodeBin = process.execPath;
@@ -821,21 +820,18 @@ test("CLI start command renders chat-first workflow suggestions", async () => {
   assert.match(stdout, /Recommended Next Step/);
 });
 
-test("shipped plugin surfaces advertise beginner chat prompts", async () => {
-  const manifest = JSON.parse(await fs.readFile(path.join(upstreamRoot, ".codex-plugin", "plugin.json"), "utf8"));
-  const umbrellaSkill = await fs.readFile(path.join(upstreamRoot, "skills", "plugin-eval", "SKILL.md"), "utf8");
-  const readme = await fs.readFile(path.join(upstreamRoot, "README.md"), "utf8");
+test("studio-quality eval mode advertises the beginner chat prompts of the absorbed plugin", async () => {
+  // The standalone plugin was retired; its manifest prompts and umbrella skill now live in eval mode.
+  const evalMode = await fs.readFile(path.join(repoRoot, "skills", "studio-quality", "modes", "eval.md"), "utf8");
+  const readme = await fs.readFile(path.join(repoRoot, "references", "plugin-eval", "README.md"), "utf8");
 
-  assert.match(manifest.interface.longDescription, /plugin-eval start/i);
-  assert.deepEqual(manifest.interface.defaultPrompt, [
-    "Give me an analysis of the game studio plugin.",
-    "Evaluate this plugin.",
-    "Why did this score that way?",
-  ]);
-  assert.match(umbrellaSkill, /plugin-eval start <path> --request/);
-  assert.match(umbrellaSkill, /analysis of the game dev skill/i);
-  assert.match(umbrellaSkill, /plugin-eval measurement-plan/);
-  assert.match(umbrellaSkill, /What should I fix first\?/);
+  for (const prompt of ["Give me an analysis of the game studio plugin.", "Evaluate this plugin.", "Why did this score that way?"]) {
+    assert.ok(evalMode.includes(prompt), prompt);
+  }
+  assert.match(evalMode, /plugin-eval\.js start <path> --request/);
+  assert.match(evalMode, /analysis of the game dev skill/i);
+  assert.match(evalMode, /plugin-eval\.js measurement-plan/);
+  assert.match(evalMode, /What should I fix first\?/);
   assert.match(readme, /Start From Chat/);
   assert.match(readme, /plugin-eval start <path> --request/);
   assert.match(readme, /analysis of the game dev skill/i);

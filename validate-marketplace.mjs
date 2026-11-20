@@ -33,6 +33,7 @@ if(registry){
   check(new Set(names).size===names.length,'unique marketplace names');
   check(!names.includes('cloudstorage-portal-local'),'obsolete Local package is not registered');
   check(!names.includes('zilvereyes-plugin-studio'),'Studio has one canonical marketplace name');
+  check(!names.includes('plugin-eval'),'plugin-eval is absorbed into plugin-skill-studio (studio-quality)');
   check(!names.includes('megalinter'),'MegaLinter is a reference, not an installable Marketplace entry');
   for(const name of managed){
     const entry=entries.find(e=>e.name===name);
@@ -183,8 +184,15 @@ if(registry&&external){
 }
 const workspace=json('docs/workspace-plugin-collection-20261116.json');
 const additions=json('docs/catalog-additions-20261118.json');
+// Retirements subtract from the historical counts without rewriting the baseline records.
+const retirements=json('docs/catalog-retirements-20261120.json');
+const retired=new Set((retirements?.retiredEntries??[]).map(p=>p.name));
 if(registry&&workspace){
   for(const p of workspace.additionalGitSources){
+    if(retired.has(p.name)){
+      check(!registry.plugins.some(e=>e.name===p.name)&&Boolean(retirements.retiredEntries.find(r=>r.name===p.name)?.absorbedBy),`${p.name}: retired entry is unregistered and names its successor`);
+      continue;
+    }
     const e=registry.plugins.find(e=>e.name===p.name);
     const source=e?.source;
     const matchesLocation=p.path==='.'
@@ -208,9 +216,10 @@ if(registry&&workspace){
     check(counterparts?.some(pair=>pair.publishedId===p.name+'@'+registry.name&&pair.catalogId===p.name+'@openai-curated-remote'),
       `${p.name}: explicit curated counterpart`);
   }
-  const totalAdditions=added.length+gitAdded.length;
-  check(new Set(names).size===names.length&&names.length===workspace.counts.collectionProducts+totalAdditions&&names.length===additions?.currentCollectionRecords,'extended collection has one record per product');
-  check(registry.plugins.length===workspace.counts.nativeMarketplaceEntries+totalAdditions&&registry.plugins.length===additions?.currentNativeMarketplaceEntries,'native Marketplace entry count');
+  const totalAdditions=added.length+gitAdded.length-retired.size;
+  const current=retirements??additions;
+  check(new Set(names).size===names.length&&names.length===workspace.counts.collectionProducts+totalAdditions&&names.length===current?.currentCollectionRecords,'extended collection has one record per product');
+  check(registry.plugins.length===workspace.counts.nativeMarketplaceEntries+totalAdditions&&registry.plugins.length===current?.currentNativeMarketplaceEntries,'native Marketplace entry count');
   check(workspace.catalogOnly.every(p=>p.url===`https://chatgpt.com/plugins/${p.pluginId}`),'original catalog links retain native identities');
   check(workspace.hostBundled.every(p=>p.status==='HOST_BUNDLED'&&!registry.plugins.some(e=>e.name===p.name)),'host runtime packages not republished as personal file paths');
   check(workspace.nativeLoaderRemoteSourceProbe.remoteEntryListed===false&&workspace.nativeLoaderRemoteSourceProbe.localControlListed===true,'remote source restriction checked with native positive control');
