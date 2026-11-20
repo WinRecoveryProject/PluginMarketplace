@@ -131,7 +131,7 @@ SOFTWARE.
 
 ### Historisk dokumentation for det lokale OneDrive-MCP-runtime
 
-Dette dokument samler forsøg med det tidligere lokale runtime. CloudStorage Portal bruger nu de eksisterende Apps til Dropbox, Google Drive og OneDrive. Se [verifikation af den aktuelle App-rute](skills/cloudstorage-portal/references/workflow-verification.md). Daterede resultater herfra dokumenterer det runtime og den forbindelse, som var valgt i det enkelte forsøg.
+Dette dokument samler forsøg med det tidligere lokale runtime. CloudStorage Portal bruger nu de eksisterende Apps til Dropbox, Google Drive og OneDrive. Se [verifikation af den aktuelle App-rute](cloudstorage-portal.md#file-referencesworkflow-verificationmd). Daterede resultater herfra dokumenterer det runtime og den forbindelse, som var valgt i det enkelte forsøg.
 
 #### 23. oktober 2026 — dev.17 host reconciliation
 
@@ -176,7 +176,7 @@ Version 0.9.14 requires Google Drive profile discovery in the provider tool cata
 
 Version 0.9.13 can resolve an exact OneDrive item in its known parent folder after a successful empty search. The workflow reports incomplete listings and refuses ambiguous matches.
 
-Version 0.9.12 checks OneDrive search and folder creation in the provider tool catalog. The check reports the exact missing tool when either operation is unavailable. See the [workflow verification guide](skills/cloudstorage-portal/references/workflow-verification.md).
+Version 0.9.12 checks OneDrive search and folder creation in the provider tool catalog. The check reports the exact missing tool when either operation is unavailable. See the [workflow verification guide](cloudstorage-portal.md#file-referencesworkflow-verificationmd).
 
 ## File: `THIRD_PARTY_NOTICES.md`
 

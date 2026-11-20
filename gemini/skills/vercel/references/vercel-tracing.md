@@ -17,24 +17,24 @@ Tracing only covers server code: requests to dynamic routes, API routes, functio
 
 | Reference | Read when |
 | --- | --- |
-| [Collection](references/collection.md) | Deciding which spans need application setup, or choosing always-on tracing, request capture, or a browser session |
-| [Instrumentation](references/instrumentation.md) | Discovering a framework's startup hook, wiring and verifying SDK setup, or using Sentry |
-| [Next.js](references/nextjs.md) | Checking Next.js 16.5+ default tracing, setting up Next.js instrumentation, or enabling verbose spans |
-| [SvelteKit](references/sveltekit.md) | Enabling server tracing and the instrumentation hook on SvelteKit 2 or 3 |
-| [Library spans](references/library-spans.md) | Turning on spans from the AI SDK, Flags SDK, Workflow, or database and cache clients |
-| [Custom spans](references/custom-spans.md) | Measuring an application operation and recording failures |
-| [Context propagation](references/context-propagation.md) | Connecting traces across services: outbound URL matching, non-fetch clients and queues, incoming requests |
-| [Configuration](references/configuration.md) | Inspecting or changing always-on tracing sampling rules |
-| [Capture](references/capture.md) | Reproducing a request or tracing a browser flow |
-| [Search](references/search.md) | Finding slow or failed spans, choosing filters, or parsing results |
-| [Inspection](references/inspection.md) | Retrieving a request trace and choosing timeline, tree, or waterfall |
-| [Performance](references/performance.md) | Making a route, API, function, or server-rendered page faster: wrapping operations in custom spans, reading exact durations, comparing before and after |
-| [Troubleshooting](references/troubleshooting.md) | Investigating empty results, failed lookups, missing spans, or truncated attributes |
+| [Collection](vercel-tracing.md#file-referencescollectionmd) | Deciding which spans need application setup, or choosing always-on tracing, request capture, or a browser session |
+| [Instrumentation](vercel-tracing.md#file-referencesinstrumentationmd) | Discovering a framework's startup hook, wiring and verifying SDK setup, or using Sentry |
+| [Next.js](vercel-tracing.md#file-referencesnextjsmd) | Checking Next.js 16.5+ default tracing, setting up Next.js instrumentation, or enabling verbose spans |
+| [SvelteKit](vercel-tracing.md#file-referencessveltekitmd) | Enabling server tracing and the instrumentation hook on SvelteKit 2 or 3 |
+| [Library spans](vercel-tracing.md#file-referenceslibrary-spansmd) | Turning on spans from the AI SDK, Flags SDK, Workflow, or database and cache clients |
+| [Custom spans](vercel-tracing.md#file-referencescustom-spansmd) | Measuring an application operation and recording failures |
+| [Context propagation](vercel-tracing.md#file-referencescontext-propagationmd) | Connecting traces across services: outbound URL matching, non-fetch clients and queues, incoming requests |
+| [Configuration](vercel-tracing.md#file-referencesconfigurationmd) | Inspecting or changing always-on tracing sampling rules |
+| [Capture](vercel-tracing.md#file-referencescapturemd) | Reproducing a request or tracing a browser flow |
+| [Search](vercel-tracing.md#file-referencessearchmd) | Finding slow or failed spans, choosing filters, or parsing results |
+| [Inspection](vercel-tracing.md#file-referencesinspectionmd) | Retrieving a request trace and choosing timeline, tree, or waterfall |
+| [Performance](vercel-tracing.md#file-referencesperformancemd) | Making a route, API, function, or server-rendered page faster: wrapping operations in custom spans, reading exact durations, comparing before and after |
+| [Troubleshooting](vercel-tracing.md#file-referencestroubleshootingmd) | Investigating empty results, failed lookups, missing spans, or truncated attributes |
 
 #### Setup workflow
 
 1. Check existing setup: framework and adapter versions, any registered OpenTelemetry provider or Sentry v8+, and framework tracing flags. Extend an existing provider; never register a second one.
-2. Decide what needs application setup. Infrastructure and outbound-fetch spans are automatic; framework, library, and custom spans need `@vercel/otel`. On Next.js 16.5+, check [default tracing](references/nextjs.md) first. When Vercel adds `@vercel/otel`, framework spans need no setup, and step 3 is only for custom or library spans. See [collection](references/collection.md).
+2. Decide what needs application setup. Infrastructure and outbound-fetch spans are automatic; framework, library, and custom spans need `@vercel/otel`. On Next.js 16.5+, check [default tracing](vercel-tracing.md#file-referencesnextjsmd) first. When Vercel adds `@vercel/otel`, framework spans need no setup, and step 3 is only for custom or library spans. See [collection](vercel-tracing.md#file-referencescollectionmd).
 3. Install `@vercel/otel` and `@opentelemetry/api`, then register the SDK once from the framework's verified server startup hook. On Next.js, that is `register()` in `instrumentation.ts`:
 
    ```ts
@@ -45,9 +45,9 @@ Tracing only covers server code: requests to dynamic routes, API routes, functio
    }
    ```
 
-   Under default tracing, Vercel stops adding `@vercel/otel` once this file exists, and `VERCEL_PROJECT_NAME` keeps the service name unchanged. For other frameworks, follow [SvelteKit](references/sveltekit.md) or [another framework](references/instrumentation.md#integrate-another-framework); see [Next.js](references/nextjs.md) for default tracing, verbose spans, and prerendering. Next.js and SvelteKit join the incoming request trace automatically; other frameworks may need [incoming-context extraction](references/context-propagation.md#incoming-requests). Add [custom spans](references/custom-spans.md) and [context propagation](references/context-propagation.md) where needed.
-4. Turn on [library spans](references/library-spans.md) for the libraries in the application's `package.json`, such as the AI SDK, the Flags SDK, or a database client.
-5. Build, deploy to preview or production, exercise a server-executed route, and [inspect its trace](references/inspection.md). Confirm span names and parent relationships with `inspect`, and `service.name` with search JSON. A local exporter check does not prove Vercel collection.
+   Under default tracing, Vercel stops adding `@vercel/otel` once this file exists, and `VERCEL_PROJECT_NAME` keeps the service name unchanged. For other frameworks, follow [SvelteKit](vercel-tracing.md#file-referencessveltekitmd) or [another framework](vercel-tracing.md#file-referencesinstrumentationmd); see [Next.js](vercel-tracing.md#file-referencesnextjsmd) for default tracing, verbose spans, and prerendering. Next.js and SvelteKit join the incoming request trace automatically; other frameworks may need [incoming-context extraction](vercel-tracing.md#file-referencescontext-propagationmd). Add [custom spans](vercel-tracing.md#file-referencescustom-spansmd) and [context propagation](vercel-tracing.md#file-referencescontext-propagationmd) where needed.
+4. Turn on [library spans](vercel-tracing.md#file-referenceslibrary-spansmd) for the libraries in the application's `package.json`, such as the AI SDK, the Flags SDK, or a database client.
+5. Build, deploy to preview or production, exercise a server-executed route, and [inspect its trace](vercel-tracing.md#file-referencesinspectionmd). Confirm span names and parent relationships with `inspect`, and `service.name` with search JSON. A local exporter check does not prove Vercel collection.
 
 #### Investigation workflow
 
@@ -79,7 +79,7 @@ Do not change sampling merely to investigate an issue. Empty sampled results do 
 
 #### Targeted capture
 
-Use this reference to reproduce a request or browser flow without changing always-on tracing rules. Verify [collection prerequisites](collection.md); framework and custom spans still need deployed instrumentation.
+Use this reference to reproduce a request or browser flow without changing always-on tracing rules. Verify [collection prerequisites](vercel-tracing.md#file-referencescollectionmd); framework and custom spans still need deployed instrumentation.
 
 ##### Capture a request
 
@@ -97,7 +97,7 @@ Pass curl options after `--`, for example to reproduce an authorized POST:
 vercel traces create /api/test --deployment https://my-app-abc123.vercel.app --scope my-team -- --request POST --header 'Content-Type: application/json' --data '{"name":"John"}'
 ```
 
-With `--json`, the command prints `{ response, requestId }`, not search JSON Lines. `response` is the body only; to see the HTTP status, rerun without `--json` and add `-- --silent --output /dev/null --write-out '%{http_code}\n'`. [Inspect](inspection.md) `requestId` in the deployment's project and team; if the result is not the captured request, see [troubleshooting](troubleshooting.md#inspect-returns-the-wrong-trace). See [CLI capture](https://vercel.com/docs/cli/traces#create).
+With `--json`, the command prints `{ response, requestId }`, not search JSON Lines. `response` is the body only; to see the HTTP status, rerun without `--json` and add `-- --silent --output /dev/null --write-out '%{http_code}\n'`. [Inspect](vercel-tracing.md#file-referencesinspectionmd) `requestId` in the deployment's project and team; if the result is not the captured request, see [troubleshooting](vercel-tracing.md#file-referencestroubleshootingmd). See [CLI capture](https://vercel.com/docs/cli/traces#create).
 
 ##### Capture a browser flow
 
@@ -107,7 +107,7 @@ Use a preview or production deployment with the Vercel Toolbar enabled:
 2. Reproduce the flow. Open the completed page trace or **View Session Traces** to inspect captured requests.
 3. Select **Stop Tracing Session** when finished. Sessions stay active until stopped or browser cookies are cleared.
 
-See [browser capture instructions](https://vercel.com/docs/tracing/session-tracing). Use [inspection](inspection.md) to choose a trace view.
+See [browser capture instructions](https://vercel.com/docs/tracing/session-tracing). Use [inspection](vercel-tracing.md#file-referencesinspectionmd) to choose a trace view.
 
 ### File: `references/collection.md`
 
@@ -117,32 +117,32 @@ Use this reference before setup or querying when collection is uncertain. Reuse 
 
 ##### Choose the spans needed
 
-Infrastructure and outbound-fetch spans are automatic and need no application OpenTelemetry setup. Framework and custom spans need [application instrumentation](instrumentation.md) deployed to the target environment, except framework spans under Next.js 16.5+ [default tracing](nextjs.md). Library spans also need it, plus an [opt-in](library-spans.md) for each installed library that has one. See [automatic instrumentation](https://vercel.com/docs/tracing#automatic-instrumentation).
+Infrastructure and outbound-fetch spans are automatic and need no application OpenTelemetry setup. Framework and custom spans need [application instrumentation](vercel-tracing.md#file-referencesinstrumentationmd) deployed to the target environment, except framework spans under Next.js 16.5+ [default tracing](vercel-tracing.md#file-referencesnextjsmd). Library spans also need it, plus an [opt-in](vercel-tracing.md#file-referenceslibrary-spansmd) for each installed library that has one. See [automatic instrumentation](https://vercel.com/docs/tracing#automatic-instrumentation).
 
 ##### Choose a collection mode
 
 | Mode | Use for | Required setup |
 | --- | --- | --- |
-| Always-on tracing | Investigating sampled traffic already captured | Matching positive [sampling rules](configuration.md) for the project, environment, and paths |
-| Single request | Reproducing an endpoint from the terminal | [CLI request capture](capture.md#capture-a-request) against a deployment |
-| Browser session or page | Reproducing a flow interactively | [Browser capture](capture.md#capture-a-browser-flow) with the Vercel Toolbar enabled |
+| Always-on tracing | Investigating sampled traffic already captured | Matching positive [sampling rules](vercel-tracing.md#file-referencesconfigurationmd) for the project, environment, and paths |
+| Single request | Reproducing an endpoint from the terminal | [CLI request capture](vercel-tracing.md#file-referencescapturemd) against a deployment |
+| Browser session or page | Reproducing a flow interactively | [Browser capture](vercel-tracing.md#file-referencescapturemd) with the Vercel Toolbar enabled |
 
 Request and browser capture do not require always-on tracing rules. See [session tracing](https://vercel.com/docs/tracing/session-tracing).
 
 ##### Verify before querying
 
 1. Select the intended team, project, and preview or production deployment. Local execution alone is insufficient.
-2. For framework and custom spans, check that [instrumentation](instrumentation.md) is deployed. Under Next.js 16.5+ [default tracing](nextjs.md), framework spans need none unless Vercel skips adding `@vercel/otel`; custom spans still do.
-3. Check the selected mode's setup. For always-on tracing, inspect existing rules before an authorized change; see [configuration](configuration.md).
-4. Send requests after collection is enabled. Query the same project, environment, and time window, then [inspect a representative trace](inspection.md).
+2. For framework and custom spans, check that [instrumentation](vercel-tracing.md#file-referencesinstrumentationmd) is deployed. Under Next.js 16.5+ [default tracing](vercel-tracing.md#file-referencesnextjsmd), framework spans need none unless Vercel skips adding `@vercel/otel`; custom spans still do.
+3. Check the selected mode's setup. For always-on tracing, inspect existing rules before an authorized change; see [configuration](vercel-tracing.md#file-referencesconfigurationmd).
+4. Send requests after collection is enabled. Query the same project, environment, and time window, then [inspect a representative trace](vercel-tracing.md#file-referencesinspectionmd).
 
-Use [troubleshooting](troubleshooting.md) if the expected spans are absent.
+Use [troubleshooting](vercel-tracing.md#file-referencestroubleshootingmd) if the expected spans are absent.
 
 ### File: `references/configuration.md`
 
 #### Sampling rules reference
 
-Use this reference for always-on tracing. [Request and browser capture](capture.md) work separately from these rules.
+Use this reference for always-on tracing. [Request and browser capture](vercel-tracing.md#file-referencescapturemd) work separately from these rules.
 
 ##### Inspect and configure
 
@@ -161,9 +161,9 @@ vercel traces config ls --scope my-team --project my-app --json
 
 ##### Rule matching
 
-Rules match an environment and optional path prefix. `set` changes the rate for an existing pair or appends a new rule. Environments are `production`, `preview`, and `any`. The first matching rule wins, so an earlier broad rule can shadow a later narrow rule. Up to 10 rules are allowed. CLI rates are integers from 1 to 100; use the dashboard for a zero-rate exclusion. A positive rule enables always-on tracing; removing all rules disables it. Requests matching no rule are not collected. Sampling makes one decision per trace, rather than sampling its spans independently; [size limits](troubleshooting.md#oversized-telemetry) can still leave spans missing.
+Rules match an environment and optional path prefix. `set` changes the rate for an existing pair or appends a new rule. Environments are `production`, `preview`, and `any`. The first matching rule wins, so an earlier broad rule can shadow a later narrow rule. Up to 10 rules are allowed. CLI rates are integers from 1 to 100; use the dashboard for a zero-rate exclusion. A positive rule enables always-on tracing; removing all rules disables it. Requests matching no rule are not collected. Sampling makes one decision per trace, rather than sampling its spans independently; [size limits](vercel-tracing.md#file-referencestroubleshootingmd) can still leave spans missing.
 
-Next.js 16.5+ [default tracing](nextjs.md) starts with one rule, which `ls` shows as `any (all paths) 100%`. This default rule matches every request first, so any rule that `set` adds below it never applies. To trace less overall, change the default rule's rate in place with `set <rate> --environment any`. To give one path its own rate, `set` the path rule, have the user run `rm --environment any --default`, then `set` the default rule again so it lands below. This order never leaves the project without a rule, so tracing stays on. In the dashboard, which also accepts zero-rate exclusions, remove the default rule, add the path rule, and add the default rule back before saving.
+Next.js 16.5+ [default tracing](vercel-tracing.md#file-referencesnextjsmd) starts with one rule, which `ls` shows as `any (all paths) 100%`. This default rule matches every request first, so any rule that `set` adds below it never applies. To trace less overall, change the default rule's rate in place with `set <rate> --environment any`. To give one path its own rate, `set` the path rule, have the user run `rm --environment any --default`, then `set` the default rule again so it lands below. This order never leaves the project without a rule, so tracing stays on. In the dashboard, which also accepts zero-rate exclusions, remove the default rule, add the path rule, and add the default rule back before saving.
 
 ##### Trace Drains are separate
 
@@ -251,13 +251,13 @@ When a request arrives with `traceparent`, Vercel combines the inbound decision 
 
 ##### Verify
 
-Deploy both services, send one request through the caller, and inspect it with [inspection](inspection.md). The receiver's server span should share the caller's trace ID and sit under the caller's outbound span. If it starts a new trace, check the URL matcher first, then that the receiver extracts the context.
+Deploy both services, send one request through the caller, and inspect it with [inspection](vercel-tracing.md#file-referencesinspectionmd). The receiver's server span should share the caller's trace ID and sit under the caller's outbound span. If it starts a new trace, check the URL matcher first, then that the receiver extracts the context.
 
 ### File: `references/custom-spans.md`
 
 #### Custom spans
 
-Use this reference when framework spans do not expose the operation being investigated. Complete [SDK setup](instrumentation.md) first. To find which operation makes a request slow, follow [performance](performance.md).
+Use this reference when framework spans do not expose the operation being investigated. Complete [SDK setup](vercel-tracing.md#file-referencesinstrumentationmd) first. To find which operation makes a request slow, follow [performance](vercel-tracing.md#file-referencesperformancemd).
 
 Add one helper so every measured operation uses the same pattern. It uses `startActiveSpan`, so nested calls inherit the span's context:
 
@@ -300,13 +300,13 @@ Adapt the names, attributes, and imports to the application. Keep `await` inside
 
 - Name spans `<area>.<operation>` with stable, low-cardinality names. Put IDs and sizes in attributes, not names.
 - For CPU-bound synchronous work, wrap it in an `async` callback; the span still measures the full blocking time.
-- Never record secrets, tokens, or personal data, and keep attributes small to avoid [truncation](troubleshooting.md#oversized-telemetry).
+- Never record secrets, tokens, or personal data, and keep attributes small to avoid [truncation](vercel-tracing.md#file-referencestroubleshootingmd).
 
 `startSpan` inherits the current context without becoming active. Use it when nested operations should keep their existing parent. Edge runtime functions do not support custom spans; use the Node.js runtime.
 
 ##### Verify after deployment
 
-Deploy the change and exercise the operation using the chosen [collection mode](collection.md). Find the span through [search](search.md) and [inspect the trace](inspection.md) to confirm awaited calls appear beneath it. For a reproduced failure, confirm the error status with `inspect` and the recorded exception in search JSON at `.data.span.events`. See [Vercel custom spans](https://vercel.com/docs/tracing/instrumentation#adding-custom-spans).
+Deploy the change and exercise the operation using the chosen [collection mode](vercel-tracing.md#file-referencescollectionmd). Find the span through [search](vercel-tracing.md#file-referencessearchmd) and [inspect the trace](vercel-tracing.md#file-referencesinspectionmd) to confirm awaited calls appear beneath it. For a reproduced failure, confirm the error status with `inspect` and the recorded exception in search JSON at `.data.span.events`. See [Vercel custom spans](https://vercel.com/docs/tracing/instrumentation#adding-custom-spans).
 
 ### File: `references/inspection.md`
 
@@ -332,7 +332,7 @@ Without `--project`, `inspect` uses the linked project. Without a link, pass `--
 - `--json`: the raw trace, with `traceId`, `rootSpanId`, and `spans[]`. Each span has `spanId`, `parentSpanId`, `name`, `attributes`, `status`, and `startTime` and `duration` as `[seconds, nanoseconds]` pairs. Progress lines go to stderr.
 - `--open`: opens the dashboard. `--view` requires `--open`; `--open` cannot combine with `--json`.
 
-`inspect` output omits span events, span kind, and resource attributes. Read `service.name` and recorded exceptions from [search](search.md#read-the-output) JSON (`.data.resource.attributes`, `.data.span.events`).
+`inspect` output omits span events, span kind, and resource attributes. Read `service.name` and recorded exceptions from [search](vercel-tracing.md#file-referencessearchmd) JSON (`.data.resource.attributes`, `.data.span.events`).
 
 Expect platform spans next to application spans. Each outbound fetch appears twice: Vercel's `GET <host>/` span under the function span and the SDK's `fetch GET <url>` span under the active custom span. The SDK's export appears as `POST localhost/v1/traces`. The edge and function spans can share a name such as `GET /api/checkout`, so the repeated-operations table may count them as one repeated operation.
 
@@ -350,26 +350,26 @@ Use timing to identify waits on the request's critical path; concurrent spans ov
 
 Save representative trace IDs and observed timings for comparison after deployment. Compare equivalent routes, inputs, environments, load, and collection settings; a few traces do not establish a complete latency distribution.
 
-A searchable ID does not guarantee retrieval. Read [lookup troubleshooting](troubleshooting.md#trace-lookup-returns-404) when `inspect` returns `Trace not found (404)`.
+A searchable ID does not guarantee retrieval. Read [lookup troubleshooting](vercel-tracing.md#file-referencestroubleshootingmd) when `inspect` returns `Trace not found (404)`.
 
 ### File: `references/instrumentation.md`
 
 #### Application SDK setup
 
-Use this reference when framework and custom spans are needed, or when SDK registrations conflict. Infrastructure and outbound-fetch spans need no application OpenTelemetry setup; see [collection](collection.md).
+Use this reference when framework and custom spans are needed, or when SDK registrations conflict. Infrastructure and outbound-fetch spans need no application OpenTelemetry setup; see [collection](vercel-tracing.md#file-referencescollectionmd).
 
 ##### Check existing setup
 
-Check framework and adapter versions, SDK registration, and tracing flags. Enable built-in framework spans where available; they still need SDK and exporter setup to reach Vercel, unless Next.js 16.5+ [default tracing](nextjs.md) adds it. Extend the existing provider rather than registering a second one.
+Check framework and adapter versions, SDK registration, and tracing flags. Enable built-in framework spans where available; they still need SDK and exporter setup to reach Vercel, unless Next.js 16.5+ [default tracing](vercel-tracing.md#file-referencesnextjsmd) adds it. Extend the existing provider rather than registering a second one.
 
-Install `@vercel/otel` and `@opentelemetry/api` with the application's package manager as needed. If the package manager does not install peer dependencies automatically, also install the peers listed by `npm view @vercel/otel peerDependencies`. Follow [Next.js](nextjs.md) or [SvelteKit](sveltekit.md) setup for those frameworks.
+Install `@vercel/otel` and `@opentelemetry/api` with the application's package manager as needed. If the package manager does not install peer dependencies automatically, also install the peers listed by `npm view @vercel/otel peerDependencies`. Follow [Next.js](vercel-tracing.md#file-referencesnextjsmd) or [SvelteKit](vercel-tracing.md#file-referencessveltekitmd) setup for those frameworks.
 
 ##### Integrate another framework
 
 1. Identify the installed framework and adapter versions, target runtime, and how the affected route executes. Verify that the operation runs on the server for the requests being investigated; prerendered or cached responses may skip application code. Custom spans require a supported runtime.
 2. Find the framework's native tracing flags and documented server startup, preload, or initialization hook. Use version-appropriate official docs; inspect adapter source when the integration is unclear. Record which entrypoint loads initialization and when it runs. A special filename alone does not prove it is loaded.
 3. Wire one server-only SDK setup module, such as the one below, into that verified hook. Initialize automatic instrumentations before loading the libraries they instrument. See [OpenTelemetry initialization order](https://opentelemetry.io/docs/languages/js/instrumentation/#initialize-the-sdk).
-4. Check whether the framework already establishes incoming trace context. When it does not, map its request headers and handler or middleware continuation to [context propagation](context-propagation.md#incoming-requests). Preserve existing middleware and configuration.
+4. Check whether the framework already establishes incoming trace context. When it does not, map its request headers and handler or middleware continuation to [context propagation](vercel-tracing.md#file-referencescontext-propagationmd). Preserve existing middleware and configuration.
 5. Build and verify the expected spans using the checks below. If no supported initialization path can be established, report the missing integration and source evidence before proceeding.
 
 For a new SDK setup, a module such as `telemetry.ts` can contain:
@@ -390,7 +390,7 @@ This import must execute in the deployed server runtime and register once per ru
 
 Some adapters supply a default server entry when the project has none. Before creating that file to add the import, start from the adapter's documented template for Vercel so streaming and response handling keep working; a generic framework template can differ. If the file exists, add only the import line.
 
-Without native framework spans, a slow loader or handler appears as one long function span; add [custom spans](custom-spans.md) around its operations.
+Without native framework spans, a slow loader or handler appears as one long function span; add [custom spans](vercel-tracing.md#file-referencescustom-spansmd) around its operations.
 
 ##### Coexist with Sentry
 
@@ -410,14 +410,14 @@ Use the application's existing Sentry package and preserve its other options. If
 ##### Deploy and verify
 
 1. Run the application's framework or adapter build and available type checks. A prompt to install a checker is not a completed check. When startup loading is uncertain, inspect emitted server output to confirm the setup module executes before the instrumented operation.
-2. Verify the expected operation's span. Use native framework spans where available, or add a small [custom span](custom-spans.md). An isolated local exporter check can verify SDK initialization and parent context; it does not prove Vercel collection.
-3. Deploy to preview or production and choose a [collection mode](collection.md). Exercise a server-executed operation, then [inspect its collected trace](inspection.md) in the same project and environment. Confirm the span's name, service, timing, and parent relationships; verify error status when reproducing a failure.
+2. Verify the expected operation's span. Use native framework spans where available, or add a small [custom span](vercel-tracing.md#file-referencescustom-spansmd). An isolated local exporter check can verify SDK initialization and parent context; it does not prove Vercel collection.
+3. Deploy to preview or production and choose a [collection mode](vercel-tracing.md#file-referencescollectionmd). Exercise a server-executed operation, then [inspect its collected trace](vercel-tracing.md#file-referencesinspectionmd) in the same project and environment. Confirm the span's name, service, timing, and parent relationships; verify error status when reproducing a failure.
 
 ### File: `references/library-spans.md`
 
 #### Library spans
 
-Use this reference when the application depends on libraries that can emit their own spans, such as the AI SDK, the Flags SDK, Workflow, or database clients. Library spans reach Vercel through the provider that `registerOTel` registers; complete [SDK setup](instrumentation.md) first.
+Use this reference when the application depends on libraries that can emit their own spans, such as the AI SDK, the Flags SDK, Workflow, or database clients. Library spans reach Vercel through the provider that `registerOTel` registers; complete [SDK setup](vercel-tracing.md#file-referencesinstrumentationmd) first.
 
 ##### Check dependencies
 
@@ -477,7 +477,7 @@ These packages run only in the Node.js runtime, and they patch a library when it
 
 ##### Verify after deployment
 
-Deploy, exercise a route that calls the library, and [inspect its trace](inspection.md). Confirm the library's spans appear beneath the request and that outbound fetch spans are still present.
+Deploy, exercise a route that calls the library, and [inspect its trace](vercel-tracing.md#file-referencesinspectionmd). Confirm the library's spans appear beneath the request and that outbound fetch spans are still present.
 
 ### File: `references/nextjs.md`
 
@@ -485,11 +485,11 @@ Deploy, exercise a route that calls the library, and [inspect its trace](inspect
 
 Use this reference when the application uses Next.js.
 
-Projects created on or after November 5, 2026 that build on Vercel (not `--prebuilt`) with Next.js 16.5+, include a Node.js function, and haven't turned tracing off get default tracing. After the first successful build, Vercel adds one sampling rule tracing 100% of requests in all environments, and adds `@vercel/otel` to each build for framework spans. Spans use the project name as the service name; set the `OTEL_SERVICE_NAME` environment variable to change it. The default rule matches every request first, so read [rule matching](configuration.md#rule-matching) before adding rules. Removing every sampling rule turns tracing off and stops the injection from the next deployment; Vercel doesn't re-add the default rule, but adding any sampling rule turns tracing back on and resumes the injection from the next deployment. See [default tracing](https://vercel.com/docs/tracing/configure-tracing#default-tracing-for-new-next.js-projects).
+Projects created on or after November 5, 2026 that build on Vercel (not `--prebuilt`) with Next.js 16.5+, include a Node.js function, and haven't turned tracing off get default tracing. After the first successful build, Vercel adds one sampling rule tracing 100% of requests in all environments, and adds `@vercel/otel` to each build for framework spans. Spans use the project name as the service name; set the `OTEL_SERVICE_NAME` environment variable to change it. The default rule matches every request first, so read [rule matching](vercel-tracing.md#file-referencesconfigurationmd) before adding rules. Removing every sampling rule turns tracing off and stops the injection from the next deployment; Vercel doesn't re-add the default rule, but adding any sampling rule turns tracing back on and resumes the injection from the next deployment. See [default tracing](https://vercel.com/docs/tracing/configure-tracing#default-tracing-for-new-next.js-projects).
 
 Vercel doesn't add `@vercel/otel` when the project has its own `instrumentation` file (in the project, `src`, or a monorepo parent folder), uses `@opentelemetry/api` 1.10+ directly or through another package, or sets `instrumentationInject` in its Next.js config, directly or through a plugin. Tracing still collects infrastructure spans, but framework spans then need the setup below. Custom and library spans need it even under default tracing.
 
-Check [SDK ownership](instrumentation.md) before registering OpenTelemetry, and install `@vercel/otel` and `@opentelemetry/api` as described there. Put `instrumentation.ts` at the project root, or in `src` if the application uses it. Under default tracing, Vercel stops adding `@vercel/otel` once this file exists, and `VERCEL_PROJECT_NAME` keeps the service name unchanged:
+Check [SDK ownership](vercel-tracing.md#file-referencesinstrumentationmd) before registering OpenTelemetry, and install `@vercel/otel` and `@opentelemetry/api` as described there. Put `instrumentation.ts` at the project root, or in `src` if the application uses it. Under default tracing, Vercel stops adding `@vercel/otel` once this file exists, and `VERCEL_PROJECT_NAME` keeps the service name unchanged:
 
 ```ts
 import { registerOTel } from '@vercel/otel';
@@ -511,7 +511,7 @@ This expands span detail; it does not replace SDK setup or Vercel sampling. See 
 
 Prerendered routes run no server code and produce no server spans. If `next.config` enables `cacheComponents`, call `await connection()` from `next/server` in route handlers and pages you trace, wrapping page content that awaits it in `<Suspense>`. Confirm that `next build` marks the route dynamic (`ƒ`) or partially prerendered (`◐`).
 
-Deploy the change to preview or production, then verify [collection](collection.md) and exercise the affected route.
+Deploy the change to preview or production, then verify [collection](vercel-tracing.md#file-referencescollectionmd) and exercise the affected route.
 
 ### File: `references/performance.md`
 
@@ -523,18 +523,18 @@ This only works for routes that run server code on each request. Static and prer
 
 ##### 1. Pick the request and list its operations
 
-1. Identify the slow route or function, its environment, and an example input. Find recent slow requests with [search](search.md) when collection is already on:
+1. Identify the slow route or function, its environment, and an example input. Find recent slow requests with [search](vercel-tracing.md#file-referencessearchmd) when collection is already on:
 
    ```bash
    vercel traces search --scope my-team --project my-app --environment production --query 'span.duration > 1000' --kind server --since 1h --json
    ```
 
 2. Read the handler and list each awaited operation that could cost time: database queries, external API calls, cache reads, file or blob I/O, rendering, serialization, and CPU-heavy loops. Note which run sequentially and which run in parallel.
-3. Check what is already measured. Automatic outbound-fetch spans time the function's outbound HTTP requests; Next.js emits route and render spans once [instrumented](instrumentation.md). Turn on [library spans](library-spans.md) for installed libraries that are missing them, such as AI SDK calls or database queries. Add custom spans only for operations that are not already visible.
+3. Check what is already measured. Automatic outbound-fetch spans time the function's outbound HTTP requests; Next.js emits route and render spans once [instrumented](vercel-tracing.md#file-referencesinstrumentationmd). Turn on [library spans](vercel-tracing.md#file-referenceslibrary-spansmd) for installed libraries that are missing them, such as AI SDK calls or database queries. Add custom spans only for operations that are not already visible.
 
 ##### 2. Wrap each operation in a span
 
-Add the `measure` helper from [custom spans](custom-spans.md), then wrap the operations in the existing handler, keeping their order and concurrency:
+Add the `measure` helper from [custom spans](vercel-tracing.md#file-referencescustom-spansmd), then wrap the operations in the existing handler, keeping their order and concurrency:
 
 ```ts
 import { measure } from './lib/measure';
@@ -547,7 +547,7 @@ const [cart, prices] = await Promise.all([
 const order = await measure('checkout.create-order', {}, () => createOrder(user, cart, prices));
 ```
 
-Adapt names and calls to the application, following the naming and attribute rules in [custom spans](custom-spans.md). For measurement:
+Adapt names and calls to the application, following the naming and attribute rules in [custom spans](vercel-tracing.md#file-referencescustom-spansmd). For measurement:
 
 - Add attributes that explain cost, such as row counts, payload bytes, or item counts.
 - Wrap operations, not tight inner loops; time the whole loop once instead.
@@ -567,9 +567,9 @@ vercel traces search --scope my-team --project my-app --query 'span.name:checkou
   | jq -r 'select(.type == "span") | [.data.span.name, .data.span.duration] | @tsv'
 ```
 
-The final `summary` line reports `pagination.hasMore`; when it is `true`, continue with `--next` before treating the durations as complete. See [search](search.md#read-the-output).
+The final `summary` line reports `pagination.hasMore`; when it is `true`, continue with `--next` before treating the durations as complete. See [search](vercel-tracing.md#file-referencessearchmd).
 
-For one request, start with the default [summary](inspection.md#output-formats):
+For one request, start with the default [summary](vercel-tracing.md#file-referencesinspectionmd):
 
 ```bash
 vercel traces inspect 0870e4ead46aafba39ccfbcb001835db --scope my-team --project my-app
@@ -582,7 +582,7 @@ vercel traces inspect 0870e4ead46aafba39ccfbcb001835db --scope my-team --project
   | jq -r '.spans[] | [((.duration[0] * 1000) + (.duration[1] / 1e6)), .name] | @tsv' | sort -rn
 ```
 
-To see which spans are sequential, add `--open --view=waterfall`; see [inspection](inspection.md#choose-the-view).
+To see which spans are sequential, add `--open --view=waterfall`; see [inspection](vercel-tracing.md#file-referencesinspectionmd).
 
 ##### 4. Find the operation to change
 
@@ -601,7 +601,7 @@ Keep spans that will be useful later. Remove only noisy, temporary spans after t
 
 #### Span search reference
 
-Use this reference to find slow or failed spans across a team or project. Verify [collection](collection.md) for the spans and projects under investigation. Use `vercel traces search --help` or the [CLI reference](https://vercel.com/docs/cli/traces#search) for the full filter, field, and column list.
+Use this reference to find slow or failed spans across a team or project. Verify [collection](vercel-tracing.md#file-referencescollectionmd) for the spans and projects under investigation. Use `vercel traces search --help` or the [CLI reference](https://vercel.com/docs/cli/traces#search) for the full filter, field, and column list.
 
 ##### Select the team and project
 
@@ -644,17 +644,17 @@ In non-interactive mode, the default when the CLI detects an agent, search print
 
 CLI versions before 64 print bare `{ span, resource }` objects with no summary line or `--next`; check `vercel traces search --help`.
 
-After a team search, [inspect](inspection.md) the result's trace ID with its project via `--project` and the same team via `--scope`.
+After a team search, [inspect](vercel-tracing.md#file-referencesinspectionmd) the result's trace ID with its project via `--project` and the same team via `--scope`.
 
 Before concluding that a span does not exist, check the summary's `pagination.hasMore` and `excludedIntervals`. To read more, pass `pagination.next` to `--next` rather than raising `--limit` or widening the window. The cursor keeps the original project, filters, and window: repeat only `--scope` and optionally `--limit`, because the CLI rejects other search flags alongside `--next`. A summary with `recordsReturned: 0` is a successful search with no matches.
 
-Use [inspection](inspection.md) for request retrieval and [troubleshooting](troubleshooting.md) for missing spans or lookup failures.
+Use [inspection](vercel-tracing.md#file-referencesinspectionmd) for request retrieval and [troubleshooting](vercel-tracing.md#file-referencestroubleshootingmd) for missing spans or lookup failures.
 
 ### File: `references/sveltekit.md`
 
 #### SvelteKit instrumentation
 
-Use this reference when the application uses SvelteKit. Check [SDK ownership](instrumentation.md) before registering OpenTelemetry.
+Use this reference when the application uses SvelteKit. Check [SDK ownership](vercel-tracing.md#file-referencesinstrumentationmd) before registering OpenTelemetry.
 
 With `tracing.server` enabled, SvelteKit emits `sveltekit.handle.root`, `sveltekit.resolve`, `sveltekit.load`, `sveltekit.form_action`, and `sveltekit.remote.*` spans; `+server` handlers run inside `sveltekit.resolve`. It also extracts incoming trace context. Without `tracing.server`, custom spans start separate traces instead of joining the request.
 
@@ -692,7 +692,7 @@ registerOTel({ serviceName: 'checkout' });
 
 `instrumentation.server.ts` loads before application code. `@sveltejs/adapter-vercel` 7, for SvelteKit 3, no longer supports the Edge runtime and picks the Node.js runtime from the build's Node version; build with Node 22 or 24, or set `adapter({ runtime: 'nodejs24.x' })`. See [SvelteKit observability](https://svelte.dev/docs/kit/observability) and [migrating to SvelteKit 3](https://svelte.dev/docs/kit/migrating-to-sveltekit-3#Observability).
 
-Deploy the change to preview or production, then verify [collection](collection.md) and exercise the affected route.
+Deploy the change to preview or production, then verify [collection](vercel-tracing.md#file-referencescollectionmd) and exercise the affected route.
 
 ### File: `references/troubleshooting.md`
 
@@ -704,13 +704,13 @@ Use this reference when search is empty, retrieval fails, or expected span detai
 
 1. Confirm `vercel traces --help` lists `search`. Distinguish authentication or API errors and rejected KQL from successful empty results.
 2. Check the selected team, project, environment, and query window. Search is team-wide unless `--project` is provided; retention may be shorter than accepted time bounds.
-3. Verify [collection](collection.md) and traffic after it was enabled. For always-on tracing, check first-match rules, excluded paths, and the inbound sampling decision. For targeted capture, check that the request or session was captured.
-4. Check deployed [instrumentation](instrumentation.md) for framework and custom spans. Under Next.js 16.5+ [default tracing](nextjs.md), Vercel skips adding `@vercel/otel`, and framework spans go missing, when the project has an `instrumentation` file that doesn't call `registerOTel`, depends on `@opentelemetry/api` 1.10+ directly or through another package, or has an `instrumentationInject` entry. Incoming context and competing SDK providers can prevent collection; see [propagation](context-propagation.md).
-5. Check the telemetry limits below and the [search limits](search.md#limits-the-cli-enforces): search hides internal-kind spans from `vercel.*` services, which still appear in `inspect`. Custom spans from Edge runtime functions do not appear in traces.
+3. Verify [collection](vercel-tracing.md#file-referencescollectionmd) and traffic after it was enabled. For always-on tracing, check first-match rules, excluded paths, and the inbound sampling decision. For targeted capture, check that the request or session was captured.
+4. Check deployed [instrumentation](vercel-tracing.md#file-referencesinstrumentationmd) for framework and custom spans. Under Next.js 16.5+ [default tracing](vercel-tracing.md#file-referencesnextjsmd), Vercel skips adding `@vercel/otel`, and framework spans go missing, when the project has an `instrumentation` file that doesn't call `registerOTel`, depends on `@opentelemetry/api` 1.10+ directly or through another package, or has an `instrumentationInject` entry. Incoming context and competing SDK providers can prevent collection; see [propagation](vercel-tracing.md#file-referencescontext-propagationmd).
+5. Check the telemetry limits below and the [search limits](vercel-tracing.md#file-referencessearchmd): search hides internal-kind spans from `vercel.*` services, which still appear in `inspect`. Custom spans from Edge runtime functions do not appear in traces.
 
 ##### Library or fetch spans are missing
 
-- A library emits no spans after `registerOTel`: most need an opt-in; see [library spans](library-spans.md).
+- A library emits no spans after `registerOTel`: most need an opt-in; see [library spans](vercel-tracing.md#file-referenceslibrary-spansmd).
 - Outbound fetch spans disappeared after adding `instrumentations` to `registerOTel`: the option replaces the default, so add `'auto'` back to the list.
 - The build log reports `Detected OpenTelemetry dependency`, but no fetch spans appear: Vercel leaves fetch spans to the application when it finds `@vercel/otel`, `@opentelemetry/api`, or `@opentelemetry/sdk-trace-node`. Confirm that `registerOTel` runs in the deployed runtime, or remove the unused OpenTelemetry packages.
 
@@ -719,7 +719,7 @@ Use this reference when search is empty, retrieval fails, or expected span detai
 When `inspect <requestId>` shows `Endpoint: <unknown>`, only a few spans, or custom spans as roots, find the request's own trace: run `vercel traces search --request-id <id> --project <project> --json`, take the `.data.span.traceId` of the `GET <path>` span, and inspect that trace ID. Two causes:
 
 - Startup spans share the request ID. Next.js emits `register instrumentation` and `prepare route module` as separate root traces.
-- The app does not extract incoming context, so each custom span starts its own trace and the request's trace has none. Enable `tracing.server` on SvelteKit, or follow [context propagation](context-propagation.md#incoming-requests) for other frameworks.
+- The app does not extract incoming context, so each custom span starts its own trace and the request's trace has none. Enable `tracing.server` on SvelteKit, or follow [context propagation](vercel-tracing.md#file-referencescontext-propagationmd) for other frameworks.
 
 ##### Trace lookup returns 404
 

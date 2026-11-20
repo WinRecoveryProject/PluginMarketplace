@@ -19,7 +19,7 @@
 
 An upgrade can invalidate a skill cache path while the same exact package remains
 installed at its new version. Record this as a stale reference, obtain a new host
-installed observation and use [exact cache resolution](../../references/installed-cache-resolution.md).
+installed observation and use [exact cache resolution](_plugin-references.md#file-referencesinstalled-cache-resolutionmd).
 Never count every cached version as installed or guess a replacement from a matching
 display name. Do not recreate old caches, alter SDK/global instructions, install a
 replacement or change connections to hide the host's frozen in-session catalog.

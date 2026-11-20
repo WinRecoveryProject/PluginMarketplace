@@ -12,7 +12,7 @@
 1. Identify the deployed runtime, build output and exact symptom. Check the plan limits that apply to the actual project.
 2. Choose the deployment, logging, streaming, Python, Node.js, Fluid Compute or performance section. Verify the behavior in the intended environment.
 
-Read the relevant section of the [full guide](guide.md) before applying its examples.
+Read the relevant section of the [full guide](vercel-functions.md#file-guidemd) before applying its examples.
 
 ## Bundled files
 

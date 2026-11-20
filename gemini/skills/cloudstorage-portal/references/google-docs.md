@@ -14,7 +14,7 @@ Create and edit native Google Docs through connector tools, which handle authent
 #### Choose the route
 
 - **New document:** create a native Google Doc with the Drive create action and `application/vnd.google-apps.document`.
-- **Edit an existing document:** edit the specified document in place. Read the target and surrounding structure with the Google Docs tools before writing. For large responses or complex native controls, optionally use the [file-backed read helper](references/reference-trusted-read-wrapper.md) to save a searchable outline and control inventory. Do not write through an opaque control range you cannot inspect.
+- **Edit an existing document:** edit the specified document in place. Read the target and surrounding structure with the Google Docs tools before writing. For large responses or complex native controls, optionally use the [file-backed read helper](google-docs.md#file-referencesreference-trusted-read-wrappermd) to save a searchable outline and control inventory. Do not write through an opaque control range you cannot inspect.
 - **Use a template:** when creating a new document from a template, copy it natively to preserve its formatting and embedded features. When adapting a past document, update task-relevant content across every retained tab; preserving structure does not mean carrying forward old people, dates, links, or approvals. Edit an existing document in place when that is what the user requests.
 - **Convert Word to Google Docs:** only when the user supplies a Word file and asks to convert it. Call `mcp__codex_apps__google_drive_import_document` with `source_file` set to its absolute local path, the desired `title`, and `upload_mode: "native_google_docs"`. Preserve the source file. Verify the response identifies a native Google Doc (`application/vnd.google-apps.document`) and supplies its ID or URL, then read it back to check content, headings, lists, tables, and embedded elements against the source. When layout fidelity matters, compare an exported PDF with the source rendering. Repair conversion drift with scoped edits that preserve the source formatting, and report any remaining fidelity loss.
 
@@ -66,16 +66,16 @@ Use native Google Docs lists so numbering updates when items move. If each item 
 - **Smart chips identify a specific person, date, or Google resource.** Use one when requested, when matching a template, or when it makes a working field more useful: a person chip for an owner, a date chip for a deadline, or a file chip for a source document. Use a verified email, date, or supported URL. In ordinary prose, plain text or a descriptive link is usually clearer.
 - **Dropdowns let an editor choose from a defined set of values.** Use one for a field people will maintain, such as review status with “Draft,” “In review,” and “Approved.” To update one entry, change its selection. Edit the shared option list only when the user wants the choices themselves changed.
 
-Preserve existing chips, dropdowns, and links outside the edit. Use the [native requests and readback checks](references/reference-smart-chips-and-building-blocks.md) to verify the chip’s value or the dropdown’s selected option.
+Preserve existing chips, dropdowns, and links outside the edit. Use the [native requests and readback checks](google-docs.md#file-referencesreference-smart-chips-and-building-blocksmd) to verify the chip’s value or the dropdown’s selected option.
 
 #### References: read as needed
 
 | When to read | Reference |
 | --- | --- |
-| Composing requests for text, formatting, lists, tables, hyperlinks, or images | [Connector examples](references/reference-direct-request-composition.md) |
-| Working with smart chips, dropdowns, or existing building blocks | [Smart chips, dropdowns, and building blocks](references/reference-smart-chips-and-building-blocks.md) |
-| Creating Calendar-backed meeting notes using a complete request example | [Meeting-notes example](references/reference-meeting-notes-direct.md) |
-| Using the optional helper to inspect a large or complex document response | [File-backed read helper](references/reference-trusted-read-wrapper.md) |
+| Composing requests for text, formatting, lists, tables, hyperlinks, or images | [Connector examples](google-docs.md#file-referencesreference-direct-request-compositionmd) |
+| Working with smart chips, dropdowns, or existing building blocks | [Smart chips, dropdowns, and building blocks](google-docs.md#file-referencesreference-smart-chips-and-building-blocksmd) |
+| Creating Calendar-backed meeting notes using a complete request example | [Meeting-notes example](google-docs.md#file-referencesreference-meeting-notes-directmd) |
+| Using the optional helper to inspect a large or complex document response | [File-backed read helper](google-docs.md#file-referencesreference-trusted-read-wrappermd) |
 
 #### Output delivery
 
@@ -1938,7 +1938,7 @@ export { CAPABILITIES, privateUseMarkerSpans };
 
 #### Connector Examples
 
-These examples use the connected Google Drive tools. Read [SKILL.md](../SKILL.md) for routing, preservation, and verification; see the separate [smart-chip](reference-smart-chips-and-building-blocks.md) and [meeting-notes](reference-meeting-notes-direct.md) examples when needed.
+These examples use the connected Google Drive tools. Read [SKILL.md](google-docs.md) for routing, preservation, and verification; see the separate [smart-chip](google-docs.md#file-referencesreference-smart-chips-and-building-blocksmd) and [meeting-notes](google-docs.md#file-referencesreference-meeting-notes-directmd) examples when needed.
 
 ##### Compose a batch
 
@@ -2256,7 +2256,7 @@ If the requested PDF should omit these separators, remove only pages verified to
 
 Pass the complete argument object below to the connector's `mcp__codex_apps__google_drive_batch_update_document` tool. The Google Docs API operations inside `requests` are payloads for that tool, not separate API calls. The later formatting snippets are individual objects to place in its `requests` array.
 
-Read for a concrete calendar-backed meeting-notes request sequence. See [Native features](reference-smart-chips-and-building-blocks.md) for event lookup, chip handling, and preservation guidance.
+Read for a concrete calendar-backed meeting-notes request sequence. See [Native features](google-docs.md#file-referencesreference-smart-chips-and-building-blocksmd) for event lookup, chip handling, and preservation guidance.
 
 Before adapting the example:
 
@@ -2475,7 +2475,7 @@ Example requests (replace indexes, tab IDs, and source values before use):
 - These inserted chips occupy one UTF-16 code unit each. To replace a chip's payload, delete its returned element range and insert the replacement; use `updateTextStyle` only for formatting. This rule does not apply to dropdowns.
 - For dates, omit output-only `displayText`; supply `timeZoneId` only when the chosen time format requires it.
 - At most 10 `insertPerson` requests fit in one batch. For more people, split batches and refresh indexes and revision guards.
-- For new Google file chips, [canonicalize_google_workspace_url.mjs](../scripts/canonicalize_google_workspace_url.mjs) separates the file URL from a tab/range/slide deep link. Keep any useful deep link separately rather than losing that destination.
+- For new Google file chips, [canonicalize_google_workspace_url.mjs](google-docs.md#file-scriptscanonicalize_google_workspace_urlmjs) separates the file URL from a tab/range/slide deep link. Keep any useful deep link separately rather than losing that destination.
 - Verify element types and the intended timestamp, email, or URI through `get_document`. HTML export does not prove native chip preservation.
 
 ##### Dropdowns
@@ -2524,7 +2524,7 @@ A private-use Unicode glyph may indicate an opaque control, but does not prove d
 
 ##### Calendar-backed meeting notes
 
-For a complete request sequence, including empty items and declined-attendee styling, see [Meeting notes](reference-meeting-notes-direct.md).
+For a complete request sequence, including empty items and declined-attendee styling, see [Meeting notes](google-docs.md#file-referencesreference-meeting-notes-directmd).
 
 1. Resolve the requested event using connected Calendar tools and the user's timezone. Use its actual title, time, link, attendees, and response statuses; do not reconstruct those fields from memory.
 2. Read the destination and any peer meeting-notes block. Compose supported date/person/resource chips, headings, text, and lists to match that structure. This does not prove parity with every UI-only building-block feature.

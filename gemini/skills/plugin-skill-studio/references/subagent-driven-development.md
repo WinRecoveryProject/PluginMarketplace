@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Subagent-Driven Development
 
@@ -57,7 +57,7 @@ Completion criterion: the workspace belongs to the active plan, its ledger ident
 
 #### Before the First Dispatch
 
-Read [dispatch-and-model-selection.md](references/dispatch-and-model-selection.md) before dispatching the first worker. Re-read its model-selection section whenever the role or task complexity changes.
+Read [dispatch-and-model-selection.md](subagent-driven-development.md#file-referencesdispatch-and-model-selectionmd) before dispatching the first worker. Re-read its model-selection section whenever the role or task complexity changes.
 
 Worker context is constructed, not inherited. Pass only the task's requirements, relevant interfaces, constraints, and artifact paths. Every pasted prompt and worker response remains in controller context; hand large artifacts over as files.
 
@@ -83,7 +83,7 @@ Run these steps sequentially for each incomplete task. Never dispatch implementa
    - A pointer to each parked ledger finding in an area this task touches.
    - The report path and short return contract.
 5. Keep exact values, signatures, and test cases in the brief. Do not paste accumulated task history or send the whole plan.
-6. Dispatch with [implementer-prompt.md](implementer-prompt.md) using the host mapping and model selected from the dispatch reference.
+6. Dispatch with [implementer-prompt.md](subagent-driven-development.md#file-implementer-promptmd) using the host mapping and model selected from the dispatch reference.
 7. Record the worker identity so fix rounds 1–3 can resume it.
 
 Completion criterion: the worker has isolated context, one task brief, one report path, the necessary prior interfaces, and no unrelated history.
@@ -101,7 +101,7 @@ Completion criterion: implementation is complete with a report and commit range,
 
 ##### 3. Review the Task
 
-Before the first task review, read [review-and-fix-loop.md](references/review-and-fix-loop.md) through “Complete the Task.” Follow it for every review, finding, fix round, re-review, ledger entry, and breaker decision.
+Before the first task review, read [review-and-fix-loop.md](subagent-driven-development.md#file-referencesreview-and-fix-loopmd) through “Complete the Task.” Follow it for every review, finding, fix round, re-review, ledger entry, and breaker decision.
 
 Generate the initial package with the `BASE` captured before implementation:
 
@@ -109,7 +109,7 @@ Generate the initial package with the `BASE` captured before implementation:
 bash <skill-dir>/scripts/review-package PLAN_FILE BASE HEAD
 ```
 
-Dispatch [task-reviewer-prompt.md](task-reviewer-prompt.md) with the printed package path, task brief, implementer report, and binding Global Constraints.
+Dispatch [task-reviewer-prompt.md](subagent-driven-development.md#file-task-reviewer-promptmd) with the printed package path, task brief, implementer report, and binding Global Constraints.
 
 - Clean spec and quality verdicts: record task completion.
 - Spec gap, Critical or Important finding, or confirmed `⚠️` gap: enter the referenced fix loop.
@@ -124,7 +124,7 @@ Mark the task todo complete and move directly to the next incomplete task. The t
 
 #### Final Review and Finish
 
-After every task has a completion line, read “Final Whole-Branch Review” and “Cleanup” in [review-and-fix-loop.md](references/review-and-fix-loop.md).
+After every task has a completion line, read “Final Whole-Branch Review” and “Cleanup” in [review-and-fix-loop.md](subagent-driven-development.md#file-referencesreview-and-fix-loopmd).
 
 Generate the final review package over `MERGE_BASE..HEAD`, dispatch the most capable available reviewer, resolve at most one final fix wave, and record a ruling for every residual finding. Then remove only this plan's workspace and use `finishing-a-development-branch`.
 
@@ -132,7 +132,7 @@ Completion criterion: every task is complete in the ledger, the final review is 
 
 #### Calibration
 
-When the controller stalls, rationalizes skipping a gate, or needs an end-to-end example, read [workflow-example.md](references/workflow-example.md).
+When the controller stalls, rationalizes skipping a gate, or needs an end-to-end example, read [workflow-example.md](subagent-driven-development.md#file-referencesworkflow-examplemd).
 
 ## Bundled files
 
@@ -391,7 +391,7 @@ Host-neutral worker template (translate with references/dispatch-and-model-selec
 ```
 
 **Placeholders:**
-- `[MODEL]` — reviewer model selected from [dispatch-and-model-selection.md](references/dispatch-and-model-selection.md) when the host supports explicit overrides; scoped
+- `[MODEL]` — reviewer model selected from [dispatch-and-model-selection.md](subagent-driven-development.md#file-referencesdispatch-and-model-selectionmd) when the host supports explicit overrides; scoped
   re-reviews of small fix diffs take a cheap-to-mid tier
 - `[BRIEF_FILE]` — the task brief file (same file the implementer worked from)
 - `[FINDINGS]` — the Critical/Important findings and spec gaps from the
@@ -457,7 +457,7 @@ Read this reference before the first task review. Apply every gate through task 
 Per-task review is a task-scoped gate. It never replaces the broad whole-branch review.
 
 1. Run `bash <skill-dir>/scripts/review-package PLAN_FILE BASE HEAD`, using the BASE recorded before implementation. Use the printed file path; `HEAD~1` can omit earlier commits from a multi-commit task.
-2. Dispatch [task-reviewer-prompt.md](../task-reviewer-prompt.md) with the task brief, implementer report, review package, and binding global constraints.
+2. Dispatch [task-reviewer-prompt.md](subagent-driven-development.md#file-task-reviewer-promptmd) with the task brief, implementer report, review package, and binding global constraints.
 3. Copy exact values, formats, and relationships from the plan's Global Constraints or specification. The reviewer template already carries process rules.
 4. Require both verdicts: spec compliance and task quality. Implementer self-review does not replace either verdict.
 
@@ -500,7 +500,7 @@ Dispatch a fresh implementer, using a more capable model when supported. Include
 2. Confirm that evidence exists before re-review.
 3. Record `FIX_BASE`, the head seen by the previous review.
 4. Run `bash <skill-dir>/scripts/review-package PLAN_FILE FIX_BASE HEAD`.
-5. Dispatch [re-review-prompt.md](../re-review-prompt.md) with the findings, brief, report, and printed diff path.
+5. Dispatch [re-review-prompt.md](subagent-driven-development.md#file-re-review-promptmd) with the findings, brief, report, and printed diff path.
 6. The re-review verdicts each finding as ADDRESSED or NOT ADDRESSED and checks only the fix diff for new breakage.
 7. Ledger out-of-scope observations as deferred minors; they do not extend the loop.
 8. Append `Task <N>: fix round <R>/5 (<X> addressed, <Y> open — <finding one-liners>; commits <a7>..<b7>)`.
@@ -531,9 +531,9 @@ Mark the task complete only after this line exists. Continue to the next task on
 After all tasks complete:
 
 1. Run `bash <skill-dir>/scripts/review-package PLAN_FILE MERGE_BASE HEAD`, where `MERGE_BASE` is the commit from which the branch started.
-2. Dispatch the most capable available model with [code-reviewer.md](../../requesting-code-review/code-reviewer.md), the printed package, and pointers to the ledger's deferred-minor and parked lines.
+2. Dispatch the most capable available model with [code-reviewer.md](requesting-code-review.md#file-code-reviewermd), the printed package, and pointers to the ledger's deferred-minor and parked lines.
 3. If findings remain, dispatch one fix worker with the complete findings list.
-4. Run exactly one scoped re-review of that fix wave using `bash <skill-dir>/scripts/review-package PLAN_FILE FIX_BASE HEAD` and [re-review-prompt.md](../re-review-prompt.md).
+4. Run exactly one scoped re-review of that fix wave using `bash <skill-dir>/scripts/review-package PLAN_FILE FIX_BASE HEAD` and [re-review-prompt.md](subagent-driven-development.md#file-re-review-promptmd).
 5. Park residual non-load-bearing findings with rulings. Surface residual load-bearing findings when `finishing-a-development-branch` presents the integration options.
 
 There is no second final-review fix wave.
@@ -931,7 +931,7 @@ Host-neutral worker template (translate with references/dispatch-and-model-selec
 ```
 
 **Placeholders:**
-- `[MODEL]` — reviewer model selected from [dispatch-and-model-selection.md](references/dispatch-and-model-selection.md); include only when the host supports explicit overrides
+- `[MODEL]` — reviewer model selected from [dispatch-and-model-selection.md](subagent-driven-development.md#file-referencesdispatch-and-model-selectionmd); include only when the host supports explicit overrides
 - `[BRIEF_FILE]` — REQUIRED: the task brief file (`scripts/task-brief PLAN N`
   prints the path; same file the implementer worked from)
 - `[GLOBAL_CONSTRAINTS]` — the binding requirements copied verbatim from

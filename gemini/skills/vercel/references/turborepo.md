@@ -12,7 +12,7 @@
 1. Inspect the package manager lockfile, workspace layout, task graph and build outputs.
 2. Use the guide to select task dependencies, cache inputs and outputs, affected builds or CI settings. Validate the actual build or test command.
 
-Read the relevant section of the [full guide](guide.md) before applying its examples.
+Read the relevant section of the [full guide](turborepo.md#file-guidemd) before applying its examples.
 
 ## Bundled files
 

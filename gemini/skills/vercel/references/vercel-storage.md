@@ -12,7 +12,7 @@
 1. Identify the existing provider and target resource. Use the guide's Blob, Global Config, database, queue or caching section as applicable.
 2. Verify service access, data handling and pricing for the target project before provisioning or changing it.
 
-Read the relevant section of the [full guide](guide.md) before applying its examples.
+Read the relevant section of the [full guide](vercel-storage.md#file-guidemd) before applying its examples.
 
 ## Bundled files
 

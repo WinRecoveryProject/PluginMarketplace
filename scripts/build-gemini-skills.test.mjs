@@ -3,7 +3,7 @@ import test from 'node:test';
 import {mkdtempSync, mkdirSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join, dirname, extname} from 'node:path';
-import {parseFrontmatter, kebab, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME} from './build-gemini-skills.mjs';
+import {parseFrontmatter, kebab, rewriteLinks, slug, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME} from './build-gemini-skills.mjs';
 
 function fixture() {
   const base = mkdtempSync(join(tmpdir(), 'gemini-skills-'));
@@ -15,6 +15,9 @@ function fixture() {
   put('plugins/demo-plugin/skills/do-thing/SKILL.md', '---\nname: do-thing\ndescription: >\n  Does the\n  thing.\n---\n\n# Do thing\n\nSteps.\n');
   put('plugins/demo-plugin/skills/do-thing/references/notes.md', '# Notes\n\nDetail.\n');
   put('plugins/demo-plugin/skills/do-thing/scripts/helper.mjs', 'console.log(1);\n');
+  put('plugins/demo-plugin/skills/other/SKILL.md', '---\nname: other\ndescription: Other.\n---\n\nSee [do thing](../do-thing/SKILL.md#steps), [notes](../do-thing/references/notes.md), [policy](../../references/policy.md), [web](https://example.com) and [missing](../nope.md).\n\n```md\n[kept](../do-thing/SKILL.md)\n```\n');
+  put('plugins/demo-plugin/references/policy.md', '# Policy\n');
+  put('plugins/demo-plugin/skills/other/fixtures/sample/skills/fake/SKILL.md', '---\nname: fake\ndescription: Fixture.\n---\n');
   return base;
 }
 
@@ -43,7 +46,7 @@ test('builds upload-ready folders with embedded sources', () => {
   assert.match(text, /````powershell\nWrite-Host "```hi```"\n````/, 'longer fence protects embedded backticks');
   assert.match(text, /assets\/icon\.png` \(binary asset, not embedded\)/);
 
-  assert.match(files.get(`${HUB_NAME}/SKILL.md`), /1 plugins, 1 skills/);
+  assert.match(files.get(`${HUB_NAME}/SKILL.md`), /1 plugins, 2 skills/);
   assert.match(files.get(`${HUB_NAME}/references/catalog.csv`), /^plugin,plugin_version,skill/);
 });
 
@@ -53,4 +56,22 @@ test('rejects folders Gemini cannot load', () => {
   assert.ok(problems.some(p => p.includes('does not match folder')));
   assert.ok(problems.some(p => p.includes('ok: missing SKILL.md')));
   assert.ok(problems.some(p => p.includes('not accepted by Gemini upload')));
+});
+
+test('only <skills root>/<name>/SKILL.md are skills; nested fixtures stay supporting files', () => {
+  const [pkg] = collectPackages(fixture());
+  assert.deepEqual(pkg.skills.map(s => s.name).sort(), ['do-thing', 'other']);
+  const other = buildOutputs([pkg]).get('demo-plugin/references/other.md');
+  assert.match(other, /File: `fixtures\/sample\/skills\/fake\/SKILL\.md`/);
+});
+
+test('rewrites relative links to exported references, leaving code, URLs and unknown targets alone', () => {
+  const other = buildOutputs(collectPackages(fixture())).get('demo-plugin/references/other.md');
+  assert.match(other, /\[do thing\]\(do-thing\.md#steps\)/);
+  assert.match(other, new RegExp('\\[notes\\]\\(do-thing\\.md#' + slug('File: `references/notes.md`') + '\\)'));
+  assert.match(other, /\[policy\]\(_plugin-references\.md#file-referencespolicymd\)/);
+  assert.match(other, /\[web\]\(https:\/\/example\.com\)/);
+  assert.match(other, /\[missing\]\(\.\.\/nope\.md\)/);
+  assert.match(other, /\[kept\]\(\.\.\/do-thing\/SKILL\.md\)/);
+  assert.equal(rewriteLinks('[a](b.md)', '/x/y.md', null), '[a](b.md)');
 });

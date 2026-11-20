@@ -239,7 +239,7 @@ Personal MIT-derived candidate, version `0.3.5+zilvereyes.1`, built with Zilvere
 
 One namespaced skill; deterministic context assessment and packet validation; compaction lifecycle hooks; checkpoint, recovery and destination verification workflow.
 
-Read [ZILVEREYES-POLICY.md](ZILVEREYES-POLICY.md) and [PROVENANCE.json](PROVENANCE.json). All original MIT attribution is preserved in LICENSE.
+Read [ZILVEREYES-POLICY.md](_plugin.md#file-zilvereyes-policymd) and [PROVENANCE.json](_plugin.md#file-provenancejson). All original MIT attribution is preserved in LICENSE.
 
 #### State and limits
 

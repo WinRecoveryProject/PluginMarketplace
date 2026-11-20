@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Skillquiver Doctor
 
@@ -20,9 +20,9 @@ permanently.
 Identify the running host from capabilities already exposed in the session.
 Read exactly one host reference before inspecting anything:
 
-- Codex: [references/codex.md](references/codex.md)
-- Claude Code: [references/claude.md](references/claude.md)
-- ChatGPT: [references/chatgpt.md](references/chatgpt.md)
+- Codex: [references/codex.md](skillquiver-doctor.md#file-referencescodexmd)
+- Claude Code: [references/claude.md](skillquiver-doctor.md#file-referencesclaudemd)
+- ChatGPT: [references/chatgpt.md](skillquiver-doctor.md#file-referenceschatgptmd)
 
 Do not inspect the other host or use its configuration as a fallback.
 

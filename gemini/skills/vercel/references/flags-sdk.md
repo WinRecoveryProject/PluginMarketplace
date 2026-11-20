@@ -93,7 +93,7 @@ Check the project state to adapt commands and decide which steps you can skip:
    - Run `pnpm i @vercel/toolbar`
    - Wrap `next.config.ts` with the toolbar plugin
    - Render `<VercelToolbar />` in the root layout
-   See [references/nextjs.md — Toolbar Setup](references/nextjs.md#toolbar-setup) for the full code.
+   See [references/nextjs.md — Toolbar Setup](flags-sdk.md#file-referencesnextjsmd) for the full code.
 
 5. **Ensure `flags.ts` exists**: If missing, create `flags.ts` (or `lib/flags.ts` / `src/flags.ts` to match the project) with `export {}` so TypeScript treats it as a module. Flags Explorer imports this file — create it before the discovery route.
 
@@ -107,7 +107,7 @@ Check the project state to adapt commands and decide which steps you can skip:
 - you created the project's first flag; activating Vercel Flags creates a `FLAGS_SECRET` per environment
 - local evaluation fails with an authentication error; the SDK refreshes an expired token through the linked project, re-pulling is the fallback
 
-Use SDK keys (`FLAGS`) for apps outside Vercel or to select an environment explicitly ([SDK Keys](https://vercel.com/docs/flags/vercel-flags/dashboard/sdk-keys)). To read another same-team project's flags on Vercel, use [Project Connections](references/providers.md#project-connections) with your project's OIDC token. If `FLAGS_SECRET` is still missing after the pull, generate it per [FLAGS_SECRET](#flags_secret).
+Use SDK keys (`FLAGS`) for apps outside Vercel or to select an environment explicitly ([SDK Keys](https://vercel.com/docs/flags/vercel-flags/dashboard/sdk-keys)). To read another same-team project's flags on Vercel, use [Project Connections](flags-sdk.md#file-referencesprovidersmd) with your project's OIDC token. If `FLAGS_SECRET` is still missing after the pull, generate it per [FLAGS_SECRET](#flags_secret).
 
 #### Create a flag
 
@@ -174,15 +174,15 @@ Use this flow when the flag was created in the dashboard or by someone else, for
 
 #### Vercel Flags adapter
 
-`@flags-sdk/vercel` connects `flag()` declarations to Vercel Flags. `vercelAdapter` authenticates with the project's Vercel OIDC token and evaluates the configuration of the current environment. Use `@flags-sdk/vercel` version 1.6.0 or later and `createVercelAdapter({ projectId })` for a connected same-team project's flags; see [Project Connections](references/providers.md#project-connections). SDK keys (`FLAGS`) are for manual authentication, such as apps outside Vercel or selecting an environment explicitly. Activating Vercel Flags creates a `FLAGS_SECRET` per environment for Flags Explorer.
+`@flags-sdk/vercel` connects `flag()` declarations to Vercel Flags. `vercelAdapter` authenticates with the project's Vercel OIDC token and evaluates the configuration of the current environment. Use `@flags-sdk/vercel` version 1.6.0 or later and `createVercelAdapter({ projectId })` for a connected same-team project's flags; see [Project Connections](flags-sdk.md#file-referencesprovidersmd). SDK keys (`FLAGS`) are for manual authentication, such as apps outside Vercel or selecting an environment explicitly. Activating Vercel Flags creates a `FLAGS_SECRET` per environment for Flags Explorer.
 
-For user targeting, attribute types, custom adapter configuration, sharing a `@vercel/flags-core` client, and the Flags Explorer endpoint, see [references/providers.md — Vercel](references/providers.md#vercel).
+For user targeting, attribute types, custom adapter configuration, sharing a `@vercel/flags-core` client, and the Flags Explorer endpoint, see [references/providers.md — Vercel](flags-sdk.md#file-referencesprovidersmd).
 
 Changing what a flag serves (enable, set, split, rollout, rules, archive) happens in the dashboard or with `vercel flags`, not in code. The `vercel-flags` skill covers those flows; `vercel flags <cmd> --help` lists the options.
 
 #### Declaring flags
 
-When using Vercel Flags, declare flags with `vercelAdapter` as shown in [Create a flag](#create-a-flag). For other providers, see [references/providers.md](references/providers.md). Below are the general `flag()` patterns.
+When using Vercel Flags, declare flags with `vercelAdapter` as shown in [Create a flag](#create-a-flag). For other providers, see [references/providers.md](flags-sdk.md#file-referencesprovidersmd). Below are the general `flag()` patterns.
 
 ##### Basic flag
 
@@ -230,7 +230,7 @@ export const dashboardFlag = flag<boolean, Entities>({
 });
 ```
 
-With `vercelAdapter`, the entity and attribute names in the returned object (`user.id` here) are what dashboard rules and `vercel flags split|rollout|rules --by` target. They must match the entities and attribute types configured in the dashboard. See [references/providers.md — User targeting](references/providers.md#user-targeting) and [Attribute types](references/providers.md#attribute-types).
+With `vercelAdapter`, the entity and attribute names in the returned object (`user.id` here) are what dashboard rules and `vercel flags split|rollout|rules --by` target. They must match the entities and attribute types configured in the dashboard. See [references/providers.md — User targeting](flags-sdk.md#file-referencesprovidersmd) and [Attribute types](flags-sdk.md#file-referencesprovidersmd).
 
 ##### Flag with another adapter
 
@@ -247,7 +247,7 @@ export const myGate = flag({
 });
 ```
 
-See [references/providers.md](references/providers.md) for all supported adapters.
+See [references/providers.md](flags-sdk.md#file-referencesprovidersmd) for all supported adapters.
 
 ##### Key parameters
 
@@ -308,7 +308,7 @@ Outside App Router (Pages Router `getServerSideProps`/API routes, or routing mid
 
 `evaluate()` always evaluates flags at request time. It is not for reading [precomputed](#precompute-pattern) (static) values — for those, use `getPrecomputed` (or call the flag with the code, `await myFlag(code, flagGroup)`).
 
-Adapters can opt into batching by implementing the optional `bulkDecide` hook. The Vercel adapter (`@flags-sdk/vercel`) implements it — roughly a 10x reduction in evaluation time when resolving hundreds of flags. See [references/providers.md — Custom Adapters](references/providers.md#custom-adapters) for implementing `bulkDecide`, and [references/api.md — `evaluate`](references/api.md#evaluate) for the full signature.
+Adapters can opt into batching by implementing the optional `bulkDecide` hook. The Vercel adapter (`@flags-sdk/vercel`) implements it — roughly a 10x reduction in evaluation time when resolving hundreds of flags. See [references/providers.md — Custom Adapters](flags-sdk.md#file-referencesprovidersmd) for implementing `bulkDecide`, and [references/api.md — `evaluate`](flags-sdk.md#file-referencesapimd) for the full signature.
 
 #### Flags Explorer setup
 
@@ -327,7 +327,7 @@ export const GET = createFlagsDiscoveryEndpoint(async () => {
 
 ##### With external provider data
 
-When using a third-party provider alongside Vercel Flags, combine their data with `mergeProviderData`. Each provider adapter exports its own `getProviderData` — see the provider-specific examples in [references/providers.md](references/providers.md).
+When using a third-party provider alongside Vercel Flags, combine their data with `mergeProviderData`. Each provider adapter exports its own `getProviderData` — see the provider-specific examples in [references/providers.md](flags-sdk.md#file-referencesprovidersmd).
 
 ##### SvelteKit
 
@@ -357,12 +357,12 @@ High-level flow:
 4. Page reads flag values from `code`: `await myFlag(code, flagGroup)`
 
 For full implementation details, see framework-specific references:
-- **Next.js**: See [references/nextjs.md](references/nextjs.md) — covers proxy middleware, precompute setup, ISR, generatePermutations, multiple groups
-- **SvelteKit**: See [references/sveltekit.md](references/sveltekit.md) — covers reroute hook, middleware, precompute setup, ISR, prerendering
+- **Next.js**: See [references/nextjs.md](flags-sdk.md#file-referencesnextjsmd) — covers proxy middleware, precompute setup, ISR, generatePermutations, multiple groups
+- **SvelteKit**: See [references/sveltekit.md](flags-sdk.md#file-referencessveltekitmd) — covers reroute hook, middleware, precompute setup, ISR, prerendering
 
 #### Custom adapters
 
-Create an adapter factory that returns an object with `origin` and `decide`. For the full pattern (including default adapter and singleton client examples), see [references/providers.md](references/providers.md#custom-adapters).
+Create an adapter factory that returns an object with `origin` and `decide`. For the full pattern (including default adapter and singleton client examples), see [references/providers.md](flags-sdk.md#file-referencesprovidersmd).
 
 #### Encryption functions
 
@@ -405,10 +405,10 @@ import { FlagValues, FlagDefinitions } from 'flags/react';
 
 Detailed framework and provider guides are in separate files to keep context lean:
 
-- **[references/nextjs.md](references/nextjs.md)**: Next.js quickstart, toolbar, App Router, Pages Router, middleware/proxy, precompute, dedupe, dashboard pages, marketing pages, suspense fallbacks
-- **[references/sveltekit.md](references/sveltekit.md)**: SvelteKit quickstart, toolbar, hooks setup, precompute with reroute + middleware, dashboard pages, marketing pages
-- **[references/providers.md](references/providers.md)**: All provider adapters — Vercel, Global Config, Statsig, LaunchDarkly, PostHog, GrowthBook, Flagsmith, Reflag, Split, Optimizely, OpenFeature, and custom adapters
-- **[references/api.md](references/api.md)**: Full API reference for `flags`, `flags/react`, `flags/next`, and `flags/sveltekit`
+- **[references/nextjs.md](flags-sdk.md#file-referencesnextjsmd)**: Next.js quickstart, toolbar, App Router, Pages Router, middleware/proxy, precompute, dedupe, dashboard pages, marketing pages, suspense fallbacks
+- **[references/sveltekit.md](flags-sdk.md#file-referencessveltekitmd)**: SvelteKit quickstart, toolbar, hooks setup, precompute with reroute + middleware, dashboard pages, marketing pages
+- **[references/providers.md](flags-sdk.md#file-referencesprovidersmd)**: All provider adapters — Vercel, Global Config, Statsig, LaunchDarkly, PostHog, GrowthBook, Flagsmith, Reflag, Split, Optimizely, OpenFeature, and custom adapters
+- **[references/api.md](flags-sdk.md#file-referencesapimd)**: Full API reference for `flags`, `flags/react`, `flags/next`, and `flags/sveltekit`
 
 ## Bundled files
 
@@ -985,7 +985,7 @@ Keep pages static while using feature flags. Proxy evaluates flags and encodes r
 
 ###### Prerequisites
 
-Ensure `FLAGS_SECRET` is configured using [FLAGS_SECRET](../SKILL.md#flags_secret). Reuse existing values; generate one only for an environment where it is absent.
+Ensure `FLAGS_SECRET` is configured using [FLAGS_SECRET](flags-sdk.md#flags_secret). Reuse existing values; generate one only for an environment where it is absent.
 
 ###### Step 1: Create flag group
 
@@ -1364,10 +1364,10 @@ pnpm i flags @flags-sdk/vercel
 
 > **Prerequisite**: The Vercel CLI must be installed and authenticated. If it is not installed, run `pnpm i -g vercel`. For authentication or linking issues, follow the `vercel-cli` skill if it's already available. If it isn't, suggest the user install it with `npx skills add vercel/vercel@vercel-cli` (don't auto-install it) and rely on `vercel <command> --help` in the meantime.
 
-The following steps integrate a flag into an app and need a linked project for `vercel env pull` ([Set up the SDK](../SKILL.md#set-up-the-sdk), step 2). To only inspect or change remote flags, use the `vercel-flags` skill instead.
+The following steps integrate a flag into an app and need a linked project for `vercel env pull` ([Set up the SDK](flags-sdk.md#set-up-the-sdk), step 2). To only inspect or change remote flags, use the `vercel-flags` skill instead.
 
 1. Create a flag in the Vercel dashboard or via CLI: `vercel flags create <flag-key> --kind boolean --description "<description>"`
-2. Pull env vars: run `vercel env pull` to write the Vercel OIDC token and the Development `FLAGS_SECRET` to `.env.local` ([Pull environment variables](../SKILL.md#pull-environment-variables)).
+2. Pull env vars: run `vercel env pull` to write the Vercel OIDC token and the Development `FLAGS_SECRET` to `.env.local` ([Pull environment variables](flags-sdk.md#pull-environment-variables)).
 3. Declare the flag:
 
 ```ts
@@ -2524,7 +2524,7 @@ Check the project state to adapt commands and decide which steps you can skip:
    - Run `pnpm i @vercel/toolbar`
    - Wrap `next.config.ts` with the toolbar plugin
    - Render `<VercelToolbar />` in the root layout
-   See [references/nextjs.md — Toolbar Setup](references/nextjs.md#toolbar-setup) for the full code.
+   See [references/nextjs.md — Toolbar Setup](flags-sdk.md#file-upstreamreferencesnextjsmd) for the full code.
 
 5. **Ensure `flags.ts` exists**: If missing, create `flags.ts` (or `lib/flags.ts` / `src/flags.ts` to match the project) with `export {}` so TypeScript treats it as a module. Flags Explorer imports this file — create it before the discovery route.
 
@@ -2538,7 +2538,7 @@ Check the project state to adapt commands and decide which steps you can skip:
 - you created the project's first flag; activating Vercel Flags creates a `FLAGS_SECRET` per environment
 - local evaluation fails with an authentication error; the SDK refreshes an expired token through the linked project, re-pulling is the fallback
 
-Use SDK keys (`FLAGS`) for apps outside Vercel or to select an environment explicitly ([SDK Keys](https://vercel.com/docs/flags/vercel-flags/dashboard/sdk-keys)). To read another same-team project's flags on Vercel, use [Project Connections](references/providers.md#project-connections) with your project's OIDC token. If `FLAGS_SECRET` is still missing after the pull, generate it per [FLAGS_SECRET](#flags_secret).
+Use SDK keys (`FLAGS`) for apps outside Vercel or to select an environment explicitly ([SDK Keys](https://vercel.com/docs/flags/vercel-flags/dashboard/sdk-keys)). To read another same-team project's flags on Vercel, use [Project Connections](flags-sdk.md#file-upstreamreferencesprovidersmd) with your project's OIDC token. If `FLAGS_SECRET` is still missing after the pull, generate it per [FLAGS_SECRET](#flags_secret).
 
 ##### Create a flag
 
@@ -2605,15 +2605,15 @@ Use this flow when the flag was created in the dashboard or by someone else, for
 
 ##### Vercel Flags adapter
 
-`@flags-sdk/vercel` connects `flag()` declarations to Vercel Flags. `vercelAdapter` authenticates with the project's Vercel OIDC token and evaluates the configuration of the current environment. Use `@flags-sdk/vercel` version 1.6.0 or later and `createVercelAdapter({ projectId })` for a connected same-team project's flags; see [Project Connections](references/providers.md#project-connections). SDK keys (`FLAGS`) are for manual authentication, such as apps outside Vercel or selecting an environment explicitly. Activating Vercel Flags creates a `FLAGS_SECRET` per environment for Flags Explorer.
+`@flags-sdk/vercel` connects `flag()` declarations to Vercel Flags. `vercelAdapter` authenticates with the project's Vercel OIDC token and evaluates the configuration of the current environment. Use `@flags-sdk/vercel` version 1.6.0 or later and `createVercelAdapter({ projectId })` for a connected same-team project's flags; see [Project Connections](flags-sdk.md#file-upstreamreferencesprovidersmd). SDK keys (`FLAGS`) are for manual authentication, such as apps outside Vercel or selecting an environment explicitly. Activating Vercel Flags creates a `FLAGS_SECRET` per environment for Flags Explorer.
 
-For user targeting, attribute types, custom adapter configuration, sharing a `@vercel/flags-core` client, and the Flags Explorer endpoint, see [references/providers.md — Vercel](references/providers.md#vercel).
+For user targeting, attribute types, custom adapter configuration, sharing a `@vercel/flags-core` client, and the Flags Explorer endpoint, see [references/providers.md — Vercel](flags-sdk.md#file-upstreamreferencesprovidersmd).
 
 Changing what a flag serves (enable, set, split, rollout, rules, archive) happens in the dashboard or with `vercel flags`, not in code. The `vercel-flags` skill covers those flows; `vercel flags <cmd> --help` lists the options.
 
 ##### Declaring flags
 
-When using Vercel Flags, declare flags with `vercelAdapter` as shown in [Create a flag](#create-a-flag). For other providers, see [references/providers.md](references/providers.md). Below are the general `flag()` patterns.
+When using Vercel Flags, declare flags with `vercelAdapter` as shown in [Create a flag](#create-a-flag). For other providers, see [references/providers.md](flags-sdk.md#file-upstreamreferencesprovidersmd). Below are the general `flag()` patterns.
 
 ###### Basic flag
 
@@ -2661,7 +2661,7 @@ export const dashboardFlag = flag<boolean, Entities>({
 });
 ```
 
-With `vercelAdapter`, the entity and attribute names in the returned object (`user.id` here) are what dashboard rules and `vercel flags split|rollout|rules --by` target. They must match the entities and attribute types configured in the dashboard. See [references/providers.md — User targeting](references/providers.md#user-targeting) and [Attribute types](references/providers.md#attribute-types).
+With `vercelAdapter`, the entity and attribute names in the returned object (`user.id` here) are what dashboard rules and `vercel flags split|rollout|rules --by` target. They must match the entities and attribute types configured in the dashboard. See [references/providers.md — User targeting](flags-sdk.md#file-upstreamreferencesprovidersmd) and [Attribute types](flags-sdk.md#file-upstreamreferencesprovidersmd).
 
 ###### Flag with another adapter
 
@@ -2678,7 +2678,7 @@ export const myGate = flag({
 });
 ```
 
-See [references/providers.md](references/providers.md) for all supported adapters.
+See [references/providers.md](flags-sdk.md#file-upstreamreferencesprovidersmd) for all supported adapters.
 
 ###### Key parameters
 
@@ -2739,7 +2739,7 @@ Outside App Router (Pages Router `getServerSideProps`/API routes, or routing mid
 
 `evaluate()` always evaluates flags at request time. It is not for reading [precomputed](#precompute-pattern) (static) values — for those, use `getPrecomputed` (or call the flag with the code, `await myFlag(code, flagGroup)`).
 
-Adapters can opt into batching by implementing the optional `bulkDecide` hook. The Vercel adapter (`@flags-sdk/vercel`) implements it — roughly a 10x reduction in evaluation time when resolving hundreds of flags. See [references/providers.md — Custom Adapters](references/providers.md#custom-adapters) for implementing `bulkDecide`, and [references/api.md — `evaluate`](references/api.md#evaluate) for the full signature.
+Adapters can opt into batching by implementing the optional `bulkDecide` hook. The Vercel adapter (`@flags-sdk/vercel`) implements it — roughly a 10x reduction in evaluation time when resolving hundreds of flags. See [references/providers.md — Custom Adapters](flags-sdk.md#file-upstreamreferencesprovidersmd) for implementing `bulkDecide`, and [references/api.md — `evaluate`](flags-sdk.md#file-upstreamreferencesapimd) for the full signature.
 
 ##### Flags Explorer setup
 
@@ -2758,7 +2758,7 @@ export const GET = createFlagsDiscoveryEndpoint(async () => {
 
 ###### With external provider data
 
-When using a third-party provider alongside Vercel Flags, combine their data with `mergeProviderData`. Each provider adapter exports its own `getProviderData` — see the provider-specific examples in [references/providers.md](references/providers.md).
+When using a third-party provider alongside Vercel Flags, combine their data with `mergeProviderData`. Each provider adapter exports its own `getProviderData` — see the provider-specific examples in [references/providers.md](flags-sdk.md#file-upstreamreferencesprovidersmd).
 
 ###### SvelteKit
 
@@ -2788,12 +2788,12 @@ High-level flow:
 4. Page reads flag values from `code`: `await myFlag(code, flagGroup)`
 
 For full implementation details, see framework-specific references:
-- **Next.js**: See [references/nextjs.md](references/nextjs.md) — covers proxy middleware, precompute setup, ISR, generatePermutations, multiple groups
-- **SvelteKit**: See [references/sveltekit.md](references/sveltekit.md) — covers reroute hook, middleware, precompute setup, ISR, prerendering
+- **Next.js**: See [references/nextjs.md](flags-sdk.md#file-upstreamreferencesnextjsmd) — covers proxy middleware, precompute setup, ISR, generatePermutations, multiple groups
+- **SvelteKit**: See [references/sveltekit.md](flags-sdk.md#file-upstreamreferencessveltekitmd) — covers reroute hook, middleware, precompute setup, ISR, prerendering
 
 ##### Custom adapters
 
-Create an adapter factory that returns an object with `origin` and `decide`. For the full pattern (including default adapter and singleton client examples), see [references/providers.md](references/providers.md#custom-adapters).
+Create an adapter factory that returns an object with `origin` and `decide`. For the full pattern (including default adapter and singleton client examples), see [references/providers.md](flags-sdk.md#file-upstreamreferencesprovidersmd).
 
 ##### Encryption functions
 
@@ -2836,10 +2836,10 @@ import { FlagValues, FlagDefinitions } from 'flags/react';
 
 Detailed framework and provider guides are in separate files to keep context lean:
 
-- **[references/nextjs.md](references/nextjs.md)**: Next.js quickstart, toolbar, App Router, Pages Router, middleware/proxy, precompute, dedupe, dashboard pages, marketing pages, suspense fallbacks
-- **[references/sveltekit.md](references/sveltekit.md)**: SvelteKit quickstart, toolbar, hooks setup, precompute with reroute + middleware, dashboard pages, marketing pages
-- **[references/providers.md](references/providers.md)**: All provider adapters — Vercel, Global Config, Statsig, LaunchDarkly, PostHog, GrowthBook, Flagsmith, Reflag, Split, Optimizely, OpenFeature, and custom adapters
-- **[references/api.md](references/api.md)**: Full API reference for `flags`, `flags/react`, `flags/next`, and `flags/sveltekit`
+- **[references/nextjs.md](flags-sdk.md#file-upstreamreferencesnextjsmd)**: Next.js quickstart, toolbar, App Router, Pages Router, middleware/proxy, precompute, dedupe, dashboard pages, marketing pages, suspense fallbacks
+- **[references/sveltekit.md](flags-sdk.md#file-upstreamreferencessveltekitmd)**: SvelteKit quickstart, toolbar, hooks setup, precompute with reroute + middleware, dashboard pages, marketing pages
+- **[references/providers.md](flags-sdk.md#file-upstreamreferencesprovidersmd)**: All provider adapters — Vercel, Global Config, Statsig, LaunchDarkly, PostHog, GrowthBook, Flagsmith, Reflag, Split, Optimizely, OpenFeature, and custom adapters
+- **[references/api.md](flags-sdk.md#file-upstreamreferencesapimd)**: Full API reference for `flags`, `flags/react`, `flags/next`, and `flags/sveltekit`
 
 ### File: `upstream/references/api.md`
 

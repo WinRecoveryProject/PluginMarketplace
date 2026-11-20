@@ -15,12 +15,12 @@ Supported project marker schema: `2`. A schema-1 enabled project is legacy state
 
 #### Load only what the action needs
 
-- Starting, joining, splitting, claiming, completing, or integrating work: read [references/operations.md](references/operations.md), then [references/execution.md](references/execution.md).
-- Sending or acting on a peer collision or dependency notice: also read [references/messaging.md](references/messaging.md).
-- Enabling, disabling, installing, or onboarding: read [references/installation.md](references/installation.md).
-- Recovering a stale or interrupted claim: read [references/recovery.md](references/recovery.md).
-- Updating, removing, or changing Coordinator itself: read [references/maintenance.md](references/maintenance.md).
-- Checking whether the installed package can load: read [references/doctor.md](references/doctor.md).
+- Starting, joining, splitting, claiming, completing, or integrating work: read [references/operations.md](codex-coordinator.md#file-referencesoperationsmd), then [references/execution.md](codex-coordinator.md#file-referencesexecutionmd).
+- Sending or acting on a peer collision or dependency notice: also read [references/messaging.md](codex-coordinator.md#file-referencesmessagingmd).
+- Enabling, disabling, installing, or onboarding: read [references/installation.md](codex-coordinator.md#file-referencesinstallationmd).
+- Recovering a stale or interrupted claim: read [references/recovery.md](codex-coordinator.md#file-referencesrecoverymd).
+- Updating, removing, or changing Coordinator itself: read [references/maintenance.md](codex-coordinator.md#file-referencesmaintenancemd).
+- Checking whether the installed package can load: read [references/doctor.md](codex-coordinator.md#file-referencesdoctormd).
 
 Read each selected file completely. Do not load every lane for ordinary work.
 
@@ -46,7 +46,7 @@ Read each selected file completely. Do not load every lane for ordinary work.
 - Each active writer owns exactly one JSON claim named by its exact native thread UUID under `.codex/coordination/active/`. Claims contain only title, bounded goal, paths, exclusive actions, dependencies, status, timestamps, and revision.
 - Never store prompts, transcript text, reasoning, commentary, tool calls, tool output, code, provider responses, or whole-turn ledgers in Coordinator state.
 - Resolve the primary worktree before using the board. Linked worktrees do not keep a separate authoritative board.
-- Before substantial writes or an exclusive action, list the active board and atomically create or update the current task's own claim with the bundled [state helper](scripts/coordination_state.py).
+- Before substantial writes or an exclusive action, list the active board and atomically create or update the current task's own claim with the bundled [state helper](codex-coordinator.md#file-scriptscoordination_statepy).
 - Update a claim only at natural lifecycle boundaries: start, real scope change, blocked or unblocked state, and completion or stop. Never update it on a timer or as a progress diary.
 - Generated schema-2 `CURRENT.md` is the active-only human view backed by the per-task claims. It is non-authoritative and is atomically rebuilt from those claims after state mutations. Warning and conflict checks use the claims.
 - A task edits only its own claim. It never edits another task's claim, receipt, or history.
@@ -188,7 +188,7 @@ Do not create a durable task for one test command, a small lookup, formatting, a
 
 Three active durable tasks is the default maximum. A direct user decision is required to pass `--user-approved-over-limit`; twelve is the hard limit. The flag records that authority was supplied but does not create authority by itself.
 
-Before creating a durable task, use the native task list to look for a related local task from the same repository and primary checkout. Reuse it when its existing context is useful, it is not actively handling unrelated work, and it has no unresolved user decision. Send one bounded `GOAL_ASSIGNMENT` as described in [messaging.md](messaging.md). If no suitable task exists, create the smallest useful number of local tasks in the current checkout. Never create a worktree merely to isolate a task.
+Before creating a durable task, use the native task list to look for a related local task from the same repository and primary checkout. Reuse it when its existing context is useful, it is not actively handling unrelated work, and it has no unresolved user decision. Send one bounded `GOAL_ASSIGNMENT` as described in [messaging.md](codex-coordinator.md#file-referencesmessagingmd). If no suitable task exists, create the smallest useful number of local tasks in the current checkout. Never create a worktree merely to isolate a task.
 
 ##### Goal-scoped Coordinator
 
@@ -467,9 +467,9 @@ The receiver verifies the header before reading the effect. On project, sender, 
 
 This is a small router, not a reconciliation loop. An explicitly requested Coordinator is one normal, goal-scoped task that assigns bounded work and is available when the user invokes it again. It does not stay awake, poll, or run in the background.
 
-- To list, create, update, or release task claims, read [execution.md](execution.md).
-- To send or receive a collision or dependency notice, also read [messaging.md](messaging.md).
-- To recover a stale or interrupted claim, read [recovery.md](recovery.md).
+- To list, create, update, or release task claims, read [execution.md](codex-coordinator.md#file-referencesexecutionmd).
+- To send or receive a collision or dependency notice, also read [messaging.md](codex-coordinator.md#file-referencesmessagingmd).
+- To recover a stale or interrupted claim, read [recovery.md](codex-coordinator.md#file-referencesrecoverymd).
 
 Do not read archived receipts during ordinary work. Do not scan native task history, providers, automations, pull requests, or schedules merely because the board is enabled.
 

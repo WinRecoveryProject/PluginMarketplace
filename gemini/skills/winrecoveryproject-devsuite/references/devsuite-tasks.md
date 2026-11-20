@@ -9,7 +9,7 @@
 
 ### Use the actual registered Codex environment
 
-Read [the policy](../../references/policy.md) and [execution routes](../../references/execution.md). Discover the current Codex Tasks tool schemas. Read-only environment discovery does not create a task. Follow every `nextCursor`, including after an empty page. A connected executor uses its actual `environmentId` and a known absolute cwd on that machine. A managed configuration uses its actual `environmentConfigId` only when ready and `canRun:true`. Readiness is not proof of included free usage: verify 0 kr before starting remote work.
+Read [the policy](_plugin-references.md#file-referencespolicymd) and [execution routes](_plugin-references.md#file-referencesexecutionmd). Discover the current Codex Tasks tool schemas. Read-only environment discovery does not create a task. Follow every `nextCursor`, including after an empty page. A connected executor uses its actual `environmentId` and a known absolute cwd on that machine. A managed configuration uses its actual `environmentConfigId` only when ready and `canRun:true`. Readiness is not proof of included free usage: verify 0 kr before starting remote work.
 
 For read-only discovery, use `provider-check codex-environment-list` for tool visibility, then call the existing `list_environments` tool. The managed Cloud Environment App belongs to the attached chat computer. Its login and availability are separate from the saved configurations returned by Codex Tasks.
 

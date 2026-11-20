@@ -15,7 +15,7 @@ login, or installation. Reading this skill does not authorize edits or spending.
 
 #### Run a review
 
-Before execution, read [execution and authentication](references/auth-recovery.md).
+Before execution, read [execution and authentication](code-review.md#file-referencesauth-recoverymd).
 It defines trusted CLI discovery, approved host execution, remote environment
 boundaries, and one eligible retry after a sandbox auth failure. Keep those
 permission and credential boundaries when following commands below. Examples
@@ -54,7 +54,7 @@ them before an authorized review. If `AGENTS.md`, `.coderabbit.yaml`, or
 
 #### Read the result
 
-Read [output and consent](references/review-output.md) for live results, supplied
+Read [output and consent](code-review.md#file-referencesreview-outputmd) for live results, supplied
 transcripts, or credit confirmation requests. Parse NDJSON line by line and
 preserve returned severities: critical, major, minor, trivial, info, and none.
 Use `fileName`, `codegenInstructions`, and `suggestions` when present, falling

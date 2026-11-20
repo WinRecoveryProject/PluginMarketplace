@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Writing for Agents
 
@@ -88,7 +88,7 @@ A document is built from **steps** (ordered actions) and **reference** (definiti
 
 #### Skill mechanics
 
-The skill-specific branch of [`writing-for-agents`](SKILL.md): what changes when the document is a skill (frontmatter, the invocation choice, and router skills). Everything else about writing it is the universal reference in `SKILL.md`.
+The skill-specific branch of [`writing-for-agents`](writing-for-agents.md): what changes when the document is a skill (frontmatter, the invocation choice, and router skills). Everything else about writing it is the universal reference in `SKILL.md`.
 
 ##### Invocation
 

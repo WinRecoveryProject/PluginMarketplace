@@ -12,7 +12,7 @@
 1. Confirm the target Sandbox, job, file paths and cost scope. Check included capacity before starting a remote job.
 2. Use the guide section for lifecycle, files, commands, snapshots or troubleshooting. Confirm the actual job exit code and result.
 
-Read the relevant section of the [full guide](guide.md) before applying its examples.
+Read the relevant section of the [full guide](vercel-sandbox.md#file-guidemd) before applying its examples.
 
 ## Bundled files
 

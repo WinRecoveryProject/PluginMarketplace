@@ -290,8 +290,8 @@ check the actual test receipt before claiming coverage for a machine.
 
 No MegaLinter implementation was copied. Its public catalog/descriptors and
 upstream language documentation informed adapter selection. See
-[third-party notices](THIRD-PARTY-NOTICES.md), [privacy](PRIVACY.md) and
-[terms](TERMS.md).
+[third-party notices](_plugin.md#file-third-party-noticesmd), [privacy](_plugin.md#file-privacymd) and
+[terms](_plugin.md#file-termsmd).
 
 Public source metadata targets
 [WinRecoveryProject/WinRecoveryProjectLinter](https://github.com/WinRecoveryProject/WinRecoveryProjectLinter).

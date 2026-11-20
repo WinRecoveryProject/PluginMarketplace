@@ -11,7 +11,7 @@
 
 #### Locate the knowledge base
 
-Read [local-library.md](references/local-library.md) for this installation's library location. If unavailable, ask for the documentation root; do not scan drives, cloud folders or unrelated projects. Read the library README.md and sources.md, then only the relevant topic notes and SOURCE-CATALOG.md entries. The library is canonical; do not maintain competing copies in the plugin.
+Read [local-library.md](windows-dism-update-docs.md#file-referenceslocal-librarymd) for this installation's library location. If unavailable, ask for the documentation root; do not scan drives, cloud folders or unrelated projects. Read the library README.md and sources.md, then only the relevant topic notes and SOURCE-CATALOG.md entries. The library is canonical; do not maintain competing copies in the plugin.
 
 #### Research and answer
 

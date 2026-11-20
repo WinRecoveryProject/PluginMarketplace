@@ -13,7 +13,7 @@ Apply these rules when writing or reviewing Next.js code.
 
 #### File Conventions
 
-See [file-conventions.md](references/file-conventions.md) for:
+See [file-conventions.md](nextjs.md#file-referencesfile-conventionsmd) for:
 - Project structure and special files
 - Route segments (dynamic, catch-all, groups)
 - Parallel and intercepting routes
@@ -23,7 +23,7 @@ See [file-conventions.md](references/file-conventions.md) for:
 
 Detect invalid React Server Component patterns.
 
-See [rsc-boundaries.md](references/rsc-boundaries.md) for:
+See [rsc-boundaries.md](nextjs.md#file-referencesrsc-boundariesmd) for:
 - Async client component detection (invalid)
 - Non-serializable props detection
 - Server Action exceptions
@@ -32,33 +32,33 @@ See [rsc-boundaries.md](references/rsc-boundaries.md) for:
 
 Next.js 15+ async API changes.
 
-See [async-patterns.md](references/async-patterns.md) for:
+See [async-patterns.md](nextjs.md#file-referencesasync-patternsmd) for:
 - Async `params` and `searchParams`
 - Async `cookies()` and `headers()`
 - Migration codemod
 
 #### Runtime Selection
 
-See [runtime-selection.md](references/runtime-selection.md) for:
+See [runtime-selection.md](nextjs.md#file-referencesruntime-selectionmd) for:
 - Default to Node.js runtime
 - When Edge runtime is appropriate
 
 #### Directives
 
-See [directives.md](references/directives.md) for:
+See [directives.md](nextjs.md#file-referencesdirectivesmd) for:
 - `'use client'`, `'use server'` (React)
 - `'use cache'` (Next.js)
 
 #### Functions
 
-See [functions.md](references/functions.md) for:
+See [functions.md](nextjs.md#file-referencesfunctionsmd) for:
 - Navigation hooks: `useRouter`, `usePathname`, `useSearchParams`, `useParams`
 - Server functions: `cookies`, `headers`, `draftMode`, `after`
 - Generate functions: `generateStaticParams`, `generateMetadata`
 
 #### Error Handling
 
-See [error-handling.md](references/error-handling.md) for:
+See [error-handling.md](nextjs.md#file-referenceserror-handlingmd) for:
 - `error.tsx`, `global-error.tsx`, `not-found.tsx`
 - `redirect`, `permanentRedirect`, `notFound`
 - `forbidden`, `unauthorized` (auth errors)
@@ -66,14 +66,14 @@ See [error-handling.md](references/error-handling.md) for:
 
 #### Data Patterns
 
-See [data-patterns.md](references/data-patterns.md) for:
+See [data-patterns.md](nextjs.md#file-referencesdata-patternsmd) for:
 - Server Components vs Server Actions vs Route Handlers
 - Avoiding data waterfalls (`Promise.all`, Suspense, preload)
 - Client component data fetching
 
 #### Route Handlers
 
-See [route-handlers.md](references/route-handlers.md) for:
+See [route-handlers.md](nextjs.md#file-referencesroute-handlersmd) for:
 - `route.ts` basics
 - GET handler conflicts with `page.tsx`
 - Environment behavior (no React DOM)
@@ -81,7 +81,7 @@ See [route-handlers.md](references/route-handlers.md) for:
 
 #### Metadata & OG Images
 
-See [metadata.md](references/metadata.md) for:
+See [metadata.md](nextjs.md#file-referencesmetadatamd) for:
 - Static and dynamic metadata
 - `generateMetadata` function
 - OG image generation with `next/og`
@@ -89,7 +89,7 @@ See [metadata.md](references/metadata.md) for:
 
 #### Image Optimization
 
-See [image.md](references/image.md) for:
+See [image.md](nextjs.md#file-referencesimagemd) for:
 - Always use `next/image` over `<img>`
 - Remote images configuration
 - Responsive `sizes` attribute
@@ -98,7 +98,7 @@ See [image.md](references/image.md) for:
 
 #### Font Optimization
 
-See [font.md](references/font.md) for:
+See [font.md](nextjs.md#file-referencesfontmd) for:
 - `next/font` setup
 - Google Fonts, local fonts
 - Tailwind CSS integration
@@ -106,7 +106,7 @@ See [font.md](references/font.md) for:
 
 #### Bundling
 
-See [bundling.md](references/bundling.md) for:
+See [bundling.md](nextjs.md#file-referencesbundlingmd) for:
 - Server-incompatible packages
 - CSS imports (not link tags)
 - Polyfills (already included)
@@ -115,7 +115,7 @@ See [bundling.md](references/bundling.md) for:
 
 #### Scripts
 
-See [scripts.md](references/scripts.md) for:
+See [scripts.md](nextjs.md#file-referencesscriptsmd) for:
 - `next/script` vs native script tags
 - Inline scripts need `id`
 - Loading strategies
@@ -123,34 +123,34 @@ See [scripts.md](references/scripts.md) for:
 
 #### Hydration Errors
 
-See [hydration-error.md](references/hydration-error.md) for:
+See [hydration-error.md](nextjs.md#file-referenceshydration-errormd) for:
 - Common causes (browser APIs, dates, invalid HTML)
 - Debugging with error overlay
 - Fixes for each cause
 
 #### Suspense Boundaries
 
-See [suspense-boundaries.md](references/suspense-boundaries.md) for:
+See [suspense-boundaries.md](nextjs.md#file-referencessuspense-boundariesmd) for:
 - CSR bailout with `useSearchParams` and `usePathname`
 - Which hooks require Suspense boundaries
 
 #### Parallel & Intercepting Routes
 
-See [parallel-routes.md](references/parallel-routes.md) for:
+See [parallel-routes.md](nextjs.md#file-referencesparallel-routesmd) for:
 - Modal patterns with `@slot` and `(.)` interceptors
 - `default.tsx` for fallbacks
 - Closing modals correctly with `router.back()`
 
 #### Self-Hosting
 
-See [self-hosting.md](references/self-hosting.md) for:
+See [self-hosting.md](nextjs.md#file-referencesself-hostingmd) for:
 - `output: 'standalone'` for Docker
 - Cache handlers for multi-instance ISR
 - What works vs needs extra setup
 
 #### Debug Tricks
 
-See [debug-tricks.md](references/debug-tricks.md) for:
+See [debug-tricks.md](nextjs.md#file-referencesdebug-tricksmd) for:
 - MCP endpoint for AI-assisted debugging
 - Rebuild specific routes with `--debug-build-paths`
 

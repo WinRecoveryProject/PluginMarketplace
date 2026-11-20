@@ -9,7 +9,7 @@
 
 ### Apply one shared quality gate
 
-Read [the policy](../../references/policy.md). Discover commands from repository docs, manifests and CI. Select by behavior/risk: focused reproduction, affected unit/contract/integration suites, lint/types/format check, build/package and meaningful end-to-end/security/performance/migration/recovery checks. Coverage percentage and worker agreement are not behavior evidence.
+Read [the policy](_plugin-references.md#file-referencespolicymd). Discover commands from repository docs, manifests and CI. Select by behavior/risk: focused reproduction, affected unit/contract/integration suites, lint/types/format check, build/package and meaningful end-to-end/security/performance/migration/recovery checks. Coverage percentage and worker agreement are not behavior evidence.
 
 Existing Linter or MegaLinter is optional. Reuse project configuration, installed runner or CI results for the tested revision. Inspect side effects and availability. Do not install another plugin, download runners, invoke npx, change hooks/configuration, upgrade dependencies, enable telemetry or buy CI capacity merely to lint. If missing, run available native project checks and label the Linter layer UNAVAILABLE. Missing is never successful lint.
 

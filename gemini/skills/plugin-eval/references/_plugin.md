@@ -144,7 +144,7 @@ Compatibility aliases still work:
 
 #### How It Works As A Codex Plugin
 
-This directory is also a Codex plugin bundle. The plugin manifest lives at [`.codex-plugin/plugin.json`](./.codex-plugin/plugin.json), and it exposes the skills under [`skills/`](./skills).
+This directory is also a Codex plugin bundle. The plugin manifest lives at [`.codex-plugin/plugin.json`](_plugin-codex-plugin.md#file-codex-pluginpluginjson), and it exposes the skills under [`skills/`](./skills).
 
 That means you can use it from Codex chat with natural prompts once the plugin is installed, for example:
 
@@ -258,9 +258,9 @@ Use `plugin-eval` when you want to:
 
 #### References
 
-- [Chat-first workflows](./references/chat-first-workflows.md)
-- [Observed usage inputs](./references/observed-usage.md)
-- [Technical design](./references/technical-design.md)
+- [Chat-first workflows](_plugin-references.md#file-referenceschat-first-workflowsmd)
+- [Observed usage inputs](_plugin-references.md#file-referencesobserved-usagemd)
+- [Technical design](_plugin-references.md#file-referencestechnical-designmd)
 
 ## File: `package.json`
 

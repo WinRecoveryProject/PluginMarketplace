@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Diagnose Systematically
 
@@ -61,12 +61,12 @@ discriminating probe; ranking never proves a cause.
 
 Use these resources only when their condition matches:
 
-- Deep call-stack symptom: [root-cause-tracing.md](root-cause-tracing.md).
+- Deep call-stack symptom: [root-cause-tracing.md](diagnose-systematically.md#file-root-cause-tracingmd).
 - Arbitrary delays or flaky async tests:
-  [condition-based-waiting.md](condition-based-waiting.md).
-- Test-order pollution: run [find-polluter.sh](find-polluter.sh).
+  [condition-based-waiting.md](diagnose-systematically.md#file-condition-based-waitingmd).
+- Test-order pollution: run [find-polluter.sh](diagnose-systematically.md#file-find-pollutersh).
 - Proven source fix that needs layered guards:
-  [defense-in-depth.md](defense-in-depth.md).
+  [defense-in-depth.md](diagnose-systematically.md#file-defense-in-depthmd).
 
 #### Fix only when authorized
 

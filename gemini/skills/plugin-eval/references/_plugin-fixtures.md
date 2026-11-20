@@ -145,6 +145,17 @@ console.log(
 
 - `fixtures/minimal-plugin/assets/minimal.svg` (binary asset, not embedded)
 
+## File: `fixtures/minimal-plugin/skills/minimal-plugin-skill/SKILL.md`
+
+---
+name: minimal-plugin-skill
+description: Minimal plugin skill fixture. Use when a test needs a valid plugin skill.
+---
+
+### Minimal Plugin Skill
+
+Use this bundled skill to verify plugin-level skill discovery.
+
 ## File: `fixtures/minimal-skill/SKILL.md`
 
 ---
@@ -215,6 +226,28 @@ This file exists so deferred supporting context can be counted without making `S
 ## Not embedded
 
 - `fixtures/multi-skill-plugin/assets/multi.svg` (binary asset, not embedded)
+
+## File: `fixtures/multi-skill-plugin/skills/alpha/SKILL.md`
+
+---
+name: alpha
+description: Alpha fixture skill. Use when plugin-eval tests need one of two bundled skills.
+---
+
+### Alpha
+
+Use this fixture skill as the first bundled plugin skill.
+
+## File: `fixtures/multi-skill-plugin/skills/beta/SKILL.md`
+
+---
+name: beta
+description: Beta fixture skill. Use when plugin-eval tests need the second bundled skill.
+---
+
+### Beta
+
+Use this fixture skill as the second bundled plugin skill.
 
 ## File: `fixtures/observed-usage/responses.jsonl`
 

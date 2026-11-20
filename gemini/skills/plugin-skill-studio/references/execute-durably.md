@@ -7,13 +7,13 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Execute Durably
 
 Use durable state only when its recovery value exceeds its overhead. Keep state outside the repository so the project never acquires workflow artifacts.
 
-For finite process execution on Windows, read [Windows execution](../../references/windows-process-execution.md).
+For finite process execution on Windows, read [Windows execution](_plugin-references.md#file-referenceswindows-process-executionmd).
 Do not invoke a macOS/Linux-only process controller or install another runtime
 just because this workflow needs a job handle. Use the current host's supported
 execution/session tools; distinguish session tracking from machine-scoped durability.

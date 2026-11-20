@@ -118,10 +118,10 @@ connections are preserved where required. App bindings do not prove authenticati
 tool availability or successful execution. Cost budget is 0 kr; no new keys, OAuth,
 MCP servers, purchases, subscriptions or billable infrastructure are introduced.
 
-Read [policy](references/policy.md), [provider boundaries](references/providers.md),
-[function coverage](references/capability-matrix.json),
-[source hashes](references/source-provenance.json) and
-[migration proposal](references/migration.md). All 39 inspected source skills map
+Read [policy](_plugin-references.md#file-referencespolicymd), [provider boundaries](_plugin-references.md#file-referencesprovidersmd),
+[function coverage](_plugin-references.md#not-embedded),
+[source hashes](_plugin-references.md#file-referencessource-provenancejson) and
+[migration proposal](_plugin-references.md#file-referencesmigrationmd). All 39 inspected source skills map
 to 214 function-level rows, including the original source's non-triggered
 orchestrate-work workflow. CloudConvert source is unavailable; its actual App ID is
 verified and its original skill inventory remains UNKNOWN.
@@ -145,12 +145,12 @@ or changes user settings. Provider checks only verify supplied observed tool nam
 Tool names present still returns NOT_VERIFIED and canExecute:false; access, consent
 and free quota are separate. Conversion plans return executed:false. Local
 assessment reports use a separate owned schema and never impersonate sealed provider
-artifacts. [Board operations](references/coordination.md) documents the optional local
+artifacts. [Board operations](_plugin-references.md#file-referencescoordinationmd) documents the optional local
 state/lifecycle helpers and unregistered hook replacement blueprint.
 
 The native `.codex-plugin/plugin.json` is authoritative; no root portable manifest
 shadows Apps. Original DevSuite code is MIT. Adapted MIT components retain upstream
-copyright/licenses in [notices](THIRD_PARTY_NOTICES.md). Codex Security and internal
+copyright/licenses in [notices](_plugin.md#file-third_party_noticesmd). Codex Security and internal
 Cloud implementations retain their own provider licensing and are not bundled.
 
 Local tests cover meaningful helper behavior plus static workflow contracts. Provider
@@ -171,7 +171,7 @@ python scripts/devsuite.py process-plan request.json
 python scripts/devsuite.py task-environment environments.json
 ```
 
-See [execution routes](references/execution.md). The helpers plan and select only;
+See [execution routes](_plugin-references.md#file-referencesexecutionmd). The helpers plan and select only;
 they do not launch commands, create remote tasks or certify provider execution.
 
 Version 0.2.1 preserves explicit remote-task and background-job intent when the
@@ -218,17 +218,17 @@ Local validation is separate from live service execution and release publication
 ### Source and licensing notices
 
 Original DevSuite code and original workflow descriptions: Copyright (c) 2026
-Zilvereyes, MIT. [LICENSE](LICENSE) covers this original work.
+Zilvereyes, MIT. [LICENSE](_plugin.md#file-license) covers this original work.
 
 MIT adaptations retain complete notices:
 
 - Codex Coordinator 0.4.0, Copyright (c) 2026 Six Ideas. State/lifecycle/session/stop
-  helpers adapted into runtime/coordinator. [License](licenses/coordinator.txt).
+  helpers adapted into runtime/coordinator. [License](_plugin-licenses.md#file-licensescoordinatortxt).
 - Codex Dev Workflows 0.4.2, Copyright (c) 2026 Codex Dev Workflows contributors.
-  Workflow behavior merged and platform references adapted. [License](licenses/workflows.txt).
+  Workflow behavior merged and platform references adapted. [License](_plugin-licenses.md#file-licensesworkflowstxt).
 - Codex Engineering Guardrails 1.1.1, copyright retained exactly in its per-skill MIT
   notices. Engineering decision/verification references retained; workflow behavior
-  merged. [First license](licenses/guardrails.txt), [second license](licenses/guardrails-1.txt).
+  merged. [First license](_plugin-licenses.md#file-licensesguardrailstxt), [second license](_plugin-licenses.md#file-licensesguardrails-1txt).
 
 Inspected but not redistributed:
 
@@ -242,7 +242,7 @@ Inspected but not redistributed:
 - CloudConvert exact selected package has metadata only; no source/license grant
   was available. Only the verified App ID and original conversion workflow are used.
 
-[Provenance](references/source-provenance.json) lists 215 inspected source file hashes,
+[Provenance](_plugin-references.md#file-referencessource-provenancejson) lists 215 inspected source file hashes,
 integration methods, licenses and source gaps. Source paths are audit citations, not
 runtime dependencies. The capability matrix separates owned instructions, bundled
 runtime and conditional external providers. No credentials or environment values

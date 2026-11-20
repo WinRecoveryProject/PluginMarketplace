@@ -47,7 +47,7 @@ Keep two independent review axes:
 - **Specification:** Does the implementation do exactly what was requested, including edge and failure behavior?
 - **Engineering quality:** Is it correct, understandable, maintainable, secure, efficient enough, and consistent with repository conventions?
 
-Passing one axis must not conceal failure on the other. Read [references/verification-matrix.md](references/verification-matrix.md) when selecting checks, evaluating test quality, assigning severity, or coordinating parallel verification.
+Passing one axis must not conceal failure on the other. Read [references/verification-matrix.md](code-verification.md#file-referencesverification-matrixmd) when selecting checks, evaluating test quality, assigning severity, or coordinating parallel verification.
 
 #### Review in evidence-producing passes
 

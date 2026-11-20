@@ -30,7 +30,7 @@ Do not introduce Services just to split one framework into arbitrary processes. 
 
 #### Define services and public ingress
 
-If `vercel.json` already has an `experimentalServices` key, the project is on the earlier configuration model: read [references/experimental-services.md](references/experimental-services.md) before changing it.
+If `vercel.json` already has an `experimentalServices` key, the project is on the earlier configuration model: read [references/experimental-services.md](vercel-services.md#file-referencesexperimental-servicesmd) before changing it.
 
 Each service requires a `root` relative to `vercel.json`. Let Vercel detect the framework unless pinning it is necessary. Set `entrypoint` relative to the service root when the runtime needs one.
 
@@ -178,7 +178,7 @@ Deploy the project normally with `vercel` or Git integration. All services parti
 - **A binding variable is missing:** declare the binding on the caller and access it from runtime function code, not build code or middleware.
 - **Build settings are ignored or rejected:** move top-level build and runtime fields into the owning service.
 - **Framework detection is wrong:** set that service's `framework` or `entrypoint` explicitly instead of changing the whole project.
-- **Validation rejects `services` together with `experimentalServices`:** `vercel.json` can declare only one; finish the migration in [references/experimental-services.md](references/experimental-services.md).
+- **Validation rejects `services` together with `experimentalServices`:** `vercel.json` can declare only one; finish the migration in [references/experimental-services.md](vercel-services.md#file-referencesexperimental-servicesmd).
 
 #### Related skills
 

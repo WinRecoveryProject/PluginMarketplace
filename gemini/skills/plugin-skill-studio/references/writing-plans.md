@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Writing Plans
 
@@ -66,7 +66,7 @@ user requests an artifact or the active workflow already authorizes one.
 
 #### Full repository planning
 
-Read [references/full-plan.md](references/full-plan.md) completely before
+Read [references/full-plan.md](writing-plans.md#file-referencesfull-planmd) completely before
 inspecting the repository or drafting the plan. Follow that reference in
 addition to the rules above. An explicit user output path overrides its default
 artifact location.

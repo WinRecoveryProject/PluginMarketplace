@@ -11,7 +11,7 @@
 
 Use this skill when PowerShell controls a model endpoint, coding-agent CLI, capability registry, evaluation harness, provider profile, context checkpoint, or session export.
 
-1. Read [references/agent-harness-patterns.md](references/agent-harness-patterns.md) for the applicable modes only.
+1. Read [references/agent-harness-patterns.md](powershell-agent-harness-development.md#file-referencesagent-harness-patternsmd) for the applicable modes only.
 2. Separate deterministic authority from model assistance. Paths, manifests, permissions, hashes, timestamps, approval state, and pass/fail decisions must be validated by code; model output may summarize or classify only after validation.
 3. Bind evidence to model identifier and digest, provider/endpoint, host, context configuration, project profile, capability version, fixture hash, and timestamp. Do not generalize one successful run to another configuration.
 4. Permit loopback endpoints by default. Treat remote endpoints, silent cloud fallback, credential transmission, and connector writes as separate capabilities requiring explicit authorization and evidence.
@@ -35,7 +35,7 @@ Use this skill when PowerShell controls a model endpoint, coding-agent CLI, capa
   Supply `-ContextTokens` when a frozen comparison requires an explicit `num_ctx`; the request binds that value, while effective runtime context remains `UNKNOWN` until independently observed.
 - Use `../../scripts/Test-PowerShellWorkbenchOllamaEvidence.ps1` with an independently recorded metadata SHA-256. The response can attest the observed model id but not the model digest; accepting the caller-bound digest requires explicit `-AcceptUnverifiedModelDigest` and must not be reported as runtime attestation.
 - Use `../../scripts/Compare-PowerShellWorkbenchOllamaEvidence.ps1` with
-  [assets/templates/model-comparison-manifest.json.tmpl](assets/templates/model-comparison-manifest.json.tmpl) to compare
+  [assets/templates/model-comparison-manifest.json.tmpl](powershell-agent-harness-development.md#file-assetstemplatesmodel-comparison-manifestjsontmpl) to compare
   frozen validated captures for one prompt and request configuration. Quality is decided by the manifest's exact UTF-8
   answer hash before performance ranking. Missing evidence or metrics is `UNKNOWN`; hash, path, prompt, identity, or
   configuration drift is `CONFLICT`. The comparator never retries, calls a model, writes output, or transports evidence.
@@ -49,7 +49,7 @@ Use this skill when PowerShell controls a model endpoint, coding-agent CLI, capa
 - Use `../../scripts/Test-PowerShellWorkbenchHealth.ps1` before relying on installed plugin or catalog evidence. Supply explicit distribution source/cache pairs and catalog manifests; require catalog evidence when a downstream run depends on it. Unknown versions, duplicate roots, tree drift, stale manifests, missing artifacts, and hash drift fail closed without changing the installation.
 - Use `../../scripts/Invoke-PowerShellWorkbenchDoctor.ps1` for one read-only overview of explicitly supplied project and distribution evidence. Its default runtime state is `SKIPPED`; use `-IncludeRuntimeProbe` only when a child-PowerShell version/architecture probe is desired. It never discovers a marketplace source by guessing and never launches quality or model operations.
 - Use `../../scripts/Get-PowerShellWorkbenchStatusDashboard.ps1` with an independently hashed
-  [release-provenance template](assets/templates/release-provenance.json.tmpl) to distinguish declared version, found
+  [release-provenance template](powershell-agent-harness-development.md#file-assetstemplatesrelease-provenancejsontmpl) to distinguish declared version, found
   source/cache trees, and validated release identity. It reuses health gates, binds every source tree to one commit/ref
   provenance record, returns `UNKNOWN` for missing state and `CONFLICT` for drift, and performs no write, execution, or
   transport.
@@ -61,11 +61,11 @@ Use this skill when PowerShell controls a model endpoint, coding-agent CLI, capa
   schema 1.1 returns `NO_CHANGE`, and failures preserve exact blocking gates. Applying the plan remains separately authorized.
 - `-AllowedAdvisoryRegex` is an opt-in, exact advisory mechanism for known host notices only. It can never allow tool, policy, approval, schema, or turn failures; keep each pattern as narrow as the observed advisory text.
 - Use `../../scripts/Resolve-PowerShellWorkbenchGateGroups.ps1` to evaluate named gate groups without collapsing safe runtime preparation into host certification. Consumers must select the exact group required for an action and preserve the returned failed-gate names.
-- Copy and adapt [assets/templates/provider-switch-transaction.ps1.tmpl](assets/templates/provider-switch-transaction.ps1.tmpl) for reversible provider configuration changes.
+- Copy and adapt [assets/templates/provider-switch-transaction.ps1.tmpl](powershell-agent-harness-development.md#file-assetstemplatesprovider-switch-transactionps1tmpl) for reversible provider configuration changes.
   Its read-only resume decision verifies phase, freshness, paths, hashes, provider/model/context identity, loopback endpoint, wire API, local-model catalog,
   owned keys, canonical owned state, managed-state absence, and restore evidence before allowing apply, managed commit, post-check, or restore continuation.
   `ProviderProfileWritten` and `DesktopLifecycleInterrupted` return `ManagedCommitRequired` without repeating the provider edit or invoking Desktop lifecycle work.
-- Use `../../scripts/New-PowerShellWorkbenchHandoff.ps1` with [assets/templates/handoff-input.json.tmpl](assets/templates/handoff-input.json.tmpl) to create schema-bound JSON and Markdown handoffs. The generator writes local non-executable artifacts only; task, Drive, GitHub, or connector transport is always a separate explicitly authorized action.
+- Use `../../scripts/New-PowerShellWorkbenchHandoff.ps1` with [assets/templates/handoff-input.json.tmpl](powershell-agent-harness-development.md#file-assetstemplateshandoff-inputjsontmpl) to create schema-bound JSON and Markdown handoffs. The generator writes local non-executable artifacts only; task, Drive, GitHub, or connector transport is always a separate explicitly authorized action.
 - Windows PowerShell 5.1 can run the evidence validator, contract tests, and provider-switch template, but it must not be used for the bounded runner.
 
 ## Bundled files

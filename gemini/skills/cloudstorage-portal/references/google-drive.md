@@ -26,10 +26,10 @@ Start with Google Drive for file discovery and file lifecycle tasks, then route 
 - Before any export or raw-file fetch, read or reuse Drive metadata so the MIME type and Google Drive URL are known. Use `export_file` only to convert a native Google Doc, Sheet, or Slide into an explicitly requested format; it returns an authenticated file reference, not inline bytes or base64. Google limits `files.export` responses to **10 MB**; oversized exports fail rather than returning truncated content. For a larger native PDF, use `download_file(id=file_id, mime_type="application/pdf")` when the streaming action is available. It calls Google's `files.download` API and returns a top-level materializable `file_uri`. Once `download_file` is unavailable and canonical `fetch` uses that streamed download path, use `fetch(url=google_drive_url, download_raw_file=True, raw_export_mime_type="application/pdf")` instead. A native-file `fetch` that still uses `files.export` cannot bypass the 10 MB limit. For PDFs, images, ZIPs, Office files, recordings, and other stored, non-native files, use `fetch(url=google_drive_url, download_raw_file=True)`. Use only the authenticated top-level `file_uri` or materialized `workspace_path`; never request inline base64 unless an existing caller explicitly opts into bounded legacy compatibility. Use `fetch` without `download_raw_file` for bounded, best-effort readable text. Do not retry `export_file` after metadata shows a non-native MIME type.
 
 3. Route to the narrowest sibling skill that matches the file type and job.
-- Drive, Docs, Sheets, or Slides comment creation, comment replies, comment resolution, or review-by-comments: use [google-drive-comments](../google-drive-comments/SKILL.md).
-- Google Docs net-new creation, content summary, revision planning, prose rewriting, or section edits: use [google-docs](../google-docs/SKILL.md).
-- Google Sheets creation, local spreadsheet import, range inspection, table cleanup, data restructuring, formula design or repair, chart creation or repair, or batch updates: use [google-sheets](../google-sheets/SKILL.md).
-- Google Slides deck summary, content edits, new deck creation, local presentation import, visual cleanup, structural repair, or template migration: use [google-slides](../google-slides/SKILL.md).
+- Drive, Docs, Sheets, or Slides comment creation, comment replies, comment resolution, or review-by-comments: use [google-drive-comments](google-drive-comments.md).
+- Google Docs net-new creation, content summary, revision planning, prose rewriting, or section edits: use [google-docs](google-docs.md).
+- Google Sheets creation, local spreadsheet import, range inspection, table cleanup, data restructuring, formula design or repair, chart creation or repair, or batch updates: use [google-sheets](google-sheets.md).
+- Google Slides deck summary, content edits, new deck creation, local presentation import, visual cleanup, structural repair, or template migration: use [google-slides](google-slides.md).
 
 #### Routing Rules
 
@@ -56,10 +56,10 @@ Start with Google Drive for file discovery and file lifecycle tasks, then route 
 
 #### Related Skills
 
-- Comments: [google-drive-comments](../google-drive-comments/SKILL.md)
-- Docs: [google-docs](../google-docs/SKILL.md)
-- Sheets: [google-sheets](../google-sheets/SKILL.md)
-- Slides: [google-slides](../google-slides/SKILL.md)
+- Comments: [google-drive-comments](google-drive-comments.md)
+- Docs: [google-docs](google-docs.md)
+- Sheets: [google-sheets](google-sheets.md)
+- Slides: [google-slides](google-slides.md)
 
 ## Bundled files
 
@@ -105,7 +105,7 @@ Use this guidance when the user asks to refresh, update, replace, or repair a ch
 - When the slide already contains a linked chart, use raw `batch_update` with the chart refresh request on the live chart object ID.
 - Refresh the chart object first, then make any nearby title or annotation edits as separate text changes if needed.
 - After the write, verify that the chart-bearing slide changed, not just the text around it.
-- If the refresh also changes surrounding visible layout or styling, follow [visual-change-loop](./visual-change-loop.md) instead of stopping at a single verification.
+- If the refresh also changes surrounding visible layout or styling, follow [visual-change-loop](google-drive.md#file-referencesslidesvisual-change-loopmd) instead of stopping at a single verification.
 
 ##### 5. For shape placeholders, replace the placeholder with a chart graphic
 
@@ -119,7 +119,7 @@ Use this guidance when the user asks to refresh, update, replace, or repair a ch
 - If the chart area is static chart content, preserve the approximate position and size of the existing image.
 - Replace the old chart image rather than stacking a second chart on top of it.
 - If the image is clearly stale or explicitly marked as replaceable static content, do not report success until the old graphic is gone and the new one occupies the intended area.
-- If the replacement leaves visible residue, spacing drift, or chart-area cleanup work, switch to [visual-change-loop](./visual-change-loop.md) and do not stop before the third verified review.
+- If the replacement leaves visible residue, spacing drift, or chart-area cleanup work, switch to [visual-change-loop](google-drive.md#file-referencesslidesvisual-change-loopmd) and do not stop before the third verified review.
 
 ##### 7. If no source chart exists, be explicit about the extra step
 
@@ -133,7 +133,7 @@ Use this guidance when the user asks to refresh, update, replace, or repair a ch
 - When thumbnail responses include an `image_asset_pointer`, image content part, or other rendered image artifact, inspect that returned image directly.
 - If the thumbnail response only exposes a thumbnail URL or `contentUrl`, curl the rendered image to a local PNG, for example `curl -L "$contentUrl" -o /tmp/slides-thumb-<slide-id>.png`, and inspect that local image before claiming the chart visual was verified.
 - After chart or layout edits, fetch a fresh thumbnail and re-curl any URL-backed thumbnail to a new local PNG before final success.
-- When the refresh or replacement changed visible layout, placeholder cleanup, or nearby styling, follow [visual-change-loop](./visual-change-loop.md) and keep the review loop going through the third fresh visual pass.
+- When the refresh or replacement changed visible layout, placeholder cleanup, or nearby styling, follow [visual-change-loop](google-drive.md#file-referencesslidesvisual-change-loopmd) and keep the review loop going through the third fresh visual pass.
 - Verify both of these things before declaring success:
   - the chart graphic itself now matches the intended source chart
   - obsolete placeholder or instructional text is no longer visible unless the user asked to keep it
@@ -216,7 +216,7 @@ Use this reference when a Google Slides workflow needs to replace a screenshot, 
 - After each replacement, fetch a fresh thumbnail and refreshed slide structure.
 - Expect Google Slides to normalize inserted chart size or aspect slightly; judge success by approximate footprint and visual cleanliness, not exact raw transform equality.
 - Confirm the new chart object exists and the old placeholder image is gone before moving on.
-- If the replacement changed visible chart-area layout, cleanup, or styling, continue with [visual-change-loop](./visual-change-loop.md) and do not stop before the third fresh visual review of that slide.
+- If the replacement changed visible chart-area layout, cleanup, or styling, continue with [visual-change-loop](google-drive.md#file-referencesslidesvisual-change-loopmd) and do not stop before the third fresh visual review of that slide.
 
 7. Report exact outcomes.
 - Exact spreadsheet ranges changed.
@@ -228,7 +228,7 @@ Use this reference when a Google Slides workflow needs to replace a screenshot, 
 ##### Failure Policy
 
 - If the named chart is missing, then and only then consider creating a replacement chart.
-- If the replacement introduces a layout problem, switch to [visual-change-loop](./visual-change-loop.md) and adjust only the affected slide.
+- If the replacement introduces a layout problem, switch to [visual-change-loop](google-drive.md#file-referencesslidesvisual-change-loopmd) and adjust only the affected slide.
 
 ### File: `references/slides/visual-change-loop.md`
 

@@ -10,7 +10,7 @@
 #### Platform preflight
 
 On Windows, do not invoke scripts/job.mjs: its POSIX process-group controller
-is unsupported. Use the bundled [Windows execution workflow](../../references/windows-process-execution.md)
+is unsupported. Use the bundled [Windows execution workflow](_plugin-references.md#file-referenceswindows-process-executionmd)
 with the host's actual session/process handle instead. Keep that lifecycle
 separate from CPJ job IDs and automatic completion delivery. On macOS/Linux,
 continue with the existing CPJ workflow below. Preserve the user's existing

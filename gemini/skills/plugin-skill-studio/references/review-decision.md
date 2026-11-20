@@ -9,7 +9,7 @@
 
 ### Review Decision
 
-Read [Studio policy](../../references/studio-policy.md) first.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) first.
 
 Consume the actual review, tests and diff. Return minimal, targeted or deep human review with the exact cited lines and reasons. Preserve blockers even when quality scores are high. No review decision grants permission; user and host authorization remain authoritative. Lack of evidence is UNKNOWN. Own fixes do not independently clear own findings.
 

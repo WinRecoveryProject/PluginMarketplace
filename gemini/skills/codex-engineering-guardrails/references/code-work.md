@@ -42,7 +42,7 @@ For complex work, form a short dependency-ordered plan. Keep only one integratio
 - **Migration:** Map producers, consumers, compatibility windows, data transitions, and rollback conditions before changing the contract.
 - **Risky boundary:** Identify security, concurrency, persistence, time, network, and failure-recovery behavior explicitly.
 
-Read [references/engineering-decisions.md](references/engineering-decisions.md) when selecting test levels, diagnosing an uncertain failure, designing a risky change, or splitting work across parallel executors.
+Read [references/engineering-decisions.md](code-work.md#file-referencesengineering-decisionsmd) when selecting test levels, diagnosing an uncertain failure, designing a risky change, or splitting work across parallel executors.
 
 #### Implement in evidence-backed slices
 

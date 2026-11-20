@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Teach
 
@@ -33,12 +33,12 @@ Transform the current workspace into an interactive, stateful learning laborator
 
 | Component | Responsibility | File Location / Template |
 |---|---|---|
-| **Mission Anchor** | Core motivation and real-world goal | `MISSION.md` ([MISSION-FORMAT.md](MISSION-FORMAT.md)) |
+| **Mission Anchor** | Core motivation and real-world goal | `MISSION.md` ([MISSION-FORMAT.md](teach.md#file-mission-formatmd)) |
 | **Lesson Artifacts** | Interactive HTML lesson modules | `./lessons/000X-<slug>.html` |
 | **Reference Sheets** | Cheat sheets, syntax summaries, and glossaries | `./reference/*.html` |
 | **Learning Records** | Milestone reflections and conceptual breakthroughs | `./learning-records/000X-<slug>.md` |
 | **Shared Assets** | Typography, styles, and interactive quiz widgets | `./assets/*` |
-| **Primary Sources** | Vetted documentation and book references | `RESOURCES.md` ([RESOURCES-FORMAT.md](RESOURCES-FORMAT.md)) |
+| **Primary Sources** | Vetted documentation and book references | `RESOURCES.md` ([RESOURCES-FORMAT.md](teach.md#file-resources-formatmd)) |
 
 ---
 
@@ -229,7 +229,7 @@ When a later record contradicts an earlier one (the user's understanding deepene
 
 - **High-trust only.** Prefer primary sources, recognised experts, peer-reviewed work, and communities with strong moderation. If a resource is marketing dressed as education, leave it out.
 - **Annotate every entry.** A bare link is useless in three months. Add one line: what it covers and when to reach for it.
-- **Group by Knowledge / Wisdom.** Mirrors the philosophy in [SKILL.md](./SKILL.md). It is fine for a resource to appear in only one group.
+- **Group by Knowledge / Wisdom.** Mirrors the philosophy in [SKILL.md](teach.md). It is fine for a resource to appear in only one group.
 - **Surface gaps explicitly.** If no good resource exists for an area the mission needs, write a `## Gaps` section listing what is missing. This drives future search.
 - **Prune ruthlessly.** A resource that turned out to be wrong, shallow, or off-mission should be removed, not buried. Better five sharp sources than thirty mediocre ones.
 - **Record community preferences.** If the user has opted out of joining communities, note it here so future sessions don't keep proposing them.

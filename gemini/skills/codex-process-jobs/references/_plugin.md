@@ -552,7 +552,7 @@ unsupported POSIX controller. This is not a Windows port of CPJ process groups,
 IPC or completion delivery. Original controller code, attribution and license
 remain unchanged. No reboot/crash recovery is promised for host sessions.
 
-WinRecoveryProject maintenance revision **0.5.3-wrp.2** fixes Windows log-helper rotation. See [modification notice](WRP-MODIFICATIONS.md) for provenance, tested scope and platform limits.
+WinRecoveryProject maintenance revision **0.5.3-wrp.2** fixes Windows log-helper rotation. See [modification notice](_plugin.md#file-wrp-modificationsmd) for provenance, tested scope and platform limits.
 
 ## File: `SECURITY.md`
 

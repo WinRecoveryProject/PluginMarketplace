@@ -15,7 +15,7 @@ For OneDrive, discover the actual App tools and verify the account before access
 
 Historical local runtime and staging receipts describe separate experiments. Do not start, install or select CloudStorage Portal Local for current Portal workflows. Tool discovery, consent, live reads, live writes and refresh are separate verification checkpoints.
 
-Present one portal connection list with three providers: Dropbox, Google Drive and OneDrive. Record each provider's actual App or MCP route and readiness separately; a missing optional App declaration does not override a verified existing provider connection. Reuse authorized tools and never copy credentials between routes. Read [the broker contract](../cloudstorage-portal/references/oauth-broker.md) before designing a separate OAuth service.
+Present one portal connection list with three providers: Dropbox, Google Drive and OneDrive. Record each provider's actual App or MCP route and readiness separately; a missing optional App declaration does not override a verified existing provider connection. Reuse authorized tools and never copy credentials between routes. Read [the broker contract](cloudstorage-portal.md#file-referencesoauth-brokermd) before designing a separate OAuth service.
 
 1. Discover current tools and supported account selectors. Record provider, connection reference, observed immutable account ID, tenant if applicable, granted capabilities when observable, and verification evidence. Unknown values remain unknown.
 2. Report registration, adapter availability, consent, identity verification, read verification and write verification separately for each provider. Three-provider completion requires all three identities and intended operations to be verified.

@@ -71,8 +71,8 @@ Hvis værten ikke eksponerer Appen, forbliver App-ruten UNAVAILABLE. Pakken
 provisionerer ingen fallback og indeholder ingen MCP-server, endpoints, hooks,
 credentials, settings, netværksklient eller backendimplementering.
 
-Læs [skillen](skills/agentmemory-asus/SKILL.md), [proveniens](references/provenance.json),
-[privatliv](PRIVACY.md) og [vilkår](TERMS.md). MIT-licensen dækker kun disse egne
+Læs [skillen](agentmemory-asus.md), [proveniens](_plugin-references.md#file-referencesprovenancejson),
+[privatliv](_plugin.md#file-privacymd) og [vilkår](_plugin.md#file-termsmd). MIT-licensen dækker kun disse egne
 metadata, dokumenter, egne assets og workflow-instruktioner. Den giver ingen licens til den
 eksterne App, serverimplementering eller brugerdata.
 

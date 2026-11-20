@@ -12,7 +12,7 @@
 1. Locate the existing Vercel project and deployment. Choose the relevant guide section for runtime logs, Web Analytics, Speed Insights, OpenTelemetry or drains.
 2. Verify data sources, approved destinations and plan constraints. Use the connected App for project-scoped inspection.
 
-Read the relevant section of the [full guide](guide.md) before applying its examples.
+Read the relevant section of the [full guide](observability.md#file-guidemd) before applying its examples.
 
 ## Bundled files
 

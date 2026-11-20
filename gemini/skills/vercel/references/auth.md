@@ -12,7 +12,7 @@
 1. Identify the provider, target application and existing session or integration. Choose a supported flow for that provider.
 2. Review callback URLs, session handling and protected routes in the intended environment. Verify unauthenticated and authorized requests.
 
-Read the relevant section of the [full guide](guide.md) before applying its examples.
+Read the relevant section of the [full guide](auth.md#file-guidemd) before applying its examples.
 
 ## Bundled files
 

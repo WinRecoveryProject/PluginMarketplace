@@ -54,7 +54,7 @@ Version **0.3.33**. Independent Zilvereyes plugin with local creation, discovery
 
 All required skills, scripts, policies and references are bundled. Node 20+ and Python 3.10+ are host runtimes, not companion plugins. Optional Windows desktop commands use the already installed Windows PowerShell 5.1 and .NET components. No npm/pip install, npx, external plugin, App binding or MCP server is required. Model benchmarks use the user's existing Codex CLI and login; host terminal/browser capabilities are required for corresponding operations. Direct public lookups are explicit and bounded. No telemetry is added.
 
-Windows desktop capture, inspection and guarded mouse operations are integrated in the existing `automate-ui` workflow. Read [the local Desktop guide](references/windows-desktop.md). This is an alternative local backend; OpenAI's native Computer Use binary and existing App/OAuth connections are unchanged.
+Windows desktop capture, inspection and guarded mouse operations are integrated in the existing `automate-ui` workflow. Read [the local Desktop guide](_plugin-references.md#file-referenceswindows-desktopmd). This is an alternative local backend; OpenAI's native Computer Use binary and existing App/OAuth connections are unchanged.
 
 #### Start
 
@@ -101,9 +101,9 @@ node scripts/studio.mjs gpt-import authorized-export.json --out candidates
 
 Evidence input uses `asOf`, `freshWithinDays`, `skills`, and `evidence` records containing `skill`, `date`, `fact` and `source`. This measures evidence recency, not human competence or agent quality. Future dates do not establish recent evidence. The local module also supports adult user-controlled competency worksheets.
 
-Catalog input is a package root, supplied JSON snapshot or explicit public HTTPS URL. No links are automatically followed. Rankings and history are UNKNOWN unless supported by attributed observations. Local installation and global account permissions are distinct from manifest declarations. [Service contracts](src/services/README.md) describe exact fields and bounds.
+Catalog input is a package root, supplied JSON snapshot or explicit public HTTPS URL. No links are automatically followed. Rankings and history are UNKNOWN unless supported by attributed observations. Local installation and global account permissions are distinct from manifest declarations. [Service contracts](_plugin-src.md#file-srcservicesreadmemd) describe exact fields and bounds.
 
-Use the [version audit](references/inventory-versions.md) to capture and compare installed versions, public Git manifests and explicitly related vendor releases for one host and account. Add `--components <workspace>` to capture native App, skill and MCP discovery in the same attested scope.
+Use the [version audit](_plugin-references.md#file-referencesinventory-versionsmd) to capture and compare installed versions, public Git manifests and explicitly related vendor releases for one host and account. Add `--components <workspace>` to capture native App, skill and MCP discovery in the same attested scope.
 
 If an upgrade removed a skill path during the current turn, use the host's existing
 rediscovery rule and a new successful full CLI installed observation. The read-only
@@ -111,7 +111,7 @@ rediscovery rule and a new successful full CLI installed observation. The read-o
 cache root/skill; it never runs a command from input, picks the highest cache,
 restores a stale directory or changes settings/connections. Snapshot timestamps
 remain observations, not attested freshness or entitlement. Per-skill activation
-is separate. See [in-session cache recovery](references/installed-cache-resolution.md).
+is separate. See [in-session cache recovery](_plugin-references.md#file-referencesinstalled-cache-resolutionmd).
 
 GPT import accepts user-supplied text/configuration and previously authorized visible source content. No hidden GPT configuration, cookies, private browser profile or credentials are retrieved. Imported capability names do not activate tools. Batch import and GPT conversion create reviewable local candidates, never host installations. The compatible skill installer runs a bundled pre-install risk scan: preview includes findings, and active or incomplete scans block writing unless exact reviewed fingerprint/rule-version suppressions clear them.
 

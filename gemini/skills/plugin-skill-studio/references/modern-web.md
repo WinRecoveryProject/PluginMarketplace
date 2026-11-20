@@ -9,7 +9,7 @@
 
 ### Modern Web Guidance
 
-Read [Studio policy](../../references/studio-policy.md) and [the local web checklist](../../references/modern-web-checklist.md). This is an independently authored local workflow informed by the user's modern-web-guidance source. It does not require npx or an external skill.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) and [the local web checklist](_plugin-references.md#file-referencesmodern-web-checklistmd). This is an independently authored local workflow informed by the user's modern-web-guidance source. It does not require npx or an external skill.
 
 1. Identify the specific browser behavior and supported surfaces before changing UI. For server-side scripts or packaging, use the engineering workflow instead.
 2. Use semantic HTML, labelled controls, ordered headings, adequate contrast and keyboard-operable scrolling. Retain table headers and captions on narrow screens.

@@ -113,7 +113,7 @@ never a transport envelope, transcript, code or log. No acknowledgment/status ch
 host stop-hook circuit breaker. Neither writes state, scans histories or launches
 children. They can be tested/manually invoked without the source package. Hooks are
 deliberately not auto-registered: the current Coordinator's hooks may remain active.
-The migration owner can replace that registration with the [optional blueprint](hooks-blueprint.json)
+The migration owner can replace that registration with the [optional blueprint](_plugin-references.md#file-referenceshooks-blueprintjson)
 after disabling the old registration exactly once. Never activate both. No scheduler,
 observer, heartbeat, interpreter installation or in-place self-repair is introduced.
 
@@ -766,7 +766,7 @@ host service. No asynchronous work is started by selection or validation tests.
 
 ### Migration proposal: triggers only, connections preserved
 
-This document and [exact overlap rows](migration-plan.json) are proposals. The source
+This document and [exact overlap rows](_plugin-references.md#file-referencesmigration-planjson) are proposals. The source
 builder changes no installed plugin, config, marketplace, provider state or account.
 The integration owner performs the separately authorized migration after validation.
 
@@ -919,10 +919,10 @@ Run the project's formatter, linter, type checker, and test suite. Common tools 
 Load only the matching MIT-adapted platform page and confirm commands against the
 actual repository. No default command is proof of project configuration.
 
-- [JavaScript and TypeScript](platforms/javascript-typescript.md)
-- [Python](platforms/python.md)
-- [Flutter](platforms/flutter.md)
-- [Laravel and PHP](platforms/laravel-php.md)
+- [JavaScript and TypeScript](_plugin-references.md#file-referencesplatformsjavascript-typescriptmd)
+- [Python](_plugin-references.md#file-referencesplatformspythonmd)
+- [Flutter](_plugin-references.md#file-referencesplatformsfluttermd)
+- [Laravel and PHP](_plugin-references.md#file-referencesplatformslaravel-phpmd)
 
 These pages retain Codex Dev Workflows contributors' MIT copyright in the package's
 license notices. The shared execution policy controls scope, authorization and tools.
@@ -1128,7 +1128,7 @@ before independently calling any provider; the CLI never executes those operatio
 
 Codex Process Jobs: Windows uses host sessions; POSIX detached work may reuse the existing Apache-2.0 controller, with its own lifecycle and release boundary. No controller code or private job state is copied.
 
-Codex Tasks: discover the existing optional native App/provider at runtime. No fixed App ID or new connection is added. Environment discovery, selection, task creation, free quota and successful completion are independent observations. The installed Business provider exposes a ready managed configuration; this does not imply Personal availability or free remote execution. See [execution routes](execution.md).
+Codex Tasks: discover the existing optional native App/provider at runtime. No fixed App ID or new connection is added. Environment discovery, selection, task creation, free quota and successful completion are independent observations. The installed Business provider exposes a ready managed configuration; this does not imply Personal availability or free remote execution. See [execution routes](_plugin-references.md#file-referencesexecutionmd).
 
 ## File: `references/security-assessment.md`
 

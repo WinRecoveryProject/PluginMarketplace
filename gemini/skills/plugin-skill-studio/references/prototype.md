@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Prototype
 
@@ -98,7 +98,7 @@ Because it's one file with nothing to install, you can hand it to a non-develope
 - "I want to feel out what the API should look like before writing it."
 - Anything where someone wants to **press buttons and watch state change**.
 
-If the question is "what should this look like," this is the wrong branch. Use [UI.md](UI.md).
+If the question is "what should this look like," this is the wrong branch. Use [UI.md](prototype.md#file-uimd).
 
 ##### Process
 
@@ -142,7 +142,7 @@ Send them the file, or open it for them. They'll click through the walkthroughs 
 
 ###### 5. Capture the answer and the prototype
 
-Once the prototype has answered its question, capture the answer, then capture the prototype the way the [SKILL](SKILL.md) describes. The logic-specific mapping: the validated reducer / machine / function set lifts into the real module (the decision, absorbed); the HTML shell rides along to the throwaway branch that keeps the prototype as a primary source, and being one self-contained file, it stays trivially re-runnable there.
+Once the prototype has answered its question, capture the answer, then capture the prototype the way the [SKILL](prototype.md) describes. The logic-specific mapping: the validated reducer / machine / function set lifts into the real module (the decision, absorbed); the HTML shell rides along to the throwaway branch that keeps the prototype as a primary source, and being one self-contained file, it stays trivially re-runnable there.
 
 ##### Anti-patterns
 
@@ -159,7 +159,7 @@ Once the prototype has answered its question, capture the answer, then capture t
 
 Generate **several radically different UI variations** on a single route, switchable from a floating bottom bar. The user flips between variants in the browser, picks one (or steals bits from each), then throws the rest away.
 
-If the question is about logic/state rather than what something looks like, this is the wrong branch. Use [LOGIC.md](LOGIC.md).
+If the question is about logic/state rather than what something looks like, this is the wrong branch. Use [LOGIC.md](prototype.md#file-logicmd).
 
 ##### When this is the right shape
 
@@ -254,7 +254,7 @@ Surface the URL (and the `?variant=` keys). The user will flip through whenever 
 
 ###### 6. Capture the answer and clean up
 
-Once a variant has won, capture the answer (which variant and why), then capture the prototype the way the [SKILL](SKILL.md) describes. Fold the winner into the real code and move the rest onto the throwaway branch, not into main:
+Once a variant has won, capture the answer (which variant and why), then capture the prototype the way the [SKILL](prototype.md) describes. Fold the winner into the real code and move the rest onto the throwaway branch, not into main:
 
 - **Sub-shape A**: fold the winner into the existing page; drop the losing variants and the switcher from main.
 - **Sub-shape B**: promote the winning variant to a real route; drop the throwaway route and the switcher from main.

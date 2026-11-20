@@ -29,7 +29,7 @@ Bevar den eksisterende App og den separat installerede native AgentMemory-MCP-fo
 
 Budgettet er **0 kr**. Start ingen prøveperiode, køb ingen credits, og anvend ikke betalt LLM-sammenfatning, provisionering eller eksterne synkroniseringer uden verificeret inkluderet brug og den nødvendige bestilling. Gem eller udskriv aldrig passwords, tokens, OAuth-koder, API-nøgler, cookies, fulde miljøer eller auth-filer. Referér sikkert til eksisterende bindinger uden at kopiere hemmeligheder til hukommelse, rapporter eller pakken.
 
-Afslut med den faktisk anvendte rute, handlingens scope, observeret resultat og præcise begrænsninger. Statisk pakkevalidering, aktiv forbindelse, diagnose, søgning og verificeret skrivning er separate resultater. Se [pakken](../../README.md), [privatliv](../../PRIVACY.md) og [proveniens](../../references/provenance.json).
+Afslut med den faktisk anvendte rute, handlingens scope, observeret resultat og præcise begrænsninger. Statisk pakkevalidering, aktiv forbindelse, diagnose, søgning og verificeret skrivning er separate resultater. Se [pakken](_plugin.md#file-readmemd), [privatliv](_plugin.md#file-privacymd) og [proveniens](_plugin-references.md#file-referencesprovenancejson).
 
 ## Bundled files
 

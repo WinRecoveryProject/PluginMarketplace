@@ -1217,7 +1217,7 @@ Results contain redacted `findings` with rule/version, relative path, line/colum
 
 #### Installed and published versions
 
-The `inventory-versions` command compares one host and account receipt with verified Git manifest observations and optionally related provider catalog IDs. See the [version audit contract](../../references/inventory-versions.md) for capture and exit codes.
+The `inventory-versions` command compares one host and account receipt with verified Git manifest observations and optionally related provider catalog IDs. See the [version audit contract](_plugin-references.md#file-referencesinventory-versionsmd) for capture and exit codes.
 
 #### Exact installed-cache resolution
 
@@ -1241,7 +1241,7 @@ or current account authorization. The optional `{now}` JavaScript test clock is 
 a CLI request override. The resolver never executes an input command, invokes a
 host lookup, installs, restores cache content or changes settings. On ENOENT the
 calling host performs a new real read-only lookup, then retries once. See the
-[cache recovery contract](../../references/installed-cache-resolution.md) for limits.
+[cache recovery contract](_plugin-references.md#file-referencesinstalled-cache-resolutionmd) for limits.
 
 #### Catalogs
 

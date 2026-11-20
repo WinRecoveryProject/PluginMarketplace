@@ -118,7 +118,10 @@ export function collectPackages(base = root) {
     if (!statSync(dir).isDirectory()) continue;
     const manifest = readJson(join(dir, '.codex-plugin', 'plugin.json')) ?? readJson(join(dir, 'plugin.json')) ?? {};
     const files = walk(dir);
-    const skillFiles = files.filter(f => basename(f) === 'SKILL.md' && toPosix(relative(dir, f)).split('/').includes('skills'));
+    // Only <skills root>/<name>/SKILL.md are skills; nested SKILL.md files (e.g. test
+    // fixtures) stay supporting data of the skill or plugin that contains them.
+    const skillsRoot = resolve(dir, typeof manifest.skills === 'string' ? manifest.skills : './skills');
+    const skillFiles = files.filter(f => basename(f) === 'SKILL.md' && resolve(dirname(dirname(f))) === skillsRoot);
     const skills = skillFiles.map(skillFile => {
       const skillDir = dirname(skillFile);
       const {meta, body} = parseFrontmatter(readText(skillFile));
@@ -130,6 +133,7 @@ export function collectPackages(base = root) {
         dir: skillDir,
         rel: toPosix(relative(base, skillDir)),
         body,
+        file: skillFile,
         files: walk(skillDir).filter(f => f !== skillFile),
       };
     });
@@ -158,9 +162,54 @@ export function collectPackages(base = root) {
   return packages;
 }
 
+// ---------- links ----------
+
+// GitHub-style heading anchor.
+export function slug(heading) {
+  return heading.toLowerCase().replace(/[^\p{L}\p{N} _-]/gu, '').trim().replace(/ /g, '-');
+}
+
+const fileAnchor = rel => '#' + slug(`File: \`${rel}\``);
+
+// Large or binary files are only listed under "Not embedded", so link there instead.
+function anchorFor(file, rel) {
+  const kind = embedFile(file, dirname(file)).kind;
+  return kind === 'binary' || kind === 'large' ? '#not-embedded' : fileAnchor(rel);
+}
+
+// Rewrites relative Markdown links (outside fenced code) that point at files the
+// export embeds, so they resolve inside the uploaded Gemini folder. Links to
+// anything else are left unchanged; embedded file headings keep the original paths.
+export function rewriteLinks(markdown, sourceFile, linkMap) {
+  if (!linkMap) return markdown;
+  let inFence = null;
+  return markdown.split('\n').map(line => {
+    const m = /^\s*(`{3,}|~{3,})/.exec(line);
+    if (m) {
+      if (!inFence) inFence = m[1];
+      else if (m[1].startsWith(inFence[0]) && m[1].length >= inFence.length) inFence = null;
+      return line;
+    }
+    if (inFence) return line;
+    return line.replace(/(\]\()(<?)([^)\s>]+)(>?)((?:\s+"[^"]*")?\))/g, (all, open, lt, target, gt, close) => {
+      if (/^[a-z][a-z0-9+.-]*:/i.test(target) || target.startsWith('#') || target.startsWith('/')) return all;
+      const hash = target.indexOf('#');
+      const path = hash >= 0 ? target.slice(0, hash) : target;
+      const fragment = hash >= 0 ? target.slice(hash) : '';
+      let decoded;
+      try { decoded = decodeURI(path); } catch { decoded = path; }
+      const hit = linkMap.get(resolve(dirname(sourceFile), decoded));
+      if (!hit) return all;
+      const anchor = fragment && hit.markdown ? fragment : hit.anchor;
+      return `${open}${lt}${hit.ref}${anchor}${gt}${close}`;
+    });
+  }).join('\n');
+}
+
 // ---------- rendering ----------
 
 function embedFile(file, relBase) {
+  const abs = resolve(file);
   const rel = toPosix(relative(relBase, file));
   const ext = extname(file).toLowerCase();
   if (BINARY_EXT.has(ext)) return {kind: 'binary', rel};
@@ -168,11 +217,11 @@ function embedFile(file, relBase) {
   if (looksBinary(buf)) return {kind: 'binary', rel};
   if (buf.length > MAX_EMBED_BYTES) return {kind: 'large', rel, size: buf.length};
   const text = buf.toString('utf8').replace(/^\uFEFF/, '').replaceAll('\r\n', '\n');
-  if (ext === '.md') return {kind: 'markdown', rel, text};
+  if (ext === '.md') return {kind: 'markdown', rel, text, abs};
   return {kind: 'code', rel, text, lang: CODE_LANG[ext] ?? (basename(file).includes('.') ? 'text' : 'text')};
 }
 
-function renderEmbeds(embeds, headingLevel) {
+function renderEmbeds(embeds, headingLevel, linkMap) {
   const h = '#'.repeat(headingLevel);
   const parts = [];
   const skipped = [];
@@ -181,7 +230,7 @@ function renderEmbeds(embeds, headingLevel) {
     if (e.kind === 'large') { skipped.push(`- \`${e.rel}\` (${Math.round(e.size / 1024)} KB, too large to embed — read it in the repository)`); continue; }
     if (e.kind === 'markdown') {
       // Demote headings so they nest under the file heading.
-      const demoted = e.text.replace(/^(#{1,5}) /gm, (_, hs) => '#'.repeat(Math.min(6, hs.length + headingLevel)) + ' ');
+      const demoted = rewriteLinks(e.text, e.abs, linkMap).replace(/^(#{1,5}) /gm, (_, hs) => '#'.repeat(Math.min(6, hs.length + headingLevel)) + ' ');
       parts.push(`${h} File: \`${e.rel}\`\n\n${demoted.trim()}\n`);
     } else {
       const f = fence(e.text);
@@ -192,7 +241,7 @@ function renderEmbeds(embeds, headingLevel) {
   return parts.join('\n');
 }
 
-function renderSkillReference(pkg, skill) {
+function renderSkillReference(pkg, skill, linkMap) {
   const embeds = skill.files.map(f => embedFile(f, skill.dir));
   return [
     `# Skill: ${skill.name}`,
@@ -204,9 +253,9 @@ function renderSkillReference(pkg, skill) {
     '',
     '## Instructions',
     '',
-    skill.body.trim().replace(/^(#{1,5}) /gm, (_, hs) => '#'.repeat(Math.min(6, hs.length + 2)) + ' '),
+    rewriteLinks(skill.body.trim(), skill.file, linkMap).replace(/^(#{1,5}) /gm, (_, hs) => '#'.repeat(Math.min(6, hs.length + 2)) + ' '),
     '',
-    embeds.length ? '## Bundled files\n\n' + renderEmbeds(embeds, 3) : '',
+    embeds.length ? '## Bundled files\n\n' + renderEmbeds(embeds, 3, linkMap) : '',
   ].join('\n').replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';
 }
 
@@ -246,7 +295,8 @@ export const MAX_REFERENCE_BYTES = 256 * 1024;   // split plugin-level reference
 
 // Plugin-level files are grouped by their top-level folder (scripts, assets,
 // tests, ...) and split into parts so no single reference is too large to read.
-function renderPluginLevel(pkg) {
+// Planning uses the unrewritten sizes so link targets are known before rendering.
+function planPluginLevel(pkg) {
   const groups = new Map();
   for (const f of pkg.rootFiles) {
     const segs = toPosix(relative(pkg.dir, f)).split('/');
@@ -255,7 +305,7 @@ function renderPluginLevel(pkg) {
     groups.get(key).push(f);
   }
   if (!groups.has('')) groups.set('', []);
-  const out = new Map();
+  const plan = [];
   for (const key of [...groups.keys()].sort()) {
     const base = key ? `_plugin-${key}` : '_plugin';
     const title = key ? `${pkg.name} — \`${toPosix(relative(pkg.dir, groups.get(key)[0])).split('/')[0]}/\`` : `${pkg.name} — manifests and top-level files`;
@@ -263,21 +313,49 @@ function renderPluginLevel(pkg) {
     let current = [];
     let size = 0;
     for (const f of groups.get(key)) {
-      const piece = renderEmbeds([embedFile(f, pkg.dir)], 2);
-      const bytes = Buffer.byteLength(piece);
+      const bytes = Buffer.byteLength(renderEmbeds([embedFile(f, pkg.dir)], 2));
       if (current.length && size + bytes > MAX_REFERENCE_BYTES) { chunks.push(current); current = []; size = 0; }
-      current.push(piece);
+      current.push(f);
       size += bytes;
     }
     if (current.length || !chunks.length) chunks.push(current);
-    chunks.forEach((pieces, i) => {
+    chunks.forEach((files, i) => {
       const name = chunks.length > 1 ? `${base}-part${String(i + 1).padStart(2, "0")}` : base;
-      const header = [`# Plugin files: ${title}${chunks.length > 1 ? ` (part ${i + 1} of ${chunks.length})` : ''}`, '',
-        `Source: \`${pkg.rel}\`. Files outside the \`skills/*\` folders, embedded as text.`, ''];
-      out.set(`references/${name}.md`, (header.join('\n') + '\n' + (pieces.join('\n') || '_No files._')).replace(/\n{3,}/g, '\n\n').trimEnd() + '\n');
+      plan.push({name, title: `${title}${chunks.length > 1 ? ` (part ${i + 1} of ${chunks.length})` : ''}`, files});
     });
   }
+  return plan;
+}
+
+function renderPluginLevel(pkg, plan, linkMap) {
+  const out = new Map();
+  for (const {name, title, files} of plan) {
+    const pieces = files.map(f => renderEmbeds([embedFile(f, pkg.dir)], 2, linkMap));
+    const header = [`# Plugin files: ${title}`, '',
+      `Source: \`${pkg.rel}\`. Files outside the \`skills/*\` folders, embedded as text.`, ''];
+    out.set(`references/${name}.md`, (header.join('\n') + '\n' + (pieces.join('\n') || '_No files._')).replace(/\n{3,}/g, '\n\n').trimEnd() + '\n');
+  }
   return out;
+}
+
+// Maps every embedded source file (absolute path) to its exported reference and anchor.
+function buildLinkMap(pkg, plan) {
+  const map = new Map();
+  for (const s of pkg.skills) {
+    const ref = `${s.id}.md`;
+    map.set(resolve(s.dir), {ref, anchor: '', markdown: true});
+    map.set(resolve(s.file), {ref, anchor: '', markdown: true});
+    for (const f of s.files) {
+      const rel = toPosix(relative(s.dir, f));
+      map.set(resolve(f), {ref, anchor: anchorFor(f, rel), markdown: false});
+    }
+  }
+  for (const {name, files} of plan) {
+    for (const f of files) {
+      map.set(resolve(f), {ref: `${name}.md`, anchor: anchorFor(f, toPosix(relative(pkg.dir, f))), markdown: false});
+    }
+  }
+  return map;
 }
 
 function renderHub(packages) {
@@ -353,10 +431,12 @@ export function buildOutputs(packages) {
   files.set(`${HUB_NAME}/references/catalog.md`, renderCatalog(packages));
   files.set(`${HUB_NAME}/references/catalog.csv`, renderCatalogCsv(packages));
   for (const p of packages) {
-    const pluginLevel = renderPluginLevel(p);
+    const plan = planPluginLevel(p);
+    const linkMap = buildLinkMap(p, plan);
+    const pluginLevel = renderPluginLevel(p, plan, linkMap);
     files.set(`${p.name}/SKILL.md`, renderPluginSkill(p, [...pluginLevel.keys()]));
     for (const [rel, content] of pluginLevel) files.set(`${p.name}/${rel}`, content);
-    for (const s of p.skills) files.set(`${p.name}/references/${s.id}.md`, renderSkillReference(p, s));
+    for (const s of p.skills) files.set(`${p.name}/references/${s.id}.md`, renderSkillReference(p, s, linkMap));
   }
   return files;
 }

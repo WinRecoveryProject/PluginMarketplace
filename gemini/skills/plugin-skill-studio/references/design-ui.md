@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Design UI
 
@@ -96,7 +96,7 @@ not authorize framework, route, logic, or content changes.
 
 ##### 2. Commit to a direction
 
-Read [direction-plan.md](references/direction-plan.md) completely. Before code,
+Read [direction-plan.md](design-ui.md#file-referencesdirection-planmd) completely. Before code,
 record and critique concrete tokens, contrast, type roles, layout family,
 breakpoints, spacing ownership, desktop/mobile wireframes, ordered blocks,
 interactions, and one bounded signature element. Mark missing content rather
@@ -118,13 +118,13 @@ version-matched primary documentation.
   competition with the signature.
 
 When creating or changing interface text, read
-[ui-copy.md](references/ui-copy.md). Include labels and empty, error, loading,
+[ui-copy.md](design-ui.md#file-referencesui-copymd). Include labels and empty, error, loading,
 disabled, and success states; never invent evidence.
 
 ##### 4. Verify the render and behavior
 
 Before the first render, read
-[render-verification.md](references/render-verification.md) and freeze its
+[render-verification.md](design-ui.md#file-referencesrender-verificationmd) and freeze its
 checklist. Use the available browser automation at mobile, desktop, meaningful
 intermediate widths, and relevant non-happy states. Check content presence,
 layout, overflow, contrast, focus, keyboard and assistive semantics, motion,
@@ -357,7 +357,7 @@ Mark each pass, fail, or not-evaluated with a concrete note:
 - **responsive:** composition remains intentional at every captured width.
 - **content-integrity:** real content and preserved behavior were not silently changed or fabricated.
 - **distinctiveness:** the signature exists in the render and remains the memorable element; every named default-cluster tell retains its recorded reason.
-- **copy-quality:** actions keep one name, text is specific and active, and no fabricated evidence appears. Run [ui-copy.md](ui-copy.md) against the actual render.
+- **copy-quality:** actions keep one name, text is specific and active, and no fabricated evidence appears. Run [ui-copy.md](design-ui.md#file-referencesui-copymd) against the actual render.
 - **contrast:** every declared text role, perceptible boundary, and composited value passes against the rendered colors rather than only the planned tokens.
 
 Add motion, reduced-motion, theme-parity, loading-state, and image-fidelity checks only when the intent makes them relevant.

@@ -1,6 +1,6 @@
 ---
 name: plugin-eval
-description: "Plugin Eval: Evaluate Codex skills and plugins from chat with a beginner-friendly start command, local-first reports, token budget explanations, and guided benchmarking. Use when the user asks for minimal-plugin-skill, alpha, beta, evaluate-plugin, evaluate-skill, improve-skill, metric-pack-designer, plugin-eval work, or names the plugin-eval plugin."
+description: "Plugin Eval: Evaluate Codex skills and plugins from chat with a beginner-friendly start command, local-first reports, token budget explanations, and guided benchmarking. Use when the user asks for evaluate-plugin, evaluate-skill, improve-skill, metric-pack-designer, plugin-eval work, or names the plugin-eval plugin."
 ---
 
 # Plugin Eval
@@ -21,9 +21,6 @@ Ask Codex to evaluate a plugin or skill, give you a full analysis of a named plu
 
 | Skill | When to use | Reference |
 | --- | --- | --- |
-| `minimal-plugin-skill` | Minimal plugin skill fixture. Use when a test needs a valid plugin skill. | `references/minimal-plugin-skill.md` |
-| `alpha` | Alpha fixture skill. Use when plugin-eval tests need one of two bundled skills. | `references/alpha.md` |
-| `beta` | Beta fixture skill. Use when plugin-eval tests need the second bundled skill. | `references/beta.md` |
 | `evaluate-plugin` | Evaluate a local Codex plugin in engineer-friendly language. Use when the user says "evaluate this plugin", "audit this plugin", "why did this score that way", "what should I fix first", "help me benchmark this plugin", or asks for a plugin-wide report before comparing versions. | `references/evaluate-plugin.md` |
 | `evaluate-skill` | Evaluate a local Codex skill in engineer-friendly terms. Use when the user says "evaluate this skill", "give me an analysis of the game dev skill", "audit this skill", "why did this score that way", "what should I fix first", or asks for a skill-specific report before benchmarking it. | `references/evaluate-skill.md` |
 | `improve-skill` | Turn plugin-eval findings into a concrete rewrite brief for a Codex skill. Use when the user already evaluated a skill and now wants Codex to improve it, especially after asking what to fix first. | `references/improve-skill.md` |

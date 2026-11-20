@@ -40,7 +40,7 @@ The `vercel ai-gateway` command manages gateway resources for the current team. 
 | `models list` / `models endpoints <model>` | List the model catalog and one model's provider endpoints from the CLI |
 | `virtual-models create/list/inspect/update/delete/restore` | Manage reusable, team-scoped model configurations addressed as `vmc/<slug>`. `update` needs CLI 64.4+ and `delete` 64.6+; older CLIs use `edit` and `remove` |
 | `rules add/list/update/remove` | Manage routing rules; the CLI marks rules beta, so check `--help` before relying on them. `update` needs CLI 64.4+; older CLIs use `edit`. REST CRUD exists under `https://api.vercel.com/ai-gateway/rules` |
-| `setup` | Configure supported coding agents; see [references/coding-agents.md](references/coding-agents.md) |
+| `setup` | Configure supported coding agents; see [references/coding-agents.md](ai-gateway.md#file-referencescoding-agentsmd) |
 | `leaderboard` | Explore public, anonymized usage leaderboards; rarely needed for implementation work |
 
 Use the CLI for credential and spend management when the user is working from a terminal or in CI. Check `vercel ai-gateway <command> --help` for current flags before scripting; do not copy a flag list from this skill into generated code.
@@ -49,12 +49,12 @@ Use the CLI for credential and spend management when the user is working from a 
 
 | User's job | Read |
 | --- | --- |
-| Ask a coding agent to make one Gateway request, or handle first-request credentials, compatible SDKs, or migration | [references/setup.md](references/setup.md) |
-| Provider selection, model fallbacks, caching, BYOK, or timeouts | [references/routing.md](references/routing.md) |
-| Reusable model configuration, a `vmc/<slug>`, or provider options for a client that cannot send them | [references/virtual-models.md](references/virtual-models.md) |
-| Typed decisions (formerly evaluation) through AI SDK, the OpenAI-compatible `POST /v1/decisions`, the deprecated `POST /v1/evaluate`, or the TypeSafe-compatible API | [references/evaluation.md](references/evaluation.md) |
-| Credits, budgets, reporting, Logs, or request debugging | [references/spend-observability.md](references/spend-observability.md) |
-| Route Claude Code, Codex, OpenCode, Pi, or another coding agent's own model traffic through Gateway | [references/coding-agents.md](references/coding-agents.md) |
+| Ask a coding agent to make one Gateway request, or handle first-request credentials, compatible SDKs, or migration | [references/setup.md](ai-gateway.md#file-referencessetupmd) |
+| Provider selection, model fallbacks, caching, BYOK, or timeouts | [references/routing.md](ai-gateway.md#file-referencesroutingmd) |
+| Reusable model configuration, a `vmc/<slug>`, or provider options for a client that cannot send them | [references/virtual-models.md](ai-gateway.md#file-referencesvirtual-modelsmd) |
+| Typed decisions (formerly evaluation) through AI SDK, the OpenAI-compatible `POST /v1/decisions`, the deprecated `POST /v1/evaluate`, or the TypeSafe-compatible API | [references/evaluation.md](ai-gateway.md#file-referencesevaluationmd) |
+| Credits, budgets, reporting, Logs, or request debugging | [references/spend-observability.md](ai-gateway.md#file-referencesspend-observabilitymd) |
+| Route Claude Code, Codex, OpenCode, Pi, or another coding agent's own model traffic through Gateway | [references/coding-agents.md](ai-gateway.md#file-referencescoding-agentsmd) |
 
 Read each relevant reference before editing. A task can require more than one.
 
@@ -72,7 +72,7 @@ Read each relevant reference before editing. A task can require more than one.
 | Existing direct-provider AI SDK integration | Replace the provider instance with a live AI Gateway `provider/model` string, then remove provider credentials only after verifying the gateway path |
 | Coding agent | Use `vercel ai-gateway setup`; inspect its help before claiming agent support. Use a Virtual Model when the agent needs reusable routing or provider options it cannot send per request |
 
-AI Gateway also supports OpenAI Responses, Anthropic Messages, OpenResponses, Cohere Rerank, embeddings, image and video generation, speech, transcription, realtime sessions, and decisions (formerly evaluation). Modality pages under <https://vercel.com/docs/ai-gateway/modalities> cover each request shape, including background jobs for long-running video generation. Decisions are available through AI SDK (`experimental_decide` in `ai` 7.0.128+, or the deprecated `experimental_evaluate` alias on earlier AI SDK 7 releases), the OpenAI-compatible `POST /v1/decisions`, the deprecated `POST /v1/evaluate`, and a TypeSafe-compatible API under `/typesafe`; they are not available through Chat Completions, Responses, or the Anthropic- or Cohere-compatible endpoints. Read [references/evaluation.md](references/evaluation.md) before choosing a surface. Read the relevant modality or API page instead of translating one request shape from memory.
+AI Gateway also supports OpenAI Responses, Anthropic Messages, OpenResponses, Cohere Rerank, embeddings, image and video generation, speech, transcription, realtime sessions, and decisions (formerly evaluation). Modality pages under <https://vercel.com/docs/ai-gateway/modalities> cover each request shape, including background jobs for long-running video generation. Decisions are available through AI SDK (`experimental_decide` in `ai` 7.0.128+, or the deprecated `experimental_evaluate` alias on earlier AI SDK 7 releases), the OpenAI-compatible `POST /v1/decisions`, the deprecated `POST /v1/evaluate`, and a TypeSafe-compatible API under `/typesafe`; they are not available through Chat Completions, Responses, or the Anthropic- or Cohere-compatible endpoints. Read [references/evaluation.md](ai-gateway.md#file-referencesevaluationmd) before choosing a surface. Read the relevant modality or API page instead of translating one request shape from memory.
 
 #### Minimal AI SDK request
 
@@ -133,7 +133,7 @@ Only spend credits, create keys, change budgets, change routing rules, or write 
 - Request-scoped provider credentials belong under `providerOptions.gateway.byok` and must remain secret.
 - Virtual Model IDs use `vmc/<slug>`. A Virtual Model can pin routing and provider options server-side; settings it defines generally override the corresponding request settings, while unset settings remain request-configurable.
 
-Read [references/routing.md](references/routing.md) before adding any of these fields.
+Read [references/routing.md](ai-gateway.md#file-referencesroutingmd) before adding any of these fields.
 
 #### Verification checklist
 
@@ -216,14 +216,14 @@ CLI docs: <https://vercel.com/docs/cli/ai-gateway#setup>. Coding-agents guide: <
 
 ##### Custom configuration with Virtual Models
 
-Many coding agents let the user select a model ID but cannot send AI SDK `providerOptions`. Use a [Virtual Model](virtual-models.md) to move that configuration into AI Gateway:
+Many coding agents let the user select a model ID but cannot send AI SDK `providerOptions`. Use a [Virtual Model](ai-gateway.md#file-referencesvirtual-modelsmd) to move that configuration into AI Gateway:
 
 1. Run `vercel ai-gateway setup` to connect the agent and establish authentication.
 2. Create a Virtual Model with the base model, provider order or restriction, fallbacks, service tier, caching, compliance policy, observability tags, and provider-specific options the agent should use.
 3. Where the agent accepts a model ID, select or configure `vmc/<slug>`. Read the current per-agent page for its model-picker or config syntax; setup-generated shortlists may require a manual addition.
 4. Change the Virtual Model later to update new requests without rewriting every agent config.
 
-This is not the same as sending `providerOptions` from the agent. The agent sends only `vmc/<slug>`; AI Gateway applies the saved configuration server-side. If the agent can also send request options, the Virtual Model's configured values take precedence according to [the Virtual Models reference](virtual-models.md).
+This is not the same as sending `providerOptions` from the agent. The agent sends only `vmc/<slug>`; AI Gateway applies the saved configuration server-side. If the agent can also send request options, the Virtual Model's configured values take precedence according to [the Virtual Models reference](ai-gateway.md#file-referencesvirtual-modelsmd).
 
 ##### When the CLI does not cover an agent
 
@@ -672,7 +672,7 @@ To find models that satisfy a retention policy, use the `zdr` and `no_training` 
 
 `safetyIdentifier` in `providerOptions.gateway` sends an opaque per-end-user ID (at most 64 characters, hashed rather than personal information) so provider-side abuse action isolates one user instead of the team's whole traffic. AI Gateway forwards it as OpenAI's `safety_identifier` or Anthropic's `metadata.user_id`, and it follows provider and model fallbacks. Docs: <https://vercel.com/docs/ai-gateway/security-and-compliance/safety-identifiers>
 
-A Virtual Model saves a base model, routing, fallbacks, provider options, caching, service tier, compliance constraints, and observability tags under a team-scoped `vmc/<slug>`. Use it when configuration should be reusable or centrally editable, especially for coding agents and other clients that cannot send `providerOptions`. Virtual Models can be managed in the dashboard or with `vercel ai-gateway virtual-models`. Read [virtual-models.md](virtual-models.md) for precedence and coding-agent guidance.
+A Virtual Model saves a base model, routing, fallbacks, provider options, caching, service tier, compliance constraints, and observability tags under a team-scoped `vmc/<slug>`. Use it when configuration should be reusable or centrally editable, especially for coding agents and other clients that cannot send `providerOptions`. Virtual Models can be managed in the dashboard or with `vercel ai-gateway virtual-models`. Read [virtual-models.md](ai-gateway.md#file-referencesvirtual-modelsmd) for precedence and coding-agent guidance.
 
 Do not invent option names. Read the exact page for the requested policy:
 

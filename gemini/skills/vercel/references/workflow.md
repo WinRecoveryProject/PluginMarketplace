@@ -12,7 +12,7 @@
 1. Identify the workflow, steps, state transitions and required service account. Choose the relevant guide section for pauses, hooks, retries, observability or deployment.
 2. Verify the behavior at the specific transition and check the affected run. Keep model and infra usage within scope.
 
-Read the relevant section of the [full guide](guide.md) before applying its examples.
+Read the relevant section of the [full guide](workflow.md#file-guidemd) before applying its examples.
 
 ## Bundled files
 

@@ -9,7 +9,7 @@
 
 ### Local Plugin Management
 
-Read [Studio policy](../../references/studio-policy.md) first.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) first.
 
 Run `local-inventory <root>`. Keep source, candidate, cache, installed and unknown classifications separate. An App ID or permission declaration does not prove account enablement, actual access or current global permission state. Inspect local receipts and effective supported host state where available. Make local installation changes only within explicit scope; never uninstall a source or same-name package as cleanup. Global account controls need native user-visible host settings; no Plugin Management connector is bundled.
 
@@ -21,7 +21,7 @@ Use `node scripts/studio.mjs inventory-reconcile <input.json>` to reconcile data
 
 #### Compare installed and published versions
 
-Use the [version audit](../../references/inventory-versions.md) to collect a scoped receipt and compare exact installed versions with the observed Git manifests. Use explicit counterpart IDs for comparisons with another catalog. The command includes available releases so users can compare without reinstalling duplicates. For a managed release, use the optional installed-file verification to compare the active cache with the committed Marketplace SHA-256 ledger. A result on one host or scope does not verify another.
+Use the [version audit](_plugin-references.md#file-referencesinventory-versionsmd) to collect a scoped receipt and compare exact installed versions with the observed Git manifests. Use explicit counterpart IDs for comparisons with another catalog. The command includes available releases so users can compare without reinstalling duplicates. For a managed release, use the optional installed-file verification to compare the active cache with the committed Marketplace SHA-256 ledger. A result on one host or scope does not verify another.
 
 On a same-workspace comparison, pass the other host’s original capture as `--against <capture.json>`. Read `peerInstallation` for exact ID, version and activation differences. Review it alongside the current host’s publication status.
 
@@ -30,7 +30,7 @@ On a same-workspace comparison, pass the other host’s original capture as `--a
 If an injected skill path returns ENOENT after a plugin upgrade, follow the host's
 existing rediscovery rule and obtain a fresh successful full CLI installed lookup.
 Use `resolve-installed <request.json>` with the exact `name@namespace`, physical
-cache root and relative skill. Read [the recovery contract](../../references/installed-cache-resolution.md)
+cache root and relative skill. Read [the recovery contract](_plugin-references.md#file-referencesinstalled-cache-resolutionmd)
 for the observed snapshot envelope and bounded retry. The helper verifies the
 current exact manifest/path; it never runs commands from input, selects the highest
 cached version, restores an old cache, installs or changes settings/auth. Resolution

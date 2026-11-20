@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Requesting Code Review
 
@@ -49,7 +49,7 @@ PowerShell equivalents.
 
 #### Dispatch
 
-Fill [code-reviewer.md](code-reviewer.md) with:
+Fill [code-reviewer.md](requesting-code-review.md#file-code-reviewermd) with:
 
 - `[DESCRIPTION]`: concise summary of the completed work;
 - `[PLAN_OR_REQUIREMENTS]`: authoritative behavior and constraints;

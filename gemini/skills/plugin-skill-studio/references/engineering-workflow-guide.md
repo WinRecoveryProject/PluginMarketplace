@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Engineering Workflow Guide
 
@@ -54,10 +54,10 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
 
 | Router Reference | Responsibility | File Location |
 |---|---|---|
-| **Skill Catalog** | Exhaustive index of all 42 packaged skills | [references/catalog.md](references/catalog.md) |
-| **ChatGPT Routing Contract** | Runtime consumption & anti-hallucination protocol | [references/chatgpt-routing-contract.md](references/chatgpt-routing-contract.md) |
-| **Routing Matrix** | 100+ intent patterns, triggers, and exclusions | [references/routing-matrix.md](references/routing-matrix.md) |
-| **Phase Boundaries** | Decision tree for `/clear`, `/compact`, `/handoff`, and subagents | [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md) |
+| **Skill Catalog** | Exhaustive index of all 42 packaged skills | [references/catalog.md](engineering-workflow-guide.md#file-referencescatalogmd) |
+| **ChatGPT Routing Contract** | Runtime consumption & anti-hallucination protocol | [references/chatgpt-routing-contract.md](engineering-workflow-guide.md#file-referenceschatgpt-routing-contractmd) |
+| **Routing Matrix** | 100+ intent patterns, triggers, and exclusions | [references/routing-matrix.md](engineering-workflow-guide.md#file-referencesrouting-matrixmd) |
+| **Phase Boundaries** | Decision tree for `/clear`, `/compact`, `/handoff`, and subagents | [PHASE-BOUNDARIES.md](engineering-workflow-guide.md#file-phase-boundariesmd) |
 
 | Lifecycle Scenario | Canonical Route Pipeline |
 |---|---|

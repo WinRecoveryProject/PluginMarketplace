@@ -9,7 +9,7 @@
 
 ### Find the defect mechanism
 
-Read [the policy](../../references/policy.md) and [platform guidance](../../references/platforms.md). State expected versus actual behavior, affected version/environment, scope, frequency and reproducibility. Preserve sanitized logs, screenshots, error text and exact reproduction inputs. Diagnosis alone does not authorize source edits.
+Read [the policy](_plugin-references.md#file-referencespolicymd) and [platform guidance](_plugin-references.md#file-referencesplatformsmd). State expected versus actual behavior, affected version/environment, scope, frequency and reproducibility. Preserve sanitized logs, screenshots, error text and exact reproduction inputs. Diagnosis alone does not authorize source edits.
 
 Scope boundary: investigate the reported defect and paths sharing its demonstrated
 cause. Do not use this workflow for new feature design, broad code review, unrelated

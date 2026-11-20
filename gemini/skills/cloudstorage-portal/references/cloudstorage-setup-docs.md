@@ -15,11 +15,11 @@ Aktuel pakke: Portal bruger den eksisterende Dropbox MCP-forbindelse og de eksis
 
 #### Opslag
 
-- Første opsætning: [0 kr.-guiden](references/setup-guide.md).
-- Konti, pakker og OAuth-kontrakter: [arkitektur](references/architecture.md).
-- Fejlkoder og sammenhørende felter: [fejlfinding](references/troubleshooting.md).
-- Faktisk bevis og acceptance-tests: [verifikation](references/verification.md).
-- Officielle sites, kildegrundlag og deling: [kilder](references/sources.md).
+- Første opsætning: [0 kr.-guiden](cloudstorage-setup-docs.md#file-referencessetup-guidemd).
+- Konti, pakker og OAuth-kontrakter: [arkitektur](cloudstorage-setup-docs.md#file-referencesarchitecturemd).
+- Fejlkoder og sammenhørende felter: [fejlfinding](cloudstorage-setup-docs.md#file-referencestroubleshootingmd).
+- Faktisk bevis og acceptance-tests: [verifikation](cloudstorage-setup-docs.md#file-referencesverificationmd).
+- Officielle sites, kildegrundlag og deling: [kilder](cloudstorage-setup-docs.md#file-referencessourcesmd).
 
 #### Arbejdsform
 
@@ -54,7 +54,7 @@ interface:
 
 #### Arkitektur og konti
 
-Arkitekturkontrakt dokumenteret 2. november 2026 for runtime 0.3.2. Seneste dokumenterede personlige runtimekontrol: 0.3.4 den 16. november 2026; se [verifikation](verification.md). Versioner og kontroller nedenfor er dateret evidens.
+Arkitekturkontrakt dokumenteret 2. november 2026 for runtime 0.3.2. Seneste dokumenterede personlige runtimekontrol: 0.3.4 den 16. november 2026; se [verifikation](cloudstorage-setup-docs.md#file-referencesverificationmd). Versioner og kontroller nedenfor er dateret evidens.
 
 ##### Aktive dele
 

@@ -93,7 +93,7 @@ vercel logs --deployment <url>
 
 ##### When to Add a CI Pipeline
 
-The Git integration builds every push, posts preview URLs on pull requests, and deploys the production branch. Use CI for what Vercel does not run: tests, security scans, performance budgets, and approval gates. Gate releases on them with [Deployment Checks](references/deployment-checks.md) while Vercel keeps building. Deploy from CI only when the build must run in your runner, such as to keep source code off Vercel or for GitHub Enterprise Server.
+The Git integration builds every push, posts preview URLs on pull requests, and deploys the production branch. Use CI for what Vercel does not run: tests, security scans, performance budgets, and approval gates. Gate releases on them with [Deployment Checks](deployments-cicd.md#file-referencesdeployment-checksmd) while Vercel keeps building. Deploy from CI only when the build must run in your runner, such as to keep source code off Vercel or for GitHub Enterprise Server.
 
 ##### Required Environment Variables
 
@@ -143,16 +143,16 @@ jobs:
 
 | Task | Read |
 | --- | --- |
-| Post preview URLs on pull requests from GitHub Actions, or deploy from GitLab CI or Bitbucket Pipelines | [references/cli-pipelines.md](references/cli-pipelines.md) |
-| Let deployed functions reach AWS, GCP, or Vault without static secrets (OIDC federation) | [references/oidc-federation.md](references/oidc-federation.md) |
-| Deployment Checks, or testing protected deployments from CI | [references/deployment-checks.md](references/deployment-checks.md) |
-| Live status (MCP) | [references/live-status.md](references/live-status.md) |
+| Post preview URLs on pull requests from GitHub Actions, or deploy from GitLab CI or Bitbucket Pipelines | [references/cli-pipelines.md](deployments-cicd.md#file-referencescli-pipelinesmd) |
+| Let deployed functions reach AWS, GCP, or Vault without static secrets (OIDC federation) | [references/oidc-federation.md](deployments-cicd.md#file-referencesoidc-federationmd) |
+| Deployment Checks, or testing protected deployments from CI | [references/deployment-checks.md](deployments-cicd.md#file-referencesdeployment-checksmd) |
+| Live status (MCP) | [references/live-status.md](deployments-cicd.md#file-referenceslive-statusmd) |
 
 #### Common CI Patterns
 
 ##### Release Only Tested Builds
 
-With Git deployments, require [Deployment Checks](references/deployment-checks.md). When CI deploys with the CLI, stage a production deployment, test it, then promote that build:
+With Git deployments, require [Deployment Checks](deployments-cicd.md#file-referencesdeployment-checksmd). When CI deploys with the CLI, stage a production deployment, test it, then promote that build:
 
 ```yaml
 env:

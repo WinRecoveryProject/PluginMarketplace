@@ -19,21 +19,21 @@ Use the full provider workflows included in this package; do not limit the porta
 
 | Request | Packaged skill |
 | --- | --- |
-| Setup documentation, 0 kr. architecture, callbacks and matching credential fields | [cloudstorage-setup-docs](../cloudstorage-setup-docs/SKILL.md) |
-| Dropbox search | [find-dropbox-content](../find-dropbox-content/SKILL.md) |
-| Dropbox metadata and content | [inspect-dropbox-file](../inspect-dropbox-file/SKILL.md) |
-| Dropbox folders, copy, move and rename | [organize-dropbox-folder](../organize-dropbox-folder/SKILL.md) |
-| Dropbox sharing | [share-dropbox-content](../share-dropbox-content/SKILL.md) |
-| Save a file from this conversation to Dropbox | [upload-to-dropbox](../upload-to-dropbox/SKILL.md) |
-| Collect uploads from other people with a Dropbox file request | [collect-files-with-request](../collect-files-with-request/SKILL.md) |
-| Dropbox cleanup | [clean-up-dropbox-content](../clean-up-dropbox-content/SKILL.md) |
-| Google Drive files, folders, import, export and versions | [google-drive](../google-drive/SKILL.md) |
-| Google Docs | [google-docs](../google-docs/SKILL.md) |
-| Google Sheets | [google-sheets](../google-sheets/SKILL.md) |
-| Google Slides | [google-slides](../google-slides/SKILL.md) |
-| Google Drive comments | [google-drive-comments](../google-drive-comments/SKILL.md) |
-| Three-provider OAuth and connection setup | [cloudstorage-connections](../cloudstorage-connections/SKILL.md) |
-| OneDrive operations and adapter readiness | [onedrive](../onedrive/SKILL.md) |
+| Setup documentation, 0 kr. architecture, callbacks and matching credential fields | [cloudstorage-setup-docs](cloudstorage-setup-docs.md) |
+| Dropbox search | [find-dropbox-content](find-dropbox-content.md) |
+| Dropbox metadata and content | [inspect-dropbox-file](inspect-dropbox-file.md) |
+| Dropbox folders, copy, move and rename | [organize-dropbox-folder](organize-dropbox-folder.md) |
+| Dropbox sharing | [share-dropbox-content](share-dropbox-content.md) |
+| Save a file from this conversation to Dropbox | [upload-to-dropbox](upload-to-dropbox.md) |
+| Collect uploads from other people with a Dropbox file request | [collect-files-with-request](collect-files-with-request.md) |
+| Dropbox cleanup | [clean-up-dropbox-content](clean-up-dropbox-content.md) |
+| Google Drive files, folders, import, export and versions | [google-drive](google-drive.md) |
+| Google Docs | [google-docs](google-docs.md) |
+| Google Sheets | [google-sheets](google-sheets.md) |
+| Google Slides | [google-slides](google-slides.md) |
+| Google Drive comments | [google-drive-comments](google-drive-comments.md) |
+| Three-provider OAuth and connection setup | [cloudstorage-connections](cloudstorage-connections.md) |
+| OneDrive operations and adapter readiness | [onedrive](onedrive.md) |
 
 Skills contain workflows; executable tools, granted scopes and resource permissions determine actual access. Never report a copied skill as a newly granted permission. Provider tools remain provider-specific. Google Docs, Sheets and Slides operations have no automatic OneDrive or Dropbox equivalent.
 
@@ -102,7 +102,7 @@ Package copying and routing are verified separately from actual login. No new OA
 
 #### Unified OAuth broker contract
 
-Current implementation, 2 November 2026: CloudStorage Portal routes to the existing native Dropbox and Google Drive Apps and the registered personal OneDrive App. OneDrive uses the hosted OAuth broker at https://cloudstorage-onedrive-mcp.vercel.app/mcp, runtime 0.3.2, DCR and onedrive.read plus onedrive.write. Connected-account UI, identity, root listing and isolated read/write operations through the App route are live verified. Refresh is a separate pending checkpoint. CloudStorage Portal Local has been retired; do not install it or route through its sync-folder adapter. For the deployed contract and field mapping, read [architecture](../../cloudstorage-setup-docs/references/architecture.md) and [setup](../../cloudstorage-setup-docs/references/setup-guide.md).
+Current implementation, 2 November 2026: CloudStorage Portal routes to the existing native Dropbox and Google Drive Apps and the registered personal OneDrive App. OneDrive uses the hosted OAuth broker at https://cloudstorage-onedrive-mcp.vercel.app/mcp, runtime 0.3.2, DCR and onedrive.read plus onedrive.write. Connected-account UI, identity, root listing and isolated read/write operations through the App route are live verified. Refresh is a separate pending checkpoint. CloudStorage Portal Local has been retired; do not install it or route through its sync-folder adapter. For the deployed contract and field mapping, read [architecture](cloudstorage-setup-docs.md#file-referencesarchitecturemd) and [setup](cloudstorage-setup-docs.md#file-referencessetup-guidemd).
 
 The remaining sections are design requirements for a hypothetical independent multi-provider broker. They are not a description of the active Portal, and do not imply that native Google/Dropbox credentials can be extracted or reused. A broad multi-provider broker, persistent revocation and multi-instance replay protection are not proven by the OneDrive implementation.
 
@@ -185,8 +185,8 @@ historical evidence, not the active package or connection contract. The current
 Portal uses the existing provider Apps or MCP connections, including the hosted
 OneDrive App. It does not require a separate Local plugin, runtime or login.
 
-For current behavior, read the [Portal workflow](../SKILL.md) and
-[setup documentation](../../cloudstorage-setup-docs/SKILL.md). Verify current
+For current behavior, read the [Portal workflow](cloudstorage-portal.md) and
+[setup documentation](cloudstorage-setup-docs.md). Verify current
 account identity and actual file access independently of the archived results.
 
 ##### Archived implementation notes
@@ -199,7 +199,7 @@ Version 0.5.0 adds a sixth local MCP tool for relative subfolder metadata, plus 
 
 Version 0.4.0 uses the official MCP Server SDK 2.3.1 for the local runtime, including stdio transport, version handling, tool listing and tool calls. Five existing tools retain their operation boundaries and use strict argument schemas. The dependency lock and license texts are shipped. An actual 2025-06-18 stdio client exchange was tested against the SDK implementation; live cloud OAuth and host MCP installation are still pending. Historical implementation notes follow.
 
-Version 0.3.0 preserves all eleven imported provider skills and their support files, and adds a local OAuth prototype, five stdio MCP tools and an optional OneDrive sync-folder metadata adapter. The local adapter has been tested against the user's actual sync root. OAuth provider flows are implemented and tested with simulated responses; client registrations and live consent are still pending. There is no hosted deployment or automatic MCP installation. See [oauth-broker.md](oauth-broker.md), [onedrive-local-findings.md](onedrive-local-findings.md) and the [current Portal workflow](../SKILL.md) for the active contract. The retired runtime README is not distributed with the current package.
+Version 0.3.0 preserves all eleven imported provider skills and their support files, and adds a local OAuth prototype, five stdio MCP tools and an optional OneDrive sync-folder metadata adapter. The local adapter has been tested against the user's actual sync root. OAuth provider flows are implemented and tested with simulated responses; client registrations and live consent are still pending. There is no hosted deployment or automatic MCP installation. See [oauth-broker.md](cloudstorage-portal.md#file-referencesoauth-brokermd), [onedrive-local-findings.md](cloudstorage-portal.md#file-referencesonedrive-local-findingsmd) and the [current Portal workflow](cloudstorage-portal.md) for the active contract. The retired runtime README is not distributed with the current package.
 
 A future server must use a trusted per-user connection broker, not copied ChatGPT connector tokens. Store connection metadata separately from credentials. Identify connections by owner, provider, tenant (when applicable) and immutable provider subject; email is a display label. Bind each operation to a server-authorized connection. A requested account ID is not proof of access.
 
@@ -776,13 +776,13 @@ Acceptance checks: two Google accounts searched independently; account A failure
 
 ##### Current App routing
 
-CloudStorage Portal declares the existing Dropbox, Google Drive and OneDrive Apps in `.app.json`. The [OneDrive skill](../../onedrive/SKILL.md) uses the same hosted App as the OneDrive Marketplace package for Personal. Availability in Business depends on the tools and account binding exposed by that workspace. Discover the current provider tools and confirm the intended account before file access.
+CloudStorage Portal declares the existing Dropbox, Google Drive and OneDrive Apps in `.app.json`. The [OneDrive skill](onedrive.md) uses the same hosted App as the OneDrive Marketplace package for Personal. Availability in Business depends on the tools and account binding exposed by that workspace. Discover the current provider tools and confirm the intended account before file access.
 
 Run `node scripts/verify-provider-workflows.mjs . <provider-tool-catalog.json>` with the tool names observed on the current host. The catalog uses `dropbox.tools`, `googleDrive.tools` and `oneDrive.tools`. It checks the twelve imported Dropbox and Google workflows plus the hosted OneDrive requirements for identity, drive, search, folder listing and creation, exact metadata, reading, uploading, updating and content readback. A missing OneDrive catalog or required tool fails the check. Catalog results establish tool availability. A live account, operation and readback each require their own evidence.
 
 The Google Drive catalog check requires `get_profile` because workflows must confirm the active account when the connector exposes no account selector. Google has exposed schemas both with and without explicit `link_id` values. Use the current schema and confirm the active account before writes. Local OneDrive sync-folder access provides filesystem metadata only.
 
-Follow the [exact-child fallback](../../onedrive/SKILL.md#resolve-a-known-file-or-folder-after-an-empty-search) only with an already verified direct parent and a successful empty OneDrive search. Record search, full parent listing and exact item readback separately.
+Follow the [exact-child fallback](onedrive.md#resolve-a-known-file-or-folder-after-an-empty-search) only with an already verified direct parent and a successful empty OneDrive search. Record search, full parent listing and exact item readback separately.
 
 ##### Live verification contract
 
@@ -792,7 +792,7 @@ When errors occur, distinguish schema/argument binding, missing dispatch, provid
 
 ##### Historical observations
 
-The October 2026 local broker and SharePoint fallback predate the current hosted App routing. The [historical MCP record](../../../MCP-LIVE-PROOF.md) preserves those experiments, including the local broker restart failure. The observations below record the exact routes exercised at the time.
+The October 2026 local broker and SharePoint fallback predate the current hosted App routing. The [historical MCP record](_plugin.md#file-mcp-live-proofmd) preserves those experiments, including the local broker restart failure. The observations below record the exact routes exercised at the time.
 
 Authorized isolated test artifacts have demonstrated native provider folder creation/upload and content extraction on Dropbox, Google Drive and personal OneDrive. Google additionally demonstrated copy/move with parent readback, native Docs text conversion and revision-guarded insertion, native Sheets XLSX import and recalculation following an input edit, and native Slides PPTX import and revision-guarded text replacement. OneDrive demonstrated copy destination reconciliation and a same-drive move of the observed copy, followed by exact-item content readback.
 

@@ -7,7 +7,7 @@
 
 ## Instructions
 
-Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
+Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](_plugin-references.md#not-embedded); never load companion plugins.
 
 ### Test-Driven Development
 
@@ -63,7 +63,7 @@ change. If the next requirement needs new behavior, start another red cycle.
 #### Test integrity
 
 Before writing or changing a non-trivial test, read
-[writing-good-tests.md](writing-good-tests.md). In particular:
+[writing-good-tests.md](test-driven-development.md#file-writing-good-testsmd). In particular:
 
 - Name the production defect that would make the test fail.
 - Assert externally visible results, state, or calls at a real boundary rather

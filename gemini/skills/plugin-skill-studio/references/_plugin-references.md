@@ -221,7 +221,7 @@ node scripts/studio.mjs inventory-versions C:/private/acer-capture.json --agains
 
 `peerInstallation` shows installed IDs found on only one host and shared IDs with different installed versions or activation states. It includes packages outside the published Marketplace. It compares exact IDs and never treats cached directories, catalog availability or equivalent products as installations. It reports incomplete evidence and unverified differences separately, including when the other host lacks a full CLI observation for ordinary plugins or an attested native catalog for native plugins. A gap in Git or a vendor catalog does not invalidate independent installation evidence. `ALIGNED` means the captured installations, versions and activation states agree. The top-level status and exit code still refer to the current host's publication audit. Review both statuses. The peer section records both capture times so stale snapshots are visible. The comparison makes no installation changes.
 
-Run [installed path recovery](installed-cache-resolution.md) separately if a skill path fails. An old version-audit receipt cannot establish fresh path or account access. Use active host tests for login, tools and file operations.
+Run [installed path recovery](_plugin-references.md#file-referencesinstalled-cache-resolutionmd) separately if a skill path fails. An old version-audit receipt cannot establish fresh path or account access. Use active host tests for login, tools and file operations.
 
 ## File: `references/matt-skills-curated-LICENSE.txt`
 

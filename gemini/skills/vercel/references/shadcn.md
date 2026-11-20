@@ -12,7 +12,7 @@
 1. Inspect the project's existing components, package manager, Tailwind configuration and registry before changing dependencies.
 2. Use the matching guide section for initialization, components, registry, theming or accessibility. Verify the resulting state in the target UI.
 
-Read the relevant section of the [full guide](guide.md) before applying its examples.
+Read the relevant section of the [full guide](shadcn.md#file-guidemd) before applying its examples.
 
 ## Bundled files
 
