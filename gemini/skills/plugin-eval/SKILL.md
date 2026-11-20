@@ -7,6 +7,8 @@ description: "Plugin Eval: Evaluate Codex skills and plugins from chat with a be
 
 Gemini export of the `plugin-eval` plugin from WinRecoveryProject/PluginMarketplace, version `0.1.3`. Source: `plugins/plugin-eval`.
 
+> Installing this plugin from the Marketplace gets the upstream package `0.1.2` from https://github.com/openai/plugins (plugins/plugin-eval), not this local snapshot. Mention that difference when version-specific behaviour matters.
+
 Ask Codex to evaluate a plugin or skill, give you a full analysis of a named plugin such as game-studio, explain why it scored that way, show what to fix first, explain its token budget, measure real token usage, benchmark a plugin, or tell you what to run next. Plugin Eval keeps the path engineer-friendly: start with a natural chat request, then use the local `plugin-eval start` entrypoint or the routed workflow command it recommends.
 
 ## How to use this skill

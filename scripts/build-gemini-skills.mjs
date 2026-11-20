@@ -108,10 +108,27 @@ function readJson(file) {
 
 // ---------- model ----------
 
+// Where `codex plugin add <name>@winrecoveryproject-digital` installs from. A
+// git-subdir entry installs upstream, so plugins/<name> is only a local snapshot.
+export function describeSource(source, name) {
+  if (!source || source === `./plugins/${name}`) return {kind: 'local', label: `plugins/${name}`};
+  if (typeof source === 'string') return {kind: 'local', label: source.replace(/^\.\//, '')};
+  if (source.source === 'git-subdir') return {kind: 'upstream', label: `${source.url.replace(/\.git$/, '')} (${source.path})`};
+  return {kind: 'upstream', label: JSON.stringify(source)};
+}
+
+function versionNote(p) {
+  if (p.installSource?.kind !== 'upstream') return p.version ? `\`${p.version}\`` : '—';
+  const installed = p.installedVersion ? `\`${p.installedVersion}\` from upstream` : 'upstream';
+  return `${installed}; this export: snapshot \`${p.version || '?'}\``;
+}
+
 export function collectPackages(base = root) {
   const pluginsDir = join(base, 'plugins');
   const registry = readJson(join(base, '.agents', 'plugins', 'marketplace.json'));
   const registered = new Map((registry?.plugins ?? []).map(e => [e.name, e]));
+  const readme = existsSync(join(base, 'README.md')) ? readText(join(base, 'README.md')) : '';
+  const documented = new Map([...readme.matchAll(/^\|[^|]+\|\s*`([^`]+)`\s*\|\s*`codex plugin add ([a-z0-9-]+)@/gm)].map(m => [m[2], m[1]]));
   const packages = [];
   for (const name of readdirSync(pluginsDir).sort()) {
     const dir = join(pluginsDir, name);
@@ -153,6 +170,8 @@ export function collectPackages(base = root) {
       longDescription: clip(iface.longDescription || '', 2000),
       defaultPrompts: Array.isArray(iface.defaultPrompt) ? iface.defaultPrompt : [],
       registered: registered.has(name),
+      installSource: describeSource(registered.get(name)?.source, name),
+      installedVersion: documented.get(name) || '',
       dir,
       rel: toPosix(relative(base, dir)),
       skills,
@@ -274,7 +293,10 @@ function renderPluginSkill(pkg, pluginRefs) {
     `# ${pkg.displayName}`,
     '',
     `Gemini export of the \`${pkg.name}\` plugin from WinRecoveryProject/PluginMarketplace` +
-      `${pkg.version ? `, version \`${pkg.version}\`` : ''}. Source: \`${pkg.rel}\`.`,
+      `${pkg.version ? `, version \`${pkg.version}\`` : ''}. Source: \`${pkg.rel}\`.` +
+      (pkg.installSource?.kind === 'upstream'
+        ? `\n\n> Installing this plugin from the Marketplace gets the upstream package ${pkg.installedVersion ? `\`${pkg.installedVersion}\` ` : ''}from ${pkg.installSource.label}, not this local snapshot. Mention that difference when version-specific behaviour matters.`
+        : ''),
     '',
     pkg.longDescription ? pkg.longDescription + '\n' : '',
     '## How to use this skill',
@@ -360,7 +382,7 @@ function buildLinkMap(pkg, plan) {
 
 function renderHub(packages) {
   const skillCount = packages.reduce((n, p) => n + p.skills.length, 0);
-  const rows = packages.map(p => `| \`${p.name}\` | ${p.version ? `\`${p.version}\`` : '—'} | ${p.skills.length} | ${p.description.replaceAll('|', '\\|') || '—'} |`);
+  const rows = packages.map(p => `| \`${p.name}\` | ${versionNote(p)} | ${p.skills.length} | ${p.description.replaceAll('|', '\\|') || '—'} |`);
   return [
     '---',
     `name: ${HUB_NAME}`,
@@ -403,8 +425,9 @@ function renderCatalog(packages) {
   const parts = ['# Catalog: every plugin and skill', ''];
   for (const p of packages) {
     parts.push(`## ${p.displayName} (\`${p.name}\`)`, '');
-    parts.push(`- Version: ${p.version ? `\`${p.version}\`` : 'not stated'}`);
-    parts.push(`- Source: \`${p.rel}\``);
+    parts.push(`- Version: ${versionNote(p)}`);
+    parts.push(`- Installs from: ${p.installSource?.kind === 'upstream' ? p.installSource.label : `\`${p.rel}\` (this repository)`}`);
+    parts.push(`- Exported from: \`${p.rel}\``);
     parts.push(`- Gemini skill folder: \`gemini/skills/${p.name}/\``);
     if (p.description) parts.push(`- Purpose: ${p.description}`);
     parts.push('');
@@ -416,10 +439,10 @@ function renderCatalog(packages) {
 }
 
 function renderCatalogCsv(packages) {
-  const lines = ['plugin,plugin_version,skill,description,source_path,gemini_reference'];
+  const lines = ['plugin,plugin_version,installed_version,installs_from,skill,description,source_path,gemini_reference'];
   for (const p of packages) {
     for (const s of p.skills) {
-      lines.push([p.name, p.version, s.name, s.description, s.rel + '/SKILL.md', `gemini/skills/${p.name}/references/${s.id}.md`].map(csvCell).join(','));
+      lines.push([p.name, p.version, p.installedVersion || p.version, p.installSource?.kind === 'upstream' ? p.installSource.label : 'local', s.name, s.description, s.rel + '/SKILL.md', `gemini/skills/${p.name}/references/${s.id}.md`].map(csvCell).join(','));
     }
   }
   return lines.join('\n') + '\n';

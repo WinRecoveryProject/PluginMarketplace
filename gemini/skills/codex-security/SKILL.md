@@ -7,6 +7,8 @@ description: "Codex Security: Codex Security workflows for security scans, analy
 
 Gemini export of the `codex-security` plugin from WinRecoveryProject/PluginMarketplace, version `0.1.22`. Source: `plugins/codex-security`.
 
+> Installing this plugin from the Marketplace gets the upstream package `0.1.33` from https://github.com/openai/plugins (plugins/codex-security), not this local snapshot. Mention that difference when version-specific behaviour matters.
+
 Codex Security packages reusable workflows for security scans, analysis, validation, and investigation across code, diffs, and related artifacts.
 
 ## How to use this skill

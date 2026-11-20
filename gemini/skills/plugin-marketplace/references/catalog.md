@@ -3,7 +3,8 @@
 ## AgentMemory-ASUS (`agentmemory-asus`)
 
 - Version: `1.0.0`
-- Source: `plugins/agentmemory-asus`
+- Installs from: `plugins/agentmemory-asus` (this repository)
+- Exported from: `plugins/agentmemory-asus`
 - Gemini skill folder: `gemini/skills/agentmemory-asus/`
 - Purpose: Use the existing AgentMemory-ASUS App for scoped memory lookup, diagnostics and user-authorized memory changes.
 
@@ -12,7 +13,8 @@
 ## CloudStorage Portal (`cloudstorage-portal`)
 
 - Version: `0.9.14`
-- Source: `plugins/cloudstorage-portal`
+- Installs from: `plugins/cloudstorage-portal` (this repository)
+- Exported from: `plugins/cloudstorage-portal`
 - Gemini skill folder: `gemini/skills/cloudstorage-portal/`
 - Purpose: Coordinate Dropbox, Google Drive and OneDrive through existing authorized App or MCP connections and a unified skill layer.
 
@@ -36,7 +38,8 @@
 ## CodeRabbit (`coderabbit`)
 
 - Version: `1.1.7-wrp.1`
-- Source: `plugins/coderabbit`
+- Installs from: `plugins/coderabbit` (this repository)
+- Exported from: `plugins/coderabbit`
 - Gemini skill folder: `gemini/skills/coderabbit/`
 - Purpose: AI-powered code review in Codex, powered by CodeRabbit.
 
@@ -45,7 +48,8 @@
 ## Codex Coordinator (`codex-coordinator`)
 
 - Version: `0.4.0`
-- Source: `plugins/codex-coordinator`
+- Installs from: `plugins/codex-coordinator` (this repository)
+- Exported from: `plugins/codex-coordinator`
 - Gemini skill folder: `gemini/skills/codex-coordinator/`
 - Purpose: Coordinate parallel Codex tasks in one shared checkout with a small active-only boundary board.
 
@@ -54,7 +58,8 @@
 ## Codex Dev Workflows (`codex-dev-workflows`)
 
 - Version: `0.4.2`
-- Source: `plugins/codex-dev-workflows`
+- Installs from: `plugins/codex-dev-workflows` (this repository)
+- Exported from: `plugins/codex-dev-workflows`
 - Gemini skill folder: `gemini/skills/codex-dev-workflows/`
 - Purpose: Reusable software-development workflows and platform guidance for Codex.
 
@@ -74,7 +79,8 @@
 ## Codex Engineering Guardrails (`codex-engineering-guardrails`)
 
 - Version: `1.1.1`
-- Source: `plugins/codex-engineering-guardrails`
+- Installs from: `plugins/codex-engineering-guardrails` (this repository)
+- Exported from: `plugins/codex-engineering-guardrails`
 - Gemini skill folder: `gemini/skills/codex-engineering-guardrails/`
 - Purpose: Skills-only bundle for scoped software implementation and independent code verification in Codex.
 
@@ -84,7 +90,8 @@
 ## Codex Process Jobs (`codex-process-jobs`)
 
 - Version: `0.5.3-wrp.2`
-- Source: `plugins/codex-process-jobs`
+- Installs from: `plugins/codex-process-jobs` (this repository)
+- Exported from: `plugins/codex-process-jobs`
 - Gemini skill folder: `gemini/skills/codex-process-jobs/`
 - Purpose: Launch and manage durable, detached local process jobs from Codex.
 
@@ -97,8 +104,9 @@
 
 ## Codex Security (`codex-security`)
 
-- Version: `0.1.22`
-- Source: `plugins/codex-security`
+- Version: `0.1.33` from upstream; this export: snapshot `0.1.22`
+- Installs from: https://github.com/openai/plugins (plugins/codex-security)
+- Exported from: `plugins/codex-security`
 - Gemini skill folder: `gemini/skills/codex-security/`
 - Purpose: Codex Security workflows for security scans, analysis, and investigation.
 
@@ -120,7 +128,8 @@
 ## Component Forge (`component-forge`)
 
 - Version: `0.1.3`
-- Source: `plugins/component-forge`
+- Installs from: `plugins/component-forge` (this repository)
+- Exported from: `plugins/component-forge`
 - Gemini skill folder: `gemini/skills/component-forge/`
 - Purpose: Archive-first PowerShell component extraction, dependency contracts, composition and evidence-based documentation workflows.
 
@@ -130,7 +139,8 @@
 ## OneDrive (`onedrive`)
 
 - Version: `1.2.2`
-- Source: `plugins/onedrive`
+- Installs from: `plugins/onedrive` (this repository)
+- Exported from: `plugins/onedrive`
 - Gemini skill folder: `gemini/skills/onedrive/`
 - Purpose: OneDrive files through the existing registered App and its hosted CloudStorage Portal MCP connection.
 
@@ -139,8 +149,9 @@
 
 ## Plugin Eval (`plugin-eval`)
 
-- Version: `0.1.3`
-- Source: `plugins/plugin-eval`
+- Version: `0.1.2` from upstream; this export: snapshot `0.1.3`
+- Installs from: https://github.com/openai/plugins (plugins/plugin-eval)
+- Exported from: `plugins/plugin-eval`
 - Gemini skill folder: `gemini/skills/plugin-eval/`
 - Purpose: Evaluate Codex skills and plugins from chat with a beginner-friendly start command, local-first reports, token budget explanations, and guided benchmarking.
 
@@ -153,7 +164,8 @@
 ## Plugin-Skill-Studio (`plugin-skill-studio`)
 
 - Version: `0.3.33`
-- Source: `plugins/plugin-skill-studio`
+- Installs from: `plugins/plugin-skill-studio` (this repository)
+- Exported from: `plugins/plugin-skill-studio`
 - Gemini skill folder: `gemini/skills/plugin-skill-studio/`
 - Purpose: Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.
 
@@ -256,7 +268,8 @@
 ## PowerShell Workbench (`powershell-workbench`)
 
 - Version: `0.9.0-beta.6`
-- Source: `plugins/powershell-workbench`
+- Installs from: `plugins/powershell-workbench` (this repository)
+- Exported from: `plugins/powershell-workbench`
 - Gemini skill folder: `gemini/skills/powershell-workbench/`
 - Purpose: Portable PowerShell and mixed-language scaffolding, refactoring, discovery, agent harnesses, game tooling, and opt-in quality workflows.
 
@@ -297,7 +310,8 @@
 ## Vercel (`vercel`)
 
 - Version: `0.56.0-wrp.2`
-- Source: `plugins/vercel`
+- Installs from: `plugins/vercel` (this repository)
+- Exported from: `plugins/vercel`
 - Gemini skill folder: `gemini/skills/vercel/`
 - Purpose: Build and deploy web apps and agents
 
@@ -371,7 +385,8 @@
 ## Windows Dism Update Docs (`windows-dism-update-docs`)
 
 - Version: `0.1.4`
-- Source: `plugins/windows-dism-update-docs`
+- Installs from: `plugins/windows-dism-update-docs` (this repository)
+- Exported from: `plugins/windows-dism-update-docs`
 - Gemini skill folder: `gemini/skills/windows-dism-update-docs/`
 - Purpose: Local Windows servicing knowledge assistant for DISM, .NET, Defender, ESU and Home/Pro integration evidence.
 
@@ -380,7 +395,8 @@
 ## WinRecoveryProject DevSuite (`winrecoveryproject-devsuite`)
 
 - Version: `0.2.7`
-- Source: `plugins/winrecoveryproject-devsuite`
+- Installs from: `plugins/winrecoveryproject-devsuite` (this repository)
+- Exported from: `plugins/winrecoveryproject-devsuite`
 - Gemini skill folder: `gemini/skills/winrecoveryproject-devsuite/`
 - Purpose: One development toolkit for planning, coding, security, testing, local processes and registered Codex tasks.
 
@@ -402,7 +418,8 @@
 ## WinRecoveryProjectLinter (`winrecoveryproject-linter`)
 
 - Version: `0.1.6`
-- Source: `plugins/winrecoveryproject-linter`
+- Installs from: `plugins/winrecoveryproject-linter` (this repository)
+- Exported from: `plugins/winrecoveryproject-linter`
 - Gemini skill folder: `gemini/skills/winrecoveryproject-linter/`
 - Purpose: Local read-only linting for selected source types with visible coverage, pinned tools and no paid services.
 
@@ -412,7 +429,8 @@
 ## Zilvereyes Context Handoff (`zilvereyes-context-handoff`)
 
 - Version: `0.3.5+zilvereyes.1`
-- Source: `plugins/zilvereyes-context-handoff`
+- Installs from: `plugins/zilvereyes-context-handoff` (this repository)
+- Exported from: `plugins/zilvereyes-context-handoff`
 - Gemini skill folder: `gemini/skills/zilvereyes-context-handoff/`
 - Purpose: Zilvereyes Context Handoff: MIT-derived personal candidate with preserved provenance and evidence-led workflows.
 

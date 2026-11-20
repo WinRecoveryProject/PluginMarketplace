@@ -3,7 +3,7 @@ import test from 'node:test';
 import {mkdtempSync, mkdirSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join, dirname, extname} from 'node:path';
-import {parseFrontmatter, kebab, rewriteLinks, slug, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME} from './build-gemini-skills.mjs';
+import {parseFrontmatter, kebab, rewriteLinks, slug, describeSource, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME} from './build-gemini-skills.mjs';
 
 function fixture() {
   const base = mkdtempSync(join(tmpdir(), 'gemini-skills-'));
@@ -47,7 +47,7 @@ test('builds upload-ready folders with embedded sources', () => {
   assert.match(text, /assets\/icon\.png` \(binary asset, not embedded\)/);
 
   assert.match(files.get(`${HUB_NAME}/SKILL.md`), /1 plugins, 2 skills/);
-  assert.match(files.get(`${HUB_NAME}/references/catalog.csv`), /^plugin,plugin_version,skill/);
+  assert.match(files.get(`${HUB_NAME}/references/catalog.csv`), /^plugin,plugin_version,installed_version,installs_from,skill/);
 });
 
 test('rejects folders Gemini cannot load', () => {
@@ -74,4 +74,10 @@ test('rewrites relative links to exported references, leaving code, URLs and unk
   assert.match(other, /\[missing\]\(\.\.\/nope\.md\)/);
   assert.match(other, /\[kept\]\(\.\.\/do-thing\/SKILL\.md\)/);
   assert.equal(rewriteLinks('[a](b.md)', '/x/y.md', null), '[a](b.md)');
+});
+
+test('marks plugins the Marketplace installs from upstream', () => {
+  assert.deepEqual(describeSource('./plugins/x', 'x'), {kind: 'local', label: 'plugins/x'});
+  assert.deepEqual(describeSource({source: 'git-subdir', url: 'https://github.com/o/r.git', path: 'plugins/x'}, 'x'),
+    {kind: 'upstream', label: 'https://github.com/o/r (plugins/x)'});
 });
