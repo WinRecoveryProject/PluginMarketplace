@@ -940,7 +940,7 @@ The `--` separator is required before the command.
 
 ##### Contents
 
-- [Overview](#overview)
+- [Overview](#overview-1)
 - [Status](#status)
 - [Alerts](#alerts)
 - [Persistent Actions](#persistent-actions)
@@ -951,7 +951,7 @@ The `--` separator is required before the command.
 - [System Mitigations](#system-mitigations)
 - [Publishing](#publishing)
 - [Agent Usage](#agent-usage)
-- [Anti-Patterns](#anti-patterns)
+- [Anti-Patterns](#anti-patterns-2)
 
 ##### Overview
 
@@ -3608,18 +3608,18 @@ The `--` separator is required before the command.
 
 ##### Contents
 
-- [Overview](#overview)
-- [Status](#status)
-- [Alerts](#alerts)
-- [Persistent Actions](#persistent-actions)
-- [Custom Rules](#custom-rules)
-- [IP Blocks](#ip-blocks)
-- [System Bypass](#system-bypass)
-- [Attack Mode](#attack-mode)
-- [System Mitigations](#system-mitigations)
-- [Publishing](#publishing)
-- [Agent Usage](#agent-usage)
-- [Anti-Patterns](#anti-patterns)
+- [Overview](#overview-4)
+- [Status](#status-1)
+- [Alerts](#alerts-2)
+- [Persistent Actions](#persistent-actions-1)
+- [Custom Rules](#custom-rules-1)
+- [IP Blocks](#ip-blocks-1)
+- [System Bypass](#system-bypass-1)
+- [Attack Mode](#attack-mode-1)
+- [System Mitigations](#system-mitigations-1)
+- [Publishing](#publishing-1)
+- [Agent Usage](#agent-usage-1)
+- [Anti-Patterns](#anti-patterns-8)
 
 ##### Overview
 
@@ -3630,7 +3630,7 @@ vercel firewall diff                                  # show unpublished draft c
 vercel firewall diff --json                           # JSON diff
 ```
 
-`overview` renders the configuration block described under [Status](#status) and then adds the last 24 hours beneath it: requests by action, the busiest rules, and any alerts raised in that window. The activity section needs Observability Plus and a team scope; without either, the configuration block is reported on its own.
+`overview` renders the configuration block described under [Status](#status-1) and then adds the last 24 hours beneath it: requests by action, the busiest rules, and any alerts raised in that window. The activity section needs Observability Plus and a team scope; without either, the configuration block is reported on its own.
 
 ##### Status
 

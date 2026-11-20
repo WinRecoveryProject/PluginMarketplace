@@ -128,3 +128,15 @@ test('--out resolves symlinked ancestors before the overlap check', () => {
   assert.ok(unsafeOutputDir(join(alias, 'new', 'deeper'), base));
   assert.equal(physicalPath(join(alias, 'gemini', 'x')), join(realpathSync(base), 'gemini', 'x'));
 });
+
+test('fragment-only links resolve inside their own merged file', () => {
+  const base = fixture();
+  const put = (rel, content) => { const f = join(base, rel); mkdirSync(dirname(f), {recursive: true}); writeFileSync(f, content); };
+  put('plugins/demo-plugin/references/a.md', '# A\n\n## Overview\n\nSee [top](#overview).\n');
+  put('plugins/demo-plugin/references/b.md', '# B\n\n## Overview\n\nSee [top](#overview).\n\n```md\n[kept](#overview)\n```\n');
+  const ref = buildOutputs(collectPackages(base)).get('demo-plugin/references/_plugin-references.md');
+  const links = [...ref.matchAll(/\[top\]\((#[^)]+)\)/g)].map(m => m[1]);
+  assert.deepEqual(links, ['#overview', '#overview-1']);
+  assert.match(ref, /\[kept\]\(#overview\)/);
+  assert.ok(!ref.includes('@@FRAG'));
+});

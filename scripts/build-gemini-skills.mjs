@@ -223,15 +223,59 @@ export function headingAnchors(markdown) {
 
 // Replace `<ref>#@@FILE:<rel>@@` placeholders in one plugin's outputs with the
 // anchor the file heading really gets in <ref>.
+// Per section ('' before the first `File:` heading, else that file's path): the
+// final anchor of each heading slug, so a fragment resolves inside its own file.
+export function sectionAnchors(markdown) {
+  const counts = new Map();
+  const sections = new Map([['', new Map()]]);
+  let current = '';
+  let inFence = null;
+  for (const line of markdown.split('\n')) {
+    const f = /^\s*(`{3,}|~{3,})/.exec(line);
+    if (f) {
+      if (!inFence) inFence = f[1];
+      else if (f[1][0] === inFence[0] && f[1].length >= inFence.length) inFence = null;
+      continue;
+    }
+    if (inFence) continue;
+    const h = /^#{1,6} (.*)$/.exec(line);
+    if (!h) continue;
+    const base = slug(h[1]);
+    const n = counts.get(base) ?? 0;
+    counts.set(base, n + 1);
+    const final = n ? `${base}-${n}` : base;
+    const file = /^File: `(.+)`$/.exec(h[1]);
+    if (file) {
+      current = file[1];
+      if (!sections.has(current)) sections.set(current, new Map());
+    }
+    const map = sections.get(current);
+    if (!map.has(base)) map.set(base, final);
+  }
+  return sections;
+}
+
 function resolveAnchors(outputs) {
   const anchors = new Map();
-  for (const [name, content] of outputs) anchors.set(name.split('/').pop(), headingAnchors(content));
+  const sections = new Map();
+  for (const [name, content] of outputs) {
+    const file = name.split('/').pop();
+    anchors.set(file, headingAnchors(content));
+    sections.set(file, sectionAnchors(content));
+  }
   const out = new Map();
   for (const [name, content] of outputs) {
-    out.set(name, content.replace(/([A-Za-z0-9_.-]+\.md)#@@FILE:(.+?)@@/g, (all, ref, rel) => {
-      const a = anchors.get(ref)?.get(`File: \`${rel}\``);
-      return a ? `${ref}#${a}` : ref;
-    }));
+    const self = name.split('/').pop();
+    out.set(name, content
+      .replace(/([A-Za-z0-9_.-]+\.md)#@@FILE:(.+?)@@/g, (all, ref, rel) => {
+        const a = anchors.get(ref)?.get(`File: \`${rel}\``);
+        return a ? `${ref}#${a}` : ref;
+      })
+      .replace(/([A-Za-z0-9_.-]+\.md)?#@@FRAG:([^|@]*)\|(.+?)@@/g, (all, ref, section, frag) => {
+        const target = ref || self;
+        const scoped = sections.get(target)?.get(section)?.get(slug(frag)) ?? sections.get(target)?.get(section)?.get(frag.toLowerCase());
+        return `${ref || ''}#${scoped ?? frag}`;
+      }));
   }
   return out;
 }
@@ -239,7 +283,10 @@ function resolveAnchors(outputs) {
 // Rewrites relative Markdown links (outside fenced code) that point at files the
 // export embeds, so they resolve inside the uploaded Gemini folder. Links to
 // anything else are left unchanged; embedded file headings keep the original paths.
-export function rewriteLinks(markdown, sourceFile, linkMap) {
+// `section` names the part of the merged reference this text lands in: '' for a
+// skill's own instructions, or the `File:` path of an embedded file. Fragment-only
+// links (#x) become placeholders scoped to that section, resolved after rendering.
+export function rewriteLinks(markdown, sourceFile, linkMap, section = null) {
   if (!linkMap) return markdown;
   let inFence = null;
   return markdown.split('\n').map(line => {
@@ -251,6 +298,9 @@ export function rewriteLinks(markdown, sourceFile, linkMap) {
     }
     if (inFence) return line;
     return line.replace(/(\]\()(<?)([^)\s>]+)(>?)((?:\s+"[^"]*")?\))/g, (all, open, lt, target, gt, close) => {
+      if (target.startsWith('#') && section !== null && target.length > 1) {
+        return `${open}${lt}#@@FRAG:${section}|${target.slice(1)}@@${gt}${close}`;
+      }
       if (/^[a-z][a-z0-9+.-]*:/i.test(target) || target.startsWith('#') || target.startsWith('/')) return all;
       const hash = target.indexOf('#');
       const path = hash >= 0 ? target.slice(0, hash) : target;
@@ -259,7 +309,8 @@ export function rewriteLinks(markdown, sourceFile, linkMap) {
       try { decoded = decodeURI(path); } catch { decoded = path; }
       const hit = linkMap.get(resolve(dirname(sourceFile), decoded));
       if (!hit) return all;
-      const anchor = fragment && hit.markdown ? fragment : hit.anchor;
+      // A fragment into a skill's instructions is scoped to that skill's own section.
+      const anchor = fragment && hit.markdown ? `#@@FRAG:|${fragment.slice(1)}@@` : hit.anchor;
       return `${open}${lt}${hit.ref}${anchor}${gt}${close}`;
     });
   }).join('\n');
@@ -305,7 +356,7 @@ function renderEmbeds(embeds, headingLevel, linkMap) {
     if (e.kind === 'large') { parts.push(`${h} File: \`${e.rel}\`\n\n_${Math.round(e.size / 1024)} KB, too large to embed. Read it in the repository._\n`); continue; }
     if (e.kind === 'markdown') {
       // Demote headings so they nest under the file heading.
-      const demoted = demoteHeadings(rewriteLinks(e.text, e.abs, linkMap), headingLevel);
+      const demoted = demoteHeadings(rewriteLinks(e.text, e.abs, linkMap, e.rel), headingLevel);
       parts.push(`${h} File: \`${e.rel}\`\n\n${demoted.trim()}\n`);
     } else {
       const f = fence(e.text);
@@ -328,7 +379,7 @@ function renderSkillReference(pkg, skill, linkMap) {
     '',
     '## Instructions',
     '',
-    demoteHeadings(rewriteLinks(skill.body.trim(), skill.file, linkMap), 2),
+    demoteHeadings(rewriteLinks(skill.body.trim(), skill.file, linkMap, ''), 2),
     '',
     embeds.length ? '## Bundled files\n\n' + renderEmbeds(embeds, 3, linkMap) : '',
   ].join('\n').replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';

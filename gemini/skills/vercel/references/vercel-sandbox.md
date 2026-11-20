@@ -2424,7 +2424,7 @@ await sandbox.runCommand({
 ```
 
 This is fine for one-offs. For reproducible dependencies or a different base
-environment, use a [custom image](#from-a-custom-image-vcr) instead.
+environment, use a [custom image](#from-a-custom-image-vcr-1) instead.
 
 ##### CLI Quick Reference
 

@@ -341,16 +341,16 @@ Vercel Flags is Vercel's feature flags platform. Flags are created and managed i
 - Docs: https://vercel.com/docs/flags
 - CLI reference: https://vercel.com/docs/cli/flags
 
-Use this skill to decide how a feature should be flagged, to create and change flags, and to run rollouts and experiments. Write app code with the skill that matches the stack (see [Choose an approach](#choose-an-approach)). Do not leave CLI steps as "next steps" for the user; execute them yourself.
+Use this skill to decide how a feature should be flagged, to create and change flags, and to run rollouts and experiments. Write app code with the skill that matches the stack (see [Choose an approach](#choose-an-approach-1)). Do not leave CLI steps as "next steps" for the user; execute them yourself.
 
 ##### Route the request
 
-- **Planning** ("put this behind a flag", "roll this out to 10%", "A/B test the pricing page", "add a kill switch"): follow [Plan a flag](#plan-a-flag), then [Choose an approach](#choose-an-approach).
-- **Create or manage a flag with no code change** (create, inspect, enable, set, split, rollout, rules, archive): follow [Manage flags with the CLI](#manage-flags-with-the-cli). This needs an authenticated CLI, not SDK packages, Toolbar, Flags Explorer, or `.env.local` (except `vercel flags override`, which reads `FLAGS_SECRET`).
+- **Planning** ("put this behind a flag", "roll this out to 10%", "A/B test the pricing page", "add a kill switch"): follow [Plan a flag](#plan-a-flag-1), then [Choose an approach](#choose-an-approach-1).
+- **Create or manage a flag with no code change** (create, inspect, enable, set, split, rollout, rules, archive): follow [Manage flags with the CLI](#manage-flags-with-the-cli-1). This needs an authenticated CLI, not SDK packages, Toolbar, Flags Explorer, or `.env.local` (except `vercel flags override`, which reads `FLAGS_SECRET`).
 - **Share flags between projects**: follow [Project Connections](vercel-flags.md#file-upstreamreferencesclimd) to connect projects in the same team, then configure the consumer application.
 - **Clean up or remove a flag** ("remove this flag", "clean up stale flags", "inline this flag"): follow [references/cleanup.md](vercel-flags.md#file-upstreamreferencescleanupmd), then [Lifecycle and safety](vercel-flags.md#file-upstreamreferencesclimd) before archiving.
 - **Add a flag to an app that already uses the Flags SDK** (`flags` in `package.json`): load the `flags-sdk` skill right away; it creates the flag on Vercel and declares it in code.
-- **Implement in code otherwise**: follow [Choose an approach](#choose-an-approach) and load the matching skill or reference. Inside an app repository, treat an ambiguous request as plan, create, and implement.
+- **Implement in code otherwise**: follow [Choose an approach](#choose-an-approach-1) and load the matching skill or reference. Inside an app repository, treat an ambiguous request as plan, create, and implement.
 
 ##### Choose an approach
 
@@ -359,7 +359,7 @@ Check the project before writing code.
 - **Already using another flag provider** (Statsig, LaunchDarkly, PostHog, GrowthBook, and so on): keep it. On Next.js or SvelteKit, the Flags SDK connects to it through an adapter; load the `flags-sdk` skill. On any other stack, use the provider's own SDK. Rollouts, targeting, and experiments for that provider are configured in its own dashboard, not with `vercel flags`; the CLI and lifecycle sections of this skill do not apply.
 - **No provider yet**: use Vercel Flags. Pick the integration by stack ([SDKs](https://vercel.com/docs/flags/vercel-flags/sdks)):
   - **Next.js or SvelteKit**: the Flags SDK (`flags` + `@flags-sdk/vercel`). It adds Flags Explorer integration and precompute for static pages. Load the `flags-sdk` skill. If it is not available, suggest `npx skills add vercel/flags@flags-sdk` (do not auto-install).
-  - **Any other framework or a plain server** (for example Express): `@vercel/flags-core`. See [Other frameworks](#other-frameworks).
+  - **Any other framework or a plain server** (for example Express): `@vercel/flags-core`. See [Other frameworks](#other-frameworks-1).
   - **The user wants provider portability or already uses OpenFeature**: the Vercel Flags OpenFeature provider ([Using OpenFeature with Vercel Flags](https://vercel.com/docs/flags/vercel-flags/sdks/openfeature)).
 
 The dashboard and the `vercel flags` CLI work the same for every integration.
@@ -504,7 +504,7 @@ Open it as a draft. Use the repository's PR template and title conventions when 
 
 - A link to the flag in the Vercel dashboard: `https://vercel.com/<team-slug>/<project-name>/flag/<key>`, with the team slug and project name, not their IDs.
 - The inlined value and why it was chosen.
-- The evidence gathered and any gaps from [When to stop](#when-to-stop).
+- The evidence gathered and any gaps from [When to stop](#when-to-stop-1).
 - The checks run and their results, including any that could not run.
 - The next steps: deploy to every environment, verify no evaluations, then archive ([cli.md — Lifecycle and safety](vercel-flags.md#file-upstreamreferencesclimd)).
 
@@ -525,7 +525,7 @@ For the current subcommand list and options, run `vercel flags --help` or `verce
 - **Targeting attributes**: `split`, `rollout`, and `rules add` take `--by <entity>.<attribute>` (and `--condition <entity>.<attribute>:<op>:<value>`). Define the entity and attribute under Flags → Entities first, and return the same names from the app's evaluation context; the docs use a `User` entity with an `id` attribute and `--by user.id` ([Roll out a feature](https://vercel.com/docs/flags/vercel-flags/cli/roll-out-feature), [Entities](https://vercel.com/docs/flags/vercel-flags/dashboard/entities)). When the attribute is missing from the context, a split or rollout serves its fallback variant (`--default-variant` in the CLI) and a rule that references it is skipped. Verify with `evaluations`.
 - **Attribute types**: each attribute is a String, Number, Boolean, String Array, or Timestamp, and the app must send a matching value ([Entities](https://vercel.com/docs/flags/vercel-flags/dashboard/entities)). Timestamp is a Unix epoch in milliseconds as a number. How to return each type from `identify()`, including a deduped `Date.now()` for release-at-a-time rules, is in the `flags-sdk` skill's provider reference (Attribute types).
 - **Timestamp conditions**: for Timestamp attributes, `--condition` accepts `gt`, `lt`, `gte`, `lte` or the aliases `after`, `before`, `at-or-after`, `at-or-before` with an ISO 8601 date-time or epoch milliseconds, for example `--condition system.time:at-or-after:2026-04-16T09:00:00Z`. `after` and `before` are exclusive; other operators are rejected. A date-time without a timezone uses the machine's local timezone, so include `Z` or an offset. `--by` rejects Timestamp attributes.
-- **Authentication**: on Vercel, the app authenticates with the project's OIDC token and uses the configuration of the current environment; `vercel env pull` brings that credential to `.env.local` for local development. For another same-team project's flags, use [Project Connections](#project-connections) with the consumer project's OIDC token. SDK keys (`FLAGS`) are for manual authentication: apps outside Vercel, selecting an environment explicitly, or reading flags across teams. Each SDK key is scoped to one environment and its full value is shown once, at creation ([Getting started](https://vercel.com/docs/flags/vercel-flags/quickstart#pull-local-openid-connect-credentials), [SDK Keys](https://vercel.com/docs/flags/vercel-flags/dashboard/sdk-keys)).
+- **Authentication**: on Vercel, the app authenticates with the project's OIDC token and uses the configuration of the current environment; `vercel env pull` brings that credential to `.env.local` for local development. For another same-team project's flags, use [Project Connections](#project-connections-1) with the consumer project's OIDC token. SDK keys (`FLAGS`) are for manual authentication: apps outside Vercel, selecting an environment explicitly, or reading flags across teams. Each SDK key is scoped to one environment and its full value is shown once, at creation ([Getting started](https://vercel.com/docs/flags/vercel-flags/quickstart#pull-local-openid-connect-credentials), [SDK Keys](https://vercel.com/docs/flags/vercel-flags/dashboard/sdk-keys)).
 - **Overrides**: Flags Explorer stores overrides in a cookie signed with `FLAGS_SECRET`; flags declared with the Flags SDK honour it automatically ([Handling overrides](https://vercel.com/docs/flags/flags-explorer/getting-started#handling-overrides)). `vercel flags override <key>=<value>` produces the same token for the `vercel-flag-overrides` cookie and reads `FLAGS_SECRET` from the environment or `.env.local`, so use the secret of the environment you test against (see [Credentials](../SKILL.md#credentials)).
 - **Embedded definitions**: Vercel builds fetch the flag definitions once and bundle them into the deployment when the project uses `@flags-sdk/vercel` or `@vercel/flags-core` and the build can authenticate. This keeps every function on one snapshot and serves as the runtime fallback when the service is unreachable; opt out with `VERCEL_FLAGS_DISABLE_DEFINITION_EMBEDDING=1` ([Embedded definitions](https://vercel.com/docs/flags/vercel-flags/sdks/core#embedded-definitions)). `vercel flags prepare` is the same step for builds that run outside Vercel.
 
