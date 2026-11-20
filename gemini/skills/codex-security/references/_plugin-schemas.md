@@ -6,34 +6,14 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
 
 ```json
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openai.com/codex-security/schemas/coverage.schema.json",
   "title": "Codex Security scan coverage",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "required": [
-    "documentType",
-    "schemaVersion",
-    "scanId",
-    "mode",
-    "completeness",
-    "inventoryStrategy",
-    "includePaths",
-    "excludePaths",
-    "surfaces",
-    "explicitExclusions",
-    "deferred"
-  ],
   "properties": {
-    "documentType": {
-      "const": "codex-security.coverage"
-    },
-    "schemaVersion": {
-      "const": "1.0"
-    },
-    "scanId": {
-      "type": "string",
-      "minLength": 1
-    },
+    "documentType": { "const": "codex-security.coverage" },
+    "schemaVersion": { "const": "1.0" },
+    "scanId": { "type": "string", "minLength": 1 },
     "mode": {
       "enum": [
         "repository",
@@ -45,53 +25,18 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         "deep_repository"
       ]
     },
-    "completeness": {
-      "enum": [
-        "complete",
-        "partial",
-        "unknown"
-      ]
-    },
     "inventoryStrategy": {
-      "enum": [
-        "repository",
-        "scoped_path",
-        "diff",
-        "directory",
-        "custom"
-      ]
+      "enum": ["repository", "scoped_path", "diff", "directory", "custom"]
     },
-    "includePaths": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "excludePaths": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
+    "includePaths": { "type": "array", "items": { "type": "string" } },
+    "excludePaths": { "type": "array", "items": { "type": "string" } },
     "surfaces": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "label",
-          "disposition",
-          "receiptRefs"
-        ],
         "properties": {
-          "id": {
-            "type": "string",
-            "minLength": 1
-          },
-          "label": {
-            "type": "string",
-            "minLength": 1
-          },
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1 },
           "disposition": {
             "enum": [
               "reported",
@@ -109,128 +54,89 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
               "pattern": "^(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)artifacts/.+$"
             }
           },
-          "riskArea": {
-            "type": "string",
-            "minLength": 1
-          },
-          "notes": {
-            "type": "string",
-            "minLength": 1
-          }
-        }
+          "riskArea": { "type": "string", "minLength": 1 },
+          "notes": { "type": "string", "minLength": 1 }
+        },
+        "required": ["id", "label", "disposition", "receiptRefs"]
       }
     },
     "explicitExclusions": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "pattern",
-          "reason"
-        ],
         "properties": {
-          "pattern": {
-            "type": "string",
-            "minLength": 1
-          },
-          "reason": {
-            "type": "string",
-            "minLength": 1
-          }
-        }
+          "pattern": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        },
+        "required": ["pattern", "reason"]
       }
     },
     "deferred": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "reason"
-        ],
         "properties": {
-          "id": {
-            "type": "string",
-            "minLength": 1
-          },
-          "reason": {
-            "type": "string",
-            "minLength": 1
-          },
+          "id": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 },
           "paths": {
             "type": "array",
             "items": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "oneOf": [
+                {},
+                {
+                  "type": "string",
+                  "$comment": "invalidSealedDeferredPath",
+                  "pattern": "^(?:/|[A-Za-z]:)|(?:^|/)\\.\\.(?:/|$)|[\\\\\\x00-\\x1f]|[\\ud800-\\udbff](?![\\udc00-\\udfff])|(?:^|[^\\ud800-\\udbff])[\\udc00-\\udfff]"
+                }
+              ]
             }
           },
           "surfaceIds": {
             "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
+            "items": { "type": "string", "minLength": 1 }
           }
-        }
+        },
+        "required": ["id", "reason"]
       }
+    },
+    "resolvedDeferred": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        },
+        "required": ["id", "reason"],
+        "additionalProperties": false
+      },
+      "description": "Completed generic review tasks, with their saved IDs and completion reasons."
     },
     "openQuestions": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "question"
-        ],
         "properties": {
-          "question": {
-            "type": "string",
-            "minLength": 1
-          },
-          "followUpPrompt": {
-            "type": "string",
-            "minLength": 1
-          }
-        }
+          "question": { "type": "string", "minLength": 1 },
+          "followUpPrompt": { "type": "string", "minLength": 1 }
+        },
+        "required": ["question"]
       }
     }
   },
-  "allOf": [
-    {
-      "if": {
-        "properties": {
-          "completeness": {
-            "const": "complete"
-          }
-        },
-        "required": [
-          "completeness"
-        ]
-      },
-      "then": {
-        "properties": {
-          "deferred": {
-            "contains": {},
-            "minContains": 0,
-            "maxContains": 0
-          },
-          "surfaces": {
-            "contains": {
-              "type": "object",
-              "required": [
-                "disposition"
-              ],
-              "properties": {
-                "disposition": {
-                  "const": "needs_follow_up"
-                }
-              }
-            },
-            "minContains": 0,
-            "maxContains": 0
-          }
-        }
-      }
-    }
+  "required": [
+    "documentType",
+    "schemaVersion",
+    "scanId",
+    "mode",
+    "inventoryStrategy",
+    "includePaths",
+    "excludePaths",
+    "surfaces",
+    "explicitExclusions",
+    "deferred"
   ]
 }
 ```
@@ -245,38 +151,20 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
     "nonEmptyText": {
       "type": "string",
       "minLength": 1,
-      "pattern": "\\S"
+      "pattern": "[^\\u0009-\\u000d\\u001c-\\u0020\\u0085\\u00a0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000]"
     },
-    "scanId": {
-      "type": "string",
-      "format": "uuid"
-    },
+    "scanId": { "type": "string", "format": "uuid" },
     "repositoryPath": {
       "type": "string",
       "minLength": 1,
       "maxLength": 4096,
-      "pattern": "^(?:\\./)?(?!/)(?![A-Za-z]:)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$))(?!.*//)(?!.*[\\u0000-\\u001f\\u007f])(?!.*\\/$).+$"
+      "pattern": "^(?:\\./)?(?!/)(?![A-Za-z]:)(?![\\s\\S]*\\\\)(?![\\s\\S]*(?:^|/)\\.\\.?(/|$))(?![\\s\\S]*//)(?![\\s\\S]*[\\u0000-\\u001f\\u007f])(?![\\s\\S]*\\/$)[\\s\\S]+$"
     },
     "candidateId": {
       "type": "string",
       "minLength": 1,
       "maxLength": 512,
       "pattern": "^(?!\\.{1,2}$)(?!.*[\\u0000-\\u001f\\u007f])(?=.*\\S)[^/\\\\]+$"
-    },
-    "page": {
-      "type": "object",
-      "properties": {
-        "cursor": {
-          "type": "string",
-          "pattern": "^(?:0|[1-9][0-9]*)$"
-        },
-        "limit": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 1000
-        }
-      },
-      "additionalProperties": false
     }
   }
 }
@@ -289,10 +177,7 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "codex-security://schemas/definitions/discovery-candidate.schema.json",
   "$defs": {
-    "nonEmptyText": {
-      "type": "string",
-      "pattern": "\\S"
-    },
+    "nonEmptyText": { "type": "string", "pattern": "\\S" },
     "cweId": {
       "type": "string",
       "pattern": "^\\s*[Cc][Ww][Ee]-0*[1-9][0-9]*\\s*$"
@@ -311,10 +196,14 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
     "rawDiscoveryLocation": {
       "type": "object",
       "properties": {
-        "path": { "$ref": "#/$defs/nonEmptyText" },
+        "path": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        },
         "start_line": { "type": "integer", "minimum": 1 },
         "end_line": { "type": "integer", "minimum": 1 },
-        "role": { "$ref": "#/$defs/locationRole" }
+        "role": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/locationRole"
+        }
       },
       "required": ["path", "start_line", "role"],
       "additionalProperties": false
@@ -322,10 +211,14 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
     "normalizedDiscoveryLocation": {
       "type": "object",
       "properties": {
-        "path": { "$ref": "#/$defs/nonEmptyText" },
+        "path": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        },
         "start_line": { "type": "integer", "minimum": 1 },
         "end_line": { "type": "integer", "minimum": 1 },
-        "role": { "$ref": "#/$defs/locationRole" }
+        "role": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/locationRole"
+        }
       },
       "required": ["path", "start_line", "end_line", "role"],
       "additionalProperties": false
@@ -335,17 +228,29 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
       "properties": {
         "cwe_ids": {
           "type": "array",
-          "items": { "$ref": "#/$defs/cweId" }
+          "items": {
+            "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/cweId"
+          }
         },
         "locations": {
-          "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/rawDiscoveryLocation" }
+          "type": "array",
+          "items": {
+            "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/rawDiscoveryLocation"
+          }
         },
-        "summary": { "$ref": "#/$defs/nonEmptyText" },
-        "evidence": { "$ref": "#/$defs/nonEmptyText" },
-        "context": { "$ref": "#/$defs/nonEmptyText" },
-        "instance": { "$ref": "#/$defs/nonEmptyText" }
+        "summary": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        },
+        "evidence": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        },
+        "context": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        },
+        "instance": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        }
       },
       "required": ["cwe_ids", "locations", "summary", "evidence"],
       "additionalProperties": false
@@ -359,20 +264,27 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         },
         "cwe_ids": {
           "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "^CWE-[1-9][0-9]*$"
-          }
+          "items": { "type": "string", "pattern": "^CWE-[1-9][0-9]*$" }
         },
         "locations": {
-          "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/normalizedDiscoveryLocation" }
+          "type": "array",
+          "items": {
+            "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/normalizedDiscoveryLocation"
+          }
         },
-        "summary": { "$ref": "#/$defs/nonEmptyText" },
-        "evidence": { "$ref": "#/$defs/nonEmptyText" },
-        "context": { "$ref": "#/$defs/nonEmptyText" },
-        "instance": { "$ref": "#/$defs/nonEmptyText" }
+        "summary": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        },
+        "evidence": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        },
+        "context": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        },
+        "instance": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        }
       },
       "required": [
         "candidate_id",
@@ -391,31 +303,233 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
 
 ```json
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openai.com/codex-security/schemas/findings.schema.json",
   "title": "Codex Security findings",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "required": [
-    "documentType",
-    "schemaVersion",
-    "scanId",
-    "findings"
-  ],
   "properties": {
-    "documentType": {
-      "const": "codex-security.findings"
-    },
-    "schemaVersion": {
-      "const": "1.0"
-    },
-    "scanId": {
-      "type": "string",
-      "minLength": 1
-    },
+    "documentType": { "const": "codex-security.findings" },
+    "schemaVersion": { "const": "1.0" },
+    "scanId": { "type": "string", "minLength": 1 },
     "findings": {
       "type": "array",
       "items": {
         "type": "object",
+        "properties": {
+          "findingId": { "type": "string", "pattern": "^csf_[a-f0-9]{24}$" },
+          "occurrenceId": { "type": "string", "pattern": "^occ_[a-f0-9]{24}$" },
+          "ruleId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._/-]*$" },
+          "identity": {
+            "type": "object",
+            "properties": {
+              "anchor": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9._/-]*$"
+              },
+              "instance": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9._/-]*$"
+              }
+            },
+            "required": ["anchor"]
+          },
+          "fingerprints": {
+            "type": "object",
+            "properties": {
+              "algorithm": { "const": "codex-security/v1" },
+              "primary": {
+                "type": "string",
+                "pattern": "^codex-security/v1:sha256:[a-f0-9]{64}$"
+              }
+            },
+            "required": ["algorithm", "primary"]
+          },
+          "title": { "type": "string", "minLength": 1 },
+          "summary": { "type": "string", "minLength": 1 },
+          "severity": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "enum": ["critical", "high", "medium", "low", "informational"]
+              },
+              "score": { "type": "number", "minimum": 0, "maximum": 10 },
+              "scoringSystem": { "type": "string", "minLength": 1 },
+              "vector": { "type": "string", "minLength": 1 },
+              "rationale": { "type": "string", "minLength": 1 },
+              "changeConditions": { "type": "string", "minLength": 1 }
+            },
+            "required": ["level"]
+          },
+          "confidence": {
+            "type": "object",
+            "properties": {
+              "level": { "enum": ["high", "medium", "low"] },
+              "rationale": { "type": "string", "minLength": 1 }
+            },
+            "required": ["level", "rationale"]
+          },
+          "taxonomy": {
+            "type": "object",
+            "properties": {
+              "category": { "type": "string", "minLength": 1 },
+              "cwe": { "$ref": "#/$defs/stringList" }
+            },
+            "required": ["category", "cwe"]
+          },
+          "locations": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": { "type": "string", "minLength": 1 },
+                "startLine": { "type": "integer", "minimum": 1 },
+                "endLine": { "type": "integer", "minimum": 1 },
+                "role": { "type": "string", "minLength": 1 }
+              },
+              "required": ["path", "startLine"]
+            }
+          },
+          "writeup": {
+            "type": "object",
+            "properties": {
+              "reportPath": {
+                "type": "string",
+                "pattern": "^findings/([a-z0-9][a-z0-9._-]*)/\\1\\.md$"
+              }
+            },
+            "required": ["reportPath"]
+          },
+          "codeEvidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9._/-]*$"
+                },
+                "label": { "type": "string", "minLength": 1 },
+                "path": { "type": "string", "minLength": 1 },
+                "startLine": { "type": "integer", "minimum": 1 },
+                "endLine": { "type": "integer", "minimum": 1 },
+                "language": { "type": "string", "minLength": 1 },
+                "role": { "type": "string", "minLength": 1 },
+                "code": { "type": "string", "minLength": 1 },
+                "explanation": { "type": "string", "minLength": 1 }
+              },
+              "required": [
+                "id",
+                "label",
+                "path",
+                "startLine",
+                "code",
+                "explanation"
+              ]
+            }
+          },
+          "code_evidence": {
+            "type": ["array", "null"],
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string", "minLength": 1 },
+                "code": { "type": "string", "minLength": 1 }
+              },
+              "required": ["id", "code"]
+            }
+          },
+          "rootCause": {
+            "type": ["object", "string"],
+            "properties": {
+              "summary": { "type": "string", "minLength": 1 },
+              "evidenceRefs": { "$ref": "#/$defs/stringList" },
+              "code": { "type": "string", "minLength": 1 },
+              "language": { "type": "string", "minLength": 1 }
+            },
+            "required": ["summary"]
+          },
+          "root_cause": {
+            "type": ["object", "string", "null"],
+            "properties": {
+              "summary": { "type": "string", "minLength": 1 },
+              "evidenceRefs": { "$ref": "#/$defs/stringList" },
+              "evidence_refs": { "$ref": "#/$defs/stringList" },
+              "code": { "type": "string", "minLength": 1 },
+              "language": { "type": "string", "minLength": 1 }
+            }
+          },
+          "remediation": { "type": "string", "minLength": 1 },
+          "validation": {
+            "type": ["object", "null"],
+            "properties": {
+              "assertions": { "$ref": "#/$defs/stringList" },
+              "counterEvidence": { "$ref": "#/$defs/stringList" },
+              "evidence": {
+                "type": ["string", "array"],
+                "minLength": 1,
+                "items": { "type": "string", "minLength": 1 }
+              },
+              "evidenceRefs": { "$ref": "#/$defs/stringList" },
+              "evidence_refs": { "$ref": "#/$defs/stringList" },
+              "limitations": { "$ref": "#/$defs/stringList" },
+              "method": { "type": "string", "minLength": 1 },
+              "status": { "type": ["string", "null"], "minLength": 1 },
+              "summary": { "type": "string", "minLength": 1 },
+              "disposition": { "type": ["string", "null"], "minLength": 1 },
+              "result": { "type": ["string", "null"], "minLength": 1 }
+            }
+          },
+          "attackPath": {
+            "type": ["object", "null"],
+            "properties": {
+              "assumptions": { "$ref": "#/$defs/stringList" },
+              "blindspots": { "$ref": "#/$defs/stringList" },
+              "controls": { "$ref": "#/$defs/stringList" },
+              "dataFlow": { "$ref": "#/$defs/dataFlow" },
+              "data_flow": { "$ref": "#/$defs/dataFlow" },
+              "dataflow": { "$ref": "#/$defs/dataFlow" },
+              "evidenceRefs": { "$ref": "#/$defs/stringList" },
+              "evidence_refs": { "$ref": "#/$defs/stringList" },
+              "impact": { "$ref": "#/$defs/assessment" },
+              "likelihood": { "$ref": "#/$defs/assessment" },
+              "limitations": { "$ref": "#/$defs/stringList" },
+              "preconditions": { "$ref": "#/$defs/stringList" },
+              "reachability": {
+                "type": ["string", "object"],
+                "minLength": 1,
+                "properties": {
+                  "summary": { "type": "string", "minLength": 1 },
+                  "attacker": { "type": "string", "minLength": 1 },
+                  "entrypoint": { "type": "string", "minLength": 1 },
+                  "source": { "type": "string", "minLength": 1 },
+                  "sink": { "type": "string", "minLength": 1 },
+                  "outcome": { "type": "string", "minLength": 1 },
+                  "preconditions": { "$ref": "#/$defs/stringList" },
+                  "evidenceRefs": { "$ref": "#/$defs/stringList" },
+                  "evidence_refs": { "$ref": "#/$defs/stringList" }
+                }
+              },
+              "steps": { "$ref": "#/$defs/stringList" },
+              "summary": { "type": "string", "minLength": 1 }
+            }
+          },
+          "remediationTests": { "$ref": "#/$defs/stringList" },
+          "preventiveControls": { "$ref": "#/$defs/stringList" },
+          "provenance": {
+            "type": "object",
+            "properties": { "source": { "type": "string", "minLength": 1 } },
+            "required": ["source"]
+          },
+          "extensions": {
+            "type": "object",
+            "properties": {
+              "candidateId": { "type": "string", "minLength": 1 },
+              "ledgerRowId": { "type": "string", "minLength": 1 },
+              "reportId": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
         "required": [
           "findingId",
           "occurrenceId",
@@ -430,648 +544,273 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
           "locations",
           "remediation",
           "provenance"
-        ],
-        "properties": {
-          "findingId": {
-            "type": "string",
-            "pattern": "^csf_[a-f0-9]{24}$"
-          },
-          "occurrenceId": {
-            "type": "string",
-            "pattern": "^occ_[a-f0-9]{24}$"
-          },
-          "ruleId": {
-            "type": "string",
-            "pattern": "^[a-z0-9][a-z0-9._/-]*$"
-          },
-          "identity": {
-            "type": "object",
-            "required": [
-              "anchor"
-            ],
-            "properties": {
-              "anchor": {
-                "type": "string",
-                "pattern": "^[a-z0-9][a-z0-9._/-]*$"
-              },
-              "instance": {
-                "type": "string",
-                "pattern": "^[a-z0-9][a-z0-9._/-]*$"
-              }
-            }
-          },
-          "fingerprints": {
-            "type": "object",
-            "required": [
-              "algorithm",
-              "primary"
-            ],
-            "properties": {
-              "algorithm": {
-                "const": "codex-security/v1"
-              },
-              "primary": {
-                "type": "string",
-                "pattern": "^codex-security/v1:sha256:[a-f0-9]{64}$"
-              }
-            }
-          },
-          "title": {
-            "type": "string",
-            "minLength": 1
-          },
-          "summary": {
-            "type": "string",
-            "minLength": 1
-          },
-          "severity": {
-            "type": "object",
-            "required": [
-              "level"
-            ],
-            "properties": {
-              "level": {
-                "enum": [
-                  "critical",
-                  "high",
-                  "medium",
-                  "low",
-                  "informational"
-                ]
-              },
-              "score": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 10
-              },
-              "scoringSystem": {
-                "type": "string",
-                "minLength": 1
-              },
-              "vector": {
-                "type": "string",
-                "minLength": 1
-              },
-              "rationale": {
-                "type": "string",
-                "minLength": 1
-              },
-              "changeConditions": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "confidence": {
-            "type": "object",
-            "required": [
-              "level",
-              "rationale"
-            ],
-            "properties": {
-              "level": {
-                "enum": [
-                  "high",
-                  "medium",
-                  "low"
-                ]
-              },
-              "rationale": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "taxonomy": {
-            "type": "object",
-            "required": [
-              "category",
-              "cwe"
-            ],
-            "properties": {
-              "category": {
-                "type": "string",
-                "minLength": 1
-              },
-              "cwe": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              }
-            }
-          },
-          "locations": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "object",
-              "required": [
-                "path",
-                "startLine"
-              ],
-              "properties": {
-                "path": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "startLine": {
-                  "type": "integer",
-                  "minimum": 1
-                },
-                "endLine": {
-                  "type": "integer",
-                  "minimum": 1
-                },
-                "role": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              }
-            }
-          },
-          "writeup": {
-            "type": "object",
-            "required": [
-              "reportPath"
-            ],
-            "properties": {
-              "reportPath": {
-                "type": "string",
-                "pattern": "^findings/([a-z0-9][a-z0-9._-]*)/\\1\\.md$"
-              }
-            }
-          },
-          "codeEvidence": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "id",
-                "label",
-                "path",
-                "startLine",
-                "code",
-                "explanation"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "pattern": "^[a-z0-9][a-z0-9._/-]*$"
-                },
-                "label": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "path": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "startLine": {
-                  "type": "integer",
-                  "minimum": 1
-                },
-                "endLine": {
-                  "type": "integer",
-                  "minimum": 1
-                },
-                "language": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "role": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "code": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "explanation": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              }
-            }
-          },
-          "code_evidence": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "type": "object",
-              "required": [
-                "id",
-                "code"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "code": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              }
-            }
-          },
-          "rootCause": {
-            "type": [
-              "object",
-              "string"
-            ],
-            "required": [
-              "summary"
-            ],
-            "properties": {
-              "summary": {
-                "type": "string",
-                "minLength": 1
-              },
-              "evidenceRefs": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "code": {
-                "type": "string",
-                "minLength": 1
-              },
-              "language": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "root_cause": {
-            "type": [
-              "object",
-              "string",
-              "null"
-            ],
-            "properties": {
-              "summary": {
-                "type": "string",
-                "minLength": 1
-              },
-              "evidenceRefs": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "evidence_refs": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "code": {
-                "type": "string",
-                "minLength": 1
-              },
-              "language": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "remediation": {
-            "type": "string",
-            "minLength": 1
-          },
-          "validation": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "assertions": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "counterEvidence": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "evidence": {
-                "type": [
-                  "string",
-                  "array"
-                ],
-                "minLength": 1,
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "evidenceRefs": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "evidence_refs": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "limitations": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "method": {
-                "type": "string",
-                "minLength": 1
-              },
-              "status": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "minLength": 1
-              },
-              "summary": {
-                "type": "string",
-                "minLength": 1
-              },
-              "disposition": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "minLength": 1
-              },
-              "result": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "minLength": 1
-              }
-            }
-          },
-          "attackPath": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "assumptions": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "blindspots": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "controls": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "dataFlow": {
-                "type": [
-                  "string",
-                  "object"
-                ],
-                "minLength": 1,
-                "properties": {
-                  "summary": { "type": "string", "minLength": 1 },
-                  "source": { "type": "string", "minLength": 1 },
-                  "sink": { "type": "string", "minLength": 1 },
-                  "outcome": { "type": "string", "minLength": 1 },
-                  "transformations": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  },
-                  "evidenceRefs": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  },
-                  "evidence_refs": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  }
-                }
-              },
-              "data_flow": {
-                "type": [
-                  "string",
-                  "object"
-                ],
-                "minLength": 1,
-                "properties": {
-                  "summary": { "type": "string", "minLength": 1 },
-                  "source": { "type": "string", "minLength": 1 },
-                  "sink": { "type": "string", "minLength": 1 },
-                  "outcome": { "type": "string", "minLength": 1 },
-                  "transformations": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  },
-                  "evidenceRefs": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  },
-                  "evidence_refs": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  }
-                }
-              },
-              "dataflow": {
-                "type": [
-                  "string",
-                  "object"
-                ],
-                "minLength": 1,
-                "properties": {
-                  "summary": { "type": "string", "minLength": 1 },
-                  "source": { "type": "string", "minLength": 1 },
-                  "sink": { "type": "string", "minLength": 1 },
-                  "outcome": { "type": "string", "minLength": 1 },
-                  "transformations": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  },
-                  "evidenceRefs": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  },
-                  "evidence_refs": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  }
-                }
-              },
-              "evidenceRefs": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "evidence_refs": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "impact": {
-                "type": [
-                  "string",
-                  "object",
-                  "null"
-                ],
-                "minLength": 1,
-                "properties": {
-                  "level": { "type": "string", "minLength": 1 },
-                  "rationale": { "type": "string", "minLength": 1 },
-                  "why": { "type": "string", "minLength": 1 }
-                }
-              },
-              "likelihood": {
-                "type": [
-                  "string",
-                  "object",
-                  "null"
-                ],
-                "minLength": 1,
-                "properties": {
-                  "level": { "type": "string", "minLength": 1 },
-                  "rationale": { "type": "string", "minLength": 1 },
-                  "why": { "type": "string", "minLength": 1 }
-                }
-              },
-              "limitations": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "preconditions": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "reachability": {
-                "type": [
-                  "string",
-                  "object"
-                ],
-                "minLength": 1,
-                "properties": {
-                  "summary": { "type": "string", "minLength": 1 },
-                  "attacker": { "type": "string", "minLength": 1 },
-                  "entrypoint": { "type": "string", "minLength": 1 },
-                  "source": { "type": "string", "minLength": 1 },
-                  "sink": { "type": "string", "minLength": 1 },
-                  "outcome": { "type": "string", "minLength": 1 },
-                  "preconditions": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  },
-                  "evidenceRefs": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  },
-                  "evidence_refs": {
-                    "type": "array",
-                    "items": { "type": "string", "minLength": 1 }
-                  }
-                }
-              },
-              "steps": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "summary": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "remediationTests": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "preventiveControls": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "provenance": {
-            "type": "object",
-            "required": [
-              "source"
-            ],
-            "properties": {
-              "source": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "extensions": {
-            "type": "object",
-            "properties": {
-              "candidateId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "ledgerRowId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "reportId": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          }
-        }
+        ]
       }
     }
+  },
+  "required": ["documentType", "schemaVersion", "scanId", "findings"],
+  "$defs": {
+    "stringList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "dataFlow": {
+      "type": ["string", "object"],
+      "minLength": 1,
+      "properties": {
+        "summary": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 },
+        "sink": { "type": "string", "minLength": 1 },
+        "outcome": { "type": "string", "minLength": 1 },
+        "transformations": { "$ref": "#/$defs/stringList" },
+        "evidenceRefs": { "$ref": "#/$defs/stringList" },
+        "evidence_refs": { "$ref": "#/$defs/stringList" }
+      }
+    },
+    "assessment": {
+      "type": ["string", "object", "null"],
+      "minLength": 1,
+      "properties": {
+        "level": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string", "minLength": 1 },
+        "why": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
+```
+
+## File: `schemas/patch-risk-assessment.schema.json`
+
+```json
+{
+  "$id": "https://openai.com/codex-security/schemas/patch-risk-assessment.schema.json",
+  "title": "Patch risk assessment",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "patch": {
+      "type": "object",
+      "properties": {
+        "repository": { "$ref": "#/$defs/nonEmptyString" },
+        "sourceType": {
+          "enum": ["pull_request_diff", "patch_file", "commit_range"]
+        },
+        "base": { "$ref": "#/$defs/nonEmptyString" },
+        "head": { "$ref": "#/$defs/nonEmptyString" },
+        "changedFiles": { "$ref": "#/$defs/stringList" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      },
+      "required": [
+        "repository",
+        "sourceType",
+        "base",
+        "head",
+        "changedFiles",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "recommendation": { "$ref": "#/$defs/recommendation" },
+    "workflowLabel": {
+      "enum": [
+        "auto_merge_candidate",
+        "human_review_required",
+        "revise",
+        "no_op",
+        "block",
+        "hold_for_evidence"
+      ]
+    },
+    "impact": { "$ref": "#/$defs/riskRating" },
+    "regressionLikelihood": { "$ref": "#/$defs/riskRating" },
+    "regressionProtection": {
+      "type": "object",
+      "properties": {
+        "rating": { "enum": ["strong", "partial", "none", "unknown"] },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" },
+        "exactHeadChecksPassed": { "type": "boolean" }
+      },
+      "required": ["rating", "rationale", "exactHeadChecksPassed"],
+      "additionalProperties": false
+    },
+    "recoverability": { "$ref": "#/$defs/recoveryRating" },
+    "confidence": { "$ref": "#/$defs/confidenceRating" },
+    "applicability": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "confirmed",
+            "no_live_effect",
+            "wrong_owner",
+            "duplicate",
+            "superseded",
+            "unknown"
+          ]
+        },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "required": ["status", "rationale"],
+      "additionalProperties": false
+    },
+    "statusQuoRisk": {
+      "type": "object",
+      "properties": {
+        "rating": {
+          "enum": ["low", "moderate", "high", "critical", "unknown"]
+        },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "required": ["rating", "rationale"],
+      "additionalProperties": false
+    },
+    "autoMergeExclusions": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "privileged_boundary",
+          "migration",
+          "persistent_state",
+          "public_contract",
+          "architecture_specific_rollout",
+          "broad_shared_default",
+          "other"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "affectedRuntimeRoots": { "$ref": "#/$defs/stringList" },
+    "importantCallers": { "$ref": "#/$defs/stringList" },
+    "riskDrivers": { "$ref": "#/$defs/stringList" },
+    "protectiveFactors": { "$ref": "#/$defs/stringList" },
+    "materialBoundaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "$ref": "#/$defs/identifier" },
+          "invariant": { "$ref": "#/$defs/nonEmptyString" },
+          "runtimeRoot": { "$ref": "#/$defs/nonEmptyString" },
+          "counterexample": { "$ref": "#/$defs/nonEmptyString" },
+          "legitimateControl": { "$ref": "#/$defs/nonEmptyString" },
+          "result": { "enum": ["supported", "contradicted", "unresolved"] }
+        },
+        "required": [
+          "id",
+          "invariant",
+          "runtimeRoot",
+          "counterexample",
+          "legitimateControl",
+          "result"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "validation": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "$ref": "#/$defs/nonEmptyString" },
+          "status": { "enum": ["passed", "failed", "skipped", "unavailable"] },
+          "protects": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "required": ["name", "status", "protects"],
+        "additionalProperties": false
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "summary": { "$ref": "#/$defs/nonEmptyString" },
+          "decisionCritical": { "type": "boolean" }
+        },
+        "required": ["summary", "decisionCritical"],
+        "additionalProperties": false
+      }
+    },
+    "evidencePlan": {
+      "maxItems": 3,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": { "$ref": "#/$defs/nonEmptyString" },
+          "action": { "$ref": "#/$defs/nonEmptyString" },
+          "outcomes": {
+            "type": "object",
+            "additionalProperties": { "$ref": "#/$defs/recommendation" },
+            "minProperties": 2
+          }
+        },
+        "required": ["question", "action", "outcomes"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "patch",
+    "recommendation",
+    "workflowLabel",
+    "impact",
+    "regressionLikelihood",
+    "regressionProtection",
+    "recoverability",
+    "confidence",
+    "applicability",
+    "statusQuoRisk",
+    "autoMergeExclusions",
+    "affectedRuntimeRoots",
+    "materialBoundaries",
+    "validation",
+    "unknowns",
+    "evidencePlan"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "stringList": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" },
+      "uniqueItems": true
+    },
+    "recommendation": {
+      "enum": ["merge", "revise", "no_op", "block", "hold_for_evidence"]
+    },
+    "riskRating": {
+      "type": "object",
+      "properties": {
+        "rating": { "enum": ["low", "moderate", "high", "critical"] },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "required": ["rating", "rationale"],
+      "additionalProperties": false
+    },
+    "recoveryRating": {
+      "type": "object",
+      "properties": {
+        "rating": { "enum": ["easy", "managed", "hard"] },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "required": ["rating", "rationale"],
+      "additionalProperties": false
+    },
+    "confidenceRating": {
+      "type": "object",
+      "properties": {
+        "rating": { "enum": ["high", "moderate", "low"] },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "required": ["rating", "rationale"],
+      "additionalProperties": false
+    },
+    "identifier": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" }
   }
 }
 ```
@@ -1080,81 +819,34 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
 
 ```json
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openai.com/codex-security/schemas/scan-manifest.schema.json",
   "title": "Codex Security sealed scan manifest",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "required": [
-    "documentType",
-    "schemaVersion",
-    "scan"
-  ],
   "properties": {
-    "documentType": {
-      "const": "codex-security.scan-manifest"
-    },
-    "schemaVersion": {
-      "const": "1.0"
-    },
+    "documentType": { "const": "codex-security.scan-manifest" },
+    "schemaVersion": { "const": "1.0" },
     "scan": {
       "type": "object",
-      "required": [
-        "id",
-        "producer",
-        "status",
-        "startedAt",
-        "completedAt",
-        "sealedAt",
-        "target",
-        "scope",
-        "coverageRef",
-        "findingsRef",
-        "artifacts"
-      ],
       "properties": {
-        "id": {
-          "type": "string",
-          "minLength": 1
-        },
+        "id": { "type": "string", "minLength": 1 },
         "producer": {
           "type": "object",
-          "required": [
-            "name",
-            "version"
-          ],
           "properties": {
-            "name": {
-              "type": "string",
-              "minLength": 1
-            },
-            "version": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
+            "name": { "type": "string", "minLength": 1 },
+            "version": { "type": "string", "minLength": 1 }
+          },
+          "required": ["name", "version"]
         },
         "status": {
           "enum": ["completed", "failed", "canceled", "interrupted"]
         },
-        "startedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "completedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "sealedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
+        "warnings": { "$ref": "#/$defs/stringList" },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "sealedAt": { "type": "string", "format": "date-time" },
         "target": {
           "type": "object",
-          "required": [
-            "kind",
-            "targetId",
-            "displayName"
-          ],
           "properties": {
             "kind": {
               "enum": [
@@ -1164,224 +856,165 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
                 "directory_snapshot"
               ]
             },
-            "targetId": {
-              "type": "string",
-              "minLength": 1
-            },
-            "displayName": {
-              "type": "string",
-              "minLength": 1
-            },
+            "targetId": { "type": "string", "minLength": 1 },
+            "displayName": { "type": "string", "minLength": 1 },
             "remote": {
               "type": "string",
               "pattern": "^(?![^:/?#]+://[^/?#]*@)[^?#]+$"
             },
-            "revision": {
-              "type": "string"
-            },
-            "baseRevision": {
-              "type": "string"
-            },
-            "headRevision": {
-              "type": "string"
-            },
+            "revision": { "type": "string" },
+            "baseRevision": { "type": "string" },
+            "headRevision": { "type": "string" },
             "snapshotDigest": {
               "type": "string",
               "pattern": "^codex-security-snapshot/v1:sha256:[a-f0-9]{64}$"
             }
           },
+          "required": ["kind", "targetId", "displayName"],
           "allOf": [
             {
-              "if": {
-                "properties": {
-                  "kind": {
-                    "const": "git_revision"
-                  }
-                }
-              },
-              "then": {
-                "required": [
-                  "revision"
-                ]
-              }
+              "if": { "properties": { "kind": { "const": "git_revision" } } },
+              "then": { "required": ["revision"] }
             },
             {
               "if": {
                 "properties": {
                   "kind": {
-                    "enum": [
-                      "git_worktree",
-                      "git_diff",
-                      "directory_snapshot"
-                    ]
+                    "enum": ["git_worktree", "git_diff", "directory_snapshot"]
                   }
                 }
               },
-              "then": {
-                "required": [
-                  "snapshotDigest"
-                ]
-              }
+              "then": { "required": ["snapshotDigest"] }
             }
           ]
         },
         "scope": {
           "type": "object",
-          "required": [
-            "includePaths",
-            "excludePaths"
-          ],
           "properties": {
-            "includePaths": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "excludePaths": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "summary": {
-              "type": "string",
-              "minLength": 1
-            },
-            "artifactsReviewed": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "runtimeStatus": {
-              "type": "string",
-              "minLength": 1
-            },
-            "validationMode": {
-              "type": "string",
-              "minLength": 1
-            },
-            "context": {
-              "type": "string",
-              "minLength": 1
-            },
-            "limitations": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          }
+            "includePaths": { "type": "array", "items": { "type": "string" } },
+            "excludePaths": { "type": "array", "items": { "type": "string" } },
+            "summary": { "type": "string", "minLength": 1 },
+            "artifactsReviewed": { "$ref": "#/$defs/stringList" },
+            "runtimeStatus": { "type": "string", "minLength": 1 },
+            "validationMode": { "type": "string", "minLength": 1 },
+            "context": { "type": "string", "minLength": 1 },
+            "limitations": { "$ref": "#/$defs/stringList" }
+          },
+          "required": ["includePaths", "excludePaths"]
         },
         "threatModel": {
-          "type": "object",
-          "required": [
-            "summary"
-          ],
-          "properties": {
-            "summary": {
-              "type": "string",
-              "minLength": 1
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "summary": { "type": "string", "minLength": 1 },
+                "assets": { "$ref": "#/$defs/stringList" },
+                "trustBoundaries": { "$ref": "#/$defs/stringList" },
+                "attackerCapabilities": { "$ref": "#/$defs/stringList" },
+                "securityObjectives": { "$ref": "#/$defs/stringList" },
+                "assumptions": { "$ref": "#/$defs/stringList" }
+              },
+              "required": ["summary"]
             },
-            "assets": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "trustBoundaries": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "attackerCapabilities": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "securityObjectives": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "assumptions": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
+            {
+              "type": "object",
+              "properties": {
+                "format": { "const": "markdown" },
+                "content": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^[\\s\\S]*\\S[\\s\\S]*$"
+                },
+                "scope": {
+                  "type": "object",
+                  "properties": {
+                    "includePaths": { "$ref": "#/$defs/stringList" },
+                    "excludePaths": { "$ref": "#/$defs/stringList" },
+                    "summary": { "type": "string", "minLength": 1 }
+                  },
+                  "required": ["includePaths"],
+                  "additionalProperties": true,
+                  "description": "The modeled source scope, which may differ from the scan scope. Omit when unknown."
+                },
+                "origin": {
+                  "enum": ["generated", "provided", "reconciled", "recovered"]
+                }
+              },
+              "required": ["format", "content"],
+              "additionalProperties": true
             }
-          }
+          ],
+          "description": "Retained threat-model content. Existing structured models remain supported; Markdown documents preserve their complete original body."
         },
         "hardening": {
           "type": "object",
-          "required": [
-            "portfolioPath"
-          ],
           "properties": {
-            "portfolioPath": {
-              "const": "hardening/hardening.md"
-            }
-          }
+            "portfolioPath": { "const": "hardening/hardening.md" }
+          },
+          "required": ["portfolioPath"]
         },
-        "coverageRef": {
-          "const": "coverage.json"
+        "coverageRef": { "const": "coverage.json" },
+        "mode": {
+          "enum": [
+            "repository",
+            "scoped_path",
+            "diff",
+            "commit",
+            "branch_diff",
+            "working_tree",
+            "deep_repository"
+          ]
         },
-        "findingsRef": {
-          "const": "findings.json"
+        "review": {
+          "type": "object",
+          "properties": {
+            "excludedPaths": { "type": "array", "items": { "type": "string" } }
+          },
+          "required": ["excludedPaths"]
         },
+        "reviewState": {
+          "type": "object",
+          "propertyNames": { "type": "string" }
+        },
+        "findingsRef": { "const": "findings.json" },
         "artifacts": {
-          "type": "array",
           "minItems": 1,
+          "type": "array",
           "items": {
             "type": "object",
-            "required": [
-              "path",
-              "sha256",
-              "mediaType"
-            ],
             "properties": {
               "path": {
                 "type": "string",
                 "minLength": 1,
                 "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
               },
-              "sha256": {
-                "type": "string",
-                "pattern": "^[a-f0-9]{64}$"
-              },
-              "mediaType": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+              "mediaType": { "type": "string", "minLength": 1 }
+            },
+            "required": ["path", "sha256", "mediaType"]
           }
         }
       },
+      "required": [
+        "id",
+        "producer",
+        "status",
+        "startedAt",
+        "completedAt",
+        "sealedAt",
+        "target",
+        "scope",
+        "findingsRef",
+        "artifacts"
+      ],
       "allOf": [
         {
           "properties": {
             "artifacts": {
               "contains": {
                 "type": "object",
-                "required": [
-                  "path"
-                ],
-                "properties": {
-                  "path": {
-                    "const": "findings.json"
-                  }
-                }
+                "required": ["path"],
+                "properties": { "path": { "const": "findings.json" } }
               },
               "minContains": 1,
               "maxContains": 1
@@ -1389,25 +1022,30 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
           }
         },
         {
-          "properties": {
-            "artifacts": {
-              "contains": {
-                "type": "object",
-                "required": [
-                  "path"
-                ],
-                "properties": {
-                  "path": {
-                    "const": "coverage.json"
-                  }
-                }
-              },
-              "minContains": 1,
-              "maxContains": 1
+          "if": { "required": ["coverageRef"] },
+          "then": {
+            "properties": {
+              "artifacts": {
+                "contains": {
+                  "type": "object",
+                  "required": ["path"],
+                  "properties": { "path": { "const": "coverage.json" } }
+                },
+                "minContains": 1,
+                "maxContains": 1
+              }
             }
-          }
+          },
+          "else": { "required": ["mode", "review"] }
         }
       ]
+    }
+  },
+  "required": ["documentType", "schemaVersion", "scan"],
+  "$defs": {
+    "stringList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
     }
   }
 }
@@ -1420,25 +1058,10 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "codex-security://schemas/tools/candidate-attack-paths.schema.json",
   "title": "Record Codex Security candidate attack paths",
-  "type": "object",
-  "additionalProperties": false,
-  "required": ["scanId", "attackPaths"],
-  "properties": {
-    "scanId": {
-      "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/scanId"
-    },
-    "attackPaths": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/attackPathUpdate"
-      }
-    }
-  },
+  "$ref": "#/$defs/input",
   "$defs": {
     "input": {
       "type": "object",
-      "additionalProperties": false,
-      "required": ["scanId", "attackPaths"],
       "properties": {
         "scanId": {
           "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/scanId"
@@ -1446,47 +1069,36 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         "attackPaths": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/attackPathUpdate"
+            "$ref": "codex-security://schemas/tools/candidate-attack-paths.schema.json#/$defs/attackPathUpdate"
           }
         }
-      }
-    },
-    "updatesPayload": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["attackPaths"],
-      "properties": {
-        "attackPaths": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/attackPathUpdate"
-          }
-        }
-      }
+      },
+      "required": ["scanId", "attackPaths"],
+      "additionalProperties": false
     },
     "attackPathUpdate": {
       "type": "object",
-      "additionalProperties": false,
-      "required": ["candidateId", "attackPath"],
       "properties": {
         "candidateId": {
           "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/candidateId"
         },
         "attackPath": {
-          "$ref": "#/$defs/attackPath"
+          "$ref": "codex-security://schemas/tools/candidate-attack-paths.schema.json#/$defs/attackPath"
         }
-      }
+      },
+      "required": ["candidateId", "attackPath"],
+      "additionalProperties": false
     },
     "attackPath": {
       "oneOf": [
         {
-          "$ref": "#/$defs/reportableAttackPath"
+          "$ref": "codex-security://schemas/tools/candidate-attack-paths.schema.json#/$defs/reportableAttackPath"
         },
         {
-          "$ref": "#/$defs/ignoredAttackPath"
+          "$ref": "codex-security://schemas/tools/candidate-attack-paths.schema.json#/$defs/ignoredAttackPath"
         },
         {
-          "$ref": "#/$defs/deferredAttackPath"
+          "$ref": "codex-security://schemas/tools/candidate-attack-paths.schema.json#/$defs/deferredAttackPath"
         }
       ]
     },
@@ -1500,12 +1112,8 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
       "counterevidence": {
         "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
       },
-      "impact": {
-        "enum": ["high", "medium", "low", "ignore", "unknown"]
-      },
-      "likelihood": {
-        "enum": ["high", "medium", "low", "ignore", "unknown"]
-      },
+      "impact": { "enum": ["high", "medium", "low", "ignore", "unknown"] },
+      "likelihood": { "enum": ["high", "medium", "low", "ignore", "unknown"] },
       "severity_rationale": {
         "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
       },
@@ -1515,7 +1123,29 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
     },
     "reportableAttackPath": {
       "type": "object",
-      "additionalProperties": true,
+      "properties": {
+        "decision": { "const": "reportable" },
+        "dataflow": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "reachability": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "counterevidence": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "impact": { "enum": ["high", "medium", "low", "ignore", "unknown"] },
+        "likelihood": {
+          "enum": ["high", "medium", "low", "ignore", "unknown"]
+        },
+        "severity": { "enum": ["critical", "high", "medium", "low"] },
+        "severity_rationale": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "change_conditions": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        }
+      },
       "required": [
         "decision",
         "dataflow",
@@ -1527,21 +1157,33 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         "severity_rationale",
         "change_conditions"
       ],
-      "properties": {
-        "decision": { "const": "reportable" },
-        "dataflow": { "$ref": "#/$defs/attackPathFields/dataflow" },
-        "reachability": { "$ref": "#/$defs/attackPathFields/reachability" },
-        "counterevidence": { "$ref": "#/$defs/attackPathFields/counterevidence" },
-        "impact": { "$ref": "#/$defs/attackPathFields/impact" },
-        "likelihood": { "$ref": "#/$defs/attackPathFields/likelihood" },
-        "severity": { "enum": ["critical", "high", "medium", "low"] },
-        "severity_rationale": { "$ref": "#/$defs/attackPathFields/severity_rationale" },
-        "change_conditions": { "$ref": "#/$defs/attackPathFields/change_conditions" }
-      }
+      "additionalProperties": true
     },
     "ignoredAttackPath": {
       "type": "object",
-      "additionalProperties": true,
+      "properties": {
+        "decision": { "const": "ignore" },
+        "dataflow": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "reachability": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "counterevidence": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "impact": { "enum": ["high", "medium", "low", "ignore", "unknown"] },
+        "likelihood": {
+          "enum": ["high", "medium", "low", "ignore", "unknown"]
+        },
+        "severity": { "const": "ignore" },
+        "severity_rationale": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "change_conditions": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        }
+      },
       "required": [
         "decision",
         "dataflow",
@@ -1553,21 +1195,38 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         "severity_rationale",
         "change_conditions"
       ],
-      "properties": {
-        "decision": { "const": "ignore" },
-        "dataflow": { "$ref": "#/$defs/attackPathFields/dataflow" },
-        "reachability": { "$ref": "#/$defs/attackPathFields/reachability" },
-        "counterevidence": { "$ref": "#/$defs/attackPathFields/counterevidence" },
-        "impact": { "$ref": "#/$defs/attackPathFields/impact" },
-        "likelihood": { "$ref": "#/$defs/attackPathFields/likelihood" },
-        "severity": { "const": "ignore" },
-        "severity_rationale": { "$ref": "#/$defs/attackPathFields/severity_rationale" },
-        "change_conditions": { "$ref": "#/$defs/attackPathFields/change_conditions" }
-      }
+      "additionalProperties": true
     },
     "deferredAttackPath": {
       "type": "object",
-      "additionalProperties": true,
+      "properties": {
+        "decision": { "const": "deferred" },
+        "dataflow": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "reachability": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "counterevidence": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "impact": { "enum": ["high", "medium", "low", "ignore", "unknown"] },
+        "likelihood": {
+          "enum": ["high", "medium", "low", "ignore", "unknown"]
+        },
+        "severity": {
+          "enum": ["critical", "high", "medium", "low", "unknown"]
+        },
+        "severity_rationale": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "change_conditions": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        },
+        "proof_gap": {
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+        }
+      },
       "required": [
         "decision",
         "dataflow",
@@ -1580,20 +1239,7 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         "change_conditions",
         "proof_gap"
       ],
-      "properties": {
-        "decision": { "const": "deferred" },
-        "dataflow": { "$ref": "#/$defs/attackPathFields/dataflow" },
-        "reachability": { "$ref": "#/$defs/attackPathFields/reachability" },
-        "counterevidence": { "$ref": "#/$defs/attackPathFields/counterevidence" },
-        "impact": { "$ref": "#/$defs/attackPathFields/impact" },
-        "likelihood": { "$ref": "#/$defs/attackPathFields/likelihood" },
-        "severity": { "enum": ["critical", "high", "medium", "low", "unknown"] },
-        "severity_rationale": { "$ref": "#/$defs/attackPathFields/severity_rationale" },
-        "change_conditions": { "$ref": "#/$defs/attackPathFields/change_conditions" },
-        "proof_gap": {
-          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
-        }
-      }
+      "additionalProperties": true
     }
   }
 }
@@ -1606,25 +1252,10 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "codex-security://schemas/tools/candidate-validations.schema.json",
   "title": "Record compact Codex Security candidate validations",
-  "type": "object",
-  "additionalProperties": false,
-  "required": ["scanId", "validations"],
-  "properties": {
-    "scanId": {
-      "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/scanId"
-    },
-    "validations": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/validationUpdate"
-      }
-    }
-  },
+  "$ref": "#/$defs/input",
   "$defs": {
     "input": {
       "type": "object",
-      "additionalProperties": false,
-      "required": ["scanId", "validations"],
       "properties": {
         "scanId": {
           "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/scanId"
@@ -1632,62 +1263,37 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         "validations": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/validationUpdate"
+            "$ref": "codex-security://schemas/tools/candidate-validations.schema.json#/$defs/validationUpdate"
           }
         }
-      }
-    },
-    "updatesPayload": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["validations"],
-      "properties": {
-        "validations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/validationUpdate"
-          }
-        }
-      }
+      },
+      "required": ["scanId", "validations"],
+      "additionalProperties": false
     },
     "validationUpdate": {
       "type": "object",
-      "additionalProperties": false,
-      "required": ["candidateId", "validation"],
       "properties": {
         "candidateId": {
           "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/candidateId"
         },
         "validation": {
-          "$ref": "#/$defs/validationRecord"
+          "$ref": "codex-security://schemas/tools/candidate-validations.schema.json#/$defs/validationRecord"
         }
-      }
+      },
+      "required": ["candidateId", "validation"],
+      "additionalProperties": false
     },
     "validationRecord": {
       "type": "object",
-      "additionalProperties": true,
-      "required": [
-        "disposition",
-        "method",
-        "confidence",
-        "confidence_rationale",
-        "rubric",
-        "evidence",
-        "counterevidence_or_proof_gap",
-        "remaining_uncertainty"
-      ],
       "properties": {
         "disposition": {
-          "type": "string",
-          "enum": ["reportable", "suppressed", "not_applicable", "deferred"]
+          "enum": ["reportable", "suppressed", "not_applicable", "deferred"],
+          "type": "string"
         },
         "method": {
           "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
-        "confidence": {
-          "type": "string",
-          "enum": ["high", "medium", "low"]
-        },
+        "confidence": { "enum": ["high", "medium", "low"], "type": "string" },
         "confidence_rationale": {
           "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
@@ -1697,18 +1303,22 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
               "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             {
-              "type": "object"
+              "type": "object",
+              "properties": {},
+              "additionalProperties": true
             },
             {
-              "type": "array",
               "minItems": 1,
+              "type": "array",
               "items": {
                 "anyOf": [
                   {
                     "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
                   },
                   {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": true
                   }
                 ]
               }
@@ -1721,20 +1331,16 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
               "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             {
-              "type": "array",
               "minItems": 1,
+              "type": "array",
               "items": {
                 "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
               }
             }
           ]
         },
-        "counterevidence_or_proof_gap": {
-          "type": "string"
-        },
-        "remaining_uncertainty": {
-          "type": "string"
-        },
+        "counterevidence_or_proof_gap": { "type": "string" },
+        "remaining_uncertainty": { "type": "string" },
         "artifact_paths": {
           "type": "array",
           "items": {
@@ -1756,35 +1362,26 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
               "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             {
-              "type": "array",
               "minItems": 1,
+              "type": "array",
               "items": {
                 "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
               }
             }
           ]
         }
-      }
-    }
-  }
-}
-```
-
-## File: `schemas/tools/deep-reducer.schema.json`
-
-```json
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "codex-security://schemas/tools/deep-reducer.schema.json",
-  "title": "Codex Security Deep Scan semantic reducer operations",
-  "$ref": "#/$defs/reductionInput",
-  "$defs": {
-    "reducerInputs": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "reductionInput": {
-      "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/scanDraftInput"
+      },
+      "required": [
+        "disposition",
+        "method",
+        "confidence",
+        "confidence_rationale",
+        "rubric",
+        "evidence",
+        "counterevidence_or_proof_gap",
+        "remaining_uncertainty"
+      ],
+      "additionalProperties": true
     }
   }
 }
@@ -1797,23 +1394,12 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "codex-security://schemas/tools/discovery-candidates.schema.json",
   "$defs": {
-    "recordDiscoveryCandidatesInput": {
-      "type": "object",
-      "properties": {
-        "candidates": {
-          "type": "array",
-          "items": {
-            "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/rawDiscoveryCandidate"
-          }
-        }
-      },
-      "required": ["candidates"],
-      "additionalProperties": false
-    },
     "workbenchRecordDiscoveryCandidatesInput": {
       "type": "object",
       "properties": {
-        "scanId": { "type": "string", "pattern": "\\S" },
+        "scanId": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
+        },
         "candidates": {
           "type": "array",
           "items": {
@@ -1824,54 +1410,16 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
       "required": ["scanId", "candidates"],
       "additionalProperties": false
     },
-    "listCandidatesInput": {
-      "type": "object",
-      "properties": {
-        "cursor": {
-          "type": "string",
-          "pattern": "^(?:0|[1-9][0-9]*)$"
-        },
-        "limit": { "type": "integer", "minimum": 1, "maximum": 1000 }
-      },
-      "additionalProperties": false
-    },
     "workbenchListCandidatesInput": {
       "type": "object",
       "properties": {
-        "scanId": { "type": "string", "pattern": "\\S" },
-        "cursor": {
-          "type": "string",
-          "pattern": "^(?:0|[1-9][0-9]*)$"
+        "scanId": {
+          "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/nonEmptyText"
         },
+        "cursor": { "type": "string", "pattern": "^(?:0|[1-9][0-9]*)$" },
         "limit": { "type": "integer", "minimum": 1, "maximum": 1000 }
       },
       "required": ["scanId"],
-      "additionalProperties": false
-    },
-    "recordDiscoveryCandidatesResult": {
-      "type": "object",
-      "properties": {
-        "operation": { "const": "replace" },
-        "candidatesRecorded": { "type": "integer", "minimum": 0 }
-      },
-      "required": ["operation", "candidatesRecorded"],
-      "additionalProperties": false
-    },
-    "listCandidatesResult": {
-      "type": "object",
-      "properties": {
-        "rows": {
-          "type": "array",
-          "items": {
-            "$ref": "codex-security://schemas/definitions/discovery-candidate.schema.json#/$defs/discoveryCandidate"
-          }
-        },
-        "nextCursor": {
-          "type": "string",
-          "pattern": "^(?:0|[1-9][0-9]*)$"
-        }
-      },
-      "required": ["rows"],
       "additionalProperties": false
     }
   }
@@ -1898,17 +1446,6 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
       "required": ["scanId"],
       "additionalProperties": false
     },
-    "prepareOutput": {
-      "type": "object",
-      "properties": {
-        "reviewItemsTotal": {
-          "type": "integer",
-          "minimum": 0
-        }
-      },
-      "required": ["reviewItemsTotal"],
-      "additionalProperties": false
-    },
     "reviewItemsInput": {
       "type": "object",
       "properties": {
@@ -1918,21 +1455,11 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         "handoffClaimToken": {
           "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
-        "cursor": {
-          "type": "string",
-          "pattern": "^(?:0|[1-9][0-9]*)$"
-        },
-        "limit": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 1000
-        }
+        "cursor": { "type": "string", "pattern": "^(?:0|[1-9][0-9]*)$" },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 1000 }
       },
       "required": ["scanId"],
       "additionalProperties": false
-    },
-    "reviewItemsWorkerInput": {
-      "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/page"
     },
     "reviewItem": {
       "type": "object",
@@ -1942,21 +1469,6 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         }
       },
       "required": ["path"],
-      "additionalProperties": false
-    },
-    "reviewItemsOutput": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/reviewItem" }
-        },
-        "nextCursor": {
-          "type": "string",
-          "pattern": "^(?:0|[1-9][0-9]*)$"
-        }
-      },
-      "required": ["items"],
       "additionalProperties": false
     }
   }
@@ -1970,6 +1482,7 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "codex-security://schemas/tools/scan-draft.schema.json",
   "title": "Codex Security semantic scan draft",
+  "$ref": "#/$defs/scanDraftInput",
   "$defs": {
     "text": {
       "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
@@ -1977,7 +1490,7 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
     "textList": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/text"
+        "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
       }
     },
     "scanId": {
@@ -1994,193 +1507,120 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
       "type": "object",
       "properties": {
         "path": {
-          "$ref": "#/$defs/repositoryPath"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/repositoryPath"
         },
-        "startLine": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "endLine": {
-          "type": "integer",
-          "minimum": 1
-        },
+        "startLine": { "type": "integer", "minimum": 1 },
+        "endLine": { "type": "integer", "minimum": 1 },
         "role": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         }
       },
-      "required": [
-        "path",
-        "startLine"
-      ],
+      "required": ["path", "startLine"],
       "additionalProperties": true
     },
     "identity": {
       "type": "object",
       "properties": {
-        "anchor": {
-          "type": "string",
-          "pattern": "^[a-z0-9][a-z0-9._/-]*$"
-        },
-        "instance": {
-          "type": "string",
-          "pattern": "^[a-z0-9][a-z0-9._/-]*$"
-        }
+        "anchor": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._/-]*$" },
+        "instance": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._/-]*$" }
       },
-      "required": [
-        "anchor"
-      ],
+      "required": ["anchor"],
       "additionalProperties": true
     },
     "severity": {
       "type": "object",
       "properties": {
         "level": {
-          "enum": [
-            "critical",
-            "high",
-            "medium",
-            "low",
-            "informational"
-          ]
+          "enum": ["critical", "high", "medium", "low", "informational"]
         },
-        "score": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 10
-        },
+        "score": { "type": "number", "minimum": 0, "maximum": 10 },
         "scoringSystem": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "vector": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "rationale": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "changeConditions": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         }
       },
-      "required": [
-        "level"
-      ],
+      "required": ["level"],
       "additionalProperties": true
     },
     "confidence": {
       "type": "object",
       "properties": {
-        "level": {
-          "enum": [
-            "high",
-            "medium",
-            "low"
-          ]
-        },
+        "level": { "enum": ["high", "medium", "low"] },
         "rationale": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         }
       },
-      "required": [
-        "level",
-        "rationale"
-      ],
+      "required": ["level", "rationale"],
       "additionalProperties": true
     },
     "taxonomy": {
       "type": "object",
       "properties": {
         "category": {
-          "$ref": "#/$defs/text",
-          "description": "The actual primary broken security control, not a CWE identifier."
+          "description": "The actual primary broken security control, not a CWE identifier.",
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "cwe": {
-          "$ref": "#/$defs/textList",
-          "description": "Copy the reviewed candidate's exact cwe_ids array. Use an empty array when no CWE is established; do not invent one."
+          "description": "Copy the reviewed candidate's exact cwe_ids array. Use an empty array when no CWE is established; do not invent one.",
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         }
       },
-      "required": [
-        "category",
-        "cwe"
-      ],
+      "required": ["category", "cwe"],
       "additionalProperties": true
     },
     "codeEvidence": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "pattern": "^[a-z0-9][a-z0-9._/-]*$"
-        },
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._/-]*$" },
         "label": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "path": {
-          "$ref": "#/$defs/repositoryPath"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/repositoryPath"
         },
-        "startLine": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "endLine": {
-          "type": "integer",
-          "minimum": 1
-        },
+        "startLine": { "type": "integer", "minimum": 1 },
+        "endLine": { "type": "integer", "minimum": 1 },
         "language": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "role": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "code": {
-          "$ref": "#/$defs/text",
-          "description": "The genuine, nonempty source snippet at this evidence location."
+          "description": "The genuine, nonempty source snippet at this evidence location.",
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "explanation": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         }
       },
-      "required": [
-        "id",
-        "label",
-        "path",
-        "startLine",
-        "code",
-        "explanation"
-      ],
-      "additionalProperties": true
-    },
-    "legacyCodeEvidence": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/text"
-        },
-        "code": {
-          "$ref": "#/$defs/text"
-        }
-      },
-      "required": [
-        "id",
-        "code"
-      ],
+      "required": ["id", "label", "path", "startLine", "code", "explanation"],
       "additionalProperties": true
     },
     "findingAssessment": {
       "anyOf": [
         {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         {
           "type": "object",
           "properties": {
             "level": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "rationale": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "why": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             }
           },
           "additionalProperties": true
@@ -2190,32 +1630,30 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
     "textOrSummary": {
       "anyOf": [
         {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         {
           "type": "object",
           "properties": {
             "summary": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "source": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "sink": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "outcome": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "transformations": {
-              "$ref": "#/$defs/textList"
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
             },
             "evidenceRefs": {
-              "$ref": "#/$defs/textList"
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
             },
-            "evidence_refs": {
-              "$ref": "#/$defs/textList"
-            }
+            "evidence_refs": false
           },
           "additionalProperties": true
         }
@@ -2224,38 +1662,36 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
     "findingReachability": {
       "anyOf": [
         {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         {
           "type": "object",
           "properties": {
             "summary": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "attacker": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "entrypoint": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "source": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "sink": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "outcome": {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             "preconditions": {
-              "$ref": "#/$defs/textList"
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
             },
             "evidenceRefs": {
-              "$ref": "#/$defs/textList"
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
             },
-            "evidence_refs": {
-              "$ref": "#/$defs/textList"
-            }
+            "evidence_refs": false
           },
           "additionalProperties": true
         }
@@ -2265,64 +1701,56 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
       "type": "object",
       "properties": {
         "assertions": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "counterEvidence": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "evidence": {
           "anyOf": [
             {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             {
-              "$ref": "#/$defs/textList"
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
             }
           ]
         },
         "evidenceRefs": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
-        "evidence_refs": {
-          "$ref": "#/$defs/textList"
-        },
+        "evidence_refs": false,
         "limitations": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "method": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "status": {
           "anyOf": [
             {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
-            {
-              "type": "null"
-            }
+            { "type": "null" }
           ]
         },
         "summary": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "disposition": {
           "anyOf": [
             {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
-            {
-              "type": "null"
-            }
+            { "type": "null" }
           ]
         },
         "result": {
           "anyOf": [
             {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
-            {
-              "type": "null"
-            }
+            { "type": "null" }
           ]
         }
       },
@@ -2332,63 +1760,53 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
       "type": "object",
       "properties": {
         "assumptions": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "blindspots": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "controls": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
-        "dataFlow": {
-          "$ref": "#/$defs/textOrSummary"
-        },
-        "data_flow": {
-          "$ref": "#/$defs/textOrSummary"
-        },
+        "dataFlow": false,
+        "data_flow": false,
         "dataflow": {
-          "$ref": "#/$defs/textOrSummary"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textOrSummary"
         },
         "evidenceRefs": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
-        "evidence_refs": {
-          "$ref": "#/$defs/textList"
-        },
+        "evidence_refs": false,
         "impact": {
           "anyOf": [
             {
-              "$ref": "#/$defs/findingAssessment"
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/findingAssessment"
             },
-            {
-              "type": "null"
-            }
+            { "type": "null" }
           ]
         },
         "likelihood": {
           "anyOf": [
             {
-              "$ref": "#/$defs/findingAssessment"
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/findingAssessment"
             },
-            {
-              "type": "null"
-            }
+            { "type": "null" }
           ]
         },
         "limitations": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "preconditions": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "reachability": {
-          "$ref": "#/$defs/findingReachability"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/findingReachability"
         },
         "steps": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "summary": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         }
       },
       "additionalProperties": true
@@ -2405,28 +1823,28 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
           "description": "A stable lowercase vulnerability-family slug, such as prototype-pollution.json-patch; a CWE is taxonomy, not a rule ID."
         },
         "identity": {
-          "$ref": "#/$defs/identity"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/identity"
         },
         "title": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "summary": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "severity": {
-          "$ref": "#/$defs/severity"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/severity"
         },
         "confidence": {
-          "$ref": "#/$defs/confidence"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/confidence"
         },
         "taxonomy": {
-          "$ref": "#/$defs/taxonomy"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/taxonomy"
         },
         "locations": {
-          "type": "array",
           "minItems": 1,
+          "type": "array",
           "items": {
-            "$ref": "#/$defs/location"
+            "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/location"
           }
         },
         "writeup": {
@@ -2437,142 +1855,106 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
               "pattern": "^findings/([a-z0-9][a-z0-9._-]*)/\\1\\.md$"
             }
           },
-          "required": [
-            "reportPath"
-          ],
+          "required": ["reportPath"],
           "additionalProperties": true
         },
         "codeEvidence": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/codeEvidence"
+            "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/codeEvidence"
           }
         },
-        "code_evidence": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/legacyCodeEvidence"
-          }
-        },
+        "code_evidence": false,
         "rootCause": {
           "anyOf": [
             {
-              "$ref": "#/$defs/text"
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             },
             {
               "type": "object",
               "properties": {
                 "summary": {
-                  "$ref": "#/$defs/text"
+                  "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
                 },
-                "code": {
-                  "$ref": "#/$defs/text"
-                },
-                "language": {
-                  "$ref": "#/$defs/text"
-                },
+                "code": false,
+                "language": false,
                 "evidenceRefs": {
-                  "$ref": "#/$defs/textList"
-                }
+                  "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
+                },
+                "evidence_refs": false
               },
-              "required": [
-                "summary"
-              ],
+              "required": ["summary"],
               "additionalProperties": true
             }
           ]
         },
-        "root_cause": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/text"
-            },
-            {
-              "type": "object",
-              "properties": {
-                "summary": {
-                  "$ref": "#/$defs/text"
-                },
-                "code": {
-                  "$ref": "#/$defs/text"
-                },
-                "language": {
-                  "$ref": "#/$defs/text"
-                },
-                "evidenceRefs": {
-                  "$ref": "#/$defs/textList"
-                },
-                "evidence_refs": {
-                  "$ref": "#/$defs/textList"
-                }
-              },
-              "additionalProperties": true
-            }
-          ]
-        },
+        "root_cause": false,
         "remediation": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "validation": {
           "anyOf": [
             {
-              "$ref": "#/$defs/findingValidation"
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/findingValidation"
             },
-            {
-              "type": "null"
-            }
+            { "type": "null" }
           ]
         },
         "attackPath": {
           "anyOf": [
             {
-              "$ref": "#/$defs/findingAttackPath"
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/findingAttackPath"
             },
-            {
-              "type": "null"
-            }
+            { "type": "null" }
           ]
         },
         "remediationTests": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "preventiveControls": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "provenance": {
           "type": "object",
           "properties": {
             "sourceFindingIds": {
               "type": "array",
-              "items": { "$ref": "#/$defs/text" },
+              "items": {
+                "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+              },
               "uniqueItems": true,
-              "description": "Host-provided source finding references represented by this Deep reduction. Preserve every assigned reference exactly once."
+              "description": "IDs of the Standard scan findings grouped into this Deep scan finding."
             },
             "sourceFindings": {
               "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
-                  "id": { "$ref": "#/$defs/text" },
-                  "finding": { "type": "object", "additionalProperties": true }
+                  "id": {
+                    "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+                  },
+                  "finding": {
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": true
+                  }
                 },
                 "required": ["id", "finding"],
                 "additionalProperties": false
               },
-              "description": "Original source payloads retained by the host for lossless semantic merges."
+              "description": "Original Standard scan findings retained by the host."
             },
             "source": {
-              "$ref": "#/$defs/text",
-              "description": "The actual finding producer. Use local_plugin only for a finding discovered by this plugin."
+              "description": "The actual finding producer. Use local_plugin only for a finding discovered by this plugin.",
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
             }
           },
-          "required": [
-            "source"
-          ],
+          "required": ["source"],
           "additionalProperties": true
         },
         "extensions": {
           "type": "object",
+          "properties": {},
           "additionalProperties": true
         }
       },
@@ -2595,73 +1977,104 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         "includePaths": false,
         "excludePaths": false,
         "summary": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "artifactsReviewed": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         },
         "runtimeStatus": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "validationMode": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "context": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "limitations": {
-          "$ref": "#/$defs/textList"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
         }
       },
       "additionalProperties": true
     },
     "threatModel": {
-      "type": "object",
-      "properties": {
-        "summary": {
-          "$ref": "#/$defs/text"
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "summary": {
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+            },
+            "assets": {
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
+            },
+            "trustBoundaries": {
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
+            },
+            "attackerCapabilities": {
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
+            },
+            "securityObjectives": {
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
+            },
+            "assumptions": {
+              "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
+            }
+          },
+          "required": ["summary"],
+          "additionalProperties": true
         },
-        "assets": {
-          "$ref": "#/$defs/textList"
-        },
-        "trustBoundaries": {
-          "$ref": "#/$defs/textList"
-        },
-        "attackerCapabilities": {
-          "$ref": "#/$defs/textList"
-        },
-        "securityObjectives": {
-          "$ref": "#/$defs/textList"
-        },
-        "assumptions": {
-          "$ref": "#/$defs/textList"
+        {
+          "type": "object",
+          "properties": {
+            "format": { "const": "markdown" },
+            "content": {
+              "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "includePaths": {
+                  "type": "array",
+                  "items": { "type": "string", "minLength": 1 }
+                },
+                "excludePaths": {
+                  "type": "array",
+                  "items": { "type": "string", "minLength": 1 }
+                },
+                "summary": { "type": "string", "minLength": 1 }
+              },
+              "required": ["includePaths"],
+              "additionalProperties": true,
+              "description": "The modeled source scope, which may differ from the scan scope. Omit when unknown."
+            },
+            "origin": {
+              "enum": ["generated", "provided", "reconciled", "recovered"]
+            }
+          },
+          "required": ["format", "content"],
+          "additionalProperties": true
         }
-      },
-      "required": [
-        "summary"
       ],
-      "additionalProperties": true
+      "description": "Retained threat-model content. Existing structured models remain supported; Markdown documents preserve their complete original body."
     },
     "surface": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "pattern": "^[a-z0-9][a-z0-9._/-]*$"
-        },
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._/-]*$" },
         "label": {
-          "$ref": "#/$defs/text",
-          "description": "The meaningful name of the reviewed security surface."
+          "description": "The meaningful name of the reviewed security surface.",
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "disposition": {
-          "description": "The evidence-supported review result for this surface.",
           "enum": [
             "reported",
             "no_issue_found",
             "rejected",
             "not_applicable",
             "needs_follow_up"
-          ]
+          ],
+          "description": "The evidence-supported review result for this surface."
         },
         "receiptRefs": {
           "type": "array",
@@ -2672,19 +2085,16 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
           }
         },
         "riskArea": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         },
         "notes": {
-          "$ref": "#/$defs/text"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
         }
       },
-      "required": [
-        "label",
-        "disposition"
-      ],
+      "required": ["label", "disposition"],
       "additionalProperties": true
     },
-    "coverage": {
+    "reviewState": {
       "type": "object",
       "properties": {
         "documentType": false,
@@ -2694,19 +2104,11 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
         "includePaths": false,
         "excludePaths": false,
         "receiptRefs": false,
-        "completeness": {
-          "description": "Use partial if any work is deferred or any surface needs follow-up; use complete only when no such work remains.",
-          "enum": [
-            "complete",
-            "partial",
-            "unknown"
-          ]
-        },
         "inventoryStrategy": false,
         "surfaces": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/surface"
+            "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/surface"
           }
         },
         "explicitExclusions": {
@@ -2715,16 +2117,13 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
             "type": "object",
             "properties": {
               "pattern": {
-                "$ref": "#/$defs/text"
+                "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
               },
               "reason": {
-                "$ref": "#/$defs/text"
+                "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
               }
             },
-            "required": [
-              "pattern",
-              "reason"
-            ],
+            "required": ["pattern", "reason"],
             "additionalProperties": true
           }
         },
@@ -2734,59 +2133,68 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
             "type": "object",
             "properties": {
               "id": {
-                "$ref": "#/$defs/text"
+                "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
               },
               "candidateId": {
                 "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/candidateId"
               },
               "reason": {
-                "$ref": "#/$defs/text"
+                "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
               },
               "paths": {
-                "$ref": "#/$defs/textList"
+                "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
               },
               "surfaceIds": {
-                "$ref": "#/$defs/textList"
+                "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/textList"
               }
             },
-            "required": [
-              "reason"
-            ],
+            "required": ["reason"],
             "additionalProperties": true
-          }
+          },
+          "description": "Each supplied id identifies one task and must be unique within this draft. Reuse saved IDs in later updates."
+        },
+        "resolvedDeferred": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+              },
+              "reason": {
+                "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
+              }
+            },
+            "required": ["id", "reason"],
+            "additionalProperties": false
+          },
+          "description": "On final Standard or diff drafts, close generic tasks by saved ID and completion reason. Reuse saved surface IDs for updates. Candidate tasks need findings or dispositions; redundant closure entries for those outcomes are ignored."
         },
         "openQuestions": {
           "type": "array",
           "items": {
             "anyOf": [
               {
-                "$ref": "#/$defs/text"
+                "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
               },
               {
                 "type": "object",
                 "properties": {
                   "question": {
-                    "$ref": "#/$defs/text"
+                    "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
                   },
                   "followUpPrompt": {
-                    "$ref": "#/$defs/text"
+                    "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/nonEmptyText"
                   }
                 },
-                "required": [
-                  "question"
-                ],
+                "required": ["question"],
                 "additionalProperties": true
               }
             ]
           }
         }
       },
-      "required": [
-        "completeness",
-        "surfaces",
-        "explicitExclusions",
-        "deferred"
-      ],
+      "required": ["surfaces", "explicitExclusions", "deferred"],
       "additionalProperties": true
     },
     "scanDraftInput": {
@@ -2794,74 +2202,44 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
       "properties": {
         "complete": {
           "type": "boolean",
-          "description": "Set false to save progress without declaring this worker or parent audit finished. Omit or set true only for the terminal result. Put provisional candidates in coverage.deferred, not findings."
+          "description": "Set false to save progress without declaring this worker or parent audit finished. Omit or set true only for the terminal result. Put provisional candidates in reviewState.deferred, not findings."
         },
         "scanId": {
-          "$ref": "#/$defs/scanId"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/scanId"
         },
         "handoffClaimToken": {
-          "$ref": "#/$defs/handoffClaimToken"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/handoffClaimToken"
         },
         "scope": {
-          "$ref": "#/$defs/scope"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/scope"
         },
         "threatModel": {
-          "$ref": "#/$defs/threatModel"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/threatModel"
         },
         "findings": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/finding"
+            "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/finding"
           }
         },
-        "coverage": {
-          "$ref": "#/$defs/coverage"
+        "reviewState": {
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/reviewState"
         }
       },
-      "required": [
-        "scanId",
-        "findings",
-        "coverage"
-      ],
+      "required": ["scanId", "findings", "reviewState"],
       "additionalProperties": false
     },
     "completedScanInput": {
       "type": "object",
       "properties": {
         "scanId": {
-          "$ref": "#/$defs/scanId"
+          "$ref": "codex-security://schemas/definitions/artifact-common.schema.json#/$defs/scanId"
         },
         "handoffClaimToken": {
-          "$ref": "#/$defs/handoffClaimToken"
+          "$ref": "codex-security://schemas/tools/scan-draft.schema.json#/$defs/handoffClaimToken"
         }
       },
-      "required": [
-        "scanId"
-      ],
-      "additionalProperties": false
-    }
-  },
-  "$ref": "#/$defs/scanDraftInput"
-}
-```
-
-## File: `schemas/tools/worker-threat-model.schema.json`
-
-```json
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "codex-security://schemas/tools/worker-threat-model.schema.json",
-  "$defs": {
-    "recordWorkerThreatModelInput": {
-      "type": "object",
-      "properties": {
-        "content": {
-          "type": "string",
-          "minLength": 1,
-          "pattern": "\\S"
-        }
-      },
-      "required": ["content"],
+      "required": ["scanId"],
       "additionalProperties": false
     }
   }

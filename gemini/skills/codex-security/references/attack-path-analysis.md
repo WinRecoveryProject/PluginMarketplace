@@ -1,6 +1,6 @@
 # Skill: attack-path-analysis
 
-- Plugin: `codex-security` (0.1.22)
+- Plugin: `codex-security` (0.1.33)
 - Source: `plugins/codex-security/skills/attack-path-analysis/SKILL.md`
 
 > Use when Codex is already in the attack-path-analysis phase of a security scan or the user explicitly asks to trace a security finding from source to sink and calibrate severity. Do not use as the primary trigger for full PR, commit, branch, patch, or repository scans.
@@ -9,111 +9,53 @@
 
 ### Security Attack Path Analysis
 
-#### Objective
+Determine whether each supplied finding has a supported attacker path, what impact it has, and whether it is reportable. Before creating or retaining files, read `../../references/artifact-storage.md`.
 
-Turn validated or still-plausible findings into explicit attacker stories, structured attack-path analysis facts, severity calibration, and a final reportability decision grounded in the threat model.
+#### Establish the attack path
 
-#### Artifact Resolution
+For a scan phase, use its per-scan threat model and candidate set from `../../references/scan-artifacts.md`. Preserve supplied input paths. If a required scan artifact is unavailable, report the missing input.
 
-The path references in this skill are the default locations for this phase.
-If the user explicitly provides a different path for a required input or output, use the user-provided path instead of the corresponding default path referenced in this skill.
-If a required input is still missing, stop and ask the user for it before continuing.
-Use the shared scan artifact path conventions in `../../references/scan-artifacts.md`.
+For standalone analysis, use the supplied finding, repository, threat model or security policy, and context. A per-scan artifact is not required. State material assumptions and ask for missing context only when it prevents a meaningful assessment.
+
+1. Establish the in-scope attacker, affected product surface, entry point, controlled input, security boundary, and sensitive operation. Trace each step using repository evidence and supplied observations of the target.
+2. Identify relevant controls and the strongest counterevidence. Explain what they establish, which prerequisites remain, and whether the exact claimed boundary is crossed.
+3. Assess impact and likelihood from those facts. Apply [references/severity-policy.md](attack-path-analysis.md#file-referencesseverity-policymd) for the final decision. When the scan supplies a severity rubric, use it to grade reportable findings and retain `ignore` for candidates without security impact. Keep facts, severity calibration, and the final policy decision distinguishable in the result.
+4. Return an explicit decision for every eligible candidate, including ignored or deferred candidates. Do not replace a supported instance with a neighboring finding or lose its root-control location.
+
+For an imported AWS Continuum issue, read `source_data.evidence_artifacts` in the supplied finding evidence. A `VALIDATION_EVIDENCE` artifact's `body.validationEvidence` may establish a step the repository cannot show. Match the tested target, attacker privileges, and observed effect to the claimed path. For a bundled issue, use `perFindingResults` and `flowVerdicts` when present to identify the relevant finding and flow. An HTTP `exploitArtifact` can establish reachability from the tested position. An `executedProof` establishes what ran in its test environment. `sourceAnalysis` records a static inference, and an `exploitable` verdict alone does not demonstrate deployed reachability. Cite the artifact ID and the observation that supports or contradicts the step.
+
+Treat supplied artifacts as evidence. Access the network only when the user has expressly authorized it; an offline scan never accesses the network. Do not invent unsupported attack chains. Missing deployment or public-ingress evidence can limit confidence without defeating an otherwise supported finding.
+
+#### Scan integration
 
 Standard scans and Deep Scan workers assess attack paths within their ordinary Standard scan workflow; neither invokes this separate phase skill.
 
-For a durable diff scan, read the validated candidates with `list_codex_security_candidates({ scanId, cursor?, limit? })`. Analyze every `reportable` or `deferred` candidate, preserve candidate order and existing records, and submit all decisions together with one `record_candidate_attack_paths({ scanId, attackPaths: [{ candidateId, attackPath }] })` call. The existing tool updates the stored candidates; do not create per-finding reports, receipts, or manual candidate ledgers in this compact diff mode. Other scan and standalone workflows retain their existing artifact behavior.
+##### Compact Workbench Diff
 
-#### Workflow
+When a workbench-backed `$security-diff-scan` has a `scanId`:
 
-1. Load the per-scan threat model path from `../../references/scan-artifacts.md` as the repo-specific threat-model source of truth. Start from this along with the potential findings. Both inputs are required for this workflow.
-   - For repository-wide and scoped-path scans, include validation closure rows marked `reportable` or `survives: yes` even if they were not assigned polished candidate numbers during discovery.
-2. Determine whether the affected code is in scope for the repository threat model and whether it belongs to a product surface or production workflow.
-3. Build a factual attack path using repository evidence only:
-   - service mapping
-   - exposure and entry points
-   - identity, privilege, and trust boundaries
-   - secrets handling and sensitive-data flow
-   - reachability
-   - existing controls and mitigations
-4. Before finalizing scope or reportability-driving facts, identify the strongest repository counterevidence against the key scoping fields and explain why it is or is not dispositive.
-5. Calibrate impact and likelihood from the repository evidence.
-6. Apply a separate final policy-adjustment pass mechanically using those facts and the calibrated severity.
-7. Record final policy decision `ignore` explicitly; in compact diff mode, retain its candidate record for coverage, and otherwise drop it from the surviving finding set.
-8. For a durable diff scan, submit the nested decision for every eligible candidate in the single compact tool call. Otherwise, save that finding's visible attack-path report and append one attack-path receipt per candidate id at the default paths from `../../references/scan-artifacts.md`. The receipt must record the candidate id, attack-path reportability decision, attack-path facts or exact proof gap, and attack-path artifact/report reference for that candidate finding.
+- Load the per-scan threat model and all validated candidates with `list_codex_security_candidates({ scanId, cursor?, limit? })`.
+- Analyze every `reportable` or `deferred` validation candidate. Preserve candidate identity and existing discovery and validation fields.
+- Submit every decision together with `record_candidate_attack_paths({ scanId, attackPaths: [{ candidateId, attackPath }] })`. Submit `attackPaths: []` when no candidate enters this phase. The tool preserves the stored candidate order.
+- These nested decisions are the complete phase output. Do not create duplicate reports, receipts, or manual ledgers.
 
-#### Scope and Attack Path Checklist
+##### Other phase-based scans
 
-Use this checklist before finalizing the attack-path facts or policy decision:
+Use the active workflow's report and receipt paths in `../../references/scan-artifacts.md`. Every candidate entering this phase must have an explicit decision and a receipt with its ID, facts or exact proof gap, and report reference. Record ignored candidates before excluding them from the surviving finding set.
 
-- Determine whether the finding is actually a real security vulnerability rather than a correctness bug or false positive.
-- Determine whether the affected code belongs to a product surface or production workflow.
-- Map the relevant service, component, or workflow context from repository evidence.
-- Establish exposure and entry points from repository evidence such as listeners, ingress, load balancers, service ports, manifests, routing, or network policy.
-- Establish identities, privileges, and trust boundaries that matter for the path.
-- Establish whether sensitive data, secrets references, or privileged control paths are involved.
-- Determine whether a realistic attacker can actually reach and use the issue from an in-scope attack surface.
-- Identify the strongest repository counterevidence against the scoping and reportability-driving fields before finalizing them.
-- Lower confidence or keep fields unknown when repository evidence is incomplete; do not automatically suppress a finding solely because deployment evidence is missing.
+For repository-wide or scoped-path scans, include validation closure rows marked `reportable` or `survives: yes`, even if discovery did not assign a polished finding number. Preserve affected entrypoint/wrapper, root-control, sink, and concrete-implementation locations supplied by validation.
 
-#### Counterevidence Checklist
+#### Output
 
-For the most interpretive fields, explicitly ask what repository evidence suggests the opposite and why it does or does not defeat the finding:
+For standalone analysis, follow the caller's format or return a concise assessment per finding. Scan phases use their output contract above. Include:
 
-- In-Scope Status According to the Threat Model
-- Vector
-- Auth Scope
-- Exposure
-- Cross-Boundary Behavior
-- Preconditions
-- Impact Surface
+- title and supplied candidate, instance, and ledger identities;
+- precise affected locations and attacker-to-impact steps;
+- relevant facts from [references/attack-path-facts.md](attack-path-analysis.md#file-referencesattack-path-factsmd);
+- controls, counterevidence, prerequisites, and material proof gaps;
+- impact, likelihood, calibrated severity, and final policy decision with their reasons.
 
-Look specifically for repository evidence that the path is:
-
-- out of scope
-- internal-only
-- admin-only
-- not cross-boundary
-- not attacker-reachable
-- not meaningfully reportable
-
-#### Severity and Policy Checklist
-
-Apply severity and policy calibration using `references/severity-policy.md`.
-
-#### Output Contract
-
-In compact diff mode, the recorded nested attack-path decisions are the complete phase output; do not also create narrative reports or receipts. Otherwise, use the following report contract.
-
-For each surviving finding include:
-
-- title
-- candidate id, instance key, and ledger row id when provided
-- affected lines from validation, preserving labeled entrypoint/wrapper, root_control, sink, and concrete_implementation locations
-- attack path steps
-- rendered attack-path facts
-- counterevidence summary and challenges
-- severity calibration
-- final policy decision
-- enough reasoning that a later reader can understand why the finding survived or was suppressed
-
-Render attack-path facts using `references/attack-path-facts.md`.
-
-#### Hard Rules
-
-- Use repository evidence and explicitly supplied context. Access the network only when the user has expressly authorized that access; an offline scan never accesses the network.
-- Do not invent attack chains that the code does not support.
-- Do not leave candidate coverage implicit. In compact diff mode, record a nested attack-path decision for every eligible candidate. Otherwise, every candidate that reaches attack-path analysis must leave an attack-path receipt in its candidate-ledger path from `../../references/scan-artifacts.md`.
-- Do not drop exact affected locations while converting validated findings into attack paths. Repository-wide seeded/root-control rows that survive validation must keep their root-control file:line even when a wrapper, route, or transport is easier to explain.
-- Do not skip a reportable validation row because a neighboring same-family finding has a cleaner story. Either produce attack-path facts for that exact row or make an explicit final policy decision with repository counterevidence.
-- Missing public-ingress evidence is not by itself dispositive counterevidence.
-- Keep attack-path analysis, severity calibration, and final policy suppression as separate sub-stages.
-- Use the final policy-adjustment matrix mechanically rather than re-arguing severity from scratch after the facts are set.
-- Outside compact diff mode, save a final visible report for each candidate finding using that finding's attack-path analysis report path from `../../references/scan-artifacts.md`.
-
--- Considerations for attack path --
-- A bug matters if evidence shows an attacker could exploit it.
-- The attack surface should generally be one that is plausibly exposed to end users / external actors (or another actor explicitly in scope in the threat model).
+Retain enough evidence to explain both surviving and suppressed findings. Apply the severity policy to the established facts rather than reopening discovery or substituting a different attack story.
 
 ## Bundled files
 
@@ -128,235 +70,55 @@ interface:
 
 ### File: `references/attack-path-facts.md`
 
-#### Attack Path Facts Guidance
+#### Attack Path Facts
 
-Use this guidance during attack-path analysis before severity calibration.
+Use these fields to explain the path and the reportability decision. Record unknowns explicitly when they matter. Follow the calling workflow's schema; in narrative output, use concise bullets or paragraphs rather than repeating the same evidence under several headings.
 
-##### Attack Path Facts
+- **Scope and context:** the affected component, applicable threat-model boundary, whether the impact is self-only or crosses a meaningful boundary, and the evidence.
+- **Attack path:** attacker-controlled input, numbered attacker steps, sensitive operation, and the evidence connecting them.
+- **Exposure and vector:** public, internal, or admin-only access; `remote`, `local_network`, `localhost`, `none`, or `unknown`; relevant routing or deployment evidence when available.
+- **Identity and preconditions:** effective privileges, required attacker position or capabilities, plausibility of those prerequisites, and assumptions.
+- **Impact:** vulnerability category, affected runtime/data/identity/build/network surface, target reach, and any involved secret type or reference chain.
+- **Controls and counterevidence:** effective mitigations, the strongest evidence against the claimed path or scope, and why it does or does not defeat the finding.
+- **Uncertainty:** confidence, missing facts, and conditions that would change the assessment.
+- **Decision:** impact and likelihood reasoning, calibrated severity, and final policy decision.
 
-The attack-path facts should be gathered in structured form during analysis, but the final report should render them as markdown under a section such as `### Attack Path Facts` or a similarly clear heading.
-
-That rendered facts section should explicitly cover:
-
-- Assumptions
-- Context:
-  - whether the impact is self-only or crosses a meaningful boundary
-  - the repository evidence for that conclusion
-- In-Scope Status According to the Threat Model:
-  - whether the component is in scope
-  - the reasoning
-- Exposure:
-  - whether the surface is public
-  - ports, ingress, and load-balancer type when repository evidence exists
-  - the evidence
-- Identity:
-  - service account or managed identity if present
-  - effective privileges
-- Cross-Boundary Behavior:
-  - whether a boundary crossing is actually verified
-  - the evidence chain
-- Vector:
-  - `remote`, `local_network`, `localhost`, `none`, or `unknown`
-  - the evidence
-- Preconditions:
-  - what the attacker needs
-  - whether those preconditions are plausible, unlikely, unachievable, or unknown
-  - the evidence
-- Attacker Input Control:
-  - whether attacker control is yes, plausible, no, or unknown
-  - the evidence
-- Category
-- Mitigations Already Present
-- Auth Scope:
-  - whether the path is public, internal-only, admin-only, or unknown
-  - the evidence
-- Impact Surface:
-  - build, runtime, data, identity, network, or other
-  - the evidence
-- Target Reach:
-  - single service, base image, fleet, or unknown
-  - the evidence
-- Secrets References:
-  - the secret type and reference chain when present
-- Counterevidence:
-  - the strongest conflicting repository evidence for the reportability-driving facts
-  - why that evidence is or is not dispositive
-- Blindspots
-- Controls
-- Confidence
-
-Prefer turning those facts into readable bullets or short labeled paragraphs instead of exposing a raw schema dump. The final report should make the scoping and reportability facts easy to inspect, including:
-
-- whether the finding is in scope according to the threat model
-- whether the surface is public, internal, admin-only, localhost-only, or unknown
-- what attacker-controlled input exists
-- what preconditions the attacker needs and whether they are achievable
-- whether a real trust boundary is crossed
-- what identities, privileges, or secrets are involved
-- what mitigations and controls already exist
-- what the strongest repository counterevidence is
-- what blindspots or residual uncertainty remain
-
-Also make sure the rendered report carries forward:
-
-- the factual attack path as numbered attacker steps
-- the reachability and scoping logic
-- the strongest conflicting repository evidence
-- the final policy decision after suppression
-- the reasoning behind impact and likelihood
+Keep attack-path facts distinct from severity and suppression decisions. Preserve precise source locations and identifiers supplied by validation.
 
 ### File: `references/severity-policy.md`
 
 #### Severity and Policy Guidance
 
-Use this guidance after attack-path facts, reachability, and counterevidence are established.
+Apply this policy after establishing the attack path, scope, and counterevidence. Start from the candidate's severity hypothesis and adjust it using the impact, likelihood, prerequisites, and mitigations supported by the repository and supplied validation evidence. Do not reopen discovery during calibration.
 
--- Considerations for severity / criticality re-rating --
-- For `high` and above, the impact must be materially security-relevant (for example: account takeover, auth bypass, meaningful privilege escalation, significant sensitive data exposure/exfiltration, credible RCE, or similarly severe compromise), not simply a bug or strange behavior
-- For a finding to remain `high` or `critical`, the exploitation path and impact should be clear enough that a professional security reviewer would not need a long speculative argument to justify it.
-- Do **not** treat ordinary code bugs as high/critical security issues just because they are bugs or because the scanner labeled them that way.
-- Do **not** keep `critical` based on contrived, highly speculative, or edge-case-only exploit stories unless the threat model explicitly supports those conditions. Critical DEMANDS attention implying an immediate likely threat.
-- Do **not** keep `high`/`critical` for strange configurations or odd codebase behaviors unless there is clear evidence that an in-scope attacker can realistically exploit them for major impact.
-- Do **not** rely on unusual operator mistakes, internal-only access, or non-attacker-reachable code paths to justify severe external impact unless the repository threat model says those actors/paths are in scope.
-- If the issue is a real bug but not actually a security vulnerability, classify it as `ignore` (or, if you have to, `low`) for criticality purposes.
-- If it is actually provable that there is no bug at all (the description is entirely wrong or made up and you actually got that real proof that it is so), then label it as `ignore` for criticality to mark a false-positive.
+Grade reportable findings with the scan's rubric or, when none is supplied, the [default severity rubric](_plugin-references.md#file-referencesdefault-severity-rubricmd).
 
-Non-exhaustive examples of vulnerabilities that often support `critical` when evidenced in code and context:
-- Credible RCE or arbitrary code execution (command injection, LFI exec, trivial memory corruption exploits, etc.). Requires actual proof that attacker input causes this from an in-scope attack surface.
-- Real XSS with meaningful proven impact (for example session/token theft, account compromise, privileged action execution, etc)
-- Account takeover or strong authentication bypass, especially if it is 0-click
-- Missing authorization checks / authorization bypass / tenant-boundary break (trivial IDOR, easy to swap out org or use ids with no authz, etc)
-- Severe sensitive data leak (LFI, path traversal, bad scoping of file downloads, access to data without authorization, trivial side-channels) with realistic attacker access (proof the attacker can read secrets, PII, signing keys, credential stores, private keys, classified or highly confidential information (model weights etc))
-- Trivial memory corruption exploits with known exploit patterns which require little effort to exploit
-- SQL or other Database or query injection with clear proof of path from attacker input from in-scope attack surface and impact of the injection (leaks sensitive data, inserts dangerous records)
-- Sandbox, container, VM, browser, or interpreter escape that breaks an intended isolation boundary
-- Server-side template injection when it leads to RCE or leaking of secrets, with actual proof that the templating library can be exploited to do this (RCE escape or secrets/credentials in scope) and that this can be reached from an in-scope attack surface
-- Arbitrary file write in executable, startup, config, or firmware paths with a realistic path to persistence or code execution. Requires proof that an attacker can actually trigger this from in-scope attack surface.
-- Logic flaws that allow irreversible or broad compromise of integrity at scale, such as unauthenticated deletion of other users' data, cross-tenant tampering with sensitive records, or unauthorized modification of security-critical configuration, when the impact is clearly demonstrated and severe enough to be compromise-equivalent; when there is actual proof that this logic can be exercised from in-scope attack-surface.
-- etc, other bugs not listed which follow this level of critical severity and impact; with actual proof that these bugs are reachable from in-scope attack-surface.
+For SSRF, a documented outbound-request feature or optional operator filter does not defeat a demonstrated destination-control bypass. For CSRF, evaluate browser credential attachment, cookie policy, preflight, request parsing, and effective controls; method or JSON content type alone is not a categorical defense. For XSS, distinguish self-only effects from victim impact; an `alert` reproduction proves script execution but does not alone establish the severity.
 
-Non-exhaustive examples of vulnerabilities that often support `high` when evidenced in code and context:
-- Server Side Request Forgery where there is actual proof that (1) an attacker can control the url being requested (bypassing protections around that) from in-scope attack-surface and (2) there are likely other local/lan/cloud services which can be reached to show actual impact. Be careful with reporting webhooks unless there is clear proof that it is dangerous, but do not treat a product-intended webhook/download/callback feature or optional operator allow/deny list as suppression evidence when attacker-controlled destinations can still reach internal, metadata, file-backed, redirect, or side-effecting targets.
-- Exploitable memory corruption with clear, major impact or ease of exploitation
-- Arbitrary file read that exposes less-sensitive user data or source code (if you have actual proof it reveals env secrets, then it is critical)
-- Arbitrary file write in executable, startup, config, or firmware paths with a realistic path to persistence or code execution
-- CSRF when it enables important state-changing actions such as credential changes, permission changes, payment / billing changes, or security-setting changes with realistic victim interaction. Evaluate actual browser request behavior, credential attachment, cookie policy, preflight requirements, server parsing, and effective anti-CSRF controls; an HTTP method or JSON content type alone is not a categorical defense.
-- Hardcoded or default credentials that are valid, reachable, and provide meaningful access warranting `high`, even when that access is not broad or privileged enough for `critical`.
-- Cryptographic failures that allow signature forgery, token forgery, trusted artifact forgery, secure-channel bypass, or decryption of highly sensitive data in a way that directly enables compromise, with actual proof that these attacks are practical and can be carried out from an in-scope attack surface.
-- Supply-chain or update-channel compromise that allows malicious code or malicious trusted artifacts to be delivered to users, servers, agents, or endpoints, including signing bypass or package source substitution with real impact. This should focus on actual supply-chain risk and risk around CI actions, not just "does npm report outdated packages"
-- Authorization bypass, IDOR, or privilege escalation that exposes or modifies meaningful sensitive data or privileged functionality, but is narrower in scope, limited to a smaller set of objects, limited to same-tenant boundaries, or otherwise less catastrophic than the critical cases above.
-- XXE with clear proof that an attacker can control the XML document through in-scope attack-surface and that the XML engine is vulnerable to XXE
-- etc, other bugs not listed which follow this level of high severity and impact; with actual proof that these bugs are reachable from in-scope attack-surface.
-- Dangerous upload / file handling issues that enable stored active content, trusted-origin script execution, or meaningful content-type confusion with real security impact; with actual proof that both the upload and access are reachable through in-scope attack-surface.
-- Deserialization, SSTI, plugin abuse, macro / template abuse, or interpreter abuse where dangerous primitives are clearly reachable and impactful, but code execution or compromise is not fully proven to the standard needed for critical.
+##### Reportability
 
-Strong factors that often push a plausible `high` up to `critical`:
-- Unauthenticated or near-unauthenticated reachability from the internet or other broad in-scope surfaces.
-- 0-click or extremely low-friction exploitation.
-- Cross-tenant / cross-boundary impact rather than same-user or same-tenant impact.
-- Direct compromise of signing, identity, control-plane, or cloud credentials.
-- Realistic persistence, mass exploitation, wormability, or compromise of many victims at once.
-- Clear proof of code execution, full account takeover, or crown-jewel secret access rather than only a plausible path.
+- Set `ignore` for a disproved finding or a bug without a meaningful security impact.
+- Do not discard a real, reportable finding solely because its impact or likelihood is low; use the corresponding lower severity.
+- Apply hard suppression to self-only impact or unachievable/highly unrealistic prerequisites.
+- Privileged-only, operator-only, developer-only, physical-access-only, or protected-write-path prerequisites imply `ignore` unless a privilege-escalation delta is the issue.
+- A realistic lower-privileged, in-scope attacker path can be established by repository evidence, supplied validation evidence, or both. Set `ignore` if the evidence does not support such a path.
 
-Examples that usually should not remain `high`/`critical` without very strong proof of it leading to the class of vulnerabilities above:
-- Generic correctness/reliability bugs
-- Strange edge cases with unclear attacker value
-- Low-impact information leaks
-- Internal-only defects without attacker reachability
-- The report shows a bug class in isolation, but not a realistic exploit path.
-- The issue requires the attacker to already have privileged, admin, root, console, shell, or code-execution access.
-- "Could maybe matter if chained with many assumptions" arguments
-- Self-XSS without a victim or meaningful boundary crossing, or XSS whose actual origin, browser reachability, and impact do not justify `high`/`critical`. An `alert` proof demonstrates JavaScript execution and is not evidence against reflected XSS.
-- SQLi or other injection claims with no demonstrated attacker control, no shown sink reachability, or only speculative impact.
-- CSRF on low-impact actions, cosmetic actions, logout, preferences, or actions requiring unrealistic victim behavior.
-- Open redirect, clickjacking, user enumeration, rate-limit weakness, banner leakage, version disclosure, directory listing, stack traces, internal hostnames, or basic error-message leakage, unless they are shown as part of a serious exploit chain.
-- Memory corruption that is theoretical, non-triggerable from in-scope input, or not plausibly exploitable in the target environment.
-- Missing headers, cookie flags, CSP weaknesses, TLS observations, or crypto hygiene issues without a concrete exploit path and meaningful demonstrated impact.
-- Reports that effectively say "this could be dangerous if combined with something else" but do not show the something else.
-- Denial of service that is transient, single-user, self-targeting, easy to mitigate, requires disproportionate attacker resources, or does not create severe and realistic business / safety impact.
-- Authz findings that require already having the same privilege as the victim, or only expose trivial metadata.
-- Bugs that already require admin/root/shell access unless the privilege-escalation delta itself is the issue being reported.
-- Arbitrary file read limited to public files, low-sensitivity files, or source fragments with no realistic security consequence.
+Private or internal exposure alone does not suppress a supported authorization, identity, trust-boundary, or security-control failure in a real product or production workflow. Missing deployment or ingress evidence can lower confidence or leave facts unknown without defeating an otherwise supported finding.
 
-High/Critical acceptance checklist (all should be true, unless the threat model strongly justifies an exception):
-- In-scope component
-- Realistic attacker
-- Reasonable in-scope attack surface
-- Credible exploitation path (not simply speculation)
-- Major security impact
-- Would likely be accepted as `high`/`critical` (not informational/low) in serious audit or bug bounty triage by a major auditing firm who puts their reputation on the line.
+Weight likelihood using the established attacker position and exposure:
 
-##### Severity and Policy Checklist
+- `remote` usually supports high likelihood when the attacker position is realistic and in scope;
+- `local_network` usually supports medium likelihood unless the evidence supports a different level;
+- `localhost` usually supports low likelihood unless a lower-privileged attacker can realistically reach the listener;
+- `none` does not increase likelihood based on exposure.
 
-Apply severity adjustment only after scope, reachability, and counterevidence are established. Do not reopen discovery here.
+##### Priority
 
-Start from the candidate's original severity hypothesis, then adjust it using the repository-evidenced facts from this phase.
-
-Severity adjustment guidance:
-
-- Keep `critical` only when the attack path, reachability, and impact are all clear enough that the finding would demand immediate attention.
-- Keep `high` only when there is a realistic in-scope attacker path and major security impact without a long speculative chain.
-- Downgrade when the path is real but constrained to narrower objects, same-tenant impact, internal-only surfaces, or other materially limiting conditions.
-- Reduce severity when the path is localhost-only, self-only, highly constrained, dependent on unrealistic preconditions, or already requires privileged access unless the privilege-escalation delta is the issue.
-- Dangerous sink, scary bug class, or sensitive code area alone is not enough to preserve high severity.
-- If the issue is a real bug but not meaningfully reportable as a security problem in context, set the final policy decision to `ignore`.
-- Do not discard an otherwise reportable finding solely because its impact or likelihood is `low`; downgrade its severity instead.
-
-Final policy-adjustment guidance:
-
-- Apply hard suppression first:
-  - self-only impact -> `ignore`
-  - unachievable or highly unrealistic preconditions -> `ignore`
-  - privileged-only, operator-only, developer-only, physical-access-only, or protected-write-path preconditions -> `ignore`, unless the privilege-escalation delta itself is the issue
-- Then weight likelihood using the established network scope:
-  - `remote` usually supports high likelihood when the attacker position is realistic and in scope
-  - `local_network` usually supports medium likelihood unless the evidence is stronger or weaker
-  - `localhost` usually supports low likelihood unless a lower-privileged attacker can realistically reach that listener
-  - `none` does not increase likelihood based on exposure
-- Then decide reportability using the existing facts:
-  - if repository evidence does not establish a realistic lower-privileged in-scope attacker path, set `ignore`
-  - if the path is internal-only, developer-only, operator-only, localhost-only, privileged-local, or otherwise not meaningfully reportable in context, set `ignore`
-
-Do not suppress solely because the surface is private or internal when repository evidence still shows a meaningful authorization, trust-boundary, identity, or security-control regression in a real product or production-service workflow. In those cases, internal exposure should usually reduce likelihood or confidence rather than force `ignore`.
-
-Use missing deployment or ingress evidence to lower confidence or keep fields unknown when appropriate; do not automatically defeat an otherwise well-evidenced finding on that basis alone.
-
-Severity calibration and final policy-adjustment matrix:
-
-- `impact=high`:
-  - `likelihood=high` -> `critical` only when the critical criteria above are satisfied; otherwise `high`
-  - `likelihood=medium` -> `medium`
-  - `likelihood=low` -> `low`
-  - `likelihood=ignore` -> `ignore`
-  - `likelihood=unknown` -> `medium`
-- `impact=medium`:
-  - `likelihood=high` -> `medium`
-  - `likelihood=medium` -> `low`
-  - `likelihood=low` -> `low`
-  - `likelihood=ignore` -> `ignore`
-  - `likelihood=unknown` -> `low`
-- `impact=low`:
-  - `likelihood=high` -> `low`
-  - `likelihood=medium` -> `low`
-  - `likelihood=low` -> `low`
-  - `likelihood=ignore` -> `ignore`
-  - `likelihood=unknown` -> `low`
-- `impact=ignore`:
-  - all likelihoods -> `ignore`
-- `impact=unknown`:
-  - `likelihood=high` -> `medium`
-  - `likelihood=medium` -> `low`
-  - `likelihood=low` -> `low`
-  - `likelihood=ignore` -> `ignore`
-  - `likelihood=unknown` -> `low`
-
-Priority mapping after final severity:
+Map the final reportable severity to a priority.
 
 - `critical` -> `P0`
 - `high` -> `P1`
 - `medium` -> `P2`
 - `low` -> `P3`
 
-Use this mapping after the final policy-adjustment pass determines the final reportable severity. Do not assign a priority to findings whose final policy decision is `ignore`.
-
-Once the facts are set, use the severity calibration and final policy-adjustment matrix mechanically. Do not re-argue severity from scratch afterward.
+An ignored finding receives an `ignore` decision and severity, with no priority.

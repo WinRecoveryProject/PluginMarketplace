@@ -1,897 +1,413 @@
-# Plugin files: codex-security — `scripts/` (part 1 of 2)
+# Plugin files: codex-security — `scripts/` (part 1 of 3)
 
 Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded as text.
 
-## File: `scripts/config_preflight.py`
+## File: `scripts/check_deep_scan_target.py`
 
 ```python
-#!/usr/bin/env python3
-"""Evaluate Codex Security capability profiles against the current Codex setup."""
+"""Reject registered Deep Scan targets containing only empty directories."""
 
 from __future__ import annotations
 
-import argparse
+import errno
 import json
 import os
-import re
+import stat
 import sys
-from collections.abc import Iterator
 from pathlib import Path
-from typing import Any
 
-try:
-    import tomllib
-except ModuleNotFoundError:  # pragma: no cover - Python 3.10 only
-    import tomli as tomllib
+def check_selected_targets(root: Path, selections: list[str], file_paths: list[str]) -> None:
+    files = set(file_paths)
 
-PLUGIN_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_REGISTRY = PLUGIN_ROOT / "preflight" / "capability-profiles.toml"
-DEFAULT_CODEX_HOME = Path(os.environ.get("CODEX_HOME", "~/.codex")).expanduser()
-
-def default_system_config() -> Path:
-    if os.name == "nt":
-        program_data = os.environ.get("ProgramData", r"C:\ProgramData")
-        return Path(program_data) / "OpenAI" / "Codex" / "config.toml"
-    return Path("/etc/codex/config.toml")
-
-SYSTEM_CONFIG = default_system_config()
-DEFAULT_CONFIG = DEFAULT_CODEX_HOME / "config.toml"
-VALID_SEVERITIES = {"block", "warn", "suggest"}
-VALID_MULTI_AGENT_OWNERS = {"native", "codex-bridge"}
-VALID_MULTI_AGENT_VERSIONS = {"v1", "v2"}
-VALID_MULTI_AGENT_PROVENANCE = {
-    "app-server",
-    "thread-context",
-    "tool-surface",
-    "verified-bridge",
-}
-NATIVE_V2_DEFAULT_SESSION_CAP = 4
-CONFIG_PROFILE_NAME = re.compile(r"^[A-Za-z0-9_-]+$")
-# Of the config roots evaluated here, only features is valid in legacy ConfigProfile.
-LEGACY_CONFIG_PROFILE_CAPABILITY_FIELDS = {"features"}
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__)
-    selector = parser.add_mutually_exclusive_group(required=True)
-    selector.add_argument("--profile", help="Capability profile id to evaluate.")
-    selector.add_argument(
-        "--skill", help="Top-level skill id to resolve through the registry routes."
-    )
-    parser.add_argument(
-        "--registry",
-        type=Path,
-        default=DEFAULT_REGISTRY,
-        help="Capability registry path. Defaults to the bundled registry.",
-    )
-    config_input = parser.add_mutually_exclusive_group()
-    config_input.add_argument(
-        "--config",
-        type=Path,
-        action="append",
-        help=(
-            "Codex config.toml layer, from lower to higher precedence. "
-            "Repeat to override automatic cwd-based discovery."
-        ),
-    )
-    parser.add_argument(
-        "--cwd",
-        type=Path,
-        default=Path.cwd(),
-        help="Working directory used to discover trusted project config layers.",
-    )
-    parser.add_argument(
-        "--codex-config-profile",
-        help="Selected Codex config profile name, when the session uses one.",
-    )
-    parser.add_argument(
-        "--multi-agent-runtime-owner",
-        choices=sorted(VALID_MULTI_AGENT_OWNERS),
-        help=(
-            "Verified owner of the active multi-agent runtime. Do not infer bridge "
-            "ownership from a backend_config value alone."
-        ),
-    )
-    parser.add_argument(
-        "--multi-agent-runtime-version",
-        choices=sorted(VALID_MULTI_AGENT_VERSIONS),
-        help="Version exposed by the active multi-agent tool surface.",
-    )
-    parser.add_argument(
-        "--multi-agent-session-cap",
-        type=positive_int,
-        help="Resolved V2 session cap from the active runtime; includes the root thread.",
-    )
-    parser.add_argument(
-        "--multi-agent-runtime-provenance",
-        choices=sorted(VALID_MULTI_AGENT_PROVENANCE),
-        help="Evidence source for explicitly supplied multi-agent runtime facts.",
-    )
-    parser.add_argument(
-        "--runtime-check",
-        action="append",
-        default=[],
-        metavar="NAME=BOOL",
-        help="Known runtime capability, such as delegation_available=true.",
-    )
-    parser.add_argument(
-        "--available-plugin-skill",
-        action="append",
-        metavar="SKILL_NAME",
-        help=(
-            "Plugin-local skill name exposed by the current runtime, such as "
-            "security-scan. Repeat only for skills from the capability's plugin."
-        ),
-    )
-    parser.add_argument(
-        "--effective-config",
-        action="append",
-        default=[],
-        metavar="PATH=JSON",
-        help="Known effective config value, such as agents.max_threads=8.",
-    )
-    return parser.parse_args()
-
-def read_toml(path: Path, *, required: bool) -> dict[str, Any]:
-    try:
-        with path.open("rb") as file:
-            return tomllib.load(file)
-    except FileNotFoundError:
-        if required:
-            raise
-        return {}
-
-def parse_bool(value: str) -> bool:
-    normalized = value.lower()
-    if normalized == "true":
-        return True
-    if normalized == "false":
-        return False
-    raise ValueError(f"expected true or false, got {value!r}")
-
-def positive_int(value: str) -> int:
-    parsed = int(value)
-    if parsed < 1:
-        raise argparse.ArgumentTypeError("expected a positive integer")
-    return parsed
-
-def parse_assignment(raw: str) -> tuple[str, str]:
-    key, separator, value = raw.partition("=")
-    if not separator or not key or not value:
-        raise ValueError(f"expected NAME=VALUE, got {raw!r}")
-    return key, value
-
-def parse_runtime_checks(values: list[str]) -> dict[str, bool]:
-    checks: dict[str, bool] = {}
-    for raw in values:
-        key, value = parse_assignment(raw)
-        checks[key] = parse_bool(value)
-    return checks
-
-def parse_available_plugin_skills(values: list[str] | None) -> set[str] | None:
-    if values is None:
-        return None
-    for value in values:
-        if ":" in value:
-            raise ValueError(
-                f"expected plugin-local skill name, got {value!r}; omit the plugin prefix"
-            )
-    return set(values)
-
-def parse_effective_config(values: list[str]) -> dict[str, Any]:
-    config: dict[str, Any] = {}
-    for raw in values:
-        key, value = parse_assignment(raw)
-        try:
-            config[key] = json.loads(value)
-        except json.JSONDecodeError as error:
-            raise ValueError(f"expected JSON value for {key!r}, got {value!r}") from error
-    return config
-
-def lookup_dotted(config: dict[str, Any], path: str) -> tuple[bool, Any]:
-    current: Any = config
-    for part in path.split("."):
-        if not isinstance(current, dict) or part not in current:
-            return False, None
-        current = current[part]
-    return True, current
-
-def lookup_layered_value(
-    path: str, config_layers: list[tuple[Path, dict[str, Any]]]
-) -> tuple[bool, Any]:
-    for _config_path, config in reversed(config_layers):
-        found, actual = lookup_dotted(config, path)
-        if found:
-            return True, actual
-    return False, None
-
-def iter_config_views(
-    config_layers: list[tuple[Path, dict[str, Any]]], config_profile: str | None
-) -> Iterator[tuple[str, dict[str, Any]]]:
-    for config_path, config in reversed(config_layers):
-        if config_profile is not None:
-            profiles = config.get("profiles")
-            if isinstance(profiles, dict):
-                profile_config = profiles.get(config_profile)
-                if isinstance(profile_config, dict):
-                    supported_profile_config = {
-                        key: value
-                        for key, value in profile_config.items()
-                        if key in LEGACY_CONFIG_PROFILE_CAPABILITY_FIELDS
-                    }
-                    if supported_profile_config:
-                        yield (
-                            f"{config_path} [profiles.{config_profile}]",
-                            supported_profile_config,
-                        )
-        yield str(config_path), config
-
-def resolve_project_root(cwd: Path, config_layers: list[tuple[Path, dict[str, Any]]]) -> Path:
-    found, configured_markers = lookup_layered_value("project_root_markers", config_layers)
-    markers = configured_markers if found else [".git"]
-    if not isinstance(markers, list) or not all(isinstance(marker, str) for marker in markers):
-        raise ValueError("project_root_markers must be an array of strings")
-    if not markers:
-        return cwd
-    for candidate in (cwd, *cwd.parents):
-        if any((candidate / marker).exists() for marker in markers):
-            return candidate
-    return cwd
-
-def project_trust_level(
-    config_layers: list[tuple[Path, dict[str, Any]]], project_root: Path
-) -> str | None:
-    for _path, config in reversed(config_layers):
-        projects = config.get("projects")
-        if not isinstance(projects, dict):
-            continue
-        project = projects.get(str(project_root))
-        if not isinstance(project, dict) and os.name == "nt":
-            project_key = os.path.normcase(os.path.realpath(project_root))
-            project = next(
-                (
-                    value
-                    for path, value in projects.items()
-                    if os.path.normcase(os.path.realpath(path)) == project_key
-                ),
-                None,
-            )
-        if not isinstance(project, dict):
-            continue
-        trust_level = project.get("trust_level")
-        if isinstance(trust_level, str):
-            return trust_level
-    return None
-
-def project_config_paths(project_root: Path, cwd: Path) -> list[Path]:
-    relative = cwd.relative_to(project_root)
-    directories = [project_root]
-    current = project_root
-    for part in relative.parts:
-        current /= part
-        directories.append(current)
-    return [directory / ".codex" / "config.toml" for directory in directories]
-
-def discover_config_paths(
-    *, cwd: Path, profile_layer_path: Path | None
-) -> tuple[list[Path], dict[str, Any]]:
-    resolved_cwd = cwd.expanduser().resolve()
-    if not resolved_cwd.is_dir():
-        raise ValueError(f"cwd must be a directory, got {str(resolved_cwd)!r}")
-
-    base_paths = [SYSTEM_CONFIG, DEFAULT_CONFIG]
-    if profile_layer_path is not None:
-        base_paths.append(profile_layer_path)
-    base_layers = [(path, read_toml(path, required=False)) for path in base_paths]
-    project_root = resolve_project_root(resolved_cwd, base_layers)
-    trust_level = project_trust_level(base_layers, project_root)
-    paths = [*base_paths]
-    if trust_level == "trusted":
-        paths.extend(project_config_paths(project_root, resolved_cwd))
-    return paths, {
-        "cwd": str(resolved_cwd),
-        "project_root": str(project_root),
-        "project_trust_level": trust_level,
-        "project_layers_loaded": trust_level == "trusted",
-    }
-
-def compare(actual: Any, op: str, expected: Any) -> bool:
-    if op == "==":
-        return actual == expected
-    if op == ">=":
-        return isinstance(actual, int) and not isinstance(actual, bool) and actual >= expected
-    raise ValueError(f"unsupported comparison operator: {op!r}")
-
-def lookup_config_value(
-    path: str,
-    *,
-    config_layers: list[tuple[Path, dict[str, Any]]],
-    effective_config: dict[str, Any],
-    config_profile: str | None,
-    default: Any = None,
-    has_default: bool = False,
-) -> tuple[bool, Any, str | None]:
-    if path in effective_config:
-        return True, effective_config[path], "effective-config"
-    for source, config in iter_config_views(config_layers, config_profile):
-        found, actual = lookup_dotted(config, path)
-        if found:
-            return True, actual, source
-    if has_default:
-        return True, default, "documented-default"
-    return False, None, None
-
-def resolve_active_config_profile(
-    *,
-    config_layers: list[tuple[Path, dict[str, Any]]],
-    override: str | None,
-    cli_profile_selected: bool,
-) -> tuple[str | None, str | None]:
-    if cli_profile_selected:
-        if override is None:
-            raise ValueError("CLI profile selection requires an explicit config profile name")
-        return override, None
-
-    if override is None:
-        found, configured = lookup_layered_value("profile", config_layers)
-        if not found:
-            return None, None
-        if not isinstance(configured, str):
-            raise ValueError("profile must be a string")
-        profile = configured
-    else:
-        profile = override
-
-    profile_values = [
-        config.get("profiles", {}).get(profile)
-        for _path, config in config_layers
-        if isinstance(config.get("profiles"), dict) and profile in config["profiles"]
-    ]
-    if not profile_values:
-        raise ValueError(f"config profile {profile!r} not found")
-    if any(not isinstance(value, dict) for value in profile_values):
-        raise ValueError(f"config profile {profile!r} must be a table")
-    return profile, profile
-
-def config_profile_layer_path(profile: str | None) -> Path | None:
-    if profile is None:
-        return None
-    if not CONFIG_PROFILE_NAME.fullmatch(profile):
-        raise ValueError(
-            f"invalid config profile name {profile!r}; pass a plain name such as 'work'"
-        )
-    path = DEFAULT_CODEX_HOME / f"{profile}.config.toml"
-    return path if path.is_file() else None
-
-def parse_multi_agent_v2_enabled(feature_config: Any) -> bool | None:
-    if isinstance(feature_config, bool):
-        return feature_config
-    if not isinstance(feature_config, dict):
-        raise ValueError("features.multi_agent_v2 must be a boolean or table")
-    if "enabled" not in feature_config:
-        return None
-    enabled = feature_config["enabled"]
-    if not isinstance(enabled, bool):
-        raise ValueError("features.multi_agent_v2.enabled must be a boolean")
-    return enabled
-
-def merge_toml_value(base: Any, overlay: Any) -> Any:
-    if isinstance(base, dict) and isinstance(overlay, dict):
-        merged = dict(base)
-        for key, value in overlay.items():
-            merged[key] = merge_toml_value(merged[key], value) if key in merged else value
-        return merged
-    return overlay
-
-def lookup_multi_agent_v2_enabled(
-    *,
-    config_layers: list[tuple[Path, dict[str, Any]]],
-    effective_config: dict[str, Any],
-    config_profile: str | None,
-) -> tuple[bool, bool | None, str | None]:
-    if "features.multi_agent_v2.enabled" in effective_config:
-        enabled = effective_config["features.multi_agent_v2.enabled"]
-        if not isinstance(enabled, bool):
-            raise ValueError("features.multi_agent_v2.enabled must be a boolean")
-        return True, enabled, "effective-config"
-
-    v2_configs = []
-    config_views = list(iter_config_views(config_layers, config_profile))
-    for source, config in reversed(config_views):
-        found, feature_config = lookup_dotted(config, "features.multi_agent_v2")
-        if found:
-            v2_configs.append((source, feature_config))
-
-    if "features.multi_agent_v2" in effective_config:
-        v2_configs.append(("effective-config", effective_config["features.multi_agent_v2"]))
-
-    if not v2_configs:
-        return False, None, None
-
-    merged_v2_config: Any = None
-    enabled_source: str | None = None
-    for index, (source, feature_config) in enumerate(v2_configs):
-        tables_merge = isinstance(merged_v2_config, dict) and isinstance(feature_config, dict)
-        if index and not tables_merge:
-            enabled_source = None
-        merged_v2_config = (
-            merge_toml_value(merged_v2_config, feature_config) if index else feature_config
-        )
-        if isinstance(feature_config, bool) or (
-            isinstance(feature_config, dict) and "enabled" in feature_config
+    def check_path(selection: str) -> tuple[Path, bool]:
+        relative = Path(selection)
+        if (
+            not selection
+            or relative.anchor
+            or ".." in relative.parts
+            or (os.name == "nt" and ":" in selection)
         ):
-            enabled_source = source
+            raise ValueError(f"Scope must be inside repo: {selection}")
+        mode = root.lstat().st_mode
+        if not stat.S_ISDIR(mode):
+            raise ValueError(f"Deep Scan repository is no longer a directory: {root}")
+        target = root
+        for part in relative.parts:
+            target /= part
+            info = target.lstat()
+            mode = info.st_mode
+            if stat.S_ISLNK(mode) or getattr(info, "st_reparse_tag", 0) & 0x20000000:
+                raise ValueError(f"Requested scope must not contain symbolic links: {target}")
+        if not target.resolve(strict=True).is_relative_to(root):
+            raise ValueError(f"Scope must be inside repo: {target}")
+        regular = stat.S_ISREG(mode)
+        if selection in files and not regular:
+            raise ValueError(f"Selected file is no longer a regular file: {selection}")
+        if not regular and not stat.S_ISDIR(mode):
+            raise OSError(errno.ENOTDIR, "Expected a regular file or directory", str(target))
+        return target, regular
 
-    enabled = parse_multi_agent_v2_enabled(merged_v2_config)
-    return (
-        (True, enabled, enabled_source)
-        if enabled is not None
-        else (True, False, "documented-default")
-    )
+    # Every selection must be valid, even when another file or directory is usable.
+    for selection in selections:
+        check_path(selection)
 
-def resolve_multi_agent_context(
-    *,
-    config_layers: list[tuple[Path, dict[str, Any]]],
-    effective_config: dict[str, Any],
-    config_profile: str | None,
-    runtime_owner: str | None,
-    runtime_version: str | None,
-    runtime_session_cap: int | None,
-    runtime_provenance: str | None,
-) -> dict[str, Any]:
-    runtime_facts_supplied = any(
-        value is not None for value in (runtime_owner, runtime_version, runtime_session_cap)
-    )
-    if runtime_facts_supplied and runtime_provenance is None:
-        raise ValueError(
-            "explicit multi-agent runtime facts require --multi-agent-runtime-provenance"
-        )
-    if runtime_provenance is not None and not runtime_facts_supplied:
-        raise ValueError(
-            "--multi-agent-runtime-provenance requires an explicit runtime owner, version, or cap"
-        )
-    if runtime_owner == "codex-bridge" and runtime_provenance != "verified-bridge":
-        raise ValueError(
-            "codex-bridge ownership requires --multi-agent-runtime-provenance verified-bridge"
-        )
-    if runtime_owner == "native" and runtime_provenance == "verified-bridge":
-        raise ValueError("native ownership cannot use verified-bridge provenance")
+    def has_content(selection: str) -> bool:
+        pending = [selection]
+        failure = None
+        while pending:
+            current = pending.pop()
+            try:
+                target, regular = check_path(current)
+                if regular:
+                    return True
+                with os.scandir(target) as entries:
+                    for entry in entries:
+                        if not entry.is_dir(follow_symlinks=False):
+                            return True
+                        # Preserve link entries as content without traversing their targets.
+                        if (
+                            getattr(entry.stat(follow_symlinks=False), "st_reparse_tag", 0)
+                            & 0x20000000
+                        ):
+                            return True
+                        pending.append(str(Path(entry.path).relative_to(root)))
+            except OSError as exc:
+                if failure is None:
+                    failure = exc
+        if failure is not None:
+            raise failure
+        return False
 
-    feature_found, enabled, feature_source = lookup_multi_agent_v2_enabled(
-        config_layers=config_layers,
-        effective_config=effective_config,
-        config_profile=config_profile,
-    )
-
-    if runtime_version is not None:
-        version = runtime_version
-        version_source = "runtime-fact"
-    elif feature_found:
-        version = "v2" if enabled else "v1"
-        version_source = feature_source
-    elif runtime_owner == "codex-bridge":
-        version = "v2"
-        version_source = "runtime-owner"
-    else:
-        version = "unknown"
-        version_source = None
-
-    if runtime_owner is not None:
-        owner = runtime_owner
-        owner_source = "runtime-fact"
-    elif feature_found:
-        owner = "native"
-        owner_source = feature_source
-    else:
-        owner = "unknown"
-        owner_source = None
-
-    if owner == "codex-bridge" and version != "v2":
-        raise ValueError("codex-bridge ownership requires multi-agent runtime version v2")
-    if runtime_session_cap is not None and version != "v2":
-        raise ValueError("--multi-agent-session-cap is valid only for a V2 runtime")
-
-    bridge_cap_found, bridge_cap, bridge_cap_source = lookup_config_value(
-        "multiagent_config.max_concurrency",
-        config_layers=config_layers,
-        effective_config=effective_config,
-        config_profile=config_profile,
-    )
-    if bridge_cap_found and owner != "codex-bridge":
-        raise ValueError(
-            "multiagent_config.max_concurrency does not prove bridge ownership; "
-            "pass --multi-agent-runtime-owner codex-bridge only when the active runtime "
-            "is verified as bridge-managed"
-        )
-    if bridge_cap_found and runtime_session_cap is not None and bridge_cap != runtime_session_cap:
-        raise ValueError(
-            "conflicting bridge concurrency facts: multiagent_config.max_concurrency "
-            f"from {bridge_cap_source} is {bridge_cap!r}, but --multi-agent-session-cap is "
-            f"{runtime_session_cap!r}"
-        )
-
-    agent_threads_found, agent_threads, agent_threads_source = lookup_config_value(
-        "agents.max_threads",
-        config_layers=config_layers,
-        effective_config=effective_config,
-        config_profile=config_profile,
-    )
-    if owner != "codex-bridge" and feature_found and enabled and agent_threads_found:
-        raise ValueError("agents.max_threads cannot be set when multi_agent_v2 is enabled")
-
-    if version == "v1":
-        mode = "v1"
-    elif version == "v2" and owner == "codex-bridge":
-        mode = "bridge-v2"
-    elif version == "v2" and owner == "native":
-        mode = "v2"
-    else:
-        mode = "unknown"
-    return {
-        "mode": mode,
-        "owner": owner,
-        "owner_source": owner_source,
-        "version": version,
-        "version_source": version_source,
-        "runtime_provenance": runtime_provenance,
-        "config_v2_enabled": feature_found and bool(enabled),
-        "agent_max_threads_configured": agent_threads_found,
-        "agent_max_threads": agent_threads if agent_threads_found else None,
-        "agent_max_threads_source": agent_threads_source if agent_threads_found else None,
-    }
-
-def evaluate_multi_agent_capacity(
-    result: dict[str, Any],
-    capability: dict[str, Any],
-    *,
-    config_layers: list[tuple[Path, dict[str, Any]]],
-    effective_config: dict[str, Any],
-    config_profile: str | None,
-    multi_agent_context: dict[str, Any],
-    runtime_session_cap: int | None,
-) -> dict[str, Any]:
-    multi_agent_mode = str(multi_agent_context["mode"])
-    if multi_agent_mode == "unknown":
-        return {**result, "status": "unknown", "check": "active_multi_agent_mode"}
-
-    if multi_agent_mode == "v1":
-        path = "agents.max_threads"
-        found, actual, source = lookup_config_value(
-            path,
-            config_layers=config_layers,
-            effective_config=effective_config,
-            config_profile=config_profile,
-            default=capability.get("v1_default"),
-            has_default="v1_default" in capability,
-        )
-        worker_slots = actual
-    else:
-        if runtime_session_cap is not None:
-            path = "runtime.multi_agent.session_cap"
-            found, actual, source = True, runtime_session_cap, "runtime-fact"
-        elif multi_agent_context["owner"] == "codex-bridge":
-            path = "multiagent_config.max_concurrency"
-            found, actual, source = lookup_config_value(
-                path,
-                config_layers=config_layers,
-                effective_config=effective_config,
-                config_profile=config_profile,
-            )
-        elif multi_agent_context["owner"] == "native" and multi_agent_context["config_v2_enabled"]:
-            path = "features.multi_agent_v2.max_concurrent_threads_per_session"
-            found, actual, source = lookup_config_value(
-                path,
-                config_layers=config_layers,
-                effective_config=effective_config,
-                config_profile=config_profile,
-                default=NATIVE_V2_DEFAULT_SESSION_CAP,
-                has_default=True,
-            )
-        else:
-            path = "runtime.multi_agent.session_cap"
-            found, actual, source = False, None, None
-        worker_slots = (
-            actual - 1 if isinstance(actual, int) and not isinstance(actual, bool) else actual
-        )
-
-    if not found:
-        return {**result, "status": "unknown", "path": path, "multi_agent_mode": multi_agent_mode}
-    return {
-        **result,
-        "status": "pass"
-        if compare(worker_slots, capability["op"], capability["value"])
-        else "fail",
-        "path": path,
-        "actual": worker_slots,
-        "configured_value": actual,
-        "expected": {"op": capability["op"], "value": capability["value"]},
-        "source": source,
-        "multi_agent_mode": multi_agent_mode,
-    }
-
-def resolve_profile(registry: dict[str, Any], *, profile: str | None, skill: str | None) -> str:
-    if profile:
-        return profile
-    routes = {route["skill"]: route["profile"] for route in registry["routes"]}
-    try:
-        return routes[str(skill)]
-    except KeyError as error:
-        raise ValueError(f"no capability profile route for skill {skill!r}") from error
-
-def evaluate_requirement(
-    requirement: dict[str, Any],
-    *,
-    capabilities: dict[str, dict[str, Any]],
-    config_layers: list[tuple[Path, dict[str, Any]]],
-    effective_config: dict[str, Any],
-    config_profile: str | None,
-    runtime_checks: dict[str, bool],
-    available_plugin_skills: set[str] | None,
-    multi_agent_context: dict[str, Any],
-    runtime_session_cap: int | None,
-) -> dict[str, Any]:
-    capability_id = requirement["capability"]
-    capability = capabilities[capability_id]
-    result = {
-        "capability": capability_id,
-        "severity": requirement["severity"],
-        "reason": requirement["reason"],
-    }
-
-    if capability["kind"] == "runtime":
-        check = capability["check"]
-        if check not in runtime_checks:
-            return {**result, "status": "unknown", "check": check}
-        actual = runtime_checks[check]
-        return {**result, "status": "pass" if actual else "fail", "actual": actual, "check": check}
-
-    if capability["kind"] == "multi_agent_mode":
-        actual = {
-            "owner": multi_agent_context["owner"],
-            "version": multi_agent_context["version"],
-        }
-        expected = {
-            "owner": capability["owner"],
-            "version": capability["version"],
-        }
-        if "unknown" in actual.values():
-            return {
-                **result,
-                "status": "unknown",
-                "check": "active_multi_agent_mode",
-                "actual": actual,
-                "expected": expected,
-            }
-        return {
-            **result,
-            "status": "pass" if actual == expected else "fail",
-            "actual": actual,
-            "expected": expected,
-        }
-
-    if capability["kind"] == "plugin_skills":
-        required = capability["required"]
-        required_skill_ids = [f"{capability['plugin']}:{skill}" for skill in required]
-        if available_plugin_skills is None:
-            return {
-                **result,
-                "status": "unknown",
-                "check": "available_plugin_skills",
-                "required": required_skill_ids,
-            }
-        unavailable = [
-            f"{capability['plugin']}:{skill}"
-            for skill in required
-            if skill not in available_plugin_skills
-        ]
-        return {
-            **result,
-            "status": "fail" if unavailable else "pass",
-            "unavailable": unavailable,
-            "required": required_skill_ids,
-        }
-
-    if capability["kind"] == "multi_agent_capacity":
-        return evaluate_multi_agent_capacity(
-            result,
-            capability,
-            config_layers=config_layers,
-            effective_config=effective_config,
-            config_profile=config_profile,
-            multi_agent_context=multi_agent_context,
-            runtime_session_cap=runtime_session_cap,
-        )
-
-    if capability["kind"] == "config_absent":
-        path = capability["path"]
-        found, actual, source = lookup_config_value(
-            path,
-            config_layers=config_layers,
-            effective_config=effective_config,
-            config_profile=config_profile,
-        )
-        if not found:
-            return {**result, "status": "pass", "path": path, "expected": "unset"}
-        return {
-            **result,
-            "status": "fail",
-            "path": path,
-            "actual": actual,
-            "expected": "unset",
-            "source": source,
-        }
-
-    path = capability["path"]
-    found, actual, source = lookup_config_value(
-        path,
-        config_layers=config_layers,
-        effective_config=effective_config,
-        config_profile=config_profile,
-        default=capability.get("default"),
-        has_default="default" in capability,
-    )
-    if not found:
-        return {**result, "status": "unknown", "path": path}
-    return {
-        **result,
-        "status": "pass" if compare(actual, capability["op"], capability["value"]) else "fail",
-        "path": path,
-        "actual": actual,
-        "expected": {"op": capability["op"], "value": capability["value"]},
-        "source": source,
-    }
-
-def validate_registry(registry: dict[str, Any]) -> None:
-    capabilities = registry["capabilities"]
-    profiles = registry["profiles"]
-    for profile_id, profile in profiles.items():
-        for requirement in profile["requirements"]:
-            if requirement["capability"] not in capabilities:
-                raise ValueError(
-                    f"profile {profile_id!r} references unknown capability {requirement['capability']!r}"
-                )
-            if requirement["severity"] not in VALID_SEVERITIES:
-                raise ValueError(
-                    f"profile {profile_id!r} has unsupported severity {requirement['severity']!r}"
-                )
-
-def resolve_remediation(
-    profile: dict[str, Any], *, multi_agent_context: dict[str, Any]
-) -> dict[str, Any]:
-    multi_agent_mode = str(multi_agent_context["mode"])
-    remediation = dict(profile.get("remediation", {}))
-    variants = remediation.pop("variants", [])
-    remediation["multi_agent_mode"] = multi_agent_mode
-    for variant in variants:
-        if variant["mode"] == multi_agent_mode:
-            if multi_agent_mode == "v2" and multi_agent_context["owner"] != "native":
-                break
-            variant_patches = variant.get("patches", [])
-            if multi_agent_mode == "v2" and not multi_agent_context["agent_max_threads_configured"]:
-                variant_patches = [
-                    patch
-                    for patch in variant_patches
-                    if not (
-                        patch.get("kind") == "remove" and patch.get("path") == "agents.max_threads"
-                    )
-                ]
-            remediation["patches"] = remediation.get("patches", []) + variant_patches
-            return remediation
-    if variants:
-        remediation["note"] = (
-            "Do not apply a concurrency patch until the active runtime version and config "
-            "ownership are known."
-        )
-    return remediation
-
-def evaluate(args: argparse.Namespace) -> dict[str, Any]:
-    registry = read_toml(args.registry, required=True)
-    validate_registry(registry)
-    profile_id = resolve_profile(registry, profile=args.profile, skill=args.skill)
-    try:
-        profile = registry["profiles"][profile_id]
-    except KeyError as error:
-        raise ValueError(f"unknown capability profile: {profile_id!r}") from error
-
-    cli_profile_selected = args.codex_config_profile is not None
-    if args.config:
-        config_paths = args.config
-        config_discovery = None
-        config_resolution = "manual-layers"
-        project_config_paths_set: set[Path] = set()
-        profile_layer_path = None
-    else:
-        profile_layer_path = config_profile_layer_path(args.codex_config_profile)
-        config_paths, config_discovery = discover_config_paths(
-            cwd=args.cwd,
-            profile_layer_path=profile_layer_path,
-        )
-        config_resolution = "cwd-discovery"
-        project_config_paths_set = set(config_paths[3 if profile_layer_path else 2 :])
-    config_layers = []
-    for path in config_paths:
-        config = read_toml(path, required=False)
-        if path in project_config_paths_set:
-            # Codex strips project-local profile selection and definitions before
-            # resolving the merged config. Mirror that denylist here.
-            config = dict(config)
-            config.pop("profile", None)
-            config.pop("profiles", None)
-        config_layers.append((path, config))
-    config_profile, embedded_config_profile = resolve_active_config_profile(
-        config_layers=config_layers,
-        override=args.codex_config_profile,
-        cli_profile_selected=cli_profile_selected,
-    )
-    runtime_checks = parse_runtime_checks(args.runtime_check)
-    available_plugin_skills = parse_available_plugin_skills(args.available_plugin_skill)
-    effective_config = parse_effective_config(args.effective_config)
-    multi_agent_context = resolve_multi_agent_context(
-        config_layers=config_layers,
-        effective_config=effective_config,
-        config_profile=embedded_config_profile,
-        runtime_owner=args.multi_agent_runtime_owner,
-        runtime_version=args.multi_agent_runtime_version,
-        runtime_session_cap=args.multi_agent_session_cap,
-        runtime_provenance=args.multi_agent_runtime_provenance,
-    )
-    results = [
-        evaluate_requirement(
-            requirement,
-            capabilities=registry["capabilities"],
-            config_layers=config_layers,
-            effective_config=effective_config,
-            runtime_checks=runtime_checks,
-            available_plugin_skills=available_plugin_skills,
-            config_profile=embedded_config_profile,
-            multi_agent_context=multi_agent_context,
-            runtime_session_cap=args.multi_agent_session_cap,
-        )
-        for requirement in profile["requirements"]
-        if not requirement.get("modes") or multi_agent_context["mode"] in requirement["modes"]
-    ]
-    failed = [result for result in results if result["status"] == "fail"]
-    unknown = [result for result in results if result["status"] == "unknown"]
-    if any(result["severity"] == "block" for result in failed):
-        status = "blocked"
-    elif unknown:
-        status = "incomplete"
-    else:
-        status = "ready"
-    return {
-        "version": registry["version"],
-        "profile": profile_id,
-        "description": profile["description"],
-        "config_resolution": config_resolution,
-        "user_config_path": None if args.config else str(profile_layer_path or DEFAULT_CONFIG),
-        "config_paths": [str(path) for path in config_paths],
-        "config_discovery": config_discovery,
-        "config_profile": config_profile,
-        "config_profile_path": str(profile_layer_path) if profile_layer_path else None,
-        "multi_agent_mode": multi_agent_context["mode"],
-        "multi_agent_context": multi_agent_context,
-        "status": status,
-        "results": results,
-        "failed": failed,
-        "unknown": unknown,
-        "remediation": resolve_remediation(
-            profile,
-            multi_agent_context=multi_agent_context,
-        ),
-    }
-
-def main() -> int:
-    try:
-        payload = evaluate(parse_args())
-    except (KeyError, OSError, TypeError, ValueError, tomllib.TOMLDecodeError) as error:
-        print(json.dumps({"status": "error", "error": str(error)}, indent=2, sort_keys=True))
-        return 2
-    print(json.dumps(payload, indent=2, sort_keys=True))
-    if payload["status"] == "blocked":
-        return 1
-    return 2 if payload["status"] == "incomplete" else 0
+    failure = None
+    for selection in selections:
+        try:
+            if has_content(selection):
+                return
+        except OSError as exc:
+            if selection in files:
+                raise
+            if failure is None:
+                failure = exc
+    if failure is not None:
+        raise failure
+    raise ValueError("Deep Scan target is empty; no security audit was performed.")
 
 if __name__ == "__main__":
-    sys.exit(main())
+    request = json.load(sys.stdin)
+    try:
+        check_selected_targets(
+            Path(request["targetPath"]), request["includePaths"], request["filePaths"]
+        )
+    except (OSError, ValueError) as exc:
+        sys.exit(str(exc))
+```
+
+## File: `scripts/codex_profile.mjs`
+
+```javascript
+import { spawn } from "node:child_process";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { createInterface } from "node:readline";
+
+// Native startup needs provider identity and auth selection, while exec reads
+// the full provider configuration from its private profile file.
+export function preflightProviderDefinitions(providers) {
+  return Object.fromEntries(
+    Object.entries(providers)
+      .filter(([, provider]) => provider != null)
+      .map(([id, provider]) => [
+        id,
+        Object.fromEntries(
+          ["name", "wire_api", "requires_openai_auth"]
+            .filter((key) => Object.hasOwn(provider, key))
+            .map((key) => [key, provider[key]]),
+        ),
+      ]),
+  );
+}
+
+export function isPermissionProfileFallbackWarning(message, profileId) {
+  if (typeof message !== "string") return false;
+  const prefix =
+    "Configured value for `permission_profile` is disallowed by requirements; " +
+    `falling back from \`${profileId}\` to required value \``;
+  const warning = message.trim();
+  return warning.startsWith(prefix) && warning.endsWith("`.");
+}
+
+export function profileConfigOverrides(config) {
+  return Object.entries(config)
+    .filter(([, value]) => value != null)
+    .map(([key, value]) => `${key}=${toml(value)}`);
+}
+
+// Native profile files keep provider configuration off process arguments while
+// retaining the existing CODEX_HOME credential store.
+export function createCodexProfileClient(options) {
+  return {
+    startThread: (threadOptions = {}) =>
+      new ProfileThread(options, threadOptions),
+    resumeThread: (id, threadOptions = {}) =>
+      new ProfileThread(options, threadOptions, id),
+  };
+}
+
+class ProfileThread {
+  constructor(options, threadOptions, id = null) {
+    this.options = options;
+    this.threadOptions = threadOptions;
+    this.id = id;
+  }
+
+  async runStreamed(input, turnOptions = {}) {
+    return { events: this.events(input, turnOptions) };
+  }
+
+  async run(input, turnOptions = {}) {
+    const items = [];
+    let finalResponse = "";
+    let usage = null;
+    for await (const event of this.events(input, turnOptions)) {
+      if (event.type === "item.completed") {
+        items.push(event.item);
+        if (event.item.type === "agent_message")
+          finalResponse = event.item.text;
+      } else if (event.type === "turn.completed") {
+        usage = event.usage;
+      } else if (event.type === "turn.failed") {
+        throw new Error(event.error.message);
+      }
+    }
+    return { items, finalResponse, usage };
+  }
+
+  async *events(input, turnOptions) {
+    let schemaDirectory;
+    try {
+      let schemaPath;
+      if (turnOptions.outputSchema !== undefined) {
+        const schema = turnOptions.outputSchema;
+        if (
+          schema === null ||
+          typeof schema !== "object" ||
+          Array.isArray(schema)
+        ) {
+          throw new Error("outputSchema must be a plain JSON object");
+        }
+        schemaDirectory = await mkdtemp(join(tmpdir(), "codex-output-schema-"));
+        schemaPath = join(schemaDirectory, "schema.json");
+        await writeFile(schemaPath, JSON.stringify(schema), "utf8");
+      }
+      const args = nativeArguments(
+        this.options,
+        this.threadOptions,
+        this.id,
+        turnOptions,
+        schemaPath,
+      );
+      for await (const line of execute(
+        this.options,
+        args,
+        input,
+        turnOptions.signal,
+      )) {
+        let event;
+        try {
+          event = JSON.parse(line);
+        } catch (cause) {
+          throw new Error(`Failed to parse item: ${line}`, { cause });
+        }
+        const item = event.type === "item.completed" ? event.item : event;
+        if (
+          this.options.requestedPermissionProfile !== undefined &&
+          item.type === "error" &&
+          isPermissionProfileFallbackWarning(
+            item.message,
+            this.options.requestedPermissionProfile,
+          )
+        ) {
+          throw new Error(
+            "Read-only Codex helper stopped because organization policy changed its permission profile. Its results were discarded.\n" +
+              item.message,
+          );
+        }
+        if (event.type === "thread.started") this.id = event.thread_id;
+        if (event.type === "turn.completed" && event.usage != null) {
+          if (
+            event.usage.cache_write_input_tokens == null &&
+            event.usage.cache_write_tokens == null
+          )
+            event.usage.cache_write_input_tokens_reported = false;
+          event.usage.cache_write_input_tokens ??= 0;
+        }
+        yield event;
+      }
+    } finally {
+      if (schemaDirectory) {
+        await rm(schemaDirectory, { recursive: true, force: true }).catch(
+          () => {},
+        );
+      }
+    }
+  }
+}
+
+function nativeArguments(options, thread, id, turn, schemaPath) {
+  const args = [
+    "exec",
+    "--experimental-json",
+    "--profile",
+    options.profileName,
+  ];
+  const config = (key, value) => args.push("--config", `${key}=${toml(value)}`);
+  for (const override of profileConfigOverrides(options.config ?? {}))
+    args.push("--config", override);
+  for (const override of options.configOverrides ?? [])
+    args.push("--config", override);
+  if (options.baseUrl) config("openai_base_url", options.baseUrl);
+  if (thread.model) args.push("--model", thread.model);
+  if (thread.threadSource !== undefined && !id)
+    args.push("--thread-source", thread.threadSource);
+  if (thread.sandboxMode) args.push("--sandbox", thread.sandboxMode);
+  if (thread.workingDirectory) args.push("--cd", thread.workingDirectory);
+  for (const directory of thread.additionalDirectories ?? [])
+    args.push("--add-dir", directory);
+  if (thread.skipGitRepoCheck) args.push("--skip-git-repo-check");
+  if (schemaPath) args.push("--output-schema", schemaPath);
+  if (turn.cyberAccessProgram !== undefined)
+    args.push("--cyber-access-program", turn.cyberAccessProgram);
+  if (thread.modelReasoningEffort)
+    config("model_reasoning_effort", thread.modelReasoningEffort);
+  if (thread.networkAccessEnabled !== undefined)
+    config(
+      "sandbox_workspace_write.network_access",
+      thread.networkAccessEnabled,
+    );
+  if (thread.webSearchMode) config("web_search", thread.webSearchMode);
+  else if (thread.webSearchEnabled !== undefined)
+    config("web_search", thread.webSearchEnabled ? "live" : "disabled");
+  if (thread.approvalPolicy) config("approval_policy", thread.approvalPolicy);
+  if (id) args.push("resume", id);
+  return args;
+}
+
+function toml(value) {
+  if (typeof value === "string" || typeof value === "boolean")
+    return JSON.stringify(value).replace(/\u007f/g, "\\u007f");
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  if (Array.isArray(value)) return `[${value.map(toml).join(", ")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.entries(value)
+      .filter(([, child]) => child != null)
+      .map(
+        ([key, child]) =>
+          `${/^[A-Za-z0-9_-]+$/.test(key) ? key : toml(key)} = ${toml(child)}`,
+      )
+      .join(", ")}}`;
+  }
+  throw new Error("Codex config overrides must contain finite TOML values");
+}
+
+async function* execute(options, args, input, signal) {
+  const env = { ...(options.env ?? process.env) };
+  env.CODEX_INTERNAL_ORIGINATOR_OVERRIDE ||= "codex_sdk_ts";
+  if (options.apiKey) env.CODEX_API_KEY = options.apiKey;
+  const child = spawn(options.codexPathOverride, args, {
+    env,
+    signal,
+    windowsHide: true,
+  });
+  let processError;
+  let inputError;
+  child.on("error", (error) => {
+    processError = error;
+  });
+  child.stdin.on("error", (error) => {
+    inputError = error;
+  });
+  const closed = new Promise((resolve) => {
+    child.once("close", (code, exitSignal) => resolve({ code, exitSignal }));
+  });
+  const stderr = [];
+  child.stderr.on("data", (chunk) => stderr.push(chunk));
+  const lines = createInterface({ input: child.stdout, crlfDelay: Infinity });
+  child.stdin.end(input);
+  try {
+    for await (const line of lines) yield line;
+    const { code, exitSignal } = await closed;
+    if (processError) throw processError;
+    if (code !== 0 || exitSignal) {
+      const detail = exitSignal ? `signal ${exitSignal}` : `code ${code ?? 1}`;
+      throw new Error(
+        `Codex Exec exited with ${detail}: ${Buffer.concat(stderr).toString("utf8")}`,
+      );
+    }
+    if (inputError) throw inputError;
+  } finally {
+    lines.close();
+    if (child.exitCode === null && child.signalCode === null) child.kill();
+  }
+}
+```
+
+## File: `scripts/codex_session.mjs`
+
+```javascript
+/** Reduce a single stream; callers retain error, retry and acceptance policy. */
+export async function readCodexSessionTurn(options) {
+  let threadId = options.thread.id;
+  let status = "in_progress";
+  let finalResponse = "";
+  let usage = null;
+  let lastStreamError = null;
+  for await (const event of eventsWithOptionalUsage(options.events)) {
+    await options.onEvent(event);
+    if (
+      event.type === "thread.started" &&
+      typeof event["thread_id"] === "string"
+    ) {
+      threadId = event["thread_id"];
+    } else if (
+      event.type === "item.completed" &&
+      isRecord(event["item"]) &&
+      event["item"]["type"] === "agent_message" &&
+      typeof event["item"]["text"] === "string"
+    ) {
+      finalResponse = event["item"]["text"];
+    } else if (event.type === "turn.completed") {
+      status = "completed";
+      usage = event["usage"] ?? null;
+      if (options.stopOnCompletion) break;
+    } else if (event.type === "error" && typeof event["message"] === "string") {
+      lastStreamError = event["message"];
+    }
+  }
+  return { threadId, status, finalResponse, usage, lastStreamError };
+}
+
+async function* eventsWithOptionalUsage(events) {
+  try {
+    yield* events;
+  } catch (error) {
+    // The pinned SDK accesses this field before yielding a completion with
+    // absent usage. Preserve completion without inventing a zero-token receipt.
+    if (
+      error instanceof TypeError &&
+      /\b(?:null|undefined)\b/u.test(error.message) &&
+      /\bcache_write_input_tokens\b/u.test(error.message)
+    ) {
+      yield { type: "turn.completed", usage: null };
+      return;
+    }
+    throw error;
+  }
+}
+
+function isRecord(value) {
+  return typeof value === "object" && value !== null;
+}
 ```
 
 ## File: `scripts/deep_scan_config.py`
@@ -902,47 +418,80 @@ if __name__ == "__main__":
 from __future__ import annotations
 
 import argparse
-import math
+import json
 import os
+import sys
 from pathlib import Path
 from typing import Any
 
-try:
-    import tomllib
-except ModuleNotFoundError:  # pragma: no cover - Python 3.10 only
-    import tomli as tomllib
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from workbench.runtime_toml import tomllib
 
-DEFAULT_WORKERS = 4
-DEFAULT_SUBAGENTS = 3
-DEFAULT_STOP_AFTER_NO_NEW = 4
-DEFAULT_STOP_AFTER_CONSECUTIVE_ERRORS = 3
-DEFAULT_MAX_DISCOVERY_RUNS = 40
-DEFAULT_MAX_TIME_HOURS = 96
+DEFAULTS = json.loads(
+    Path(__file__).with_name("deep_scan_defaults.json").read_text(encoding="utf-8")
+)
+DEFAULT_WORKERS = DEFAULTS["workers"]
+DEFAULT_SUBAGENTS = DEFAULTS["subagents"]
+DEFAULT_STOP_AFTER_NO_NEW = DEFAULTS["stopAfterNoNew"]
+DEFAULT_STOP_AFTER_CONSECUTIVE_ERRORS = DEFAULTS["stopAfterConsecutiveErrors"]
+DEFAULT_MAX_DISCOVERY_RUNS = DEFAULTS["maxDiscoveryRuns"]
+DEFAULT_MAX_TIME_HOURS = DEFAULTS["maxTimeHours"]
 MAX_TIME_HOURS = 96
-CONFIG_KEYS = {
-    "workers",
-    "subagents",
-    "stop_after_no_new",
-    "stop_after_consecutive_errors",
-    "max_discovery_runs",
-    "max_time_hours",
+CONFIG_FIELDS = {
+    "workers": "workers",
+    "subagents": "subagents",
+    "stopAfterNoNew": "stop_after_no_new",
+    "stopAfterConsecutiveErrors": "stop_after_consecutive_errors",
+    "maxDiscoveryRuns": "max_discovery_runs",
+    "maxTimeHours": "max_time_hours",
 }
+CONFIG_KEYS = set(CONFIG_FIELDS.values())
 
 def codex_home() -> Path:
-    return Path(os.environ.get("CODEX_HOME", "~/.codex")).expanduser()
+    """Expand CODEX_HOME, falling back to ~/.codex when the setting is empty or whitespace."""
+    return Path(
+        os.environ["CODEX_HOME"] if os.environ.get("CODEX_HOME", "").strip() else "~/.codex"
+    ).expanduser()
 
 def config_path() -> Path:
+    """Return the configured TOML path or the per-user config.toml under the Codex home."""
     configured = os.environ.get("CODEX_SECURITY_DEEP_SCAN_CONFIG_PATH", "").strip()
     if configured:
         return Path(configured).expanduser()
     return codex_home() / "codex-security" / "config.toml"
 
 def resolve_deep_scan_config(available_parallelism: int) -> dict[str, int | float]:
+    """Return the numeric deep scan settings for a launch with no project overrides."""
+    return resolve_deep_scan_setup(available_parallelism)["settings"]
+
+def resolve_deep_scan_setup(
+    available_parallelism: int = 1, project_json: str | None = None
+) -> dict[str, Any]:
+    """Resolve project overrides, per-user TOML settings, and bundled defaults in that order.
+
+    Args:
+        available_parallelism (int): Legacy caller argument. Any positive value selects the same settings.
+        project_json (str | None): Serialized project configuration with path and settings keys.
+
+    Returns:
+        dict: Numeric settings and a source label for each, plus the paths of the
+            supplied project configuration and any existing per-user configuration.
+
+    Raises:
+        SystemExit: A selected setting is invalid or a required TOML file cannot be read.
+        json.JSONDecodeError: The supplied project JSON cannot be parsed.
+    """
+    project = json.loads(project_json) if project_json is not None else None
+    overrides = project["settings"] if project is not None else {}
+    unknown = sorted(set(overrides) - set(CONFIG_FIELDS))
+    if unknown:
+        raise SystemExit(f"Unknown Deep Scan project settings: {', '.join(unknown)}.")
     if isinstance(available_parallelism, bool) or available_parallelism < 1:
         raise SystemExit("Available parallelism must be a positive integer.")
     path = config_path()
     configured: dict[str, Any] = {}
-    if path.exists():
+    exists = path.exists()
+    if exists and not all(name in overrides for name in CONFIG_FIELDS):
         try:
             with path.open("rb") as source:
                 document: object = tomllib.load(source)
@@ -962,41 +511,31 @@ def resolve_deep_scan_config(available_parallelism: int) -> dict[str, int | floa
             )
         configured = deep_scan
 
-    workers: object = configured.get("workers", DEFAULT_WORKERS)
-    if workers == "auto":
-        resolved_workers = DEFAULT_WORKERS
-    else:
-        resolved_workers = require_integer(workers, "deep_scan.workers", minimum=1)
-    stop_after_no_new = require_integer(
-        configured.get("stop_after_no_new", DEFAULT_STOP_AFTER_NO_NEW),
-        "deep_scan.stop_after_no_new",
-        minimum=1,
-    )
+    settings: dict[str, int | float] = {}
+    sources: dict[str, str] = {}
+    for name, key in CONFIG_FIELDS.items():
+        value = overrides.get(name, configured.get(key, DEFAULTS[name]))
+        sources[name] = (
+            "project" if name in overrides else "legacy" if key in configured else "default"
+        )
+        if name == "workers" and value == "auto":
+            value = DEFAULT_WORKERS
+        settings[name] = (
+            require_positive_number(value, "deep_scan.max_time_hours")
+            if name == "maxTimeHours"
+            else require_integer(value, f"deep_scan.{key}", minimum=0 if name == "subagents" else 1)
+        )
     return {
-        "workers": resolved_workers,
-        "subagents": require_integer(
-            configured.get("subagents", DEFAULT_SUBAGENTS),
-            "deep_scan.subagents",
-            minimum=0,
-        ),
-        "stopAfterNoNew": stop_after_no_new,
-        "stopAfterConsecutiveErrors": require_integer(
-            configured.get("stop_after_consecutive_errors", DEFAULT_STOP_AFTER_CONSECUTIVE_ERRORS),
-            "deep_scan.stop_after_consecutive_errors",
-            minimum=1,
-        ),
-        "maxDiscoveryRuns": require_integer(
-            configured.get("max_discovery_runs", DEFAULT_MAX_DISCOVERY_RUNS),
-            "deep_scan.max_discovery_runs",
-            minimum=1,
-        ),
-        "maxTimeHours": require_positive_number(
-            configured.get("max_time_hours", DEFAULT_MAX_TIME_HOURS),
-            "deep_scan.max_time_hours",
-        ),
+        "settings": settings,
+        "sources": sources,
+        **({"legacyConfigPath": str(path)} if exists else {}),
+        **({"projectConfigPath": project["path"]} if project is not None else {}),
     }
 
 def require_integer(value: object, label: str, *, minimum: int) -> int:
+    """Return an integer at least minimum, accepting integral floats and raising SystemExit for invalid counts."""
+    if isinstance(value, float) and value.is_integer():
+        value = int(value)
     if isinstance(value, bool) or not isinstance(value, int) or value < minimum:
         qualifier = (
             "a non-negative integer"
@@ -1009,13 +548,10 @@ def require_integer(value: object, label: str, *, minimum: int) -> int:
     return value
 
 def require_positive_number(value: object, label: str) -> int | float:
+    """Return a duration in hours, raising SystemExit unless it falls in (0, 96]."""
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise SystemExit(f"{label} must be a positive finite number no greater than 96.")
-    try:
-        finite = math.isfinite(value)
-    except OverflowError:
-        finite = False
-    if not finite or value <= 0 or value > MAX_TIME_HOURS:
+    if not 0 < value <= MAX_TIME_HOURS:
         raise SystemExit(f"{label} must be a positive finite number no greater than 96.")
     return value
 
@@ -1023,17 +559,40 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--available-parallelism", type=int, required=True)
     args = parser.parse_args()
-    import json
-
     print(json.dumps(resolve_deep_scan_config(args.available_parallelism), sort_keys=True))
 
 if __name__ == "__main__":
     main()
 ```
 
+## File: `scripts/deep_scan_defaults.json`
+
+```json
+{
+  "workers": 4,
+  "subagents": 3,
+  "stopAfterNoNew": 4,
+  "stopAfterConsecutiveErrors": 3,
+  "maxDiscoveryRuns": 40,
+  "maxTimeHours": 96
+}
+```
+
 ## Not embedded
 
-- `scripts/deep_scan_workbench.py` (85 KB, too large to embed — read it in the repository)
+- `scripts/deep_scan_workbench.py` (76 KB, too large to embed — read it in the repository)
+
+## File: `scripts/dispatch_inventory_tool`
+
+```text
+#!/bin/sh
+# The trailing slash preserves directory names ending in newlines through substitution.
+set -- "$(CDPATH= cd -P "${0%/*}/../origin" && printf '%s/' "${PWD%/}")${0##*/}" "$@"
+case "$1" in
+  /*) exec "$@" ;;
+  *) exit 126 ;;
+esac
+```
 
 ## File: `scripts/filesystem_identity.py`
 
@@ -1057,18 +616,16 @@ def serialize_filesystem_identity(value: int) -> int | str:
     return f"stat:{value:x}"
 
 def stored_filesystem_identity_matches(stored: object, current: int) -> bool:
+    """Compare a stored SQLite value with the platform file ID in its database representation."""
     return stored == serialize_filesystem_identity(current)
 
-def main() -> None:
-    argparse.ArgumentParser(description=__doc__).parse_args()
-
 if __name__ == "__main__":
-    main()
+    argparse.ArgumentParser(description=__doc__).parse_args()
 ```
 
 ## Not embedded
 
-- `scripts/finalize_scan_contract.py` (113 KB, too large to embed — read it in the repository)
+- `scripts/finalize_scan_contract.py` (144 KB, too large to embed — read it in the repository)
 
 ## File: `scripts/finding_preview.py`
 
@@ -1081,22 +638,31 @@ import argparse
 import json
 import re
 import sys
+from bisect import bisect_right
+from itertools import islice
 from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from report_projection import merged_root_cause
+from report_projection import code_evidence_rows, merged_root_cause
 from workbench_constants import (
     FINDING_ATTACK_PATH_PREVIEW_BYTES,
     FINDING_CODE_EVIDENCE_LIMIT,
     FINDING_CODE_EVIDENCE_SNIPPET_BYTES,
     FINDING_DETAILS_PREVIEW_BYTES,
     FINDING_EVIDENCE_EXCERPT_BYTES,
+    FINDING_LEVEL_BYTES,
     FINDING_ROOT_CAUSE_PREVIEW_BYTES,
+    FINDING_SUMMARY_BYTES,
     FINDING_VALIDATION_PREVIEW_BYTES,
 )
 
 def bounded_finding_details(value: Any) -> dict[str, Any]:
+    """Build the workbench preview of a stored finding, returning an empty dict for non-object input.
+
+    Budget for writeup text, diagnostics, and guidance alongside code evidence so a
+    large snippet cannot consume the whole preview.
+    """
     if not isinstance(value, dict):
         return {}
     prepared: dict[str, Any] = {}
@@ -1105,14 +671,12 @@ def bounded_finding_details(value: Any) -> dict[str, Any]:
             ("rootCause", "root_cause"),
             FINDING_ROOT_CAUSE_PREVIEW_BYTES,
             (
-                "summary",
                 "description",
                 "detail",
                 "cause",
                 "rationale",
                 "why",
                 "explanation",
-                "evidenceRefs",
                 "evidence_refs",
             ),
             (
@@ -1124,21 +688,13 @@ def bounded_finding_details(value: Any) -> dict[str, Any]:
             ("validation",),
             FINDING_VALIDATION_PREVIEW_BYTES,
             (
-                "summary",
                 "conclusion",
-                "method",
-                "status",
                 "disposition",
                 "result",
                 "rationale",
                 "evidenceRef",
                 "evidence_ref",
-                "evidenceRefs",
                 "evidence_refs",
-                "assertions",
-                "evidence",
-                "counterEvidence",
-                "limitations",
             ),
             (
                 (("summary", "conclusion", "rationale", "detail", "disposition"), 800),
@@ -1155,23 +711,14 @@ def bounded_finding_details(value: Any) -> dict[str, Any]:
             ("attackPath",),
             FINDING_ATTACK_PATH_PREVIEW_BYTES,
             (
-                "narrative",
                 "summary",
                 "description",
-                "dataFlow",
                 "data_flow",
                 "dataflow",
                 "path",
-                "reachability",
-                "steps",
-                "authScope",
                 "auth_scope",
-                "vector",
-                "preconditions",
-                "assumptions",
                 "impact",
                 "likelihood",
-                "evidenceRefs",
                 "evidence_refs",
             ),
             (
@@ -1219,9 +766,9 @@ def bounded_finding_details(value: Any) -> dict[str, Any]:
     if isinstance(writeup, dict) and isinstance(writeup.get("reportPath"), str):
         prepared["writeup"] = {"reportPath": bounded_json_text(writeup["reportPath"], 512)[0]}
 
-    evidence_key, evidence = merged_code_evidence(value)
+    evidence_key, evidence = merged_bounded_code_evidence(value)
     if evidence_key is not None:
-        prepared[evidence_key] = bounded_code_evidence(evidence)
+        prepared[evidence_key] = evidence
 
     for key in (
         "confidence",
@@ -1249,6 +796,37 @@ def bounded_finding_details(value: Any) -> dict[str, Any]:
         for key in ("remediationTests", "preventiveControls")
         if key in prepared and isinstance(prepared[key], list)
     }
+    for key in ("severity", "confidence"):
+        if key in prepared:
+            prepared[key] = bounded_finding_section(
+                prepared[key],
+                FINDING_SUMMARY_BYTES,
+                ("level",),
+                ((("level",), FINDING_LEVEL_BYTES),),
+            )
+    if "taxonomy" in prepared:
+        prepared["taxonomy"] = bounded_finding_section(
+            prepared["taxonomy"], FINDING_SUMMARY_BYTES, ("cwe",), ()
+        )
+    metadata_keys = (
+        "ruleId",
+        "status",
+        "detectedAt",
+        "identity",
+        "taxonomy",
+        "severity",
+        "confidence",
+    )
+    metadata = {
+        key: bounded_json_value(prepared[key], [FINDING_SUMMARY_BYTES])
+        for key in metadata_keys
+        if key in prepared
+    }
+    metadata = dict(sorted(metadata.items(), key=lambda item: json_size(item[1])))
+    metadata_budget = FINDING_SUMMARY_BYTES - 2 - sum(json_size(key) + 2 for key in metadata)
+    for index, (key, item) in enumerate(metadata.items()):
+        metadata[key] = bounded_json_value(item, [metadata_budget // (len(metadata) - index)])
+        metadata_budget -= json_size(metadata[key])
     diagnostics = (
         "rootCause",
         "root_cause",
@@ -1260,20 +838,15 @@ def bounded_finding_details(value: Any) -> dict[str, Any]:
     core_keys = (
         "writeup",
         *diagnostics,
-        "confidence",
-        "detectedAt",
-        "identity",
         "provenance",
-        "ruleId",
-        "severity",
-        "status",
-        "taxonomy",
         "evidence",
         "evidenceExcerpt",
     )
     core = {key: prepared[key] for key in core_keys if key in prepared}
     extras = {
-        key: item for key, item in prepared.items() if key not in core and key not in guidance
+        key: item
+        for key, item in prepared.items()
+        if key not in core and key not in guidance and key not in metadata_keys
     }
     complete_guidance = {key: items[:1] for key, items in guidance.items()}
     minimum_guidance = {
@@ -1282,23 +855,28 @@ def bounded_finding_details(value: Any) -> dict[str, Any]:
     }
     projected_core = {}
     for selected_guidance in (complete_guidance, minimum_guidance):
+        # Keep raw guidance inline to preserve its JSON-encoding recursion boundary.
         reserved = (
-            len(json.dumps(selected_guidance, separators=(",", ":")).encode("utf-8")) - 1
+            len(json.dumps(selected_guidance, separators=(",", ":"))) - 1
             if selected_guidance
             else 0
         )
+        if metadata:
+            reserved += json_size(metadata) - 1
         if reserved >= FINDING_DETAILS_PREVIEW_BYTES:
             continue
         projected_core = bounded_json_value(
             core,
             [FINDING_DETAILS_PREVIEW_BYTES - reserved],
+            max_depth=5,
         )
         if all(key in projected_core for key in core):
             break
     ordered_guidance = dict(sorted(guidance.items(), key=lambda entry: bool(entry[1])))
     bounded = bounded_json_value(
-        {**projected_core, **ordered_guidance, **extras},
+        {**metadata, **projected_core, **ordered_guidance, **extras},
         [FINDING_DETAILS_PREVIEW_BYTES],
+        max_depth=5,
     )
     return bounded if isinstance(bounded, dict) else {}
 
@@ -1308,6 +886,7 @@ def bounded_finding_section(
     priority_keys: tuple[str, ...],
     reserved_fields: tuple[tuple[tuple[str, ...], int], ...],
 ) -> Any:
+    """Apply each field group’s size cap before selecting fields in priority order under the section cap."""
     if not isinstance(value, dict):
         return bounded_json_value(value, [maximum_bytes])
     ordered: dict[str, Any] = {}
@@ -1315,53 +894,37 @@ def bounded_finding_section(
         key = next((alias for alias in aliases if alias in value), None)
         if key is not None:
             ordered[key] = bounded_json_value(value[key], [field_bytes])
+    # Reserved fields already come first. Order the remaining aliases and fields next.
     for key in (*priority_keys, *value):
         if key in value and key not in ordered:
             ordered[key] = value[key]
-    evidence_key, evidence = merged_code_evidence(ordered)
+    evidence_key, evidence = merged_bounded_code_evidence(ordered)
     if evidence_key is not None:
-        ordered[evidence_key] = bounded_code_evidence(evidence)
+        ordered[evidence_key] = evidence
         ordered.pop("code_evidence" if evidence_key == "codeEvidence" else "codeEvidence", None)
     return bounded_json_value(ordered, [maximum_bytes])
 
-def merged_code_evidence(value: dict[str, Any]) -> tuple[str | None, Any]:
+def merged_bounded_code_evidence(value: dict[str, Any]) -> tuple[str | None, Any]:
+    """Return the preferred evidence key and the preview data to store under it.
+
+    Merge camelCase and snake_case catalogs by evidence ID, keeping the first
+    eligible snippet per ID. Return (None, None) if both keys are absent.
+    If neither value is a list, preserve the first supplied value.
+    """
     evidence_keys = [key for key in ("codeEvidence", "code_evidence") if key in value]
     if not evidence_keys:
         return None, None
     catalogs = [value[key] for key in evidence_keys if isinstance(value[key], list)]
-    if catalogs:
-        merged = []
-        seen_ids: set[str] = set()
-        for catalog in catalogs:
-            for item in catalog:
-                if not _is_valid_code_evidence(item):
-                    continue
-                evidence_id = item["id"]
-                if evidence_id in seen_ids:
-                    continue
-                seen_ids.add(evidence_id)
-                merged.append(item)
-        return evidence_keys[0], merged
-    return evidence_keys[0], value[evidence_keys[0]]
-
-def _is_valid_code_evidence(item: Any) -> bool:
-    return (
-        isinstance(item, dict)
-        and isinstance(item.get("id"), str)
-        and bool(item["id"].strip())
-        and isinstance(item.get("code"), str)
-        and bool(item["code"].strip())
-    )
-
-def bounded_code_evidence(value: Any) -> Any:
-    if not isinstance(value, list):
-        return value
-    bounded = []
-    for item in value:
-        if not _is_valid_code_evidence(item):
+    if not catalogs:
+        return evidence_keys[0], value[evidence_keys[0]]
+    bounded = {}
+    for item in code_evidence_rows(*catalogs):
+        if not isinstance(item.get("id"), str) or not item["id"].strip():
+            continue
+        if item["id"] in bounded:
             continue
         if len(bounded) >= FINDING_CODE_EVIDENCE_LIMIT:
-            break
+            return evidence_keys[0], list(bounded.values())
         evidence = dict(item)
         for field in ("explanation", "label", "language", "path"):
             if field in evidence and not isinstance(evidence[field], str):
@@ -1384,19 +947,29 @@ def bounded_code_evidence(value: Any) -> Any:
             and (not isinstance(end_line, int) or isinstance(end_line, bool) or end_line < 1)
         ):
             evidence.pop("endLine")
-        code = evidence.get("code")
-        if isinstance(code, str):
-            evidence["code"] = bounded_json_text(
-                code,
-                FINDING_CODE_EVIDENCE_SNIPPET_BYTES,
-            )[0]
-        bounded.append(evidence)
-    return bounded
+        evidence["code"] = bounded_json_text(
+            evidence["code"],
+            FINDING_CODE_EVIDENCE_SNIPPET_BYTES,
+        )[0]
+        bounded[item["id"]] = evidence
+    return evidence_keys[0], list(bounded.values())
 
-def bounded_json_value(value: Any, budget: list[int], *, depth: int = 0) -> Any:
+def json_size(value: Any) -> int:
+    """Return the byte count of the compact, ASCII-escaped JSON representation."""
+    # ASCII output gives byte length; strings can use the cached default encoder.
+    return len(json.dumps(value, separators=None if isinstance(value, str) else (",", ":")))
+
+def bounded_json_value(
+    value: Any,
+    budget: list[int],
+    *,
+    depth: int = 0,
+    max_depth: int = 4,
+) -> Any:
+    """Build a depth-limited preview while charging its JSON representation to the shared byte budget."""
     if budget[0] <= 0:
         return None
-    if depth >= 4:
+    if depth >= max_depth:
         consume_json_budget(budget, 4)
         return None
     if isinstance(value, str):
@@ -1404,7 +977,7 @@ def bounded_json_value(value: Any, budget: list[int], *, depth: int = 0) -> Any:
         consume_json_budget(budget, size)
         return bounded
     if value is None or isinstance(value, (bool, int, float)):
-        consume_json_budget(budget, len(json.dumps(value, separators=(",", ":")).encode("utf-8")))
+        consume_json_budget(budget, json_size(value))
         return value
     if isinstance(value, list):
         if not consume_json_budget(budget, 2):
@@ -1415,8 +988,13 @@ def bounded_json_value(value: Any, budget: list[int], *, depth: int = 0) -> Any:
             separator = 0 if not result else 1
             if not consume_json_budget(budget, separator):
                 break
-            bounded_item = bounded_json_value(item, budget, depth=depth + 1)
-            size = len(json.dumps(bounded_item, separators=(",", ":")).encode("utf-8"))
+            bounded_item = bounded_json_value(
+                item,
+                budget,
+                depth=depth + 1,
+                max_depth=max_depth,
+            )
+            size = json_size(bounded_item)
             if separator + size > remaining or (
                 isinstance(item, str) and item and bounded_item == ""
             ):
@@ -1429,7 +1007,7 @@ def bounded_json_value(value: Any, budget: list[int], *, depth: int = 0) -> Any:
         if not consume_json_budget(budget, 2):
             return {}
         result = {}
-        for key, item in list(value.items())[:20]:
+        for key, item in islice(value.items(), 20):
             if budget[0] <= 0 or not isinstance(key, str):
                 break
             remaining = budget[0]
@@ -1454,29 +1032,19 @@ def bounded_json_value(value: Any, budget: list[int], *, depth: int = 0) -> Any:
                     and isinstance(controls[0], str)
                     and controls[0]
                 ):
-                    minimum_tests = len(
-                        json.dumps([item[0][0]], separators=(",", ":")).encode("utf-8")
-                    )
+                    minimum_tests = json_size([item[0][0]])
                     for control in (controls[0], controls[0][0]):
-                        reserved = (
-                            len(
-                                json.dumps(
-                                    {"preventiveControls": [control]},
-                                    separators=(",", ":"),
-                                ).encode("utf-8")
-                            )
-                            - 1
-                        )
+                        reserved = json_size({"preventiveControls": [control]}) - 1
                         if budget[0] >= minimum_tests + reserved:
                             item_budget = [budget[0] - reserved]
                             break
-            bounded_item = bounded_json_value(item, item_budget, depth=depth + 1)
-            size = (
-                separator
-                + key_size
-                + 1
-                + len(json.dumps(bounded_item, separators=(",", ":")).encode("utf-8"))
+            bounded_item = bounded_json_value(
+                item,
+                item_budget,
+                depth=depth + 1,
+                max_depth=max_depth,
             )
+            size = separator + key_size + 1 + json_size(bounded_item)
             if size > remaining or (isinstance(item, str) and item and bounded_item == ""):
                 budget[0] = remaining
                 break
@@ -1487,6 +1055,7 @@ def bounded_json_value(value: Any, budget: list[int], *, depth: int = 0) -> Any:
     return None
 
 def consume_json_budget(budget: list[int], size: int) -> bool:
+    """Deduct the requested size and return whether it fit, exhausting the budget on failure."""
     if budget[0] < size:
         budget[0] = 0
         return False
@@ -1494,1412 +1063,161 @@ def consume_json_budget(budget: list[int], size: int) -> bool:
     return True
 
 def bounded_json_text(value: str, maximum_bytes: int) -> tuple[str, int]:
-    low = 0
-    high = len(value)
-    selected = ""
-    selected_size = 2
-    while low <= high:
-        midpoint = (low + high) // 2
-        candidate = value[:midpoint]
-        size = len(json.dumps(candidate, separators=(",", ":")).encode("utf-8"))
-        if size <= maximum_bytes:
-            selected = candidate
-            selected_size = size
-            low = midpoint + 1
-        else:
-            high = midpoint - 1
-    return selected, selected_size
+    """Return a string prefix and its ASCII-escaped JSON size in bytes.
+
+    Count the surrounding quotes and escape sequences toward maximum_bytes.
+    If even the empty string exceeds the budget, return the empty string and 2.
+    """
+    length = bisect_right(
+        range(min(len(value), maximum_bytes) + 1), maximum_bytes, key=lambda n: json_size(value[:n])
+    )
+    selected = value[: max(0, length - 1)]
+    return selected, json_size(selected)
 
 if __name__ == "__main__":
     argparse.ArgumentParser(description=__doc__).parse_args()
-```
-
-## File: `scripts/generate_in_scope_files.py`
-
-```python
-#!/usr/bin/env python3
-"""Generate the shared, deterministically ordered security-scan file inventory."""
-
-from __future__ import annotations
-
-import argparse
-import os
-import subprocess
-import sys
-import tempfile
-from pathlib import Path
-
-class InventoryError(ValueError):
-    """Raised when the repository, scope, or inventory cannot be used safely."""
-
-def windows_stream_component(path: Path) -> str | None:
-    """Return the first NTFS alternate-data-stream component."""
-
-    if os.name != "nt":
-        return None
-    return next(
-        (component for component in path.parts if component != path.anchor and ":" in component),
-        None,
-    )
-
-def resolve_repository(value: str) -> Path:
-    """Resolve the repository once so every scope is bound to its real root."""
-    try:
-        repository = Path(value).expanduser().resolve(strict=True)
-    except (OSError, ValueError) as error:
-        raise InventoryError(f"--repo: cannot resolve repository: {value}") from error
-    if not repository.is_dir():
-        raise InventoryError(f"--repo: expected a directory: {repository}")
-    return repository
-
-def resolve_scope(repository: Path, value: str) -> str:
-    """Preserve ripgrep's relative path spelling while rejecting escaped scopes."""
-    if not value or "\0" in value:
-        raise InventoryError("--scope: expected a non-empty file or directory")
-
-    requested = Path(value).expanduser()
-    stream = windows_stream_component(requested)
-    if stream is not None:
-        raise InventoryError(f"--scope: NTFS alternate data streams are not supported: {stream}")
-    scope = requested if requested.is_absolute() else repository / requested
-    try:
-        resolved = scope.resolve(strict=True)
-    except (OSError, ValueError) as error:
-        raise InventoryError(f"--scope: path does not exist: {value}") from error
-
-    try:
-        relative = resolved.relative_to(repository)
-    except ValueError as error:
-        raise InventoryError(f"--scope: path must remain inside --repo: {value}") from error
-
-    if not resolved.is_dir() and not resolved.is_file():
-        raise InventoryError(f"--scope: expected a file or directory: {value}")
-
-    if requested.is_absolute():
-        return relative.as_posix() if relative.parts else "."
-    return value
-
-def resolve_output(value: str) -> Path:
-    """Reject direct symlink outputs without constraining the artifact root."""
-    if not value or "\0" in value:
-        raise InventoryError("--out: expected an inventory file path")
-    requested = Path(value).expanduser()
-    if requested.is_symlink():
-        raise InventoryError("--out: refusing to replace a symbolic link")
-    try:
-        output = requested.resolve(strict=False)
-    except (OSError, ValueError) as error:
-        raise InventoryError(f"--out: cannot resolve inventory path: {value}") from error
-    if output.exists() and not output.is_file():
-        raise InventoryError(f"--out: expected a regular file path: {output}")
-    return output
-
-def generate_in_scope_files(repository: Path, scope: str, output: Path) -> int:
-    """Atomically write the exact ripgrep inventory sorted as ``LC_ALL=C``."""
-    command = ["rg", "--files", "--hidden", "--glob", "!.git/**", "--path-separator=/", "--", scope]
-    with tempfile.TemporaryFile(mode="w+b") as inventory:
-        try:
-            result = subprocess.run(
-                command,
-                cwd=repository,
-                stdout=inventory,
-                stderr=subprocess.PIPE,
-                check=False,
-            )
-        except OSError as error:
-            raise InventoryError(f"could not run ripgrep: {error}") from error
-
-        if result.returncode not in (0, 1):
-            detail = result.stderr.decode("utf-8", errors="replace").strip()
-            message = f"ripgrep exited with status {result.returncode}"
-            if detail:
-                message = f"{message}: {detail}"
-            raise InventoryError(message)
-
-        inventory.seek(0)
-        rows = sorted(inventory)
-
-    return write_inventory(output, rows)
-
-def generate_diff_in_scope_files(
-    repository: Path,
-    base: str,
-    head: str,
-    mode: str,
-    output: Path,
-) -> int:
-    """Reuse the existing diff selection without generating previews or duplicate worklists."""
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from generate_rank_input import git_changed_paths, path_is_excluded, run_git_changed_paths
-    from rank_preview import (
-        DEFAULT_PREVIEW_BYTES,
-        TEXT_CODE_EXTENSIONS,
-        is_binary_sample,
-        preview_for,
-    )
-
-    rows: list[bytes] = []
-    try:
-        if mode == "local-patch":
-            changed = run_git_changed_paths(repository, [base])
-            untracked = subprocess.run(
-                ["git", "-C", str(repository), "ls-files", "--others", "--exclude-standard", "-z"],
-                capture_output=True,
-                text=True,
-                check=True,
-            )
-            changed.extend(
-                (repository / relative, "A")
-                for relative in untracked.stdout.split("\0")
-                if relative
-            )
-        else:
-            changed = git_changed_paths(repository, base, head, mode)
-
-        for path, status in changed:
-            relative = path.relative_to(repository)
-            if path_is_excluded(relative) or path.suffix.lower() not in TEXT_CODE_EXTENSIONS:
-                continue
-            if status != "D":
-                if mode == "revisions":
-                    contents = subprocess.run(
-                        [
-                            "git",
-                            "-C",
-                            str(repository),
-                            "cat-file",
-                            "blob",
-                            f"{head}:{relative.as_posix()}",
-                        ],
-                        capture_output=True,
-                        check=True,
-                    ).stdout
-                    if is_binary_sample(contents):
-                        continue
-                elif (
-                    path.is_symlink()
-                    or not path.is_file()
-                    or preview_for(path, DEFAULT_PREVIEW_BYTES)[1]
-                ):
-                    continue
-            relative_path = relative.as_posix()
-            if "\n" in relative_path or "\r" in relative_path:
-                raise InventoryError(
-                    "Git changes contain a path that cannot fit in the file inventory"
-                )
-            rows.append(f"{relative_path}\n".encode())
-    except (OSError, subprocess.CalledProcessError) as error:
-        detail = getattr(error, "stderr", None)
-        if isinstance(detail, bytes):
-            detail = detail.decode("utf-8", errors="replace")
-        message = detail.strip() if isinstance(detail, str) and detail.strip() else str(error)
-        raise InventoryError(f"could not resolve the selected Git changes: {message}") from error
-
-    return write_inventory(output, sorted(set(rows)))
-
-def write_inventory(output: Path, rows: list[bytes]) -> int:
-    """Replace a complete inventory atomically, keeping failures from corrupting the old one."""
-    output.parent.mkdir(parents=True, exist_ok=True)
-    temporary: Path | None = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            mode="wb",
-            dir=output.parent,
-            prefix=f".{output.name}.",
-            suffix=".tmp",
-            delete=False,
-        ) as handle:
-            temporary = Path(handle.name)
-            handle.writelines(rows)
-        temporary.replace(output)
-    finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
-
-    return len(rows)
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--repo", required=True, help="Repository root.")
-    parser.add_argument("--scope", required=True, help="File or directory within the repository.")
-    parser.add_argument("--out", required=True, help="Destination for the file inventory.")
-    parser.add_argument("--diff-base", help="Authoritative Git base for a changed-file inventory.")
-    parser.add_argument("--diff-head", default="HEAD", help="Authoritative Git head revision.")
-    parser.add_argument(
-        "--diff-mode",
-        choices=("revisions", "local-patch"),
-        default="revisions",
-        help="Use committed revisions or the current staged and unstaged patch.",
-    )
-    args = parser.parse_args()
-
-    try:
-        repository = resolve_repository(args.repo)
-        scope = resolve_scope(repository, args.scope)
-        output = resolve_output(args.out)
-        if args.diff_base is None:
-            count = generate_in_scope_files(repository, scope, output)
-        elif scope not in (".", "./"):
-            raise InventoryError("--scope: diff scans must use the repository root")
-        else:
-            count = generate_diff_in_scope_files(
-                repository,
-                args.diff_base,
-                args.diff_head,
-                args.diff_mode,
-                output,
-            )
-    except (OSError, ValueError) as error:
-        print(f"generate_in_scope_files: {error}", file=sys.stderr)
-        raise SystemExit(2) from error
-
-    print(f"Recorded {count} in-scope files.")
-
-if __name__ == "__main__":
-    main()
-```
-
-## File: `scripts/generate_rank_input.py`
-
-```python
-#!/usr/bin/env python3
-"""Generate and post-process Codex Security scan worklists.
-
-This script stays deliberately model-free:
-
-- `make-repo-rank-input` creates the deterministic repository or scoped-path
-  JSONL candidate worklist that ranking subagents consume.
-- `make-diff-rank-input` creates the deterministic diff-scoped JSONL candidate
-  worklist from Git changed paths. It supports committed revision diffs and
-  local working-tree patches.
-- `make-rank-shards` partitions the ranking input into deterministic shards.
-- `make-rank-pool-plan` assigns those shards to a deterministic bounded worker
-  pool.
-- `validate-rank-worker` validates one worker slot and emits a content-bound
-  completion receipt.
-- `validate-rank-shard` validates one completed worker output before the
-  coordinator accepts it.
-- `validate-rank-pool` validates the pool plan and every assigned shard output.
-- `merge-rank-outputs` validates and combines worker-local shard outputs.
-- `copy-deep-review-input` copies every candidate into the deep-review worklist
-  for exhaustive mode.
-- `select-deep-review-input` selects the ranked rows for deep review.
-"""
-
-from __future__ import annotations
-
-import argparse
-import hashlib
-import json
-import os
-import re
-import subprocess
-import sys
-from collections import Counter
-from collections.abc import Callable
-from pathlib import Path
-
-# Some plugin hosts launch Python with safe-path isolation enabled.
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from rank_preview import DEFAULT_PREVIEW_BYTES, TEXT_CODE_EXTENSIONS, preview_for
-from workbench_target import git_directory_snapshot_paths
-
-EXCLUDED_DIRS = {
-    ".cache",
-    ".circleci",
-    ".devcontainer",
-    ".git",
-    ".github",
-    ".idea",
-    ".mypy_cache",
-    ".pytest_cache",
-    ".ruff_cache",
-    ".tox",
-    ".venv",
-    ".vscode",
-    "__pycache__",
-    "bench",
-    "benchmark",
-    "bintest",
-    "build",
-    "build_config",
-    "build_configs",
-    "build-tools",
-    "build_tools",
-    "ci",
-    "coverage",
-    "deps",
-    "dev",
-    "dist",
-    "doc",
-    "docs",
-    "example",
-    "examples",
-    "external",
-    "extern",
-    "fixture",
-    "fixtures",
-    "generated",
-    "node_modules",
-    "sample",
-    "samples",
-    "target",
-    "test",
-    "tests",
-    "testing",
-    "third-party",
-    "third_party",
-    "tmp",
-    "vendor",
-}
-
-EXCLUDED_FILENAMES = {
-    ".DS_Store",
-    "CHANGELOG",
-    "CHANGELOG.md",
-    "CONTRIBUTING.md",
-    "Dockerfile",
-    "Gemfile",
-    "Gemfile.lock",
-    "LICENSE",
-    "LICENSE.md",
-    "Makefile",
-    "NEWS",
-    "NEWS.md",
-    "NOTICE",
-    "README",
-    "README.md",
-    "README.rst",
-    "Rakefile",
-    "SECURITY.md",
-    "TODO",
-    "TODO.md",
-    "docker-compose.yml",
-    "package-lock.json",
-    "pnpm-lock.yaml",
-    "yarn.lock",
-}
-
-SHARD_INPUT_GLOB = "rank-shard-*.input.jsonl"
-SHARD_OUTPUT_GLOB = "rank-shard-*.output.jsonl"
-SHARD_INPUT_PATTERN = re.compile(r"^rank-shard-([0-9]{4,})\.input\.jsonl$")
-DIRECT_SCOPE_PREVIEW_READ_BYTES = 64 * 1024
-RANK_POOL_PLAN_SCHEMA_VERSION = 1
-RANK_POOL_STRATEGY = "round_robin"
-RANK_POOL_WORKER_CAP = 6
-JsonRow = dict[str, object]
-RowValidator = Callable[[JsonRow, Path, int], None]
-RankWorkerAssignment = tuple[int, list[str], list[str]]
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Codex Security scan worklist helper.")
-    subparsers = parser.add_subparsers(dest="command", required=True)
-
-    make = subparsers.add_parser(
-        "make-repo-rank-input",
-        help="Create rank_input.jsonl for subagent-based file ranking.",
-    )
-    make.add_argument("--repo", required=True, help="Repository root.")
-    make.add_argument(
-        "--scope",
-        default=".",
-        help="Path within the repository to scan. Defaults to the repository root.",
-    )
-    make.add_argument(
-        "--scopes-file",
-        help="JSON array of repository-relative files and directories to scan together.",
-    )
-    make.add_argument("--out", required=True, help="Output rank_input.jsonl path.")
-    make.add_argument("--area", default="", help="Area label. Defaults to scope.")
-    make.add_argument(
-        "--preview-bytes",
-        type=int,
-        default=DEFAULT_PREVIEW_BYTES,
-        help=f"Maximum UTF-8 bytes in each preview. Defaults to {DEFAULT_PREVIEW_BYTES}.",
-    )
-
-    scoped = subparsers.add_parser(
-        "make-repo-scope-input",
-        help="List every explicitly scoped file without ranking or reading its contents.",
-    )
-    scoped.add_argument("--repo", required=True, help="Repository root.")
-    scoped.add_argument(
-        "--scopes-file",
-        required=True,
-        help="JSON array of repository-relative files and directories to scan together.",
-    )
-    scoped.add_argument("--out", required=True, help="Output scoped-source-input.jsonl path.")
-
-    bind = subparsers.add_parser(
-        "bind-repo-scopes",
-        help="Copy SDK scoped-path targets into the unsealed manifest and coverage documents.",
-    )
-    bind.add_argument("--scopes-file", required=True, help="JSON array of requested scopes.")
-    bind.add_argument("--manifest", required=True, help="Unsealed scan-manifest.json path.")
-    bind.add_argument("--coverage", required=True, help="Unsealed coverage.json path.")
-
-    diff = subparsers.add_parser(
-        "make-diff-rank-input",
-        help="Create rank_input.jsonl from Git changed source-like files.",
-    )
-    diff.add_argument("--repo", required=True, help="Repository root.")
-    diff.add_argument("--base", required=True, help="Git diff base revision.")
-    diff.add_argument(
-        "--mode",
-        choices=("revisions", "local-patch"),
-        default="revisions",
-        help="Git diff mode: committed revisions or staged plus unstaged local patch.",
-    )
-    diff.add_argument("--head", default="HEAD", help="Git diff head revision.")
-    diff.add_argument("--out", required=True, help="Output rank_input.jsonl path.")
-    diff.add_argument("--area", default="diff", help="Area label for ranking rows.")
-    diff.add_argument(
-        "--preview-bytes",
-        type=int,
-        default=DEFAULT_PREVIEW_BYTES,
-        help=f"Maximum UTF-8 bytes in each preview. Defaults to {DEFAULT_PREVIEW_BYTES}.",
-    )
-
-    shards = subparsers.add_parser(
-        "make-rank-shards",
-        help="Partition rank_input.jsonl into deterministic worker input shards.",
-    )
-    shards.add_argument("--rank-input", required=True, help="Deterministic rank input JSONL.")
-    shards.add_argument("--out-dir", required=True, help="Directory for worker input shards.")
-    shards.add_argument(
-        "--max-rows",
-        type=int,
-        default=150,
-        help="Maximum rows per shard. Defaults to 150.",
-    )
-
-    pool_plan = subparsers.add_parser(
-        "make-rank-pool-plan",
-        help="Assign rank shards to a deterministic bounded worker pool.",
-    )
-    pool_plan.add_argument("--shard-dir", required=True, help="Directory of rank shards.")
-    pool_plan.add_argument(
-        "--usable-worker-slots",
-        required=True,
-        type=int,
-        help="Usable ranking-worker slots reported by capability preflight; capped at 6.",
-    )
-    pool_plan.add_argument("--out", required=True, help="Output rank_worker_assignments.json path.")
-
-    validate_shard = subparsers.add_parser(
-        "validate-rank-shard",
-        help="Validate one worker output against its rank input shard.",
-    )
-    validate_shard.add_argument("--input", required=True, help="Worker rank input shard.")
-    validate_shard.add_argument("--output", required=True, help="Worker rank output shard.")
-
-    validate_worker = subparsers.add_parser(
-        "validate-rank-worker",
-        help="Validate one assigned ranking-worker slot and emit its completion receipt.",
-    )
-    validate_worker.add_argument("--plan", required=True, help="Rank pool plan JSON path.")
-    validate_worker.add_argument("--shard-dir", required=True, help="Directory of rank shards.")
-    validate_worker.add_argument(
-        "--slot",
-        required=True,
-        type=int,
-        help="One-based ranking-worker slot from the rank pool plan.",
-    )
-
-    validate_pool = subparsers.add_parser(
-        "validate-rank-pool",
-        help="Validate a rank pool plan and every assigned shard output.",
-    )
-    validate_pool.add_argument("--plan", required=True, help="Rank pool plan JSON path.")
-    validate_pool.add_argument("--shard-dir", required=True, help="Directory of rank shards.")
-
-    merge = subparsers.add_parser(
-        "merge-rank-outputs",
-        help="Validate worker shard outputs and create rank_output.jsonl.",
-    )
-    merge.add_argument("--rank-input", required=True, help="Authoritative rank input JSONL.")
-    merge.add_argument("--shard-dir", required=True, help="Directory of input and output shards.")
-    merge.add_argument("--out", required=True, help="Output rank_output.jsonl path.")
-
-    copy = subparsers.add_parser(
-        "copy-deep-review-input",
-        help="Create deep_review_input.jsonl directly from rank_input.jsonl.",
-    )
-    copy.add_argument("--rank-input", required=True, help="Deterministic rank input JSONL.")
-    copy.add_argument("--out", required=True, help="Output deep_review_input.jsonl path.")
-
-    select = subparsers.add_parser(
-        "select-deep-review-input",
-        help="Create deep_review_input.jsonl from worker-produced rank_output.jsonl.",
-    )
-    select.add_argument("--rank-output", required=True, help="Worker ranking output JSONL.")
-    select.add_argument("--out", required=True, help="Output deep_review_input.jsonl path.")
-    select.add_argument(
-        "--top-percent",
-        type=int,
-        default=100,
-        help="Percent of included files to keep for deep review.",
-    )
-    return parser.parse_args()
-
-def path_is_excluded(path: Path) -> bool:
-    if any(part in EXCLUDED_DIRS for part in path.parts):
-        return True
-    if path.name in EXCLUDED_FILENAMES:
-        return True
-    return path.name.endswith((".min.js", ".map"))
-
-def windows_stream_component(path: Path) -> str | None:
-    """Return the first NTFS alternate-data-stream component."""
-
-    if os.name != "nt":
-        return None
-    return next(
-        (component for component in path.parts if component != path.anchor and ":" in component),
-        None,
-    )
-
-def resolve_scope(
-    repo: Path,
-    scope: str,
-    *,
-    expand_user: bool = True,
-    reject_symlinks: bool = False,
-) -> Path:
-    scope_path = Path(scope).expanduser() if expand_user else Path(scope)
-    stream = windows_stream_component(scope_path)
-    if stream is not None:
-        raise SystemExit(f"Scope must not use an NTFS alternate data stream: {stream}")
-    if not scope_path.is_absolute():
-        scope_path = repo / scope_path
-    if reject_symlinks:
-        repository = repo.resolve()
-        try:
-            relative = scope_path.relative_to(repository)
-        except ValueError as exc:
-            raise SystemExit(f"Scope must be inside repo: {scope_path}") from exc
-        ancestor = repository
-        for part in relative.parts:
-            if part == "..":
-                if ancestor == repository:
-                    raise SystemExit(f"Scope must be inside repo: {scope_path}")
-                ancestor = ancestor.parent
-                continue
-            ancestor /= part
-            try:
-                metadata = ancestor.stat(follow_symlinks=False)
-            except OSError as exc:
-                raise SystemExit(f"Scope path not found: {ancestor}") from exc
-            if ancestor.is_symlink() or getattr(metadata, "st_reparse_tag", 0) & 0x20000000:
-                raise SystemExit(f"Requested scope must not contain symbolic links: {ancestor}")
-    scope_path = scope_path.resolve()
-    repo_resolved = repo.resolve()
-    try:
-        scope_path.relative_to(repo_resolved)
-    except ValueError as exc:
-        raise SystemExit(f"Scope must be inside repo: {scope_path}") from exc
-    if not scope_path.is_dir() and not scope_path.is_file():
-        raise SystemExit(f"Scope path not found: {scope_path}")
-    return scope_path
-
-def write_jsonl(output: Path, rows: list[JsonRow]) -> None:
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("w", encoding="utf-8") as handle:
-        for row in rows:
-            handle.write(json.dumps(row, ensure_ascii=True, separators=(",", ":")))
-            handle.write("\n")
-
-def write_json(output: Path, payload: dict[str, object]) -> None:
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-
-def load_scopes_file(scopes_file: Path) -> list[str]:
-    try:
-        loaded: object = json.loads(scopes_file.read_text(encoding="utf-8"))
-    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
-        raise SystemExit(f"Unable to read scopes file: {scopes_file}") from exc
-    if (
-        not isinstance(loaded, list)
-        or not loaded
-        or any(not isinstance(scope, str) or not scope for scope in loaded)
-    ):
-        raise SystemExit(f"Scopes file must contain a non-empty JSON string array: {scopes_file}")
-    return loaded
-
-def load_jsonl(path: Path, label: str, validator: RowValidator) -> list[JsonRow]:
-    if not path.exists():
-        raise SystemExit(f"{label} missing: {path}")
-
-    rows: list[JsonRow] = []
-    with path.open(encoding="utf-8") as handle:
-        for line_number, raw_line in enumerate(handle, start=1):
-            if not raw_line.strip():
-                raise SystemExit(f"{path}:{line_number}: blank JSONL rows are not allowed")
-            try:
-                parsed: object = json.loads(raw_line)
-            except json.JSONDecodeError as exc:
-                raise SystemExit(f"{path}:{line_number}: invalid JSON: {exc.msg}") from exc
-            if not isinstance(parsed, dict):
-                raise SystemExit(f"{path}:{line_number}: expected a JSON object")
-            row = {str(key): value for key, value in parsed.items()}
-            validator(row, path, line_number)
-            rows.append(row)
-    return rows
-
-def require_exact_fields(row: JsonRow, expected: set[str], path: Path, line_number: int) -> None:
-    actual = set(row)
-    if actual != expected:
-        missing = sorted(expected - actual)
-        unexpected = sorted(actual - expected)
-        details: list[str] = []
-        if missing:
-            details.append(f"missing fields {missing}")
-        if unexpected:
-            details.append(f"unexpected fields {unexpected}")
-        raise SystemExit(f"{path}:{line_number}: {'; '.join(details)}")
-
-def require_string(
-    row: JsonRow, field: str, path: Path, line_number: int, *, allow_empty: bool
-) -> None:
-    value = row[field]
-    if not isinstance(value, str) or (not allow_empty and not value.strip()):
-        requirement = "a string" if allow_empty else "a non-empty string"
-        raise SystemExit(f"{path}:{line_number}: {field} must be {requirement}")
-
-def validate_rank_input_row(row: JsonRow, path: Path, line_number: int) -> None:
-    require_exact_fields(row, {"path", "area", "preview"}, path, line_number)
-    require_string(row, "path", path, line_number, allow_empty=False)
-    require_string(row, "area", path, line_number, allow_empty=True)
-    require_string(row, "preview", path, line_number, allow_empty=True)
-
-def validate_rank_output_row(row: JsonRow, path: Path, line_number: int) -> None:
-    require_exact_fields(row, {"path", "area", "score", "include", "reason"}, path, line_number)
-    require_string(row, "path", path, line_number, allow_empty=False)
-    require_string(row, "area", path, line_number, allow_empty=True)
-    score = row["score"]
-    if isinstance(score, bool) or not isinstance(score, int):
-        raise SystemExit(f"{path}:{line_number}: score must be an integer from 1 through 10")
-    if not 1 <= score <= 10:
-        raise SystemExit(f"{path}:{line_number}: score must be from 1 through 10")
-    if not isinstance(row["include"], bool):
-        raise SystemExit(f"{path}:{line_number}: include must be a boolean")
-    require_string(row, "reason", path, line_number, allow_empty=False)
-
-def require_unique_paths(rows: list[JsonRow], label: str) -> None:
-    seen: set[str] = set()
-    duplicates: set[str] = set()
-    for row in rows:
-        path = str(row["path"])
-        if path in seen:
-            duplicates.add(path)
-        seen.add(path)
-    if duplicates:
-        raise SystemExit(f"{label} contains duplicate paths: {sorted(duplicates)}")
-
-def make_repo_rank_input(args: argparse.Namespace) -> None:
-    repo = Path(args.repo).expanduser().resolve()
-    if not repo.is_dir():
-        raise SystemExit(f"Repo path not found: {repo}")
-    scopes = [args.scope]
-    explicit_scopes = args.scopes_file is not None
-    if explicit_scopes:
-        scopes = load_scopes_file(Path(args.scopes_file).expanduser())
-
-    resolved_scopes = [
-        resolve_scope(repo, scope, expand_user=not explicit_scopes) for scope in scopes
-    ]
-    directly_requested_files = {
-        scope_abs for scope_abs in resolved_scopes if explicit_scopes and scope_abs.is_file()
-    }
-    rows_by_path: dict[str, JsonRow] = {}
-    for scope_abs in resolved_scopes:
-        scope_rel = scope_abs.relative_to(repo)
-        area = args.area or scope_rel.as_posix()
-        candidates = (scope_abs,) if scope_abs.is_file() else scope_abs.rglob("*")
-        for path in candidates:
-            try:
-                if path.is_symlink() or not path.is_file():
-                    continue
-                path.resolve(strict=True).relative_to(repo)
-            except (OSError, ValueError):
-                continue
-            rel = path.relative_to(repo)
-            directly_requested = path in directly_requested_files
-            excluded_path = (
-                path.relative_to(scope_abs if scope_abs.is_dir() else scope_abs.parent)
-                if explicit_scopes
-                else rel
-            )
-            if not directly_requested and (
-                path_is_excluded(excluded_path) or path.suffix.lower() not in TEXT_CODE_EXTENSIONS
-            ):
-                continue
-
-            if (
-                directly_requested
-                and path.suffix.lower() not in TEXT_CODE_EXTENSIONS
-                and path.name not in EXCLUDED_FILENAMES
-            ):
-                preview = ""
-            else:
-                preview, is_binary = preview_for(
-                    path,
-                    args.preview_bytes,
-                    max_read_bytes=DIRECT_SCOPE_PREVIEW_READ_BYTES if directly_requested else None,
-                )
-                if is_binary and not directly_requested:
-                    continue
-            rows_by_path.setdefault(
-                rel.as_posix(),
-                {"path": rel.as_posix(), "area": area, "preview": preview},
-            )
-
-    rows = sorted(rows_by_path.values(), key=lambda row: str(row["path"]))
-    output = Path(args.out).expanduser()
-    write_jsonl(output, rows)
-    print(f"Wrote {len(rows)} rows to {output}")
-
-def make_repo_scope_input(args: argparse.Namespace) -> None:
-    repo = Path(args.repo).expanduser().resolve()
-    if not repo.is_dir():
-        raise SystemExit(f"Repo path not found: {repo}")
-
-    scopes = load_scopes_file(Path(args.scopes_file).expanduser())
-    rows_by_path: dict[str, JsonRow] = {}
-    for scope in scopes:
-        scope_path = resolve_scope(repo, scope, expand_user=False, reject_symlinks=True)
-        if scope_path.is_file():
-            candidates = (scope_path,)
-        else:
-            git_candidates = git_directory_snapshot_paths(scope_path)
-            if git_candidates is not None:
-                candidates = git_candidates
-            else:
-                command = [
-                    "rg",
-                    "--files",
-                    "--hidden",
-                    "--no-require-git",
-                    "--null",
-                    "--glob",
-                    "!.git/**",
-                    "--",
-                    str(scope_path.relative_to(repo)),
-                ]
-                try:
-                    result = subprocess.run(command, cwd=repo, capture_output=True, check=False)
-                except OSError as exc:
-                    ignore_names = (".gitignore", ".ignore", ".rgignore")
-                    ancestors = (scope_path, *scope_path.parents)
-                    has_ignore_rules = (
-                        any((ancestor / ".git").exists() for ancestor in (repo, *repo.parents))
-                        or any(
-                            (ancestor / name).is_file()
-                            for ancestor in ancestors
-                            if ancestor == repo or repo in ancestor.parents
-                            for name in ignore_names
-                        )
-                        or any(
-                            path.name in ignore_names
-                            for path in scope_path.rglob("*")
-                            if path.is_file()
-                        )
-                    )
-                    if has_ignore_rules:
-                        raise SystemExit(
-                            "Could not safely enumerate ignored scoped files without Git or ripgrep."
-                        ) from exc
-                    candidates = scope_path.rglob("*")
-                else:
-                    if result.returncode not in (0, 1):
-                        detail = result.stderr.decode("utf-8", errors="replace").strip()
-                        raise SystemExit(f"Could not enumerate scoped repository files: {detail}")
-                    candidates = (
-                        repo / os.fsdecode(path) for path in result.stdout.split(b"\0") if path
-                    )
-        for path in candidates:
-            try:
-                if path.is_symlink() or not path.is_file():
-                    continue
-                relative = path.resolve(strict=True).relative_to(repo)
-            except (OSError, ValueError):
-                continue
-            if ".git" in relative.parts:
-                continue
-            rows_by_path.setdefault(relative.as_posix(), {"path": relative.as_posix()})
-
-    rows = sorted(rows_by_path.values(), key=lambda row: str(row["path"]))
-    output = Path(args.out).expanduser()
-    write_jsonl(output, rows)
-    print(f"Wrote {len(rows)} scoped paths to {output}")
-
-def bind_repo_scopes(args: argparse.Namespace) -> None:
-    scopes = load_scopes_file(Path(args.scopes_file).expanduser())
-    manifest_path = Path(args.manifest).expanduser()
-    coverage_path = Path(args.coverage).expanduser()
-    try:
-        manifest: object = json.loads(manifest_path.read_text(encoding="utf-8"))
-        coverage: object = json.loads(coverage_path.read_text(encoding="utf-8"))
-        if not isinstance(manifest, dict) or not isinstance(coverage, dict):
-            raise ValueError("expected JSON objects")
-        scan = manifest.get("scan")
-        if not isinstance(scan, dict):
-            raise ValueError("manifest.scan must be an object")
-        scope = scan.get("scope")
-        if not isinstance(scope, dict):
-            raise ValueError("manifest.scan.scope must be an object")
-    except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as exc:
-        raise SystemExit("Unable to bind requested scopes into the scan contract") from exc
-    scope["includePaths"] = scopes
-    coverage["includePaths"] = scopes
-    manifest_path.write_text(
-        json.dumps(manifest, ensure_ascii=True, indent=2) + "\n", encoding="utf-8"
-    )
-    coverage_path.write_text(
-        json.dumps(coverage, ensure_ascii=True, indent=2) + "\n", encoding="utf-8"
-    )
-    print(f"Bound {len(scopes)} requested scopes into the scan contract")
-
-def run_git_changed_paths(repo: Path, diff_args: list[str]) -> list[tuple[Path, str]]:
-    result = subprocess.run(
-        [
-            "git",
-            "-C",
-            str(repo),
-            "diff",
-            "--name-status",
-            "-z",
-            "--diff-filter=ACMRD",
-            *diff_args,
-        ],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    fields = result.stdout.split("\0")
-    if fields and not fields[-1]:
-        fields.pop()
-
-    changed: list[tuple[Path, str]] = []
-    index = 0
-    while index < len(fields):
-        status = fields[index][0]
-        index += 1
-        if status in {"C", "R"}:
-            index += 1
-        path = repo / fields[index]
-        index += 1
-        changed.append((path, status))
-    return changed
-
-def git_changed_paths(repo: Path, base: str, head: str, mode: str) -> list[tuple[Path, str]]:
-    if mode == "revisions":
-        return run_git_changed_paths(repo, [f"{base}..{head}"])
-    if mode == "local-patch":
-        unstaged = run_git_changed_paths(repo, [base])
-        staged = run_git_changed_paths(repo, ["--cached", base])
-        combined = dict(staged)
-        combined.update(unstaged)
-        return sorted(combined.items())
-    raise SystemExit(f"Unknown diff mode: {mode}")
-
-def make_diff_rank_input(args: argparse.Namespace) -> None:
-    repo = Path(args.repo).expanduser().resolve()
-    if not repo.is_dir():
-        raise SystemExit(f"Repo path not found: {repo}")
-
-    rows: list[JsonRow] = []
-    for path, status in git_changed_paths(repo, args.base, args.head, args.mode):
-        rel = path.relative_to(repo)
-        if path_is_excluded(rel) or path.suffix.lower() not in TEXT_CODE_EXTENSIONS:
-            continue
-
-        if status == "D":
-            preview = ""
-        elif path.is_file():
-            preview, is_binary = preview_for(path, args.preview_bytes)
-            if is_binary:
-                continue
-        else:
-            preview = ""
-        rows.append({"path": rel.as_posix(), "area": args.area, "preview": preview})
-
-    rows.sort(key=lambda row: str(row["path"]))
-    output = Path(args.out).expanduser()
-    write_jsonl(output, rows)
-    print(f"Wrote {len(rows)} rows to {output}")
-
-def make_rank_shards(args: argparse.Namespace) -> None:
-    if args.max_rows < 1:
-        raise SystemExit("--max-rows must be at least 1")
-
-    rank_input = Path(args.rank_input).expanduser()
-    rows = load_jsonl(rank_input, "Rank input", validate_rank_input_row)
-    require_unique_paths(rows, "Rank input")
-
-    output_dir = Path(args.out_dir).expanduser()
-    output_dir.mkdir(parents=True, exist_ok=True)
-    existing = sorted((*output_dir.glob(SHARD_INPUT_GLOB), *output_dir.glob(SHARD_OUTPUT_GLOB)))
-    if existing:
-        raise SystemExit(f"Rank shard directory already contains shard files: {output_dir}")
-
-    shard_count = 0
-    for start in range(0, len(rows), args.max_rows):
-        shard_count += 1
-        shard_path = output_dir / f"rank-shard-{shard_count:04d}.input.jsonl"
-        write_jsonl(shard_path, rows[start : start + args.max_rows])
-
-    print(f"Wrote {shard_count} rank shards to {output_dir}")
-
-def discover_input_shards(shard_dir: Path) -> list[Path]:
-    if not shard_dir.is_dir():
-        raise SystemExit(f"Rank shard directory missing: {shard_dir}")
-
-    numbered_shards: list[tuple[int, Path]] = []
-    for path in shard_dir.glob(SHARD_INPUT_GLOB):
-        match = SHARD_INPUT_PATTERN.fullmatch(path.name)
-        if match is None:
-            raise SystemExit(f"Rank input shard has invalid name: {path.name}")
-        numbered_shards.append((int(match.group(1)), path))
-    numbered_shards.sort(key=lambda item: (item[0], item[1].name))
-    input_shards = [path for _, path in numbered_shards]
-    expected_names = [
-        f"rank-shard-{index:04d}.input.jsonl" for index in range(1, len(input_shards) + 1)
-    ]
-    actual_names = [path.name for path in input_shards]
-    if actual_names != expected_names:
-        raise SystemExit(
-            "Rank input shards must use contiguous canonical names; "
-            f"expected={expected_names}; actual={actual_names}"
-        )
-    return input_shards
-
-def output_name_for(input_name: str) -> str:
-    return input_name.replace(".input.jsonl", ".output.jsonl")
-
-def require_plan_shard_dir(plan_path: Path, shard_dir: Path) -> None:
-    expected = plan_path.parent / "rank_shards"
-    if shard_dir.resolve() != expected.resolve():
-        raise SystemExit(
-            "Rank shard directory must be the assignment plan's sibling rank_shards "
-            f"directory; expected={expected}; actual={shard_dir}"
-        )
-
-def require_no_misplaced_rank_shards(plan_path: Path) -> None:
-    misplaced = sorted(
-        (
-            *plan_path.parent.glob(SHARD_INPUT_GLOB),
-            *plan_path.parent.glob(SHARD_OUTPUT_GLOB),
-        ),
-        key=lambda path: path.name,
-    )
-    if misplaced:
-        raise SystemExit(
-            "Rank shard artifacts must be stored in the assignment plan's sibling "
-            f"rank_shards directory; misplaced={[path.name for path in misplaced]}"
-        )
-
-def make_rank_pool_plan(args: argparse.Namespace) -> None:
-    if args.usable_worker_slots < 1:
-        raise SystemExit("--usable-worker-slots must be at least 1")
-
-    shard_dir = Path(args.shard_dir).expanduser()
-    output = Path(args.out).expanduser()
-    require_plan_shard_dir(output, shard_dir)
-    input_shards = discover_input_shards(shard_dir)
-    worker_count = min(len(input_shards), args.usable_worker_slots, RANK_POOL_WORKER_CAP)
-    workers: list[dict[str, object]] = []
-    for worker_index in range(worker_count):
-        assigned_inputs = [path.name for path in input_shards[worker_index::worker_count]]
-        workers.append(
-            {
-                "slot": worker_index + 1,
-                "input_shards": assigned_inputs,
-                "output_shards": [output_name_for(name) for name in assigned_inputs],
-            }
-        )
-
-    plan: dict[str, object] = {
-        "schema_version": RANK_POOL_PLAN_SCHEMA_VERSION,
-        "strategy": RANK_POOL_STRATEGY,
-        "shard_count": len(input_shards),
-        "ranking_worker_count": worker_count,
-        "workers": workers,
-    }
-    write_json(output, plan)
-    print(f"Assigned {len(input_shards)} rank shards to {worker_count} ranking workers in {output}")
-
-def load_rank_pool_plan(plan_path: Path) -> tuple[dict[str, object], bytes]:
-    if not plan_path.exists():
-        raise SystemExit(f"Rank pool plan missing: {plan_path}")
-    plan_bytes = plan_path.read_bytes()
-    try:
-        payload: object = json.loads(plan_bytes)
-    except json.JSONDecodeError as exc:
-        raise SystemExit(f"{plan_path}: invalid JSON: {exc.msg}") from exc
-    if not isinstance(payload, dict):
-        raise SystemExit(f"{plan_path}: expected a JSON object")
-    return {str(key): value for key, value in payload.items()}, plan_bytes
-
-def require_integer(value: object, label: str, *, minimum: int) -> int:
-    if isinstance(value, bool) or not isinstance(value, int) or value < minimum:
-        raise SystemExit(f"{label} must be an integer of at least {minimum}")
-    return value
-
-def require_string_list(value: object, label: str) -> list[str]:
-    if not isinstance(value, list) or not value:
-        raise SystemExit(f"{label} must be a non-empty list")
-    if any(not isinstance(item, str) or not item for item in value):
-        raise SystemExit(f"{label} entries must be non-empty strings")
-    return [item for item in value if isinstance(item, str)]
-
-def assignment_differences(
-    assigned_names: list[str], expected_names: list[str]
-) -> tuple[list[str], list[str], list[str]]:
-    counts = Counter(assigned_names)
-    duplicates = sorted(name for name, count in counts.items() if count > 1)
-    assigned = set(assigned_names)
-    expected = set(expected_names)
-    return sorted(expected - assigned), duplicates, sorted(assigned - expected)
-
-def validate_rank_pool_plan(
-    plan_path: Path, shard_dir: Path
-) -> tuple[list[Path], list[str], list[RankWorkerAssignment], bytes]:
-    require_plan_shard_dir(plan_path, shard_dir)
-    require_no_misplaced_rank_shards(plan_path)
-    input_shards = discover_input_shards(shard_dir)
-    input_names = [path.name for path in input_shards]
-    output_names = [output_name_for(name) for name in input_names]
-    plan, plan_bytes = load_rank_pool_plan(plan_path)
-    expected_fields = {
-        "schema_version",
-        "strategy",
-        "shard_count",
-        "ranking_worker_count",
-        "workers",
-    }
-    actual_fields = set(plan)
-    if actual_fields != expected_fields:
-        raise SystemExit(
-            f"{plan_path}: rank pool plan fields do not match schema; "
-            f"missing={sorted(expected_fields - actual_fields)}; "
-            f"unexpected={sorted(actual_fields - expected_fields)}"
-        )
-    schema_version = require_integer(
-        plan["schema_version"], f"{plan_path}: schema_version", minimum=1
-    )
-    if schema_version != RANK_POOL_PLAN_SCHEMA_VERSION:
-        raise SystemExit(f"{plan_path}: schema_version must be {RANK_POOL_PLAN_SCHEMA_VERSION}")
-    if plan["strategy"] != RANK_POOL_STRATEGY:
-        raise SystemExit(f"{plan_path}: strategy must be {RANK_POOL_STRATEGY}")
-
-    shard_count = require_integer(plan["shard_count"], f"{plan_path}: shard_count", minimum=0)
-    if shard_count != len(input_shards):
-        raise SystemExit(
-            f"{plan_path}: shard_count does not match input shards; "
-            f"plan={shard_count}; actual={len(input_shards)}"
-        )
-    worker_count = require_integer(
-        plan["ranking_worker_count"], f"{plan_path}: ranking_worker_count", minimum=0
-    )
-    if shard_count > 0 and worker_count == 0:
-        raise SystemExit(
-            f"{plan_path}: ranking_worker_count must be at least 1 when input shards exist"
-        )
-    if worker_count > shard_count:
-        raise SystemExit(f"{plan_path}: ranking_worker_count cannot exceed shard_count")
-    if worker_count > RANK_POOL_WORKER_CAP:
-        raise SystemExit(f"{plan_path}: ranking_worker_count cannot exceed {RANK_POOL_WORKER_CAP}")
-
-    workers = plan["workers"]
-    if not isinstance(workers, list) or len(workers) != worker_count:
-        raise SystemExit(
-            f"{plan_path}: workers must contain exactly {worker_count} worker assignments"
-        )
-
-    assigned_inputs: list[str] = []
-    assigned_outputs: list[str] = []
-    parsed_workers: list[RankWorkerAssignment] = []
-    worker_fields = {"slot", "input_shards", "output_shards"}
-    for worker_index, raw_worker in enumerate(workers):
-        label = f"{plan_path}: workers[{worker_index}]"
-        if not isinstance(raw_worker, dict):
-            raise SystemExit(f"{label} must be a JSON object")
-        worker = {str(key): value for key, value in raw_worker.items()}
-        if set(worker) != worker_fields:
-            raise SystemExit(
-                f"{label} fields do not match schema; "
-                f"missing={sorted(worker_fields - set(worker))}; "
-                f"unexpected={sorted(set(worker) - worker_fields)}"
-            )
-        slot = require_integer(worker["slot"], f"{label}.slot", minimum=1)
-        if slot != worker_index + 1:
-            raise SystemExit(f"{label}.slot must be {worker_index + 1}")
-        worker_inputs = require_string_list(worker["input_shards"], f"{label}.input_shards")
-        worker_outputs = require_string_list(worker["output_shards"], f"{label}.output_shards")
-        if len(worker_inputs) != len(worker_outputs):
-            raise SystemExit(f"{label} input_shards and output_shards lengths must match")
-        expected_worker_outputs = [output_name_for(name) for name in worker_inputs]
-        if worker_outputs != expected_worker_outputs:
-            raise SystemExit(f"{label}.output_shards do not match its input_shards")
-        assigned_inputs.extend(worker_inputs)
-        assigned_outputs.extend(worker_outputs)
-        parsed_workers.append((slot, worker_inputs, worker_outputs))
-
-    missing, duplicates, unexpected = assignment_differences(assigned_inputs, input_names)
-    if missing or duplicates or unexpected:
-        raise SystemExit(
-            f"{plan_path}: pool plan must assign each input shard exactly once; "
-            f"missing={missing}; duplicates={duplicates}; unexpected={unexpected}"
-        )
-    missing, duplicates, unexpected = assignment_differences(assigned_outputs, output_names)
-    if missing or duplicates or unexpected:
-        raise SystemExit(
-            f"{plan_path}: pool plan must assign each output shard exactly once; "
-            f"missing={missing}; duplicates={duplicates}; unexpected={unexpected}"
-        )
-
-    for worker_index, (_, worker_inputs, worker_outputs) in enumerate(parsed_workers):
-        expected_inputs = input_names[worker_index::worker_count]
-        expected_outputs = output_names[worker_index::worker_count]
-        if worker_inputs != expected_inputs or worker_outputs != expected_outputs:
-            raise SystemExit(
-                f"{plan_path}: worker slot {worker_index + 1} does not match the deterministic "
-                f"{RANK_POOL_STRATEGY} assignment"
-            )
-    return input_shards, output_names, parsed_workers, plan_bytes
-
-def validate_rank_worker_command(args: argparse.Namespace) -> None:
-    plan_path = Path(args.plan).expanduser()
-    shard_dir = Path(args.shard_dir).expanduser()
-    _, _, workers, plan_bytes = validate_rank_pool_plan(plan_path, shard_dir)
-
-    slot = require_integer(args.slot, "--slot", minimum=1)
-    worker_count = len(workers)
-    if slot > worker_count:
-        raise SystemExit(f"--slot must be at most {worker_count}")
-
-    assigned_slot, input_names, output_names = workers[slot - 1]
-    if assigned_slot != slot:
-        raise SystemExit(f"{plan_path}: worker assignment for slot {slot} is inconsistent")
-
-    row_count = 0
-    outputs_digest = hashlib.sha256()
-    for input_name, output_name in zip(input_names, output_names, strict=True):
-        input_shard = shard_dir / input_name
-        output_shard = shard_dir / output_name
-        _, output_rows = validate_rank_shard(input_shard, output_shard)
-        output_bytes = output_shard.read_bytes()
-        row_count += len(output_rows)
-        outputs_digest.update(output_name.encode("utf-8"))
-        outputs_digest.update(b"\0")
-        outputs_digest.update(output_bytes)
-        outputs_digest.update(b"\0")
-
-    receipt: dict[str, object] = {
-        "schema_version": 1,
-        "plan_sha256": hashlib.sha256(plan_bytes).hexdigest(),
-        "slot": slot,
-        "ranking_worker_count": worker_count,
-        "output_shards": len(output_names),
-        "rows": row_count,
-        "outputs_sha256": outputs_digest.hexdigest(),
-        "status": "complete",
-    }
-    print("RANK_WORKER_RECEIPT " + json.dumps(receipt, sort_keys=True, separators=(",", ":")))
-
-def validate_rank_pool_command(args: argparse.Namespace) -> None:
-    plan_path = Path(args.plan).expanduser()
-    shard_dir = Path(args.shard_dir).expanduser()
-    input_shards, expected_output_names, workers, _ = validate_rank_pool_plan(plan_path, shard_dir)
-
-    actual_output_names = {path.name for path in shard_dir.glob(SHARD_OUTPUT_GLOB)}
-    expected_outputs = set(expected_output_names)
-    if actual_output_names != expected_outputs:
-        missing = sorted(expected_outputs - actual_output_names)
-        unexpected = sorted(actual_output_names - expected_outputs)
-        raise SystemExit(
-            "Rank pool outputs are incomplete; "
-            f"missing output shards={missing}; unexpected output shards={unexpected}"
-        )
-
-    row_count = 0
-    for input_shard in input_shards:
-        output_shard = input_shard.with_name(output_name_for(input_shard.name))
-        _, shard_outputs = validate_rank_shard(input_shard, output_shard)
-        row_count += len(shard_outputs)
-    print(
-        f"Validated {len(workers)} ranking workers, "
-        f"{len(input_shards)} shards, and {row_count} ranking rows"
-    )
-
-def validate_rank_shard(
-    input_shard: Path, output_shard: Path
-) -> tuple[list[JsonRow], list[JsonRow]]:
-    shard_inputs = load_jsonl(input_shard, "Rank input shard", validate_rank_input_row)
-    require_unique_paths(shard_inputs, f"Rank input shard {input_shard.name}")
-    shard_outputs = load_jsonl(output_shard, "Rank output shard", validate_rank_output_row)
-    require_unique_paths(shard_outputs, f"Rank output shard {output_shard.name}")
-
-    expected_paths = {str(row["path"]) for row in shard_inputs}
-    actual_paths = {str(row["path"]) for row in shard_outputs}
-    if expected_paths != actual_paths:
-        missing = sorted(expected_paths - actual_paths)
-        unknown = sorted(actual_paths - expected_paths)
-        raise SystemExit(
-            f"{output_shard}: paths do not match its input shard; "
-            f"missing={missing}; unknown={unknown}"
-        )
-
-    area_by_path = {str(row["path"]): row["area"] for row in shard_inputs}
-    for row in shard_outputs:
-        row_path = str(row["path"])
-        if row["area"] != area_by_path[row_path]:
-            raise SystemExit(f"{output_shard}: area does not match rank input for {row_path}")
-    return shard_inputs, shard_outputs
-
-def validate_rank_shard_command(args: argparse.Namespace) -> None:
-    input_shard = Path(args.input).expanduser()
-    output_shard = Path(args.output).expanduser()
-    _, output_rows = validate_rank_shard(input_shard, output_shard)
-    print(f"Validated {len(output_rows)} ranking rows in {output_shard}")
-
-def merge_rank_outputs(args: argparse.Namespace) -> None:
-    rank_input = Path(args.rank_input).expanduser()
-    authoritative_rows = load_jsonl(rank_input, "Rank input", validate_rank_input_row)
-    require_unique_paths(authoritative_rows, "Rank input")
-
-    shard_dir = Path(args.shard_dir).expanduser()
-    input_shards = discover_input_shards(shard_dir)
-    output_shards = sorted(shard_dir.glob(SHARD_OUTPUT_GLOB))
-    expected_output_names = {
-        path.name.replace(".input.jsonl", ".output.jsonl") for path in input_shards
-    }
-    actual_output_names = {path.name for path in output_shards}
-    if expected_output_names != actual_output_names:
-        missing = sorted(expected_output_names - actual_output_names)
-        unexpected = sorted(actual_output_names - expected_output_names)
-        details: list[str] = []
-        if missing:
-            details.append(f"missing output shards {missing}")
-        if unexpected:
-            details.append(f"unexpected output shards {unexpected}")
-        raise SystemExit(f"Rank shard outputs are incomplete: {'; '.join(details)}")
-
-    sharded_inputs: list[JsonRow] = []
-    output_by_path: dict[str, JsonRow] = {}
-    for input_shard in input_shards:
-        output_shard = input_shard.with_name(
-            input_shard.name.replace(".input.jsonl", ".output.jsonl")
-        )
-        shard_inputs, shard_outputs = validate_rank_shard(input_shard, output_shard)
-        sharded_inputs.extend(shard_inputs)
-        for row in shard_outputs:
-            row_path = str(row["path"])
-            if row_path in output_by_path:
-                raise SystemExit(f"Rank outputs contain duplicate path: {row_path}")
-            output_by_path[row_path] = row
-
-    if sharded_inputs != authoritative_rows:
-        raise SystemExit("Rank input shards do not exactly partition the authoritative rank input")
-
-    merged = [output_by_path[str(row["path"])] for row in authoritative_rows]
-    output = Path(args.out).expanduser()
-    write_jsonl(output, merged)
-    print(f"Merged {len(merged)} ranking rows into {output}")
-
-def copy_deep_review_input(args: argparse.Namespace) -> None:
-    rank_input = Path(args.rank_input).expanduser()
-    rows = load_jsonl(rank_input, "Rank input", validate_rank_input_row)
-    require_unique_paths(rows, "Rank input")
-    selected = [{"path": row["path"], "area": row["area"]} for row in rows]
-
-    output = Path(args.out).expanduser()
-    write_jsonl(output, selected)
-    print(f"Copied {len(selected)} rows into {output}")
-
-def select_deep_review_input(args: argparse.Namespace) -> None:
-    rank_output = Path(args.rank_output).expanduser()
-    rows = load_jsonl(rank_output, "Rank output", validate_rank_output_row)
-    require_unique_paths(rows, "Rank output")
-
-    included = [row for row in rows if row["include"]]
-    base_rows = included if included else rows
-    base_rows.sort(key=lambda row: (-int(row["score"]), str(row["path"])))
-    keep = max(1, int(len(base_rows) * (args.top_percent / 100.0))) if base_rows else 0
-    selected = [{"path": row["path"], "area": row["area"]} for row in base_rows[:keep]]
-
-    output = Path(args.out).expanduser()
-    write_jsonl(output, selected)
-    print(f"Selected {len(selected)} of {len(base_rows)} rows into {output}")
-
-def main() -> None:
-    args = parse_args()
-    if args.command == "make-repo-rank-input":
-        make_repo_rank_input(args)
-    elif args.command == "make-repo-scope-input":
-        make_repo_scope_input(args)
-    elif args.command == "bind-repo-scopes":
-        bind_repo_scopes(args)
-    elif args.command == "make-diff-rank-input":
-        make_diff_rank_input(args)
-    elif args.command == "make-rank-shards":
-        make_rank_shards(args)
-    elif args.command == "make-rank-pool-plan":
-        make_rank_pool_plan(args)
-    elif args.command == "validate-rank-shard":
-        validate_rank_shard_command(args)
-    elif args.command == "validate-rank-worker":
-        validate_rank_worker_command(args)
-    elif args.command == "validate-rank-pool":
-        validate_rank_pool_command(args)
-    elif args.command == "merge-rank-outputs":
-        merge_rank_outputs(args)
-    elif args.command == "copy-deep-review-input":
-        copy_deep_review_input(args)
-    elif args.command == "select-deep-review-input":
-        select_deep_review_input(args)
-    else:
-        raise SystemExit(f"Unknown command: {args.command}")
-
-if __name__ == "__main__":
-    main()
 ```
 
 ## File: `scripts/launch_codex_security_mcp`
 
 ```text
 #!/bin/sh
+# Use LF line endings so POSIX can execute this script directly from Windows-built packages.
 set -eu
 
-PATH="${PATH:-/usr/bin:/bin}:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
-export PATH
+# The SDK may have removed directories containing repository-owned executables.
+if [ -z "${_CODEX_SECURITY_SDK_NODE_SEARCH_PATH+x}" ]; then
+  PATH="${PATH:-/usr/bin:/bin}:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+  export PATH
+fi
 
-launcher_dir=$(CDPATH= cd "$(dirname "$0")" && pwd)
+launcher_dir=$(CDPATH= cd "$(command -p dirname "$0")" && pwd)
 server_path=$launcher_dir/../mcp/server.mjs
+if [ "${1:-}" = "--helper" ]; then
+  server_path=$launcher_dir/../mcp/helpers.mjs
+fi
+launch_node() {
+  node_command=$1
+  shift
+  if [ "${1:-}" = "--helper" ]; then
+    shift
+    # Preserve POSIX argv and HOME bytes without temporary files or consuming stdin.
+    helper_stdin_open=false
+    if (exec 4<&0) 2>&-; then
+      exec 4<&0
+      helper_stdin_open=true
+    fi
+    wait_helper() {
+      if wait "$!" 2>&-; then exit 0; else exit $?; fi
+    }
+    forward_signal() {
+      if [ -n "${!:-}" ]; then
+        kill -s "$1" "$!" 2>&- || :
+        wait_helper
+      fi
+      exit "$2"
+    }
+    trap 'forward_signal HUP 129' HUP
+    trap 'forward_signal INT 130' INT
+    trap 'forward_signal TERM 143' TERM
+    printf '%s\000' "${HOME+x}" "${HOME-}" "$@" | command -p od -An -v -tx1 | command -p tr -d ' \n' | {
+      # BusyBox ash requires a literal close redirection for a closed stdin.
+      if [ "$helper_stdin_open" = true ]; then
+        exec 0<&4
+      else
+        exec 0<&-
+      fi
+      exec "$node_command" "$server_path" --helper 4<&-
+    } 3<&0 &
+    exec 4<&-
+    wait_helper
+  fi
+  exec "$node_command" "$server_path" "$@"
+}
+
 cache_root=${XDG_CACHE_HOME:-${HOME:-}/.cache}
 codex_resources=
 case "${CODEX_CLI_PATH:-}" in
   */*) codex_resources=${CODEX_CLI_PATH%/*} ;;
 esac
 
+# An explicitly selected runtime remains authoritative.
+if [ -n "${CODEX_MCP_NODE_PATH:-}" ] && [ -x "$CODEX_MCP_NODE_PATH" ]; then
+  launch_node "$CODEX_MCP_NODE_PATH" "$@"
+fi
+
+first_node=
+can_load_native() {
+  selected_node=$1
+  if [ -z "$first_node" ]; then
+    first_node=$1
+  fi
+  # Database helpers need SQLite. On macOS, library validation can also
+  # prevent a managed runtime from loading the plugin's addon.
+  # Capture output without opening a writable file for read-only callers.
+  if _native_probe_output=$("$1" -e '
+    if (process.platform === "linux") {
+      try { require("node:sqlite"); } catch { process.exitCode = 78; }
+    } else if (process.platform === "darwin") {
+      require("node:sqlite");
+      require(require("node:path").join(process.argv[1], "native",
+        `${process.platform}-${process.arch}`, "unix.node"));
+    }
+  ' "$launcher_dir/../mcp" </dev/null 2>&1); then
+    return 0
+  elif [ "$?" -ne 78 ]; then
+    return 1
+  fi
+
+  # This Linux runtime can still run helpers without SQLite. Prefer a system
+  # installation if available, without expanding discovery into the caller's PATH.
+  for system_candidate in /usr/local/bin/node /usr/bin/node /bin/node; do
+    if [ -n "${_CODEX_SECURITY_SDK_NODE_SEARCH_PATH+x}" ]; then
+      case ":$_CODEX_SECURITY_SDK_NODE_SEARCH_PATH:" in
+        *":${system_candidate%/*}:"*) ;;
+        *) continue ;;
+      esac
+    fi
+    if [ -x "$system_candidate" ] &&
+      _native_probe_output=$("$system_candidate" -e 'require("node:sqlite")' </dev/null 2>&1); then
+      selected_node=$system_candidate
+      break
+    fi
+  done
+  return 0
+}
+
 for candidate in \
-  "${CODEX_MCP_NODE_PATH:-}" \
   "${CODEX_BROWSER_USE_NODE_PATH:-}" \
   "${CODEX_ELECTRON_RESOURCES_PATH:-}/cua_node/bin/node" \
   "$codex_resources/cua_node/bin/node" \
   "$cache_root/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"
 do
-  if [ -n "$candidate" ] && [ -x "$candidate" ]; then
-    exec "$candidate" "$server_path" "$@"
+  if [ -n "$candidate" ] && [ -x "$candidate" ] && can_load_native "$candidate"; then
+    launch_node "$selected_node" "$@"
   fi
 done
 
-if command -v node >/dev/null 2>&1; then
-  exec node "$server_path" "$@"
+remaining_path=${PATH-}
+if [ -n "${CODEX_SECURITY_PLUGIN_ROOT:-}" ] && [ -n "${_CODEX_SECURITY_SDK_NODE_SEARCH_PATH:-}" ]; then
+  # Only Node lookup uses the SDK-inspected fallback directories.
+  remaining_path=${remaining_path:+$remaining_path:}$_CODEX_SECURITY_SDK_NODE_SEARCH_PATH
+fi
+while [ -n "$remaining_path" ]; do
+  path_entry=${remaining_path%%:*}
+  node_path=${path_entry:-.}/node
+  if [ -x "$node_path" ] && can_load_native "$node_path"; then
+    launch_node "$selected_node" "$@"
+  fi
+  case "$remaining_path" in
+    *:*) remaining_path=${remaining_path#*:} ;;
+    *) break ;;
+  esac
+done
+
+if [ -n "$first_node" ]; then
+  # Helpers that do not use the addon can still run with the original default.
+  launch_node "$first_node" "$@"
 fi
 
 printf '%s\n' 'Codex Security could not find a Node runtime. Reinstall or update Codex, or set CODEX_MCP_NODE_PATH to an executable Node runtime.' >&2
@@ -2913,6 +1231,12 @@ exit 127
 setlocal DisableDelayedExpansion
 
 set "CODEX_SECURITY_MCP_SCRIPT=%~dp0..\mcp\server.mjs"
+if "%~1"=="--helper" (
+  rem An inherited ERRORLEVEL would shadow the helper exit code.
+  set "ERRORLEVEL="
+  set "CODEX_SECURITY_MCP_SCRIPT=%~dp0..\mcp\helpers.mjs"
+  goto launch
+)
 
 rem This process waits for Node and must not keep the installed plugin directory locked.
 if "%~d0"=="" (cd /d "%SystemRoot%") else (cd /d "%~d0\")
@@ -2921,1300 +1245,447 @@ if errorlevel 1 (
   exit /b 1
 )
 
+:launch
+if defined CODEX_MCP_NODE_PATH if exist "%CODEX_MCP_NODE_PATH%" (
+  set "CODEX_SECURITY_MCP_NODE=%CODEX_MCP_NODE_PATH%"
+  goto run
+)
 rem WindowsApps can expose a Node path that exists but cannot be executed.
-rem Prefer relocated user-writable runtimes before probing packaged paths.
-if defined LOCALAPPDATA for /d %%D in ("%LOCALAPPDATA%\OpenAI\Codex\runtimes\cua_node\*") do if exist "%%~fD\bin\node.exe" ("%%~fD\bin\node.exe" "%CODEX_SECURITY_MCP_SCRIPT%" %* & exit)
-if defined XDG_CACHE_HOME if exist "%XDG_CACHE_HOME%\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" ("%XDG_CACHE_HOME%\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" "%CODEX_SECURITY_MCP_SCRIPT%" %* & exit)
-if defined USERPROFILE if exist "%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" ("%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" "%CODEX_SECURITY_MCP_SCRIPT%" %* & exit)
-if defined CODEX_MCP_NODE_PATH if exist "%CODEX_MCP_NODE_PATH%" ("%CODEX_MCP_NODE_PATH%" "%CODEX_SECURITY_MCP_SCRIPT%" %* & exit)
-if defined CODEX_BROWSER_USE_NODE_PATH if exist "%CODEX_BROWSER_USE_NODE_PATH%" ("%CODEX_BROWSER_USE_NODE_PATH%" "%CODEX_SECURITY_MCP_SCRIPT%" %* & exit)
-if defined CODEX_ELECTRON_RESOURCES_PATH if exist "%CODEX_ELECTRON_RESOURCES_PATH%\cua_node\bin\node.exe" ("%CODEX_ELECTRON_RESOURCES_PATH%\cua_node\bin\node.exe" "%CODEX_SECURITY_MCP_SCRIPT%" %* & exit)
-if defined CODEX_CLI_PATH for %%I in ("%CODEX_CLI_PATH%") do if exist "%%~dpIcua_node\bin\node.exe" ("%%~dpIcua_node\bin\node.exe" "%CODEX_SECURITY_MCP_SCRIPT%" %* & exit)
+rem Without an explicit override, prefer relocated user-writable runtimes.
+if defined LOCALAPPDATA for /d %%D in ("%LOCALAPPDATA%\OpenAI\Codex\runtimes\cua_node\*") do if exist "%%~fD\bin\node.exe" (
+  set "CODEX_SECURITY_MCP_NODE=%%~fD\bin\node.exe"
+  goto run
+)
+if defined XDG_CACHE_HOME if exist "%XDG_CACHE_HOME%\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" (
+  set "CODEX_SECURITY_MCP_NODE=%XDG_CACHE_HOME%\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe"
+  goto run
+)
+if defined USERPROFILE if exist "%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" (
+  set "CODEX_SECURITY_MCP_NODE=%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe"
+  goto run
+)
+if defined CODEX_BROWSER_USE_NODE_PATH if exist "%CODEX_BROWSER_USE_NODE_PATH%" (
+  set "CODEX_SECURITY_MCP_NODE=%CODEX_BROWSER_USE_NODE_PATH%"
+  goto run
+)
+if defined CODEX_ELECTRON_RESOURCES_PATH if exist "%CODEX_ELECTRON_RESOURCES_PATH%\cua_node\bin\node.exe" (
+  set "CODEX_SECURITY_MCP_NODE=%CODEX_ELECTRON_RESOURCES_PATH%\cua_node\bin\node.exe"
+  goto run
+)
+if defined CODEX_CLI_PATH for %%I in ("%CODEX_CLI_PATH%") do if exist "%%~dpIcua_node\bin\node.exe" (
+  set "CODEX_SECURITY_MCP_NODE=%%~dpIcua_node\bin\node.exe"
+  goto run
+)
 
-where node >nul 2>&1
-if not errorlevel 1 (node "%CODEX_SECURITY_MCP_SCRIPT%" %* & exit)
+rem Resolve Node from PATH once and launch that exact executable.
+set "CODEX_SECURITY_MCP_SEARCH_PATH=%PATH:"=%"
+for %%I in (node.exe) do set "CODEX_SECURITY_MCP_NODE=%%~$CODEX_SECURITY_MCP_SEARCH_PATH:I"
+if defined CODEX_SECURITY_MCP_NODE goto run
 
 echo Codex Security could not find a Node runtime. Reinstall or update Codex, or set CODEX_MCP_NODE_PATH to an executable Node runtime. 1>&2
 exit /b 127
+
+:run
+rem Direct invocation also chains batch shims without CALL reparsing paths.
+"%CODEX_SECURITY_MCP_NODE%" "%CODEX_SECURITY_MCP_SCRIPT%" %*
+if "%~1"=="--helper" exit /b %errorlevel%
+exit
 ```
 
-## File: `scripts/normalize_candidates.py`
+## File: `scripts/legacy_findings.py`
 
 ```python
-#!/usr/bin/env python3
-"""Validate and combine security-scan candidates into deterministic JSONL."""
+"""Normalize legacy finding details for scan contract validation."""
 
 from __future__ import annotations
 
-import argparse
-import hashlib
-import json
-import re
-import sys
-import tempfile
-from pathlib import Path, PurePosixPath
+import copy
 from typing import Any
 
-CWE = re.compile(r"(?i)CWE-(\d+)")
-ROLES = {
-    "entrypoint": 0,
-    "entrypoint/wrapper": 1,
-    "source": 2,
-    "root_control": 3,
-    "sink": 4,
-    "concrete_implementation": 5,
-    "evidence": 6,
-}
-FIELDS = {
-    "candidate_id",
-    "cwe_ids",
-    "locations",
-    "summary",
-    "evidence",
-    "context",
-    "instance",
-}
+import report_projection
 
-def text_field(row: dict[str, Any], field: str, *, required: bool = True) -> str | None:
-    value = row.get(field)
-    if value is None and not required:
-        return None
-    if not isinstance(value, str) or not value.strip():
-        raise ValueError(f"{field}: expected a non-empty string")
-    return value.strip()
+def _filter_unknown_legacy_evidence_refs(section: dict[str, Any], evidence_ids: set[str]) -> None:
+    for refs_field in ("evidenceRefs", "evidence_refs"):
+        refs = section.get(refs_field)
+        if isinstance(refs, list):
+            section[refs_field] = [
+                ref for ref in refs if isinstance(ref, str) and ref.strip() and ref in evidence_ids
+            ]
 
-def cwe_ids(row: dict[str, Any]) -> list[str]:
-    value = row.get("cwe_ids")
-    if not isinstance(value, list):
-        raise ValueError("cwe_ids: expected an array")
-    found: set[int] = set()
-    for item in value:
-        if not isinstance(item, str):
-            raise ValueError("cwe_ids: expected CWE strings")
-        match = CWE.fullmatch(item.strip())
-        if match is None or int(match[1]) < 1:
-            raise ValueError(f"cwe_ids: unsupported value {item!r}")
-        found.add(int(match[1]))
-    return [f"CWE-{number}" for number in sorted(found)]
-
-def relative_file(value: Any, repo_root: Path) -> tuple[str, Path]:
-    if not isinstance(value, str) or not value or "\0" in value:
-        raise ValueError("path: expected a non-empty repository-relative path")
-    raw = value
-    if sys.platform == "win32":
-        raw = raw.replace("\\", "/")
-    path = PurePosixPath(raw)
-    if (
-        path.is_absolute()
-        or ".." in path.parts
-        or (sys.platform == "win32" and re.match(r"^[A-Za-z]:", raw))
-    ):
-        raise ValueError("path: expected a repository-relative path without traversal")
-    resolved = (repo_root / raw).resolve(strict=True)
-    try:
-        relative = resolved.relative_to(repo_root).as_posix()
-    except ValueError as error:
-        raise ValueError("path: must resolve inside --repo-root") from error
-    if not resolved.is_file():
-        raise ValueError("path: expected a regular file")
-    return relative, resolved
-
-def positive_line(value: Any, field: str) -> int:
-    if not isinstance(value, int) or isinstance(value, bool) or value < 1:
-        raise ValueError(f"{field}: expected a positive integer")
-    return value
-
-def normalize_locations(
-    row: dict[str, Any], repo_root: Path, line_counts: dict[Path, int]
-) -> list[dict[str, Any]]:
-    value = row.get("locations")
-    if not isinstance(value, list) or not value:
-        raise ValueError("locations: expected a non-empty array")
-    normalized: dict[tuple[str, int, int, str], dict[str, Any]] = {}
-    for item in value:
-        if not isinstance(item, dict):
-            raise ValueError("locations: expected location objects")
-        unknown = set(item) - {"path", "start_line", "end_line", "role"}
-        if unknown:
-            raise ValueError(f"locations: unsupported fields {', '.join(sorted(unknown))}")
-        relative, source = relative_file(item.get("path"), repo_root)
-        if (
-            not relative.strip()
-            or "\\" in relative
-            or any(":" in part for part in PurePosixPath(relative).parts)
-        ):
-            raise ValueError("path: expected a safe repository-relative POSIX path")
-        start = positive_line(item.get("start_line"), "start_line")
-        end = positive_line(item.get("end_line", start), "end_line")
-        if end < start:
-            raise ValueError("end_line: must be greater than or equal to start_line")
-        if source not in line_counts:
-            line_counts[source] = len(source.read_bytes().splitlines())
-        if end > line_counts[source]:
-            raise ValueError(f"line range {start}-{end} exceeds {relative}:{line_counts[source]}")
-        role = item.get("role")
-        if not isinstance(role, str) or role not in ROLES:
-            raise ValueError(f"role: unsupported value {role!r}")
-        key = (relative, start, end, role)
-        normalized[key] = {
-            "path": relative,
-            "start_line": start,
-            "end_line": end,
-            "role": role,
-        }
-    return sorted(
-        normalized.values(),
-        key=lambda item: (
-            ROLES[item["role"]],
-            item["path"],
-            item["start_line"],
-            item["end_line"],
-        ),
-    )
-
-def read_scope(path: Path, repo_root: Path, *, allow_missing: bool = False) -> set[str]:
-    contents = path.read_bytes().decode("utf-8")
-    lines = contents.split("\n")
-    listed_rows = set(lines)
-
-    def is_scope_file(value: str) -> bool:
-        try:
-            relative_file(value, repo_root)
-        except (OSError, ValueError):
-            return False
-        return True
-
-    carriage_rows = {
-        line: (is_scope_file(line), is_scope_file(line.removesuffix("\r")))
-        for line in lines
-        if line.endswith("\r") and line != "\r" and sys.platform != "win32"
-    }
-    crlf_evidence = any(line == "\r" for line in lines) or any(
-        stripped and not literal for literal, stripped in carriage_rows.values()
-    )
-    literal_evidence = any(literal and not stripped for literal, stripped in carriage_rows.values())
-
-    scope: set[str] = set()
-    for number, line in enumerate(lines, 1):
-        if sys.platform == "win32" or line == "\r":
-            line = line.removesuffix("\r")
-        elif line.endswith("\r"):
-            literal, stripped = carriage_rows[line]
-            if stripped and not literal:
-                line = line.removesuffix("\r")
-            elif stripped and literal:
-                if number == len(lines) and not contents.endswith("\n"):
-                    pass
-                elif line.removesuffix("\r") in listed_rows:
-                    pass
-                elif crlf_evidence and not literal_evidence:
-                    line = line.removesuffix("\r")
-                elif literal_evidence and not crlf_evidence:
-                    pass
-                else:
-                    raise ValueError(f"in-scope file row {number}: ambiguous carriage-return paths")
-            elif not literal and crlf_evidence:
-                line = line.removesuffix("\r")
-        if not line:
+def _normalize_legacy_string_list_fields(section: dict[str, Any], fields: tuple[str, ...]) -> None:
+    for field in fields:
+        if field not in section:
             continue
-        try:
-            relative, _ = relative_file(line, repo_root)
-        except (OSError, ValueError) as error:
-            if allow_missing and isinstance(error, FileNotFoundError):
-                candidate = PurePosixPath(line)
-                if candidate.is_absolute() or ".." in candidate.parts or "\0" in line:
-                    raise ValueError(f"in-scope file row {number}: unsafe deleted path") from error
-                resolved = (repo_root / line).resolve(strict=False)
-                try:
-                    relative = resolved.relative_to(repo_root).as_posix()
-                except ValueError as escaped:
-                    raise ValueError(
-                        f"in-scope file row {number}: path escapes repository"
-                    ) from escaped
-                scope.add(relative)
-                continue
-            raise ValueError(f"in-scope file row {number}: {error}") from error
-        scope.add(relative)
-    return scope
+        value = section[field]
+        if isinstance(value, str):
+            normalized = [value] if value.strip() else []
+        elif isinstance(value, list):
+            normalized = [item for item in value if isinstance(item, str) and item.strip()]
+        else:
+            normalized = []
+        if normalized:
+            section[field] = normalized
+        else:
+            section.pop(field)
 
-def normalize_candidate(
-    row: dict[str, Any], repo_root: Path, scope: set[str], line_counts: dict[Path, int]
-) -> dict[str, Any]:
-    unknown = set(row) - FIELDS
-    if unknown:
-        raise ValueError(f"unsupported fields {', '.join(sorted(unknown))}")
-    if "candidate_id" in row:
-        text_field(row, "candidate_id")
-    candidate_locations = normalize_locations(row, repo_root, line_counts)
-    if not any(item["path"] in scope for item in candidate_locations):
-        raise ValueError("locations: expected at least one in-scope file")
-    result: dict[str, Any] = {
-        "cwe_ids": cwe_ids(row),
-        "locations": candidate_locations,
-        "summary": text_field(row, "summary"),
-        "evidence": text_field(row, "evidence"),
-    }
-    context = text_field(row, "context", required=False)
-    if context is not None:
-        result["context"] = context
-    instance = text_field(row, "instance", required=False)
-    if instance is not None:
-        result["instance"] = instance
-    return result
+def _remove_unsupported_legacy_scalar_fields(
+    section: dict[str, Any], fields: tuple[str, ...]
+) -> None:
+    for field in fields:
+        if field in section and (not isinstance(section[field], str) or section[field] == ""):
+            section.pop(field)
 
-def identity(row: dict[str, Any]) -> str:
-    return json.dumps(
-        {
-            "cwe_ids": row["cwe_ids"],
-            "locations": row["locations"],
-            "instance": row.get("instance"),
-        },
-        ensure_ascii=False,
-        separators=(",", ":"),
-        sort_keys=True,
-    )
-
-def merged_text(group: list[dict[str, Any]], field: str) -> str:
-    return "\n".join(sorted({item[field] for item in group if field in item}))
-
-def combine(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    groups: dict[str, list[dict[str, Any]]] = {}
-    for row in rows:
-        groups.setdefault(identity(row), []).append(row)
-    combined: list[dict[str, Any]] = []
-    for key, group in sorted(groups.items()):
-        candidate_id = hashlib.sha256(key.encode()).hexdigest()[:16]
-
-        result = {
-            "candidate_id": f"candidate-{candidate_id}",
-            "cwe_ids": group[0]["cwe_ids"],
-            "locations": group[0]["locations"],
-            "summary": merged_text(group, "summary"),
-            "evidence": merged_text(group, "evidence"),
+def _legacy_sealed_findings_for_validation(findings: dict[str, Any]) -> dict[str, Any]:
+    compatible = copy.deepcopy(findings)
+    finding_items = compatible.get("findings")
+    if not isinstance(finding_items, list):
+        return compatible
+    for finding in finding_items:
+        if not isinstance(finding, dict):
+            continue
+        canonical_evidence = finding.get("codeEvidence")
+        canonical_evidence = canonical_evidence if isinstance(canonical_evidence, list) else []
+        evidence_ids = {
+            evidence["id"]
+            for evidence in canonical_evidence
+            if isinstance(evidence, dict) and isinstance(evidence.get("id"), str) and evidence["id"]
         }
-        context = merged_text(group, "context")
-        if context:
-            result["context"] = context
-        if "instance" in group[0]:
-            result["instance"] = group[0]["instance"]
-        combined.append(result)
-    return combined
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input", nargs="+", required=True, help="Candidate JSONL inputs.")
-    parser.add_argument("--out", required=True, help="Combined candidate JSONL output.")
-    parser.add_argument("--repo-root", required=True, help="Repository root for candidate paths.")
-    parser.add_argument("--in-scope-files", required=True, help="Repository-relative file list.")
-    parser.add_argument(
-        "--allow-missing-in-scope",
-        action="store_true",
-        help="Keep deleted Git paths in a diff inventory while validating existing candidate files.",
-    )
-    args = parser.parse_args()
-    try:
-        repo_root = Path(args.repo_root).expanduser().resolve(strict=True)
-        if not repo_root.is_dir():
-            raise ValueError("--repo-root: expected a directory")
-        output = Path(args.out).expanduser().resolve(strict=False)
-        scope_path = Path(args.in_scope_files).expanduser().resolve(strict=True)
-        inputs = sorted({Path(value).expanduser().resolve(strict=True) for value in args.input})
-        if output in inputs:
-            raise ValueError("--out: must not also be an input")
-        if output == scope_path:
-            raise ValueError("--out: must not replace --in-scope-files")
-        scope = read_scope(scope_path, repo_root, allow_missing=args.allow_missing_in_scope)
-        line_counts: dict[Path, int] = {}
-        rows: list[dict[str, Any]] = []
-        for source in inputs:
-            with source.open(encoding="utf-8") as handle:
-                for number, line in enumerate(handle, 1):
-                    if not line.strip():
-                        continue
-                    try:
-                        row = json.loads(line)
-                        if not isinstance(row, dict):
-                            raise ValueError("expected a JSON object")
-                        rows.append(normalize_candidate(row, repo_root, scope, line_counts))
-                    except (ValueError, TypeError, OSError) as error:
-                        raise ValueError(f"{source} row {number}: {error}") from error
-        combined = combine(rows)
-        output.parent.mkdir(parents=True, exist_ok=True)
-        payload = "".join(
-            json.dumps(row, ensure_ascii=False, separators=(",", ":"), sort_keys=True) + "\n"
-            for row in combined
-        )
-        temporary: Path | None = None
-        try:
-            with tempfile.NamedTemporaryFile(
-                mode="w",
-                encoding="utf-8",
-                dir=output.parent,
-                prefix=f".{output.name}.",
-                suffix=".tmp",
-                delete=False,
-            ) as handle:
-                temporary = Path(handle.name)
-                handle.write(payload)
-            temporary.replace(output)
-        finally:
-            if temporary is not None:
-                temporary.unlink(missing_ok=True)
-        print(f"Combined {len(rows)} candidate rows into {len(combined)} rows in {output}")
-    except (OSError, ValueError) as error:
-        print(f"normalize_candidates: {error}", file=sys.stderr)
-        raise SystemExit(2) from error
-
-if __name__ == "__main__":
-    main()
+        legacy_evidence = finding.get("code_evidence")
+        if isinstance(legacy_evidence, list):
+            compatible_legacy_evidence = []
+            for evidence in report_projection.code_evidence_rows(legacy_evidence):
+                evidence_id = evidence.get("id")
+                if not isinstance(evidence_id, str) or not evidence_id.strip():
+                    continue
+                if evidence_id in evidence_ids:
+                    continue
+                evidence_ids.add(evidence_id)
+                compatible_legacy_evidence.append(evidence)
+            finding["code_evidence"] = compatible_legacy_evidence
+        elif "code_evidence" in finding:
+            finding.pop("code_evidence")
+        for section_name, list_fields in (
+            ("rootCause", ("evidenceRefs", "evidence_refs")),
+            ("root_cause", ("evidenceRefs", "evidence_refs")),
+            (
+                "validation",
+                (
+                    "assertions",
+                    "counterEvidence",
+                    "evidence",
+                    "evidenceRefs",
+                    "evidence_refs",
+                    "limitations",
+                ),
+            ),
+            (
+                "attackPath",
+                (
+                    "assumptions",
+                    "blindspots",
+                    "controls",
+                    "evidenceRefs",
+                    "evidence_refs",
+                    "limitations",
+                    "preconditions",
+                    "steps",
+                ),
+            ),
+        ):
+            section = finding.get(section_name)
+            if not isinstance(section, dict):
+                continue
+            _normalize_legacy_string_list_fields(section, list_fields)
+            _filter_unknown_legacy_evidence_refs(section, evidence_ids)
+        legacy_root_cause = finding.get("root_cause")
+        if isinstance(legacy_root_cause, dict):
+            _remove_unsupported_legacy_scalar_fields(
+                legacy_root_cause, ("summary", "code", "language")
+            )
+        elif (
+            "root_cause" in finding
+            and legacy_root_cause is not None
+            and (not isinstance(legacy_root_cause, str) or legacy_root_cause == "")
+        ):
+            finding.pop("root_cause")
+        validation = finding.get("validation")
+        if isinstance(validation, dict):
+            _remove_unsupported_legacy_scalar_fields(
+                validation, ("method", "status", "summary", "disposition", "result")
+            )
+        attack_path = finding.get("attackPath")
+        if not isinstance(attack_path, dict):
+            continue
+        _remove_unsupported_legacy_scalar_fields(attack_path, ("summary",))
+        for field in ("dataFlow", "data_flow", "dataflow", "reachability"):
+            detail = attack_path.get(field)
+            if isinstance(detail, dict):
+                detail_scalar_fields = ("summary", "source", "sink", "outcome")
+                if field == "reachability":
+                    detail_scalar_fields += ("attacker", "entrypoint")
+                _remove_unsupported_legacy_scalar_fields(detail, detail_scalar_fields)
+                _normalize_legacy_string_list_fields(
+                    detail, ("evidenceRefs", "evidence_refs", "transformations")
+                )
+                _filter_unknown_legacy_evidence_refs(detail, evidence_ids)
+                if field == "reachability":
+                    _normalize_legacy_string_list_fields(detail, ("preconditions",))
+            elif not isinstance(detail, str) or detail == "":
+                attack_path.pop(field, None)
+        for field in ("impact", "likelihood"):
+            detail = attack_path.get(field)
+            if isinstance(detail, dict):
+                _remove_unsupported_legacy_scalar_fields(detail, ("level", "rationale", "why"))
+            elif detail is not None and (not isinstance(detail, str) or detail == ""):
+                attack_path.pop(field)
+    return compatible
 ```
 
-## File: `scripts/rank_preview.py`
+## File: `scripts/posix_scan_local_files.py`
 
 ```python
-"""Build deterministic structural or sampled source previews for rank inputs."""
+"""Stage and publish POSIX scan-local files through verified directory descriptors."""
 
 from __future__ import annotations
 
 import argparse
-import ast
-import json
-import re
-from pathlib import Path
+import errno
+import os
+import secrets
+import stat
+import sys
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
+from pathlib import Path, PurePosixPath
 
-DEFAULT_PREVIEW_BYTES = 1024
-PREVIEW_HEAD_LINES = 12
-PREVIEW_SAMPLE_LINES = 10
+def descriptor_relative_writes_available() -> bool:
+    """Return whether the platform supports the descriptor-relative operations used for writes."""
+    # os.replace accepts src_dir_fd/dst_dir_fd wherever descriptor-relative
+    # os.rename is supported, but Python lists only os.rename in supports_dir_fd.
+    required_operations = (os.mkdir, os.open, os.rename, os.stat, os.unlink)
+    return hasattr(os, "O_NOFOLLOW") and all(
+        operation in os.supports_dir_fd for operation in required_operations
+    )
 
-TEXT_CODE_EXTENSIONS = {
-    ".c",
-    ".cc",
-    ".cfg",
-    ".clj",
-    ".cpp",
-    ".cs",
-    ".css",
-    ".cue",
-    ".cxx",
-    ".dart",
-    ".ex",
-    ".exs",
-    ".go",
-    ".graphql",
-    ".h",
-    ".hpp",
-    ".hs",
-    ".html",
-    ".java",
-    ".js",
-    ".json",
-    ".jsx",
-    ".kt",
-    ".kts",
-    ".lua",
-    ".mjs",
-    ".mm",
-    ".php",
-    ".proto",
-    ".py",
-    ".rb",
-    ".rs",
-    ".scala",
-    ".sh",
-    ".sql",
-    ".swift",
-    ".toml",
-    ".ts",
-    ".tsx",
-    ".vue",
-    ".xml",
-    ".yaml",
-    ".yml",
-}
+@contextmanager
+def managed_fd(descriptor: int) -> Iterator[int]:
+    """Yield the descriptor and close it when the context exits, including on error."""
+    try:
+        yield descriptor
+    finally:
+        os.close(descriptor)
 
-JAVASCRIPT_EXTENSIONS = {".js", ".jsx", ".mjs", ".ts", ".tsx", ".vue"}
-JAVA_LIKE_EXTENSIONS = {".c", ".cc", ".cpp", ".cs", ".cxx", ".h", ".hpp", ".java", ".mm"}
-BRACE_LANGUAGE_EXTENSIONS = {
-    *JAVASCRIPT_EXTENSIONS,
-    *JAVA_LIKE_EXTENSIONS,
-    ".dart",
-    ".go",
-    ".kt",
-    ".kts",
-    ".php",
-    ".rs",
-    ".scala",
-    ".swift",
-}
-NESTED_BLOCK_COMMENT_EXTENSIONS = {".kt", ".kts", ".rs", ".scala", ".swift"}
-RUST_RAW_STRING_RE = re.compile(r'(?:br|r)(#{0,16})"')
-RUST_LIFETIME_RE = re.compile(r"'[A-Za-z_][A-Za-z0-9_]*")
-PHP_HEREDOC_RE = re.compile(r"<<<\s*['\"]?([A-Za-z_]\w*)['\"]?")
-
-def is_binary_sample(data: bytes) -> bool:
-    return b"\0" in data
-
-def compact_preview_line(line: str) -> str:
-    return " ".join(line.split())
-
-def truncate_utf8(text: str, max_bytes: int) -> str:
-    if max_bytes <= 0:
-        return ""
-    encoded = text.encode("utf-8")
-    if len(encoded) <= max_bytes:
-        return text
-    return encoded[:max_bytes].decode("utf-8", errors="ignore")
-
-def select_preview_lines(lines: list[str]) -> list[str]:
-    compact = [value for line in lines if (value := compact_preview_line(line))]
-    head = compact[:PREVIEW_HEAD_LINES]
-    remainder = compact[PREVIEW_HEAD_LINES:]
-    if len(remainder) <= PREVIEW_SAMPLE_LINES:
-        return [*head, *remainder]
-
-    last_index = len(remainder) - 1
-    sampled = [
-        remainder[index * last_index // (PREVIEW_SAMPLE_LINES - 1)]
-        for index in range(PREVIEW_SAMPLE_LINES)
-    ]
-    return [*head, "...", *sampled]
-
-def fit_preview_lines(lines: list[str], max_bytes: int) -> str:
-    if not lines or max_bytes <= 0:
-        return ""
-
-    full_preview = "\n".join(lines)
-    if len(full_preview.encode("utf-8")) <= max_bytes:
-        return full_preview
-
-    def render(line_bytes: int) -> str:
-        return "\n".join(
-            line if line == "..." else truncate_utf8(line, line_bytes).rstrip() for line in lines
-        )
-
-    content_lines = [line for line in lines if line != "..."]
-    if not content_lines:
-        return truncate_utf8(full_preview, max_bytes)
-    low = 0
-    high = max(len(line.encode("utf-8")) for line in content_lines)
-    best = ""
-    while low <= high:
-        middle = (low + high) // 2
-        candidate = render(middle)
-        if len(candidate.encode("utf-8")) <= max_bytes:
-            best = candidate
-            low = middle + 1
-        else:
-            high = middle - 1
-    if best:
-        return best
-    return truncate_utf8(full_preview, max_bytes)
-
-def python_decorators(node: ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef) -> str:
-    values: list[str] = []
-    for decorator in node.decorator_list:
+@contextmanager
+def stage_file(
+    parent_fd: int, filename: str, payload: bytes, owner_read_write: bool
+) -> Iterator[int]:
+    """Yield a synced file descriptor for a new staging entry, removing the entry on exit if it still matches."""
+    descriptor = os.open(filename, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600, dir_fd=parent_fd)
+    try:
+        with os.fdopen(descriptor, "wb", closefd=False) as handle:
+            if owner_read_write:
+                os.fchmod(descriptor, 0o600)
+            handle.write(payload)
+            handle.flush()
+            os.fsync(descriptor)
+        yield descriptor
+    finally:
         try:
-            rendered = compact_preview_line(ast.unparse(decorator))
-        except (AttributeError, RecursionError, ValueError):
-            continue
-        if rendered:
-            values.append(f"@{rendered}")
-    return " ".join(values)
+            entry = os.stat(filename, dir_fd=parent_fd, follow_symlinks=False)
+            if os.path.samestat(os.fstat(descriptor), entry):
+                os.unlink(filename, dir_fd=parent_fd)
+        except FileNotFoundError:
+            # Successful publication has already removed the temporary name.
+            pass
+        finally:
+            os.close(descriptor)
 
-def python_arguments(node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
-    arguments = [argument.arg for argument in (*node.args.posonlyargs, *node.args.args)]
-    if node.args.vararg is not None:
-        arguments.append(f"*{node.args.vararg.arg}")
-    arguments.extend(argument.arg for argument in node.args.kwonlyargs)
-    if node.args.kwarg is not None:
-        arguments.append(f"**{node.args.kwarg.arg}")
-    return ", ".join(arguments)
+def _rename_exclusive(parent_fd: int, source: str, destination: str) -> None:
+    """Rename a directory entry atomically while requiring the destination to be absent."""
+    import ctypes
 
-def python_outline(text: str) -> list[str]:
+    libc = ctypes.CDLL(None, use_errno=True)
+    if sys.platform == "linux":
+        rename = getattr(libc, "renameat2", None)
+        flag = 1  # RENAME_NOREPLACE
+    elif sys.platform == "darwin":
+        rename = getattr(libc, "renameatx_np", None)
+        flag = 4  # RENAME_EXCL
+    else:
+        rename = None
+    code = errno.ENOSYS
+    if rename is not None:
+        rename.argtypes = [
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_uint,
+        ]
+        rename.restype = ctypes.c_int
+        if rename(parent_fd, os.fsencode(source), parent_fd, os.fsencode(destination), flag) == 0:
+            return
+        code = ctypes.get_errno()
+    elif sys.platform == "linux":
+        import sysconfig
+
+        # musl omits the renameat2 wrapper. Select the syscall for the Python
+        # process's ABI, which can differ from the host kernel's architecture.
+        arch = (sysconfig.get_config_var("MULTIARCH") or "").partition("-")[0]
+        number = {"x86_64": 316, "aarch64": 276}.get(arch)
+        syscall = getattr(libc, "syscall", None)
+        if number is not None and ctypes.sizeof(ctypes.c_void_p) == 8 and syscall is not None:
+            syscall.argtypes = [ctypes.c_long]
+            syscall.restype = ctypes.c_long
+            result = syscall(
+                number,
+                ctypes.c_long(parent_fd),
+                ctypes.c_char_p(os.fsencode(source)),
+                ctypes.c_long(parent_fd),
+                ctypes.c_char_p(os.fsencode(destination)),
+                ctypes.c_long(flag),
+            )
+            if result == 0:
+                return
+            code = ctypes.get_errno()
+    detail = os.strerror(code)
+    if code in {errno.ENOSYS, errno.ENOTSUP, errno.EOPNOTSUPP, errno.EINVAL}:
+        detail = f"cannot publish a new file atomically without hard links or exclusive rename ({detail})"
+    raise OSError(code, detail, destination)
+
+def publish_new_file(parent_fd: int, source: str, destination: str) -> None:
+    """Publish the staged name without overwriting the destination, using an exclusive rename if linking is unavailable."""
     try:
-        tree = ast.parse(text)
-    except (SyntaxError, ValueError, TypeError, MemoryError):
-        return []
-
-    outline: list[str] = []
-    for node in tree.body:
-        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-            prefix = python_decorators(node)
-            kind = "async function" if isinstance(node, ast.AsyncFunctionDef) else "function"
-            declaration = f"{kind} {node.name}({python_arguments(node)})"
-            outline.append(f"{prefix} {declaration}".strip())
-        elif isinstance(node, ast.ClassDef):
-            prefix = python_decorators(node)
-            bases: list[str] = []
-            for base in node.bases:
-                try:
-                    bases.append(compact_preview_line(ast.unparse(base)))
-                except (AttributeError, RecursionError, ValueError):
-                    continue
-            suffix = f"({', '.join(bases)})" if bases else ""
-            outline.append(f"{prefix} class {node.name}{suffix}".strip())
-            for member in node.body:
-                if not isinstance(member, (ast.FunctionDef, ast.AsyncFunctionDef)):
-                    continue
-                member_prefix = python_decorators(member)
-                kind = "async method" if isinstance(member, ast.AsyncFunctionDef) else "method"
-                declaration = f"{kind} {node.name}.{member.name}"
-                outline.append(f"{member_prefix} {declaration}".strip())
-    return outline
-
-def javascript_regex_end(text: str, start: int) -> int | None:
-    if start + 1 >= len(text) or text[start + 1] in {"/", "*"}:
-        return None
-    previous = start - 1
-    while previous >= 0 and text[previous] in " \t\r":
-        previous -= 1
-    if previous >= 0 and text[previous] not in "=(:,[!&|?{};\n":
-        prefix = text[max(0, previous - 8) : previous + 1]
-        if not re.search(r"\b(?:case|return|throw)$", prefix):
-            return None
-
-    index = start + 1
-    in_character_class = False
-    while index < len(text):
-        char = text[index]
-        if char == "\n":
-            return None
-        if char == "\\" and index + 1 < len(text):
-            index += 2
-            continue
-        if char == "[":
-            in_character_class = True
-        elif char == "]":
-            in_character_class = False
-        elif char == "/" and not in_character_class:
-            index += 1
-            while index < len(text) and text[index].isalpha():
-                index += 1
-            return index
-        index += 1
-    return None
-
-def mask_c_style_source(text: str, suffix: str) -> str:
-    masked: list[str] = []
-    index = 0
-    block_comment_depth = 0
-    in_line_comment = False
-    quote = ""
-    raw_terminator = ""
-    heredoc_terminator = ""
-    while index < len(text):
-        char = text[index]
-        next_char = text[index + 1] if index + 1 < len(text) else ""
-        if char == "\n":
-            masked.append(char)
-            in_line_comment = False
-            if quote and quote not in {"`", '"""', "'''", '@"'}:
-                quote = ""
-            index += 1
-            continue
-        if in_line_comment:
-            masked.append(" ")
-            index += 1
-            continue
-        if block_comment_depth:
-            if char == "/" and next_char == "*" and suffix in NESTED_BLOCK_COMMENT_EXTENSIONS:
-                masked.extend((" ", " "))
-                block_comment_depth += 1
-                index += 2
-            elif char == "*" and next_char == "/":
-                masked.extend((" ", " "))
-                block_comment_depth -= 1
-                index += 2
-            else:
-                masked.append(" ")
-                index += 1
-            continue
-        if heredoc_terminator:
-            if index == 0 or text[index - 1] == "\n":
-                line_end = text.find("\n", index)
-                if line_end < 0:
-                    line_end = len(text)
-                candidate = text[index:line_end].strip().removesuffix(";")
-                if candidate == heredoc_terminator:
-                    masked.extend(" " * (line_end - index))
-                    index = line_end
-                    heredoc_terminator = ""
-                    continue
-            masked.append(" ")
-            index += 1
-            continue
-        if raw_terminator:
-            if text.startswith(raw_terminator, index):
-                masked.extend(" " * len(raw_terminator))
-                index += len(raw_terminator)
-                raw_terminator = ""
-            else:
-                masked.append(" ")
-                index += 1
-            continue
-        if quote in {'"""', "'''"}:
-            if text.startswith(quote, index):
-                masked.extend(" " * len(quote))
-                index += len(quote)
-                quote = ""
-            else:
-                masked.append(" ")
-                index += 1
-            continue
-        if quote == '@"':
-            masked.append(" ")
-            if char == '"' and next_char == '"':
-                masked.append(" ")
-                index += 2
-            else:
-                if char == '"':
-                    quote = ""
-                index += 1
-            continue
-        if quote:
-            if char == "\\" and next_char:
-                masked.append(" ")
-                if next_char == "\n":
-                    index += 1
-                else:
-                    masked.append(" ")
-                    index += 2
-            else:
-                masked.append(" ")
-                if char == quote:
-                    quote = ""
-                index += 1
-            continue
-        if suffix == ".rs":
-            raw_match = RUST_RAW_STRING_RE.match(text, index)
-            if raw_match:
-                token = raw_match.group(0)
-                masked.extend(" " * len(token))
-                raw_terminator = f'"{raw_match.group(1)}'
-                index += len(token)
-                continue
-            if char == "'":
-                lifetime_match = RUST_LIFETIME_RE.match(text, index)
-                if lifetime_match:
-                    token = lifetime_match.group(0)
-                    following = text[index + len(token) : index + len(token) + 1]
-                    if following != "'":
-                        masked.extend(token)
-                        index += len(token)
-                        continue
-        if suffix == ".cs" and char == "@" and next_char == '"':
-            masked.extend((" ", " "))
-            quote = '@"'
-            index += 2
-            continue
-        triple_quote = text[index : index + 3]
-        if triple_quote in {'"""', "'''"}:
-            masked.extend((" ", " ", " "))
-            quote = triple_quote
-            index += 3
-            continue
-        if suffix == ".php" and text.startswith("<<<", index):
-            heredoc_match = PHP_HEREDOC_RE.match(text, index)
-            if heredoc_match:
-                token = heredoc_match.group(0)
-                masked.extend(" " * len(token))
-                heredoc_terminator = heredoc_match.group(1)
-                index += len(token)
-                continue
-        if suffix in JAVASCRIPT_EXTENSIONS and char == "/":
-            regex_end = javascript_regex_end(text, index)
-            if regex_end is not None:
-                masked.extend(" " * (regex_end - index))
-                index = regex_end
-                continue
-        if char == "/" and next_char == "/":
-            masked.extend((" ", " "))
-            in_line_comment = True
-            index += 2
-            continue
-        if char == "/" and next_char == "*":
-            masked.extend((" ", " "))
-            block_comment_depth = 1
-            index += 2
-            continue
-        if char == "#" and suffix == ".php" and next_char != "[":
-            masked.append(" ")
-            in_line_comment = True
-            index += 1
-            continue
-        if char in {'"', "'", "`"}:
-            quote = char
-            masked.append(" ")
-            index += 1
-            continue
-        masked.append(char)
-        index += 1
-    return "".join(masked)
-
-def match_type_declaration(line: str, suffix: str) -> tuple[str, str] | None:
-    match: re.Match[str] | None = None
-    if suffix in JAVASCRIPT_EXTENSIONS:
-        match = re.match(
-            r"^(?:(?:export|default|declare|abstract)\s+)*(class|interface|enum|namespace)\s+"
-            r"([A-Za-z_$][\w$]*)",
-            line,
+        os.link(
+            source, destination, src_dir_fd=parent_fd, dst_dir_fd=parent_fd, follow_symlinks=False
         )
-    elif suffix == ".java":
-        match = re.search(r"\b(class|interface|enum|record|@interface)\s+([A-Za-z_$][\w$]*)", line)
-    elif suffix == ".cs":
-        match = re.search(
-            r"\b(class|interface|struct|enum|record(?:\s+(?:class|struct))?)\s+"
-            r"(@?[A-Za-z_]\w*)",
-            line,
-        )
-    elif suffix == ".php":
-        match = re.match(
-            r"^(?:(?:abstract|final|readonly)\s+)*(class|interface|trait|enum)\s+"
-            r"([A-Za-z_]\w*)",
-            line,
-        )
-    elif suffix == ".go":
-        match = re.match(r"^type\s+([A-Za-z_]\w*)\s+(struct|interface)\b", line)
-        if match:
-            return match.group(2), match.group(1)
-    elif suffix in {".kt", ".kts"}:
-        companion_match = re.search(r"\bcompanion\s+object(?:\s+([A-Za-z_]\w*))?", line)
-        if companion_match:
-            return "object", companion_match.group(1) or "Companion"
-        match = re.search(
-            r"\b((?:(?:data|enum|sealed|annotation|value)\s+)?(?:class|interface|object))\s+"
-            r"([A-Za-z_]\w*)",
-            line,
-        )
-    elif suffix == ".scala":
-        match = re.match(
-            r"^(?:(?:case|sealed|abstract)\s+)*(class|trait|object|enum)\s+([A-Za-z_]\w*)", line
-        )
-    elif suffix == ".rs":
-        match = re.search(r"\b(struct|enum|trait|union)\s+([A-Za-z_]\w*)", line)
-        if not match:
-            impl_match = re.search(
-                r"\bimpl(?:\s*<[^>{}]*>)?\s+(?:[\w:<>]+\s+for\s+)?([A-Za-z_]\w*)",
-                line,
-            )
-            if impl_match:
-                return "impl", impl_match.group(1)
-    elif suffix == ".swift":
-        match = re.search(r"\b(class|struct|enum|protocol|actor|extension)\s+([A-Za-z_]\w*)", line)
-    elif suffix == ".dart":
-        match = re.search(r"\b(class|mixin|enum|extension)\s+([A-Za-z_]\w*)", line)
-    elif suffix in {".c", ".cc", ".cpp", ".cxx", ".h", ".hpp", ".mm"}:
-        match = re.search(
-            r"\b(class|struct|union|enum(?:\s+class)?)\s+([A-Za-z_]\w*)",
-            line,
-        )
-    if not match:
-        return None
-    return match.group(1), match.group(2)
+    except OSError as exc:
+        if exc.errno not in {
+            errno.EPERM,
+            errno.ENOTSUP,
+            errno.EOPNOTSUPP,
+            errno.ENOSYS,
+            errno.EXDEV,
+            errno.EMLINK,
+        }:
+            raise
+        _rename_exclusive(parent_fd, source, destination)
+    else:
+        os.unlink(source, dir_fd=parent_fd)
 
-CONTROL_NAMES = {
-    "assert",
-    "catch",
-    "for",
-    "foreach",
-    "if",
-    "lock",
-    "new",
-    "return",
-    "sizeof",
-    "static_assert",
-    "switch",
-    "synchronized",
-    "throw",
-    "typeof",
-    "while",
-}
+@contextmanager
+def stage_write(
+    parent_fd: int,
+    relative_path: str,
+    payload: bytes,
+    *,
+    owner_read_write: bool,
+    replace_existing: bool,
+    compare_existing: bool,
+    check_parent: Callable[[Path], None],
+    contract_error: type[ValueError],
+) -> Iterator[Callable[..., tuple[os.stat_result, int]]]:
+    """Stage payload under the open parent directory and yield a callable that publishes it.
 
-def match_java_like_function(
-    line: str, suffix: str, type_name: str | None
-) -> tuple[str, str] | None:
-    paren = line.find("(")
-    if paren < 0:
-        return None
-    before = line[:paren].rstrip()
-    if not before or "=" in before or before.startswith("#"):
-        return None
-    before = re.sub(r"<[^<>]*>$", "", before).rstrip()
-    name_match = re.search(
-        r"(~?[A-Za-z_$@][\w$@]*(?:(?:::|\.)~?[A-Za-z_$@][\w$@]*)?)$",
-        before,
-    )
-    if not name_match:
-        return None
-    qualified_name = name_match.group(1)
-    name = re.split(r"::|\.", qualified_name)[-1].lstrip("~")
-    if name in CONTROL_NAMES:
-        return None
-    prefix = before[: name_match.start()].strip()
-    if not prefix and name != (type_name or ""):
-        return None
-    if suffix in {".c", ".cc", ".cpp", ".cxx", ".h", ".hpp", ".mm"} and prefix.startswith(
-        ("typedef", "using")
-    ):
-        return None
-    if (
-        suffix in {".c", ".cc", ".cpp", ".cxx", ".h", ".hpp", ".mm"}
-        and type_name is None
-        and line.endswith(";")
-        and not re.search(
-            r"(?:\b(?:auto|bool|char|consteval|constexpr|double|extern|float|inline|int|long|"
-            r"short|signed|static|unsigned|void)\b|[*&:]|<)",
-            prefix,
-        )
-    ):
-        return None
-    return ("method" if type_name else "function"), qualified_name
-
-def match_function_declaration(
-    line: str, suffix: str, type_name: str | None
-) -> tuple[str, str] | None:
-    if suffix in JAVASCRIPT_EXTENSIONS:
-        function_match = re.match(
-            r"^(?:(?:export|default|declare)\s+)*(async\s+)?function\s*\*?\s*"
-            r"([A-Za-z_$][\w$]*)\s*(?:<[^>{}]*>)?\s*\(",
-            line,
-        )
-        if function_match:
-            kind = "async function" if function_match.group(1) else "function"
-            return kind, function_match.group(2)
-        arrow_match = re.match(
-            r"^(?:(?:export|declare)\s+)*(?:const|let|var)\s+([A-Za-z_$][\w$]*)"
-            r"\s*(?::[^=]+)?=\s*(?:async\s+)?(?:function\b|\([^)]*\)\s*(?::[^=]+)?=>|"
-            r"[A-Za-z_$][\w$]*\s*=>)",
-            line,
-        )
-        if arrow_match:
-            return "function", arrow_match.group(1)
-        if type_name:
-            field_arrow_match = re.match(
-                r"^(?:(?:public|private|protected|static|abstract|override|readonly|declare|"
-                r"accessor)\s+)*(#?[A-Za-z_$][\w$]*)(?:[?!])?\s*(?::[^=]+)?=\s*"
-                r"(?:async\s+)?(?:\([^)]*\)\s*(?::[^=]+)?=>|[A-Za-z_$][\w$]*\s*=>)",
-                line,
-            )
-            if field_arrow_match:
-                return "method", field_arrow_match.group(1)
-            method_match = re.match(
-                r"^(?:(?:public|private|protected|static|abstract|async|override|readonly|"
-                r"declare|get|set)\s+)*(#?[A-Za-z_$][\w$]*|constructor)\s*"
-                r"(?:<[^>{}]*>)?\s*\(",
-                line,
-            )
-            if method_match and method_match.group(1) not in CONTROL_NAMES:
-                return "method", method_match.group(1)
-        return None
-    if suffix == ".php":
-        match = re.match(
-            r"^(?:(?:public|protected|private|static|final|abstract|readonly)\s+)*"
-            r"function\s*&?\s*([A-Za-z_]\w*)\s*\(",
-            line,
-        )
-        if match:
-            return ("method" if type_name else "function"), match.group(1)
-        return None
-    if suffix == ".go":
-        match = re.match(
-            r"^func\s+(?:\(([^)]*)\)\s*)?([A-Za-z_]\w*)\s*(?:\[[^]]+\]\s*)?\(",
-            line,
-        )
-        if match:
-            receiver = match.group(1)
-            name = match.group(2)
-            if receiver:
-                receiver_match = re.search(r"\*?([A-Za-z_]\w*)(?:\[[^]]*])?\s*$", receiver)
-                if receiver_match:
-                    return "method", f"{receiver_match.group(1)}.{name}"
-                return "method", name
-            return ("method" if type_name else "function"), name
-        return None
-    if suffix in {".kt", ".kts"}:
-        match = re.search(r"\bfun\s+(?:<[^>{}]*>\s*)?(?:[\w.<>?]+\.)?([A-Za-z_]\w*)\s*\(", line)
-        if match:
-            return ("method" if type_name else "function"), match.group(1)
-        return None
-    if suffix == ".scala":
-        match = re.search(r"\bdef\s+([A-Za-z_]\w*)\b", line)
-        if match:
-            return ("method" if type_name else "function"), match.group(1)
-        return None
-    if suffix == ".rs":
-        match = re.search(
-            r"\b(?:async\s+)?(?:unsafe\s+)?(?:extern\s+\"[^\"]+\"\s+)?(?:const\s+)?"
-            r"fn\s+([A-Za-z_]\w*)",
-            line,
-        )
-        if match:
-            return ("method" if type_name else "function"), match.group(1)
-        return None
-    if suffix == ".swift":
-        match = re.search(r"\bfunc\s+([A-Za-z_]\w*)\s*(?:<[^>{}]*>)?\s*\(", line)
-        if match:
-            return ("method" if type_name else "function"), match.group(1)
-        if type_name and re.search(r"\binit\s*\(", line):
-            return "method", "init"
-        return None
-    if suffix == ".dart":
-        return match_java_like_function(line, suffix, type_name)
-    if suffix in JAVA_LIKE_EXTENSIONS:
-        return match_java_like_function(line, suffix, type_name)
-    return None
-
-def is_annotation_line(line: str) -> bool:
-    return bool(
-        re.match(r"^@[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*(?:\(.*\))?$", line)
-        or re.match(r"^\[[A-Za-z_][^]]*]$", line)
-        or re.match(r"^#\[[A-Za-z_][^]]*]$", line)
-    )
-
-LEADING_ANNOTATION_RE = re.compile(
-    r"^(?:@[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*(?:\([^)]*\))?|"
-    r"\[[A-Za-z_][^]]*]|#\[[A-Za-z_][^]]*])\s*"
-)
-
-def strip_leading_annotations(original: str, masked: str) -> tuple[str, str, list[str]]:
-    annotations: list[str] = []
-    if masked.startswith("@interface "):
-        return original, masked, annotations
-    while masked_match := LEADING_ANNOTATION_RE.match(masked):
-        original_match = LEADING_ANNOTATION_RE.match(original)
-        if original_match:
-            annotations.append(compact_preview_line(original_match.group(0)))
-            original = original[original_match.end() :].lstrip()
-        masked = masked[masked_match.end() :].lstrip()
-    return original, masked, annotations
-
-def brace_language_outline(text: str, suffix: str) -> list[str]:
-    original_lines = text.splitlines()
-    masked_lines = mask_c_style_source(text, suffix).splitlines()
-    outline: list[str] = []
-    seen: set[str] = set()
-    type_stack: list[tuple[str, int]] = []
-    function_depths: list[int] = []
-    blocked_depths: list[int] = []
-    pending_type: str | None = None
-    pending_function = False
-    pending_annotations: list[str] = []
-    depth = 0
-
-    def add(value: str) -> None:
-        decorated = f"{' '.join(pending_annotations[-2:])} {value}".strip()
-        if decorated not in seen:
-            seen.add(decorated)
-            outline.append(decorated)
-
-    def next_lines_open_body(line_index: int) -> bool:
-        inspected = 0
-        for future_index in range(line_index + 1, len(masked_lines)):
-            future = masked_lines[future_index]
-            future_line = compact_preview_line(future)
-            if not future_line:
-                continue
-            inspected += 1
-            if "{" in future_line:
-                return True
-            if "}" in future_line or future_line.endswith(";") or inspected >= 6:
-                return False
-        return False
-
-    for line_index, (original, masked) in enumerate(
-        zip(original_lines, masked_lines, strict=False)
-    ):
-        while function_depths and depth < function_depths[-1]:
-            function_depths.pop()
-        while type_stack and depth < type_stack[-1][1]:
-            type_stack.pop()
-        while blocked_depths and depth < blocked_depths[-1]:
-            blocked_depths.pop()
-
-        masked_line = compact_preview_line(masked)
-        original_line = compact_preview_line(original)
-        opens = masked.count("{")
-        closes = masked.count("}")
-
-        opened_pending_scope = False
-        if pending_type and "{" in masked:
-            type_stack.append((pending_type, depth + 1))
-            pending_type = None
-            opened_pending_scope = True
-        if pending_function and "{" in masked:
-            function_depths.append(depth + 1)
-            pending_function = False
-            opened_pending_scope = True
-
-        if (
-            masked_line
-            and original_line
-            and is_annotation_line(original_line)
-            and not function_depths
-            and not blocked_depths
-        ):
-            pending_annotations.append(original_line)
-        elif masked_line and not function_depths and not blocked_depths:
-            _, masked_line, inline_annotations = strip_leading_annotations(
-                original_line, masked_line
-            )
-            pending_annotations.extend(inline_annotations)
-            current_type = type_stack[-1][0] if type_stack else None
-            direct_type_body = not type_stack or depth == type_stack[-1][1]
-            type_match = match_type_declaration(masked_line, suffix) if direct_type_body else None
-            if type_match:
-                kind, name = type_match
-                if (
-                    current_type
-                    and suffix in {".kt", ".kts"}
-                    and kind == "object"
-                    and name == "Companion"
-                ):
-                    name = f"{current_type}.{name}"
-                add(f"{kind} {name}")
-                pending_annotations.clear()
-                if "{" in masked:
-                    type_stack.append((name, depth + 1))
-                elif not masked_line.endswith(";") and next_lines_open_body(line_index):
-                    pending_type = name
-            elif direct_type_body:
-                function_match = match_function_declaration(masked_line, suffix, current_type)
-                if function_match:
-                    kind, name = function_match
-                    qualified_name = (
-                        f"{current_type}.{name}"
-                        if current_type and "." not in name and "::" not in name
-                        else name
-                    )
-                    add(f"{kind} {qualified_name}")
-                    pending_annotations.clear()
-                    if "{" in masked:
-                        function_depths.append(depth + 1)
-                    elif (
-                        not masked_line.endswith(";")
-                        and "=>" not in masked_line
-                        and "=" not in masked_line
-                        and next_lines_open_body(line_index)
-                    ):
-                        pending_function = True
-                else:
-                    pending_annotations.clear()
-                    is_transparent_container = bool(
-                        re.match(
-                            r"^(?:(?:export|inline)\s+)?namespace\b|"
-                            r"^(?:pub\s+)?mod\b|^(?:declare\s+)?module\b|"
-                            r"^(?:unsafe\s+)?extern\b",
-                            masked_line,
-                        )
-                    )
-                    if opens and not opened_pending_scope and not is_transparent_container:
-                        blocked_depths.append(depth + 1)
-
-        depth = max(0, depth + opens - closes)
-        while function_depths and depth < function_depths[-1]:
-            function_depths.pop()
-        while type_stack and depth < type_stack[-1][1]:
-            type_stack.pop()
-        while blocked_depths and depth < blocked_depths[-1]:
-            blocked_depths.pop()
-    return outline
-
-def ruby_outline(text: str) -> list[str]:
-    outline: list[str] = []
-    seen: set[str] = set()
-    type_stack: list[tuple[int, str]] = []
-    function_indents: list[int] = []
-
-    def add(value: str) -> None:
-        if value not in seen:
-            seen.add(value)
-            outline.append(value)
-
-    for raw_line in text.splitlines():
-        stripped = raw_line.strip()
-        if not stripped or stripped.startswith("#"):
-            continue
-        indent = len(raw_line.expandtabs(4)) - len(raw_line.lstrip().expandtabs(4))
-        while function_indents and indent <= function_indents[-1]:
-            function_indents.pop()
-        while type_stack and indent <= type_stack[-1][0]:
-            type_stack.pop()
-
-        type_match = re.match(r"^(class|module)\s+([A-Z]\w*(?:::[A-Z]\w*)*)", stripped)
-        if type_match and not function_indents:
-            kind, name = type_match.groups()
-            add(f"{kind} {name}")
-            type_stack.append((indent, name))
-            continue
-
-        function_match = re.match(r"^def\s+(?:self\.)?([^\s(]+)", stripped)
-        if function_match and not function_indents:
-            name = function_match.group(1)
-            if type_stack:
-                add(f"method {type_stack[-1][1]}.{name}")
-            else:
-                add(f"function {name}")
-            function_indents.append(indent)
-    return outline
-
-def simple_language_outline(text: str, suffix: str) -> list[str]:
-    outline: list[str] = []
-    seen: set[str] = set()
-
-    def add(value: str) -> None:
-        if value not in seen:
-            seen.add(value)
-            outline.append(value)
-
-    for raw_line in text.splitlines():
-        line = compact_preview_line(raw_line)
-        if not line:
-            continue
-        match: re.Match[str] | None = None
-        if suffix == ".py":
-            match = re.match(r"^(async\s+)?def\s+([A-Za-z_]\w*)\s*\(", line)
-            if match:
-                add(f"{'async function' if match.group(1) else 'function'} {match.group(2)}")
-                continue
-            match = re.match(r"^class\s+([A-Za-z_]\w*)", line)
-            if match:
-                add(f"class {match.group(1)}")
-        elif suffix == ".rb":
-            match = re.match(r"^(class|module)\s+([A-Z]\w*(?:::[A-Z]\w*)*)", line)
-            if match:
-                add(f"{match.group(1)} {match.group(2)}")
-                continue
-            match = re.match(r"^def\s+(?:self\.)?([^\s(]+)", line)
-            if match:
-                add(f"function {match.group(1)}")
-        elif suffix in {".ex", ".exs"}:
-            match = re.match(r"^defmodule\s+([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)", line)
-            if match:
-                add(f"module {match.group(1)}")
-                continue
-            match = re.match(r"^(?:def|defp|defmacro)\s+([A-Za-z_]\w*[!?]?)", line)
-            if match:
-                add(f"function {match.group(1)}")
-        elif suffix == ".clj":
-            match = re.match(
-                r"^\((defn|defmacro|defprotocol|defrecord|deftype|defmulti|defmethod)\s+([^\s)]+)",
-                line,
-            )
-            if match:
-                add(f"{match.group(1)} {match.group(2)}")
-        elif suffix == ".lua":
-            match = re.match(r"^(?:local\s+)?function\s+([A-Za-z_]\w*(?:[.:][A-Za-z_]\w*)*)", line)
-            if match:
-                add(f"function {match.group(1)}")
-        elif suffix == ".sh":
-            match = re.match(r"^(?:function\s+)?([A-Za-z_]\w*)\s*\(\s*\)\s*\{?", line)
-            if match:
-                add(f"function {match.group(1)}")
-        elif suffix == ".hs":
-            match = re.match(r"^(data|newtype|type|class)\s+([A-Z]\w*)", line)
-            if match:
-                add(f"{match.group(1)} {match.group(2)}")
-                continue
-            match = re.match(r"^([a-z_]\w*)\s*::", line)
-            if match:
-                add(f"function {match.group(1)}")
-        elif suffix == ".proto":
-            match = re.match(r"^(message|service|enum)\s+([A-Za-z_]\w*)", line)
-            if match:
-                add(f"{match.group(1)} {match.group(2)}")
-                continue
-            match = re.match(r"^rpc\s+([A-Za-z_]\w*)\s*\(", line)
-            if match:
-                add(f"rpc {match.group(1)}")
-        elif suffix == ".graphql":
-            match = re.match(
-                r"^(type|interface|input|enum|union|scalar|directive)\s+([A-Za-z_]\w*)",
-                line,
-            )
-            if match:
-                add(f"{match.group(1)} {match.group(2)}")
-                continue
-            match = re.match(r"^(query|mutation|subscription)\s+([A-Za-z_]\w*)", line)
-            if match:
-                add(f"{match.group(1)} {match.group(2)}")
-        elif suffix == ".sql":
-            match = re.match(
-                r"^CREATE\s+(?:OR\s+REPLACE\s+)?(FUNCTION|PROCEDURE|TABLE|VIEW|TRIGGER)\s+"
-                r"([^\s(;]+)",
-                line,
-                flags=re.IGNORECASE,
-            )
-            if match:
-                add(f"{match.group(1).lower()} {match.group(2)}")
-        elif suffix in {".yaml", ".yml"}:
-            match = re.match(r"^([A-Za-z0-9_.-]+):(?:\s|$)", raw_line)
-            if match:
-                add(f"key {match.group(1)}")
-        elif suffix in {".toml", ".cfg"}:
-            match = re.match(r"^\[([^]]+)]$", line)
-            if match:
-                add(f"section {match.group(1)}")
-    return outline
-
-def json_outline(text: str) -> list[str]:
+    Call the publisher inside the context. It returns file metadata and the
+    change time in nanoseconds. With compare_existing, matching bytes can
+    reuse an existing file when replacements are allowed.
+    """
+    name = PurePosixPath(relative_path).name
+    # Stage through the held parent so a replacement path cannot redirect the write.
     try:
-        parsed = json.loads(text)
-    except (json.JSONDecodeError, RecursionError, MemoryError):
-        return []
-    if not isinstance(parsed, dict):
-        return []
-    outline: list[str] = []
-    for key, value in parsed.items():
-        if isinstance(value, dict) and value:
-            children = ", ".join(str(child) for child in value)
-            outline.append(f"key {key} [{children}]")
+        metadata = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
+    except FileNotFoundError:
+        pass
+    else:
+        if not replace_existing:
+            raise FileExistsError(errno.EEXIST, os.strerror(errno.EEXIST), relative_path)
+        if not stat.S_ISREG(metadata.st_mode):
+            raise contract_error(f"{relative_path}: expected a regular non-symlink file")
+        try:
+            existing_fd = os.open(
+                name,
+                os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0),
+                dir_fd=parent_fd,
+            )
+        except OSError as exc:
+            if exc.errno not in {errno.ENOENT, errno.EACCES, errno.EPERM}:
+                raise
         else:
-            outline.append(f"key {key}")
-    return outline
+            with managed_fd(existing_fd):
+                opened = os.fstat(existing_fd)
+                if not stat.S_ISREG(opened.st_mode):
+                    raise contract_error(f"{relative_path}: expected a regular non-symlink file")
+                if not os.path.samestat(opened, metadata):
+                    raise contract_error(f"{relative_path}: changed while it was being opened")
+                if compare_existing and opened.st_size == len(payload):
+                    from windows_scan_local_files import stream_matches_payload
 
-def structural_outline(path: Path, text: str) -> list[str]:
-    suffix = path.suffix.lower()
-    if suffix == ".py":
-        return python_outline(text) or simple_language_outline(text, suffix)
-    if suffix == ".rb":
-        return ruby_outline(text)
-    if suffix in BRACE_LANGUAGE_EXTENSIONS:
-        return brace_language_outline(text, suffix)
-    if suffix == ".json":
-        return json_outline(text)
-    return simple_language_outline(text, suffix)
+                    try:
+                        with os.fdopen(existing_fd, "rb", closefd=False) as handle:
+                            matches = stream_matches_payload(handle, payload)
+                    except OSError:
+                        # A failed content comparison still allows an atomic replacement.
+                        matches = False
+                    if matches:
+                        yield lambda _directory=None: (opened, opened.st_ctime_ns)
+                        return
+    # A valid destination may already occupy the filesystem's entire name limit.
+    candidate = f".{secrets.token_hex(8)}.tmp"
+    if name.casefold() == candidate:
+        candidate = "." + candidate
 
-def preview_for(
-    path: Path, preview_bytes: int, *, max_read_bytes: int | None = None
-) -> tuple[str, bool]:
-    try:
-        with path.open("rb") as source:
-            sample = source.read(4096)
-            if is_binary_sample(sample):
-                return "", True
-            remaining = (
-                source.read()
-                if max_read_bytes is None
-                else source.read(max(0, max_read_bytes - len(sample)))
-            )
-            data = sample + remaining
-    except OSError:
-        return "", True
-    if is_binary_sample(data):
-        return "", True
-    text = data.decode("utf-8", errors="ignore")
-    outline = structural_outline(path, text)
-    preview_lines = select_preview_lines(outline or text.splitlines())
-    return fit_preview_lines(preview_lines, preview_bytes), False
+    with stage_file(parent_fd, candidate, payload, owner_read_write) as staged_fd:
+        staged = os.fstat(staged_fd)
 
-def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Build structural or sampled previews for Codex Security rank inputs."
-    )
-    parser.parse_args()
+        def publish(directory: Path | None = None) -> tuple[os.stat_result, int]:
+            if directory is not None:
+                check_parent(directory)
+            if replace_existing:
+                os.replace(candidate, name, src_dir_fd=parent_fd, dst_dir_fd=parent_fd)
+                return staged, staged.st_ctime_ns
+            named = os.stat(candidate, dir_fd=parent_fd, follow_symlinks=False)
+            if not os.path.samestat(staged, named) or staged.st_ctime_ns != named.st_ctime_ns:
+                raise contract_error(f"{relative_path}: staged file changed before publication")
+            publish_new_file(parent_fd, candidate, name)
+            published = os.fstat(staged_fd)
+            if (staged.st_size, staged.st_mtime_ns) != (
+                published.st_size,
+                published.st_mtime_ns,
+            ):
+                raise contract_error(f"{relative_path}: staged contents changed during publication")
+            return published, published.st_ctime_ns
+
+        yield publish
 
 if __name__ == "__main__":
-    main()
+    argparse.ArgumentParser(description=__doc__).parse_args()
+```
+
+## File: `scripts/read_codex_session.mjs`
+
+```javascript
+import { createReadStream } from "node:fs";
+import { pipeline } from "node:stream/promises";
+
+// The Python usage collector uses the plugin's required Node runtime to read
+// cold rollouts without requiring a separate Python compression dependency.
+try {
+  const path = process.argv[2];
+  if (!path) throw new Error("A Codex rollout path is required.");
+  // Native Node decoding can stop after the first frame. Rollouts may contain
+  // concatenated frames, and an incomplete later frame must remain an error.
+  const { createZstdDecompress } =
+    await import("../mcp/session-decompression.mjs");
+  await pipeline(
+    createReadStream(path),
+    createZstdDecompress(),
+    process.stdout,
+  );
+} catch (error) {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exitCode = 1;
+}
 ```
 
 ## File: `scripts/report_projection.py`
@@ -4226,13 +1697,23 @@ if __name__ == "__main__":
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from collections import Counter
+from collections.abc import Iterator
+from itertools import chain
 from typing import Any
 
 SEVERITY_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3, "informational": 4}
 CONFIDENCE_ORDER = {"high": 0, "medium": 1, "low": 2}
 REPORTABLE_SEVERITIES = {"critical", "high", "medium", "low"}
+THREAT_MODEL_SECTIONS = (
+    ("Assets", "assets"),
+    ("Trust Boundaries", "trustBoundaries"),
+    ("Attacker Capabilities", "attackerCapabilities"),
+    ("Security Objectives", "securityObjectives"),
+    ("Assumptions", "assumptions"),
+)
 DISPOSITION_LABELS = {
     "reported": "Reported",
     "no_issue_found": "No issue found",
@@ -4241,46 +1722,74 @@ DISPOSITION_LABELS = {
     "needs_follow_up": "Needs follow-up",
 }
 WRITEUP_REPORT_PATH_RE = re.compile(r"^findings/([a-z0-9][a-z0-9._-]*)/\1\.md$")
+INLINE_CODE_RE = r"(?<!`)`[^`\n]+`(?!`)"
+ENTITY_AMP_RE = r"&(?=(?:#[0-9]+|#[xX][0-9A-Fa-f]+|[A-Za-z][A-Za-z0-9]*);)"
+WWW_LINK_RE = r"(?<![^\s*_~(])(?i:www)\.[^\s<>]+"
 
 class ReportProjectionError(ValueError):
     """Raised when a canonical scan cannot be projected into a valid report."""
 
+def markdown_threat_model_content(model: dict[str, Any]) -> str | None:
+    """Return nonblank authored content for a Markdown model, otherwise None."""
+    content = model.get("content")
+    if model.get("format") == "markdown" and isinstance(content, str) and content.strip():
+        return content
+    return None
+
+def _escape_markdown(value: str) -> str:
+    # Locate whole URLs before matching code spans: a URL can contain backticks.
+    urls = [match.span() for match in re.finditer(WWW_LINK_RE, value)]
+    # Preserve protocol-relative and fuzzy links without a domain/TLD table.
+    for match in re.finditer(r"[^\s<>]+", value):
+        token = match[0]
+        dot = token.split("/", 1)[0].find(".")
+        if "//" in token or (dot >= 0 and re.search(r"[/?#]", token[dot + 1 :])):
+            urls.append(match.span())
+    punctuation = r"[\\`*_\[\]<>]|" + ENTITY_AMP_RE
+    pattern = f"(?P<code>{INLINE_CODE_RE})|{punctuation}"
+
+    def escape(match: re.Match[str]) -> str:
+        if match.lastgroup == "code":
+            return match[0]
+        # GFM autolinks retain backslashes literally, including in query strings.
+        if match[0] == "&" and any(start <= match.start() < end for start, end in urls):
+            return "&"
+        return "\\" + match[0]
+
+    return re.sub(pattern, escape, value)
+
 def _text(value: Any, fallback: str) -> str:
     candidate = value if isinstance(value, str) and value.strip() else fallback
     normalized = " ".join(candidate.split())
-    if not normalized:
-        return ""
-    if re.match(r"^(?:#{1,6}\s|[-*+]\s|>\s|```|\d+\.\s|\|)", normalized):
+    if re.match(r"^(?:#{1,6}\s|[-*+]\s|>\s|```|~~~|\d+[.)]\s|\|)", normalized):
         normalized = f"Text: {normalized}"
-    rendered: list[str] = []
-    cursor = 0
-    for match in re.finditer(r"(?<!`)`([^`\n]+)`(?!`)", normalized):
-        rendered.append(_escape_markdown_text(normalized[cursor : match.start()]))
-        rendered.append(f"`{match.group(1)}`")
-        cursor = match.end()
-    rendered.append(_escape_markdown_text(normalized[cursor:]))
-    return "".join(rendered)
+    return _escape_markdown(normalized)
 
-def _escape_markdown_text(value: str) -> str:
-    return re.sub(r"([\\`*\[\]<>])", r"\\\1", value)
+def _string_values(value: Any) -> Iterator[str]:
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, list):
+        yield from (item for item in value if isinstance(item, str))
 
 def _strings(value: Any) -> list[str]:
-    if isinstance(value, str):
-        value = [value]
-    if not isinstance(value, list):
-        return []
-    normalized: list[str] = []
-    for item in value:
-        text = _text(item, "")
-        if text:
-            normalized.append(text)
-    return normalized
+    return [text for item in _string_values(value) if (text := _text(item, ""))]
+
+def _path_label(value: str, *, ensure_ascii: bool = False) -> str:
+    if "," in value or value != " ".join(value.split()) or any(ord(c) < 32 for c in value):
+        quoted = json.dumps(value, ensure_ascii=ensure_ascii)
+        return "".join(c if c.isprintable() else json.dumps(c)[1:-1] for c in quoted)
+    return value
+
+def _path_text(value: str, *, ensure_ascii: bool = False) -> str:
+    label = _path_label(value, ensure_ascii=ensure_ascii)
+    if label != value or re.search(ENTITY_AMP_RE, value):
+        marker = _code_fence(label, minimum=1)
+        padding = " " if label.startswith("`") or label.endswith("`") else ""
+        return f"{marker}{padding}{label}{padding}{marker}"
+    return re.sub(r"([\\`*_\[\]<>])", r"\\\1", value)
 
 def _cell(value: Any) -> str:
     return _text(value, "none").replace("|", "\\|").replace("\n", "<br>")
-
-def _link_label(value: Any, fallback: str) -> str:
-    return _cell(value) or _cell(fallback)
 
 def _deep_report_id(finding: dict[str, Any]) -> str:
     extensions = finding.get("extensions")
@@ -4320,7 +1829,8 @@ def _has_deep_child_metadata(finding: dict[str, Any]) -> bool:
         for field in ("candidateId", "reportId")
     )
 
-def _uses_deep_presentation(coverage: dict[str, Any], findings: list[dict[str, Any]]) -> bool:
+def uses_deep_presentation(coverage: dict[str, Any], findings: list[dict[str, Any]]) -> bool:
+    """Select deep-report formatting for repository scans in deep mode and scoped scans with deep-child metadata."""
     if coverage.get("mode") == "deep_repository":
         return True
     if coverage.get("mode") != "scoped_path":
@@ -4329,7 +1839,7 @@ def _uses_deep_presentation(coverage: dict[str, Any], findings: list[dict[str, A
     # the stable deep-scan signal; ordinary scoped scans do not emit them.
     return any(_has_deep_child_metadata(finding) for finding in findings)
 
-def _deep_title_parts(finding: dict[str, Any]) -> tuple[str, str | None]:
+def _deep_title_parts(finding: dict[str, Any], report_id: str) -> tuple[str, str | None]:
     title = finding.get("title")
     if not isinstance(title, str):
         return "Untitled finding", None
@@ -4339,7 +1849,7 @@ def _deep_title_parts(finding: dict[str, Any]) -> tuple[str, str | None]:
         return normalized, None
     annotation = match.group(2)
     extensions = finding.get("extensions")
-    recognized_ids = [_deep_report_id(finding)]
+    recognized_ids = [report_id]
     if isinstance(extensions, dict):
         ledger_row_id = extensions.get("ledgerRowId")
         if isinstance(ledger_row_id, str) and ledger_row_id.strip():
@@ -4351,25 +1861,6 @@ def _deep_title_parts(finding: dict[str, Any]) -> tuple[str, str | None]:
         return match.group(1), annotation
     return normalized, None
 
-def _deep_finding_title(finding: dict[str, Any]) -> str:
-    return _deep_title_parts(finding)[0]
-
-def _deep_finding_groups(
-    findings: list[dict[str, Any]], writeup_paths: list[str | None]
-) -> list[list[tuple[int, dict[str, Any], str | None]]]:
-    groups: dict[str, list[tuple[int, dict[str, Any], str | None]]] = {}
-    for number, (finding, report_path) in enumerate(zip(findings, writeup_paths, strict=True), 1):
-        groups.setdefault(_deep_candidate_id(finding), []).append((number, finding, report_path))
-    return list(groups.values())
-
-def _deep_group_titles(group: list[tuple[int, dict[str, Any], str | None]]) -> str:
-    titles: list[str] = []
-    for _, finding, _ in group:
-        title = _cell(_deep_finding_title(finding))
-        if title not in titles:
-            titles.append(title)
-    return "<br>".join(titles)
-
 def _deep_group_levels(
     group: list[tuple[int, dict[str, Any], str | None]],
     field: str,
@@ -4378,43 +1869,32 @@ def _deep_group_levels(
     levels = {finding[field]["level"] for _, finding, _ in group}
     return "<br>".join(sorted(levels, key=lambda level: order.get(level, len(order))))
 
-def _deep_group_report_labels(
-    group: list[tuple[int, dict[str, Any], str | None]],
-) -> list[str]:
+def _deep_group_row(group: list[tuple[int, dict[str, Any], str | None]]) -> str:
     report_ids = [_deep_report_id(finding) for _, finding, _ in group]
-    report_id_counts = Counter(report_ids)
-    labels = [
-        (_deep_title_parts(finding)[1] if report_id_counts[report_id] > 1 else report_id)
-        or report_id
-        for report_id, (_, finding, _) in zip(report_ids, group, strict=True)
-    ]
+    report_counts = Counter(report_ids)
+    titles = []
+    labels = []
+    for report_id, (_, finding, _) in zip(report_ids, group, strict=True):
+        title, annotation = _deep_title_parts(finding, report_id)
+        titles.append(_cell(title))
+        labels.append(annotation if report_counts[report_id] > 1 and annotation else report_id)
+
     label_counts = Counter(labels)
-    return [
-        (
-            finding.get("identity", {}).get("instance")
-            if label_counts[label] > 1 and isinstance(finding.get("identity"), dict)
-            else label
-        )
-        or _deep_report_id(finding)
-        for label, (_, finding, _) in zip(labels, group, strict=True)
-    ]
-
-def _deep_group_report_links(group: list[tuple[int, dict[str, Any], str | None]]) -> str:
-    labels = _deep_group_report_labels(group)
-    return "<br>".join(
-        f"[{_link_label(label, 'Unidentified report')}](#finding-{number})"
-        for label, (number, _, _) in zip(labels, group, strict=True)
+    report_links = []
+    writeup_links = []
+    for report_id, label, (number, finding, path) in zip(report_ids, labels, group, strict=True):
+        identity = finding.get("identity")
+        if label_counts[label] > 1 and isinstance(identity, dict):
+            label = identity.get("instance") or report_id
+        label = _cell(label)
+        report_links.append(f"[{label}](#finding-{number})")
+        writeup_links.append(f"[Open {label}]({path})" if path else f"{label}: inline below")
+    return (
+        f"| {'<br>'.join(dict.fromkeys(titles))} | {'<br>'.join(report_links)} "
+        f"| {_deep_group_levels(group, 'severity', SEVERITY_ORDER)} "
+        f"| {_deep_group_levels(group, 'confidence', CONFIDENCE_ORDER)} "
+        f"| {'<br>'.join(writeup_links)} |"
     )
-
-def _deep_group_writeup_links(group: list[tuple[int, dict[str, Any], str | None]]) -> str:
-    labels = _deep_group_report_labels(group)
-    links: list[str] = []
-    for label, (_, _, report_path) in zip(labels, group, strict=True):
-        report_id = _link_label(label, "Unidentified report")
-        links.append(
-            f"[Open {report_id}]({report_path})" if report_path else f"{report_id}: inline below"
-        )
-    return "<br>".join(links)
 
 def _writeup_report_path(finding: dict[str, Any]) -> str | None:
     writeup = finding.get("writeup")
@@ -4438,60 +1918,49 @@ def _hardening_portfolio_path(scan: dict[str, Any]) -> str | None:
         raise ReportProjectionError("scan hardening has an invalid portfolioPath")
     return portfolio_path
 
-def _bullets(items: list[str], fallback: str) -> list[str]:
-    return [f"- {item}" for item in (items or [fallback])]
+def _bullet_section(heading: str, items: list[str]) -> list[str]:
+    return ["", heading, *(f"- {item}" for item in items)] if items else []
 
-def _code_evidence_catalog(finding: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    catalog: dict[str, dict[str, Any]] = {}
-    for key in ("codeEvidence", "code_evidence"):
-        raw = finding.get(key, [])
-        if not isinstance(raw, list):
-            continue
-        for item in raw:
-            if (
-                isinstance(item, dict)
-                and isinstance(item.get("id"), str)
+def code_evidence_rows(*catalogs: Any) -> Iterator[dict[str, Any]]:
+    """Yield evidence objects with nonblank code in their original order."""
+    for items in catalogs:
+        if isinstance(items, list):
+            yield from (
+                item
+                for item in items
+                if isinstance(item, dict)
                 and isinstance(item.get("code"), str)
                 and item["code"].strip()
-            ):
-                catalog.setdefault(item["id"], item)
+            )
+
+def embedded_code_evidence(section: dict[str, Any]) -> Iterator[dict[str, Any]]:
+    """Collect code evidence from both supported field spellings."""
+    return code_evidence_rows(section.get("codeEvidence"), section.get("code_evidence"))
+
+def _code_evidence_catalog(finding: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    catalog = {}
+    for item in embedded_code_evidence(finding):
+        if isinstance(item.get("id"), str):
+            catalog.setdefault(item["id"], item)
     return catalog
 
 def _section_code_evidence(
-    finding: dict[str, Any], *sections: dict[str, Any]
+    catalog: dict[str, dict[str, Any]], *sections: dict[str, Any]
 ) -> list[dict[str, Any]]:
-    catalog = _code_evidence_catalog(finding)
-    resolved: list[dict[str, Any]] = []
+    unique: dict[tuple[str, str], dict[str, Any]] = {}
     for section in sections:
-        for key in ("evidenceRefs", "evidence_refs"):
-            refs = section.get(key, [])
-            if isinstance(refs, str):
-                refs = [refs]
-            if isinstance(refs, list):
-                resolved.extend(
-                    catalog[ref] for ref in refs if isinstance(ref, str) and ref in catalog
-                )
-        for key in ("codeEvidence", "code_evidence"):
-            embedded = section.get(key, [])
-            if isinstance(embedded, list):
-                resolved.extend(
-                    item
-                    for item in embedded
-                    if isinstance(item, dict)
-                    and isinstance(item.get("code"), str)
-                    and item["code"].strip()
-                )
-    unique: list[dict[str, Any]] = []
-    seen: set[tuple[str, str]] = set()
-    for item in resolved:
-        key = (str(item.get("id", "")), item["code"])
-        if key in seen:
-            continue
-        seen.add(key)
-        unique.append(item)
-    return unique
+        referenced = (
+            catalog[ref]
+            for key in ("evidenceRefs", "evidence_refs")
+            for ref in _string_values(section.get(key))
+            if ref in catalog
+        )
+        for item in chain(referenced, embedded_code_evidence(section)):
+            unique.setdefault((str(item.get("id", "")), item["code"]), item)
+    return list(unique.values())
 
 def merged_root_cause(value: dict[str, Any]) -> tuple[str | None, Any]:
+    """Return the first recorded root-cause field name and its merged detail, or (None, None) if absent."""
     keys = [key for key in ("rootCause", "root_cause") if key in value]
     if not keys:
         return None, None
@@ -4505,8 +1974,6 @@ def merged_root_cause(value: dict[str, Any]) -> tuple[str | None, Any]:
             details.append({"summary": detail})
         elif isinstance(detail, dict):
             details.append(detail)
-        elif detail is not None:
-            continue
     if not details:
         return keys[0], None
 
@@ -4549,12 +2016,7 @@ def merged_root_cause(value: dict[str, Any]) -> tuple[str | None, Any]:
     ]
     if evidence_values:
         merged["evidenceRefs"] = list(
-            dict.fromkeys(
-                item
-                for evidence in evidence_values
-                for item in (evidence if isinstance(evidence, list) else [evidence])
-                if isinstance(item, str)
-            )
+            dict.fromkeys(item for evidence in evidence_values for item in _string_values(evidence))
         )
 
     embedded_evidence = [
@@ -4585,9 +2047,9 @@ def merged_root_cause(value: dict[str, Any]) -> tuple[str | None, Any]:
     return keys[0], merged
 
 def _root_cause_code_evidence(
-    finding: dict[str, Any], root_cause: dict[str, Any]
+    finding: dict[str, Any], root_cause: dict[str, Any], catalog: dict[str, dict[str, Any]]
 ) -> list[dict[str, Any]]:
-    evidence = _section_code_evidence(finding, root_cause)
+    evidence = _section_code_evidence(catalog, root_cause)
     legacy_code = root_cause.get("code")
     if not isinstance(legacy_code, str) or not legacy_code.strip():
         return evidence
@@ -4614,27 +2076,30 @@ def _root_cause_code_evidence(
 def _code_evidence_location(item: dict[str, Any]) -> str:
     location = item.get("location")
     if isinstance(location, str):
-        return location
+        return " ".join(location.split())
     if isinstance(location, dict):
         item = location
     path = item.get("path")
     start = item.get("startLine")
-    end = item.get("endLine", start)
+    end = item.get("endLine")
     if not isinstance(path, str) or not path:
         return ""
-    if not isinstance(start, int):
+    path = _path_label(path)
+    if not isinstance(start, int) or isinstance(start, bool) or start < 1:
         return path
-    return f"{path}:{start}" if end == start else f"{path}:{start}-{end}"
+    if not isinstance(end, int) or isinstance(end, bool) or end <= start:
+        return f"{path}:{start}"
+    return f"{path}:{start}-{end}"
 
-def _code_fence(code: str) -> str:
+def _code_fence(code: str, minimum: int = 3) -> str:
     longest_run = max((len(match.group(0)) for match in re.finditer(r"`+", code)), default=0)
-    return "`" * max(3, longest_run + 1)
+    return "`" * max(minimum, longest_run + 1)
 
 def _code_evidence_lines(evidence: list[dict[str, Any]]) -> list[str]:
     lines: list[str] = []
     for index, item in enumerate(evidence):
         label = _text(item.get("label"), f"Code evidence {index + 1}")
-        location = _text(_code_evidence_location(item), "")
+        location = _code_evidence_location(item)
         explanation = _text(item.get("explanation"), "")
         language = item.get("language") if isinstance(item.get("language"), str) else ""
         language = language if re.fullmatch(r"[A-Za-z0-9_+.-]*", language) else ""
@@ -4642,28 +2107,18 @@ def _code_evidence_lines(evidence: list[dict[str, Any]]) -> list[str]:
         fence = _code_fence(code)
         heading = f"**{label}**"
         if location:
-            heading += f" — `{location}`"
+            marker = _code_fence(location, minimum=1)
+            padding = " " if location.startswith("`") or location.endswith("`") else ""
+            heading += f" — {marker}{padding}{location}{padding}{marker}"
         lines.extend(["", heading])
         if explanation:
             lines.extend(["", explanation])
         lines.extend(["", f"{fence}{language}", code, fence])
     return lines
 
-def _severity_mix(findings: list[dict[str, Any]]) -> str:
-    counts = Counter(finding["severity"]["level"] for finding in findings)
-    return (
-        ", ".join(f"{level}: {counts[level]}" for level in SEVERITY_ORDER if counts[level])
-        or "none"
-    )
-
-def _confidence_mix(findings: list[dict[str, Any]]) -> str:
-    counts = Counter(finding["confidence"]["level"] for finding in findings)
-    return (
-        ", ".join(
-            f"{level}: {counts[level]}" for level in ("high", "medium", "low") if counts[level]
-        )
-        or "none"
-    )
+def _level_mix(findings: list[dict[str, Any]], field: str, order: dict[str, int]) -> str:
+    counts = Counter(finding[field]["level"] for finding in findings)
+    return ", ".join(f"{level}: {counts[level]}" for level in order if counts[level]) or "none"
 
 def _locations(finding: dict[str, Any]) -> str:
     rendered = []
@@ -4671,7 +2126,7 @@ def _locations(finding: dict[str, Any]) -> str:
         start = location["startLine"]
         end = location.get("endLine", start)
         suffix = f":{start}" if end == start else f":{start}-{end}"
-        rendered.append(f"{location['path']}{suffix}")
+        rendered.append(f"{_path_text(location['path'])}{suffix}")
     return ", ".join(rendered)
 
 def _finding_sort_key(finding: dict[str, Any]) -> tuple[int, str, str]:
@@ -4710,6 +2165,69 @@ def _surface_notes(surface: dict[str, Any]) -> str:
         return _cell(notes)
     return _cell(f"{notes} Evidence: {evidence}")
 
+def _remediation_section(finding: dict[str, Any]) -> list[str]:
+    remediation = _text(finding.get("remediation"), "No canonical remediation was recorded.")
+    lines = ["", "#### Remediation", "", remediation]
+    seen = {remediation}
+    originals: list[tuple[str, dict[str, Any]]] = []
+    pending = [("finding", finding)]
+    seen_findings: set[int] = set()
+    while pending:
+        source_id, original = pending.pop()
+        if id(original) in seen_findings:
+            continue
+        seen_findings.add(id(original))
+        originals.append((source_id, original))
+        provenance = original.get("provenance")
+        if not isinstance(provenance, dict):
+            continue
+        previous = provenance.get("previousFindings")
+        if isinstance(previous, list):
+            pending.extend(
+                (source_id, item) for item in reversed(previous) if isinstance(item, dict)
+            )
+        sources = provenance.get("sourceFindings")
+        if isinstance(sources, list):
+            pending.extend(
+                (_text(source.get("id"), "finding"), source["finding"])
+                for source in reversed(sources)
+                if isinstance(source, dict) and isinstance(source.get("finding"), dict)
+            )
+    for source_id, original in originals[1:]:
+        text = _text(original.get("remediation"), "")
+        if text and text not in seen:
+            seen.add(text)
+            lines.extend(["", f"Source {source_id}: {text}"])
+    for field, label in (
+        ("remediationTests", "Tests"),
+        ("preventiveControls", "Preventive controls"),
+    ):
+        values = list(
+            dict.fromkeys(
+                value for _, original in originals for value in _strings(original.get(field))
+            )
+        )
+        lines.extend(_bullet_section(f"{label}:", values))
+    return lines
+
+def _finding_header(number: int, finding: dict[str, Any]) -> list[str]:
+    cwes = ", ".join(finding["taxonomy"]["cwe"]) or "none"
+    title = _text(finding["title"], "Untitled finding")
+    return [
+        f'<a id="finding-{number}"></a>',
+        "",
+        f"### [{number}] {title}",
+        "",
+        "| Field | Value |",
+        "| --- | --- |",
+        f"| Severity | {_cell(finding['severity']['level'])} |",
+        f"| Confidence | {_cell(finding['confidence']['level'])} |",
+        f"| Confidence rationale | {_cell(finding['confidence']['rationale'])} |",
+        f"| Category | {_cell(finding['taxonomy']['category'])} |",
+        f"| CWE | {_cell(cwes)} |",
+        "| Affected lines | " + _locations(finding).replace("|", "\\|") + " |",
+    ]
+
 def _finding_section(number: int, finding: dict[str, Any]) -> list[str]:
     validation = finding.get("validation") if isinstance(finding.get("validation"), dict) else {}
     _, raw_root_cause = merged_root_cause(finding)
@@ -4721,33 +2239,17 @@ def _finding_section(number: int, finding: dict[str, Any]) -> list[str]:
         if isinstance((value := attack_path.get(key)), (str, dict))
     ]
     dataflow: dict[str, Any] = {}
-    for key in ("summary", "source", "sink", "outcome"):
-        value = next(
-            (
-                section[key]
-                for section in dataflow_sections
-                if key in section and isinstance(section[key], str) and section[key].strip()
-            ),
-            None,
-        )
-        if value is not None:
-            dataflow[key] = value
-    transformations = list(
-        dict.fromkeys(
-            transformation
-            for section in dataflow_sections
-            for transformation in (
-                [section.get("transformations")]
-                if isinstance(section.get("transformations"), str)
-                else section.get("transformations")
-                if isinstance(section.get("transformations"), list)
-                else []
-            )
-            if isinstance(transformation, str) and transformation.strip()
-        )
+    for section in dataflow_sections:
+        for key in ("summary", "source", "sink", "outcome"):
+            value = section.get(key)
+            if isinstance(value, str) and value.strip():
+                dataflow.setdefault(key, value)
+    transformations = dict.fromkeys(
+        value
+        for section in dataflow_sections
+        for value in _string_values(section.get("transformations"))
+        if value.strip()
     )
-    if transformations:
-        dataflow["transformations"] = transformations
     raw_reachability = attack_path.get("reachability")
     reachability = (
         {"summary": raw_reachability}
@@ -4772,28 +2274,22 @@ def _finding_section(number: int, finding: dict[str, Any]) -> list[str]:
         if validation_outcomes
         else f"{finding['confidence']['rationale']} Validation details were not recorded separately.",
     )
-    validation_evidence = _strings(validation.get("evidence"))
-    validation_assertions = _strings(validation.get("assertions"))
-    validation_counterevidence = _strings(validation.get("counterEvidence"))
-    validation_limitations = _strings(validation.get("limitations"))
     root_cause_summary = _text(
         raw_root_cause if isinstance(raw_root_cause, str) else root_cause.get("summary"),
         "",
     )
-    root_cause_code_evidence = _root_cause_code_evidence(finding, root_cause)
-    validation_code_evidence = _section_code_evidence(finding, validation)
-    dataflow_code_evidence = _section_code_evidence(finding, attack_path, *dataflow_sections)
-    reachability_code_evidence = _section_code_evidence(finding, reachability)
-    dataflow_summary = _text(
-        dataflow.get("summary"),
-        f"The canonical finding records the affected path at {_locations(finding)}, but no expanded source-to-sink narrative was recorded.",
+    catalog = _code_evidence_catalog(finding)
+    root_cause_code_evidence = _root_cause_code_evidence(finding, root_cause, catalog)
+    validation_code_evidence = _section_code_evidence(catalog, validation)
+    dataflow_code_evidence = _section_code_evidence(catalog, attack_path, *dataflow_sections)
+    reachability_code_evidence = _section_code_evidence(catalog, reachability)
+    dataflow_summary = _text(dataflow.get("summary"), "") or (
+        f"The canonical finding records the affected path at {_locations(finding)}, "
+        "but no expanded source-to-sink narrative was recorded."
     )
-    reachability_summary = _text(
-        reachability.get("summary"),
-        _text(
-            attack_path.get("summary"),
-            "Reachability was not recorded beyond the canonical finding summary and affected locations.",
-        ),
+    reachability_summary = _text(reachability.get("summary"), "") or _text(
+        attack_path.get("summary"),
+        "Reachability was not recorded beyond the canonical finding summary and affected locations.",
     )
     severity_rationale = _text(
         severity.get("rationale"),
@@ -4803,24 +2299,8 @@ def _finding_section(number: int, finding: dict[str, Any]) -> list[str]:
         severity.get("changeConditions"),
         "Additional runtime or deployment evidence could raise or lower this severity.",
     )
-    remediation_tests = _strings(finding.get("remediationTests"))
-    preventive_controls = _strings(finding.get("preventiveControls"))
-    attack_steps = _strings(attack_path.get("steps"))
-    cwes = ", ".join(finding["taxonomy"]["cwe"]) or "none"
-    title = _text(finding["title"], "Untitled finding")
     lines = [
-        f'<a id="finding-{number}"></a>',
-        "",
-        f"### [{number}] {title}",
-        "",
-        "| Field | Value |",
-        "| --- | --- |",
-        f"| Severity | {_cell(severity['level'])} |",
-        f"| Confidence | {_cell(finding['confidence']['level'])} |",
-        f"| Confidence rationale | {_cell(finding['confidence']['rationale'])} |",
-        f"| Category | {_cell(finding['taxonomy']['category'])} |",
-        f"| CWE | {_cell(cwes)} |",
-        f"| Affected lines | {_cell(_locations(finding))} |",
+        *_finding_header(number, finding),
         "",
         "#### Summary",
         "",
@@ -4837,29 +2317,21 @@ def _finding_section(number: int, finding: dict[str, Any]) -> list[str]:
     if validation_outcomes:
         lines.extend(["", *(f"- **{label}:** {value}" for label, value in validation_outcomes)])
     lines.extend(_code_evidence_lines(validation_code_evidence))
-    if validation_assertions:
-        lines.extend(["", "Assertions:", *_bullets(validation_assertions, "None recorded.")])
-    if validation_evidence:
-        lines.extend(["", "Evidence:", *_bullets(validation_evidence, "No evidence recorded.")])
-    if validation_counterevidence:
-        lines.extend(
-            [
-                "",
-                "Counterevidence and remaining uncertainty:",
-                *_bullets(validation_counterevidence, "None recorded."),
-            ]
-        )
-    if validation_limitations:
-        lines.extend(["", "Limitations:", *_bullets(validation_limitations, "None recorded.")])
+    for label, key in (
+        ("Assertions", "assertions"),
+        ("Evidence", "evidence"),
+        ("Counterevidence and remaining uncertainty", "counterEvidence"),
+        ("Limitations", "limitations"),
+    ):
+        lines.extend(_bullet_section(f"{label}:", _strings(validation.get(key))))
     lines.extend(["", "#### Dataflow", "", dataflow_summary])
-    if attack_steps:
-        lines.extend(["", "Attack steps:", *_bullets(attack_steps, "None recorded.")])
+    lines.extend(_bullet_section("Attack steps:", _strings(attack_path.get("steps"))))
     for label, key in (("Source", "source"), ("Sink", "sink"), ("Outcome", "outcome")):
         if dataflow.get(key):
             lines.extend(["", f"- **{label}:** {_text(dataflow[key], 'not recorded')}"])
-    transformations = _strings(dataflow.get("transformations"))
-    if transformations:
-        lines.extend(["", "Transformations:", *_bullets(transformations, "None recorded.")])
+    lines.extend(
+        _bullet_section("Transformations:", [_text(value, "") for value in transformations])
+    )
     lines.extend(_code_evidence_lines(dataflow_code_evidence))
     lines.extend(["", "#### Reachability", "", reachability_summary])
     for label, key in (
@@ -4873,23 +2345,17 @@ def _finding_section(number: int, finding: dict[str, Any]) -> list[str]:
             lines.extend(["", f"- **{label}:** {_text(reachability[key], 'not recorded')}"])
     preconditions = list(
         dict.fromkeys(
-            [
-                *_strings(attack_path.get("preconditions")),
-                *_strings(reachability.get("preconditions")),
-            ]
+            _strings(attack_path.get("preconditions")) + _strings(reachability.get("preconditions"))
         )
     )
-    if preconditions:
-        lines.extend(["", "Preconditions:", *_bullets(preconditions, "None recorded.")])
+    lines.extend(_bullet_section("Preconditions:", preconditions))
     for label, key in (
         ("Assumptions", "assumptions"),
         ("Existing controls", "controls"),
         ("Blind spots", "blindspots"),
         ("Limitations", "limitations"),
     ):
-        values = _strings(attack_path.get(key))
-        if values:
-            lines.extend(["", f"{label}:", *_bullets(values, "None recorded.")])
+        lines.extend(_bullet_section(f"{label}:", _strings(attack_path.get(key))))
     lines.extend(_code_evidence_lines(reachability_code_evidence))
     lines.extend(
         [
@@ -4923,46 +2389,40 @@ def _finding_section(number: int, finding: dict[str, Any]) -> list[str]:
             lines.extend(
                 ["", f"{label} assessment:", *(f"- **{name}:** {value}" for name, value in details)]
             )
-    lines.extend(
-        [
-            "",
-            "#### Remediation",
-            "",
-            _text(finding["remediation"], "No canonical remediation was recorded."),
-        ]
-    )
-    if remediation_tests:
-        lines.extend(["", "Tests:", *_bullets(remediation_tests, "No tests recorded.")])
-    if preventive_controls:
-        lines.extend(["", "Preventive controls:", *_bullets(preventive_controls, "None recorded.")])
+    lines.extend(_remediation_section(finding))
     return lines
 
 def _linked_finding_section(number: int, finding: dict[str, Any], report_path: str) -> list[str]:
-    cwes = ", ".join(finding["taxonomy"]["cwe"]) or "none"
-    title = _text(finding["title"], "Untitled finding")
     link = f"[detailed technical write-up]({report_path})"
-    lines = [
-        f'<a id="finding-{number}"></a>',
-        "",
-        f"### [{number}] {title}",
-        "",
-        "| Field | Value |",
-        "| --- | --- |",
-        f"| Severity | {_cell(finding['severity']['level'])} |",
-        f"| Confidence | {_cell(finding['confidence']['level'])} |",
-        f"| Confidence rationale | {_cell(finding['confidence']['rationale'])} |",
-        f"| Category | {_cell(finding['taxonomy']['category'])} |",
-        f"| CWE | {_cell(cwes)} |",
-        f"| Affected lines | {_cell(_locations(finding))} |",
-    ]
-    for heading in ("Summary", "Validation", "Dataflow", "Reachability", "Severity", "Remediation"):
+    lines = _finding_header(number, finding)
+    for heading in ("Summary", "Validation", "Dataflow", "Reachability", "Severity"):
         lines.extend(["", f"#### {heading}", "", f"See the {link}."])
+    if any(
+        finding.get("provenance", {}).get(field) for field in ("sourceFindings", "previousFindings")
+    ):
+        lines.extend(_remediation_section(finding))
+    else:
+        lines.extend(["", "#### Remediation", "", f"See the {link}."])
     return lines
 
 def build_report_markdown(
     manifest: dict[str, Any], findings_document: dict[str, Any], coverage: dict[str, Any]
 ) -> str:
+    """Render findings and review coverage as a Markdown report ending in a newline.
+
+    Args:
+        manifest: Scan metadata, target, and scope.
+        findings_document: Canonical findings for the scan.
+        coverage: Review coverage for older manifests. Newer scans supply review state inline.
+
+    Raises:
+        ReportProjectionError: Reportable findings share a writeup path.
+    """
     scan = manifest["scan"]
+    if "review" in scan and "coverageRef" not in scan:
+        from review_state import review_state
+
+        coverage = review_state(scan)
     target = scan["target"]
     scope = scan["scope"]
     threat_model = scan.get("threatModel") if isinstance(scan.get("threatModel"), dict) else {}
@@ -4974,22 +2434,30 @@ def build_report_markdown(
         ),
         key=_finding_sort_key,
     )
-    writeup_paths = [_writeup_report_path(finding) for finding in findings]
-    duplicate_writeup_paths = sorted(
-        path
-        for path, count in Counter(path for path in writeup_paths if path is not None).items()
-        if count > 1
-    )
+    numbered_findings = [
+        (number, finding, _writeup_report_path(finding))
+        for number, finding in enumerate(findings, 1)
+    ]
+    writeup_counts = Counter(path for _, _, path in numbered_findings if path is not None)
+    duplicate_writeup_paths = sorted(path for path, count in writeup_counts.items() if count > 1)
     if duplicate_writeup_paths:
         raise ReportProjectionError(
             "reportable findings have duplicate writeup reportPath values: "
             + ", ".join(duplicate_writeup_paths)
         )
-    deep_presentation = _uses_deep_presentation(coverage, findings)
-    deep_finding_groups = _deep_finding_groups(findings, writeup_paths) if deep_presentation else []
+    deep_presentation = uses_deep_presentation(coverage, findings)
+    deep_finding_groups: dict[str, list[tuple[int, dict[str, Any], str | None]]] = {}
+    if deep_presentation:
+        for entry in numbered_findings:
+            _, finding, _ = entry
+            deep_finding_groups.setdefault(_deep_candidate_id(finding), []).append(entry)
     hardening_portfolio_path = _hardening_portfolio_path(scan)
-    include_paths = _strings(coverage.get("includePaths", scope.get("includePaths", [])))
-    exclude_paths = _strings(coverage.get("excludePaths", scope.get("excludePaths", [])))
+    include_paths = [
+        _path_text(path) for path in coverage.get("includePaths", scope.get("includePaths", []))
+    ]
+    exclude_paths = [
+        _path_text(path) for path in coverage.get("excludePaths", scope.get("excludePaths", []))
+    ]
     limitations = _strings(scope.get("limitations"))
     explicit_exclusions = coverage.get("explicitExclusions", [])
     lines = [
@@ -4999,15 +2467,13 @@ def build_report_markdown(
         "",
         _text(
             scope.get("summary"),
-            "The scan reviewed the canonical include paths and exclusions listed below.",
+            "The scan was configured for the include paths and exclusions listed below.",
         ),
         "",
         f"- Scan mode: {coverage['mode']}",
         *_target_scope_lines(target),
-        f"- Inventory strategy: {coverage['inventoryStrategy']}",
         f"- Included paths: {', '.join(include_paths) or 'none'}",
         f"- Excluded paths: {', '.join(exclude_paths) or 'none'}",
-        f"- Runtime or test status: {_text(scope.get('runtimeStatus'), 'not recorded')}",
     ]
     artifacts_reviewed = _strings(scope.get("artifactsReviewed"))
     if artifacts_reviewed:
@@ -5021,20 +2487,19 @@ def build_report_markdown(
                 f"Excluded {_text(exclusion.get('pattern'), 'unspecified')}: "
                 f"{_text(exclusion.get('reason'), 'reason not recorded')}"
             )
-    if limitations:
-        lines.extend(["", "Limitations and exclusions:", *_bullets(limitations, "None recorded.")])
+    lines.extend(_bullet_section("Limitations and exclusions:", limitations))
     summary_count_lines = (
         [
             f"| Reportable DSS findings | {len(deep_finding_groups)} |",
             f"| Report instances | {len(findings)} |",
-            f"| Report severity mix | {_severity_mix(findings)} |",
-            f"| Report confidence mix | {_confidence_mix(findings)} |",
+            f"| Report severity mix | {_level_mix(findings, 'severity', SEVERITY_ORDER)} |",
+            f"| Report confidence mix | {_level_mix(findings, 'confidence', CONFIDENCE_ORDER)} |",
         ]
         if deep_presentation
         else [
             f"| Reportable findings | {len(findings)} |",
-            f"| Severity mix | {_severity_mix(findings)} |",
-            f"| Confidence mix | {_confidence_mix(findings)} |",
+            f"| Severity mix | {_level_mix(findings, 'severity', SEVERITY_ORDER)} |",
+            f"| Confidence mix | {_level_mix(findings, 'confidence', CONFIDENCE_ORDER)} |",
         ]
     )
     lines.extend(
@@ -5046,35 +2511,56 @@ def build_report_markdown(
             "| --- | --- |",
             f"| Scan outcome | {scan.get('status', 'completed')} |",
             *summary_count_lines,
-            f"| Coverage | {coverage['completeness']} |",
             f"| Validation mode | {_cell(scope.get('validationMode', 'not recorded'))} |",
             "",
-            "Canonical artifacts: `scan-manifest.json`, `findings.json`, and `coverage.json`. This report is a deterministic projection of those files.",
+            "Canonical artifacts: `scan-manifest.json` and `findings.json`. This report is a deterministic projection of those files.",
             "",
             "## Threat Model",
             "",
+        ]
+    )
+    content = markdown_threat_model_content(threat_model)
+    if content is not None:
+        lines.append(content)
+    else:
+        lines.append(
             _text(
                 threat_model.get("summary"),
                 "No explicit canonical threat-model summary was recorded.",
-            ),
-        ]
-    )
-    for heading, key, fallback in (
-        ("Assets", "assets", "No assets were recorded."),
-        ("Trust Boundaries", "trustBoundaries", "No trust boundaries were recorded."),
-        (
-            "Attacker Capabilities",
-            "attackerCapabilities",
-            "No attacker capabilities were recorded.",
-        ),
-        ("Security Objectives", "securityObjectives", "No security objectives were recorded."),
-        ("Assumptions", "assumptions", "No assumptions were recorded."),
+            )
+        )
+        for heading, key in THREAT_MODEL_SECTIONS:
+            values = _strings(threat_model.get(key))
+            if values:
+                lines.extend(["", f"### {heading}", "", *(f"- {value}" for value in values)])
+    reviews = scan.get("reviewState", {}).get("reviews")
+    if isinstance(reviews, list) and any(
+        isinstance(review, dict) and isinstance(review.get("threatModel"), dict)
+        for review in reviews
     ):
-        values = _strings(threat_model.get(key))
-        if values:
-            lines.extend(["", f"### {heading}", "", *_bullets(values, fallback)])
+        lines.extend(
+            [
+                "",
+                (
+                    "Other reviews recorded different threat models. See the `threatModel` fields "
+                    "in `scan.reviewState.reviews` in the [scan manifest](scan-manifest.json)."
+                ),
+            ]
+        )
     lines.extend(["", "## Findings", ""])
+    informational_count = sum(
+        finding["severity"]["level"] == "informational" for finding in findings_document["findings"]
+    )
+    informational_note = ""
+    if informational_count:
+        noun = "finding" if informational_count == 1 else "findings"
+        informational_note = (
+            f"This report omits details for {informational_count} informational {noun}. "
+            "See `findings.json` or export the findings as SARIF or CSV."
+        )
     if findings:
+        if informational_note:
+            lines.extend([informational_note, ""])
         if deep_presentation:
             lines.extend(
                 [
@@ -5082,13 +2568,7 @@ def build_report_markdown(
                     "| --- | --- | --- | --- | --- |",
                 ]
             )
-            for group in deep_finding_groups:
-                lines.append(
-                    f"| {_deep_group_titles(group)} | {_deep_group_report_links(group)} "
-                    f"| {_deep_group_levels(group, 'severity', SEVERITY_ORDER)} "
-                    f"| {_deep_group_levels(group, 'confidence', CONFIDENCE_ORDER)} "
-                    f"| {_deep_group_writeup_links(group)} |"
-                )
+            lines.extend(_deep_group_row(group) for group in deep_finding_groups.values())
         else:
             lines.extend(
                 [
@@ -5096,10 +2576,8 @@ def build_report_markdown(
                     "| --- | --- | --- | --- |",
                 ]
             )
-            for number, (finding, report_path) in enumerate(
-                zip(findings, writeup_paths, strict=True), 1
-            ):
-                title = _link_label(finding["title"], "Untitled finding")
+            for number, finding, report_path in numbered_findings:
+                title = _cell(finding["title"])
                 finding_link = f"[{title}](#finding-{number})"
                 writeup_link = f"[Open report]({report_path})" if report_path else "inline below"
                 lines.append(
@@ -5118,69 +2596,26 @@ def build_report_markdown(
                 "| low | Evidence is incomplete and the item is retained only for explicit follow-up. |",
             ]
         )
-        for number, (finding, report_path) in enumerate(
-            zip(findings, writeup_paths, strict=True), 1
-        ):
+        for number, finding, report_path in numbered_findings:
             if report_path is not None:
                 lines.extend(["", *_linked_finding_section(number, finding, report_path)])
             else:
                 lines.extend(["", *_finding_section(number, finding)])
     else:
-        deferred = coverage.get("deferred", [])
-        no_source_review = (
-            coverage.get("completeness") == "partial"
-            and isinstance(deferred, list)
-            and any(
-                isinstance(item, dict)
-                and item.get("reason")
-                == "The configured discovery time limit elapsed before any source review completed."
-                for item in deferred
-            )
-        )
-        budget_exhausted = (
-            coverage.get("completeness") == "partial"
-            and isinstance(deferred, list)
-            and any(
-                isinstance(item, dict)
-                and isinstance(item.get("reason"), str)
-                and (
-                    item["reason"]
-                    == "Validation was deferred because the scan reached its cost limit."
-                    or item["reason"].startswith(
-                        "Validation was deferred because the scan reached its cost limit: "
-                    )
-                )
-                for item in deferred
-            )
-        )
         stopped = manifest.get("scan", {}).get("status") in {
             "failed",
             "canceled",
             "interrupted",
         }
-        lines.extend(
-            [
-                "### No findings",
-                "",
-                (
-                    "No findings were retained before the scan stopped. "
-                    "The scan did not complete. No vulnerability conclusion can be drawn."
-                    if stopped
-                    else (
-                        "No source review completed before the configured time limit. "
-                        "No vulnerability conclusion can be drawn."
-                        if no_source_review
-                        else (
-                            "No findings were validated before the scan reached its cost limit. "
-                            "Review the deferred candidates in Open Questions And Follow Up."
-                            if budget_exhausted
-                            else "No reportable findings survived the canonical discovery, validation, "
-                            "and reportability gates."
-                        )
-                    )
-                ),
-            ]
+        heading = "### No reportable findings" if informational_note else "### No findings"
+        message = informational_note or (
+            "No findings were retained before the scan stopped."
+            if stopped
+            else "No findings were reported."
         )
+        if stopped:
+            message += " The scan did not complete. No vulnerability conclusion can be drawn."
+        lines.extend([heading, "", message])
     if hardening_portfolio_path is not None:
         lines.extend(
             [
@@ -5223,10 +2658,10 @@ def build_report_markdown(
                 + " |"
             )
     open_questions = coverage.get("openQuestions", [])
-    questions = list(open_questions) if isinstance(open_questions, list) else []
+    deferred_questions = []
     deferred = coverage.get("deferred", [])
     if isinstance(deferred, list):
-        questions.extend(
+        deferred_questions = [
             {
                 "question": item.get("reason", "Deferred review requires follow-up."),
                 "followUpPrompt": " ".join(
@@ -5243,9 +2678,14 @@ def build_report_markdown(
             }
             for item in deferred
             if isinstance(item, dict)
-        )
-    if questions:
-        lines.extend(["", "## Open Questions And Follow Up", ""])
+        ]
+    for heading, questions in (
+        ("Deferred Requested Work", deferred_questions),
+        ("Open Questions And Follow Up", open_questions),
+    ):
+        if not isinstance(questions, list) or not questions:
+            continue
+        lines.extend(["", f"## {heading}", ""])
         for question in questions:
             if not isinstance(question, dict):
                 continue
@@ -5260,170 +2700,226 @@ def generate_report_markdown(
     findings: dict[str, Any],
     coverage: dict[str, Any],
 ) -> bytes:
+    """Return the Markdown report for the scan as UTF-8 bytes ready to write."""
     return build_report_markdown(manifest, findings, coverage).encode("utf-8")
 
-def main() -> int:
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.parse_args()
-    return 0
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(0)
 ````
 
-## File: `scripts/resolve_security_md.py`
+## File: `scripts/reserved_artifact_paths.json`
+
+```json
+[
+  "artifacts/01_context/false_positive_feedback.json",
+  "artifacts/02_discovery/candidate_ledger.jsonl",
+  "artifacts/02_discovery/in_scope_files.txt",
+  "artifacts/deep_discovery"
+]
+```
+
+## File: `scripts/review_state.py`
 
 ```python
-#!/usr/bin/env python3
-"""Concatenate the SECURITY.md files that apply to a scan path."""
+"""Keep review bookkeeping separate from published scan results."""
 
 from __future__ import annotations
 
 import argparse
-import json
-import os
-import stat
-import sys
-from pathlib import Path
+import copy
+from typing import Any
 
-MAX_SECURITY_MD_BYTES = 1024 * 1024
+def uses_legacy_review(scan: dict[str, Any]) -> bool:
+    """Return whether the manifest points to separate coverage or predates inline review metadata."""
+    return "coverageRef" in scan or ("reviewState" not in scan and "review" not in scan)
 
-class ResolutionError(ValueError):
-    """Raised when a SECURITY.md chain cannot be resolved."""
+def review_summary(state: dict[str, Any]) -> dict[str, Any]:
+    """Return the excluded path patterns in the compact form stored on the scan manifest."""
+    return {
+        "excludedPaths": [item["pattern"] for item in state.get("explicitExclusions", [])],
+    }
 
-def _inside(path: Path, root: Path, label: str) -> Path:
-    try:
-        return path.relative_to(root)
-    except ValueError as exc:
-        raise ResolutionError(f"{label} is outside the scan root: {path}") from exc
+def review_state(scan: dict[str, Any]) -> dict[str, Any]:
+    """Build the recovery coverage record from inline manifest metadata.
 
-def _resolve_root(repo: Path) -> Path:
-    try:
-        root = repo.expanduser().resolve(strict=True)
-    except OSError as exc:
-        raise ResolutionError(f"scan root does not exist: {repo}") from exc
-    if not root.is_dir():
-        raise ResolutionError(f"scan root is not a directory: {root}")
-    return root
-
-def list_security_md(repo: Path) -> list[str]:
-    """Return a stable, safely framed inventory without traversing Git metadata."""
-    root = _resolve_root(repo)
-
-    def raise_walk_error(error: OSError) -> None:
-        raise error
-
-    policies: list[str] = []
-    for directory, subdirectories, filenames in os.walk(
-        root, onerror=raise_walk_error, followlinks=False
-    ):
-        safe_subdirectories: list[str] = []
-        for name in sorted(subdirectories):
-            if name == ".git":
-                continue
-            directory_stat = (Path(directory) / name).stat(follow_symlinks=False)
-            if not stat.S_ISDIR(directory_stat.st_mode):
-                continue
-            reparse_point = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0)
-            if getattr(directory_stat, "st_file_attributes", 0) & reparse_point:
-                continue
-            safe_subdirectories.append(name)
-        subdirectories[:] = safe_subdirectories
-        if "SECURITY.md" not in filenames:
-            continue
-        policy = Path(directory) / "SECURITY.md"
-        if policy.is_file() or policy.is_symlink():
-            policies.append(policy.relative_to(root).as_posix())
-    return sorted(policies)
-
-def resolve_security_md(repo: Path, scope: Path) -> str:
-    """Return applicable SECURITY.md files, concatenated root to leaf."""
-    root = _resolve_root(repo)
-
-    requested_scope = scope.expanduser()
-    if not requested_scope.is_absolute():
-        requested_scope = root / requested_scope
-    try:
-        resolved_scope = requested_scope.resolve(strict=True)
-    except OSError as exc:
-        raise ResolutionError(f"scan scope does not exist: {requested_scope}") from exc
-    _inside(resolved_scope, root, "scan scope")
-
-    target_directory = resolved_scope if resolved_scope.is_dir() else resolved_scope.parent
-    relative_directory = _inside(target_directory, root, "scan scope")
-    directories = [root]
-    current = root
-    for part in relative_directory.parts:
-        current /= part
-        directories.append(current)
-
-    sections: list[str] = []
-    for directory in directories:
-        policy = directory / "SECURITY.md"
-        if not policy.is_file():
-            continue
-        resolved_policy = policy.resolve(strict=True)
-        _inside(resolved_policy, root, "SECURITY.md")
-        try:
-            with resolved_policy.open("rb") as policy_file:
-                policy_bytes = policy_file.read(MAX_SECURITY_MD_BYTES + 1)
-            if len(policy_bytes) > MAX_SECURITY_MD_BYTES:
-                raise ResolutionError(f"SECURITY.md exceeds 1 MiB: {policy}")
-            content = policy_bytes.decode("utf-8")
-        except UnicodeDecodeError as exc:
-            raise ResolutionError(f"SECURITY.md is not valid UTF-8: {policy}") from exc
-        if not content.strip():
-            continue
-
-        source = policy.relative_to(root).as_posix()
-        section = f"## SECURITY.md source: {json.dumps(source)}\n\n{content}"
-        if not section.endswith("\n"):
-            section += "\n"
-        sections.append(section)
-
-    return "\n".join(sections)
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--repo", required=True, type=Path, help="scan root directory")
-    parser.add_argument(
-        "--list",
-        action="store_true",
-        help="write a JSON inventory of repository policy paths",
+    Copy the saved review state, deriving exclusions from the summary when needed,
+    and attach the inventory strategy and scope for this scan.
+    """
+    summary = scan.get("review", {})
+    state = copy.deepcopy(scan.get("reviewState", {}))
+    mode = scan.get("mode", "repository")
+    state.setdefault("surfaces", [])
+    state.setdefault("deferred", [])
+    state.setdefault(
+        "explicitExclusions",
+        [
+            {"pattern": path, "reason": "Excluded from review"}
+            for path in summary.get("excludedPaths", [])
+        ],
     )
-    parser.add_argument(
-        "--scope",
-        type=Path,
-        help="existing file or directory within the scan root",
+    state.update(
+        documentType="codex-security.coverage",
+        schemaVersion="1.0",
+        scanId=scan.get("id"),
+        mode=mode,
+        inventoryStrategy="scoped_path"
+        if mode == "scoped_path"
+        else "diff"
+        if mode in {"diff", "commit", "branch_diff", "working_tree"}
+        else "repository",
+        includePaths=copy.deepcopy(scan.get("scope", {}).get("includePaths", [])),
+        excludePaths=copy.deepcopy(scan.get("scope", {}).get("excludePaths", [])),
     )
-    parser.add_argument("--out", default=Path("-"), type=Path, help="output path, or - for stdout")
-    args = parser.parse_args()
-    if args.list and args.scope is not None:
-        parser.error("--list cannot be combined with --scope")
-    if not args.list and args.scope is None:
-        parser.error("--scope is required unless --list is specified")
-    return args
+    return state
 
-def main() -> int:
-    args = parse_args()
-    try:
-        guidance = (
-            json.dumps(list_security_md(args.repo), ensure_ascii=True) + "\n"
-            if args.list
-            else resolve_security_md(args.repo, args.scope)
-        )
-        if args.out == Path("-"):
-            sys.stdout.buffer.write(guidance.encode("utf-8"))
-        else:
-            args.out.parent.mkdir(parents=True, exist_ok=True)
-            args.out.write_text(guidance, encoding="utf-8")
-    except (OSError, ResolutionError) as exc:
-        print(f"resolve_security_md.py: error: {exc}", file=sys.stderr)
-        return 2
-    return 0
+def checkpoint_review_state(state: dict[str, Any]) -> dict[str, Any]:
+    """Copy the review data needed for recovery, omitting per-surface risk areas and report metadata."""
+    return {
+        "surfaces": [
+            {key: copy.deepcopy(value) for key, value in item.items() if key != "riskArea"}
+            for item in state.get("surfaces", [])
+        ],
+        "explicitExclusions": copy.deepcopy(state.get("explicitExclusions", [])),
+        "deferred": copy.deepcopy(state.get("deferred", [])),
+        **{
+            key: copy.deepcopy(state[key])
+            for key in ("resolvedDeferred", "openQuestions", "reviews")
+            if key in state
+        },
+    }
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    argparse.ArgumentParser(description=__doc__).parse_args()
+```
+
+## File: `scripts/servicenow_avit.py`
+
+```python
+"""ServiceNow Manual AVIT Ingestion CSV template and finding fields."""
+
+from __future__ import annotations
+
+import csv
+import io
+import re
+import sys
+from collections.abc import Iterable
+from pathlib import Path
+from typing import Any
+
+AVIT_APP_FIELDS = {
+    "Application": 255,
+    "Requested by": 151,
+    "Purpose of application": 4000,
+    "Types of sensitive data": 40,
+    "List of compliance programs": 4000,
+    "Technology stack details": 4000,
+    "Application team": 100,
+    "URLs to test": 4000,
+    "Assigned to": 151,
+    "Assignment group": 151,
+}
+AVIT_FINDING_FIELDS = (
+    "Risk rating",
+    "CWE category",
+    "Vulnerability ID",
+    "Steps to reproduce",
+    "Technical details",
+)
+
+def read_template(path: Path) -> tuple[list[str], dict[str, str]]:
+    """Read the application defaults for a ServiceNow AVIT export from a UTF-8 CSV.
+
+    Returns:
+        tuple: The original column headings and a mapping of stripped, case-folded
+            headings to values from the single application row.
+
+    Raises:
+        ValueError: The file is unreadable, required columns are missing or
+            duplicated, or application values are empty or too long.
+    """
+    try:
+        with path.open(encoding="utf-8-sig", newline="") as source:
+            rows = (row for row in csv.reader(source, strict=True) if row)
+            headers = next(rows, [])
+            values = next(rows, [])
+            if len(headers) != len(values) or next(rows, None) is not None:
+                raise ValueError("AVIT template must have a header and one application row")
+    except (OSError, UnicodeError, csv.Error) as exc:
+        raise ValueError(f"Could not read AVIT template {path}: {exc}") from exc
+
+    row = {header.strip().casefold(): value for header, value in zip(headers, values, strict=True)}
+    if len(row) != len(headers):
+        raise ValueError("AVIT template has duplicate column names")
+    for field in (*AVIT_APP_FIELDS, *AVIT_FINDING_FIELDS):
+        if field.casefold() not in row:
+            raise ValueError(f"AVIT template is missing column {field!r}")
+    for field, limit in AVIT_APP_FIELDS.items():
+        value = row[field.casefold()]
+        if not value.strip() or len(value) > limit:
+            raise ValueError(
+                f"AVIT template {field!r} requires a value of at most {limit} characters"
+            )
+    return headers, row
+
+def _narrative(text: str) -> str:
+    return text if len(text) <= 1000 else text[:997] + "..."
+
+def finding_fields(finding: dict[str, Any], location: dict[str, Any], steps: str) -> dict[str, str]:
+    """Return AVIT columns for a finding at the selected location with the recorded steps.
+
+    Use the first recognized CWE as the category, or the finding ID as the
+    vulnerability ID when no CWE qualifies. Both narrative fields fit in 1,000 characters.
+    """
+    details = (
+        f"{finding['findingId']} | {location['path']}:{location['startLine']}\n"
+        f"{finding['title']}\n{finding['summary']}\n{finding['remediation']}"
+    )
+    cwe = next(
+        (
+            value.upper()
+            for value in finding["taxonomy"]["cwe"]
+            if len(value) <= 255 and re.fullmatch(r"CWE-[0-9]+", value, re.I)
+        ),
+        "",
+    )
+    level = finding["severity"]["level"]
+    return {
+        "Risk rating": "None" if level == "informational" else level.title(),
+        "CWE category": cwe,
+        "Vulnerability ID": "" if cwe else finding["findingId"],
+        "Steps to reproduce": _narrative(steps),
+        "Technical details": _narrative(details),
+    }
+
+def render(template: Path, rows: Iterable[dict[str, str]]) -> bytes:
+    """Return UTF-8 CSV bytes with the template's header and one row per finding.
+
+    The template supplies application fields and column order. For nonempty input,
+    write the count of findings missing reproduction steps to stderr.
+    """
+    headers, row = read_template(template)
+    output = io.StringIO(newline="")
+    writer = csv.writer(output)
+    writer.writerow(headers)
+    missing_steps = 0
+    has_findings = False
+    for fields in rows:
+        has_findings = True
+        if not fields["Steps to reproduce"]:
+            missing_steps += 1
+        for field, value in fields.items():
+            row[field.casefold()] = value
+        writer.writerow(row.values())
+    if has_findings:
+        print(
+            "Review Steps to reproduce before uploading. Populated steps describe the recorded "
+            f"attack path. Rows with no recorded steps: {missing_steps}.",
+            file=sys.stderr,
+        )
+    return output.getvalue().encode("utf-8")
 ```
 
 ## File: `scripts/snapshot_sqlite.py`
@@ -5435,24 +2931,198 @@ if __name__ == "__main__":
 from __future__ import annotations
 
 import argparse
+import os
 import sqlite3
 from pathlib import Path
+from urllib.parse import quote
+
+def readonly_sqlite_uri(path: Path) -> str:
+    """Escape the native filename, including separators, without introducing a URI authority."""
+    filename = os.fsencode(path) if os.name == "posix" else str(path)
+    return f"file:{quote(filename, safe='')}?mode=ro"
 
 def main() -> None:
+    """Back up the read-only source database into a separate destination using SQLite’s backup API."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", type=Path)
     parser.add_argument("destination", type=Path)
     args = parser.parse_args()
     source = args.source.expanduser().resolve(strict=True)
     destination = args.destination.expanduser().absolute()
+    # SQLite backup cannot make progress when both connections use the same file.
+    if destination.exists() and destination.samefile(source):
+        parser.error(f"Destination must not be the same file as source: {destination}")
     destination.parent.mkdir(parents=True, exist_ok=True)
-    with sqlite3.connect(f"{source.as_uri()}?mode=ro", uri=True) as source_connection:
+    with sqlite3.connect(readonly_sqlite_uri(source), uri=True) as source_connection:
+        creation_destination = destination.resolve()
+        try:
+            creation_destination.touch(mode=0o600, exist_ok=False)
+        except FileExistsError:
+            pass
+        else:
+            creation_destination.chmod(0o600)
         with sqlite3.connect(destination) as destination_connection:
             source_connection.backup(destination_connection)
     destination.chmod(0o600)
 
 if __name__ == "__main__":
     main()
+```
+
+## File: `scripts/threat_model_projection.py`
+
+```python
+#!/usr/bin/env python3
+"""Render saved structured or Markdown threat models without running analysis."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+# Keep sibling helpers importable when Python starts in isolated mode.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import report_projection as report
+
+def _is_structured_model(model: dict[str, Any]) -> bool:
+    summary = model.get("summary")
+    return (
+        isinstance(summary, str)
+        and bool(summary)
+        and all(
+            isinstance(values := model.get(key, []), list)
+            and all(isinstance(value, str) and value for value in values)
+            for _, key in report.THREAT_MODEL_SECTIONS
+        )
+    )
+
+def threat_model_body(model: dict[str, Any]) -> str:
+    """Return the authored Markdown body verbatim or render a legacy summary and its sections.
+
+    Raises:
+        ValueError: Required content is absent or the saved model has invalid metadata or sections.
+    """
+    content = report.markdown_threat_model_content(model)
+    if content is not None:
+        # The structured schema permits legacy metadata as extension fields.
+        if _is_structured_model(model):
+            return content
+        if "origin" in model and model["origin"] not in (
+            "generated",
+            "provided",
+            "reconciled",
+            "recovered",
+        ):
+            raise ValueError("threatModel.origin: unsupported value")
+        if "scope" in model:
+            scope = model["scope"]
+            if not isinstance(scope, dict) or "includePaths" not in scope:
+                raise ValueError("threatModel.scope: expected an object with includePaths")
+            for key in ("includePaths", "excludePaths"):
+                if key in scope and (
+                    not isinstance(scope[key], list)
+                    or not all(isinstance(path, str) and path for path in scope[key])
+                ):
+                    raise ValueError(
+                        f"threatModel.scope.{key}: expected an array of non-empty strings"
+                    )
+            if "summary" in scope and (
+                not isinstance(scope["summary"], str) or not scope["summary"]
+            ):
+                raise ValueError("threatModel.scope.summary: expected a non-empty string")
+        return content
+    summary = model.get("summary")
+    if not isinstance(summary, str) or not summary:
+        if model.get("format") == "markdown":
+            raise ValueError("threatModel.content: expected non-empty Markdown")
+        raise ValueError("threatModel.summary: expected a non-empty string")
+    sections = [
+        summary if summary.strip() else "No explicit canonical threat-model summary was recorded."
+    ]
+    for heading, key in report.THREAT_MODEL_SECTIONS:
+        values = model.get(key, [])
+        if not isinstance(values, list):
+            raise ValueError(f"threatModel.{key}: expected an array")
+        if not values:
+            continue
+        for index, value in enumerate(values):
+            if not isinstance(value, str) or not value:
+                raise ValueError(f"threatModel.{key}[{index}]: expected a non-empty string")
+        sections.append(f"## {heading}")
+        sections.append("\n".join("- " + value.replace("\n", "\n  ") for value in values))
+    return "\n\n".join(sections)
+
+def _scope_lines(scope: Any, label: str) -> list[str]:
+    # Older structured models may use these extension names for unrelated data.
+    included = scope.get("includePaths") if isinstance(scope, dict) else None
+    if not isinstance(included, list) or not all(isinstance(path, str) for path in included):
+        return [f"- {label}: not recorded"]
+    included_text = ", ".join(report._path_text(path, ensure_ascii=True) for path in included)
+    lines = [f"- {label}: {included_text or 'none'}"]
+    excluded = scope.get("excludePaths")
+    if isinstance(excluded, list) and excluded and all(isinstance(path, str) for path in excluded):
+        excluded_text = ", ".join(report._path_text(path, ensure_ascii=True) for path in excluded)
+        lines.append(f"- {label} exclusions: {excluded_text or 'none'}")
+    summary = scope.get("summary")
+    if isinstance(summary, str) and summary:
+        lines.append(f"- {label} description: {report._text(summary, 'not recorded')}")
+    return lines
+
+def render_threat_model(model: dict[str, Any], provenance: dict[str, Any] | None = None) -> bytes:
+    """Return the saved threat model as UTF-8 Markdown, including its provenance footer.
+
+    Args:
+        model (dict): Authored Markdown or a legacy structured model from a scan.
+        provenance (dict | None): Optional saved scan identifiers, scope, and provisional status.
+    """
+    body = threat_model_body(model)
+    if report.markdown_threat_model_content(model) is None:
+        body = "# Threat Model\n\n" + body
+    text = report._text
+    provenance = provenance or {}
+    footer = ["---", "", "## Saved Model Context", ""]
+    for key, label in (
+        ("source", "Source"),
+        ("scanId", "Scan"),
+        ("target", "Target"),
+        ("revision", "Revision"),
+        ("snapshotDigest", "Snapshot"),
+        ("status", "Result status"),
+    ):
+        if provenance.get(key):
+            footer.append(f"- {label}: {text(str(provenance[key]), 'not recorded')}")
+    footer.append(f"- Model origin: {text(model.get('origin'), 'not recorded')}")
+    footer.extend(_scope_lines(model.get("scope"), "Model scope"))
+    scan_scope = provenance.get("scanScope")
+    if isinstance(scan_scope, dict):
+        footer.extend(_scope_lines(scan_scope, "Scan scope"))
+    if provenance.get("provisional"):
+        footer.extend(["", "This is a provisional model saved before successful completion."])
+    return (body + ("\n" if body.endswith("\n") else "\n\n") + "\n".join(footer) + "\n").encode(
+        "utf-8"
+    )
+
+def main() -> int:
+    """Render a JSON payload from stdin to UTF-8 Markdown on stdout and return zero on success."""
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--input-json-stdin", action="store_true", required=True)
+    parser.parse_args()
+    try:
+        payload = json.load(sys.stdin)
+        if not isinstance(payload["threatModel"], dict):
+            raise ValueError("threatModel must be an object")
+        sys.stdout.buffer.write(
+            render_threat_model(payload["threatModel"], payload.get("provenance"))
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        parser.error(str(exc))
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())
 ```
 
 ## File: `scripts/validate_scan_contract.py`
@@ -5464,26 +3134,21 @@ if __name__ == "__main__":
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
 import sys
 from pathlib import Path
-from types import ModuleType
 from typing import Any
 
-def _load_finalizer() -> ModuleType:
-    script = Path(__file__).resolve().with_name("finalize_scan_contract.py")
-    spec = importlib.util.spec_from_file_location("codex_security_scan_contract", script)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"could not load scan contract validator: {script}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-FINALIZER = _load_finalizer()
+# Keep sibling helpers importable when Python starts in isolated mode.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import finalize_scan_contract as FINALIZER
 
 def validate_contract(scan_dir: Path) -> dict[str, Any]:
-    """Return validated canonical documents for one sealed scan."""
+    """Validate the sealed artifacts and return the manifest, original findings, and review summary.
+
+    Legacy finding records are adapted for validation only. ContractError propagates
+    when a required artifact, digest, schema, or evidence check fails.
+    """
 
     scan_dir = FINALIZER._require_scan_directory(scan_dir.expanduser().resolve(strict=True))
     schema_dir = Path(__file__).resolve().parents[1] / "schemas"
@@ -5496,26 +3161,7 @@ def validate_contract(scan_dir: Path) -> dict[str, Any]:
     FINALIZER.validate_against_schema(manifest, schema_dir / "scan-manifest.schema.json")
 
     scan = FINALIZER._require_dict(manifest, "scan", "manifest")
-    findings_ref = scan["findingsRef"]
-    coverage_ref = scan["coverageRef"]
-    findings, findings_bytes = FINALIZER._read_scan_local_json_bytes(
-        scan_dir,
-        findings_ref,
-        findings_ref,
-    )
-    coverage, coverage_bytes = FINALIZER._read_scan_local_json_bytes(
-        scan_dir,
-        coverage_ref,
-        coverage_ref,
-    )
-    FINALIZER._validate_existing_seal(
-        scan_dir,
-        scan,
-        artifact_contents={
-            findings_ref: findings_bytes,
-            coverage_ref: coverage_bytes,
-        },
-    )
+    findings, coverage, _ = FINALIZER._read_sealed_artifacts(scan_dir, scan)
     findings_for_validation = FINALIZER._legacy_sealed_findings_for_validation(findings)
     FINALIZER._validate_findings(manifest, findings_for_validation)
     FINALIZER._validate_derived_finding_identities(manifest, findings)
@@ -5528,10 +3174,11 @@ def validate_contract(scan_dir: Path) -> dict[str, Any]:
         "scanDir": str(scan_dir),
         "manifest": manifest,
         "findings": findings,
-        "coverage": coverage,
+        "review": FINALIZER.review_summary(coverage),
     }
 
 def receipt(validated: dict[str, Any]) -> dict[str, Any]:
+    """Return the CLI success payload with paths to the validated manifest, findings, and report."""
     scan_dir = Path(validated["scanDir"])
     scan = validated["manifest"]["scan"]
     return {
@@ -5539,113 +3186,20 @@ def receipt(validated: dict[str, Any]) -> dict[str, Any]:
         "scanDir": str(scan_dir),
         "manifestPath": str(scan_dir / "scan-manifest.json"),
         "findingsPath": str(scan_dir / scan["findingsRef"]),
-        "coveragePath": str(scan_dir / scan["coverageRef"]),
         "reportPath": str(scan_dir / "report.md"),
     }
 
-def _parse_args(argv: list[str]) -> argparse.Namespace:
+def main(argv: list[str] | None = None) -> int:
+    """Print the validation receipt on success or report a validation error to stderr and return 2."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scan-dir", required=True, type=Path)
-    return parser.parse_args(argv)
-
-def main(argv: list[str] | None = None) -> int:
-    args = _parse_args(sys.argv[1:] if argv is None else argv)
+    args = parser.parse_args(argv)
     try:
         validated = validate_contract(args.scan_dir)
     except (OSError, ValueError, RecursionError) as exc:
         print(f"scan contract validation failed: {exc}", file=sys.stderr)
         return 2
     print(json.dumps(receipt(validated), sort_keys=True))
-    return 0
-
-if __name__ == "__main__":
-    raise SystemExit(main())
-```
-
-## File: `scripts/validate_tracking_source.py`
-
-```python
-#!/usr/bin/env python3
-"""Validate a sealed scan and list or select findings for tracking."""
-
-from __future__ import annotations
-
-import argparse
-import importlib.util
-import sys
-from pathlib import Path
-from types import ModuleType
-from typing import Any
-
-def _load_scan_contract_validator() -> ModuleType:
-    script = Path(__file__).resolve().with_name("validate_scan_contract.py")
-    spec = importlib.util.spec_from_file_location("codex_security_scan_validator", script)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"could not load scan contract validator: {script}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-SCAN_CONTRACT = _load_scan_contract_validator()
-FINALIZER = SCAN_CONTRACT.FINALIZER
-validate_contract = SCAN_CONTRACT.validate_contract
-
-def _select_findings(
-    findings: list[dict[str, Any]],
-    finding_id: str | None,
-    fingerprint: str | None,
-) -> list[dict[str, Any]]:
-    if finding_id is not None:
-        matches = [finding for finding in findings if finding["findingId"] == finding_id]
-    elif fingerprint is not None:
-        matches = [
-            finding for finding in findings if finding["fingerprints"]["primary"] == fingerprint
-        ]
-    else:
-        return findings
-
-    if len(matches) != 1:
-        raise ValueError("the selector did not resolve exactly one finding")
-    return matches
-
-def validate_source(
-    scan_dir: Path,
-    *,
-    finding_id: str | None = None,
-    fingerprint: str | None = None,
-) -> list[dict[str, Any]]:
-    if finding_id is not None and fingerprint is not None:
-        raise ValueError("use only one of --finding-id or --fingerprint")
-
-    validated = validate_contract(scan_dir)
-    findings_document = validated["findings"]
-    return _select_findings(
-        findings_document["findings"],
-        finding_id,
-        fingerprint,
-    )
-
-def _parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("scan_dir", type=Path)
-    selector = parser.add_mutually_exclusive_group()
-    selector.add_argument("--finding-id")
-    selector.add_argument("--fingerprint")
-    return parser.parse_args(argv)
-
-def main(argv: list[str] | None = None) -> int:
-    args = _parse_args(sys.argv[1:] if argv is None else argv)
-    try:
-        findings = validate_source(
-            args.scan_dir,
-            finding_id=args.finding_id,
-            fingerprint=args.fingerprint,
-        )
-    except (OSError, ValueError, RecursionError) as exc:
-        print(f"tracking source preflight failed: {exc}", file=sys.stderr)
-        return 2
-    for finding in findings:
-        print(finding["findingId"])
     return 0
 
 if __name__ == "__main__":
@@ -5661,15 +3215,18 @@ Windows does not implement Python's descriptor-relative ``dir_fd`` APIs or
 ``O_NOFOLLOW``.  This module provides the three operations needed by the scan
 finalizer without falling back to check-then-use path validation.
 
-The implementation opens every directory with ``FILE_FLAG_OPEN_REPARSE_POINT``
-and rejects all reparse points, including junctions.  Directory handles remain
-open without ``FILE_SHARE_DELETE`` for the full operation, which prevents an
+Scan-local reads, writes, and deletes open every directory with
+``FILE_FLAG_OPEN_REPARSE_POINT`` and reject all reparse points, including junctions.
+Directory handles remain open without ``FILE_SHARE_DELETE`` for the full
+operation, which prevents an
 already-validated ancestor from being renamed or replaced during a read,
 write, or delete.  Writes rename the exact temporary-file handle into place so
 an attacker cannot substitute another file at the temporary name.
 
-Importing this module is safe on non-Windows hosts.  Its public operations
-raise ``WindowsScanLocalFileError`` when called anywhere other than Windows.
+The snapshot helper copies junction metadata without opening the link target.
+
+Importing this module and comparing streams work on every platform. Filesystem
+operations raise ``WindowsScanLocalFileError`` outside Windows.
 """
 
 from __future__ import annotations
@@ -5677,23 +3234,39 @@ from __future__ import annotations
 import argparse
 import contextlib
 import ctypes
+import ctypes.wintypes as wintypes
 import errno
+import functools
 import importlib
 import ntpath
 import os
 import secrets
-from collections.abc import Iterator
-from ctypes import wintypes
+import struct
+from collections.abc import Callable, Iterator
 from pathlib import Path, PurePosixPath
+from typing import BinaryIO
 
 _msvcrt = importlib.import_module("msvcrt") if os.name == "nt" else None
 
 class WindowsScanLocalFileError(OSError):
     """Raised when a scan-local operation cannot be completed securely."""
 
+class WindowsScanLocalPathError(WindowsScanLocalFileError):
+    """Raised when a scan-local path fails an integrity check."""
+
 # CreateFile access and sharing flags.
+_DRIVE_FIXED = 3
 _DELETE = 0x00010000
+_FILE_ADD_SUBDIRECTORY = 0x00000004
+_FILE_DELETE_CHILD = 0x00000040
+_CHANGE_ACL = 0x000C0000  # WRITE_DAC | WRITE_OWNER
+_SET_REPARSE_POINT = 0x00000102  # FILE_WRITE_ATTRIBUTES | FILE_WRITE_DATA
+_OUTPUT_RIGHTS = (
+    _DELETE | _FILE_ADD_SUBDIRECTORY | _FILE_DELETE_CHILD | _CHANGE_ACL | _SET_REPARSE_POINT
+)
+_FILE_TRAVERSE = 0x00000020
 _FILE_READ_ATTRIBUTES = 0x00000080
+_READ_CONTROL = 0x00020000
 _GENERIC_READ = 0x80000000
 _GENERIC_WRITE = 0x40000000
 _FILE_SHARE_READ = 0x00000001
@@ -5706,6 +3279,7 @@ _OPEN_EXISTING = 3
 _FILE_ATTRIBUTE_DIRECTORY = 0x00000010
 _FILE_ATTRIBUTE_NORMAL = 0x00000080
 _FILE_ATTRIBUTE_REPARSE_POINT = 0x00000400
+_REPARSE_TAG_NAME_SURROGATE = 0x20000000
 _FILE_FLAG_BACKUP_SEMANTICS = 0x02000000
 _FILE_FLAG_OPEN_REPARSE_POINT = 0x00200000
 
@@ -5713,16 +3287,25 @@ _FILE_FLAG_OPEN_REPARSE_POINT = 0x00200000
 _FILE_RENAME_INFO_CLASS = 3
 _FILE_DISPOSITION_INFO_CLASS = 4
 _FILE_ATTRIBUTE_TAG_INFO_CLASS = 9
+_FILE_ID_INFO_CLASS = 18
 
 _FILE_TYPE_DISK = 0x0001
 _FILE_NAME_OPENED = 0x00000008
 _ERROR_FILE_NOT_FOUND = 2
 _ERROR_PATH_NOT_FOUND = 3
+_ERROR_ACCESS_DENIED = 5
+_ERROR_SHARING_VIOLATION = 32
+_ERROR_LOCK_VIOLATION = 33
 _ERROR_FILE_EXISTS = 80
+_ERROR_INSUFFICIENT_BUFFER = 122
 _ERROR_ALREADY_EXISTS = 183
+_ERROR_DIRECTORY = 267
+_OWNER_SECURITY_INFORMATION = 0x00000001
+_DACL_SECURITY_INFORMATION = 0x00000004
 _MISSING_ERRORS = {_ERROR_FILE_NOT_FOUND, _ERROR_PATH_NOT_FOUND}
 _COLLISION_ERRORS = {_ERROR_FILE_EXISTS, _ERROR_ALREADY_EXISTS}
 _INVALID_HANDLE_VALUE = ctypes.c_void_p(-1).value
+_MAX_COMPARE_CHUNK = 64 * 1024
 _MAX_WRITE_CHUNK = 1024 * 1024
 
 _INVALID_COMPONENT_CHARACTERS = frozenset('<>:"|?*')
@@ -5739,10 +3322,43 @@ _RESERVED_DEVICE_NAMES = {
     *(f"LPT{number}" for number in "¹²³"),
 }
 
+class _FileBasicInfo(ctypes.Structure):
+    _fields_ = [
+        ("CreationTime", ctypes.c_int64),
+        ("LastAccessTime", ctypes.c_int64),
+        ("LastWriteTime", ctypes.c_int64),
+        ("ChangeTime", ctypes.c_int64),
+        ("FileAttributes", wintypes.DWORD),
+    ]
+
 class _FileAttributeTagInfo(ctypes.Structure):
     _fields_ = [
         ("FileAttributes", wintypes.DWORD),
         ("ReparseTag", wintypes.DWORD),
+    ]
+
+class _FileIdInfo(ctypes.Structure):
+    _fields_ = [("VolumeSerialNumber", ctypes.c_uint64), ("FileId", ctypes.c_ubyte * 16)]
+
+class _ByHandleFileInformation(ctypes.Structure):
+    _fields_ = [
+        ("dwFileAttributes", wintypes.DWORD),
+        ("ftCreationTime", wintypes.FILETIME),
+        ("ftLastAccessTime", wintypes.FILETIME),
+        ("ftLastWriteTime", wintypes.FILETIME),
+        ("dwVolumeSerialNumber", wintypes.DWORD),
+        ("nFileSizeHigh", wintypes.DWORD),
+        ("nFileSizeLow", wintypes.DWORD),
+        ("nNumberOfLinks", wintypes.DWORD),
+        ("nFileIndexHigh", wintypes.DWORD),
+        ("nFileIndexLow", wintypes.DWORD),
+    ]
+
+class _SecurityAttributes(ctypes.Structure):
+    _fields_ = [
+        ("length", wintypes.DWORD),
+        ("descriptor", wintypes.LPVOID),
+        ("inherit", wintypes.BOOL),
     ]
 
 class _FileDispositionInfo(ctypes.Structure):
@@ -5785,6 +3401,22 @@ class _OwnedHandle:
 
 if os.name == "nt":
     _kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    _advapi32 = ctypes.WinDLL("advapi32", use_last_error=True)
+    _ntdll = ctypes.WinDLL("ntdll")
+
+    _GetFileSecurityW = _advapi32.GetFileSecurityW
+    _GetFileSecurityW.argtypes = [
+        wintypes.LPCWSTR,
+        wintypes.DWORD,
+        wintypes.LPVOID,
+        wintypes.DWORD,
+        ctypes.POINTER(wintypes.DWORD),
+    ]
+    _GetFileSecurityW.restype = wintypes.BOOL
+
+    _GetDriveTypeW = _kernel32.GetDriveTypeW
+    _GetDriveTypeW.argtypes = [wintypes.LPCWSTR]
+    _GetDriveTypeW.restype = wintypes.UINT
 
     _CreateFileW = _kernel32.CreateFileW
     _CreateFileW.argtypes = [
@@ -5797,6 +3429,10 @@ if os.name == "nt":
         wintypes.HANDLE,
     ]
     _CreateFileW.restype = wintypes.HANDLE
+
+    _ReOpenFile = _kernel32.ReOpenFile
+    _ReOpenFile.argtypes = [wintypes.HANDLE, wintypes.DWORD, wintypes.DWORD, wintypes.DWORD]
+    _ReOpenFile.restype = wintypes.HANDLE
 
     _CreateDirectoryW = _kernel32.CreateDirectoryW
     _CreateDirectoryW.argtypes = [wintypes.LPCWSTR, wintypes.LPVOID]
@@ -5814,6 +3450,12 @@ if os.name == "nt":
         wintypes.DWORD,
     ]
     _GetFileInformationByHandleEx.restype = wintypes.BOOL
+    _GetFileInformationByHandle = _kernel32.GetFileInformationByHandle
+    _GetFileInformationByHandle.argtypes = [
+        wintypes.HANDLE,
+        ctypes.POINTER(_ByHandleFileInformation),
+    ]
+    _GetFileInformationByHandle.restype = wintypes.BOOL
 
     _GetFileType = _kernel32.GetFileType
     _GetFileType.argtypes = [wintypes.HANDLE]
@@ -5847,6 +3489,19 @@ if os.name == "nt":
     ]
     _WriteFile.restype = wintypes.BOOL
 
+    _DeviceIoControl = _kernel32.DeviceIoControl
+    _DeviceIoControl.argtypes = [
+        wintypes.HANDLE,
+        wintypes.DWORD,
+        wintypes.LPVOID,
+        wintypes.DWORD,
+        wintypes.LPVOID,
+        wintypes.DWORD,
+        ctypes.POINTER(wintypes.DWORD),
+        wintypes.LPVOID,
+    ]
+    _DeviceIoControl.restype = wintypes.BOOL
+
     _FlushFileBuffers = _kernel32.FlushFileBuffers
     _FlushFileBuffers.argtypes = [wintypes.HANDLE]
     _FlushFileBuffers.restype = wintypes.BOOL
@@ -5866,8 +3521,8 @@ def _raise_last_error(operation: str, path: Path | None = None) -> None:
     target = f" for {path}" if path is not None else ""
     raise WindowsScanLocalFileError(error, f"{operation}{target}: {detail}", str(path or ""))
 
-def _invalid_path(path: Path | str, reason: str) -> WindowsScanLocalFileError:
-    return WindowsScanLocalFileError(errno.EINVAL, reason, str(path))
+def _invalid_path(path: Path | str, reason: str) -> WindowsScanLocalPathError:
+    return WindowsScanLocalPathError(errno.EINVAL, reason, str(path))
 
 def _validated_parts(relative_path: str) -> tuple[str, ...]:
     """Validate a POSIX contract path against Windows filesystem aliases."""
@@ -5945,6 +3600,33 @@ def _create_file(
         _raise_last_error("CreateFileW", path)
     return _OwnedHandle(int(handle))
 
+def copy_directory_junction(source: Path, destination: Path) -> None:
+    """Copy raw junction data to an empty directory without opening the link target."""
+    # MAXIMUM_REPARSE_DATA_BUFFER_SIZE, including the reparse data header.
+    data = ctypes.create_string_buffer(16 * 1024)
+    size = wintypes.DWORD()
+    for path, write in ((source, False), (destination, True)):
+        handle = _create_file(
+            path,
+            access=_GENERIC_WRITE if write else _FILE_READ_ATTRIBUTES,
+            share=_FILE_SHARE_READ | _FILE_SHARE_WRITE,
+            disposition=_OPEN_EXISTING,
+            flags=_FILE_FLAG_BACKUP_SEMANTICS | _FILE_FLAG_OPEN_REPARSE_POINT,
+        )
+        assert handle is not None
+        with handle:
+            if not _DeviceIoControl(
+                handle.value,
+                0x000900A4 if write else 0x000900A8,  # FSCTL_SET/GET_REPARSE_POINT.
+                data if write else None,
+                size.value if write else 0,
+                None if write else data,
+                0 if write else len(data),
+                ctypes.byref(size),
+                None,
+            ):
+                _raise_last_error("Copy directory junction", path)
+
 def _attributes(handle: int) -> _FileAttributeTagInfo:
     info = _FileAttributeTagInfo()
     if not _GetFileInformationByHandleEx(
@@ -5973,9 +3655,11 @@ def _verify_handle_path(handle: int, expected_path: Path, *, opened_name: bool =
     if actual != expected:
         raise _invalid_path(expected_path, "opened file resolved outside its verified scan path")
 
-def _verify_directory(handle: int, expected_path: Path) -> None:
+def _verify_directory(handle: int, expected_path: Path, checkout: bool = False) -> None:
     info = _attributes(handle)
-    if info.FileAttributes & _FILE_ATTRIBUTE_REPARSE_POINT:
+    if info.FileAttributes & _FILE_ATTRIBUTE_REPARSE_POINT and (
+        not checkout or not info.ReparseTag or info.ReparseTag & _REPARSE_TAG_NAME_SURROGATE
+    ):
         raise _invalid_path(expected_path, "scan-local directories must not be reparse points")
     if not info.FileAttributes & _FILE_ATTRIBUTE_DIRECTORY:
         raise _invalid_path(expected_path, "expected a scan-local directory")
@@ -5995,24 +3679,41 @@ def _canonical_scan_directory(scan_dir: Path) -> tuple[Path, tuple[int, int]]:
         expected = absolute.lstat()
         canonical = absolute.resolve(strict=True)
     except OSError as exc:
+        if exc.errno not in {errno.ENOENT, errno.ENOTDIR, errno.ELOOP}:
+            raise
         raise _invalid_path(scan_dir, "expected an existing scan directory") from exc
     if _normalized_windows_path(absolute) != _normalized_windows_path(canonical):
         raise _invalid_path(scan_dir, "scan directory must be canonical and non-reparse")
     return canonical, (expected.st_dev, expected.st_ino)
 
-def _open_directory(path: Path, *, missing_ok: bool = False) -> _OwnedHandle | None:
-    handle = _create_file(
-        path,
-        access=_FILE_READ_ATTRIBUTES,
-        share=_FILE_SHARE_READ | _FILE_SHARE_WRITE,
-        disposition=_OPEN_EXISTING,
-        flags=_FILE_FLAG_BACKUP_SEMANTICS | _FILE_FLAG_OPEN_REPARSE_POINT,
-        missing_ok=missing_ok,
-    )
+def _open_directory(
+    path: Path,
+    *,
+    missing_ok: bool = False,
+    missing_is_path_error: bool = True,
+    movable: bool = False,
+    checkout: bool = False,
+) -> _OwnedHandle | None:
+    try:
+        handle = _create_file(
+            path,
+            # Attribute-only handles do not participate in Win32 sharing checks.
+            access=_FILE_READ_ATTRIBUTES | (0 if movable else _FILE_TRAVERSE),
+            share=_FILE_SHARE_READ | _FILE_SHARE_WRITE | (_FILE_SHARE_DELETE if movable else 0),
+            disposition=_OPEN_EXISTING,
+            flags=_FILE_FLAG_BACKUP_SEMANTICS | _FILE_FLAG_OPEN_REPARSE_POINT,
+            missing_ok=missing_ok,
+        )
+    except WindowsScanLocalFileError as exc:
+        if exc.errno != _ERROR_DIRECTORY and not (
+            missing_is_path_error and exc.errno in _MISSING_ERRORS
+        ):
+            raise
+        raise _invalid_path(path, f"could not open scan-local directory: {exc}") from exc
     if handle is not None:
         try:
             assert handle.value is not None
-            _verify_directory(handle.value, path)
+            _verify_directory(handle.value, path, checkout)
         except BaseException:
             handle.close()
             raise
@@ -6025,18 +3726,393 @@ def _create_directory(path: Path) -> None:
     if error not in _COLLISION_ERRORS:
         _raise_last_error("CreateDirectoryW", path)
 
+def _directory_security_descriptor(source: Path, information: int) -> ctypes.Array:
+    source_path = _extended_path(source)
+    size = wintypes.DWORD()
+    _GetFileSecurityW(source_path, information, None, 0, ctypes.byref(size))
+    if ctypes.get_last_error() != _ERROR_INSUFFICIENT_BUFFER:
+        _raise_last_error("GetFileSecurityW", source)
+    descriptor = ctypes.create_string_buffer(size.value)
+    if not _GetFileSecurityW(source_path, information, descriptor, size.value, ctypes.byref(size)):
+        _raise_last_error("GetFileSecurityW", source)
+    return descriptor
+
+def _sid_text(sid: wintypes.LPVOID) -> str:
+    value = wintypes.LPWSTR()
+    if not _advapi32.ConvertSidToStringSidW(sid, ctypes.byref(value)):
+        _raise_last_error("ConvertSidToStringSidW")
+    try:
+        return value.value
+    finally:
+        _kernel32.LocalFree(value)
+
+@functools.cache
+def _current_user_sid() -> str:
+    token = wintypes.HANDLE(-4)  # GetCurrentProcessToken pseudo-handle.
+    size = wintypes.DWORD()
+    _advapi32.GetTokenInformation(token, 1, None, 0, ctypes.byref(size))
+    if ctypes.get_last_error() != _ERROR_INSUFFICIENT_BUFFER:
+        _raise_last_error("GetTokenInformation")
+    user = ctypes.create_string_buffer(size.value)
+    if not _advapi32.GetTokenInformation(token, 1, user, size, ctypes.byref(size)):
+        _raise_last_error("GetTokenInformation")
+    return _sid_text(wintypes.LPVOID.from_buffer(user))
+
+def _output_directory_grants(handle: int, path: Path, *, expected_descriptor=None) -> int:
+    """Inspect the descriptor of the opened directory, even if its pathname changes."""
+    owner, acl, descriptor = wintypes.LPVOID(), wintypes.LPVOID(), wintypes.LPVOID()
+    status = _advapi32.GetSecurityInfo(
+        wintypes.HANDLE(handle),
+        1,
+        _OWNER_SECURITY_INFORMATION | _DACL_SECURITY_INFORMATION,
+        ctypes.byref(owner),
+        None,
+        ctypes.byref(acl),
+        None,
+        ctypes.byref(descriptor),
+    )
+    if status:
+        raise ctypes.WinError(status)
+    try:
+        if expected_descriptor is not None and _generated_directory_policy(
+            descriptor
+        ) != _generated_directory_policy(expected_descriptor):
+            raise _invalid_path(path, "new scan directory lacks its private owner or DACL")
+        trusted = {
+            _current_user_sid(),
+            "S-1-5-18",
+            "S-1-5-32-544",  # Current user, SYSTEM, Administrators.
+            "S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464",  # TrustedInstaller.
+        }
+        if _sid_text(owner) not in trusted:
+            raise _invalid_path(path, "Scan output directory must have a trusted owner.")
+        return _output_dacl_grants(acl, trusted, path)
+    finally:
+        _kernel32.LocalFree(descriptor)
+
+def _authenticated_account(sid: wintypes.LPVOID, trustee: str) -> bool:
+    # The Guest account can have its own SID without Authenticated Users membership.
+    if not trustee.startswith("S-1-5-21-") or trustee.endswith("-501"):
+        return False
+    name_size, domain_size, sid_type = (ctypes.pointer(wintypes.DWORD()) for _ in range(3))
+    lookup = _advapi32.LookupAccountSidW
+    lookup(None, sid, None, name_size, None, domain_size, sid_type)
+    if ctypes.get_last_error() != _ERROR_INSUFFICIENT_BUFFER:
+        return False
+    name = ctypes.create_unicode_buffer(name_size.contents.value)
+    domain = ctypes.create_unicode_buffer(domain_size.contents.value)
+    found = lookup(None, sid, name, name_size, domain, domain_size, sid_type)
+    return bool(found) and sid_type.contents.value == 1  # SidTypeUser
+
+def _output_dacl_grants(acl: wintypes.LPVOID, trusted: set[str], path: Path) -> int:
+    if not acl.value:  # A NULL DACL grants full access.
+        return _OUTPUT_RIGHTS
+    # Read ACEs in DACL order. A deny masks future grants for its trustee.
+    denied: dict[str, int] = {}
+    granted = 0
+    for index in range(wintypes.WORD.from_address(acl.value + 4).value):  # ACL.AceCount
+        ace = wintypes.LPVOID()
+        if not _advapi32.GetAce(acl, index, ctypes.byref(ace)):
+            _raise_last_error("GetAce", path)
+        kind, flags, size = struct.unpack("<BBH", ctypes.string_at(ace, 4))
+        if flags & 8 or kind in {10, 12}:  # INHERIT_ONLY or conditional deny.
+            continue
+        entry = ctypes.string_at(ace, size)
+        mask = struct.unpack_from("<I", entry, 4)[0]
+        if mask & 0x10000000:  # GENERIC_ALL
+            mask |= _OUTPUT_RIGHTS
+        if mask & _GENERIC_WRITE:
+            mask |= _FILE_ADD_SUBDIRECTORY | _SET_REPARSE_POINT
+        mask &= _OUTPUT_RIGHTS
+        if not mask:
+            continue
+        offset = 8  # ACE_HEADER and ACCESS_MASK precede the trustee SID.
+        if kind in {5, 6, 11}:
+            object_flags = struct.unpack_from("<I", entry, offset)[0]
+            offset += 4 + 16 * (object_flags & 3).bit_count()
+            if kind == 6 and object_flags & 1:
+                continue  # This deny is scoped to a particular object type.
+        elif kind not in {0, 1, 9}:
+            raise _invalid_path(path, "Unable to evaluate scan output directory permissions.")
+        if len(entry) < offset + 8 or len(entry) < offset + 8 + 4 * entry[offset + 1]:
+            raise _invalid_path(path, "Invalid scan output directory trustee.")
+        sid = wintypes.LPVOID(ace.value + offset)
+        trustee = _sid_text(sid)
+        if trustee in trusted or trustee == "S-1-3-4":  # OWNER RIGHTS applies to the checked owner.
+            continue
+        if kind in {1, 6}:
+            denied[trustee] = denied.get(trustee, 0) | mask
+        else:
+            blocked = denied.get(trustee, 0) | denied.get("S-1-1-0", 0)
+            authenticated = denied.get("S-1-5-11", 0)
+            if mask & authenticated and _authenticated_account(sid, trustee):
+                blocked |= authenticated
+            granted |= mask & ~blocked
+    if granted & _CHANGE_ACL:
+        granted |= _OUTPUT_RIGHTS
+    return granted
+
+def _require_stable_output(path: Path, parent_grants: int, child_grants: int = 0) -> None:
+    can_remove = parent_grants & _FILE_DELETE_CHILD or child_grants & _DELETE
+    can_replace = parent_grants & (_FILE_ADD_SUBDIRECTORY | _SET_REPARSE_POINT)
+    if can_remove and can_replace:
+        raise _invalid_path(path, "Scan output directory can be replaced by another user.")
+
+@contextlib.contextmanager
+def _checked_output_directory(path: Path) -> Iterator[tuple[int | None, int, int]]:
+    """Hold the checked chain and expose its parent, final directory handle and grants."""
+    parent_grants = 0
+    parent = None
+    with contextlib.ExitStack() as pins:
+        for directory in (*reversed(path.parents), path):
+            if parent is None:
+                handle = _create_file(
+                    directory,
+                    access=_FILE_TRAVERSE | _FILE_READ_ATTRIBUTES | _READ_CONTROL,
+                    share=_FILE_SHARE_READ | _FILE_SHARE_WRITE,
+                    disposition=_OPEN_EXISTING,
+                    flags=_FILE_FLAG_BACKUP_SEMANTICS | _FILE_FLAG_OPEN_REPARSE_POINT,
+                )
+                assert handle is not None
+            else:
+                error, child = _relative_output_directory(parent, directory.name)
+                if error:
+                    raise WindowsScanLocalPathError(
+                        error, ctypes.FormatError(error), str(directory)
+                    )
+                handle = _OwnedHandle(child)
+            pins.enter_context(handle)
+            assert handle.value is not None
+            _verify_directory(handle.value, directory)
+            grants = _output_directory_grants(handle.value, directory)
+            _require_stable_output(directory, parent_grants, grants)
+            containing, parent, parent_grants = parent, handle.value, grants
+        yield containing, parent, parent_grants
+
+def require_windows_output_path(path: Path, *, writable_output: bool = False) -> None:
+    with _checked_output_directory(path) as (_, _, grants):
+        if writable_output and grants & _SET_REPARSE_POINT:
+            raise _invalid_path(
+                path, "Another user can turn the output directory into a reparse point when empty."
+            )
+
+DEEP_RESUME_DIRECTORY = ".codex-security-resume"
+
+def deep_resume_output_identity(scan_dir: Path) -> list[int]:
+    """Bind the output and its protected child while every directory is pinned."""
+    retained = scan_dir / DEEP_RESUME_DIRECTORY
+    with _checked_output_directory(retained) as (parent, child, grants):
+        assert parent is not None
+        return _pinned_resume_identity(parent, child, retained, grants)
+
+def _full_directory_id(handle: int, path: Path) -> tuple[int, int] | None:
+    info = _FileIdInfo()
+    if not _GetFileInformationByHandleEx(
+        handle, _FILE_ID_INFO_CLASS, ctypes.byref(info), ctypes.sizeof(info)
+    ):
+        if ctypes.get_last_error() in {50, 87}:  # ERROR_NOT_SUPPORTED or ERROR_INVALID_PARAMETER.
+            return None
+        _raise_last_error("GetFileInformationByHandleEx(FileIdInfo)", path)
+    file_id = int.from_bytes(info.FileId, "little")
+    if not file_id:
+        raise _invalid_path(path, "The resume directory has no stable file identity.")
+    return info.VolumeSerialNumber, file_id
+
+def _resume_directory_id(handle: int, path: Path) -> tuple[int, int]:
+    if (identity := _full_directory_id(handle, path)) is not None:
+        return identity
+    # Some filesystems expose only the legacy 64-bit file index.
+    legacy = _ByHandleFileInformation()
+    if not _GetFileInformationByHandle(handle, ctypes.byref(legacy)):
+        _raise_last_error("GetFileInformationByHandle", path)
+    file_id = (legacy.nFileIndexHigh << 32) | legacy.nFileIndexLow
+    if not file_id:
+        raise _invalid_path(path, "The resume directory has no stable file identity.")
+    return legacy.dwVolumeSerialNumber, file_id
+
+@contextlib.contextmanager
+def pinned_resume_checkout(target: Path) -> Iterator[tuple[int, int] | None]:
+    """Keep the canonical checkout fixed while reading its full native identity and snapshot."""
+    with contextlib.ExitStack() as pins:
+        for directory in (*reversed(target.parents), target):
+            # A source provider directory may carry a reparse tag without redirecting its name.
+            handle = _open_directory(directory, checkout=True)
+            assert handle is not None
+            pins.enter_context(handle)
+        assert handle.value is not None
+        yield _full_directory_id(handle.value, target)
+
+def _pinned_resume_identity(parent: int, child: int, retained: Path, grants: int) -> list[int]:
+    # A nonreplaceable, protected child keeps the scan root nonempty after
+    # the sandbox receives Modify there. The caller holds both directories.
+    if grants:
+        raise _invalid_path(retained, "The retained resume directory must be protected.")
+    return [*_resume_directory_id(parent, retained.parent), *_resume_directory_id(child, retained)]
+
+class _UnicodeString(ctypes.Structure):
+    _fields_ = [
+        ("length", wintypes.USHORT),
+        ("capacity", wintypes.USHORT),
+        ("text", wintypes.LPWSTR),
+    ]
+
+class _ObjectAttributes(ctypes.Structure):
+    _fields_ = [
+        ("length", wintypes.ULONG),
+        ("root", wintypes.HANDLE),
+        ("name", ctypes.POINTER(_UnicodeString)),
+        ("attributes", wintypes.ULONG),
+        ("security", wintypes.LPVOID),
+        ("qos", wintypes.LPVOID),
+    ]
+
+def _relative_output_directory(
+    parent: int, basename: str, descriptor=None, *, rollback_handle: bool = False
+) -> tuple[int, int | None]:
+    """Open or create one component relative to its checked parent without reparsing it."""
+    size = len(basename.encode("utf-16-le", errors="surrogatepass"))
+    if size >= 1 << 16:  # UNICODE_STRING.Length is a byte count in a USHORT.
+        return 206, None
+    name = _UnicodeString(size, size, basename)
+    attributes = _ObjectAttributes(
+        ctypes.sizeof(_ObjectAttributes),
+        parent,
+        ctypes.pointer(name),
+        0x40 | 0x1000,  # OBJ_CASE_INSENSITIVE | OBJ_DONT_REPARSE
+        descriptor,
+        None,
+    )
+    handle = wintypes.HANDLE()
+    io_status = (ctypes.c_void_p * 2)()  # IO_STATUS_BLOCK
+    status = _ntdll.NtCreateFile(
+        ctypes.byref(handle),
+        _FILE_TRAVERSE
+        | _FILE_READ_ATTRIBUTES
+        | _READ_CONTROL
+        | 0x100000
+        | (_DELETE if rollback_handle else 0),
+        ctypes.byref(attributes),
+        ctypes.byref(io_status),
+        None,
+        _FILE_ATTRIBUTE_NORMAL,
+        0 if rollback_handle else _FILE_SHARE_READ | _FILE_SHARE_WRITE,
+        1 if descriptor is None else 2,  # FILE_OPEN or FILE_CREATE
+        0x200021,  # FILE_OPEN_REPARSE_POINT | FILE_SYNCHRONOUS_IO_NONALERT | FILE_DIRECTORY_FILE
+        None,
+        0,
+    )
+    return (_ntdll.RtlNtStatusToDosError(status), None) if status < 0 else (0, handle.value)
+
+def create_windows_output_directory(path: Path, descriptor: wintypes.LPVOID) -> int:
+    with _checked_output_directory(path.parent) as (_, parent, grants):
+        _require_stable_output(path, grants)
+        error, handle = _relative_output_directory(parent, path.name, descriptor)
+        if not error:
+            _close_handle(handle)
+        return error
+
+@contextlib.contextmanager
+def _private_directory_descriptor(path: Path, *, explicit_owner: bool) -> Iterator[wintypes.LPVOID]:
+    _require_windows()
+    # Older supported Python releases ignore mkdir's 0700 mode on Windows.
+    # Apply the same owner/SYSTEM/Administrators policy at creation so a
+    # writable parent never becomes an inheritance window.
+    volume = ctypes.create_unicode_buffer(32768)
+    flags = wintypes.DWORD()
+    if not _kernel32.GetVolumePathNameW(str(path.parent.resolve()), volume, len(volume)):
+        raise ctypes.WinError(ctypes.get_last_error())
+    if not _kernel32.GetVolumeInformationW(
+        volume, None, 0, None, None, ctypes.byref(flags), None, 0
+    ):
+        raise ctypes.WinError(ctypes.get_last_error())
+    if not flags.value & 0x8:  # FILE_PERSISTENT_ACLS
+        raise ValueError("Select a directory on a Windows volume that supports ACLs.")
+
+    sid = _current_user_sid()
+    owner = f"O:{sid}" if explicit_owner else ""
+    dacl = f"{owner}D:P(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;OICI;FA;;;{sid})"
+
+    descriptor = wintypes.LPVOID()
+    if not _advapi32.ConvertStringSecurityDescriptorToSecurityDescriptorW(
+        dacl, 1, ctypes.byref(descriptor), None
+    ):
+        raise ctypes.WinError(ctypes.get_last_error())
+    try:
+        yield descriptor
+    finally:
+        _kernel32.LocalFree(descriptor)
+
+def create_private_directory(path: Path, *, exist_ok: bool, scan_output: bool) -> Path:
+    """Create one Windows directory with a protected inheritable DACL."""
+    with _private_directory_descriptor(path, explicit_owner=not exist_ok) as descriptor:
+        if scan_output:
+            error = create_windows_output_directory(path, descriptor)
+        else:
+            attributes = _SecurityAttributes(ctypes.sizeof(_SecurityAttributes), descriptor, False)
+            error = (
+                0
+                if _CreateDirectoryW(str(path), ctypes.byref(attributes))
+                else ctypes.get_last_error()
+            )
+        if not error:
+            return path if exist_ok else verify_private_scan_root(path, descriptor)
+        if exist_ok and error == 183 and path.is_dir():  # ERROR_ALREADY_EXISTS
+            if scan_output:
+                require_windows_output_path(path)
+            return path
+        raise ctypes.WinError(error)
+
+@contextlib.contextmanager
+def create_deep_resume_output(scan_dir: Path, committed: Callable[[], bool]) -> Iterator[list[int]]:
+    """Retain the exact creation handle through verification and database commit."""
+    retained = scan_dir / DEEP_RESUME_DIRECTORY
+    with (
+        _private_directory_descriptor(retained, explicit_owner=True) as descriptor,
+        _checked_output_directory(scan_dir) as (_, parent, grants),
+    ):
+        _require_stable_output(retained, grants)
+        error, child = _relative_output_directory(
+            parent, retained.name, descriptor, rollback_handle=True
+        )
+        if error:
+            raise ctypes.WinError(error)
+        assert child is not None
+        with _OwnedHandle(child):
+            try:
+                _verify_directory(child, retained)
+                child_grants = _output_directory_grants(
+                    child, retained, expected_descriptor=descriptor
+                )
+                yield _pinned_resume_identity(parent, child, retained, child_grants)
+            except BaseException:
+                if not committed():
+                    _mark_handle_for_deletion(child)
+                raise
+
+def create_directory_with_same_dacl(path: Path, source: Path) -> None:
+    """Create an archive replacement with the original directory's DACL."""
+    _require_windows()
+    descriptor = _directory_security_descriptor(source, _DACL_SECURITY_INFORMATION)
+    error = create_windows_output_directory(path, ctypes.cast(descriptor, wintypes.LPVOID))
+    if error:
+        raise WindowsScanLocalFileError(error, ctypes.FormatError(error), str(path))
+
 @contextlib.contextmanager
 def _locked_parent(
     scan_dir: Path,
     relative_path: str,
     *,
     create: bool,
+    missing_is_path_error: bool = True,
+    expected_root_identity: tuple[int, int] | None = None,
 ) -> Iterator[tuple[Path, str]]:
     """Hold non-deletable handles for every directory in the absolute target path."""
 
     _require_windows()
     parts = _validated_parts(relative_path)
-    root_path, expected_root_identity = _canonical_scan_directory(scan_dir)
+    root_path, observed_root_identity = _canonical_scan_directory(scan_dir)
+    if expected_root_identity is not None and observed_root_identity != expected_root_identity:
+        raise _invalid_path(scan_dir, "scan directory changed after artifact restoration setup")
     handles: list[_OwnedHandle] = []
     try:
         # Absolute-path Win32 calls remain safe only while every ancestor is
@@ -6046,13 +4122,25 @@ def _locked_parent(
             directory_handle = _open_directory(directory_path)
             assert directory_handle is not None
             handles.append(directory_handle)
-        current_root = root_path.lstat()
-        if (current_root.st_dev, current_root.st_ino) != expected_root_identity:
+        try:
+            current_root = root_path.lstat()
+        except OSError as exc:
+            if exc.errno not in {errno.ENOENT, errno.ENOTDIR, errno.ELOOP}:
+                raise
+            raise _invalid_path(
+                scan_dir, f"scan directory changed while it was being opened: {exc}"
+            ) from exc
+        current_root_identity = (current_root.st_dev, current_root.st_ino)
+        if current_root_identity != observed_root_identity or (
+            expected_root_identity is not None and current_root_identity != expected_root_identity
+        ):
             raise _invalid_path(scan_dir, "scan directory changed while it was being opened")
         current_path = root_path
         for component in parts[:-1]:
             current_path /= component
-            child_handle = _open_directory(current_path, missing_ok=create)
+            child_handle = _open_directory(
+                current_path, missing_ok=create, missing_is_path_error=missing_is_path_error
+            )
             if child_handle is None:
                 _create_directory(current_path)
                 child_handle = _open_directory(current_path)
@@ -6063,11 +4151,160 @@ def _locked_parent(
         for handle in reversed(handles):
             handle.close()
 
+def _generated_directory_policy(descriptor: object) -> tuple[str, bool, frozenset[str]]:
+    # Let Windows normalize SID aliases, access masks and inheritance flags in
+    # both descriptors. ACE order is immaterial for our three allow grants.
+    sddl = wintypes.LPWSTR()
+    if not _advapi32.ConvertSecurityDescriptorToStringSecurityDescriptorW(
+        descriptor,
+        1,
+        _OWNER_SECURITY_INFORMATION | _DACL_SECURITY_INFORMATION,
+        ctypes.byref(sddl),
+        None,
+    ):
+        _raise_last_error("ConvertSecurityDescriptorToStringSecurityDescriptorW")
+    try:
+        owner, _, dacl = sddl.value.partition("D:")
+        flags, _, entries = dacl.partition("(")
+        return owner, "P" in flags, frozenset(entries.removesuffix(")").split(")("))
+    finally:
+        _kernel32.LocalFree(sddl)
+
+def verify_private_scan_root(scan_dir: Path, expected_descriptor: object) -> Path:
+    """Verify the new directory's owner and protected grants while the path is pinned."""
+    with _locked_parent(scan_dir, ".security", create=False) as (root_path, _):
+        actual = _directory_security_descriptor(
+            root_path, _OWNER_SECURITY_INFORMATION | _DACL_SECURITY_INFORMATION
+        )
+        if _generated_directory_policy(actual) != _generated_directory_policy(expected_descriptor):
+            raise _invalid_path(scan_dir, "new scan directory lacks its private owner or DACL")
+        return root_path
+
+def scan_root_identity(scan_dir: Path) -> tuple[Path, tuple[int, int]]:
+    """Return a canonical scan root and its identity while holding it fixed."""
+
+    with _locked_parent(scan_dir, ".identity", create=False) as (root_path, _):
+        metadata = root_path.lstat()
+        return root_path, (metadata.st_dev, metadata.st_ino)
+
+@contextlib.contextmanager
+def pinned_root_git_marker(
+    cwd: Path, metadata: Path, *, work_tree: Path | None = None
+) -> Iterator[Path | None]:
+    """Return a short explicit worktree marker while its cwd and Git metadata are pinned."""
+    if work_tree is None:
+        work_tree = cwd
+    if (
+        not cwd.is_absolute()
+        or not metadata.is_absolute()
+        or len(cwd.drive) != 2
+        or len(metadata.drive) != 2
+        or len(work_tree.parts) < 2
+        or cwd.parts[: len(work_tree.parts)] != work_tree.parts
+        or len(metadata.parts) < 2
+        or _GetDriveTypeW(cwd.anchor) != _DRIVE_FIXED
+        or _GetDriveTypeW(metadata.anchor) != _DRIVE_FIXED
+    ):
+        yield None
+        return
+    marker = None
+    with contextlib.ExitStack() as pins:
+        try:
+            for path in (cwd, metadata):
+                _validated_parts(PurePosixPath(*path.parts[1:]).as_posix())
+                # Pin each literal ancestor before opening the next component. Never resolve
+                # a repository-controlled reparse point to find the directory to be pinned.
+                for directory in (*reversed(path.parents), path):
+                    handle = _open_directory(directory)
+                    assert handle is not None
+                    pins.enter_context(handle)
+                assert handle.value is not None
+                if _final_path(handle.value) != _extended_path(path):
+                    raise ValueError("the selected Git directory spelling is not canonical")
+            root_marker = work_tree / ".git"
+            reference = Path(os.path.relpath(root_marker, cwd))
+            if str(root_marker) != str(metadata):
+                # The literal canonical root is already pinned before opening its regular file.
+                fd, leaf = open_read_fd_with_path(work_tree, ".git", "Git metadata pointer")
+                pointer = pins.enter_context(os.fdopen(fd, "rb"))
+                if leaf != ".git":
+                    raise ValueError("the root marker name does not match .git")
+                expected = f"gitdir: {metadata}".encode("utf-8")
+                value = pointer.read(len(expected) + 3).removesuffix(b"\n").removesuffix(b"\r")
+                if value.replace(b"/", b"\\") != expected:
+                    raise ValueError("the root marker does not name the selected Git directory")
+                # A deep scope can make the relative spelling longer than the gitfile itself.
+                if len(os.fsencode(root_marker)) < len(os.fsencode(reference)):
+                    reference = root_marker
+            marker = reference
+        except (OSError, ValueError):
+            pins.close()
+        yield marker
+
+def pin_replay_metadata(
+    pins: contextlib.ExitStack, metadata: Path | None, scratch: Path
+) -> Path | None:
+    """Bind the selected metadata and fresh private Windows scratch before copying into it."""
+    if os.name != "nt" or metadata is None:
+        return None
+    try:
+        with contextlib.ExitStack() as checked:
+            checked.enter_context(_locked_parent(metadata, "HEAD", create=False))
+            checked.enter_context(_locked_parent(scratch.parent, scratch.name, create=False))
+            directory = _create_file(
+                scratch,
+                access=_FILE_TRAVERSE | _FILE_READ_ATTRIBUTES | _READ_CONTROL,
+                share=_FILE_SHARE_READ | _FILE_SHARE_WRITE,
+                disposition=_OPEN_EXISTING,
+                flags=_FILE_FLAG_BACKUP_SEMANTICS | _FILE_FLAG_OPEN_REPARSE_POINT,
+            )
+            assert directory is not None and directory.value is not None
+            checked.enter_context(directory)
+            _verify_directory(directory.value, scratch)
+            if _output_directory_grants(directory.value, scratch):
+                return None
+            pins.enter_context(checked.pop_all())
+    except (OSError, ValueError):
+        return None
+    return metadata
+
+@contextlib.contextmanager
+def pinned_replay_gitfile(checkout: Path, metadata: Path) -> Iterator[Path]:
+    """Keep Git's short metadata pointer outside the replay and immutable while Git uses it."""
+    with _locked_parent(checkout, ".git", create=False):
+        # Git reads this path relative to its unchanged worktree cwd. Both volumes'
+        # literal ancestors are pinned, including the temporary directory above checkout.
+        marker = checkout.parent / "reviewed.git"
+        handle = _create_file(
+            marker,
+            access=_GENERIC_WRITE | _FILE_READ_ATTRIBUTES,
+            share=_FILE_SHARE_READ,
+            disposition=_CREATE_NEW,
+            flags=_FILE_ATTRIBUTE_NORMAL | _FILE_FLAG_OPEN_REPARSE_POINT,
+        )
+        assert handle is not None and handle.value is not None
+        with handle:
+            _verify_regular_file(handle.value, marker)
+            _write_all(handle.value, f"gitdir: {metadata.as_posix()}\n".encode("utf-8"))
+            yield Path("..") / marker.name
+
 def open_read_fd(scan_dir: Path, relative_path: str, context: str) -> int:
     """Open a verified regular file and return an owned binary read descriptor."""
 
+    return open_read_fd_with_path(scan_dir, relative_path, context)[0]
+
+def open_read_fd_with_path(scan_dir: Path, relative_path: str, context: str) -> tuple[int, str]:
+    """Return an owned read descriptor and the scan-relative path with the file's actual leaf name.
+
+    Verify the regular file while holding its parent directories. The caller must
+    close the returned descriptor.
+    """
+
     try:
-        with _locked_parent(scan_dir, relative_path, create=False) as (parent_path, leaf_name):
+        with _locked_parent(scan_dir, relative_path, create=False, missing_is_path_error=False) as (
+            parent_path,
+            leaf_name,
+        ):
             path = parent_path / leaf_name
             handle = _create_file(
                 path,
@@ -6078,23 +4315,44 @@ def open_read_fd(scan_dir: Path, relative_path: str, context: str) -> int:
                 flags=_FILE_FLAG_OPEN_REPARSE_POINT,
             )
             assert handle is not None and handle.value is not None
-            try:
+            with handle:
                 _verify_regular_file(handle.value, path)
+                filename = Path(_final_path(handle.value)).name
+                resolved_path = PurePosixPath(relative_path).with_name(filename).as_posix()
                 raw_handle = handle.detach()
                 try:
                     assert _msvcrt is not None
-                    return _msvcrt.open_osfhandle(raw_handle, os.O_RDONLY | os.O_BINARY)
+                    descriptor = _msvcrt.open_osfhandle(raw_handle, os.O_RDONLY | os.O_BINARY)
+                    return descriptor, resolved_path
                 except BaseException:
                     _close_handle(raw_handle)
                     raise
-            finally:
-                handle.close()
     except WindowsScanLocalFileError as exc:
         raise WindowsScanLocalFileError(
             exc.errno,
             f"{context}: {exc.strerror}",
             exc.filename,
         ) from exc
+
+def file_change_time(descriptor: int) -> int:
+    """Return the filesystem change time. Python's Windows st_ctime is creation time."""
+    assert _msvcrt is not None
+    info = _FileBasicInfo()
+    if not _GetFileInformationByHandleEx(
+        _msvcrt.get_osfhandle(descriptor), 0, ctypes.byref(info), ctypes.sizeof(info)
+    ):
+        _raise_last_error("GetFileInformationByHandleEx(FileBasicInfo)")
+    return info.ChangeTime
+
+def stream_matches_payload(stream: BinaryIO, payload: bytes) -> bool:
+    """Compare bytes from the current stream position to payload, requiring EOF after the final byte."""
+    offset = 0
+    while offset < len(payload):
+        chunk = stream.read(min(_MAX_COMPARE_CHUNK, len(payload) - offset))
+        if not chunk or chunk != payload[offset : offset + len(chunk)]:
+            return False
+        offset += len(chunk)
+    return stream.read(1) == b""
 
 def _write_all(handle: int, payload: bytes) -> None:
     view = memoryview(payload)
@@ -6111,7 +4369,7 @@ def _write_all(handle: int, payload: bytes) -> None:
     if not _FlushFileBuffers(handle):
         _raise_last_error("FlushFileBuffers")
 
-def _rename_handle(handle: int, destination_path: Path) -> None:
+def _rename_handle(handle: int, destination_path: Path, replace_existing: bool) -> None:
     encoded_name = _extended_path(destination_path).encode("utf-16-le")
     file_name_offset = _FileRenameInfo.FileName.offset
     buffer_size = max(
@@ -6120,7 +4378,7 @@ def _rename_handle(handle: int, destination_path: Path) -> None:
     )
     buffer = ctypes.create_string_buffer(buffer_size)
     info = ctypes.cast(buffer, ctypes.POINTER(_FileRenameInfo)).contents
-    info.FlagsOrReplaceIfExists = 1
+    info.FlagsOrReplaceIfExists = int(replace_existing)
     # The fully qualified destination uses a null RootDirectory. Verified
     # directory handles remain open to prevent ancestor replacement.
     info.RootDirectory = None
@@ -6132,6 +4390,8 @@ def _rename_handle(handle: int, destination_path: Path) -> None:
         buffer,
         buffer_size,
     ):
+        if not replace_existing and ctypes.get_last_error() in _COLLISION_ERRORS:
+            raise FileExistsError(errno.EEXIST, os.strerror(errno.EEXIST), str(destination_path))
         _raise_last_error("SetFileInformationByHandle(FileRenameInfo)")
 
 def _mark_handle_for_deletion(handle: int) -> None:
@@ -6144,7 +4404,7 @@ def _mark_handle_for_deletion(handle: int) -> None:
     ):
         _raise_last_error("SetFileInformationByHandle(FileDispositionInfo)")
 
-def _validate_existing_output(path: Path) -> None:
+def _validate_existing_output(path: Path) -> bool:
     handle = _create_file(
         path,
         access=_FILE_READ_ATTRIBUTES,
@@ -6154,53 +4414,231 @@ def _validate_existing_output(path: Path) -> None:
         missing_ok=True,
     )
     if handle is None:
-        return
+        return False
     with handle:
         assert handle.value is not None
         _verify_regular_file(handle.value, path)
+    return True
 
-def atomic_write(scan_dir: Path, relative_path: str, payload: bytes) -> None:
-    """Atomically replace a scan-local regular file with ``payload``."""
+def _existing_output_matches(path: Path, payload: bytes) -> bool:
+    try:
+        handle = _create_file(
+            path,
+            access=_GENERIC_READ | _FILE_READ_ATTRIBUTES,
+            # Deny write and delete sharing while comparing the opened contents.
+            share=_FILE_SHARE_READ,
+            disposition=_OPEN_EXISTING,
+            flags=_FILE_FLAG_OPEN_REPARSE_POINT | _FILE_FLAG_BACKUP_SEMANTICS,
+            missing_ok=True,
+        )
+    except WindowsScanLocalFileError as exc:
+        if exc.errno in {
+            _ERROR_ACCESS_DENIED,
+            _ERROR_SHARING_VIOLATION,
+            _ERROR_LOCK_VIOLATION,
+        }:
+            return False
+        raise
+    if handle is None:
+        return False
+    with handle:
+        assert handle.value is not None
+        _verify_regular_file(handle.value, path)
+        raw_handle = handle.detach()
+        try:
+            assert _msvcrt is not None
+            descriptor = _msvcrt.open_osfhandle(raw_handle, os.O_RDONLY | os.O_BINARY)
+        except BaseException:
+            _close_handle(raw_handle)
+            raise
+        try:
+            with os.fdopen(descriptor, "rb") as stream:
+                if os.fstat(stream.fileno()).st_size != len(payload):
+                    return False
+                return stream_matches_payload(stream, payload)
+        except OSError:
+            return False
 
-    with _locked_parent(scan_dir, relative_path, create=True) as (parent_path, leaf_name):
-        destination_path = parent_path / leaf_name
-        _validate_existing_output(destination_path)
-
-        temp_handle: _OwnedHandle | None = None
-        temp_path: Path | None = None
-        for _ in range(16):
-            temp_path = parent_path / f".{leaf_name}.{secrets.token_hex(8)}.tmp"
+@contextlib.contextmanager
+def _written_temp(destination: Path, payload: bytes) -> Iterator[tuple[Path, _OwnedHandle]]:
+    for _ in range(16):
+        path = destination.with_name(f".{destination.name}.{secrets.token_hex(8)}.tmp")
+        try:
+            handle = _create_file(
+                path,
+                access=_GENERIC_WRITE | _DELETE | _FILE_READ_ATTRIBUTES,
+                share=0,
+                disposition=_CREATE_NEW,
+                flags=_FILE_ATTRIBUTE_NORMAL,
+            )
+        except WindowsScanLocalFileError as exc:
+            if exc.errno in _COLLISION_ERRORS:
+                continue
+            raise
+        assert handle is not None and handle.value is not None
+        with handle:
             try:
-                temp_handle = _create_file(
-                    temp_path,
-                    access=_GENERIC_WRITE | _DELETE | _FILE_READ_ATTRIBUTES,
-                    share=0,
-                    disposition=_CREATE_NEW,
-                    flags=_FILE_ATTRIBUTE_NORMAL,
-                )
-            except WindowsScanLocalFileError as exc:
-                if exc.errno in _COLLISION_ERRORS:
-                    continue
-                raise
-            break
-        if temp_handle is None or temp_path is None:
-            raise WindowsScanLocalFileError(errno.EEXIST, "could not allocate a unique temp file")
-
-        with temp_handle:
-            assert temp_handle.value is not None
-            try:
-                _verify_regular_file(temp_handle.value, temp_path)
-                _write_all(temp_handle.value, payload)
-                _rename_handle(temp_handle.value, destination_path)
-                _verify_regular_file(temp_handle.value, destination_path)
+                _verify_regular_file(handle.value, path)
+                _write_all(handle.value, payload)
+                yield path, handle
             except BaseException:
-                # Deleting by handle removes the exact temp/output file and cannot
-                # be redirected through a swapped path or reparse point.
-                try:
-                    _mark_handle_for_deletion(temp_handle.value)
-                except OSError:
-                    pass
+                if handle.value is not None:
+                    with contextlib.suppress(OSError):
+                        _mark_handle_for_deletion(handle.value)
                 raise
+        return
+    raise WindowsScanLocalFileError(errno.EEXIST, "could not allocate a unique temp file")
+
+def _stage_metadata(
+    handle: _OwnedHandle, *, close_writer: bool = False
+) -> tuple[os.stat_result, int]:
+    # Windows can update LastWriteTime on last writer close. Observe the same
+    # file across that close, independently of whatever is now at the name.
+    assert handle.value is not None and _msvcrt is not None
+    raw = _ReOpenFile(
+        handle.value,
+        _FILE_READ_ATTRIBUTES,
+        _FILE_SHARE_READ | _FILE_SHARE_WRITE | _FILE_SHARE_DELETE,
+        0,
+    )
+    if raw is None or raw == _INVALID_HANDLE_VALUE:
+        _raise_last_error("ReOpenFile")
+    with _OwnedHandle(raw) as observer:
+        descriptor = _msvcrt.open_osfhandle(raw, os.O_RDONLY | os.O_BINARY)
+        observer.detach()
+        try:
+            if close_writer:
+                handle.close()
+            try:
+                return os.fstat(descriptor), file_change_time(descriptor)
+            except BaseException:
+                if close_writer:
+                    # The observer still identifies the staged file after the writer closed.
+                    cleanup = _ReOpenFile(
+                        raw, _DELETE, _FILE_SHARE_READ | _FILE_SHARE_WRITE | _FILE_SHARE_DELETE, 0
+                    )
+                    if cleanup and cleanup != _INVALID_HANDLE_VALUE:
+                        with _OwnedHandle(cleanup), contextlib.suppress(OSError):
+                            _mark_handle_for_deletion(cleanup)
+                raise
+        finally:
+            os.close(descriptor)
+
+@contextlib.contextmanager
+def stage_write(
+    scan_dir: Path,
+    relative_path: str,
+    payload: bytes,
+    *,
+    expected_root_identity: tuple[int, int] | None = None,
+    replace_existing: bool = False,
+) -> Iterator[Callable[..., tuple[os.stat_result, int]]]:
+    """Flush a patch and keep only a movable handle to its root across admission."""
+    if expected_root_identity is None:
+        root = scan_dir.lstat()
+        expected_root_identity = (root.st_dev, root.st_ino)
+    with _locked_parent(
+        scan_dir, relative_path, create=True, expected_root_identity=expected_root_identity
+    ) as (parent, leaf):
+        destination = parent / leaf
+        if _validate_existing_output(destination) and not replace_existing:
+            raise FileExistsError(errno.EEXIST, os.strerror(errno.EEXIST), str(destination))
+        root_handle = _open_directory(scan_dir, movable=True)
+        assert root_handle is not None
+        try:
+            with _written_temp(destination, payload) as (temp, writer):
+                staged, change_time = _stage_metadata(writer, close_writer=True)
+        except BaseException:
+            root_handle.close()
+            raise
+
+    location = scan_dir
+    published = False
+
+    @contextlib.contextmanager
+    def open_stage() -> Iterator[tuple[_OwnedHandle, Path]]:
+        with _locked_parent(
+            location, relative_path, create=False, expected_root_identity=expected_root_identity
+        ) as (parent, leaf):
+            path = parent / temp.name
+            handle = _create_file(
+                path,
+                access=_DELETE | _FILE_READ_ATTRIBUTES,
+                share=0,
+                disposition=_OPEN_EXISTING,
+                flags=_FILE_FLAG_OPEN_REPARSE_POINT | _FILE_FLAG_BACKUP_SEMANTICS,
+            )
+            assert handle is not None and handle.value is not None
+            with handle:
+                _verify_regular_file(handle.value, path)
+                current, changed = _stage_metadata(handle)
+                if not (
+                    os.path.samestat(staged, current)
+                    and staged.st_size == current.st_size
+                    and staged.st_mtime_ns == current.st_mtime_ns
+                    and change_time == changed
+                ):
+                    raise _invalid_path(path, "staged patch changed before publication")
+                yield handle, parent / leaf
+
+    def publish(directory: Path | None = None) -> tuple[os.stat_result, int]:
+        nonlocal location, published
+        if directory is not None:
+            location = directory
+        with open_stage() as (handle, destination):
+            assert handle.value is not None
+            _rename_handle(handle.value, destination, replace_existing)
+            published = True
+            _verify_regular_file(handle.value, destination)
+            return _stage_metadata(handle)
+
+    with root_handle:
+        try:
+            yield publish
+        finally:
+            if not published:
+                # A different workbench database may own the archive move.
+                assert root_handle.value is not None
+                with contextlib.suppress(OSError):
+                    location = Path(_final_path(root_handle.value))
+                    while True:
+                        try:
+                            with open_stage() as (handle, _):
+                                assert handle.value is not None
+                                _mark_handle_for_deletion(handle.value)
+                            break
+                        except OSError:
+                            # A move can land between locating the root and fixing its parents.
+                            moved_to = Path(_final_path(root_handle.value))
+                            if moved_to == location:
+                                break
+                            location = moved_to
+
+def atomic_write(
+    scan_dir: Path,
+    relative_path: str,
+    payload: bytes,
+    *,
+    expected_root_identity: tuple[int, int] | None = None,
+    replace_existing: bool = True,
+) -> None:
+    """Atomically publish ``payload`` to a scan-local regular file."""
+    with _locked_parent(
+        scan_dir, relative_path, create=True, expected_root_identity=expected_root_identity
+    ) as (parent, leaf):
+        destination = parent / leaf
+        if _validate_existing_output(destination) and not replace_existing:
+            raise FileExistsError(errno.EEXIST, os.strerror(errno.EEXIST), str(destination))
+        if (
+            replace_existing
+            and expected_root_identity is not None
+            and _existing_output_matches(destination, payload)
+        ):
+            return
+        with _written_temp(destination, payload) as (_, handle):
+            assert handle.value is not None
+            _rename_handle(handle.value, destination, replace_existing)
+            _verify_regular_file(handle.value, destination)
 
 def unlink_if_exists(scan_dir: Path, relative_path: str) -> None:
     """Delete a scan-local regular file or reparse-point leaf without following it."""
@@ -6229,17 +4667,14 @@ def unlink_if_exists(scan_dir: Path, relative_path: str) -> None:
             _verify_handle_path(handle.value, path, opened_name=is_reparse_point)
             _mark_handle_for_deletion(handle.value)
 
-def main() -> None:
-    argparse.ArgumentParser(description=__doc__).parse_args()
-
 if __name__ == "__main__":
-    main()
+    argparse.ArgumentParser(description=__doc__).parse_args()
 ```
 
 ## File: `scripts/workbench/__init__.py`
 
 ```python
-"""Focused Codex Security workbench operation modules."""
+"""Persist workbench state, transfer scan ownership, and recover results from saved artifacts."""
 ```
 
 ## File: `scripts/workbench/handoff.py`
@@ -6251,7 +4686,6 @@ from __future__ import annotations
 
 import argparse
 import sqlite3
-from collections.abc import Callable
 from typing import Any
 
 from workbench_validation import optional_text, require_uuid
@@ -6259,10 +4693,36 @@ from workbench_validation import optional_text, require_uuid
 RECOVERY_HANDOFF_TOKEN_PREFIX = "recovery_"
 
 def require_handoff_claim_token(value: str) -> str:
+    """Normalize the claim UUID, retaining the prefix that marks a recovery handoff."""
     recovery_token = value.startswith(RECOVERY_HANDOFF_TOKEN_PREFIX)
     token = value.removeprefix(RECOVERY_HANDOFF_TOKEN_PREFIX) if recovery_token else value
     normalized = require_uuid(token, "claim-token")
     return f"{RECOVERY_HANDOFF_TOKEN_PREFIX}{normalized}" if recovery_token else normalized
+
+def require_tokenless_scan_owner(
+    connection: sqlite3.Connection,
+    scan: sqlite3.Row,
+    model_thread_id: str | None,
+) -> None:
+    """Check model callers against a recorded owner. Trusted local callers omit model_thread_id."""
+    if model_thread_id is None or scan["handoff_claim_token"] is not None:
+        return
+    if scan["handoff_status"] == "pending":
+        raise SystemExit(
+            "This Codex Security scan handoff has not been delivered. "
+            "Claim the pending Codex Security scan handoff before continuing."
+        )
+    owner = scan["continuation_thread_id"] or scan["deep_scan_owner_thread_id"]
+    if owner is None:
+        owner = connection.execute(
+            "SELECT thread_id FROM workspaces WHERE id = ?", (scan["workspace_id"],)
+        ).fetchone()[0]
+    if owner is None:
+        completed_import = scan["launch_kind"] == "import" and scan["status"] == "complete"
+        if not completed_import:
+            raise SystemExit("This scan is awaiting its owning Codex thread.")
+    elif owner != model_thread_id:
+        raise SystemExit("This scan requires its owning Codex thread.")
 
 def require_current_continuation(
     scan: sqlite3.Row,
@@ -6270,6 +4730,7 @@ def require_current_continuation(
     *,
     error_message: str,
 ) -> None:
+    """Require the current claim token, allowing a tokenless continuation for legacy delivered scans."""
     if (
         scan["handoff_status"] == "delivered"
         and scan["handoff_claim_token"] is None
@@ -6286,6 +4747,7 @@ def validate_handoff_delivery_thread(
     requesting_thread_id: str,
     claim_token: str,
 ) -> None:
+    """Require the owning thread for delivery unless the caller presents a recovery claim token."""
     if owning_thread_id != requesting_thread_id and not claim_token.startswith(
         RECOVERY_HANDOFF_TOKEN_PREFIX
     ):
@@ -6294,21 +4756,23 @@ def validate_handoff_delivery_thread(
         )
 
 def claim_handoff_delivery(
+    wb: Any,
     connection: sqlite3.Connection,
     args: argparse.Namespace,
-    *,
-    now: Callable[[], str],
-    require_scan: Callable[[sqlite3.Connection, str], sqlite3.Row],
-    stale_claim_before: Callable[[], str],
-    workspace_state: Callable[[sqlite3.Connection, str], dict[str, Any]],
 ) -> dict[str, Any]:
+    """Claim a pending handoff and return the current workspace state.
+
+    The first claim wins. When take_over_stale is requested, replacing an expired
+    claim also clears the continuation and deep scan owner. Retrying the same claim
+    or losing a competing claim returns the workspace state without changing ownership.
+    """
     scan_id = require_uuid(args.scan_id, "scan-id")
     claim_token = require_handoff_claim_token(args.claim_token)
-    timestamp = now()
+    timestamp = wb.now()
     with connection:
-        scan = require_scan(connection, scan_id)
+        scan = wb.require_scan(connection, scan_id)
         if scan["handoff_status"] != "pending" or scan["handoff_claim_token"] == claim_token:
-            return workspace_state(connection, scan["workspace_id"])
+            return wb.workspace_state(connection, scan["workspace_id"])
         updated = connection.execute(
             """
             UPDATE scans
@@ -6337,26 +4801,24 @@ def claim_handoff_delivery(
                 timestamp,
                 scan["id"],
                 int(args.take_over_stale),
-                stale_claim_before(),
+                wb.stale_claim_before(),
             ),
         )
         if updated.rowcount != 1:
-            return workspace_state(connection, scan["workspace_id"])
-    return workspace_state(connection, scan["workspace_id"])
+            return wb.workspace_state(connection, scan["workspace_id"])
+    return wb.workspace_state(connection, scan["workspace_id"])
 
 def release_handoff_delivery(
+    wb: Any,
     connection: sqlite3.Connection,
     args: argparse.Namespace,
-    *,
-    now: Callable[[], str],
-    require_scan: Callable[[sqlite3.Connection, str], sqlite3.Row],
-    workspace_state: Callable[[sqlite3.Connection, str], dict[str, Any]],
 ) -> dict[str, Any]:
+    """Release a matching pending claim, detach its continuation, and return the workspace state."""
     scan_id = require_uuid(args.scan_id, "scan-id")
     claim_token = require_handoff_claim_token(args.claim_token)
-    timestamp = now()
+    timestamp = wb.now()
     with connection:
-        scan = require_scan(connection, scan_id)
+        scan = wb.require_scan(connection, scan_id)
         connection.execute(
             """
             UPDATE scans
@@ -6368,25 +4830,27 @@ def release_handoff_delivery(
             """,
             (timestamp, scan["id"], claim_token),
         )
-    return workspace_state(connection, scan["workspace_id"])
+    return wb.workspace_state(connection, scan["workspace_id"])
 
 def attach_scan_continuation_thread(
+    wb: Any,
     connection: sqlite3.Connection,
     args: argparse.Namespace,
-    *,
-    now: Callable[[], str],
-    require_scan: Callable[[sqlite3.Connection, str], sqlite3.Row],
-    workspace_state: Callable[[sqlite3.Connection, str], dict[str, Any]],
 ) -> dict[str, Any]:
+    """Bind the claimed scan to a continuation and return its workspace state.
+
+    An immediate transaction serializes ownership changes. Reattaching the same
+    thread is idempotent. A different thread or mismatched claim token raises SystemExit.
+    """
     scan_id = require_uuid(args.scan_id, "scan-id")
     claim_token = require_handoff_claim_token(args.claim_token)
     thread_id = optional_text(args.thread_id, maximum=512)
     if thread_id is None:
         raise SystemExit("Codex Security continuation thread ID is required.")
     connection.execute("BEGIN IMMEDIATE")
-    try:
-        timestamp = now()
-        scan = require_scan(connection, scan_id)
+    with connection:
+        timestamp = wb.now()
+        scan = wb.require_scan(connection, scan_id)
         if scan["handoff_claim_token"] != claim_token:
             raise SystemExit("Codex Security continuation thread claim token does not match.")
         if scan["continuation_thread_id"] is not None:
@@ -6395,8 +4859,8 @@ def attach_scan_continuation_thread(
                     "Codex Security scan continuation is owned by another continuation."
                 )
             connection.commit()
-            return workspace_state(connection, scan["workspace_id"])
-        updated = connection.execute(
+            return wb.workspace_state(connection, scan["workspace_id"])
+        connection.execute(
             """
             UPDATE scans
             SET continuation_thread_id = ?,
@@ -6409,32 +4873,27 @@ def attach_scan_continuation_thread(
             """,
             (thread_id, thread_id, timestamp, scan["id"], claim_token),
         )
-        if updated.rowcount != 1:
-            raise SystemExit("Codex Security continuation thread could not be attached.")
-        connection.commit()
-    except BaseException:
-        connection.rollback()
-        raise
-    return workspace_state(connection, scan["workspace_id"])
+    return wb.workspace_state(connection, scan["workspace_id"])
 
 def mark_handoff_delivered(
+    wb: Any,
     connection: sqlite3.Connection,
     args: argparse.Namespace,
-    *,
-    now: Callable[[], str],
-    require_scan: Callable[[sqlite3.Connection, str], sqlite3.Row],
-    require_workspace: Callable[[sqlite3.Connection, str], sqlite3.Row],
-    workspace_state: Callable[[sqlite3.Connection, str], dict[str, Any]],
 ) -> dict[str, Any]:
+    """Record delivery for the pending claim and return the workspace state.
+
+    For standard scans this resets preflight progress. The same claim can confirm
+    delivery again. A conflicting claim or invalid requesting thread raises SystemExit.
+    """
     scan_id = require_uuid(args.scan_id, "scan-id")
     claim_token = require_handoff_claim_token(args.claim_token)
     thread_id = optional_text(args.thread_id, maximum=512)
     connection.execute("BEGIN IMMEDIATE")
-    try:
-        timestamp = now()
-        scan = require_scan(connection, scan_id)
+    with connection:
+        timestamp = wb.now()
+        scan = wb.require_scan(connection, scan_id)
         if thread_id is not None:
-            workspace = require_workspace(connection, scan["workspace_id"])
+            workspace = wb.require_workspace(connection, scan["workspace_id"])
             validate_handoff_delivery_thread(
                 scan["continuation_thread_id"] or workspace["thread_id"],
                 thread_id,
@@ -6445,35 +4904,1546 @@ def mark_handoff_delivered(
                 raise SystemExit(
                     "Codex Security handoff delivery is owned by another continuation."
                 )
-            connection.commit()
-            return workspace_state(connection, scan["workspace_id"])
-        updated = connection.execute(
-            """
-            UPDATE scans
-            SET handoff_status = 'delivered', handoff_claimed_at = NULL,
-                updated_at = ?
-            WHERE id = ? AND handoff_status = 'pending'
-                AND handoff_claim_token = ?
-            """,
-            (timestamp, scan["id"], claim_token),
-        )
-        if updated.rowcount != 1:
-            raise SystemExit("Codex Security handoff delivery could not be recorded.")
-        if scan["mode"] != "deep":
-            connection.execute(
+        else:
+            updated = connection.execute(
                 """
-                UPDATE scan_progress
-                SET phase_items_total = 0, phase_items_completed = 0,
-                    phase_progress_unit = 'checks',
-                    preflight_checks_total = 0, preflight_checks_completed = 0,
+                UPDATE scans
+                SET handoff_status = 'delivered', handoff_claimed_at = NULL,
                     updated_at = ?
-                WHERE scan_id = ?
+                WHERE id = ? AND handoff_status = 'pending'
+                    AND handoff_claim_token = ?
                 """,
-                (timestamp, scan["id"]),
+                (timestamp, scan["id"], claim_token),
             )
-        connection.commit()
-    except BaseException:
-        connection.rollback()
-        raise
-    return workspace_state(connection, scan["workspace_id"])
+            if updated.rowcount != 1:
+                raise SystemExit("Codex Security handoff delivery could not be recorded.")
+            if scan["mode"] != "deep":
+                connection.execute(
+                    """
+                    UPDATE scan_progress
+                    SET phase_items_total = 0, phase_items_completed = 0,
+                        phase_progress_unit = 'checks',
+                        preflight_checks_total = 0, preflight_checks_completed = 0,
+                        updated_at = ?
+                    WHERE scan_id = ?
+                    """,
+                    (timestamp, scan["id"]),
+                )
+        began_review = (
+            args.return_context
+            and thread_id is not None
+            and args.occurrence_id is None
+            and scan["mode"] == "standard"
+            and scan["status"] == "running"
+            and scan["canceled_at"] is None
+            and scan["phase"] == "preflight"
+        )
+        if began_review:
+            connection.execute(
+                "UPDATE scans SET phase = 'threat_model', updated_at = ? WHERE id = ?",
+                (timestamp, scan_id),
+            )
+            connection.execute(
+                """UPDATE scan_progress SET phase_items_total = 0, phase_items_completed = 0,
+                   phase_progress_unit = NULL, updated_at = ? WHERE scan_id = ?""",
+                (timestamp, scan_id),
+            )
+    if not args.return_context:
+        return wb.workspace_state(connection, scan["workspace_id"])
+    context = wb.get_scan(
+        connection,
+        argparse.Namespace(
+            scan_id=scan_id,
+            occurrence_id=args.occurrence_id,
+            model_thread_id=thread_id or "",
+            context_claim_token=claim_token,
+        ),
+    )
+    if began_review:
+        context["beganStandardReview"] = True
+    return context
+```
+
+## Not embedded
+
+- `scripts/workbench/retained_coverage.py` (145 KB, too large to embed — read it in the repository)
+
+## File: `scripts/workbench/retained_records.py`
+
+```python
+"""Identify and recover records retained from saved scan evidence."""
+
+from __future__ import annotations
+
+import copy
+import re
+import unicodedata
+from collections import Counter
+from collections.abc import Iterator
+from pathlib import Path
+from typing import Any
+
+from finalize_scan_contract import (
+    ContractError,
+    _has_identity_text,
+    _read_json,
+    _recover_unsealed_coverage,
+    _recover_unsealed_findings,
+    _require_safe_json_value,
+    _validate_schema_node,
+    finding_candidate_id,
+)
+from finalize_scan_contract import _schema_values_equal as same_raw_value
+from workbench.saved_coverage import _coverage_rows, _saved_coverage_id
+from workbench.saved_sources import _digest, _encoded
+from workbench_coverage_receipts import resolve_coverage_receipts
+
+_FINDING_IDENTITY_SCHEMA = _read_json(
+    Path(__file__).resolve().parents[2] / "schemas" / "findings.schema.json"
+)["properties"]["findings"]["items"]["properties"]["identity"]
+
+def _finding_identity(finding: dict[str, Any]) -> Any:
+    provenance = finding.get("provenance")
+    if isinstance(provenance, dict) and "preservedIdentity" in provenance:
+        try:
+            _validate_schema_node(
+                provenance["preservedIdentity"], _FINDING_IDENTITY_SCHEMA, "finding.identity"
+            )
+        except ContractError:
+            pass
+        else:
+            return provenance["preservedIdentity"]
+    return finding.get("identity")
+
+def _finding_key(finding: dict[str, Any], owner: str | None = None) -> str:
+    # Wording and evidence may improve between checkpoints; distinct source locations
+    # must not collide merely because two workers chose the same semantic identity.
+    provenance = finding.get("provenance")
+    identity = _finding_identity(finding)
+    if not isinstance(identity, dict):
+        normalized = dict(finding)
+        normalized.pop("identity", None)
+        _ensure_finding_identity(normalized)
+        identity = normalized["identity"]
+    owner = provenance.get("workerId", owner) if isinstance(provenance, dict) else owner
+    parts = [finding.get("ruleId"), identity, _finding_locations(finding)]
+    if owner is not None and finding_candidate_id(finding):
+        parts.append(owner)
+    return _digest(parts)
+
+def _finding_locations(finding: dict[str, Any]) -> list[tuple[Any, Any, Any]]:
+    locations = finding.get("locations", [])
+    return sorted(
+        (
+            (
+                location.get("path"),
+                location.get("startLine"),
+                location.get("endLine", location.get("startLine")),
+            )
+            for location in (locations if isinstance(locations, list) else [])
+            if isinstance(location, dict)
+        ),
+        key=_encoded,
+    )
+
+def _worker_candidate_key(
+    worker_id: str, candidate_id: str, finding: dict[str, Any]
+) -> tuple[str, str, Any, Any, Any]:
+    """Identify one worker-local candidate without merging unrelated locations."""
+    identity = _finding_identity(finding)
+    if not isinstance(identity, dict):
+        normalized = dict(finding)
+        _ensure_finding_identity(normalized)
+        identity = normalized.get("identity")
+    anchor = identity.get("anchor") if isinstance(identity, dict) else None
+    instance = identity.get("instance") if isinstance(identity, dict) else None
+    return worker_id, candidate_id, finding.get("ruleId"), anchor, instance
+
+def _finding_content(finding: dict[str, Any]) -> dict[str, Any]:
+    """Return substantive finding content without generated identity or provenance."""
+    return {
+        key: value
+        for key, value in finding.items()
+        if key not in {"findingId", "occurrenceId", "fingerprints", "identity", "provenance"}
+    }
+
+def _identity_candidate(finding: dict[str, Any]) -> str | None:
+    return next(
+        (
+            value
+            for section in (finding.get("extensions"), finding.get("provenance"))
+            if isinstance(section, dict) and _has_identity_text(value := section.get("candidateId"))
+        ),
+        None,
+    )
+
+def _ensure_finding_identity(finding: Any) -> None:
+    _ensure_finding_identities([finding])
+
+def _semantic_identifier(value: str, fallback: str) -> str:
+    normalized = re.sub(r"[\u0300-\u036f]", "", unicodedata.normalize("NFKD", value))
+    identifier = re.sub(r"[^a-z0-9._/-]+", "-", normalized.lower())
+    return re.sub(r"^[^a-z0-9]+|-+$", "", identifier) or fallback
+
+def _semantic_identity_key(finding: dict[str, Any], identity: Any = None) -> bytes:
+    identity = finding.get("identity") if identity is None else identity
+    if isinstance(identity, dict):
+        identity = {key: identity.get(key) for key in ("anchor", "instance")}
+    return _encoded([finding.get("ruleId"), identity])
+
+def _ensure_finding_identities(findings: list[Any], *, deep: bool = False) -> None:
+    """Use the same candidate, anchor and sibling rules as draft publication."""
+    anchors: dict[int, Any] = {}
+    for index, finding in enumerate(findings):
+        if not isinstance(finding, dict):
+            continue
+        identity = finding.get("identity")
+        if "identity" in finding:
+            anchors[index] = identity.get("anchor") if isinstance(identity, dict) else None
+            continue
+        candidate = _identity_candidate(finding)
+        anchors[index] = _semantic_identifier(
+            candidate or str(finding.get("title") or "finding"), f"finding-{index + 1}"
+        )
+    counts = Counter(
+        _digest([findings[index].get("ruleId"), anchor]) for index, anchor in anchors.items()
+    )
+
+    authored = {
+        _semantic_identity_key(finding)
+        for finding in findings
+        if isinstance(finding, dict) and "identity" in finding
+    }
+    generated = []
+    for index, anchor in anchors.items():
+        finding = findings[index]
+        if "identity" in finding:
+            continue
+        identity = {"anchor": anchor}
+        extensions = finding.get("extensions")
+        sibling = next(
+            (
+                value
+                for field in ("reportId", "ledgerRowId")
+                if isinstance(extensions, dict)
+                and _has_identity_text(value := extensions.get(field))
+            ),
+            None,
+        )
+        if sibling or counts[_digest([finding.get("ruleId"), anchor])] > 1:
+            identity["instance"] = _semantic_identifier(
+                sibling or str(finding.get("title") or "finding"), f"finding-{index + 1}"
+            )
+        finding["identity"] = identity
+        generated.append(finding)
+
+    reserved = {
+        _semantic_identity_key(finding) for finding in findings if isinstance(finding, dict)
+    }
+    used = set() if deep else authored.copy()
+    generated_ids = {id(finding) for finding in generated}
+    for finding in findings if deep else generated:
+        key = _semantic_identity_key(finding)
+        if key in used or (id(finding) in generated_ids and key in authored):
+            identity = finding["identity"]
+            if id(finding) not in generated_ids:
+                finding.setdefault("provenance", {}).setdefault(
+                    "preservedIdentity", copy.deepcopy(identity)
+                )
+            base_instance = identity.get("instance", "saved")
+            suffix = 2
+            while True:
+                identity["instance"] = f"{base_instance}-{suffix}"
+                key = _semantic_identity_key(finding)
+                if key not in reserved:
+                    reserved.add(key)
+                    break
+                suffix += 1
+        used.add(key)
+
+def _retained_findings(finding: dict[str, Any]) -> Iterator[dict[str, Any]]:
+    """Yield canonical and historical findings without trusting candidate IDs."""
+    pending = [finding]
+    seen: set[int] = set()
+    while pending:
+        current = pending.pop()
+        marker = id(current)
+        if marker in seen:
+            continue
+        seen.add(marker)
+        yield current
+        provenance = current.get("provenance")
+        if not isinstance(provenance, dict):
+            continue
+        previous = provenance.get("previousFindings")
+        if isinstance(previous, list):
+            pending.extend(item for item in reversed(previous) if isinstance(item, dict))
+        sources = provenance.get("sourceFindings")
+        if isinstance(sources, list):
+            pending.extend(
+                source["finding"]
+                for source in reversed(sources)
+                if isinstance(source, dict) and isinstance(source.get("finding"), dict)
+            )
+
+def _append_previous_finding(
+    item: dict[str, Any], finding: dict[str, Any], *, clone: bool = False
+) -> None:
+    if not isinstance(item.get("previousFindings"), list):
+        item["previousFindings"] = []
+    history = item["previousFindings"]
+    if not any(
+        isinstance(previous, dict)
+        and _finding_key(previous) == _finding_key(finding)
+        and _finding_content(previous) == _finding_content(finding)
+        for previous in history
+    ):
+        history.append(copy.deepcopy(finding) if clone else finding)
+
+def _recover_preserved_worker_source(
+    scan_dir, relative, scan_id, binding, worker_id, worker, draft, warnings
+):
+    """Normalize findings and receipt references in the draft and return diagnostics for discarded findings."""
+    discarded_findings = []
+    # Recover imported records without relaxing canonical parent validation.
+    if "complete" in draft and not isinstance(draft["complete"], bool):
+        draft["complete"] = False
+        warnings.append(f"{relative}: Invalid complete marker; retained as a progress checkpoint.")
+    schema_dir = Path(__file__).resolve().parents[2] / "schemas"
+    if "threatModel" in draft:
+        try:
+            model = draft["threatModel"]
+            if isinstance(model, dict):
+                model = {**model, "origin": "recovered"}
+            schema = _read_json(schema_dir / "scan-manifest.schema.json")
+            _validate_schema_node(
+                model,
+                schema["properties"]["scan"]["properties"]["threatModel"],
+                "threatModel",
+                schema,
+            )
+            _require_safe_json_value(model, "threatModel")
+        except ContractError as exc:
+            draft.pop("threatModel")
+            warnings.append(f"{relative}: Skipped malformed threat model: {exc}.")
+    directory = Path(relative).parent
+    if directory.name == "checkpoints":
+        directory = directory.parent
+    recovered_findings = []
+    for index, finding in enumerate(draft["findings"]):
+        needs_identity = isinstance(finding, dict) and "identity" not in finding
+        _ensure_finding_identity(finding)
+        recovered = {"scanId": scan_id, "findings": [finding]}
+        source_warnings: list[str] = []
+        discarded = _recover_unsealed_findings(
+            {"scan": {"id": scan_id, "target": binding["target"]}},
+            recovered,
+            schema_dir,
+            scan_dir / directory,
+            source_warnings,
+            current_contract=True,
+        )
+        if discarded:
+            discarded_findings.extend(discarded)
+        for recovered_finding in recovered["findings"]:
+            if needs_identity:
+                # Reconcile anonymous revisions before assigning sibling identities.
+                recovered_finding.pop("identity", None)
+            writeup = recovered_finding.pop("writeup", None)
+            if writeup is not None:
+                source_warnings.append(
+                    "Retained worker writeup at "
+                    f"{directory.as_posix()}/{writeup['reportPath']}; "
+                    "the parent report renders this finding inline."
+                )
+        recovered_findings.extend(recovered["findings"])
+        warnings.extend(f"{relative} finding {index + 1}: {warning}" for warning in source_warnings)
+    draft["findings"] = recovered_findings
+    for field in ("surfaces", "explicitExclusions", "deferred", "openQuestions"):
+        rows = draft["reviewState"].get(field)
+        if not isinstance(rows, list):
+            continue
+        for index, row in enumerate(rows):
+            if field == "openQuestions" and isinstance(row, str):
+                row = rows[index] = {"question": row}
+            if not isinstance(row, dict):
+                continue
+            row["workerId"] = worker_id
+            if field == "surfaces":
+                row["receiptRefs"] = resolve_coverage_receipts(
+                    scan_dir,
+                    row,
+                    worker,
+                    relative,
+                )
+    return discarded_findings
+
+def _recover_preserved_worker_coverage(
+    scan_dir, relative, worker_id, draft, discarded_findings, warnings
+):
+    """Repair coverage in the draft, append source warnings, and return whether coverage was discarded."""
+    discarded_coverage = False
+    for field in ("surfaces", "explicitExclusions", "deferred"):
+        for row in _coverage_rows(draft["reviewState"], field):
+            if isinstance(row, dict):
+                row.setdefault("id", _saved_coverage_id(row))
+                if field == "surfaces":
+                    row.setdefault("receiptRefs", [])
+    source_warnings = []
+    discarded_fields = _recover_unsealed_coverage(
+        draft["reviewState"],
+        Path(__file__).resolve().parents[2] / "schemas",
+        scan_dir,
+        source_warnings,
+        discarded_findings,
+        # Reconcile local IDs and valid outcomes against worker history below.
+        worker_draft=True,
+    )
+    if discarded_fields & {
+        "surfaces",
+        "explicitExclusions",
+        "deferred",
+        "resolvedDeferred",
+    }:
+        discarded_coverage = True
+    for row in draft["reviewState"]["deferred"]:
+        row["workerId"] = worker_id
+    warnings.extend(f"{relative}: {warning}" for warning in source_warnings)
+    return discarded_coverage
+
+def identifiers(value: dict[str, Any]) -> tuple[Any, Any]:
+    """Return the report ID and ledger row ID from extensions, using None for missing or blank IDs."""
+    extensions = value.get("extensions")
+    return tuple(
+        identifier if _has_identity_text(identifier) else None
+        for identifier in (
+            extensions.get(field) if isinstance(extensions, dict) else None
+            for field in ("reportId", "ledgerRowId")
+        )
+    )
+
+def distinct_reports(left: dict[str, Any] | None, right: dict[str, Any] | None) -> bool:
+    """Check the latest observations for conflicting report IDs or ledger row IDs."""
+    return (
+        left is not None
+        and right is not None
+        and any(
+            a is not None and b is not None and a != b
+            for a, b in zip(identifiers(left["latest"]), identifiers(right["latest"]), strict=True)
+        )
+    )
+
+def raw_owner(value: dict[str, Any], source_owner: str | None) -> str | None:
+    """Return the source owner, falling back to the worker ID recorded in finding provenance."""
+    if source_owner is not None:
+        return source_owner
+    provenance = value.get("provenance", {})
+    owner = provenance.get("workerId")
+    return owner if isinstance(owner, str) else source_owner
+
+def raw_scope(value: dict[str, Any]) -> tuple[Any, ...]:
+    """Return the rule, path, and line range of the first location used to match anonymous reports."""
+    # Match scanFindingIdentity's primary location for anonymous reports.
+    location = value["locations"][0]
+    return (
+        value.get("ruleId"),
+        location["path"],
+        location["startLine"],
+        location.get("endLine"),
+    )
+
+def same_raw_finding(left: dict[str, Any], right: dict[str, Any]) -> bool:
+    """Check whether semantic identities match or, in their absence, whether candidate and report IDs are compatible."""
+    if isinstance(left.get("identity"), dict) and isinstance(right.get("identity"), dict):
+        return _semantic_identity_key(left, _finding_identity(left)) == _semantic_identity_key(
+            right, _finding_identity(right)
+        )
+    candidates = (_identity_candidate(left), _identity_candidate(right))
+    if all(candidates) and candidates[0] != candidates[1]:
+        return False
+    pairs = list(zip(identifiers(left), identifiers(right), strict=True))
+    if any(a is not None for a, _ in pairs) and any(b is not None for _, b in pairs):
+        if not any(a is not None and b is not None for a, b in pairs) or any(
+            a is not None and b is not None and a != b for a, b in pairs
+        ):
+            return False
+    return True
+
+def same_raw_content(left: dict[str, Any], right: dict[str, Any]) -> bool:
+    """Compare substantive finding fields while ignoring identity, provenance, and report-tracking IDs."""
+
+    def content(value: dict[str, Any]) -> dict[str, Any]:
+        result = _finding_content(value)
+        if isinstance(result.get("extensions"), dict):
+            result["extensions"] = {
+                key: value
+                for key, value in result["extensions"].items()
+                if key not in {"candidateId", "reportId", "ledgerRowId"}
+            }
+            if not result["extensions"]:
+                result.pop("extensions")
+        return result
+
+    return same_raw_value(content(left), content(right))
+
+def contains_raw_value(current: Any, previous: Any) -> bool:
+    """Check whether the current JSON value retains every part of the previous value.
+
+    Match dictionary values by key and list elements by content, regardless of order.
+    """
+    if isinstance(previous, dict):
+        return isinstance(current, dict) and all(
+            key in current and contains_raw_value(current[key], value)
+            for key, value in previous.items()
+        )
+    if isinstance(previous, list):
+        return isinstance(current, list) and all(
+            any(contains_raw_value(item, value) for item in current) for value in previous
+        )
+    return isinstance(current, bool) == isinstance(previous, bool) and current == previous
+
+def _saved_outcome_receipts(scan_dir, relative, worker, field, item, coverage_schema):
+    normalized = dict(item)
+    if field == "surfaces":
+        normalized.setdefault("id", _saved_coverage_id(item))
+        normalized.setdefault("receiptRefs", [])
+        if worker is not None:
+            normalized["receiptRefs"] = resolve_coverage_receipts(
+                scan_dir, normalized, worker, relative
+            )
+        verified = {
+            "completeness": "partial",
+            "surfaces": [normalized],
+            "explicitExclusions": [],
+            "deferred": [],
+        }
+        _recover_unsealed_coverage(
+            verified, Path(__file__).resolve().parents[2] / "schemas", scan_dir, [], []
+        )
+        if (
+            not verified["surfaces"]
+            or verified["surfaces"][0]["disposition"] != item["disposition"]
+        ):
+            return None
+        normalized = verified["surfaces"][0]
+    try:
+        _validate_schema_node(normalized, coverage_schema[field]["items"], f"coverage.{field}")
+    except ContractError:
+        return None
+    return tuple(normalized.get("receiptRefs", [])) if field == "surfaces" else ()
+
+def _conflicting_outcome_receipts(coverage, scan_dir, receipts):
+    # Only a recovered surface can reserve the spelling that invalidates a second row.
+    surfaces = _coverage_rows(coverage, "surfaces")
+    projected = {
+        "surfaces": [dict(row) if isinstance(row, dict) else row for row in surfaces],
+        "deferred": [],
+        "explicitExclusions": [],
+    }
+    _recover_unsealed_coverage(
+        projected, Path(__file__).resolve().parents[2] / "schemas", scan_dir, [], []
+    )
+    kept = {ref.lower(): ref for row in projected["surfaces"] for ref in row["receiptRefs"]}
+    for row in surfaces:
+        if not (
+            isinstance(row, dict)
+            and isinstance(row.get("candidateId"), str)
+            and row.get("disposition") in ("rejected", "not_applicable")
+            and isinstance(row.get("receiptRefs"), list)
+        ):
+            continue
+        normalized = {Path(ref).as_posix() for ref in row["receiptRefs"] if isinstance(ref, str)}
+        if losing := {ref for ref in normalized & receipts if kept.get(ref.lower(), ref) != ref}:
+            return losing
+    return set()
+
+def _saved_candidate_outcomes(
+    scan_dir,
+    current_drafts,
+    valid_finding,
+    coverage_candidate,
+    candidate_order,
+    workers_by_id,
+    coverage_schema,
+):
+    """Return saved candidate outcomes with their evidence and the ordering of pending candidates by owner."""
+    pending_candidate_orders: dict[tuple[str | None, str], tuple[int, int]] = {}
+    outcomes = []
+    for relative, draft, owner in current_drafts:
+        reported_candidates = {
+            finding_candidate_id(finding)
+            for finding in draft["findings"]
+            if isinstance(finding, dict) and valid_finding(finding)
+        }
+        pending_candidates = set()
+        for field in ("deferred", "surfaces"):
+            for item in _coverage_rows(draft["reviewState"], field):
+                if isinstance(item, dict) and (
+                    field == "deferred" or item.get("disposition") == "needs_follow_up"
+                ):
+                    if (pending := coverage_candidate(owner, item)) is not None:
+                        if (
+                            owner is not None
+                            and pending[0] == owner
+                            and pending[1] in reported_candidates
+                        ):
+                            continue
+                        pending_candidates.add(pending)
+                        order = candidate_order(relative, pending[0], item)
+                        pending_candidate_orders[pending] = max(
+                            pending_candidate_orders.get(pending, order), order
+                        )
+        for finding in draft["findings"]:
+            if (
+                isinstance(finding, dict)
+                and valid_finding(finding)
+                and (candidate_id := finding_candidate_id(finding))
+            ):
+                outcomes.append(
+                    (
+                        relative,
+                        owner,
+                        candidate_id,
+                        "reported",
+                        candidate_order(relative, owner),
+                        (),
+                    )
+                )
+        for field in ("surfaces", "explicitExclusions"):
+            for item in _coverage_rows(draft["reviewState"], field):
+                if (
+                    isinstance(item, dict)
+                    and isinstance(item.get("candidateId"), str)
+                    and item.get("disposition") in ("reported", "rejected", "not_applicable")
+                    and (candidate := coverage_candidate(owner, item)) is not None
+                    and (item["disposition"] != "reported" or candidate[1] in reported_candidates)
+                    and (candidate not in pending_candidates or item["disposition"] == "reported")
+                ):
+                    receipts = ()
+                    if item["disposition"] != "reported":
+                        receipts = _saved_outcome_receipts(
+                            scan_dir,
+                            relative,
+                            workers_by_id.get(owner),
+                            field,
+                            item,
+                            coverage_schema,
+                        )
+                        if receipts is None:
+                            continue
+                    outcomes.append(
+                        (
+                            relative,
+                            candidate[0],
+                            candidate[1],
+                            item["disposition"],
+                            candidate_order(relative, candidate[0], item),
+                            receipts,
+                        )
+                    )
+    return outcomes, pending_candidate_orders
+
+def _competing_rejection_receipts(outcomes, all_sources, source_surface_receipts):
+    receipt_spellings: dict[str, set[str]] = {}
+    for _, _, _, _, _, receipts in outcomes:
+        for ref in receipts:
+            receipt_spellings.setdefault(ref.lower(), set()).add(ref)
+    if receipt_spellings and any(
+        isinstance(ref, str)
+        and (spellings := receipt_spellings.get(Path(ref).as_posix().lower())) is not None
+        and spellings != {Path(ref).as_posix()}
+        for relative, draft, owner in all_sources
+        for row in _coverage_rows(draft["reviewState"], "surfaces")
+        if isinstance(row, dict)
+        for refs in (source_surface_receipts(relative, row),)
+        if isinstance(refs, list)
+        for ref in refs
+    ):
+        return {ref for spellings in receipt_spellings.values() for ref in spellings}
+    return set()
+```
+
+## File: `scripts/workbench/runtime_toml.py`
+
+```python
+"""Expose tomllib to workbench callers, using tomli on Python 3.10.
+
+Import exits with setup guidance when the runtime is too old or the backport is missing.
+"""
+
+import sys
+
+__all__ = ["tomllib"]
+
+if sys.version_info < (3, 10):
+    raise SystemExit(
+        "Codex Security requires Python 3.10 or later. Update the Codex managed runtime "
+        "or set PYTHON to a supported interpreter, then restart Codex."
+    )
+
+try:
+    import tomllib as tomllib
+except ModuleNotFoundError:  # Python 3.10
+    try:
+        import tomli as tomllib
+    except ModuleNotFoundError as exc:
+        raise SystemExit(
+            "Codex Security requires tomli with Python 3.10. Install tomli for the selected "
+            "interpreter or set PYTHON to Python 3.11 or later, then restart Codex."
+        ) from exc
+```
+
+## File: `scripts/workbench/saved_coverage.py`
+
+```python
+"""Project saved worker coverage and reconcile its published parent copies."""
+
+from __future__ import annotations
+
+import copy
+import hashlib
+import json
+from collections.abc import Iterator
+from pathlib import Path
+from typing import Any
+
+from finalize_scan_contract import (
+    ContractError,
+    _normalize_unsealed_open_questions,
+    _read_json,
+    _require_portable_relative_path,
+    _validate_resolved_deferred,
+    _validate_schema_node,
+)
+
+def _has_candidate_metadata(row: dict[str, Any]) -> bool:
+    return any(key in row for key in ("candidateId", "candidate", "finding"))
+
+def _coverage_rows(coverage: dict[str, Any], field: str) -> list[Any]:
+    rows = coverage.get(field, [])
+    return rows if isinstance(rows, list) else []
+
+def _inherit_coverage_sources(
+    row: Any,
+    originals: list[Any],
+    sources: dict[int, tuple[dict[str, Any], list[str]]],
+) -> None:
+    if not isinstance(row, dict):
+        return
+    for original in originals:
+        saved = sources.get(id(original))
+        if saved is None:
+            continue
+        # Retain the object as well as its ID while copies are reconciled.
+        paths = sources.setdefault(id(row), (row, []))[1]
+        for relative in saved[1]:
+            if relative not in paths:
+                paths.append(relative)
+
+def _saved_coverage_id(item: dict[str, Any]) -> str:
+    if candidate_id := item.get("candidateId"):
+        return candidate_id
+    payload = json.dumps(
+        item, ensure_ascii=True, allow_nan=False, sort_keys=True, separators=(",", ":")
+    ).encode()
+    return f"saved-{hashlib.sha256(payload).hexdigest()[:16]}"
+
+def _project_worker_coverage_row(item: Any, worker_id: str | None, field: str) -> Any:
+    row = copy.deepcopy(item)
+    if worker_id is None or not isinstance(row, dict):
+        return row
+    row["workerId"] = worker_id
+    if field == "openQuestions":
+        return row
+    # Reconcile raw checkpoint identities first. Anonymous output rows use the
+    # existing content identity, never their position in an earlier snapshot.
+    row.setdefault("id", _saved_coverage_id(row))
+    if isinstance(row.get("id"), str):
+        row["id"] = f"{worker_id}/{row['id']}"
+    if field == "deferred" and isinstance(row.get("surfaceIds"), list):
+        row["surfaceIds"] = [
+            f"{worker_id}/{identity}" if isinstance(identity, str) else identity
+            for identity in row["surfaceIds"]
+        ]
+    return row
+
+def _coverage_comparison_row(row: Any, field: str) -> Any:
+    if field == "surfaces" and isinstance(row, dict):
+        row = {"receiptRefs": [], **row}
+        if isinstance(row["receiptRefs"], list):
+            refs = []
+            for ref in row["receiptRefs"]:
+                if isinstance(ref, str):
+                    try:
+                        ref = _require_portable_relative_path(ref, "Saved coverage receipt")
+                    except ContractError:
+                        pass  # Leave malformed refs to the existing per-record recovery.
+                refs.append(ref)
+            row["receiptRefs"] = refs
+        return row
+    if field == "openQuestions":
+        coverage = {"openQuestions": [copy.deepcopy(row)]}
+        _normalize_unsealed_open_questions(coverage)
+        return next(iter(coverage["openQuestions"]), row)
+    return row
+
+def _worker_coverage_sources(
+    rows: list[Any], worker_id: str, field: str
+) -> Iterator[tuple[Any, Any]]:
+    """Match accepted aggregate IDs without changing raw recovery identities."""
+    reserved = {
+        row["id"] for row in rows if isinstance(row, dict) and isinstance(row.get("id"), str)
+    }
+    emitted: set[str] = set()
+    for index, original in enumerate(rows):
+        row = original
+        if isinstance(row, dict) and field != "openQuestions":
+            row = row.copy()
+            generated = not isinstance(row.get("id"), str)
+            identity = str(index) if generated else row["id"]
+            base = identity
+            if generated or identity in emitted:
+                suffix = 2
+                while identity in reserved:
+                    identity = f"{base}-{suffix}"
+                    suffix += 1
+            reserved.add(identity)
+            emitted.add(identity)
+            row["id"] = identity
+        qualified = _project_worker_coverage_row(row, worker_id, field)
+        yield _coverage_comparison_row(qualified, field), original
+
+_Row = dict[str, Any]
+_LegacySurfaceLink = tuple[_Row, str, _Row, _Row, _Row | None]
+
+def prepare_saved_coverage_projection(
+    sources: list[tuple[str, dict[str, Any], str | None]],
+    parent: dict[str, Any] | None,
+    source_order: dict[str, tuple[int, int]],
+    *,
+    project_worker_coverage: bool,
+    receipt_resolver,
+    preserve_canonical_parent=False,
+) -> tuple[bool, list[_LegacySurfaceLink]]:
+    """Put bound worker evidence in parent coordinates without changing source files."""
+    if preserve_canonical_parent:
+        return False, []
+    # Older parent publications use worker/id identities. Reconcile those copies
+    # against their bound sources before projecting accepted attempt provenance.
+    workers = {owner for _, _, owner in sources if owner is not None}
+    parents = [
+        draft
+        for _, draft, owner in sorted(
+            sources, key=lambda source: source_order[source[0]], reverse=True
+        )
+        if owner is None
+    ]
+    if parent is not None:
+        # Prefer the selected parent over historical copies of a task's surface.
+        parents.insert(0, parent)
+    fields = ("surfaces", "explicitExclusions", "deferred", "openQuestions")
+    if not project_worker_coverage:
+        project_worker_coverage = any(
+            isinstance(row, dict)
+            and isinstance(row.get("workerId"), str)
+            and row["workerId"] in workers
+            and (
+                field == "openQuestions"
+                or (isinstance(row.get("id"), str) and row["id"].startswith(f"{row['workerId']}/"))
+            )
+            for draft in parents
+            for field in fields
+            for row in _coverage_rows(draft["reviewState"], field)
+        )
+    if not project_worker_coverage:
+        return False, []
+    missing = object()
+    original_owners = {}
+    projected: dict[str, list[tuple[Any, Any]]] = {field: [] for field in fields}
+    surface_links: list[_LegacySurfaceLink] = []
+    for relative, draft, owner in sources:
+        if owner is None:
+            continue
+        for field in fields:
+            rows = _coverage_rows(draft["reviewState"], field)
+            for index, row in enumerate(rows):
+                if field == "openQuestions" and isinstance(row, str):
+                    row = {"question": row}
+                    rows[index] = row
+                if not isinstance(row, dict):
+                    continue
+                original_owners.setdefault(id(row), row.get("workerId", missing))
+                row["workerId"] = owner
+                if field == "surfaces":
+                    row["receiptRefs"] = receipt_resolver(relative, row, owner)
+            projected[field].extend(_worker_coverage_sources(rows, owner, field))
+
+    def originals(field: str, row: Any):
+        comparison = _coverage_comparison_row(row, field)
+        return (
+            original
+            for aggregate, original in projected[field]
+            if aggregate is comparison or aggregate == comparison
+        )
+
+    # A canonical aggregate contains copies of the same worker evidence. Let
+    # the existing per-worker chronology reconcile those originals exactly once.
+    # Keep parent-only evidence when its bound worker source is unavailable.
+    for draft in parents:
+        review = draft["reviewState"]
+        if not review:
+            continue
+        for field in fields:
+            rows = review.get(field, [])
+            if not isinstance(rows, list):
+                continue
+            remaining = []
+            for row in rows:
+                matches = originals(field, row)
+                first = next(matches, missing)
+                if first is missing:
+                    remaining.append(row)
+                    continue
+                if (
+                    field != "surfaces"
+                    or not isinstance(row, dict)
+                    or not isinstance(row.get("id"), str)
+                ):
+                    continue
+                surface_sources = [first, *matches]
+                for task in _coverage_rows(review, "deferred"):
+                    if (
+                        isinstance(task, dict)
+                        and isinstance(task.get("surfaceIds"), list)
+                        and row["id"] in task["surfaceIds"]
+                    ):
+                        source_task = next(originals("deferred", task), None)
+                        surface_links.extend(
+                            (task, row["id"], source, row, source_task)
+                            for source in surface_sources
+                        )
+            review[field] = remaining
+    # A selected parent may also be the result registered for a worker.
+    # Restore the retained input rows after comparing the published worker IDs.
+    for _, draft, owner in sources:
+        if owner is not None:
+            for field in fields:
+                for row in _coverage_rows(draft["reviewState"], field):
+                    if isinstance(row, dict):
+                        previous = original_owners[id(row)]
+                        if previous is missing:
+                            row.pop("workerId", None)
+                        else:
+                            row["workerId"] = previous
+    return True, surface_links
+
+class SavedCoverageProjection:
+    """Track which worker supplied a coverage row so reconstructed links can resolve to the retained surface."""
+
+    def __init__(self, project_worker_coverage, legacy_surface_links, projection_origins):
+        self.project_worker_coverage = project_worker_coverage
+        self.legacy_surface_links = legacy_surface_links
+        self.legacy_source_outputs: dict[int, dict[str, Any]] = {}
+        self.worker_row_owners: dict[int, str] = {}
+        self.worker_surface_outputs: dict[tuple[str, str], dict[int, dict[str, Any]]] = {}
+        self.projection_origins = projection_origins
+
+    def source_owner(self, row, fallback=None):
+        origin = self.projection_origins.get(id(row))
+        return origin[0] if origin is not None else fallback
+
+    def record_coverage_owner(self, retained, original, owner, field):
+        if self.project_worker_coverage and owner is not None and isinstance(retained, dict):
+            self.worker_row_owners[id(retained)] = owner
+            if field == "surfaces" and isinstance(original.get("id"), str):
+                self.worker_surface_outputs.setdefault((owner, original["id"]), {})[
+                    id(retained)
+                ] = retained
+
+    def retain_coverage_row(self, output, item, owner, field, original=None, qualified=False):
+        retained = (
+            copy.deepcopy(item)
+            if qualified or not self.project_worker_coverage
+            else _project_worker_coverage_row(item, owner, field)
+        )
+        if retained not in output:
+            output.append(retained)
+        retained = output[output.index(retained)]
+        if isinstance(retained, dict) and original is not None:
+            self.legacy_source_outputs[id(original)] = retained
+        self.record_coverage_owner(
+            retained, original if original is not None else item, owner, field
+        )
+        return retained
+
+    def retained_record(self, coverage, field, item, canonical_record):
+        item = canonical_record(field, item)
+        if field == "surfaces":
+            # Canonical IDs can change while source content and ownership stay the same.
+            item = {key: value for key, value in item.items() if key != "id"}
+        for record in _coverage_rows(coverage, field):
+            if not isinstance(record, dict):
+                continue
+            original = dict(canonical_record(field, record))
+            if "id" not in item:
+                original.pop("id", None)  # Canonical publication can assign an ID.
+            if field == "openQuestions":
+                # Compare the same canonical form that publication writes.
+                previous_question = {"openQuestions": [original]}
+                source_question = {"openQuestions": [item]}
+                _normalize_unsealed_open_questions(previous_question)
+                _normalize_unsealed_open_questions(source_question)
+                if previous_question == source_question:
+                    return record
+            elif original == item:
+                return record
+        return None
+
+    def linked_surface(self, surface, outputs, named_outputs):
+        owner = self.source_owner(surface, surface.get("workerId"))
+        retained = outputs.get(id(surface))
+        if retained is None and isinstance(owner, str) and isinstance(surface.get("id"), str):
+            matches = named_outputs.get((owner, surface["id"]), {})
+            if len(matches) == 1:
+                retained = next(iter(matches.values()))
+        return retained
+
+    def is_reviewed_worker(self, canonical, worker):
+        if (
+            worker is None
+            or not {"status", "merge_state", "attempt"}.issubset(worker.keys())
+            or worker["status"] != "succeeded"
+            or worker["merge_state"] != "merged"
+        ):
+            return False
+        return any(
+            isinstance(review, dict)
+            and review.get("workerId") == worker["id"]
+            and review.get("attempt") == worker["attempt"]
+            for review in _coverage_rows(canonical, "reviews")
+        )
+
+    def repair_reviewed_surface(self, coverage, canonical, worker, source, surface):
+        if not self.is_reviewed_worker(canonical, worker):
+            return None
+        published = next(
+            (
+                row
+                for row in canonical.get("surfaces", [])
+                if isinstance(row, dict)
+                and isinstance(provenance := row.get("provenance"), dict)
+                and provenance.get("workerId") == worker["id"]
+                and provenance.get("attempt") == worker["attempt"]
+                and provenance.get("sourceId") == surface.get("id")
+                and row.get("disposition") == surface.get("disposition")
+            ),
+            None,
+        )
+        if published is None:
+            return None
+        retained = next(
+            (
+                row
+                for row in coverage["surfaces"]
+                if row.get("id") == published.get("id")
+                and row.get("provenance") == published.get("provenance")
+            ),
+            None,
+        )
+        if retained is None:
+            retained = copy.deepcopy(published)
+        # Receipt repair can recover earlier evidence without replacing the
+        # accepted surface's identity, disposition, or host-owned provenance.
+        retained["receiptRefs"] = surface["receiptRefs"]
+        return self.retain_coverage_row(
+            coverage["surfaces"], retained, worker["id"], "surfaces", source, True
+        )
+
+    def task_surface_links(self, candidates):
+        for task, published_id, surface, parent_surface, task_source in self.legacy_surface_links:
+            expected = None
+            if task_source is not None:
+                task_owner = self.source_owner(task_source)
+                expected = self.legacy_source_outputs.get(id(task_source))
+                if expected is None:
+                    expected = _project_worker_coverage_row(task_source, task_owner, "deferred")
+            for owner, retained in candidates:
+                if retained == task or (
+                    expected is not None
+                    and (
+                        retained is expected
+                        or (
+                            owner == task_owner
+                            and isinstance(retained, dict)
+                            and retained.get("id") == expected.get("id")
+                            and isinstance(retained.get("surfaceIds"), list)
+                            and published_id in retained["surfaceIds"]
+                        )
+                    )
+                ):
+                    yield retained, published_id, surface, parent_surface
+
+    def finalize(
+        self,
+        coverage,
+        canonical_rows,
+        digest,
+        *,
+        preserve_canonical_parent,
+        all_sources,
+        source_order,
+        coverage_sources,
+        surface_ids_by_source,
+        retained_surface_rows,
+        resolved,
+    ):
+
+        source_owners = {relative: owner for relative, _, owner in all_sources}
+        recovered_worker_ids = {
+            worker_id for _, _, worker_id in all_sources if worker_id is not None
+        }
+        surface_positions: dict[str, int] = {}
+        resolved_surface_targets: dict[tuple[str | None, str], list[str]] = {}
+
+        def remember_surface_id(item: dict[str, Any], local_id: str) -> None:
+            final_id = item["id"]
+            surface_positions.setdefault(final_id, len(surface_positions))
+            shadowed_alias = (
+                self.project_worker_coverage
+                and id(item) not in named_surface_outputs
+                and (named := worker_surfaces.get((self.worker_row_owners.get(id(item)), local_id)))
+                is not None
+                and id(named) in named_surface_outputs
+            )
+            for relative in coverage_sources.get(id(item), (item, []))[1]:
+                # A candidate-derived ID cannot claim a link explicitly naming another surface.
+                if not shadowed_alias:
+                    targets = surface_ids_by_source.setdefault((relative, local_id), [])
+                    if final_id not in targets:
+                        targets.append(final_id)
+                candidate_id = item.get("candidateId")
+                if isinstance(candidate_id, str):
+                    key = (source_owners[relative], candidate_id)
+                    if key in resolved and resolved[key] == item.get("disposition"):
+                        targets = resolved_surface_targets.setdefault(key, [])
+                        if final_id not in targets:
+                            targets.append(final_id)
+
+        retained_legacy_surface_links: dict[
+            int, tuple[dict[str, Any], dict[str, dict[str, Any]]]
+        ] = {}
+        output_tasks = _coverage_rows(coverage, "deferred")
+        task_candidates = [(self.worker_row_owners.get(id(row)), row) for row in output_tasks]
+        for task, published_id, surface, _ in self.task_surface_links(task_candidates):
+            retained_surface = self.linked_surface(
+                surface,
+                self.legacy_source_outputs,
+                self.worker_surface_outputs,
+            )
+            if retained_surface is not None and isinstance(retained_surface.get("id"), str):
+                _, links = retained_legacy_surface_links.setdefault(id(task), (task, {}))
+                links.setdefault(published_id, retained_surface)
+        # A newer worker checkpoint may omit a surface still needed by a retained
+        # task. Restore its parent copy only when no worker replacement survived.
+        for task, published_id, surface, parent_surface in self.task_surface_links(task_candidates):
+            _, links = retained_legacy_surface_links.setdefault(id(task), (task, {}))
+            if published_id not in links and isinstance(coverage.get("surfaces"), list):
+                retained_surface = self.retain_coverage_row(
+                    coverage["surfaces"], parent_surface, None, "surfaces"
+                )
+                self.record_coverage_owner(
+                    retained_surface,
+                    surface,
+                    self.source_owner(surface, surface.get("workerId")),
+                    "surfaces",
+                )
+                _inherit_coverage_sources(retained_surface, [parent_surface], coverage_sources)
+                links[published_id] = retained_surface
+        if self.project_worker_coverage:
+            worker_surfaces: dict[tuple[str, str], dict[str, Any]] = {}
+            named_surface_outputs = {
+                identity for outputs in self.worker_surface_outputs.values() for identity in outputs
+            }
+            for surface in _coverage_rows(coverage, "surfaces"):
+                if not isinstance(surface, dict):
+                    continue
+                owner, identity = self.worker_row_owners.get(id(surface)), surface.get("id")
+                if isinstance(owner, str) and isinstance(identity, str):
+                    key = (owner, identity)
+                    existing = worker_surfaces.get(key)
+                    # An anonymous candidate ID can collide with an explicit surface ID.
+                    # Bind a named worker link to the explicitly named source.
+                    if existing is None or (
+                        id(surface) in named_surface_outputs
+                        and id(existing) not in named_surface_outputs
+                    ):
+                        worker_surfaces[key] = surface
+            for task in output_tasks:
+                if (
+                    not isinstance(task, dict)
+                    or (owner := self.worker_row_owners.get(id(task))) is None
+                    or not isinstance(task.get("surfaceIds"), list)
+                ):
+                    continue
+                for identity in task["surfaceIds"]:
+                    if (
+                        isinstance(identity, str)
+                        and (surface := worker_surfaces.get((owner, identity))) is not None
+                    ):
+                        _, links = retained_legacy_surface_links.setdefault(id(task), (task, {}))
+                        links.setdefault(identity, surface)
+        for field in ("surfaces", "explicitExclusions", "deferred"):
+            used: set[str] = set()
+            items = coverage.setdefault(field, [])
+            reserved = {
+                row["id"]
+                for row in (items if isinstance(items, list) else [])
+                if isinstance(row, dict) and isinstance(row.get("id"), str)
+            }
+            normalized_items = []
+            for item in items if isinstance(items, list) else []:
+                normalized_items.append(item)
+                if not isinstance(item, dict):
+                    continue
+                if id(item) in canonical_rows:
+                    if isinstance(item.get("id"), str):
+                        used.add(item["id"])
+                        if field == "surfaces":
+                            remember_surface_id(item, item["id"])
+                    continue
+                item.setdefault("id", _saved_coverage_id(item))
+                if not isinstance(item["id"], str):
+                    # Preserve malformed rows for per-record recovery, including frozen replay.
+                    continue
+                local_id = item["id"]
+                scoped = (
+                    preserve_canonical_parent
+                    and isinstance(worker_id := item.get("workerId"), str)
+                    and worker_id in recovered_worker_ids
+                )
+                if scoped:
+                    # Resolve worker-local candidate/deferred history before scoping IDs.
+                    item["id"] = f"{worker_id}/{item['id']}"
+                if isinstance(item.get("surfaceIds"), list):
+                    links: list[Any] = []
+                    for surface_id in item["surfaceIds"]:
+                        targets: list[str] = []
+                        declared = False
+                        if field == "deferred" and isinstance(surface_id, str):
+                            for relative in coverage_sources.get(id(item), (item, []))[1]:
+                                source_key = (relative, surface_id)
+                                history_keys = [source_key]
+                                if source_key not in surface_ids_by_source:
+                                    # A deferred-only checkpoint can refer to an earlier
+                                    # observation from this logical worker, including retries.
+                                    # Reused IDs can denote several retained observations.
+                                    history_keys = [
+                                        (historical, surface_id)
+                                        for historical, _, owner in all_sources
+                                        if owner == source_owners[relative]
+                                        and source_order[historical] <= source_order[relative]
+                                    ]
+                                for key in history_keys:
+                                    declared |= key in surface_ids_by_source
+                                    for target in surface_ids_by_source.get(key, []):
+                                        if target not in targets:
+                                            targets.append(target)
+                        if targets:
+                            targets.sort(key=surface_positions.__getitem__)
+                            for target in targets:
+                                if target not in links:
+                                    links.append(target)
+                        elif not declared:
+                            links.append(
+                                f"{worker_id}/{surface_id}"
+                                if scoped and isinstance(surface_id, str)
+                                else surface_id
+                            )
+                    item["surfaceIds"] = links
+                if scoped:
+                    if preserve_canonical_parent and item in normalized_items[:-1]:
+                        # A previous finish may have published files before its DB commit.
+                        if field == "surfaces":
+                            remember_surface_id(item, local_id)
+                        normalized_items.pop()
+                        continue
+                if item["id"] in used:
+                    if self.project_worker_coverage:
+                        base = item["id"]
+                        suffix = 2
+                        while item["id"] in used or item["id"] in reserved:
+                            item["id"] = f"{base}-{suffix}"
+                            suffix += 1
+                    else:
+                        item["id"] = f"{item['id']}-{digest(item)[:16]}"
+                if preserve_canonical_parent and item in normalized_items[:-1]:
+                    if field == "surfaces":
+                        remember_surface_id(item, local_id)
+                    normalized_items.pop()
+                    continue
+                used.add(item["id"])
+                if field == "surfaces":
+                    item.setdefault("receiptRefs", [])
+                    remember_surface_id(item, local_id)
+            if preserve_canonical_parent and isinstance(items, list):
+                coverage[field] = normalized_items
+            if field == "surfaces":
+                # Candidate resolution replaces pending surfaces independently of generic
+                # tasks. Preserve their original links, even when the outcome changes ID
+                # or a distinct retained surface shares the old source-local ID.
+                for relative, draft, owner in all_sources:
+                    for original in _coverage_rows(draft["reviewState"], "surfaces"):
+                        if (
+                            not isinstance(original, dict)
+                            or id(original) in retained_surface_rows
+                            or original.get("disposition") != "needs_follow_up"
+                            or not isinstance(local_id := original.get("id"), str)
+                            or not isinstance(candidate_id := original.get("candidateId"), str)
+                        ):
+                            continue
+                        targets = surface_ids_by_source.setdefault((relative, local_id), [])
+                        for target in resolved_surface_targets.get((owner, candidate_id), []):
+                            if target not in targets:
+                                targets.append(target)
+        for task, links in retained_legacy_surface_links.values():
+            task["surfaceIds"] = [
+                links[identity]["id"]
+                if isinstance(identity, str) and identity in links
+                else identity
+                for identity in task["surfaceIds"]
+            ]
+
+    def fallback_surfaces(
+        self,
+        coverage,
+        all_sources,
+        prospective_tasks,
+        *,
+        surface_is_retained,
+        ambiguous_surface_ids,
+    ):
+        fallback_surfaces = []
+        if self.legacy_surface_links and isinstance(coverage.get("surfaces"), list):
+            # Plan the surviving associations before historical receipts can claim
+            # a spelling needed by a surface that must be restored for its task.
+            prospective_tasks = [
+                (owner, _project_worker_coverage_row(row, owner, "deferred"))
+                for owner, row in prospective_tasks
+            ]
+            prospective_surfaces = {}
+            prospective_named = {}
+            for relative, draft, owner in all_sources:
+                for row in _coverage_rows(draft["reviewState"], "surfaces"):
+                    if owner is None or not isinstance(row, dict):
+                        continue
+                    emitted = surface_is_retained(relative, owner, row)
+                    ambiguous = (
+                        isinstance(row.get("id"), str)
+                        and (owner, row["id"]) in ambiguous_surface_ids
+                        and row.get("disposition") == "needs_follow_up"
+                        and not any(key in row for key in ("candidateId", "candidate", "finding"))
+                    )
+                    if not emitted and not ambiguous:
+                        continue
+                    projected = _project_worker_coverage_row(row, owner, "surfaces")
+                    if isinstance(row.get("id"), str):
+                        named = prospective_named.setdefault((owner, row["id"]), {})
+                        projected = next(
+                            (existing for existing in named.values() if existing == projected),
+                            projected,
+                        )
+                        named[id(projected)] = projected
+                    if emitted:
+                        prospective_surfaces[id(row)] = projected
+            bound = {
+                (id(retained), published_id)
+                for retained, published_id, surface, _ in self.task_surface_links(prospective_tasks)
+                if self.linked_surface(surface, prospective_surfaces, prospective_named) is not None
+            }
+            for retained, published_id, _, parent_surface in self.task_surface_links(
+                prospective_tasks
+            ):
+                key = (id(retained), published_id)
+                if key not in bound:
+                    fallback_surfaces.append(parent_surface)
+                    bound.add(key)
+        return fallback_surfaces
+
+def _resolved_deferred_rows(draft: dict[str, Any], schema: dict[str, Any]) -> list[dict[str, Any]]:
+    if draft.get("complete") is False:
+        return []
+    coverage = draft["reviewState"]
+    rows = coverage.get("resolvedDeferred", [])
+    try:
+        # Invalid closure metadata cannot discard the evidence it names.
+        _validate_schema_node(rows, schema, "coverage.resolvedDeferred")
+        _validate_resolved_deferred({**coverage, "deferred": _coverage_rows(coverage, "deferred")})
+    except ContractError:
+        return []
+    return rows
+
+def _project_worker_closure(
+    relative: str,
+    owner: str,
+    closure: dict[str, Any],
+    worker_attempts: dict[str, tuple[str, int]],
+    source_order: dict[str, tuple[int, int]],
+) -> dict[str, Any]:
+    directory = Path(relative).parent
+    if directory.name == "checkpoints":
+        directory = directory.parent
+    _, attempt = worker_attempts.get(directory.as_posix(), (owner, source_order[relative][0]))
+    return {
+        "id": f"{owner}-attempt-{attempt}-resolved-{closure['id']}",
+        "reason": closure["reason"],
+    }
+
+def _projected_worker_closure_sources(
+    sources: list[tuple[str, dict[str, Any], str | None]],
+    source_order: dict[str, tuple[int, int]],
+    worker_attempts: dict[str, tuple[str, int]],
+    schema: dict[str, Any],
+) -> dict[tuple[str, str], tuple[str, dict[str, Any], str]]:
+    projected: dict[tuple[str, str], tuple[str, dict[str, Any], str]] = {}
+    for relative, draft, owner in sources:
+        if owner is None:
+            continue
+        for closure in _resolved_deferred_rows(draft, schema):
+            row = _project_worker_closure(relative, owner, closure, worker_attempts, source_order)
+            # Both fields identify the full strict closeout row, including its reason.
+            key = (row["id"], row["reason"])
+            previous = projected.get(key)
+            if previous is None or source_order[relative] > source_order[previous[2]]:
+                projected[key] = (owner, closure, relative)
+    return projected
+
+def _parent_observation_content(parent: dict[str, Any]) -> dict[str, Any]:
+    # Frozen recovery ancestry does not change the observed scan result.
+    return {
+        key: value
+        for key, value in parent.items()
+        if key not in {"previousParentCheckpoints", "canonicalParent"}
+    }
+
+def _merge_tied_parent_observations(
+    current: dict[str, Any], previous: dict[str, Any]
+) -> dict[str, Any]:
+    merged = copy.deepcopy(current)
+    for finding in previous["findings"]:
+        if finding not in merged["findings"]:
+            merged["findings"].append(copy.deepcopy(finding))
+    coverage = merged["reviewState"]
+    for field in ("surfaces", "explicitExclusions", "deferred", "openQuestions"):
+        rows = previous["reviewState"].get(field, [])
+        output = coverage.setdefault(field, [])
+        if isinstance(rows, list) and isinstance(output, list):
+            for row in rows:
+                if row not in output:
+                    output.append(copy.deepcopy(row))
+    pending_ids = {
+        identity
+        for row in _coverage_rows(coverage, "deferred")
+        if isinstance(row, dict)
+        for identity in (row.get("id"), row.get("candidateId"))
+        if isinstance(identity, str)
+    }
+    closure_schema = _read_json(
+        Path(__file__).resolve().parents[2] / "schemas" / "coverage.schema.json"
+    )["properties"]["resolvedDeferred"]
+    closures = {}
+    for observed in (current, previous):
+        for row in _resolved_deferred_rows(observed, closure_schema):
+            if row["id"] not in pending_ids:
+                closures.setdefault(row["id"], copy.deepcopy(row))
+    coverage.pop("resolvedDeferred", None)
+    if closures:
+        coverage["resolvedDeferred"] = list(closures.values())
+    if current.get("complete") is False or previous.get("complete") is False:
+        merged["complete"] = False
+    coverage.pop("completeness", None)
+    return merged
+```
+
+## File: `scripts/workbench/saved_outputs.py`
+
+```python
+"""Snapshot and restore scan outputs around publication transactions."""
+
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+from finalize_scan_contract import (
+    ContractError,
+    _remove_scan_local_file_if_exists,
+    open_scan_local_file_descriptor,
+    write_scan_local_bytes,
+)
+
+_PUBLISHED_OUTPUTS = (
+    "findings.json",
+    "coverage.json",
+    "scan-manifest.json",
+    "report.md",
+    "threatmodel.md",
+    "report.html",
+    "exports/results.sarif",
+)
+
+def _snapshot_published_outputs(
+    scan_dir: Path, relative_paths: tuple[str, ...] = _PUBLISHED_OUTPUTS
+) -> dict[str, tuple[bytes, os.stat_result] | None]:
+    """Capture each artifact's bytes and stat metadata before publication.
+
+    A None entry records an absent artifact. An unsafe optional threatmodel.md is
+    omitted so rollback leaves it alone. Other unreadable existing outputs raise ContractError.
+    """
+    snapshots: dict[str, tuple[bytes, os.stat_result] | None] = {}
+    for relative in relative_paths:
+        descriptor = -1
+        try:
+            descriptor = open_scan_local_file_descriptor(
+                scan_dir, relative, "Published scan output"
+            )
+            with os.fdopen(descriptor, "rb") as handle:
+                descriptor = -1
+                metadata = os.fstat(handle.fileno())
+                snapshots[relative] = (handle.read(), metadata)
+        except ContractError:
+            path = scan_dir / relative
+            if path.exists() or path.is_symlink():
+                if relative == "threatmodel.md":
+                    # This optional projection will not replace an unsafe destination.
+                    continue
+                raise
+            snapshots[relative] = None
+        finally:
+            if descriptor >= 0:
+                os.close(descriptor)
+    return snapshots
+
+def _restore_published_outputs(
+    scan_dir: Path,
+    snapshots: dict[str, tuple[bytes, os.stat_result] | None],
+    created_paths: set[str] | None = None,
+) -> None:
+    """Restore the captured bytes and timestamps after a publication failure.
+
+    Remove outputs that were originally absent and paths journaled as newly created by the caller.
+    """
+    for relative, snapshot in snapshots.items():
+        if snapshot is None:
+            path = scan_dir / relative
+            if path.exists() or path.is_symlink():
+                _remove_scan_local_file_if_exists(scan_dir, relative)
+        else:
+            contents, metadata = snapshot
+            write_scan_local_bytes(scan_dir, relative, contents)
+            os.utime(scan_dir / relative, ns=(metadata.st_atime_ns, metadata.st_mtime_ns))
+    for relative in sorted(created_paths or ()):
+        # A journaled write can fail before creating its parent directory.
+        path = scan_dir / relative
+        if path.exists() or path.is_symlink():
+            _remove_scan_local_file_if_exists(scan_dir, relative)
 ```

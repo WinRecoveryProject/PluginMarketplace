@@ -7,13 +7,13 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
 ```json
 {
   "name": "codex-security",
-  "version": "0.1.22",
+  "version": "0.1.33",
   "description": "Codex Security workflows for security scans, analysis, and investigation.",
   "author": {
     "name": "OpenAI"
   },
   "homepage": "https://developers.openai.com/codex/security",
-  "repository": "https://github.com/openai/openai/tree/master/chatgpt/oai-maintained-plugins/plugins/codex-security",
+  "repository": "https://github.com/openai/codex-security",
   "license": "Proprietary",
   "keywords": [
     "security",
@@ -25,9 +25,16 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
   "skills": "./skills/",
   "apps": "./.app.json",
   "mcpServers": "./.mcp.json",
+  "codexSecurity": {
+    "directDeepScanEngine": 1,
+    "hostedScopeInventory": 1,
+    "scopedInventoryReceipt": 1,
+    "standardScanHandoff": 1,
+    "workerProviderSnapshot": 4
+  },
   "interface": {
     "displayName": "Codex Security",
-    "shortDescription": "Scan your codebase for risks",
+    "shortDescription": "Security scanning for your codebase",
     "longDescription": "Codex Security packages reusable workflows for security scans, analysis, validation, and investigation across code, diffs, and related artifacts.",
     "developerName": "OpenAI",
     "category": "Security",
@@ -47,7 +54,8 @@ Source: `plugins/codex-security`. Files outside the `skills/*` folders, embedded
     "brandColor": "#111111",
     "composerIcon": "./assets/logo.png",
     "logo": "./assets/logo.png",
-    "screenshots": []
+    "screenshots": [],
+    "supportURL": "https://help.openai.com/en/articles/20001107-codex-security"
   }
 }
 ```
