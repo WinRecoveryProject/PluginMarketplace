@@ -9,7 +9,7 @@ Installation changes the user's Codex skill directory. A request to inspect, com
 
 1. Resolve the exact local directory or `github.com` tree URL. Do not accept an arbitrary download host.
 2. Inventory with `node scripts/skill-studio.mjs inventory <root>` when the user has not selected a single skill.
-3. Preview the selected skill with `node scripts/skill-studio.mjs install <source> --dry-run`. Report its name, destination, file count, bytes, validation and risk-review results. The bundled scanner does not execute the target.
+3. Preview the selected skill with `node scripts/skill-studio.mjs install <source> --dry-run`. Report its name, destination, file count, bytes, validation and studio-quality risk mode results. The bundled scanner does not execute the target.
 4. Before writing, require that the user actually asked to install that exact source. Do not interpret creation, evaluation or cleanup as installation approval.
 5. Install with `node scripts/skill-studio.mjs install <source> [--dest <skills-root>]`. The command rejects symbolic links, invalid skills, existing target directories and active or incomplete risk scans. Use `--suppressions <reviewed-file.json>` only for exact rule/version/fingerprint findings with documented reasons; there is no blanket bypass.
 6. Verify copied SHA-256 hashes and retain `.zilvereyes-install-receipt.json` in the installed skill.

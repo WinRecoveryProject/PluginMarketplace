@@ -1,0 +1,11 @@
+{
+  "id": "studio.verification-before-completion",
+  "root": "skills/verification-before-completion",
+  "commit": "9594376",
+  "files": {
+    "SKILL.md": "ed7cb234968a27a520c67045c2e1df768f1dd8104f8dab739ddf2ce2277119ff",
+    "agents/openai.yaml": "37dde657e4c59d17b2b10c488a202f662e196c11cf4b50d36507a04f5c38204d",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}

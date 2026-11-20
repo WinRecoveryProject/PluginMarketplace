@@ -17,14 +17,14 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Define entity models", "Ubiquitous language", "CONTEXT.md" | `domain-modeling` | `domain-modeling` ➔ `codebase-design` | Generic database table migrations |
 | "Design deep modules", "Module interface seams", "Ousterhout" | `codebase-design` | `codebase-design` ➔ `implement` | Trivial one-line helper functions |
 | "Audit codebase architecture", "Git churn hotspot analysis" | `improve-codebase-architecture` | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` | Routine single-file bug fixing |
-| "TypeScript boundaries", "dependency-cruiser rules" | `setup-ts-deep-modules` | `setup-ts-deep-modules` ➔ `code-review` | Non-TypeScript codebases |
-| "Unsafe test typecasts", "Migrate to shoehorn" | `migrate-to-shoehorn` | `migrate-to-shoehorn` ➔ `code-review` | Production application types |
-| "Implement approved spec", "Code feature", "Build ticket" | `implement` | `implement` ➔ `code-review` | Requirements fuzzy or unapproved |
-| "Parallel subagents", "Isolated worktrees", "Multi-agent PR" | `implement-spec` | `implement-spec` ➔ `code-review` | Single developer / single-file edit |
-| "Test-driven development", "Red-green-refactor", "Write tests" | `tdd` | `tdd` ➔ `code-review` | Throwaway exploratory spikes |
-| "Diagnose bug", "Fix failing test", "Flaky CI", "Crash" | `diagnosing-bugs` | `diagnosing-bugs` ➔ `tdd` ➔ `code-review` | Trivial obvious syntax errors |
-| "Review PR", "Review branch diff", "Check standards" | `code-review` | `code-review` | Writing new code or diagnosing bugs |
-| "Merge conflict", "Rebase conflict", "Fix conflict markers" | `resolving-merge-conflicts` | `resolving-merge-conflicts` ➔ `code-review` | Routine safe git rebases without conflicts |
+| "TypeScript boundaries", "dependency-cruiser rules" | `setup-ts-deep-modules` | `setup-ts-deep-modules` ➔ `studio-review` (code mode) | Non-TypeScript codebases |
+| "Unsafe test typecasts", "Migrate to shoehorn" | `migrate-to-shoehorn` | `migrate-to-shoehorn` ➔ `studio-review` (code mode) | Production application types |
+| "Implement approved spec", "Code feature", "Build ticket" | `implement` | `implement` ➔ `studio-review` (code mode) | Requirements fuzzy or unapproved |
+| "Parallel subagents", "Isolated worktrees", "Multi-agent PR" | `implement-spec` | `implement-spec` ➔ `studio-review` (code mode) | Single developer / single-file edit |
+| "Test-driven development", "Red-green-refactor", "Write tests" | `tdd` | `tdd` ➔ `studio-review` (code mode) | Throwaway exploratory spikes |
+| "Diagnose bug", "Fix failing test", "Flaky CI", "Crash" | `diagnosing-bugs` | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Trivial obvious syntax errors |
+| "Review PR", "Review branch diff", "Check standards" | `studio-review` (code mode) | `studio-review` (code mode) | Writing new code or diagnosing bugs |
+| "Merge conflict", "Rebase conflict", "Fix conflict markers" | `resolving-merge-conflicts` | `resolving-merge-conflicts` ➔ `studio-review` (code mode) | Routine safe git rebases without conflicts |
 | "Prevent force push", "Block dangerous git", "Hard reset guard" | `git-safety-guardrails` | `git-safety-guardrails` | Safe git status or log commands |
 | "Setup issue tracker", "Configure triage labels", "Setup docs" | `setup-engineering-workflows` | `setup-engineering-workflows` | General npm package installation |
 | "Setup Husky", "lint-staged", "Prettier pre-commit hook" | `setup-pre-commit` | `setup-pre-commit` | Remote CI/CD pipeline automation |
@@ -32,7 +32,7 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Map huge project", "Multi-session effort", "Fog of war" | `wayfinder` | `wayfinder` ➔ `to-spec` | Small, single-session feature work |
 | "Interactive bash wizard", "Dashboard credentials setup" | `wizard` | `wizard` | Tasks the AI can execute directly |
 | "Train ML model", "LoRA fine-tuning", "vLLM serving" | `ai-engineering` | `ai-engineering` ➔ `ml-best-practices` | Standard CRUD backend development |
-| "Self-healing data pipeline", "AST-validated data fixes" | `ai-data-remediation` | `ai-data-remediation` ➔ `code-review` | Routine database schema migrations |
+| "Self-healing data pipeline", "AST-validated data fixes" | `ai-data-remediation` | `ai-data-remediation` ➔ `studio-review` (code mode) | Routine database schema migrations |
 | "Statistical ML", "95% bootstrap CIs", "EDA", "Data leakage" | `ml-best-practices` | `ml-best-practices` ➔ `ai-engineering` | Basic spreadsheet formatting |
 | "Inner cognitive workspace", "Three registers", "Deep thinking" | `j-space` | `j-space` ➔ `implement` | Trivial single-step lookups |
 | "Synthesize /goal prompt", "Overnight autonomous run" | `goal` | `goal` ➔ `implement-spec` | Immediate single-turn execution |
@@ -45,4 +45,4 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Brainstorm essay notes", "Capture raw fragments", "Metaphors" | `writing-fragments` | `writing-fragments` ➔ `writing-shape` | Final draft formatting |
 | "Shape notes into draft", "Block-by-block article assembly" | `writing-shape` | `writing-shape` ➔ `writing-beats` | Initial raw fragment generation |
 | "Narrative beats", "Beat-by-beat drafting journey" | `writing-beats` | `writing-beats` | Quick single-sentence edits |
-| "Scaffold exercise folders", "Workshop tutorial boilerplate" | `scaffold-exercises` | `scaffold-exercises` ➔ `code-review` | Application feature scaffolding |
+| "Scaffold exercise folders", "Workshop tutorial boilerplate" | `scaffold-exercises` | `scaffold-exercises` ➔ `studio-review` (code mode) | Application feature scaffolding |

@@ -11,9 +11,19 @@ LOCAL_WORKFLOWS = (
     "devsuite-debug",
     "devsuite-review",
     "devsuite-test",
-    "devsuite-quality",
     "devsuite-handoff",
 )
+
+# Specific review intents shared with Plugin-Skill-Studio studio-review; checked before broad phases.
+REVIEW_MODES = (
+    ("verify", r"about to claim|verification commands|success claims|bounded static-page capture|audits finished work|"
+               r"completion claim|double-check that|unsupported claims"),
+    ("receive", r"review feedback|pushes back|feedback is unclear|receiving code review"),
+    ("request", r"dispatch(?:es)? a bounded reviewer|read-only review before merge|request(?:ing)? (?:a )?code review"),
+    ("decide", r"review decision|require human attention|minimal, targeted or deep"),
+    ("code", r"review changed code|reviewing a branch|code review|review this (?:diff|branch|pr|change)|authoring new code or diagnosing"),
+)
+QUALITY_GATE = r"\b(lint|linter|lintkontrol|kvalitetskontrol|megalinter|quality.gate|typecheck|format.check|lint/type/build)\b"
 
 TASK_TARGET = r"(?:codex[\s-]+tasks?|remote(?:[\s-]+codex)?[\s-]+tasks?|codex[\s-]+opgaver?)"
 JOB_TARGET = r"(?:process[\s-]+jobs?|background[\s-]+(?:jobs?|process(?:es)?)|baggrundsjob(?:s)?|baggrundsproces(?:ser)?|procesjob(?:s)?)"
@@ -65,8 +75,12 @@ def route(request: str) -> dict:
         r"(?:codex[\s-]+)?cloud(?:[- ]?(?:miljøer|konfigurationer)|[\s-]+(?:environments|configurations))\b", text
     )
     job_target = bool(re.search(JOB_TARGET, text))
+    review_mode = next((name for name, pattern in REVIEW_MODES if re.search(pattern, text)), None)
+    mode = None
     if explicit_owner:
         skill = explicit_owner
+    elif review_mode:
+        skill, mode = "devsuite-review", review_mode
     elif (task_target or cloud_config_query) and not operation:
         skill = "devsuite-tasks"
     elif job_target and not operation:
@@ -79,10 +93,11 @@ def route(request: str) -> dict:
         skill = "devsuite-security-fix" if re.search(r"\b(fix|patch|remediat\w*|hardening|writeup|disclos\w*|track|policy)\b", text) else "devsuite-security-assess"
     elif re.search(r"\b(cloud|desktop|docker|vpn|network|environment|package install|preview)\b", text):
         skill = "devsuite-environment"
-    elif re.search(r"\b(lint|linter|lintkontrol|kvalitetskontrol|megalinter|quality.gate|typecheck|format.check)\b", text):
-        skill = "devsuite-quality"
+    elif re.search(QUALITY_GATE, text):
+        skill, mode = "devsuite-review", "gate"
     elif re.search(r"\b(review|audit|gennemgå|kodegennemgang|release.readiness|pre.release|patch.risk|verify.delivery)\b", text):
         skill = "devsuite-review"
+        mode = "release" if re.search(r"release.readiness|pre.release|patch.risk", text) else "code"
     elif re.search(r"\b(debug|diagnos\w*|reproduce|bug|defect)\b", text):
         skill = "devsuite-debug"
     elif re.search(r"\b(test|tests|testing|qa|verify|validation)\b", text) and not re.search(r"\b(implement|build|refactor)\b", text):
@@ -93,6 +108,6 @@ def route(request: str) -> dict:
         skill = "devsuite-implement"
     else:
         skill = "devsuite"
-    return {"skill": skill, "entrypoint": f"skills/{skill}/SKILL.md",
+    return {"skill": skill, "entrypoint": f"skills/{skill}/SKILL.md", "mode": mode,
             "reason": "One focused phase; preserve the full user worklist across phases",
             "executionAuthorized": False, "externalActionAuthorized": False}

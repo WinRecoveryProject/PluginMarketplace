@@ -1,9 +1,0 @@
-interface:
-  icon_small: "./assets/wrp-icon-128.png"
-  icon_large: "./assets/wrp-icon-256.png"
-  display_name: "Verify Work"
-  short_description: "Verify software behavior with proportionate checks"
-  default_prompt: "Gather proportionate evidence for this change."
-
-policy:
-  allow_implicit_invocation: true

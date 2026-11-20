@@ -317,7 +317,7 @@
       "versionInspected": "1.1.1",
       "originalSkill": "code-verification",
       "owners": [
-        "devsuite-quality"
+        "devsuite-review"
       ],
       "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
       "sourceSkillRelativePath": "skills/code-verification/SKILL.md"
@@ -328,7 +328,7 @@
       "versionInspected": "1.1.1",
       "originalSkill": "code-verification",
       "owners": [
-        "devsuite-quality"
+        "devsuite-review"
       ],
       "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
       "sourceSkillRelativePath": "skills/code-verification/SKILL.md"

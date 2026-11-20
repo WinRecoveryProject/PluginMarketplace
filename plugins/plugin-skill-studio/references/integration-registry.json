@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "plugin-skill-studio",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "sources": [
     {
       "id": "matt-skills-curated",
@@ -163,7 +163,7 @@
         {
           "sourceSkill": "code-review",
           "sourceFile": "skills/code-review/SKILL.md",
-          "implementation": "skills/code-review/SKILL.md",
+          "implementation": "skills/studio-review/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -640,7 +640,7 @@
         {
           "sourceSkill": "receiving-code-review",
           "sourceFile": "skills/receiving-code-review/SKILL.md",
-          "implementation": "skills/receiving-code-review/SKILL.md",
+          "implementation": "skills/studio-review/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -654,7 +654,7 @@
         {
           "sourceSkill": "requesting-code-review",
           "sourceFile": "skills/requesting-code-review/SKILL.md",
-          "implementation": "skills/requesting-code-review/SKILL.md",
+          "implementation": "skills/studio-review/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -703,14 +703,14 @@
         {
           "sourceSkill": "verification-before-completion",
           "sourceFile": "skills/verification-before-completion/SKILL.md",
-          "implementation": "skills/verification-before-completion/SKILL.md",
+          "implementation": "skills/studio-review/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "verify-work",
           "sourceFile": "skills/verify-work/SKILL.md",
-          "implementation": "skills/verify-work/SKILL.md",
+          "implementation": "skills/studio-review/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -754,7 +754,7 @@
         {
           "sourceSkill": "skill-approval-gate",
           "sourceFile": "skills/skill-approval-gate/SKILL.md",
-          "implementation": "skills/review-decision/SKILL.md",
+          "implementation": "skills/studio-review/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -824,7 +824,7 @@
         {
           "sourceSkill": "agent-skillguard",
           "sourceFile": "skills/agent-skillguard/SKILL.md",
-          "implementation": "skills/risk-review/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/services*.test.mjs"
         }
@@ -1724,12 +1724,21 @@
       "description": "Create, update, import, install, convert, package, release and manage plugins and skills, including the full skill authoring lifecycle."
     },
     {
-      "id": "code-review",
-      "entrypoint": "skills/code-review/SKILL.md",
+      "id": "studio-review",
+      "entrypoint": "skills/studio-review/SKILL.md",
       "sourceIds": [
-        "matt-skills-curated"
+        "matt-skills-curated",
+        "skillquiver",
+        "studio"
       ],
-      "description": "Review changed code against repository coding standards and original specification intent. Use when reviewing a branch, diff, PR, pull request, merge-base changes, or verifying code against documented standards — even if the user just says \\\"review this\\\". Do NOT use for authoring new code or diagnosing failing runtime bugs."
+      "modes": [
+        "code",
+        "request",
+        "receive",
+        "decide",
+        "verify"
+      ],
+      "description": "Review code, request and receive reviews, decide human attention and verify completion claims; mode files are shared with DevSuite."
     },
     {
       "id": "codebase-design",
@@ -1817,7 +1826,8 @@
         "walkthrough",
         "evidence",
         "improve",
-        "doctor"
+        "doctor",
+        "risk"
       ],
       "description": "Evaluate, review, explain, benchmark and improve skills and plugins; doctor host skill conflicts on explicit request."
     },
@@ -1990,14 +2000,6 @@
       "description": "Use when a ChatGPT/Codex Plugin workflow needs deterministic computation, file processing, repository checks, package inspection, or other work that should be actually executed with host-native Python instead of answered from unverified reasoning."
     },
     {
-      "id": "receiving-code-review",
-      "entrypoint": "skills/receiving-code-review/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Verifies code review feedback before implementation and pushes back with evidence when a claim is wrong. Use when feedback is unclear, risky, or technically questionable."
-    },
-    {
       "id": "refactor-safely",
       "entrypoint": "skills/refactor-safely/SKILL.md",
       "sourceIds": [
@@ -2012,14 +2014,6 @@
         "zilvereyes-plugin-autopilot"
       ],
       "description": "Use when an existing repository contains agents, prompts, workflows, playbooks, commands, or Skills and you need to identify which capabilities are worth converting into a ChatGPT/Codex Plugin."
-    },
-    {
-      "id": "requesting-code-review",
-      "entrypoint": "skills/requesting-code-review/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Dispatches a bounded reviewer and preserves verified findings. Use when completed work needs read-only review before merge."
     },
     {
       "id": "research",
@@ -2052,22 +2046,6 @@
         "matt-skills-curated"
       ],
       "description": "Conduct a retrospective on a coding session to systematically improve agent environment, navigation pointers, automated checks, coding standards, tool economy, or AGENTS.md instructions. Use when reflecting on completed work, auditing agent mistakes, or optimizing repository rules — even if the user says \\\"run a retro\\\". Do NOT use during active mid-task implementation."
-    },
-    {
-      "id": "review-decision",
-      "entrypoint": "skills/review-decision/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when deciding which parts of a reviewed skill or plugin require human attention."
-    },
-    {
-      "id": "risk-review",
-      "entrypoint": "skills/risk-review/SKILL.md",
-      "sourceIds": [
-        "studio"
-      ],
-      "description": "Use when reviewing skills or plugins for risky instructions, downloads, permissions or secret exposure before admitting them."
     },
     {
       "id": "scaffold-exercises",
@@ -2188,22 +2166,6 @@
         "skillquiver"
       ],
       "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback"
-    },
-    {
-      "id": "verification-before-completion",
-      "entrypoint": "skills/verification-before-completion/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs; requires running verification commands and confirming output before making any success claims. Do not load at task start or separately when design-ui's bounded static-page capture applies."
-    },
-    {
-      "id": "verify-work",
-      "entrypoint": "skills/verify-work/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Independently audits finished work — verifies a delivery or completion claim against real evidence. Use when asked to double-check that something just finished actually works, confirm a completion claim, judge release readiness, or find unsupported claims."
     },
     {
       "id": "wait-what",

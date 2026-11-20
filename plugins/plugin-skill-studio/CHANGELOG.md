@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.5.0 — 2026-11-20
+
+Breaking: seven review skills are consolidated. Every capability is mapped in `references/consolidation/review-matrix.json` (269 capabilities, none dropped).
+
+| Removed skill | New skill | Mode |
+|---|---|---|
+| `code-review` | `studio-review` | `code` |
+| `requesting-code-review` | `studio-review` | `request` |
+| `receiving-code-review` | `studio-review` | `receive` |
+| `review-decision` | `studio-review` | `decide` |
+| `verification-before-completion` | `studio-review` | `verify` |
+| `verify-work` | `studio-review` | `verify` |
+| `risk-review` | `studio-quality` | `risk` |
+
+The `code`, `request`, `receive`, `decide` and `verify` mode files are shared byte-for-byte with WinRecoveryProject DevSuite `devsuite-review`; `references/consolidation/shared-review-modes.json` pins their hashes in both packages. Seventeen Studio files that named the removed skills now point to the new modes.
+
 ## 0.4.0 — 2026-11-20
 
 Breaking: 20 lifecycle skills and the standalone `plugin-eval` plugin are consolidated into two skills, each with one file per mode. Every capability of every removed skill is mapped in `references/consolidation/lifecycle-matrix.json` and verified by `node scripts/studio.mjs consolidation-check references/consolidation/lifecycle-matrix.json`.

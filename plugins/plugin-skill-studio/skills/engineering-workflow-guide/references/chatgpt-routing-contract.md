@@ -46,10 +46,10 @@ When a user interacts with ChatGPT / Codex, follow this strict 4-step execution 
 
 | Scenario | Canonical Multi-Phase Pipeline | Phase Transition Trigger |
 |---|---|---|
-| **Greenfield Feature** | `grill-with-docs` ➔ `to-spec` ➔ `to-tickets` ➔ `implement` ➔ `code-review` | User approves spec & ticket graph |
-| **Bug / Regression** | `diagnosing-bugs` ➔ `tdd` ➔ `code-review` | Red failure reproduced & minimal repro isolated |
-| **Wide Refactoring** | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` ➔ `code-review` | Visual architecture report approved |
-| **AI / ML Initiative** | `ai-engineering` ➔ `ml-best-practices` ➔ `code-review` | Naive baseline beaten & 95% CIs verified |
+| **Greenfield Feature** | `grill-with-docs` ➔ `to-spec` ➔ `to-tickets` ➔ `implement` ➔ `studio-review` (code mode) | User approves spec & ticket graph |
+| **Bug / Regression** | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Red failure reproduced & minimal repro isolated |
+| **Wide Refactoring** | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` ➔ `studio-review` (code mode) | Visual architecture report approved |
+| **AI / ML Initiative** | `ai-engineering` ➔ `ml-best-practices` ➔ `studio-review` (code mode) | Naive baseline beaten & 95% CIs verified |
 | **Massive Initiative** | `wayfinder` ➔ `to-spec` ➔ `to-tickets` ➔ `implement-spec` | Fog cleared & frontier tickets claimed |
 | **Long-Form Essay** | `writing-fragments` ➔ `writing-shape` ➔ `writing-beats` | Raw pile assembled & candidate openings chosen |
 

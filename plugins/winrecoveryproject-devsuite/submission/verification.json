@@ -1,9 +1,9 @@
 {
-  "version": "0.2.7",
+  "version": "0.3.0",
   "localTests": {
-    "passed": 34
+    "passed": 40
   },
-  "providerEvidence": "Read-only discovery returned five Personal configurations, three marked runnable. The packaged helper listed all five and held an unnamed selection ambiguous. Interactive Cloud Environment login remains unverified.",
+  "providerEvidence": "Not re-run for 0.3.0 (review consolidation only). 0.2.7 evidence: Read-only discovery returned five Personal configurations, three marked runnable. The packaged helper listed all five and held an unnamed selection ambiguous. Interactive Cloud Environment login remains unverified.",
   "installed": false,
   "published": false,
   "costKr": 0

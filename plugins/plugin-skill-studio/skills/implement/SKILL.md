@@ -21,7 +21,7 @@ Execute scoped code changes and thorough verification from an approved specifica
 1. **Approved Plan or Spec First**: Never start broad implementation on ambiguous or unapproved specs.
 2. **Vertical Slice Progress**: Implement in small, testable tracer slices rather than mass horizontal file edits.
 3. **Continuous Typecheck & Test Verification**: Run local typechecks and single test files after every file modification, and the full suite before completion.
-4. **Pre-Commit Quality Gate**: Pass clean code review (`code-review`) and lint checks before committing.
+4. **Pre-Commit Quality Gate**: Pass clean code review (`studio-review` (code mode)) and lint checks before committing.
 5. **Zero Dead or Speculative Code**: Write strictly the code required to satisfy the spec; avoid speculative abstractions.
 
 ---
@@ -38,7 +38,7 @@ Execute scoped code changes and thorough verification from an approved specifica
 | **2. Tracer Execution** | Implement slice-by-slice with TDD | Red-green cycles on target components |
 | **3. Continuous Check** | Fast feedback on type errors and single tests | Run targeted test runner after each edit |
 | **4. Integration Gate** | End-to-end regression validation | Full test suite, linter, and typecheck pass |
-| **5. Delivery** | Review diff against standards and spec | Route to `code-review` and clean commit |
+| **5. Delivery** | Review diff against standards and spec | Route to `studio-review` (code mode) and clean commit |
 
 ---
 
@@ -63,7 +63,7 @@ Execute scoped code changes and thorough verification from an approved specifica
 - **Why**: Changes in one module can subtly break downstream consumers.
 
 ### Step 4: Code Review & Final Commit
-- **Action**: Audit the git diff against repository coding standards and original requirements using `code-review`.
+- **Action**: Audit the git diff against repository coding standards and original requirements using `studio-review` (code mode).
 - **Key Point**: Write a clear, value-communicating commit message summarizing the change.
 - **Why**: Durable commit histories preserve architectural reasoning for future maintainers.
 

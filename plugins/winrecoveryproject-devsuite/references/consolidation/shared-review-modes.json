@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-review/modes and DevSuite skills/devsuite-review/modes; hashed with LF line endings.",
+  "files": {
+    "code-reviewer.md": "2980e3a0f7d549206e58d661234b75f53b3d01a9eb87b0dbf50c4332d3134d91",
+    "code.md": "094638d242d9936b73e3d5a72511d1f652a3e3a4010f00d807c8138607673e38",
+    "decide.md": "01a608d33ebcf2b7ea51146a268c4deadd7690225c2e7b6ba8edf61cb6b8ffd4",
+    "receive.md": "8411d5b64d260bbf0a5b657654a225b2a89157161ea1fc7eec3ff50ae015d7fd",
+    "request.md": "5c88b6ac3bb840f81d9358543ce9a84e1e600cb7797f8fba59e817bab9867983",
+    "verify.md": "9bc323bcba11b7757174472a464b9892a6059477454704b05d98da4c32b7f064"
+  }
+}

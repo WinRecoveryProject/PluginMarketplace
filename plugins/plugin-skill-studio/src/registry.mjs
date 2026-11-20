@@ -15,9 +15,14 @@ export async function loadRegistry(root=packageRoot) {
 
 // [capability, mode|null, pattern]; the first match wins, so specific workflows precede broad ones.
 const rules=[
+ ['studio-review','verify',/about to claim|verification commands|success claims|bounded static-page capture|audits finished work|completion claim|double-check that|unsupported claims/i],
+ ['studio-review','receive',/review feedback|pushes back|feedback is unclear|receiving code review/i],
+ ['studio-review','request',/dispatch(es)? a bounded reviewer|read-only review before merge|request(ing)? (a )?code review/i],
+ ['studio-review','decide',/review decision|require human attention|minimal, targeted or deep/i],
+ ['studio-review','code',/review changed code|reviewing a branch|code review|review this (diff|branch|pr|change)|authoring new code or diagnosing/i],
  ['studio-build','lifecycle',/from scratch|full lifecycle|general software coding|pre-existing skills/i],
  ['studio-build','autopilot',/agentic repo|autopilot|repo.{0,15}(to|into).{0,20}plugin/i],
- ['risk-review',null,/risik|risk|malici|hemmelig|secret|sikkerhedsscan/i],
+ ['studio-quality','risk',/risik|risk|malici|hemmelig|secret|sikkerhedsscan/i],
  ['studio-build','import',/\bgpt\b|gpts/i],
  ['studio-build','import',/(import|konvert|adapt).{0,25}(mappe|folder|skill|plugin)/i],
  ['studio-build','catalog',/find.{0,25}(skill|plugin)|discover|katalog|catalog|radar/i],
