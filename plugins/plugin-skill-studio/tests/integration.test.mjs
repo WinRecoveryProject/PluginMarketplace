@@ -10,8 +10,8 @@ import {analyze} from '../src/eval/index.mjs';
 
 const cli=path.join(packageRoot,'scripts/studio.mjs');
 function run(args,cwd=packageRoot){return spawnSync(process.execPath,[cli,...args],{cwd,encoding:'utf8',windowsHide:true});}
-test('all fifteen sources and every original workflow have real contained implementations',async()=>{
- const registry=await loadRegistry();assert.equal(registry.sources.length,15);
+test('all sixteen sources and every original workflow have real contained implementations',async()=>{
+ const registry=await loadRegistry();assert.equal(registry.sources.length,16);
  assert.equal(new Set(registry.capabilities.map(c=>c.id)).size,registry.capabilities.length);
  for(const s of registry.sources){assert.ok(Object.keys(s.files).length);assert.ok(s.skills.length);for(const w of s.skills){assert.ok(w.acceptanceTest);assert.ok(!path.isAbsolute(w.implementation));assert.ok((await fs.stat(path.join(packageRoot,w.implementation))).isFile());}}
  assert.equal((await selfCheck()).ok,true);

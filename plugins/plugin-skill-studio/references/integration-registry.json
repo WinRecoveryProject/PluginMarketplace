@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "plugin-skill-studio",
-  "version": "0.3.33",
+  "version": "0.4.0",
   "sources": [
     {
       "id": "matt-skills-curated",
@@ -1635,6 +1635,27 @@
           "implementation": "skills/modern-web/SKILL.md",
           "mode": "independent-local",
           "acceptanceTest": "tests/integration.test.mjs"
+        }
+      ]
+    },
+    {
+      "id": "auto-research",
+      "sourcePath": "gyoz-ai/auto-research/1.0.0",
+      "version": "1.0.0",
+      "repository": "https://github.com/gyoz-ai/auto-research",
+      "role": "preserved reference",
+      "license": "MIT",
+      "integration": "adapt",
+      "files": {
+        "skills/auto-research/SKILL.md": "0dddaf58d24ee601ada20450865acb7212c701cc64a11675a6cb6a4e992f1130"
+      },
+      "skills": [
+        {
+          "sourceSkill": "auto-research",
+          "sourceFile": "skills/auto-research/SKILL.md",
+          "implementation": "skills/studio-quality/SKILL.md",
+          "mode": "adapted: improve mode autoresearch loop; code judge replaces self-scoring, no subagents, web opt-in",
+          "acceptanceTest": "tests/autoresearch.test.mjs"
         }
       ]
     }

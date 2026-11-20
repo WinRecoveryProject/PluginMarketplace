@@ -1,10 +1,14 @@
 # Plugin-Skill-Studio
 
-Version **0.3.33**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
+Version **0.4.0**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
 
 All required skills, scripts, policies and references are bundled. Node 20+ and Python 3.10+ are host runtimes, not companion plugins. Optional Windows desktop commands use the already installed Windows PowerShell 5.1 and .NET components. No npm/pip install, npx, external plugin, App binding or MCP server is required. Model benchmarks use the user's existing Codex CLI and login; host terminal/browser capabilities are required for corresponding operations. Direct public lookups are explicit and bounded. No telemetry is added.
 
 Windows desktop capture, inspection and guarded mouse operations are integrated in the existing `automate-ui` workflow. Read [the local Desktop guide](references/windows-desktop.md). This is an alternative local backend; OpenAI's native Computer Use binary and existing App/OAuth connections are unchanged.
+
+## Skills in 0.4.0
+
+Two skills cover the whole lifecycle. `studio-build` creates, updates, imports, installs, converts, releases and manages plugins and skills. `studio-quality` evaluates, reviews, explains, benchmarks and improves them, and doctors host conflicts on explicit request. Each skill reads only the mode file it needs. [CHANGELOG.md](CHANGELOG.md) maps every removed skill name to its new skill and mode.
 
 ## Start
 
