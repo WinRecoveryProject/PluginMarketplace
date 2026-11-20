@@ -1,6 +1,6 @@
 # Skill: micro
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/micro/SKILL.md`
 
 > Expert guidance for micro — asynchronous HTTP microservices framework by Vercel. Use when building lightweight HTTP servers, API endpoints, or microservices using the micro library.

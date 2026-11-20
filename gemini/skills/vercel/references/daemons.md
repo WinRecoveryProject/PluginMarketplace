@@ -1,6 +1,6 @@
 # Skill: daemons
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/daemons/SKILL.md`
 
 > Vercel Daemons guidance — long-running background workers built from a Dockerfile and declared under the `daemons` key in vercel.json. Use when running queue consumers, Celery/Sidekiq/BullMQ workers, workflow workers, or job runners next to an app on Vercel; configuring daemon instances per region, memory, or command; handling SIGTERM; or choosing between Daemons, Functions, Queues, and Workflows.

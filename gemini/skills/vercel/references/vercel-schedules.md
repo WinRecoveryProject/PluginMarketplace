@@ -1,6 +1,6 @@
 # Skill: vercel-schedules
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/vercel-schedules/SKILL.md`
 
 > Vercel Schedules guidance — run a private function, route, or Vercel Queues topic on a cron cadence or once at a set time. Covers static schedules in vercel.json, dynamic per-user schedules with @vercel/schedules, handleSchedule, the vercel schedules CLI, environments, jitter, and migrating from Cron Jobs. Use when adding scheduled or recurring work, one-time reminders, or replacing `crons`.

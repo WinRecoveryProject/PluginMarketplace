@@ -1,6 +1,6 @@
 # Skill: routing-middleware
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/routing-middleware/SKILL.md`
 
 > Vercel Routing Middleware guidance — request interception before cache, rewrites, redirects, personalization. Works with any framework. Supports Edge, Node.js, Bun, and Python runtimes. Use when intercepting requests at the platform level.

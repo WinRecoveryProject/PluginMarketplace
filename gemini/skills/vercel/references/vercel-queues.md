@@ -1,6 +1,6 @@
 # Skill: vercel-queues
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/vercel-queues/SKILL.md`
 
 > Vercel Queues guidance (public beta) — durable event streaming with topics, consumer groups, retries, and delayed delivery. $0.60/1M ops. Powers Workflow DevKit. Use when building async processing, fan-out patterns, or event-driven architectures.

@@ -1,6 +1,6 @@
 # Skill: cdn-caching
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/cdn-caching/SKILL.md`
 
 > Use when diagnosing Vercel CDN cache misses, stale responses, revalidation, ISR or per-request cache behavior and cost.

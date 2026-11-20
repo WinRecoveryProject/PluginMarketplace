@@ -1,6 +1,6 @@
 # Skill: custom-metrics
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/custom-metrics/SKILL.md`
 
 > Emit and query Vercel Custom Metrics. Use proactively whenever you write or change server code that runs as a Vercel Function (route handlers, API routes, server actions, webhooks, scheduled jobs, queue consumers, AI or external API calls) to record outcomes and latency with metric() from @vercel/functions, even when the user did not ask for metrics. Also use when choosing metric names and attributes or querying emitted values with vc metrics.

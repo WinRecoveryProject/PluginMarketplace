@@ -296,7 +296,7 @@
 
 ## Vercel (`vercel`)
 
-- Version: `0.56.0-wrp.1`
+- Version: `0.56.0-wrp.2`
 - Source: `plugins/vercel`
 - Gemini skill folder: `gemini/skills/vercel/`
 - Purpose: Build and deploy web apps and agents

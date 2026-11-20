@@ -52,7 +52,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | WinRecoveryProject DevSuite | `0.2.7` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
-| Vercel | `0.56.0-wrp.1` | `codex plugin add vercel@winrecoveryproject-digital` |
+| Vercel | `0.56.0-wrp.2` | `codex plugin add vercel@winrecoveryproject-digital` |
 | GitHub | `0.1.12` | `codex plugin add github@winrecoveryproject-digital` |
 | Google Drive | `0.1.15` | `codex plugin add google-drive@winrecoveryproject-digital` |
 | OpenAI Developers | `1.2.3` | `codex plugin add openai-developers@winrecoveryproject-digital` |

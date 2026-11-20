@@ -1,6 +1,6 @@
 # Skill: access-protected-vercel-deployment
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/access-protected-vercel-deployment/SKILL.md`
 
 > Verify a Vercel deployment behind Deployment Protection when the user has authorized inspection and the existing account can access the exact project.

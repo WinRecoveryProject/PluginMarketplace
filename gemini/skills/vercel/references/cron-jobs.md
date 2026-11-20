@@ -1,6 +1,6 @@
 # Skill: cron-jobs
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/cron-jobs/SKILL.md`
 
 > Vercel Cron Jobs configuration and best practices. Use when adding, editing, or debugging scheduled tasks in vercel.json.
@@ -35,8 +35,9 @@ Cron jobs are defined in the `crons` array of `vercel.json`:
 ```ts
 // app/api/cron/route.ts
 export async function GET(request: Request) {
-  const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  const cronSecret = process.env.CRON_SECRET;
+  // Reject when the secret is unset; otherwise "Bearer undefined" would pass.
+  if (!cronSecret || request.headers.get("authorization") !== `Bearer ${cronSecret}`) {
     return new Response("Unauthorized", { status: 401 });
   }
   // ... your scheduled logic

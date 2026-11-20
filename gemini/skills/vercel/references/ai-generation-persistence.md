@@ -1,6 +1,6 @@
 # Skill: ai-generation-persistence
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/ai-generation-persistence/SKILL.md`
 
 > AI generation persistence patterns — unique IDs, addressable URLs, database storage, and cost tracking for every LLM generation

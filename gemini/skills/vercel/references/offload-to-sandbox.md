@@ -1,6 +1,6 @@
 # Skill: offload-to-sandbox
 
-- Plugin: `vercel` (0.56.0-wrp.1)
+- Plugin: `vercel` (0.56.0-wrp.2)
 - Source: `plugins/vercel/skills/offload-to-sandbox/SKILL.md`
 
 > Run CI, builds or test shards in an existing authorized Vercel Sandbox, or plan a sandbox run when the project, files and spending limit still need to be approved.
