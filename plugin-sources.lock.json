@@ -1640,10 +1640,10 @@
       "repository": "https://github.com/vercel/vercel-plugin.git",
       "commit": "e69e3ba0ac0d7d24033c5ba95041acc4fc656480",
       "sourceSubdir": ".",
-      "version": "0.56.0-wrp.1",
+      "version": "0.56.0-wrp.2",
       "files": {
         ".app.json": "bb7ac58f944d972ca5da5e55405376fa4b647e628e74d0a1b1a332bcb190bd15",
-        ".codex-plugin/plugin.json": "966352c738fef0c849b473fb09fd8c235004a19beb3460e33125f138a8304d11",
+        ".codex-plugin/plugin.json": "67c90b4ce743f260143528d28753e031bad1e3acc0651103677c5bdc150fbe96",
         ".mcp.json": "9ac937975fe5f5f330648a5e6ffb6faea37bb8601e81af325189774880803b3f",
         "agents/ai-architect.md": "4bb3edf2fa94d0609305d61d0211c372f1a95309d3a6da3d815afcf7db7e96b4",
         "agents/ai-architect.md.tmpl": "25b724d6b8a0f15d179a81a10b78fa2ba7234112c182889d724316bd1d45d706",
@@ -1710,7 +1710,7 @@
         "skills/create-a-backend/agents/openai.yaml": "f5bd71e15004e4a8ef9b8baca09200876f12b7a1158efef4e401f3e728fd04a7",
         "skills/create-a-backend/SKILL.md": "0ddc9aac80e1ef35700951984befc6606bf7562da33cd0127f35b09b4d72ae2d",
         "skills/cron-jobs/agents/openai.yaml": "aa71fa6ba41bd95e5c0bf89e5f6e99838fabc4350c9549c0a5c14ed5daae6856",
-        "skills/cron-jobs/SKILL.md": "2a580546feddc73e6658e776aed9053fd6a480574748d6427499679a934a460e",
+        "skills/cron-jobs/SKILL.md": "03659fa99712a76c796ddb7d9f7d7ecd6fa3cf3f6e5aed243cde64e499a67709",
         "skills/custom-metrics/.vercel.approvers": "0641bb9102660a013a4c437419b72e9e7ed751c4f625b58542053a8aa5e571d4",
         "skills/custom-metrics/SKILL.md": "7a93924e29b43da0a1113a7e3aba44f66338cfbca10797dca6250e4fbeebf1a5",
         "skills/daemons/SKILL.md": "909f15b519c718e97f558054b2ba39b36b661fd467b1307d97a81b58f2e41ce5",
@@ -2056,7 +2056,7 @@
         "skills/vercel-flags/upstream/references/cli.md": "87c5115d8b8bc74a46f575b6a8664d2890541026407223dcfa7561127d48b3b9",
         "skills/vercel-flags/upstream/SOURCE.md": "bb69aa96ca9ea05814569fb9813eeb1bf6650a19fb9dbb13eb52808083d794a9",
         "skills/vercel-functions/.vercel.approvers": "ef34773e5c0d5b933c5840fb734fff6fcc33dce12c5ff76993031d78e922a0d6",
-        "skills/vercel-functions/guide.md": "27f6bbbeb84acc7d14060ee5980063796b7ad39f80f0f6a5d0916ec1e08a87c8",
+        "skills/vercel-functions/guide.md": "77059300ba3bcf68395ad25a063047f5da41b6cca1fe4d51d4be2bbe2b736a68",
         "skills/vercel-functions/SKILL.md": "b0b06b3fc0697d63a092ff97cdf7b3f376b67df77cdec45b7730b4ae2aaea5a1",
         "skills/vercel-queues/agents/openai.yaml": "e965d7c62d3c53622065a3351a6b974fdc9729bfb5ec948ca4636a257fc7d277",
         "skills/vercel-queues/SKILL.md": "cb2362dbbd83027fb50c5bf148d888f09503ec9345e54e648a7c1014fc958871",
@@ -2440,7 +2440,8 @@
       "localChanges": [
         "Preserve the existing Codex plugin name, App ID, MCP declarations and skill coverage",
         "Adapt vendor skill entry points and use scoped existing connections for account operations",
-        "Retain the public OpenAI compatibility files and Apache-2.0 notices"
+        "Retain the public OpenAI compatibility files and Apache-2.0 notices",
+        "Reject cron requests when CRON_SECRET is unset in the cron-jobs and vercel-functions handler examples"
       ],
       "compatibilitySource": {
         "repo": "https://github.com/openai/plugins",

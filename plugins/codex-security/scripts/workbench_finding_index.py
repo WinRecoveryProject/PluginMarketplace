@@ -5,7 +5,63 @@ from __future__ import annotations
 import argparse
 import json
 import sqlite3
+from decimal import Decimal
 from typing import Any
+
+# Tag numbers so 10 and 10.0 compare equally without treating true as 1.
+_finding_json = json.JSONDecoder(
+    parse_int=lambda value: (Decimal(value),),
+    parse_float=lambda value: (Decimal(value),),
+)
+
+
+def upsert_finding(
+    connection: sqlite3.Connection,
+    finding: dict[str, Any],
+    timestamp: str,
+    repository_id: str | None = None,
+) -> None:
+    current = connection.execute(
+        "SELECT details_json FROM findings WHERE id = ?", (finding["findingId"],)
+    ).fetchone()
+    details = json.dumps(finding, allow_nan=False, sort_keys=True)
+    # Preserve unchanged text without conflating JSON booleans and numbers.
+    if (
+        current is not None
+        and current["details_json"] is not None
+        and _finding_json.decode(current["details_json"]) == _finding_json.decode(details)
+    ):
+        details = current["details_json"]
+    connection.execute(
+        """
+        INSERT INTO findings (
+            id, fingerprint, rule_id, identity_anchor, identity_instance,
+            details_json, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            fingerprint = excluded.fingerprint,
+            rule_id = excluded.rule_id,
+            identity_anchor = excluded.identity_anchor,
+            identity_instance = excluded.identity_instance,
+            details_json = excluded.details_json,
+            updated_at = excluded.updated_at
+        """,
+        (
+            finding["findingId"],
+            finding["fingerprints"]["primary"],
+            finding["ruleId"],
+            finding["identity"]["anchor"],
+            finding["identity"].get("instance"),
+            details,
+            timestamp,
+            timestamp,
+        ),
+    )
+    if repository_id is not None:
+        connection.execute(
+            "INSERT OR IGNORE INTO finding_repositories (repository_id, finding_id) VALUES (?, ?)",
+            (repository_id, finding["findingId"]),
+        )
 
 
 def index_findings(
@@ -14,38 +70,14 @@ def index_findings(
     document: dict[str, Any],
     timestamp: str,
 ) -> None:
-    findings = document.get("findings")
-    if not isinstance(findings, list):
-        raise SystemExit("findings.json must contain a findings array.")
-    for finding in findings:
-        if not isinstance(finding, dict):
-            raise SystemExit("findings.json entries must be objects.")
-        identity = finding["identity"]
-        fingerprints = finding["fingerprints"]
+    """Index findings for this scan and write occurrence and ordered location rows in the caller’s transaction."""
+    repository_id = connection.execute(
+        "SELECT target_id FROM scans WHERE id = ?", (scan_id,)
+    ).fetchone()["target_id"]
+    for finding in document["findings"]:
         severity = finding["severity"]
         confidence = finding["confidence"]
-        connection.execute(
-            """
-            INSERT INTO findings (
-                id, fingerprint, rule_id, identity_anchor, identity_instance, created_at, updated_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(id) DO UPDATE SET
-                fingerprint = excluded.fingerprint,
-                rule_id = excluded.rule_id,
-                identity_anchor = excluded.identity_anchor,
-                identity_instance = excluded.identity_instance,
-                updated_at = excluded.updated_at
-            """,
-            (
-                finding["findingId"],
-                fingerprints["primary"],
-                finding["ruleId"],
-                identity["anchor"],
-                identity.get("instance"),
-                timestamp,
-                timestamp,
-            ),
-        )
+        upsert_finding(connection, finding, timestamp, repository_id)
         connection.execute(
             """
             INSERT INTO finding_occurrences (
