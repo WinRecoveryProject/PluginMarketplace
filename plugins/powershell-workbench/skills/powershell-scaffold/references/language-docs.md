@@ -9,6 +9,8 @@ Identify language/runtime version, host application, platform and intended opera
 relevant primary specifications or product docs before technical claims. Record exact URL,
 check date, applicability, documented behavior, observation, inference, test evidence and
 limitations. A source seed or opened index is not verification of all linked topics.
+Each language docs skill also has references/notes.md with version cues, further primary
+sources, pitfalls and non-executing checks; treat them as leads to open, not as verification.
 
 Separate XML well-formedness, namespaces, XSD and application behavior; C# XML-doc comments
 are a different topic. Batch and interactive CMD share cmd.exe but percent variables,

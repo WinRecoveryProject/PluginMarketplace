@@ -5,7 +5,7 @@ description: "PowerShell Workbench: Portable PowerShell and mixed-language scaff
 
 # PowerShell Workbench
 
-Gemini export of the `powershell-workbench` plugin from WinRecoveryProject/PluginMarketplace, version `0.9.0-beta.6`. Source: `plugins/powershell-workbench`.
+Gemini export of the `powershell-workbench` plugin from WinRecoveryProject/PluginMarketplace, version `0.9.0-beta.7`. Source: `plugins/powershell-workbench`.
 
 Generate reusable PowerShell artifacts, discover and refactor single or multi-project workspaces, diagnose toolchains and patch transport, build safe PowerShell agent harnesses, package the plugin for another machine, and run quality or security gates only when requested.
 

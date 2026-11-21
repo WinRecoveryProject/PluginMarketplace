@@ -1,6 +1,6 @@
 # Skill: microsoft-dism-docs
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/microsoft-dism-docs/SKILL.md`
 
 > Use when asked to research DISM.exe, DISM PowerShell cmdlets, Windows image servicing, WIM, VHD, FFU, WinPE, and ADK behavior from official Microsoft documentation.

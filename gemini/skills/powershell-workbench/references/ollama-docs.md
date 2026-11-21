@@ -1,6 +1,6 @@
 # Skill: ollama-docs
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/ollama-docs/SKILL.md`
 
 > Use when asked to research Ollama API, CLI, model, runtime, tool-calling, structured-output, context, and integration behavior from official Ollama documentation.

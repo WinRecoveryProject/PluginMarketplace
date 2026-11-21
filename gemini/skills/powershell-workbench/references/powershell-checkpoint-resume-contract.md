@@ -1,6 +1,6 @@
 # Skill: powershell-checkpoint-resume-contract
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/powershell-checkpoint-resume-contract/SKILL.md`
 
 > Create and validate fail-closed PowerShell checkpoint and resume contracts for staged workflows without executing servicing, mounting, or recovery operations.

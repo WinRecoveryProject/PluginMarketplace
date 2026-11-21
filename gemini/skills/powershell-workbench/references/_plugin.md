@@ -121,6 +121,6 @@ Third-party platforms, tools, packages, and services retain their own terms, ava
   "license": "MIT",
   "name": "powershell-workbench",
   "repository": "https://github.com/WinRecoveryProject/PowerShellWorkbench.git",
-  "version": "0.9.0-beta.6"
+  "version": "0.9.0-beta.7"
 }
 ```
