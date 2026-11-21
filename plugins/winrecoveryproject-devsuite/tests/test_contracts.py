@@ -44,7 +44,7 @@ class ContractTests(unittest.TestCase):
     def test_native_manifest_apps_and_no_duplicate_runtime(self):
         manifest = json.loads((ROOT / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["name"], "winrecoveryproject-devsuite")
-        self.assertEqual(manifest["version"], "0.3.0")
+        self.assertEqual(manifest["version"], "0.4.0")
         self.assertEqual(manifest["interface"]["developerName"], "Zilvereyes")
         self.assertLessEqual(len(manifest["interface"]["shortDescription"]), 30)
         self.assertLessEqual(len(manifest["interface"]["defaultPrompt"]), 3)

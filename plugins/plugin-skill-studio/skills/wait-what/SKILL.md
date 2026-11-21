@@ -1,6 +1,6 @@
 ---
 name: wait-what
-description: "Re-pitch an explanation or proposal from a simpler angle with reset assumptions and plain English. Use when the previous explanation was confusing, jargon-heavy, or did not land — even if the user just says \"what?\" or \"I don't get it\". Do NOT use for general brainstorming or initial planning."
+description: "Re-pitch an explanation or proposal from a simpler angle with reset assumptions and plain English. Use when the previous explanation was confusing, jargon-heavy, or did not land — even if the user just says \"what?\" or \"I don't get it\". Do NOT use for general studio-plan discover mode or initial planning."
 ---
 
 Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.

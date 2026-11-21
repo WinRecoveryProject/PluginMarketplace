@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "plugin-skill-studio",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "sources": [
     {
       "id": "matt-skills-curated",
@@ -205,28 +205,28 @@
         {
           "sourceSkill": "goal",
           "sourceFile": "skills/goal/SKILL.md",
-          "implementation": "skills/goal/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "grill-me",
           "sourceFile": "skills/grill-me/SKILL.md",
-          "implementation": "skills/grill-me/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "grill-with-docs",
           "sourceFile": "skills/grill-with-docs/SKILL.md",
-          "implementation": "skills/grill-with-docs/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "grilling",
           "sourceFile": "skills/grilling/SKILL.md",
-          "implementation": "skills/grilling/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -359,21 +359,21 @@
         {
           "sourceSkill": "to-questionnaire",
           "sourceFile": "skills/to-questionnaire/SKILL.md",
-          "implementation": "skills/to-questionnaire/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "to-spec",
           "sourceFile": "skills/to-spec/SKILL.md",
-          "implementation": "skills/to-spec/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "to-tickets",
           "sourceFile": "skills/to-tickets/SKILL.md",
-          "implementation": "skills/to-tickets/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -394,7 +394,7 @@
         {
           "sourceSkill": "wayfinder",
           "sourceFile": "skills/wayfinder/SKILL.md",
-          "implementation": "skills/wayfinder/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -570,7 +570,7 @@
         {
           "sourceSkill": "brainstorming",
           "sourceFile": "skills/brainstorming/SKILL.md",
-          "implementation": "skills/brainstorming/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -717,7 +717,7 @@
         {
           "sourceSkill": "writing-plans",
           "sourceFile": "skills/writing-plans/SKILL.md",
-          "implementation": "skills/writing-plans/SKILL.md",
+          "implementation": "skills/studio-plan/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         }
@@ -1686,12 +1686,23 @@
       "description": "Automates web and desktop UIs while capturing evidence that separates navigation from verified behavior. Use when a task requires site navigation, browser reproduction, or native app operation. For one existing framework-free HTML page, use design-ui instead."
     },
     {
-      "id": "brainstorming",
-      "entrypoint": "skills/brainstorming/SKILL.md",
+      "id": "studio-plan",
+      "entrypoint": "skills/studio-plan/SKILL.md",
       "sourceIds": [
-        "skillquiver"
+        "skillquiver",
+        "matt-skills-curated"
       ],
-      "description": "Explores user intent, requirements, and design before implementation. Use when starting a new feature, component, or behavior change whose requirements or design are not yet agreed; skip for trivial single-file changes the user has already specified."
+      "modes": [
+        "discover",
+        "interview",
+        "spec",
+        "plan",
+        "tickets",
+        "questions",
+        "goal",
+        "map"
+      ],
+      "description": "Discover, interview, spec, plan, ticket, questionnaire, goal and map planning work; mode files are shared with DevSuite."
     },
     {
       "id": "brand-designer",
@@ -1870,38 +1881,6 @@
         "matt-skills-curated"
       ],
       "description": "Safeguard repositories against destructive, irreversible, or history-rewriting Git operations. Use when running force pushes, hard resets, branch deletions, cleans, destructive restores, or history re-writes — even if the user says \\\"clean up git history\\\". Do NOT use for routine safe git status, fetch, diff, or branch queries."
-    },
-    {
-      "id": "goal",
-      "entrypoint": "skills/goal/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Design and synthesize high-leverage autonomous goal prompts and contracts for unattended execution. Use when crafting a /goal prompt, planning an overnight autonomous coding run, converting rambling specifications into a self-contained agentic mission, or setting up multi-agent autonomous loops — even if they don't explicitly say \\\"goal prompt\\\". Do NOT use when the user asks for immediate single-turn execution in the current conversation without an autonomous goal contract."
-    },
-    {
-      "id": "grill-me",
-      "entrypoint": "skills/grill-me/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Interview the user relentlessly to sharpen an idea, requirement, or decision before execution. Use when a plan, design, requirement, or decision needs a focused interview to expose ambiguity, missing constraints, trade-offs, or weak assumptions — even if the user just says \\\"grill me on this\\\". Do NOT use for repo-stateful domain modeling with doc generation."
-    },
-    {
-      "id": "grill-with-docs",
-      "entrypoint": "skills/grill-with-docs/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Interview the user to stress-test a design while simultaneously recording domain terms and architectural decisions in project documentation. Use when planning features in a codebase and wanting domain terms captured in CONTEXT.md and ADRs — even if the user says \\\"grill this feature\\\". Do NOT use when no codebase context or documentation trail is needed."
-    },
-    {
-      "id": "grilling",
-      "entrypoint": "skills/grilling/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Relentlessly interview the user round-by-round to stress-test thinking and expose unexamined assumptions. Use when the user requests a grilling interview, wants their idea challenged, or uses trigger phrases like \\\"grill me\\\" — even if they just say \\\"poke holes in my plan\\\". Do NOT use when the user asks for immediate implementation."
     },
     {
       "id": "handle-host-boundaries",
@@ -2128,30 +2107,6 @@
       "description": "Runs a recorded red-green-refactor cycle. Use when implementing a feature, bug fix, or behavior change."
     },
     {
-      "id": "to-questionnaire",
-      "entrypoint": "skills/to-questionnaire/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Transform unknown requirements and stakeholder dependencies into a structured questionnaire. Use when a plan or spec is blocked by external stakeholder decisions, business rules, or missing domain facts — even if the user says \\\"what should I ask them?\\\". Do NOT use when the user can answer the questions themselves."
-    },
-    {
-      "id": "to-spec",
-      "entrypoint": "skills/to-spec/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Synthesize conversation and codebase context into an unambiguous, buildable technical specification. Use when requirements and design decisions are settled and need to be formalized into a technical spec — even if the user says \\\"write a spec for this\\\". Do NOT use when the core idea is still fuzzy and ungrilled."
-    },
-    {
-      "id": "to-tickets",
-      "entrypoint": "skills/to-tickets/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Decompose an approved specification or plan into ordered, dependency-linked tracer-bullet implementation tickets. Use when turning a spec or architectural plan into actionable tracker issues with clear acceptance criteria — even if the user says \\\"break this into tickets\\\". Do NOT use for initial requirements gathering."
-    },
-    {
       "id": "triage",
       "entrypoint": "skills/triage/SKILL.md",
       "sourceIds": [
@@ -2174,14 +2129,6 @@
         "matt-skills-curated"
       ],
       "description": "Re-pitch an explanation or proposal from a simpler angle with reset assumptions and plain English. Use when the previous explanation was confusing, jargon-heavy, or did not land — even if the user just says \\\"what?\\\" or \\\"I don't get it\\\". Do NOT use for general brainstorming or initial planning."
-    },
-    {
-      "id": "wayfinder",
-      "entrypoint": "skills/wayfinder/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Map and navigate large, uncertain multi-session efforts through a shared graph of decision tickets. Use when facing complex greenfield projects or massive architectural migrations that exceed a single session — even if the user says \\\"map out this massive project\\\". Do NOT use for small, well-scoped features."
     },
     {
       "id": "wizard",
@@ -2238,14 +2185,6 @@
         "matt-skills-curated"
       ],
       "description": "Capture and refine raw ideas, quotes, and observations before committing to an article outline. Use when collecting source material, brainstorming essay fragments, or exploring angles without structure pressure — even if the user says \\\"help me brainstorm notes\\\". Do NOT use for final draft formatting."
-    },
-    {
-      "id": "writing-plans",
-      "entrypoint": "skills/writing-plans/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Creates implementation plans with interfaces, tests, and open decisions. Use when a multi-step change needs planning."
     },
     {
       "id": "writing-shape",

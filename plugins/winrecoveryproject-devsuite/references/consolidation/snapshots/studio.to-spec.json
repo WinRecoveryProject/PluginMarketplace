@@ -1,0 +1,11 @@
+{
+  "id": "studio.to-spec",
+  "root": "skills/to-spec",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "28311314275bfa9d861bd84ba12cca3fdcad8814eade77de44a152ff280e7860",
+    "agents/openai.yaml": "9b7131bff0bf3e286ab099254e4146a46fe3e673d53f119e8706193d14503fd4",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "studio.brainstorming",
+  "root": "skills/brainstorming",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "9f60b4f11a58a0b8d6f0989fc8e7e9f325957a107a9617debb46b1766ed26a88",
+    "agents/openai.yaml": "7c7891988cd1249ca7586af6709d57cfd1d35b41162a1cb51309e3a2b5c3ed10",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814",
+    "scripts/frame-template.html": "b42f2eb2a14bd719adb35ac32bca2b14c7735231eb224e1dc9d65709d1369119",
+    "scripts/helper.js": "ece6e6d4e0690615e433fe24e89ce58e713c18958234387715f796643b235e3b",
+    "scripts/server.cjs": "f2f27eb818a55f465583ecc0d1b0c9af5da4f5a13317f2afb30cbca6ea83c63b",
+    "scripts/start-server.sh": "b3705229c40fa614f69278388b6479d28ee6dcc0d56c3a67a4f6286a95447303",
+    "scripts/stop-server.sh": "bd68e79ce688e95eb966ff26461be0da5ed41fb0a646d9c8ca82897f70aaac07",
+    "visual-companion.md": "3f28e9e9412b425d4b1ff77cbef5ff665afc413c7ac78f76a7403b9eea8d33c1"
+  }
+}

@@ -9,7 +9,7 @@ The Claude package has no App bindings, MCP servers, lifecycle hooks or account 
 Build a standalone ZIP with Python 3.10 or later from the source repository root.
 
 ~~~text
-python -I -B editors/claude/package.py --out "<destination>/winrecoveryproject-devsuite-claude-0.3.0.zip"
+python -I -B editors/claude/package.py --out "<destination>/winrecoveryproject-devsuite-claude-0.4.0.zip"
 ~~~
 
 Extract the ZIP to a new directory. From that directory, check the package and preview a routing decision.

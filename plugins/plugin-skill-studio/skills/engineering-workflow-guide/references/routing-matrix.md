@@ -6,14 +6,14 @@ This matrix maps common user prompts and engineering intents to the exact primar
 
 | User Intent / Phrasing | Primary Skill | Lifecycle Pipeline | Do NOT Use When |
 |---|---|---|---|
-| "Explore ideas", "Interview me", "Poke holes in my plan" | `grill-me` | `grill-me` ➔ `to-spec` | Requirements already formal & clear |
-| "Capture decisions into ADR", "Define domain terms" | `grill-with-docs` | `grill-with-docs` ➔ `to-spec` | Writing production application code |
-| "Write a technical spec", "Formalize requirements" | `to-spec` | `to-spec` ➔ `to-tickets` | Spec already written & approved |
-| "Break down into tickets", "Create task graph", "Tracer bullets" | `to-tickets` | `to-tickets` ➔ `implement` | Requirements ambiguous or unapproved |
-| "Ask stakeholder questions", "Async requirements survey" | `to-questionnaire` | `to-questionnaire` ➔ `to-spec` | Information already in repository |
-| "Quick prototype", "UI spike", "Throwaway exploration" | `prototype` | `prototype` ➔ `grill-with-docs` | Building permanent production features |
-| "Design operational process", "Write SOP", "Review loop" | `workflow-designer` | `workflow-designer` ➔ `to-spec` | One-off manual script execution |
-| "Research third-party API", "Investigate documentation" | `research` | `research` ➔ `to-spec` | Reading local project code files |
+| "Explore ideas", "Interview me", "Poke holes in my plan" | `studio-plan` (interview mode) | `studio-plan` (interview mode) ➔ `studio-plan` (spec mode) | Requirements already formal & clear |
+| "Capture decisions into ADR", "Define domain terms" | `studio-plan` (interview mode) | `studio-plan` (interview mode) ➔ `studio-plan` (spec mode) | Writing production application code |
+| "Write a technical spec", "Formalize requirements" | `studio-plan` (spec mode) | `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) | Spec already written & approved |
+| "Break down into tickets", "Create task graph", "Tracer bullets" | `studio-plan` (tickets mode) | `studio-plan` (tickets mode) ➔ `implement` | Requirements ambiguous or unapproved |
+| "Ask stakeholder questions", "Async requirements survey" | `studio-plan` (questions mode) | `studio-plan` (questions mode) ➔ `studio-plan` (spec mode) | Information already in repository |
+| "Quick prototype", "UI spike", "Throwaway exploration" | `prototype` | `prototype` ➔ `studio-plan` (interview mode) | Building permanent production features |
+| "Design operational process", "Write SOP", "Review loop" | `workflow-designer` | `workflow-designer` ➔ `studio-plan` (spec mode) | One-off manual script execution |
+| "Research third-party API", "Investigate documentation" | `research` | `research` ➔ `studio-plan` (spec mode) | Reading local project code files |
 | "Define entity models", "Ubiquitous language", "CONTEXT.md" | `domain-modeling` | `domain-modeling` ➔ `codebase-design` | Generic database table migrations |
 | "Design deep modules", "Module interface seams", "Ousterhout" | `codebase-design` | `codebase-design` ➔ `implement` | Trivial one-line helper functions |
 | "Audit codebase architecture", "Git churn hotspot analysis" | `improve-codebase-architecture` | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` | Routine single-file bug fixing |
@@ -28,18 +28,18 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Prevent force push", "Block dangerous git", "Hard reset guard" | `git-safety-guardrails` | `git-safety-guardrails` | Safe git status or log commands |
 | "Setup issue tracker", "Configure triage labels", "Setup docs" | `setup-engineering-workflows` | `setup-engineering-workflows` | General npm package installation |
 | "Setup Husky", "lint-staged", "Prettier pre-commit hook" | `setup-pre-commit` | `setup-pre-commit` | Remote CI/CD pipeline automation |
-| "Triage incoming issues", "Author agent brief", "Out of scope" | `triage` | `triage` ➔ `implement` | Internal tickets from to-tickets |
-| "Map huge project", "Multi-session effort", "Fog of war" | `wayfinder` | `wayfinder` ➔ `to-spec` | Small, single-session feature work |
+| "Triage incoming issues", "Author agent brief", "Out of scope" | `triage` | `triage` ➔ `implement` | Internal tickets from studio-plan tickets mode |
+| "Map huge project", "Multi-session effort", "Fog of war" | `studio-plan` (map mode) | `studio-plan` (map mode) ➔ `studio-plan` (spec mode) | Small, single-session feature work |
 | "Interactive bash wizard", "Dashboard credentials setup" | `wizard` | `wizard` | Tasks the AI can execute directly |
 | "Train ML model", "LoRA fine-tuning", "vLLM serving" | `ai-engineering` | `ai-engineering` ➔ `ml-best-practices` | Standard CRUD backend development |
 | "Self-healing data pipeline", "AST-validated data fixes" | `ai-data-remediation` | `ai-data-remediation` ➔ `studio-review` (code mode) | Routine database schema migrations |
 | "Statistical ML", "95% bootstrap CIs", "EDA", "Data leakage" | `ml-best-practices` | `ml-best-practices` ➔ `ai-engineering` | Basic spreadsheet formatting |
 | "Inner cognitive workspace", "Three registers", "Deep thinking" | `j-space` | `j-space` ➔ `implement` | Trivial single-step lookups |
-| "Synthesize /goal prompt", "Overnight autonomous run" | `goal` | `goal` ➔ `implement-spec` | Immediate single-turn execution |
+| "Synthesize /goal prompt", "Overnight autonomous run" | `studio-plan` (goal mode) | `studio-plan` (goal mode) ➔ `implement-spec` | Immediate single-turn execution |
 | "Author new skill", "Skill evals", "10 Canonical Principles" | `skill-conductor` | `skill-conductor` ➔ `writing-for-agents` | General application coding |
 | "Compact session", "Transfer context", "Save handoff" | `handoff` | `handoff` | Committing code to git |
 | "Session retrospective", "Audit agent mistakes" | `retro` | `retro` ➔ `writing-for-agents` | Active mid-task implementation |
-| "Re-pitch simpler", "Explain in plain English", "Wait what" | `wait-what` | `wait-what` | Initial planning or brainstorming |
+| "Re-pitch simpler", "Explain in plain English", "Wait what" | `wait-what` | `wait-what` | Initial planning or studio-plan discover mode |
 | "Teach technical concept", "Interactive HTML lab", "ZPD" | `teach` | `teach` | Silent autonomous code generation |
 | "Write agent instructions", "AGENTS.md rules", "Context pointers" | `writing-for-agents` | `writing-for-agents` ➔ `skill-conductor` | Human-facing marketing copy |
 | "Brainstorm essay notes", "Capture raw fragments", "Metaphors" | `writing-fragments` | `writing-fragments` ➔ `writing-shape` | Final draft formatting |

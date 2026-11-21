@@ -23,6 +23,17 @@ REVIEW_MODES = (
     ("decide", r"review decision|require human attention|minimal, targeted or deep"),
     ("code", r"review changed code|reviewing a branch|code review|review this (?:diff|branch|pr|change)|authoring new code or diagnosing"),
 )
+# Specific planning intents shared with Plugin-Skill-Studio studio-plan.
+PLAN_MODES = (
+    ("goal", r"/goal|goal prompt|unattended execution|overnight autonomous|autonomous goal contract|agentic mission"),
+    ("map", r"decision tickets|multi-session|map out this massive|small, well-scoped features"),
+    ("questions", r"questionnaire|stakeholder|what should i ask them|answer the questions themselves"),
+    ("tickets", r"tracer-bullet|break this into tickets|tracker issues|initial requirements gathering"),
+    ("spec", r"technical spec|write a spec|fuzzy and ungrilled"),
+    ("interview", r"grill|interview the user|poke holes|domain modeling with doc generation|documentation trail is needed|immediate implementation"),
+    ("discover", r"explores user intent|starting a new feature|whose requirements or design|trivial single-file changes"),
+    ("plan", r"implementation plans?\b|needs planning"),
+)
 QUALITY_GATE = r"\b(lint|linter|lintkontrol|kvalitetskontrol|megalinter|quality.gate|typecheck|format.check|lint/type/build)\b"
 
 TASK_TARGET = r"(?:codex[\s-]+tasks?|remote(?:[\s-]+codex)?[\s-]+tasks?|codex[\s-]+opgaver?)"
@@ -76,11 +87,15 @@ def route(request: str) -> dict:
     )
     job_target = bool(re.search(JOB_TARGET, text))
     review_mode = next((name for name, pattern in REVIEW_MODES if re.search(pattern, text)), None)
+    # Planning boundaries ("Do NOT use for ...") still name planning intent, so match before negation stripping.
+    plan_mode = next((name for name, pattern in PLAN_MODES if re.search(pattern, request.casefold())), None)
     mode = None
     if explicit_owner:
         skill = explicit_owner
     elif review_mode:
         skill, mode = "devsuite-review", review_mode
+    elif plan_mode:
+        skill, mode = "devsuite-planning", plan_mode
     elif (task_target or cloud_config_query) and not operation:
         skill = "devsuite-tasks"
     elif job_target and not operation:
@@ -102,8 +117,8 @@ def route(request: str) -> dict:
         skill = "devsuite-debug"
     elif re.search(r"\b(test|tests|testing|qa|verify|validation)\b", text) and not re.search(r"\b(implement|build|refactor)\b", text):
         skill = "devsuite-test"
-    elif re.search(r"\b(plan|planning|coordinate|coordinator|architecture|new.project|agents\.md|board)\b", text) and not re.search(r"\b(implement|build)\b", text):
-        skill = "devsuite-planning"
+    elif re.search(r"\b(plan|planning|planlæg\w*|projektplan\w*|coordinate|coordinator|architecture|new.project|agents\.md|board)\b", text) and not re.search(r"\b(implement|build)\b", text):
+        skill, mode = "devsuite-planning", "project"
     elif re.search(r"\b(implement|build|fix|refactor|migrate|maintain|feature)\b", text):
         skill = "devsuite-implement"
     else:

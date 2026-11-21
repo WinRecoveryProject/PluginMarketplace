@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "coverageStatement": "39 source skills map to 214 function-level rows. Jobs/Tasks add independent integration workflows and local planning/selection tests. Provider execution remains separate.",
   "capabilities": [
     {
@@ -1547,7 +1547,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/2",
@@ -1573,7 +1574,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/3",
@@ -1599,7 +1601,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/4",
@@ -1625,7 +1628,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/5",
@@ -1651,7 +1655,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/6",
@@ -1677,7 +1682,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/7",
@@ -1703,7 +1709,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/8",
@@ -1729,7 +1736,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/9",
@@ -1755,7 +1763,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/10",
@@ -1781,7 +1790,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/11",
@@ -1807,7 +1817,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/12",
@@ -1833,7 +1844,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/13",
@@ -1859,7 +1871,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/14",
@@ -1885,7 +1898,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/15",
@@ -1911,7 +1925,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-coordinator/codex-coordinator/16",
@@ -1937,7 +1952,8 @@
       ],
       "evidenceType": "executable local behavior",
       "availability": "local standard-library runtime",
-      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution"
+      "verificationLimit": "Named local tests cover selected real helper behaviors; function-level mapping is not proof of every edge case or external execution",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/new-project/1",
@@ -1956,7 +1972,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/new-project/2",
@@ -1975,7 +1992,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/new-project/3",
@@ -1994,7 +2012,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/new-project/4",
@@ -2013,7 +2032,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/new-project/5",
@@ -2032,7 +2052,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/create-agent-instructions/1",
@@ -2051,7 +2072,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/create-agent-instructions/2",
@@ -2070,7 +2092,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/create-agent-instructions/3",
@@ -2089,7 +2112,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/create-agent-instructions/4",
@@ -2108,7 +2132,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/create-agent-instructions/5",
@@ -2127,7 +2152,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/orchestrate-work/1",
@@ -2146,7 +2172,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/orchestrate-work/2",
@@ -2165,7 +2192,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/orchestrate-work/3",
@@ -2184,7 +2212,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/orchestrate-work/4",
@@ -2203,7 +2232,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/orchestrate-work/5",
@@ -2222,7 +2252,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/orchestrate-work/6",
@@ -2241,7 +2272,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "project"
     },
     {
       "id": "codex-dev-workflows/feature-development/1",
@@ -4389,6 +4421,206 @@
       ],
       "tests": [
         "tests/test_review_consolidation.py::test_review_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/brainstorming/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "brainstorming",
+      "function": "intent, requirements and design discovery ending in plan mode",
+      "owner": "devsuite-planning",
+      "mode": "discover",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/discover.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/grill-me/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "grill-me",
+      "function": "focused interview exposing ambiguity and weak assumptions",
+      "owner": "devsuite-planning",
+      "mode": "interview",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/interview.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/grill-with-docs/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "grill-with-docs",
+      "function": "interview that records domain terms and ADRs",
+      "owner": "devsuite-planning",
+      "mode": "interview",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/interview.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/grilling/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "grilling",
+      "function": "round-by-round frontier grilling of decisions",
+      "owner": "devsuite-planning",
+      "mode": "interview",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/interview.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/to-spec/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "to-spec",
+      "function": "synthesis of settled decisions into a buildable spec",
+      "owner": "devsuite-planning",
+      "mode": "spec",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/spec.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/writing-plans/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "writing-plans",
+      "function": "implementation plan with interfaces, tests and open decisions",
+      "owner": "devsuite-planning",
+      "mode": "plan",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/plan.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/to-tickets/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "to-tickets",
+      "function": "dependency-linked tracer-bullet tickets from a spec or plan",
+      "owner": "devsuite-planning",
+      "mode": "tickets",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/tickets.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/to-questionnaire/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "to-questionnaire",
+      "function": "structured questionnaire for stakeholder unknowns",
+      "owner": "devsuite-planning",
+      "mode": "questions",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/questions.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/goal/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "goal",
+      "function": "self-contained /goal prompt for unattended autonomous runs",
+      "owner": "devsuite-planning",
+      "mode": "goal",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/goal.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/wayfinder/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "wayfinder",
+      "function": "multi-session decision-ticket map for massive efforts",
+      "owner": "devsuite-planning",
+      "mode": "map",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-plan)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-planning/modes/map.md",
+        "references/consolidation/plan-matrix.json"
+      ],
+      "tests": [
+        "tests/test_plan_consolidation.py::test_plan_matrix_union"
       ],
       "evidenceType": "static workflow contract and capability matrix",
       "availability": "local",

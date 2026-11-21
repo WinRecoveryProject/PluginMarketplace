@@ -1,0 +1,17 @@
+{
+  "id": "studio.brainstorming",
+  "root": "skills/brainstorming",
+  "commit": "4bbf25a",
+  "files": {
+    "SKILL.md": "2b486f587e77fb78c06f6818e491d7de1eec03fb8d185e653bd403347b01fc16",
+    "agents/openai.yaml": "dd4c418017e78c2e770acc2835ef2a5d7ee34f587e2169d0c815fc2deefb2860",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814",
+    "scripts/frame-template.html": "752771f8a0cb350f3d69aab99a0d9133aa8296d1e20d31428522816553b17d77",
+    "scripts/helper.js": "54ebffaa3bd8b5b504c6912074d26ab392096e0569c31369317a48f00f20cde9",
+    "scripts/server.cjs": "b78938b32e5b78d207129a6900558a3fd9c225acb9e4ea25a6df6fe6b8b67c72",
+    "scripts/start-server.sh": "63120a4cf1805f6ec53a8b26470dfd15469cd107b35de7e252d64c00dff6ead1",
+    "scripts/stop-server.sh": "e792434cac82ab6863b50bea95967e0e1811cacd89bac454827af8fcb4288c53",
+    "visual-companion.md": "0ca6460344542bd8acdb6df7c0886c954c22918edf00ebc8ba10acf1b478bf3b"
+  }
+}

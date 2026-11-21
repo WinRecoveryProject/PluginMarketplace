@@ -133,7 +133,8 @@ class ReviewConsolidationTests(unittest.TestCase):
             for file in (ROOT / folder).rglob("*"):
                 if not file.is_file() or file.suffix not in {".md", ".py", ".json", ".cjs", ".yaml"}:
                     continue
-                if CONSOLIDATION in file.parents or "__pycache__" in file.parts:
+                # Tests may name the removed skill to assert that it is absent from built packages.
+                if CONSOLIDATION in file.parents or "__pycache__" in file.parts or file.name.startswith("test_"):
                     continue
                 text = re.sub(r'<a id="[^"]*"></a>', "", file.read_text(encoding="utf-8", errors="ignore"))
                 if "devsuite-quality" in text:

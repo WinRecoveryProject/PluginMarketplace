@@ -15,6 +15,14 @@ export async function loadRegistry(root=packageRoot) {
 
 // [capability, mode|null, pattern]; the first match wins, so specific workflows precede broad ones.
 const rules=[
+ ['studio-plan','goal',/\/goal|goal prompt|unattended execution|overnight autonomous|autonomous goal contract|agentic mission/i],
+ ['studio-plan','map',/decision tickets|multi-session|map out this massive|small, well-scoped features/i],
+ ['studio-plan','questions',/questionnaire|stakeholder|what should i ask them|answer the questions themselves/i],
+ ['studio-plan','tickets',/tracer-bullet|break this into tickets|tracker issues|initial requirements gathering/i],
+ ['studio-plan','spec',/technical spec|write a spec|fuzzy and ungrilled/i],
+ ['studio-plan','interview',/grill|interview the user|poke holes|domain modeling with doc generation|documentation trail is needed|immediate implementation/i],
+ ['studio-plan','discover',/explores user intent|starting a new feature|whose requirements or design|trivial single-file changes/i],
+ ['studio-plan','plan',/implementation plans?\b|needs planning/i],
  ['studio-review','verify',/about to claim|verification commands|success claims|bounded static-page capture|audits finished work|completion claim|double-check that|unsupported claims/i],
  ['studio-review','receive',/review feedback|pushes back|feedback is unclear|receiving code review/i],
  ['studio-review','request',/dispatch(es)? a bounded reviewer|read-only review before merge|request(ing)? (a )?code review/i],
@@ -41,7 +49,7 @@ const rules=[
  ['studio-build','release',/publicer|publish|release|submission|indsend|pakning|\bzip\b/i],
  ['local-management',null,/permission|tilladelse|installed|installeret|afhængighed|dependenc/i],
  ['modern-web',null,/html|css|\bdom\b|accessibility|tilgængelig|web\s*ui/i],
- ['writing-plans',null,/\bplan\b|planlæg|specifikation/i],
+ ['studio-plan','plan',/\bplan\b|planlæg|specifikation/i],
  ['diagnose-systematically',null,/fejlsøg|debug|diagnos|failing|fejler/i],
  ['test-driven-development',null,/\btdd\b|test.driven|testdrevet/i],
  ['studio-build','create-skill',/(opret|create|byg|build|lav).{0,25}skill/i],

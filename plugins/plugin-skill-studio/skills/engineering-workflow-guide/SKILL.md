@@ -36,11 +36,11 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
     ┌──────────────────────┼──────────────────────┐
     ▼                      ▼                      ▼
 [ Discovery & Plan ]   [ Code & Architecture ]   [ AI, ML & Automation ]
-- `grill-with-docs`    - `implement`             - `ai-engineering`
-- `to-spec`            - `studio-review` (code mode)           - `ai-data-remediation`
-- `to-tickets`         - `diagnosing-bugs`       - `ml-best-practices`
-- `wayfinder`          - `domain-modeling`       - `j-space`
-- `prototype`          - `setup-ts-deep-modules` - `goal`
+- `studio-plan` (interview mode)    - `implement`             - `ai-engineering`
+- `studio-plan` (spec mode)            - `studio-review` (code mode)           - `ai-data-remediation`
+- `studio-plan` (tickets mode)         - `diagnosing-bugs`       - `ml-best-practices`
+- `studio-plan` (map mode)          - `domain-modeling`       - `j-space`
+- `prototype`          - `setup-ts-deep-modules` - `studio-plan` (goal mode)
                            │
                            ▼
 ┌────────────────────────────────────────────────────────┐
@@ -58,13 +58,13 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
 
 | Lifecycle Scenario | Canonical Route Pipeline |
 |---|---|
-| **Fuzzy Greenfield Feature** | `grill-with-docs` $\rightarrow$ `to-spec` $\rightarrow$ `to-tickets` $\rightarrow$ `implement` |
+| **Fuzzy Greenfield Feature** | `studio-plan` (interview mode) $\rightarrow$ `studio-plan` (spec mode) $\rightarrow$ `studio-plan` (tickets mode) $\rightarrow$ `implement` |
 | **Hard Bug or Regression** | `diagnosing-bugs` $\rightarrow$ `tdd` |
 | **Pull Request Review** | `studio-review` (code mode) (Two-axis: Standards & Spec) |
 | **Deep Module Restructuring** | `improve-codebase-architecture` $\rightarrow$ `setup-ts-deep-modules` |
-| **Large Multi-Session Map** | `wayfinder` $\rightarrow$ `to-spec` $\rightarrow$ `to-tickets` |
+| **Large Multi-Session Map** | `studio-plan` (map mode) $\rightarrow$ `studio-plan` (spec mode) $\rightarrow$ `studio-plan` (tickets mode) |
 | **Deep Multi-Step Reasoning** | `j-space` (Cognitive registers & seam audits) |
-| **Autonomous Unattended Goal** | `goal` (7-part prompt contract) |
+| **Autonomous Unattended Goal** | `studio-plan` (goal mode) (7-part prompt contract) |
 | **Production ML / LLM System** | `ai-engineering` $\rightarrow$ `ml-best-practices` |
 | **Self-Healing Data Pipeline** | `ai-data-remediation` |
 | **Long-Form Writing & Essays** | `writing-fragments` $\rightarrow$ `writing-shape` / `writing-beats` |

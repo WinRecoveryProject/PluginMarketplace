@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.6.0 — 2026-11-21
+
+Breaking: ten planning skills are consolidated into `studio-plan`. Every capability is mapped in `references/consolidation/plan-matrix.json` (429 capabilities, none dropped).
+
+| Removed skill | New skill | Mode |
+|---|---|---|
+| `brainstorming` | `studio-plan` | `discover` (browser companion in `skills/studio-plan/companion/`) |
+| `grill-me` | `studio-plan` | `interview` |
+| `grill-with-docs` | `studio-plan` | `interview` |
+| `grilling` | `studio-plan` | `interview` |
+| `to-spec` | `studio-plan` | `spec` |
+| `writing-plans` | `studio-plan` | `plan` (with `modes/plan-full.md`) |
+| `to-tickets` | `studio-plan` | `tickets` |
+| `to-questionnaire` | `studio-plan` | `questions` |
+| `goal` | `studio-plan` | `goal` |
+| `wayfinder` | `studio-plan` | `map` |
+
+The eight mode files and `plan-full.md` are shared byte-for-byte with WinRecoveryProject DevSuite `devsuite-planning`; `references/consolidation/shared-plan-modes.json` pins their hashes in both packages. Tracker labels such as `wayfinder:map` and the ticket types (`research`, `prototype`, `grilling`, `task`) are unchanged.
+
 ## 0.5.0 — 2026-11-20
 
 Breaking: seven review skills are consolidated. Every capability is mapped in `references/consolidation/review-matrix.json` (269 capabilities, none dropped).
