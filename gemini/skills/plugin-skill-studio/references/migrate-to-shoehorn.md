@@ -1,6 +1,6 @@
 # Skill: migrate-to-shoehorn
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/migrate-to-shoehorn/SKILL.md`
 
 > Migrate unsafe TypeScript test assertions to @total-typescript/shoehorn with explicit fixture intent. Use when test files contain unsafe `as` or `as unknown as` typecasts, when mock fixtures break under typechecking, or when modernizing test typing — even if the user says "fix test type assertions". Do NOT use for production code types.

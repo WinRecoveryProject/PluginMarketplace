@@ -1,6 +1,6 @@
 # Skill: ml-best-practices
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/ml-best-practices/SKILL.md`
 
 > Statistical machine learning best practices, exploratory data analysis, feature engineering, and rigorous model evaluation. Use when analyzing tabular datasets, engineering features, training classifiers or regressors, forecasting time series, or computing 95% bootstrap confidence intervals — even if they don't explicitly say "ml best practices". Do NOT use for standard database queries without ML, basic spreadsheet formatting, or general application backend logic.

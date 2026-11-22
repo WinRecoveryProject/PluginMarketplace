@@ -1,6 +1,6 @@
 # Skill: writing-shape
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/writing-shape/SKILL.md`
 
 > Shape raw notes, transcript fragments, and research into a structured, coherent article draft. Use when assembling collected fragments into narrative sections, establishing flow, and building a draft block by block — even if the user says "turn these notes into a draft". Do NOT use for initial fragment generation.

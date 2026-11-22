@@ -1,6 +1,6 @@
 # Skill: setup-ts-deep-modules
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/setup-ts-deep-modules/SKILL.md`
 
 > Enforce TypeScript package boundaries, entry points, and cyclic dependency rules with dependency-cruiser. Use when structuring monorepo packages, establishing public API entry points, or preventing circular imports — even if the user says "fix TS package boundaries". Do NOT use for non-TypeScript repositories.

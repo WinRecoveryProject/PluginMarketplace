@@ -1,6 +1,6 @@
 # Skill: resolving-merge-conflicts
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/resolving-merge-conflicts/SKILL.md`
 
 > Resolve in-progress git merge or rebase conflicts by intent traced to primary sources. Use when hit with merge conflicts, CONFLICT markers in files, rebase pauses, or when git prompts to resolve conflicted hunks — even if the user just says "fix this merge". Do NOT use for creating new branches or routine rebasing without conflicts.

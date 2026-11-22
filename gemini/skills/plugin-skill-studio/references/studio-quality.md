@@ -1,6 +1,6 @@
 # Skill: studio-quality
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/studio-quality/SKILL.md`
 
 > Use when evaluating, auditing, reviewing, explaining, benchmarking or improving an agent skill or plugin: static and benchmark evals, why it scored that way, what to fix first, token budget and real usage, trigger tests, comparing revisions, custom metric packs, deterministic risk scans, behavior reviews, walkthroughs, evidence matrices, autoresearch keep/discard improvement loops, or doctoring conflicting skills, plugins and hooks on the host. Do NOT use for creating, importing, installing, packaging or publishing plugins and skills; use studio-build.

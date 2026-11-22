@@ -2,6 +2,41 @@
 
 Source: `plugins/plugin-skill-studio`. Files outside the `skills/*` folders, embedded as text.
 
+## File: `references/consolidation/execute-matrix.json`
+
+_131 KB, too large to embed. Read it in the repository._
+
+## File: `references/consolidation/execute-sources.json`
+
+```json
+[
+  {
+    "id": "studio.executing-plans",
+    "snapshot": "references/consolidation/snapshots/sources/studio.executing-plans.json"
+  },
+  {
+    "id": "studio.subagent-driven-development",
+    "snapshot": "references/consolidation/snapshots/sources/studio.subagent-driven-development.json"
+  },
+  {
+    "id": "studio.implement",
+    "snapshot": "references/consolidation/snapshots/sources/studio.implement.json"
+  },
+  {
+    "id": "studio.implement-spec",
+    "snapshot": "references/consolidation/snapshots/sources/studio.implement-spec.json"
+  },
+  {
+    "id": "studio.dispatching-parallel-agents",
+    "snapshot": "references/consolidation/snapshots/sources/studio.dispatching-parallel-agents.json"
+  },
+  {
+    "id": "studio.execute-durably",
+    "snapshot": "references/consolidation/snapshots/sources/studio.execute-durably.json"
+  }
+]
+```
+
 ## File: `references/consolidation/lifecycle-matrix.json`
 
 _279 KB, too large to embed. Read it in the repository._
@@ -193,6 +228,32 @@ _110 KB, too large to embed. Read it in the repository._
     "snapshot": "references/consolidation/snapshots/sources/studio.risk-review.json"
   }
 ]
+```
+
+## File: `references/consolidation/shared-execute-modes.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-execute/modes and DevSuite skills/devsuite-implement/modes (including subagent/); hashed with LF line endings.",
+  "files": {
+    "durable.md": "ee18c709e00b805f4fdb901b7ca803f3378fbb1e4f196fa66e7cf5c213712068",
+    "execute.md": "020ce1930cfee2a32c7691b9b8c39b64206265acd25619598811653197a11554",
+    "implement.md": "29a609a7a4cf5c989f3bc0948da43761dcd54c5fbcd87ab7fa4834ee89bc3011",
+    "parallel.md": "798417395c9da8f8b029073ec99e224ce7698aa650d795561df758ff956b27db",
+    "spec-run.md": "30e0a0f90e3d57f95f4ef841109e03cafd0dcd9cb570cb94db145917521ba7a2",
+    "subagent.md": "2f72bae42e12bce7b472f15bfac97e42a0208ca2763609cc4db65cfb38220a03",
+    "subagent/implementer-prompt.md": "4b43a9e14efe68839e82b0a9e154145c0367b17a47bd43b27e3daad711b520f8",
+    "subagent/re-review-prompt.md": "d24124e2579a6493c5546bd754341761f89cc1c3ce8c17ad5de1af2aafcf2678",
+    "subagent/references/dispatch-and-model-selection.md": "285403c9c978695c9f63876d85829c258b15618d1fbaf6cf4bcc3a19a2b928d2",
+    "subagent/references/review-and-fix-loop.md": "6f8f6c5d0a21fe7e62e912818a1effc04680175826e42f606a289e1e1c5d8daf",
+    "subagent/references/workflow-example.md": "598dfce8dc5b130b4634ab85ed9a0fe1630219583e24c1b948444cbb3d022954",
+    "subagent/scripts/review-package": "633d4d11af8570d741c4a9d189905becc9cc0107d9d3020dde028f2eeddabf66",
+    "subagent/scripts/sdd-workspace": "c90d82032fe3e42b679f9fcb9acf1df71a186ad1944642b251daad13216f1920",
+    "subagent/scripts/task-brief": "544146b5850e88a228ff849770f68487cdb5ebc85a410086ad12e709e3701c8b",
+    "subagent/task-reviewer-prompt.md": "f6f6dd5c47dea5c408b0242ed42b2d2b98ede177c58b43b8925af80f6eb1b0e3"
+  }
+}
 ```
 
 ## File: `references/consolidation/shared-plan-modes.json`
@@ -885,6 +946,22 @@ Good checks:
 }
 ```
 
+## File: `references/consolidation/snapshots/sources/studio.dispatching-parallel-agents.json`
+
+```json
+{
+  "id": "studio.dispatching-parallel-agents",
+  "root": "skills/dispatching-parallel-agents",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "9787d10f6f5d0f0bfb92f1c0d3f845c0018ec31f6b6d1874fd9dd3cdf8cda05d",
+    "agents/openai.yaml": "9c1fb784edaf0fc68b06b17202b425dcd485b5270037cd97e33e0846fb3af0ff",
+    "assets/wrp-icon-128.png": "9040ba476c15ed153e68ab474f12bb56d3702a01105dd8edb5ad6cf848e0bf82",
+    "assets/wrp-icon-256.png": "8c41a2e7b225c7c85acf8a644e00e3f4a60890796931621e791c8a1a9d2ba9bd"
+  }
+}
+```
+
 ## File: `references/consolidation/snapshots/sources/studio.evidence-matrix.json`
 
 ```json
@@ -897,6 +974,38 @@ Good checks:
     "agents/openai.yaml": "1acba4bf0c4743162566f7152034540133489fb779825a28b82c59cdf452f0b5",
     "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
     "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/sources/studio.execute-durably.json`
+
+```json
+{
+  "id": "studio.execute-durably",
+  "root": "skills/execute-durably",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "572dc24c04d640d60177e89183309020958503240265ccbd63086df737dc0f48",
+    "agents/openai.yaml": "ca6dccf11effd39734578f43d0e14d272913ba59978bf035fbe320e84fa1494e",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/sources/studio.executing-plans.json`
+
+```json
+{
+  "id": "studio.executing-plans",
+  "root": "skills/executing-plans",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "72adec8fbef023a749b1ba499f038daf0b6876de71539b2bd727be2f63af3772",
+    "agents/openai.yaml": "7ecc9281713867bafe574de77403ade4a99b49b05112064c47fb5e517cf8afa7",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
   }
 }
 ```
@@ -961,6 +1070,38 @@ Good checks:
     "agents/openai.yaml": "3285cde927bf0509c45b103ba1125acce5cf0ae44d7c82826f885507e1a07ab0",
     "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
     "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/sources/studio.implement-spec.json`
+
+```json
+{
+  "id": "studio.implement-spec",
+  "root": "skills/implement-spec",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "e3c52e6456a12a7b3b6e3f2368ab20d4d9410295aba9cf70b16545a9680f83fc",
+    "agents/openai.yaml": "ce81c8461aff187e0500003ad69e7252bacc6ee95494b26defa9515d7c92345e",
+    "assets/wrp-icon-128.png": "9a5b9520c58573574f05754fb24275b7c83ede7c3f3a54119dbb12870f4cb046",
+    "assets/wrp-icon-256.png": "f52ccd82d7b03b73b7a2ef8ea4bf3657f0fb8549297e3f03e25d2efdce232d81"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/sources/studio.implement.json`
+
+```json
+{
+  "id": "studio.implement",
+  "root": "skills/implement",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "b1c9c52a1fa4d33b1e9236deef6e182a14edf65f418056d7f699529e14a37d4d",
+    "agents/openai.yaml": "3591461407941144fa20d5d6e3437c00a48bce3fbc221cc1a5d1f499015d89d8",
+    "assets/wrp-icon-128.png": "9a5b9520c58573574f05754fb24275b7c83ede7c3f3a54119dbb12870f4cb046",
+    "assets/wrp-icon-256.png": "f52ccd82d7b03b73b7a2ef8ea4bf3657f0fb8549297e3f03e25d2efdce232d81"
   }
 }
 ```
@@ -1294,6 +1435,31 @@ Good checks:
 }
 ```
 
+## File: `references/consolidation/snapshots/sources/studio.subagent-driven-development.json`
+
+```json
+{
+  "id": "studio.subagent-driven-development",
+  "root": "skills/subagent-driven-development",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "ed1fb549103903144fd30291e658b0961baaef321fe9415d8da259b669936101",
+    "agents/openai.yaml": "544110361ff230d40d5177b283b989809ad3edf695941d31d1e111aeba3414eb",
+    "assets/wrp-icon-128.png": "9040ba476c15ed153e68ab474f12bb56d3702a01105dd8edb5ad6cf848e0bf82",
+    "assets/wrp-icon-256.png": "8c41a2e7b225c7c85acf8a644e00e3f4a60890796931621e791c8a1a9d2ba9bd",
+    "implementer-prompt.md": "4b43a9e14efe68839e82b0a9e154145c0367b17a47bd43b27e3daad711b520f8",
+    "re-review-prompt.md": "d24124e2579a6493c5546bd754341761f89cc1c3ce8c17ad5de1af2aafcf2678",
+    "references/dispatch-and-model-selection.md": "285403c9c978695c9f63876d85829c258b15618d1fbaf6cf4bcc3a19a2b928d2",
+    "references/review-and-fix-loop.md": "9eb27536ff3dbe360783a026eb820d4ba873faf20e3a2f8023ded9a94ca85bd8",
+    "references/workflow-example.md": "343193b1a66408eeacd146b53feeb28d7f353c2dde41b3c4739be1a725d8173c",
+    "scripts/review-package": "633d4d11af8570d741c4a9d189905becc9cc0107d9d3020dde028f2eeddabf66",
+    "scripts/sdd-workspace": "c90d82032fe3e42b679f9fcb9acf1df71a186ad1944642b251daad13216f1920",
+    "scripts/task-brief": "544146b5850e88a228ff849770f68487cdb5ebc85a410086ad12e709e3701c8b",
+    "task-reviewer-prompt.md": "f6f6dd5c47dea5c408b0242ed42b2d2b98ede177c58b43b8925af80f6eb1b0e3"
+  }
+}
+```
+
 ## File: `references/consolidation/snapshots/sources/studio.to-questionnaire.json`
 
 ```json
@@ -1550,7 +1716,7 @@ execution, configuration changes or cache restoration. Budget: 0 kr.
 
 ## File: `references/integration-registry.json`
 
-_150 KB, too large to embed. Read it in the repository._
+_148 KB, too large to embed. Read it in the repository._
 
 ## File: `references/inventory-versions.md`
 

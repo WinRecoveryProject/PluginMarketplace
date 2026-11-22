@@ -1,6 +1,6 @@
 # Skill: finishing-a-development-branch
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/finishing-a-development-branch/SKILL.md`
 
 > Guides integration of a finished branch: verify tests, present merge/PR/keep/discard options to the user, and clean up worktrees. Use when implementation is complete, all tests pass, and the work needs to be integrated.

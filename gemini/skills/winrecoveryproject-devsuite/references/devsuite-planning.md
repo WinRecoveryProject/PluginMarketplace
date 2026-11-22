@@ -1,6 +1,6 @@
 # Skill: devsuite-planning
 
-- Plugin: `winrecoveryproject-devsuite` (0.4.0)
+- Plugin: `winrecoveryproject-devsuite` (0.5.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-planning/SKILL.md`
 
 > Use for scoped project planning, architecture, concise AGENTS.md instructions, task-boundary coordination or project board lifecycle; discovering intent and design before a new feature; interviewing or grilling the user to stress-test an idea, plan or decision (even if they just say "grill me" or "poke holes in my plan"); recording domain terms and ADRs; writing a buildable technical spec or an implementation plan; breaking a spec into dependency-linked tickets; turning stakeholder unknowns into a questionnaire; crafting a /goal prompt for unattended autonomous runs; or mapping a massive multi-session project through decision tickets. Do NOT use for executing an existing plan, writing code, or trivial single-file changes the user already specified.

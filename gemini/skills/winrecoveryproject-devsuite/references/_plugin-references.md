@@ -4,7 +4,11 @@ Source: `plugins/winrecoveryproject-devsuite`. Files outside the `skills/*` fold
 
 ## File: `references/capability-matrix.json`
 
-_182 KB, too large to embed. Read it in the repository._
+_187 KB, too large to embed. Read it in the repository._
+
+## File: `references/consolidation/execute-matrix.json`
+
+_138 KB, too large to embed. Read it in the repository._
 
 ## File: `references/consolidation/plan-matrix.json`
 
@@ -13,6 +17,32 @@ _182 KB, too large to embed. Read it in the repository._
 ## File: `references/consolidation/review-matrix.json`
 
 _117 KB, too large to embed. Read it in the repository._
+
+## File: `references/consolidation/shared-execute-modes.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-execute/modes and DevSuite skills/devsuite-implement/modes (including subagent/); hashed with LF line endings.",
+  "files": {
+    "durable.md": "ee18c709e00b805f4fdb901b7ca803f3378fbb1e4f196fa66e7cf5c213712068",
+    "execute.md": "020ce1930cfee2a32c7691b9b8c39b64206265acd25619598811653197a11554",
+    "implement.md": "29a609a7a4cf5c989f3bc0948da43761dcd54c5fbcd87ab7fa4834ee89bc3011",
+    "parallel.md": "798417395c9da8f8b029073ec99e224ce7698aa650d795561df758ff956b27db",
+    "spec-run.md": "30e0a0f90e3d57f95f4ef841109e03cafd0dcd9cb570cb94db145917521ba7a2",
+    "subagent.md": "2f72bae42e12bce7b472f15bfac97e42a0208ca2763609cc4db65cfb38220a03",
+    "subagent/implementer-prompt.md": "4b43a9e14efe68839e82b0a9e154145c0367b17a47bd43b27e3daad711b520f8",
+    "subagent/re-review-prompt.md": "d24124e2579a6493c5546bd754341761f89cc1c3ce8c17ad5de1af2aafcf2678",
+    "subagent/references/dispatch-and-model-selection.md": "285403c9c978695c9f63876d85829c258b15618d1fbaf6cf4bcc3a19a2b928d2",
+    "subagent/references/review-and-fix-loop.md": "6f8f6c5d0a21fe7e62e912818a1effc04680175826e42f606a289e1e1c5d8daf",
+    "subagent/references/workflow-example.md": "598dfce8dc5b130b4634ab85ed9a0fe1630219583e24c1b948444cbb3d022954",
+    "subagent/scripts/review-package": "633d4d11af8570d741c4a9d189905becc9cc0107d9d3020dde028f2eeddabf66",
+    "subagent/scripts/sdd-workspace": "c90d82032fe3e42b679f9fcb9acf1df71a186ad1944642b251daad13216f1920",
+    "subagent/scripts/task-brief": "544146b5850e88a228ff849770f68487cdb5ebc85a410086ad12e709e3701c8b",
+    "subagent/task-reviewer-prompt.md": "f6f6dd5c47dea5c408b0242ed42b2d2b98ede177c58b43b8925af80f6eb1b0e3"
+  }
+}
+```
 
 ## File: `references/consolidation/shared-plan-modes.json`
 
@@ -47,6 +77,23 @@ _117 KB, too large to embed. Read it in the repository._
     "receive.md": "8411d5b64d260bbf0a5b657654a225b2a89157161ea1fc7eec3ff50ae015d7fd",
     "request.md": "5c88b6ac3bb840f81d9358543ce9a84e1e600cb7797f8fba59e817bab9867983",
     "verify.md": "9bc323bcba11b7757174472a464b9892a6059477454704b05d98da4c32b7f064"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/devsuite.devsuite-implement.json`
+
+```json
+{
+  "id": "devsuite.devsuite-implement",
+  "root": "skills/devsuite-implement",
+  "source": "WinRecoveryProject-DevSuite@fa2f537",
+  "files": {
+    "SKILL.md": "6e7b5f7141a0b74a5028555966eed23f7735982117ff4532d4859c6622d0c3f9",
+    "agents/openai.yaml": "132c946f567af35f584a8e49e1d642adffd30dc14399341484648de2807517b6",
+    "assets/icon.png": "d77bb05d6c8f8175f7bcb13d9427510a09361562842a7ea2be24ddc239ec19b6",
+    "assets/wrp-icon-128.png": "9a5b9520c58573574f05754fb24275b7c83ede7c3f3a54119dbb12870f4cb046",
+    "assets/wrp-icon-256.png": "f52ccd82d7b03b73b7a2ef8ea4bf3657f0fb8549297e3f03e25d2efdce232d81"
   }
 }
 ```
@@ -140,6 +187,54 @@ _117 KB, too large to embed. Read it in the repository._
 }
 ```
 
+## File: `references/consolidation/snapshots/studio.dispatching-parallel-agents.json`
+
+```json
+{
+  "id": "studio.dispatching-parallel-agents",
+  "root": "skills/dispatching-parallel-agents",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "a6012f9ab8eebf1bf47bb509c64ce544df5343262bf72b81a6f61f91e5d41b09",
+    "agents/openai.yaml": "e23cea318fe03d77b545a8d8a36d866635190a910cc2524dc48d8fa217264d2a",
+    "assets/wrp-icon-128.png": "9040ba476c15ed153e68ab474f12bb56d3702a01105dd8edb5ad6cf848e0bf82",
+    "assets/wrp-icon-256.png": "8c41a2e7b225c7c85acf8a644e00e3f4a60890796931621e791c8a1a9d2ba9bd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.execute-durably.json`
+
+```json
+{
+  "id": "studio.execute-durably",
+  "root": "skills/execute-durably",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "98173e1d8e5ce7c676dd522fce8c8a6fd2dc22f59bf1fb244fc6c556e9958d05",
+    "agents/openai.yaml": "3804d16b766b99bf81a3cb8d40a00bcd0a9f8e592e7c706361314154a786f4f0",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.executing-plans.json`
+
+```json
+{
+  "id": "studio.executing-plans",
+  "root": "skills/executing-plans",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "55f3242429839231db9a89d9bb61de4ce425a49c76dc8e6dd35a2036b3aaacb2",
+    "agents/openai.yaml": "a2cde15a2d74300ae4bfdc542e2845a2019638150b5d10aaf1a475a48d757cc4",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
 ## File: `references/consolidation/snapshots/studio.goal.json`
 
 ```json
@@ -204,6 +299,38 @@ _117 KB, too large to embed. Read it in the repository._
 }
 ```
 
+## File: `references/consolidation/snapshots/studio.implement-spec.json`
+
+```json
+{
+  "id": "studio.implement-spec",
+  "root": "skills/implement-spec",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "68a4dc2776a33312da3bbb025f5b09367a2b0c824e58aacec767117027d7600b",
+    "agents/openai.yaml": "b2212ea0b2a89ec7f27c91e17070b530b1a542f18fcd01559ecd54f3e7e37acd",
+    "assets/wrp-icon-128.png": "9a5b9520c58573574f05754fb24275b7c83ede7c3f3a54119dbb12870f4cb046",
+    "assets/wrp-icon-256.png": "f52ccd82d7b03b73b7a2ef8ea4bf3657f0fb8549297e3f03e25d2efdce232d81"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.implement.json`
+
+```json
+{
+  "id": "studio.implement",
+  "root": "skills/implement",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "0d8f1ad57f4fa78c7685d95ab0cc1bcb467f5d77054ae612b72b255ef6179a7c",
+    "agents/openai.yaml": "3ab8d8aedfcf2a5d64fb9f94d4ca91fbd2f76e3e80552ffa4f1cb09a694c3cd9",
+    "assets/wrp-icon-128.png": "9a5b9520c58573574f05754fb24275b7c83ede7c3f3a54119dbb12870f4cb046",
+    "assets/wrp-icon-256.png": "f52ccd82d7b03b73b7a2ef8ea4bf3657f0fb8549297e3f03e25d2efdce232d81"
+  }
+}
+```
+
 ## File: `references/consolidation/snapshots/studio.receiving-code-review.json`
 
 ```json
@@ -249,6 +376,31 @@ _117 KB, too large to embed. Read it in the repository._
     "agents/openai.yaml": "6de6aeda3e16b303a71fbfda25b38a8efc5d8515d3c0495695f3d0866731843f",
     "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
     "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.subagent-driven-development.json`
+
+```json
+{
+  "id": "studio.subagent-driven-development",
+  "root": "skills/subagent-driven-development",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "94352218d5dff24abf2bf3502b004873a25a84c8c477405931abe1a78847f41a",
+    "agents/openai.yaml": "03a2c86d98750eb39d74f435395968b7ae19e7a0196d14e613831e24462ba21c",
+    "assets/wrp-icon-128.png": "9040ba476c15ed153e68ab474f12bb56d3702a01105dd8edb5ad6cf848e0bf82",
+    "assets/wrp-icon-256.png": "8c41a2e7b225c7c85acf8a644e00e3f4a60890796931621e791c8a1a9d2ba9bd",
+    "implementer-prompt.md": "450bb0c637359691d8dd475049b1c5a9ef40be19af41d8b80d18ff18ffc02319",
+    "re-review-prompt.md": "a1cf6efaaa70b3eefff9986f19e74f19561861d00c00cbc327562ce4e52c05d0",
+    "references/dispatch-and-model-selection.md": "eef9eff4544cef457e2c3e2e3c31c46b358cbdde0b01ea4b6f46608d151318e0",
+    "references/review-and-fix-loop.md": "b6acf2ef23f99673ca9e8d0a1d3b5baec85bf82af1a47c88d6f49c15b0c8db15",
+    "references/workflow-example.md": "6ab560dad8440f722a33327b7c8140050eedee9729b89fe5a764cb4d62ba9480",
+    "scripts/review-package": "a5754bea4aa136cffcecf8446169c9f24de585de5d55949f3c95ab50c15e7a47",
+    "scripts/sdd-workspace": "f2be39e7a6c9d55f97e43c67eefb120ce58b572ce197a33655729fd3e98c9493",
+    "scripts/task-brief": "de266489f2c7ebd268cd2dfc7768daa0edcc4f433b0a5168baf6bfc29c5c67e1",
+    "task-reviewer-prompt.md": "a1243a2728d16e0dab196c8b6b562e5f785d1f26f6806f33dd4a5902e3740dcd"
   }
 }
 ```

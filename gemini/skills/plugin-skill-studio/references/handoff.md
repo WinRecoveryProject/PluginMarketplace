@@ -1,6 +1,6 @@
 # Skill: handoff
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/handoff/SKILL.md`
 
 > Compact current conversation context, decisions, evidence, and next actions into a portable markdown handoff for a fresh agent session. Use when ending a session, transferring work to another agent, switching workspaces, or preparing a resume point — even if the user just says "save progress". Do NOT use for committing code to git or creating branch PRs.
@@ -36,7 +36,7 @@ Compact complex conversational history, locked architectural decisions, unblocke
 | **Goal & Scope** | What this initiative accomplishes | Spec boundary, user requirements |
 | **Decisions & Invariants** | Hard architectural contracts settled | Domain model choices, ADR pointers |
 | **Current State & Diff** | Exact working tree status | Git status, modified files, passing tests |
-| **Suggested Skills** | Local workflows needed for continuation | `skills/implement-spec/SKILL.md` |
+| **Suggested Skills** | Local workflows needed for continuation | `skills/studio-execute/modes/spec-run.md` |
 | **Exact Next Action** | Atomic next step | Command or task frontier claim |
 
 ---

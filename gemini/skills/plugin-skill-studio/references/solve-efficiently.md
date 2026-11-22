@@ -1,6 +1,6 @@
 # Skill: solve-efficiently
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/solve-efficiently/SKILL.md`
 
 > Routes multi-module work with progressive discovery, matched effort, and context economy. Use when boundaries are unclear, context must stay small, or a durable project map is needed.
@@ -55,7 +55,7 @@ Bound trust: every graph result is a navigation candidate, never behavioral proo
 - **Direct**: one obvious low-risk action with a clear check. No plan, no delegation.
 - **Focused**: one component and its nearest tests. Inspect, change, verify — no durable state or coordination overhead.
 - **Cross-cutting**: behavior crosses modules, tools, or external state. Keep a short plan, one observable outcome per step; re-evaluate when evidence changes the path.
-- **Durable**: work spans turns, risks context compaction, must be resumable, or needs independently reviewable evidence — invoke execute-durably before starting. Do not create durable state for work checkable in one pass.
+- **Durable**: work spans turns, risks context compaction, must be resumable, or needs independently reviewable evidence — invoke studio-execute durable mode before starting. Do not create durable state for work checkable in one pass.
 
 ##### Focused fast path
 
@@ -70,9 +70,9 @@ Route by domain: UI creation, redesign, or design-quality claims → design-ui b
 
 ##### Delegation
 
-Delegate only when two or more genuinely independent units exist, boundaries are clear, and the independent outputs plausibly repay coordination cost — otherwise work solo and say why. Cap workers at min(available capacity − 1, 3, independent ready units); parallel writes only for disjoint owned paths, coupled edits stay under one owner. Delegation contract and worker report requirements: see execute-durably section 4.
+Delegate only when two or more genuinely independent units exist, boundaries are clear, and the independent outputs plausibly repay coordination cost — otherwise work solo and say why. Cap workers at min(available capacity − 1, 3, independent ready units); parallel writes only for disjoint owned paths, coupled edits stay under one owner. Delegation contract and worker report requirements: see studio-execute durable mode section 4.
 
-Route by shape: parallel dispatch across independent problem domains → dispatching-parallel-agents; serial, review-gated execution of a written implementation plan → subagent-driven-development.
+Route by shape: parallel dispatch across independent problem domains → studio-execute parallel mode; serial, review-gated execution of a written implementation plan → subagent-driven-development.
 
 #### 4. Execute the smallest coherent change
 

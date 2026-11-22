@@ -1,6 +1,6 @@
 # Skill: tdd
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/tdd/SKILL.md`
 
 > Implement features and bug fixes test-first using red-green-refactor cycles. Use when writing new functionality, adding regression tests, fixing bugs with test coverage, or designing behavior through test assertions — even if the user says "write tests for this". Do NOT use for throwaway exploratory prototypes.

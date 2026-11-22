@@ -1,6 +1,6 @@
 # Skill: git-safety-guardrails
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/git-safety-guardrails/SKILL.md`
 
 > Safeguard repositories against destructive, irreversible, or history-rewriting Git operations. Use when running force pushes, hard resets, branch deletions, cleans, destructive restores, or history re-writes — even if the user says "clean up git history". Do NOT use for routine safe git status, fetch, diff, or branch queries.

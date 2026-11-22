@@ -1341,6 +1341,12 @@ export async function loadRegistry(root=packageRoot) {
 
 // [capability, mode|null, pattern]; the first match wins, so specific workflows precede broad ones.
 const rules=[
+ ['studio-execute','durable',/durable state file|interruption-prone|risks compaction|resume after interruption/i],
+ ['studio-execute','spec-run',/full specification across task tickets|unified pr|build the whole spec|single isolated bug fixes|exploratory coding without tickets/i],
+ ['studio-execute','parallel',/one subagent per independent problem|proceed concurrently|without shared state/i],
+ ['studio-execute','subagent',/one subagent per task|per-task review gates|executing plans with independent tasks/i],
+ ['studio-execute','execute',/inline, task by task|stopping only on blockers|subagent dispatch is unavailable|separate session/i],
+ ['studio-execute','implement',/build scoped code changes|ready to implement|build or code a planned feature|initial architecture exploration|explicitly say "implement"/i],
  ['studio-plan','goal',/\/goal|goal prompt|unattended execution|overnight autonomous|autonomous goal contract|agentic mission/i],
  ['studio-plan','map',/decision tickets|multi-session|map out this massive|small, well-scoped features/i],
  ['studio-plan','questions',/questionnaire|stakeholder|what should i ask them|answer the questions themselves/i],
