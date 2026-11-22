@@ -1,6 +1,6 @@
 # Skill: engineer-prompts
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/engineer-prompts/SKILL.md`
 
 > Builds or audits testable prompt contracts with explicit outcomes, permissions, tools, evidence, and stop conditions. Use when writing reusable agent prompts, system prompts, or prompts with unclear success criteria.

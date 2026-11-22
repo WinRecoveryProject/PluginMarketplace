@@ -10,8 +10,8 @@ import {analyze} from '../src/eval/index.mjs';
 
 const cli=path.join(packageRoot,'scripts/studio.mjs');
 function run(args,cwd=packageRoot){return spawnSync(process.execPath,[cli,...args],{cwd,encoding:'utf8',windowsHide:true});}
-test('all fifteen sources and every original workflow have real contained implementations',async()=>{
- const registry=await loadRegistry();assert.equal(registry.sources.length,15);
+test('all sixteen sources and every original workflow have real contained implementations',async()=>{
+ const registry=await loadRegistry();assert.equal(registry.sources.length,16);
  assert.equal(new Set(registry.capabilities.map(c=>c.id)).size,registry.capabilities.length);
  for(const s of registry.sources){assert.ok(Object.keys(s.files).length);assert.ok(s.skills.length);for(const w of s.skills){assert.ok(w.acceptanceTest);assert.ok(!path.isAbsolute(w.implementation));assert.ok((await fs.stat(path.join(packageRoot,w.implementation))).isFile());}}
  assert.equal((await selfCheck()).ok,true);
@@ -19,20 +19,20 @@ test('all fifteen sources and every original workflow have real contained implem
  await assert.rejects(()=>fs.stat(path.join(packageRoot,'hooks')),e=>e.code==='ENOENT');
 });
 test('router selects only bundled workflows for Danish and English requests',async()=>{
- const cases=[['Vurder denne skill','skill-eval'],['Analyze this plugin','plugin-eval'],['Find en skill til review','catalog'],['Lav en plan','writing-plans'],['HTML accessibility report','modern-web'],['evidence matrix','evidence-matrix']];
+ const cases=[['Vurder denne skill','studio-quality'],['Analyze this plugin','studio-quality'],['Find en skill til review','studio-build'],['Lav en plan','studio-plan'],['HTML accessibility report','modern-web'],['evidence matrix','studio-quality']];
  for(const [q,id]of cases){const result=await route(q);assert.equal(result.selected,id,q);assert.deepEqual(result.externalDependencies,[]);}
 });
 test('Autopilot metadata avoids the CHAT alias rejected by the current Codex host',async()=>{
- for(const name of ['plugin-autopilot','python-executor','workspace-operator']){
+ for(const name of ['studio-build','python-executor','workspace-operator']){
   const yaml=await fs.readFile(path.join(packageRoot,'skills',name,'agents/openai.yaml'),'utf8');
   assert.doesNotMatch(yaml,/^\s*-\s*CHAT\s*$/m);
   assert.match(yaml,/allow_implicit_invocation:\s*true/);
  }
 });
 test('legacy command contracts work and deep static evaluation does not need installed sources',async()=>{
- const result=run(['skill-eval','skills/skill-eval','--format','json']);assert.equal(result.status,0,result.stderr);
+ const result=run(['skill-eval','skills/studio-quality','--format','json']);assert.equal(result.status,0,result.stderr);
  const report=JSON.parse(result.stdout);assert.equal(report.valid,true);assert.equal(report.observedUsage.status,'UNKNOWN');
- const legacy=spawnSync(process.execPath,[path.join(packageRoot,'scripts/skill-studio.mjs'),'evaluate',path.join(packageRoot,'skills/skill-eval')],{encoding:'utf8'});
+ const legacy=spawnSync(process.execPath,[path.join(packageRoot,'scripts/skill-studio.mjs'),'evaluate',path.join(packageRoot,'skills/studio-quality')],{encoding:'utf8'});
  assert.equal(legacy.status,0,legacy.stderr);assert.equal(JSON.parse(legacy.stdout).valid,true);
 });
 test('a local package skill may use package policy but cannot escape its package',async()=>{

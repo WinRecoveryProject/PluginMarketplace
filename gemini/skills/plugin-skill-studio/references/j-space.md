@@ -1,6 +1,6 @@
 # Skill: j-space
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/j-space/SKILL.md`
 
 > Operate the agent's inner cognitive workspace for multi-step reasoning, long-horizon planning, deep debugging, and calibrated self-monitoring. Use when tackling complex multi-step problems, architecture design, long mechanical tasks requiring goal preservation, suspicious input audits, or when asked to think deeper or harder — even if they don't explicitly say "J-space". Do NOT use for single-step trivial lookups, basic formatting, or conversational small talk.

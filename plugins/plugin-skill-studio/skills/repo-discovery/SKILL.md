@@ -19,7 +19,7 @@ Find the reusable user workflows inside a repository before creating Plugin file
 2. Run the bundled analyzer when filesystem execution is available:
 
 ```bash
-python3 ../plugin-autopilot/scripts/analyze_repo.py <target-repo> --json
+python3 ../studio-build/scripts/analyze_repo.py <target-repo> --json
 ```
 
 3. Inspect high-scoring candidates in context. The analyzer finds signals; it does not understand the full product by itself.

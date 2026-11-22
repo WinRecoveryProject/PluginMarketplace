@@ -32,7 +32,7 @@ Design and formalize repeatable human-in-the-loop and autonomous workflows by id
 |---|---|---|
 | **Workflow Specification** | Executable contract (trigger, inputs, actions, checkpoints) | `workflows/*.md` |
 | **Domain & Tools Notes** | Observed vocabulary, habits, tools, and channels | `NOTES.md` |
-| **Grilling Protocol** | Socratic distillation of requirements and boundary edges | `skills/grilling/SKILL.md` |
+| **Grilling Protocol** | Socratic distillation of requirements and boundary edges | `skills/studio-plan/modes/interview.md` |
 
 ---
 

@@ -1,0 +1,11 @@
+{
+  "id": "studio.wayfinder",
+  "root": "skills/wayfinder",
+  "commit": "4bbf25a",
+  "files": {
+    "SKILL.md": "90ccec7d896d0d62102fa66be25efed886b5c18aa178dcaf797be9f82c8c72d6",
+    "agents/openai.yaml": "5ddadd8996ae52d1455943ff75a82f1dda575e0038116f874e3ca609e34b7cbc",
+    "assets/wrp-icon-128.png": "21d925a6409d7fe1834bba8de13ff2459574227b3747c1f3cebac8573f1a16a1",
+    "assets/wrp-icon-256.png": "2c06a39c1a973bfbcf39c1ab54d2feed7714ec136a356a8db63151f4bc414293"
+  }
+}

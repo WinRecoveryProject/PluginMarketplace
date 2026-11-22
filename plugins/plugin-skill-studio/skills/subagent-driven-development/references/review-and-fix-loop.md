@@ -81,7 +81,7 @@ Mark the task complete only after this line exists. Continue to the next task on
 After all tasks complete:
 
 1. Run `bash <skill-dir>/scripts/review-package PLAN_FILE MERGE_BASE HEAD`, where `MERGE_BASE` is the commit from which the branch started.
-2. Dispatch the most capable available model with [code-reviewer.md](../../requesting-code-review/code-reviewer.md), the printed package, and pointers to the ledger's deferred-minor and parked lines.
+2. Dispatch the most capable available model with [code-reviewer.md](../../studio-review/modes/code-reviewer.md), the printed package, and pointers to the ledger's deferred-minor and parked lines.
 3. If findings remain, dispatch one fix worker with the complete findings list.
 4. Run exactly one scoped re-review of that fix wave using `bash <skill-dir>/scripts/review-package PLAN_FILE FIX_BASE HEAD` and [re-review-prompt.md](../re-review-prompt.md).
 5. Park residual non-load-bearing findings with rulings. Surface residual load-bearing findings when `finishing-a-development-branch` presents the integration options.

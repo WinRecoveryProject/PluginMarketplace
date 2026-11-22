@@ -1,6 +1,6 @@
 # Skill: finishing-a-development-branch
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/finishing-a-development-branch/SKILL.md`
 
 > Guides integration of a finished branch: verify tests, present merge/PR/keep/discard options to the user, and clean up worktrees. Use when implementation is complete, all tests pass, and the work needs to be integrated.
@@ -67,7 +67,7 @@ Confirm before merging: merging into the wrong base is expensive to undo.
 
 #### Step 4: Present Options
 
-**Review checkpoint:** requesting-code-review makes review mandatory before merge ("When to Request Review"). If this work has not been reviewed yet, dispatch a review per that skill before offering the merge option.
+**Review checkpoint:** studio-review request mode makes review mandatory before merge ("When to Request Review"). If this work has not been reviewed yet, dispatch a review per that mode before offering the merge option.
 
 **Normal repo and named-branch worktree — present exactly these 3 options:**
 

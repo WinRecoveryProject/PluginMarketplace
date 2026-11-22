@@ -1,6 +1,6 @@
 # Skill: prototype
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/prototype/SKILL.md`
 
 > Build a throwaway prototype to answer a specific design, state model, or UI exploration question. Use when evaluating whether an interface feels right, exploring UI concepts, or testing logic before committing to a full spec — even if the user says "mock this up". Do NOT use for production implementation.

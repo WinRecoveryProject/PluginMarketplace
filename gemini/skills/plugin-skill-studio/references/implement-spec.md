@@ -1,6 +1,6 @@
 # Skill: implement-spec
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/implement-spec/SKILL.md`
 
 > Execute a full specification across task tickets using isolated subagent branches into a unified PR. Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated worktrees, and the goal is a complete pull request on a single branch — even if the user says "build the whole spec". Do NOT use for single isolated bug fixes or exploratory coding without tickets.
@@ -21,7 +21,7 @@ Orchestrate the parallel implementation of an approved specification and its DAG
 2. **Strict Worktree Isolation**: Every implementer subagent executes in its own dedicated, isolated Git worktree and branch to prevent file collision.
 3. **Context Pointers Exclusively**: Communicate to subagents strictly via context pointers (spec path, ticket IDs, ADRs); avoid dumping giant walls of text.
 4. **Dedicated Merger Verification**: Merging completed worktree branches into the main PR branch is handled by a merger subagent with full test suite verification.
-5. **Unified Code-Review Quality Gate**: Run `code-review` across the unified PR branch before marking it ready for human review, fixing all findings in a final pass.
+5. **Unified Code-Review Quality Gate**: Run `studio-review` (code mode) across the unified PR branch before marking it ready for human review, fixing all findings in a final pass.
 
 ---
 
@@ -49,7 +49,7 @@ Orchestrate the parallel implementation of an approved specification and its DAG
 | **Exploration Agent** | Pre-read external documentation and shared schemas | Background subagent (`research`) |
 | **Implementer Agents** | Execute single tickets inside isolated worktrees | Parallel subagents (`implement`) |
 | **Merger Agent** | Merge feature branches into PR branch & verify tests | Serial integration pass |
-| **Review Gate** | Run two-axis code review on final PR branch | `skills/code-review/SKILL.md` |
+| **Review Gate** | Run two-axis code review on final PR branch | `skills/studio-review/modes/code.md` |
 
 ---
 
@@ -74,7 +74,7 @@ Orchestrate the parallel implementation of an approved specification and its DAG
 - **Why**: Continuous merging keeps integration diffs small and surfaces conflicts early.
 
 ##### Step 4: Run Two-Axis Code Review & Cleanup
-- **Action**: Once all tickets are merged, run `code-review` on `feat/<spec-slug>`.
+- **Action**: Once all tickets are merged, run `studio-review` (code mode) on `feat/<spec-slug>`.
 - **Key Point**: Remediate all Standards and Spec findings before marking the PR ready for human review.
 - **Why**: Comprehensive pre-merge review guarantees production-grade architecture and full spec compliance.
 

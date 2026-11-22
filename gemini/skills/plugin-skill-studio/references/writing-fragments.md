@@ -1,9 +1,9 @@
 # Skill: writing-fragments
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/writing-fragments/SKILL.md`
 
-> Capture and refine raw ideas, quotes, and observations before committing to an article outline. Use when collecting source material, brainstorming essay fragments, or exploring angles without structure pressure — even if the user says "help me brainstorm notes". Do NOT use for final draft formatting.
+> Capture and refine raw ideas, quotes, and observations before committing to an article outline. Use when collecting source material, studio-plan discover mode essay fragments, or exploring angles without structure pressure — even if the user says "help me brainstorm notes". Do NOT use for final draft formatting.
 
 ## Instructions
 
@@ -67,7 +67,7 @@ Facilitate low-pressure idea capture and Socratic exploration by continuously ex
 |---|---|---|
 | *"Organize the raw fragments into numbered thematic sections."* | **Forbidden. Keep raw fragments unstructured.** | Premature organization closes off novel angles and creates cognitive friction. |
 | *"Overwrite the file with a newly organized version."* | **Append only; preserve human manual edits.** | Overwriting destroys out-of-band human phrasing and edits. |
-| *"Ask permission before writing every single fragment."* | **Append silently and mention in passing.** | Constant save confirmation prompts derail productive brainstorming flow. |
+| *"Ask permission before writing every single fragment."* | **Append silently and mention in passing.** | Constant save confirmation prompts derail productive studio-plan discover mode flow. |
 
 ## Bundled files
 

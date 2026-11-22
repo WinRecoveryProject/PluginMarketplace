@@ -1,6 +1,6 @@
 # Skill: communicate-clearly
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/communicate-clearly/SKILL.md`
 
 > Controls report length while preserving evidence and explains external sources without overstating them. Use when a user requests concise handoffs, set verbosity, or plain-language explanations of dense material.
@@ -41,7 +41,7 @@ Do not use deliberately broken grammar or drop words whose absence makes scope, 
 - Compare two runs only for the same task, only when both succeeded without critical failures and the candidate's quality is no lower than the baseline's, and never across providers — they count cached prompt tokens differently, so the delta measures nothing. Report input, cached-input, output, and total deltas separately.
 - A presentation-contract check (required facts present, exact literals byte-preserved, forbidden filler absent, a word ceiling) establishes contract compliance only — not improved quality or lower end-to-end token use. A word ceiling is valid only for a prepared benchmark case; never truncate a live answer to satisfy one.
 - Quality and task success take precedence over brevity, always.
-- For a product-level efficiency claim, hand the evidence to verify-work for an independent audit.
+- For a product-level efficiency claim, hand the evidence to studio-review verify mode for an independent audit.
 
 ##### Hand off
 
@@ -100,7 +100,7 @@ Verification here is textual, not experimental: every load-bearing statement mus
 #### Stay inside the boundary
 
 - Do not run experiments, benchmarks, or a research protocol; that is research-systematically.
-- Do not audit whether an implementation or delivery matches a claim; that is verify-work.
+- Do not audit whether an implementation or delivery matches a claim; that is studio-review verify mode.
 - Do not recommend adopting a technique as though an explanation established that it works here.
 - Mode B is not a verbosity setting for your own reports; use Mode A for that.
 

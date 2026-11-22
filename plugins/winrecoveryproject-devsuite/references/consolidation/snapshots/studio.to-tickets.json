@@ -1,0 +1,11 @@
+{
+  "id": "studio.to-tickets",
+  "root": "skills/to-tickets",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "da0817c817add50fb122cbe33c27f0160b68f0dec342caf592078d35d17b8a30",
+    "agents/openai.yaml": "e2aea19d3cee7ba011927d8edaddd3c5def3fdb41c3383819b61a153ac1912c7",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

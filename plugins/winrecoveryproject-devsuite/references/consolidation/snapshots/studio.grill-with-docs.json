@@ -1,0 +1,11 @@
+{
+  "id": "studio.grill-with-docs",
+  "root": "skills/grill-with-docs",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "1e5d8b80ca1f48a702f37917a7576818d56718b8146f5e15e1f2a04e3b9ade51",
+    "agents/openai.yaml": "39766d441814e03b8e9e5abb5efa608a115aa6ab5b1a2ca7e8b20d0172565327",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

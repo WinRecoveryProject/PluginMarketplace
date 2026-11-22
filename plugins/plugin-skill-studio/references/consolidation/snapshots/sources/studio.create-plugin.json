@@ -1,0 +1,12 @@
+{
+  "id": "studio.create-plugin",
+  "root": "plugins/plugin-skill-studio/skills/create-plugin",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "9ed4d16f929b2a8eda3e1a45ca5df1ffed6a9b8f7e7fc54096321358098849fb",
+    "agents/openai.yaml": "08ae273bf4e7f08e1a8766bba68e3297f146b1ded2dd322ea888acceaa66fcc3",
+    "assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+    "assets/wrp-icon-128.png": "a14c490f829d16e813e4872eebdbad94fc16f1773abe46cc787452291534bf43",
+    "assets/wrp-icon-256.png": "bf2dfd29a0ec54ca23b3a6a5616d969e1b6b1c6d907bf88aa41ebf55daa4ece3"
+  }
+}

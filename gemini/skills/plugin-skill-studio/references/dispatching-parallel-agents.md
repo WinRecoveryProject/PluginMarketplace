@@ -1,6 +1,6 @@
 # Skill: dispatching-parallel-agents
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/dispatching-parallel-agents/SKILL.md`
 
 > Dispatches one subagent per independent problem. Use when two or more investigations or fixes can proceed concurrently without shared state or sequential dependencies.

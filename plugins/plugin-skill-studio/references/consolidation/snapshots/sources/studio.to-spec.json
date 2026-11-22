@@ -1,0 +1,11 @@
+{
+  "id": "studio.to-spec",
+  "root": "skills/to-spec",
+  "commit": "4bbf25a",
+  "files": {
+    "SKILL.md": "60273aafa53ad9c0a961371feceec112051d8f9f80a0e11f2c217584ab452059",
+    "agents/openai.yaml": "1cdc484f7c8796596ae20541435654c8775b8d12c2529724c7a86ef3b191059e",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

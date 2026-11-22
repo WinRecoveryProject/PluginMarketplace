@@ -31,7 +31,7 @@ def doctor(root: Path = ROOT) -> dict:
     try:
         manifest = read_json(root / ".codex-plugin/plugin.json")
         require(manifest["name"] == "winrecoveryproject-devsuite", "Wrong package name")
-        require(manifest["version"] == "0.2.7", "Wrong package version")
+        require(manifest["version"] == "0.4.0", "Wrong package version")
         require(manifest["interface"]["developerName"] == "Zilvereyes", "Wrong developer")
         require(len(manifest["interface"]["shortDescription"]) <= 30, "Subtitle exceeds 30 characters")
         require(len(manifest["interface"].get("defaultPrompt", [])) <= 3, "Too many prompts")
@@ -76,7 +76,7 @@ def doctor(root: Path = ROOT) -> dict:
                     continue
                 resolved = (file.parent / link.split("#", 1)[0]).resolve()
                 require(resolved.is_relative_to(root.resolve()) and resolved.is_file(), f"Uncontained/missing link in {file.name}: {link}")
-        require(len(list(root.glob("skills/*/SKILL.md"))) == 14, "Expected 14 focused skills")
+        require(len(list(root.glob("skills/*/SKILL.md"))) == 13, "Expected 13 focused skills")
     except (OSError, ValueError, KeyError, TypeError, SyntaxError) as error:
         errors.append(str(error))
     return {"status": "FAIL" if errors else "PASS", "scope": "local package structure/contracts only",
@@ -188,7 +188,7 @@ def package(output: Path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--out", type=Path, default=ROOT / "dist/winrecoveryproject-devsuite-0.2.7.zip")
+    parser.add_argument("--out", type=Path, default=ROOT / "dist/winrecoveryproject-devsuite-0.4.0.zip")
     args = parser.parse_args()
     try:
         print(json.dumps(package(args.out), indent=2))

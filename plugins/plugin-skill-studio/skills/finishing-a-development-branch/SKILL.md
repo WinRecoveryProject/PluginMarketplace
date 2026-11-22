@@ -64,7 +64,7 @@ Confirm before merging: merging into the wrong base is expensive to undo.
 
 ## Step 4: Present Options
 
-**Review checkpoint:** requesting-code-review makes review mandatory before merge ("When to Request Review"). If this work has not been reviewed yet, dispatch a review per that skill before offering the merge option.
+**Review checkpoint:** studio-review request mode makes review mandatory before merge ("When to Request Review"). If this work has not been reviewed yet, dispatch a review per that mode before offering the merge option.
 
 **Normal repo and named-branch worktree — present exactly these 3 options:**
 

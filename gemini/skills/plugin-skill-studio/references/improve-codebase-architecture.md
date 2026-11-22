@@ -1,6 +1,6 @@
 # Skill: improve-codebase-architecture
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/improve-codebase-architecture/SKILL.md`
 
 > Survey codebases for shallow modules, weak seams, and deepening opportunities, producing a visual report. Use when conducting architectural reviews, identifying design debt, finding deepening opportunities, or preparing codebase refactors — even if the user says "analyze our architecture". Do NOT use for basic syntax linting or formatting.
@@ -35,7 +35,7 @@ Survey codebases for shallow modules, leaky abstractions, and weak seams, genera
 |---|---|---|
 | **Hotspot Scanner** | Identify frequently changed, high-friction files | Git log & subagent exploration |
 | **HTML Visual Report** | Render side-by-side Mermaid & Tailwind cards | `skills/improve-codebase-architecture/HTML-REPORT.md` |
-| **Candidate Deepening** | Socratic review of selected candidate | `skills/grilling/SKILL.md` + `skills/codebase-design/SKILL.md` |
+| **Candidate Deepening** | Socratic review of selected candidate | `skills/studio-plan/modes/interview.md` + `skills/codebase-design/SKILL.md` |
 
 ---
 

@@ -1,9 +1,9 @@
 # Skill: wait-what
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/wait-what/SKILL.md`
 
-> Re-pitch an explanation or proposal from a simpler angle with reset assumptions and plain English. Use when the previous explanation was confusing, jargon-heavy, or did not land — even if the user just says "what?" or "I don't get it". Do NOT use for general brainstorming or initial planning.
+> Re-pitch an explanation or proposal from a simpler angle with reset assumptions and plain English. Use when the previous explanation was confusing, jargon-heavy, or did not land — even if the user just says "what?" or "I don't get it". Do NOT use for general studio-plan discover mode or initial planning.
 
 ## Instructions
 

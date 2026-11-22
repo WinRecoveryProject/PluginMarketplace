@@ -1,6 +1,6 @@
 # Skill: setup-pre-commit
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/setup-pre-commit/SKILL.md`
 
 > Configure pre-commit quality checks with Husky and lint-staged while preserving package manager conventions. Use when setting up git pre-commit hooks, automated formatters, staged linters, or typecheck gates — even if the user says "add pre-commit hooks". Do NOT use for continuous integration (CI) pipeline setup.

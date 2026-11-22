@@ -1,6 +1,6 @@
 # Skill: automate-ui
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/automate-ui/SKILL.md`
 
 > Automates web and desktop UIs while capturing evidence that separates navigation from verified behavior. Use when a task requires site navigation, browser reproduction, or native app operation. For one existing framework-free HTML page, use design-ui instead.
@@ -68,13 +68,13 @@ Use for native application or cross-application desktop workflows that need audi
 
 #### Independent verification
 
-Self-verification never closes a criterion. For any claim that matters, have a fresh subagent (or a second independent pass) review the objective, the diff, and the evidence log WITHOUT being told the expected verdict. For long or multi-turn automation, maintain a plain state file outside the repo — objective, falsifiable criteria, per-criterion status, append-only evidence log — per execute-durably. Route completion audits through verify-work.
+Self-verification never closes a criterion. For any claim that matters, have a fresh subagent (or a second independent pass) review the objective, the diff, and the evidence log WITHOUT being told the expected verdict. For long or multi-turn automation, maintain a plain state file outside the repo — objective, falsifiable criteria, per-criterion status, append-only evidence log — per execute-durably. Route completion audits through studio-review verify mode.
 
 #### Boundaries
 
 - This skill proves what a UI does. Judging how it looks is design-ui.
 - Root-causing an application defect found through the UI is diagnose-systematically.
-- Durable multi-turn state and criterion lifecycle live in execute-durably; final delivery audit in verify-work.
+- Durable multi-turn state and criterion lifecycle live in execute-durably; final delivery audit in studio-review verify mode.
 
 #### Pause points
 

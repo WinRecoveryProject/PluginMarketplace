@@ -1,6 +1,6 @@
 # Skill: ai-data-remediation
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/ai-data-remediation/SKILL.md`
 
 > Self-healing data pipeline layer using semantic anomaly clustering, AST-validated lambda transformations, and zero-loss mathematical reconciliation. Use when data quality checks fail, anomalous records break ETL/ELT pipelines, you need automated data cleansing with sandboxed Python transformations, or you want to group data errors into semantic clusters — even if they don't explicitly say "data remediation". Do NOT use for standard database schema migrations, routine CRUD queries, or basic pipeline scheduling.

@@ -1,0 +1,11 @@
+{
+  "id": "studio.grill-with-docs",
+  "root": "skills/grill-with-docs",
+  "commit": "4bbf25a",
+  "files": {
+    "SKILL.md": "194af2a672f8a44c7a36057777b7326060842a7b9d5cc387ee9b67510a8d666c",
+    "agents/openai.yaml": "dc15795c914a0bdceb5b8aa7d4ee60dfbaa53767d7df9cc6d5e34c3af101603f",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

@@ -1,6 +1,6 @@
 # Skill: devsuite-implement
 
-- Plugin: `winrecoveryproject-devsuite` (0.2.7)
+- Plugin: `winrecoveryproject-devsuite` (0.4.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-implement/SKILL.md`
 
 > Use when authorized to implement, refactor, migrate or maintain software with bounded changes and fresh evidence.
@@ -17,7 +17,7 @@ For each behavior, demonstrate the missing/wrong behavior by focused failing che
 
 Inspect each slice for accidental API/data changes, copied secrets, generated noise, weak errors and unrelated edits. Do not replace a binding decision with a workaround. Resolve material ambiguity before dependent work while continuing independent work.
 
-For authorized parallelism, partition write surfaces, serialize shared interfaces/migrations/generated outputs and verify combined results directly. No skill automatically creates another chat or agent. Run affected regression/unit/integration tests, project lint/type/build checks and meaningful runtime/migration/recovery checks proportionate to risk. Apply [quality](devsuite-quality.md) once; preserve failures and classify product/test/environment/flaky/pre-existing/unresolved causes. Report behavior, checks, compatibility decisions and gaps.
+For authorized parallelism, partition write surfaces, serialize shared interfaces/migrations/generated outputs and verify combined results directly. No skill automatically creates another chat or agent. Run affected regression/unit/integration tests, project lint/type/build checks and meaningful runtime/migration/recovery checks proportionate to risk. Apply [review gate mode](devsuite-review.md#file-modesgatemd) once; preserve failures and classify product/test/environment/flaky/pre-existing/unresolved causes. Report behavior, checks, compatibility decisions and gaps.
 
 ## Bundled files
 

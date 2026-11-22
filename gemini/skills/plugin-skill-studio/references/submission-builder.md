@@ -1,6 +1,6 @@
 # Skill: submission-builder
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/submission-builder/SKILL.md`
 
 > Use when an exact ChatGPT/Codex Plugin artifact has passed local package, brand, and listing gates and you need reviewer-ready submission evidence without confusing preparation, submission, approval, and publication states.
@@ -81,7 +81,7 @@ The pack should contain or reference:
 - residual warnings
 - exact submission state
 
-Use `../plugin-autopilot/references/submission-checklist.md`, `../plugin-autopilot/references/branding-and-listing.md`, and current official OpenAI documentation as the authority chain.
+Use `../studio-build/references/submission-checklist.md`, `../studio-build/references/branding-and-listing.md`, and current official OpenAI documentation as the authority chain.
 
 ## Bundled files
 

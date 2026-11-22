@@ -1,6 +1,6 @@
 # Skill: tdd
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/tdd/SKILL.md`
 
 > Implement features and bug fixes test-first using red-green-refactor cycles. Use when writing new functionality, adding regression tests, fixing bugs with test coverage, or designing behavior through test assertions — even if the user says "write tests for this". Do NOT use for throwaway exploratory prototypes.
@@ -40,7 +40,7 @@ Implement robust, maintainable functionality through disciplined red → green �
 | **Public Seams** | Identify module boundaries and observable behaviors | `codebase-design` |
 | **Test Examples** | Concrete patterns for unit and integration assertions | `tests.md` |
 | **Mocking Guidelines** | Safe boundary isolation rules without over-mocking | `mocking.md` |
-| **Review & Refactor** | Clean code review after reaching green | `code-review` |
+| **Review & Refactor** | Clean code review after reaching green | `studio-review` (code mode) |
 
 ---
 

@@ -12,7 +12,7 @@ Read [the policy](../../references/policy.md). Select one guide for the current 
 - [Debugging](../devsuite-debug/SKILL.md) for root-cause diagnosis.
 - [Code review](../devsuite-review/SKILL.md) for an independent read of local revisions and diffs.
 - [Testing](../devsuite-test/SKILL.md) for behavior, state and regressions.
-- [Quality](../devsuite-quality/SKILL.md) for a project-native verification gate.
+- [Review gate mode](../devsuite-review/modes/gate.md) for a project-native verification gate.
 - [Handoff](../devsuite-handoff/SKILL.md) for resuming or recording verified state.
 
 The bundled Python router accepts a request as one literal argument after `route --`. Pass it unchanged through a process argument array. If the host only supports shell command strings, select a guide directly instead of interpolating request text or executing it. The router selects a guide and grants no execution or external-action authority. Use `python -I -B scripts/devsuite.py doctor` from the installed plugin root to check the local package.

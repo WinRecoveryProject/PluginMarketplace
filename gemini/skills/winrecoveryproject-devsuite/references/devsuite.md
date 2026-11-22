@@ -1,6 +1,6 @@
 # Skill: devsuite
 
-- Plugin: `winrecoveryproject-devsuite` (0.2.7)
+- Plugin: `winrecoveryproject-devsuite` (0.4.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite/SKILL.md`
 
 > Use when development spans planning, implementation, security, verification, coordination, cloud work or conversion and needs one integrated workflow.
@@ -16,7 +16,7 @@ Read [the policy](_plugin-references.md#file-referencespolicymd). Select one own
 - Feature tests or broad QA: [testing](devsuite-test.md). Independent review, patch risk or release readiness: [review](devsuite-review.md).
 - Repository/diff audit, threat modeling, discovery, triage and validation: [security assessment](devsuite-security-assess.md).
 - Security fixes, hardening, policy, writeups and tracking: [security remediation](devsuite-security-fix.md).
-- Shared checks and existing Linter integration: [quality](devsuite-quality.md).
+- Shared checks and existing Linter integration: [review gate mode](devsuite-review.md#file-modesgatemd).
 - Interrupted work and session handoff: [handoff](devsuite-handoff.md).
 - Local/cloud workspaces, desktop, networking and tools: [environment](devsuite-environment.md).
 - Local builds, background job status/logs/results and safe cancellation: [process jobs](devsuite-jobs.md).

@@ -1,6 +1,6 @@
 # Skill: brand-designer
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/brand-designer/SKILL.md`
 
 > Use when a ChatGPT/Codex Plugin needs a production-ready visual identity and SVG logo system that clearly expresses the Plugin's job across light and dark surfaces.

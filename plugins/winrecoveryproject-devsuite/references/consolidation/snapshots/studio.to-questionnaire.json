@@ -1,0 +1,11 @@
+{
+  "id": "studio.to-questionnaire",
+  "root": "skills/to-questionnaire",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "f9a4aee00bb151facc65f4bfccf178cbbd397e0b2dccb0608beb1c494e31a88e",
+    "agents/openai.yaml": "0c369c2b51078c2924f45a1b617cc5fe25cf73cebba1e7aa7b07dd830537b228",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

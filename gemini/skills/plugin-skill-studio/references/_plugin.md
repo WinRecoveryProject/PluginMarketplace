@@ -10,6 +10,90 @@ Read references/studio-policy.md. Keep edits within this candidate; do not mutat
 
 Run `node --test tests/*.test.mjs`, `node scripts/studio.mjs self-check` and the bundled generic validator before packaging. Use `python -B tools/package.py --out <new-directory>` for deterministic builds and fresh extraction checks. Preserve license notices. A practical fixture test is not a live model benchmark; record live preflight blockers honestly. Do not install, commit, push, upload, publish or clean other paths without the corresponding user scope.
 
+## File: `CHANGELOG.md`
+
+### Changelog
+
+#### 0.6.0 — 2026-11-21
+
+Breaking: ten planning skills are consolidated into `studio-plan`. Every capability is mapped in `references/consolidation/plan-matrix.json` (429 capabilities, none dropped).
+
+| Removed skill | New skill | Mode |
+|---|---|---|
+| `brainstorming` | `studio-plan` | `discover` (browser companion in `skills/studio-plan/companion/`) |
+| `grill-me` | `studio-plan` | `interview` |
+| `grill-with-docs` | `studio-plan` | `interview` |
+| `grilling` | `studio-plan` | `interview` |
+| `to-spec` | `studio-plan` | `spec` |
+| `writing-plans` | `studio-plan` | `plan` (with `modes/plan-full.md`) |
+| `to-tickets` | `studio-plan` | `tickets` |
+| `to-questionnaire` | `studio-plan` | `questions` |
+| `goal` | `studio-plan` | `goal` |
+| `wayfinder` | `studio-plan` | `map` |
+
+The eight mode files and `plan-full.md` are shared byte-for-byte with WinRecoveryProject DevSuite `devsuite-planning`; `references/consolidation/shared-plan-modes.json` pins their hashes in both packages. Tracker labels such as `wayfinder:map` and the ticket types (`research`, `prototype`, `grilling`, `task`) are unchanged.
+
+#### 0.5.0 — 2026-11-20
+
+Breaking: seven review skills are consolidated. Every capability is mapped in `references/consolidation/review-matrix.json` (269 capabilities, none dropped).
+
+| Removed skill | New skill | Mode |
+|---|---|---|
+| `code-review` | `studio-review` | `code` |
+| `requesting-code-review` | `studio-review` | `request` |
+| `receiving-code-review` | `studio-review` | `receive` |
+| `review-decision` | `studio-review` | `decide` |
+| `verification-before-completion` | `studio-review` | `verify` |
+| `verify-work` | `studio-review` | `verify` |
+| `risk-review` | `studio-quality` | `risk` |
+
+The `code`, `request`, `receive`, `decide` and `verify` mode files are shared byte-for-byte with WinRecoveryProject DevSuite `devsuite-review`; `references/consolidation/shared-review-modes.json` pins their hashes in both packages. Seventeen Studio files that named the removed skills now point to the new modes.
+
+#### 0.4.0 — 2026-11-20
+
+Breaking: 20 lifecycle skills and the standalone `plugin-eval` plugin are consolidated into two skills, each with one file per mode. Every capability of every removed skill is mapped in `references/consolidation/lifecycle-matrix.json` and verified by `node scripts/studio.mjs consolidation-check references/consolidation/lifecycle-matrix.json`.
+
+| Removed skill | New skill | Mode |
+|---|---|---|
+| `create-plugin` | `studio-build` | `create-plugin` |
+| `create-skill` | `studio-build` | `create-skill` |
+| `update-plugin` | `studio-build` | `update` |
+| `import-plugins` | `studio-build` | `import` |
+| `import-gpt` | `studio-build` | `import` |
+| `install-skill` | `studio-build` | `install` |
+| `plugin-autopilot` | `studio-build` | `autopilot` |
+| `release-workflow` | `studio-build` | `release` |
+| `portfolio` | `studio-build` | `portfolio` |
+| `catalog` | `studio-build` | `catalog` |
+| `skill-conductor` | `studio-build` | `lifecycle` |
+| `plugin-skill-studio` (router) | `studio-build` | router (`SKILL.md`) |
+| `skill-eval` | `studio-quality` | `eval` |
+| `plugin-eval` | `studio-quality` | `eval` |
+| `skill-review` | `studio-quality` | `review` |
+| `skill-walkthrough` | `studio-quality` | `walkthrough` |
+| `skillquiver-doctor` | `studio-quality` | `doctor` (explicit request only) |
+| `evidence-matrix` | `studio-quality` | `evidence` |
+| `metric-pack` | `studio-quality` | `metric-pack` |
+| `improve-skill` | `studio-quality` | `improve` |
+| plugin-eval: `plugin-eval`, `evaluate-plugin`, `evaluate-skill` | `studio-quality` | `eval` |
+| plugin-eval: `improve-skill` | `studio-quality` | `improve` |
+| plugin-eval: `metric-pack-designer` | `studio-quality` | `metric-pack` |
+
+Added:
+
+- The plugin-eval 0.1.2 engine is vendored as `src/eval/plugin-eval/` with `scripts/plugin-eval.js`: start router, code and coverage metrics, observed usage, measurement plans, improvement briefs and HTML reports. Two Windows path-separator fixes are recorded in the registry.
+- An autoresearch loop: `autoresearch-start`, `autoresearch-judge` and `autoresearch-report`.
+  - Code decides KEEP, DISCARD or UNKNOWN.
+  - DISCARD rolls the candidate back.
+  - UNKNOWN is never a pass.
+  - The source changes only after the user approves `combined.diff`.
+- `consolidation-seed` and `consolidation-check` for capability matrices.
+- `route()` now also returns a `mode`. The fallback route is `studio-build`.
+
+Upstream sources added to the registry: `gyoz-ai/auto-research` 1.0.0 (MIT, adapted).
+
+Known: the vendored engine estimates its budget baseline by reading local `~/.codex` skill and plugin caches, which can make analysis slow on machines with large caches.
+
 ## File: `LICENSE`
 
 ```text
@@ -50,11 +134,15 @@ Benchmarks retain the exact temporary workspaces reported by the runner for revi
 
 ### Plugin-Skill-Studio
 
-Version **0.3.33**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
+Version **0.6.0**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
 
 All required skills, scripts, policies and references are bundled. Node 20+ and Python 3.10+ are host runtimes, not companion plugins. Optional Windows desktop commands use the already installed Windows PowerShell 5.1 and .NET components. No npm/pip install, npx, external plugin, App binding or MCP server is required. Model benchmarks use the user's existing Codex CLI and login; host terminal/browser capabilities are required for corresponding operations. Direct public lookups are explicit and bounded. No telemetry is added.
 
 Windows desktop capture, inspection and guarded mouse operations are integrated in the existing `automate-ui` workflow. Read [the local Desktop guide](_plugin-references.md#file-referenceswindows-desktopmd). This is an alternative local backend; OpenAI's native Computer Use binary and existing App/OAuth connections are unchanged.
+
+#### Skills in 0.6.0
+
+Four skills cover the whole lifecycle. `studio-plan` discovers intent, interviews, writes specs and plans, breaks work into tickets and questionnaires, synthesizes /goal prompts and maps multi-session efforts; its mode files are shared byte-for-byte with DevSuite. `studio-review` reviews code, requests and receives reviews, decides where humans must look and verifies completion claims; its mode files are shared byte-for-byte with DevSuite. `studio-build` creates, updates, imports, installs, converts, releases and manages plugins and skills. `studio-quality` evaluates, reviews, explains, benchmarks and improves them, and runs deterministic risk scans, and doctors host conflicts on explicit request. Each skill reads only the mode file it needs. [CHANGELOG.md](_plugin.md#file-changelogmd) maps every removed skill name to its new skill and mode.
 
 #### Start
 
@@ -63,10 +151,10 @@ From this package root:
 ```powershell
 node scripts/studio.mjs self-check
 node scripts/studio.mjs route "Vurder denne skill"
-node scripts/studio.mjs skill-eval skills/skill-eval --format markdown
-node scripts/studio.mjs skill-eval skills/skill-eval --format html --out report.html
+node scripts/studio.mjs skill-eval skills/studio-quality --format markdown
+node scripts/studio.mjs skill-eval skills/studio-quality --format html --out report.html
 node scripts/studio.mjs plugin-eval . --format markdown
-node scripts/studio.mjs risk-scan ./skills/skill-eval --format sarif
+node scripts/studio.mjs risk-scan ./skills/studio-quality --format sarif
 node scripts/studio.mjs capabilities
 ```
 
@@ -75,8 +163,8 @@ Report output files refuse overwrite. A static eval returns 1 for blocking findi
 #### Practical Skill Eval
 
 ```powershell
-node scripts/studio.mjs benchmark-init skills/skill-eval --out benchmark.json
-node scripts/studio.mjs skill-eval skills/skill-eval --mode benchmark --config benchmark.json --out benchmark-results
+node scripts/studio.mjs benchmark-init skills/studio-quality --out benchmark.json
+node scripts/studio.mjs skill-eval skills/studio-quality --mode benchmark --config benchmark.json --out benchmark-results
 node scripts/studio.mjs compare-reports before.json after.json
 ```
 
@@ -101,7 +189,7 @@ node scripts/studio.mjs gpt-import authorized-export.json --out candidates
 
 Evidence input uses `asOf`, `freshWithinDays`, `skills`, and `evidence` records containing `skill`, `date`, `fact` and `source`. This measures evidence recency, not human competence or agent quality. Future dates do not establish recent evidence. The local module also supports adult user-controlled competency worksheets.
 
-Catalog input is a package root, supplied JSON snapshot or explicit public HTTPS URL. No links are automatically followed. Rankings and history are UNKNOWN unless supported by attributed observations. Local installation and global account permissions are distinct from manifest declarations. [Service contracts](_plugin-src.md#file-srcservicesreadmemd) describe exact fields and bounds.
+Catalog input is a package root, supplied JSON snapshot or explicit public HTTPS URL. No links are automatically followed. Rankings and history are UNKNOWN unless supported by attributed observations. Local installation and global account permissions are distinct from manifest declarations. [Service contracts](_plugin-src-part02.md#file-srcservicesreadmemd) describe exact fields and bounds.
 
 Use the [version audit](_plugin-references.md#file-referencesinventory-versionsmd) to capture and compare installed versions, public Git manifests and explicitly related vendor releases for one host and account. Add `--components <workspace>` to capture native App, skill and MCP discovery in the same attested scope.
 
@@ -117,7 +205,7 @@ GPT import accepts user-supplied text/configuration and previously authorized vi
 
 #### Creation, packaging and release
 
-The compatible commands `scripts/plugin-studio.mjs` and `scripts/skill-studio.mjs` remain available. Autopilot's local analyzer, validator and packager live under `skills/plugin-autopilot/scripts/`. `python -B tools/package.py --out <new-output-directory>` builds two byte-identical ZIPs, validates a fresh extraction and writes SHA256SUMS and a verification receipt. Development tests/fixtures are excluded from the runtime ZIP.
+The compatible commands `scripts/plugin-studio.mjs` and `scripts/skill-studio.mjs` remain available. Autopilot's local analyzer, validator and packager live under `skills/studio-build/scripts/`. `python -B tools/package.py --out <new-output-directory>` builds two byte-identical ZIPs, validates a fresh extraction and writes SHA256SUMS and a verification receipt. Development tests/fixtures are excluded from the runtime ZIP.
 
 `release-checkpoint <input.json>` and `release-advance <checkpoint.json> <event.json>` record bounded, identity-checked release observations. They do not perform remote publication. Authorized browser operations use actual native host capabilities, never companion plugins. Prepared, uploaded, scanned, submitted and published are separate states; published requires observed evidence and a directory URL.
 
@@ -179,7 +267,7 @@ Studio baseline is MIT; its original LICENSE remains included. Full file-hash pr
 ```json
 {
   "name": "plugin-skill-studio",
-  "version": "0.3.33",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -198,7 +286,7 @@ Studio baseline is MIT; its original LICENSE remains included. Full file-hash pr
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "plugin-skill-studio",
-  "version": "0.3.33",
+  "version": "0.6.0",
   "description": "Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.",
   "author": {
     "name": "Zilvereyes"

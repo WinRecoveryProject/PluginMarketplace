@@ -2,6 +2,94 @@
 
 Source: `plugins/plugin-skill-studio`. Files outside the `skills/*` folders, embedded as text.
 
+## File: `tests/autoresearch.test.mjs`
+
+```javascript
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import {spawnSync} from 'node:child_process';
+import {packageRoot} from '../src/registry.mjs';
+import {startRun,judgeExperiment,reportRun,resumeRun,treeHash} from '../src/eval/autoresearch.mjs';
+
+const cli=path.join(packageRoot,'scripts/studio.mjs');
+const SKILL='---\nname: demo-skill\ndescription: Use when demonstrating the autoresearch loop in tests.\n---\n\n# Demo\n\n1. Do the thing.\n';
+async function fixture(t,prefix='editable'){
+ const base=await fs.mkdtemp(path.join(os.tmpdir(),'pss-autoresearch-'));t.after(()=>fs.rm(base,{recursive:true,force:true}));
+ const root=path.join(base,prefix,'demo-skill');await fs.mkdir(root,{recursive:true});await fs.writeFile(path.join(root,'SKILL.md'),SKILL);
+ return {base,root};
+}
+const bench=passes=>async()=>({status:passes===2?'PASS':'FAIL',runs:[{status:passes>=1?'PASS':'FAIL'},{status:passes>=2?'PASS':'FAIL'}],behavior:{configFingerprint:'fp'}});
+
+test('startRun refuses an install cache path',async t=>{
+ const {base}=await fixture(t);const cached=path.join(base,'.claude','plugins','cache','x','skills','s');
+ await fs.mkdir(cached,{recursive:true});await fs.writeFile(path.join(cached,'SKILL.md'),SKILL);
+ await assert.rejects(()=>startRun(cached),/not an editable source: install cache/);
+});
+
+test('startRun copies candidate and kept and leaves the source untouched',async t=>{
+ const {root}=await fixture(t);const before=await treeHash(root);
+ const run=await startRun(root);
+ assert.equal(await treeHash(run.candidateDir),before);assert.equal(await treeHash(path.join(run.runDir,'kept')),before);
+ const baseline=JSON.parse(await fs.readFile(path.join(run.runDir,'baseline.json'),'utf8'));
+ assert.equal(baseline.sourceHash,before);assert.equal(baseline.benchmark,null);assert.equal(baseline.static.valid,true);
+ assert.equal(await treeHash(root),before);
+ assert.ok(run.runDir.startsWith(path.join(path.dirname(root),'.autoresearch')));
+});
+
+test('without a benchmark config a valid change is UNKNOWN and the CLI exits 2',async t=>{
+ const {root}=await fixture(t);const run=await startRun(root);
+ await fs.appendFile(path.join(run.candidateDir,'SKILL.md'),'2. Verify the thing.\n');
+ const r=spawnSync(process.execPath,[cli,'autoresearch-judge',run.runDir,'--description','add verify step'],{encoding:'utf8',windowsHide:true});
+ assert.equal(r.status,2,r.stderr);const body=JSON.parse(r.stdout);assert.equal(body.verdict,'UNKNOWN');assert.equal(body.n,1);
+ const receipt=JSON.parse(await fs.readFile(path.join(run.runDir,'receipts','001.json'),'utf8'));assert.equal(receipt.verdict,'UNKNOWN');
+ assert.match(await fs.readFile(path.join(run.runDir,'receipts','001.diff'),'utf8'),/\+2\. Verify the thing\./);
+});
+
+test('a change that breaks the frontmatter is DISCARDed and rolled back byte-for-byte',async t=>{
+ const {root}=await fixture(t);const run=await startRun(root);const kept=await treeHash(path.join(run.runDir,'kept'));
+ await fs.writeFile(path.join(run.candidateDir,'SKILL.md'),SKILL.replace('name: demo-skill\n',''));
+ await fs.writeFile(path.join(run.candidateDir,'extra.md'),'stray\n');
+ const r=await judgeExperiment(run.runDir,{description:'drop name'});
+ assert.equal(r.verdict,'DISCARD');assert.equal(await treeHash(run.candidateDir),kept);
+});
+
+test('benchmark decides KEEP versus DISCARD on identical fixtures',async t=>{
+ const {root}=await fixture(t);const config=path.join(path.dirname(root),'bench.json');await fs.writeFile(config,'{}');
+ const run=await startRun(root,{configPath:config,benchmarkRunner:bench(2)});
+ await fs.appendFile(path.join(run.candidateDir,'SKILL.md'),'2. Keep me.\n');
+ const keep=await judgeExperiment(run.runDir,{description:'keep',benchmarkRunner:bench(2)});
+ assert.equal(keep.verdict,'KEEP');assert.equal(await treeHash(path.join(run.runDir,'kept')),await treeHash(run.candidateDir));
+ const keptAfterKeep=await treeHash(path.join(run.runDir,'kept'));
+ await fs.appendFile(path.join(run.candidateDir,'SKILL.md'),'3. Worse.\n');
+ const worse=await judgeExperiment(run.runDir,{description:'worse',benchmarkRunner:bench(1)});
+ assert.equal(worse.verdict,'DISCARD');assert.equal(await treeHash(run.candidateDir),keptAfterKeep);
+ assert.deepEqual(await resumeRun(run.runDir),{lastKeptN:1,nextN:3});
+});
+
+test('resumeRun detects a kept snapshot edited after its receipt',async t=>{
+ const {root}=await fixture(t);const config=path.join(path.dirname(root),'bench.json');await fs.writeFile(config,'{}');
+ const run=await startRun(root,{configPath:config,benchmarkRunner:bench(2)});
+ await fs.appendFile(path.join(run.candidateDir,'SKILL.md'),'2. Keep me.\n');
+ await judgeExperiment(run.runDir,{description:'keep',benchmarkRunner:bench(2)});
+ await fs.appendFile(path.join(run.runDir,'kept','SKILL.md'),'tampered\n');
+ await assert.rejects(()=>resumeRun(run.runDir),/kept snapshot does not match receipt 001/);
+});
+
+test('reportRun writes the combined diff and never touches the source',async t=>{
+ const {root}=await fixture(t);const config=path.join(path.dirname(root),'bench.json');await fs.writeFile(config,'{}');
+ const run=await startRun(root,{configPath:config,benchmarkRunner:bench(2)});const before=await treeHash(root);
+ await fs.appendFile(path.join(run.candidateDir,'SKILL.md'),'2. Keep me.\n');
+ await judgeExperiment(run.runDir,{description:'keep',benchmarkRunner:bench(2)});
+ const report=await reportRun(run.runDir);
+ assert.equal(report.kept,1);assert.equal(report.experiments,1);
+ assert.match(await fs.readFile(report.combinedDiffPath,'utf8'),/\+2\. Keep me\./);
+ assert.equal(await treeHash(root),before);assert.deepEqual(report.warnings,[]);
+});
+```
+
 ## File: `tests/boundary-language.test.mjs`
 
 ````javascript
@@ -301,6 +389,152 @@ test('malformed Claude manifests keep plugin classification and native benchmark
 });
 ```
 
+## File: `tests/consolidation-triggers.test.mjs`
+
+```javascript
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {route,packageRoot} from '../src/registry.mjs';
+
+const matrix=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
+const triggers=matrix.entries.filter(e=>e.kind==='trigger'&&/skills\/studio-(quality|build)\/SKILL\.md#mode-/.test(e.target??''));
+
+for(const skill of ['studio-quality','studio-build']){
+ test(`every removed ${skill} trigger routes to ${skill} and its mode`,async()=>{
+  const mine=triggers.filter(e=>e.target.includes(`/${skill}/`));assert.ok(mine.length>=10);
+  const misses=[];
+  for(const e of mine){
+   const expected=e.target.split('#mode-')[1],r=await route(e.text);
+   if(r.selected!==skill||(expected!=='router'&&r.mode!==expected))misses.push(`${e.id}: got ${r.selected}/${r.mode}, want ${skill}/${expected}`);
+  }
+  assert.deepEqual(misses,[]);
+ });
+}
+```
+
+## File: `tests/consolidation.test.mjs`
+
+```javascript
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import {spawnSync} from 'node:child_process';
+import {packageRoot} from '../src/registry.mjs';
+import {seedMatrix,checkMatrix,slug,redactHome} from '../src/consolidation/check.mjs';
+
+const cli=path.join(packageRoot,'scripts/studio.mjs');
+async function repo(t){
+ const root=await fs.mkdtemp(path.join(os.tmpdir(),'pss-consolidation-'));t.after(()=>fs.rm(root,{recursive:true,force:true}));
+ const skill=path.join(root,'src-plugin/skills/alpha');
+ await fs.mkdir(path.join(skill,'agents'),{recursive:true});await fs.mkdir(path.join(skill,'references'),{recursive:true});
+ await fs.writeFile(path.join(skill,'SKILL.md'),'---\nname: alpha\ndescription: Use when building alpha things. Also use for beta checks.\n---\n\n# Alpha\n\nFirst paragraph line one\ncontinues here.\n\n- bullet one\n- bullet two\n\n1. numbered step\n');
+ await fs.writeFile(path.join(skill,'agents/openai.yaml'),'interface:\n  display_name: "Alpha"\npolicy:\n  allow_implicit_invocation: true\n');
+ await fs.writeFile(path.join(skill,'references/notes.md'),'# Notes\n');
+ await fs.mkdir(path.join(root,'out'),{recursive:true});
+ await fs.writeFile(path.join(root,'out/target.md'),'# Target\n\n## Held-out triggers\n\n<a id="custom-anchor"></a>\n');
+ return {root,sources:[{id:'src',root:'src-plugin/skills/alpha'}]};
+}
+function cover(matrix,target='out/target.md#target'){for(const e of matrix.entries){e.status='covered';e.target=target;}return matrix;}
+
+test('seedMatrix splits a skill into trigger, instruction, policy and file entries',async t=>{
+ const {root,sources}=await repo(t);const m=await seedMatrix(sources,{repoRoot:root});
+ assert.equal(m.schemaVersion,1);assert.deepEqual(m.sources,[{id:'src',root:'src-plugin/skills/alpha'}]);
+ const by=k=>m.entries.filter(e=>e.kind===k);
+ assert.deepEqual(by('trigger').map(e=>e.text),['Use when building alpha things.','Also use for beta checks.']);
+ assert.deepEqual(by('instruction').map(e=>e.text),['First paragraph line one continues here.','- bullet one','- bullet two','1. numbered step']);
+ assert.equal(by('instruction')[0].source,'src/SKILL.md:8');assert.equal(by('instruction')[0].id,'src.alpha.L8');
+ assert.deepEqual(by('policy').map(e=>e.text).sort(),['interface','policy']);
+ assert.deepEqual(by('file').map(e=>e.id),['src.file:references/notes.md']);
+ assert.ok(m.entries.every(e=>e.status==='unmapped'&&e.target===null));
+});
+
+test('checkMatrix passes when every entry is covered by an existing anchor',async t=>{
+ const {root,sources}=await repo(t);const m=cover(await seedMatrix(sources,{repoRoot:root}));
+ m.entries[0].target='out/target.md#held-out-triggers';m.entries[1].target='out/target.md#custom-anchor';m.entries[2].target='out';
+ const r=await checkMatrix(m,{repoRoot:root});assert.deepEqual(r.errors,[]);assert.equal(r.ok,true);
+ assert.deepEqual(r.counts,{covered:m.entries.length,merged:0,dropped:0,unmapped:0,total:m.entries.length});
+});
+
+test('checkMatrix reports every defect by entry id',async t=>{
+ const {root,sources}=await repo(t);const base=()=>seedMatrix(sources,{repoRoot:root}).then(m=>cover(m));
+ const cases=[
+  [m=>{m.entries[0].status='unmapped';m.entries[0].target=null;},/unmapped: src\./],
+  [m=>{m.entries[0].target='out/missing.md#x';},/target missing: src\./],
+  [m=>{m.entries[0].target='out/target.md#nope';},/anchor missing: src\..*#nope/],
+  [m=>{m.entries[0].status='dropped';m.entries[0].target=null;m.entries[0].reason='dup';},/unapproved drop: src\./],
+  [m=>{m.entries[0].status='dropped';m.entries[0].target=null;m.entries[0].approved=true;m.entries[0].reason=' ';},/unapproved drop: src\./],
+  [m=>{m.entries[0].status='merged-with:none';m.entries[0].target=null;},/bad merge: src\..*none/],
+  [m=>{m.entries[1].status='unmapped';m.entries[0].status='merged-with:'+m.entries[1].id;m.entries[0].target=null;},/bad merge: src\./],
+  [m=>{m.entries=m.entries.filter(e=>e.kind!=='file');},/unrepresented source file: src\/references\/notes\.md/],
+  [m=>{m.entries.push({...m.entries[0]});},/duplicate id: src\./],
+  [m=>{m.entries[0].target='../outside.md';},/escapes repository: src\./],
+ ];
+ for(const [mutate,pattern] of cases){const m=await base();mutate(m);const r=await checkMatrix(m,{repoRoot:root});assert.equal(r.ok,false,String(pattern));assert.ok(r.errors.some(e=>pattern.test(e)),`${pattern} not in ${r.errors.join(' | ')}`);}
+});
+
+test('checkMatrix accepts approved drops and valid merges and counts them',async t=>{
+ const {root,sources}=await repo(t);const m=cover(await seedMatrix(sources,{repoRoot:root}));
+ m.entries[0].status='dropped';m.entries[0].target=null;m.entries[0].approved=true;m.entries[0].reason='Superseded by stricter rule.';
+ m.entries[1].status='merged-with:'+m.entries[2].id;m.entries[1].target=null;
+ const r=await checkMatrix(m,{repoRoot:root});assert.equal(r.ok,true,r.errors.join('\n'));
+ assert.equal(r.counts.dropped,1);assert.equal(r.counts.merged,1);assert.equal(r.counts.covered,m.entries.length-2);
+});
+
+test('policy ids are unique across nested skills of one source',async t=>{
+ const {root}=await repo(t);await fs.cp(path.join(root,'src-plugin/skills/alpha'),path.join(root,'src-plugin/skills/beta'),{recursive:true});
+ const m=await seedMatrix([{id:'pkg',root:'src-plugin'}],{repoRoot:root});const ids=m.entries.map(e=>e.id);
+ assert.equal(new Set(ids).size,ids.length);
+ assert.ok(ids.includes('pkg.alpha.policy.interface')&&ids.includes('pkg.beta.policy.interface'));
+});
+
+test('slug follows GitHub heading anchors',()=>{assert.equal(slug('Held-out triggers'),'held-out-triggers');assert.equal(slug('Engine coverage (plugin-eval)'),'engine-coverage-plugin-eval');});
+
+test('CLI consolidation-check exits 1 with JSON on a failing matrix and seed writes a matrix',async t=>{
+ const {root,sources}=await repo(t);const src=path.join(root,'sources.json'),out=path.join(root,'matrix.json');
+ await fs.writeFile(src,JSON.stringify(sources));
+ const seeded=spawnSync(process.execPath,[cli,'consolidation-seed',src,'--repo-root',root,'--out',out],{encoding:'utf8',windowsHide:true});
+ assert.equal(seeded.status,0,seeded.stderr);assert.ok(JSON.parse(await fs.readFile(out,'utf8')).entries.length>0);
+ const checked=spawnSync(process.execPath,[cli,'consolidation-check',out,'--repo-root',root],{encoding:'utf8',windowsHide:true});
+ assert.equal(checked.status,1,checked.stderr);const body=JSON.parse(checked.stdout);assert.equal(body.ok,false);assert.ok(body.errors.length>0);
+});
+
+test('lifecycle matrix has no unmapped capability',async()=>{
+ const m=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
+ assert.ok(m.entries.length>700);
+ assert.deepEqual(m.entries.filter(e=>e.status==='unmapped'||!e.target&&e.status==='covered').map(e=>e.id),[]);
+});
+
+test('lifecycle matrix targets in studio-quality all resolve',async()=>{
+ const m=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
+ const scoped={...m,sources:[],entries:m.entries.filter(e=>String(e.target).includes('skills/studio-quality/'))};
+ const r=await checkMatrix(scoped,{repoRoot:packageRoot});
+ assert.deepEqual(r.errors,[]);
+});
+
+test('the whole lifecycle matrix passes consolidation-check',async()=>{
+ const m=JSON.parse(await fs.readFile(path.join(packageRoot,'references/consolidation/lifecycle-matrix.json'),'utf8'));
+ const r=await checkMatrix(m,{repoRoot:packageRoot});
+ assert.deepEqual(r.errors,[]);assert.equal(r.counts.unmapped,0);
+});
+
+test('snapshot sources keep proving coverage after the source is deleted',async t=>{
+ const {root,sources}=await repo(t);const m=cover(await seedMatrix(sources,{repoRoot:root}));
+ await fs.writeFile(path.join(root,'snap.json'),JSON.stringify({files:{'SKILL.md':'x','references/notes.md':'y','agents/openai.yaml':'z','references/extra.md':'w'}}));
+ m.sources=[{id:'src',snapshot:'snap.json'}];await fs.rm(path.join(root,'src-plugin'),{recursive:true});
+ const r=await checkMatrix(m,{repoRoot:root});assert.equal(r.ok,false);
+ assert.deepEqual(r.errors.filter(e=>e.startsWith('unrepresented')),['unrepresented source file: src/references/extra.md']);
+});
+
+test('seeded text never carries a user name from a home path',()=>{
+ assert.equal(redactHome('Apply `/Users/someone/.codex/skills/x/SKILL.md` now'),'Apply `/Users/<user>/.codex/skills/x/SKILL.md` now');
+ assert.equal(redactHome('C:\\Users\\someone\\a and /home/bob/b'),'C:\\Users\\<user>\\a and /home/<user>/b');
+});
+```
+
 ## File: `tests/conversion.test.mjs`
 
 ```javascript
@@ -507,7 +741,7 @@ import assert from 'node:assert/strict';
 import {route} from '../src/registry.mjs';
 
 test('mentioning Desktop preserves explicit plugin authoring and evaluation workflows',async()=>{
- for(const [request,expected]of [['Vurder dette Desktop-plugin','plugin-eval'],['Byg et Desktop-plugin','create-plugin'],['Update a Desktop plugin','update-plugin']])
+ for(const [request,expected]of [['Vurder dette Desktop-plugin','studio-quality'],['Byg et Desktop-plugin','studio-build'],['Update a Desktop plugin','studio-build']])
   assert.equal((await route(request)).selected,expected,request);
 });
 ```
@@ -1155,8 +1389,8 @@ import {analyze} from '../src/eval/index.mjs';
 
 const cli=path.join(packageRoot,'scripts/studio.mjs');
 function run(args,cwd=packageRoot){return spawnSync(process.execPath,[cli,...args],{cwd,encoding:'utf8',windowsHide:true});}
-test('all fifteen sources and every original workflow have real contained implementations',async()=>{
- const registry=await loadRegistry();assert.equal(registry.sources.length,15);
+test('all sixteen sources and every original workflow have real contained implementations',async()=>{
+ const registry=await loadRegistry();assert.equal(registry.sources.length,16);
  assert.equal(new Set(registry.capabilities.map(c=>c.id)).size,registry.capabilities.length);
  for(const s of registry.sources){assert.ok(Object.keys(s.files).length);assert.ok(s.skills.length);for(const w of s.skills){assert.ok(w.acceptanceTest);assert.ok(!path.isAbsolute(w.implementation));assert.ok((await fs.stat(path.join(packageRoot,w.implementation))).isFile());}}
  assert.equal((await selfCheck()).ok,true);
@@ -1164,20 +1398,20 @@ test('all fifteen sources and every original workflow have real contained implem
  await assert.rejects(()=>fs.stat(path.join(packageRoot,'hooks')),e=>e.code==='ENOENT');
 });
 test('router selects only bundled workflows for Danish and English requests',async()=>{
- const cases=[['Vurder denne skill','skill-eval'],['Analyze this plugin','plugin-eval'],['Find en skill til review','catalog'],['Lav en plan','writing-plans'],['HTML accessibility report','modern-web'],['evidence matrix','evidence-matrix']];
+ const cases=[['Vurder denne skill','studio-quality'],['Analyze this plugin','studio-quality'],['Find en skill til review','studio-build'],['Lav en plan','studio-plan'],['HTML accessibility report','modern-web'],['evidence matrix','studio-quality']];
  for(const [q,id]of cases){const result=await route(q);assert.equal(result.selected,id,q);assert.deepEqual(result.externalDependencies,[]);}
 });
 test('Autopilot metadata avoids the CHAT alias rejected by the current Codex host',async()=>{
- for(const name of ['plugin-autopilot','python-executor','workspace-operator']){
+ for(const name of ['studio-build','python-executor','workspace-operator']){
   const yaml=await fs.readFile(path.join(packageRoot,'skills',name,'agents/openai.yaml'),'utf8');
   assert.doesNotMatch(yaml,/^\s*-\s*CHAT\s*$/m);
   assert.match(yaml,/allow_implicit_invocation:\s*true/);
  }
 });
 test('legacy command contracts work and deep static evaluation does not need installed sources',async()=>{
- const result=run(['skill-eval','skills/skill-eval','--format','json']);assert.equal(result.status,0,result.stderr);
+ const result=run(['skill-eval','skills/studio-quality','--format','json']);assert.equal(result.status,0,result.stderr);
  const report=JSON.parse(result.stdout);assert.equal(report.valid,true);assert.equal(report.observedUsage.status,'UNKNOWN');
- const legacy=spawnSync(process.execPath,[path.join(packageRoot,'scripts/skill-studio.mjs'),'evaluate',path.join(packageRoot,'skills/skill-eval')],{encoding:'utf8'});
+ const legacy=spawnSync(process.execPath,[path.join(packageRoot,'scripts/skill-studio.mjs'),'evaluate',path.join(packageRoot,'skills/studio-quality')],{encoding:'utf8'});
  assert.equal(legacy.status,0,legacy.stderr);assert.equal(JSON.parse(legacy.stdout).valid,true);
 });
 test('a local package skill may use package policy but cannot escape its package',async()=>{
@@ -1706,6 +1940,920 @@ test('keeps observed counterpart versions when the published manifest is missing
 });
 ```
 
+## File: `tests/plan-consolidation.test.mjs`
+
+```javascript
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {packageRoot,route} from '../src/registry.mjs';
+import {checkMatrix} from '../src/consolidation/check.mjs';
+
+const C=path.join(packageRoot,'references/consolidation');
+const MODES=path.join(packageRoot,'skills/studio-plan/modes');
+const readJson=async f=>JSON.parse(await fs.readFile(f,'utf8'));
+const lfHash=buf=>createHash('sha256').update(buf.toString('utf8').replace(/\r\n/g,'\n')).digest('hex');
+const REMOVED=['brainstorming','writing-plans','grill-me','grill-with-docs','grilling','to-spec','to-tickets','to-questionnaire','goal','wayfinder'];
+// Literal data labels that keep an old name on purpose: tracker labels, ticket types and output file names.
+const DATA_LABELS=['`wayfinder:map`','`research`, `prototype`, `grilling`, `task`','`to-questionnaire-<slug>.md`','/goal'];
+
+test('shared plan modes match the hashes pinned for Studio and DevSuite',async()=>{
+ const pinned=await readJson(path.join(C,'shared-plan-modes.json'));
+ assert.deepEqual(Object.keys(pinned.files).sort(),['discover.md','goal.md','interview.md','map.md','plan-full.md','plan.md','questions.md','spec.md','tickets.md']);
+ for(const [file,hash] of Object.entries(pinned.files))assert.equal(lfHash(await fs.readFile(path.join(MODES,file))),hash,file);
+});
+
+test('shared plan modes carry no package links or skill paths',async()=>{
+ for(const file of Object.keys((await readJson(path.join(C,'shared-plan-modes.json'))).files)){
+  const text=await fs.readFile(path.join(MODES,file),'utf8');
+  assert.doesNotMatch(text,/\]\(\.\.\/|skills\/|studio-policy|policy\.md|visual-companion\.md|scripts\//,file);
+ }
+});
+
+test('plan matrix covers every capability of the merged skills',async()=>{
+ const r=await checkMatrix(await readJson(path.join(C,'plan-matrix.json')),{repoRoot:packageRoot});
+ assert.deepEqual(r.errors,[]);assert.equal(r.counts.unmapped,0);
+});
+
+test('every removed planning trigger routes to studio-plan and its mode',async()=>{
+ const m=await readJson(path.join(C,'plan-matrix.json'));const misses=[];
+ for(const e of m.entries.filter(e=>e.kind==='trigger'&&/skills\/studio-plan\/SKILL\.md#mode-/.test(e.target??''))){
+  const want=e.target.split('#mode-')[1],r=await route(e.text);
+  if(r.selected!=='studio-plan'||r.mode!==want)misses.push(`${e.id}: got ${r.selected}/${r.mode}, want studio-plan/${want}`);
+ }
+ assert.deepEqual(misses,[]);
+});
+
+test('Danish planning requests still reach plan mode',async()=>{
+ const r=await route('Lav en plan');assert.equal(r.selected,'studio-plan');assert.equal(r.mode,'plan');
+});
+
+export {REMOVED,DATA_LABELS};
+
+test('no Studio skill still refers to a removed planning skill',async()=>{
+ const walk=async d=>{const out=[];for(const e of await fs.readdir(d,{withFileTypes:true})){const p=path.join(d,e.name);if(e.isDirectory())out.push(...await walk(p));else if(p.endsWith('.md'))out.push(p);}return out;};
+ const LABELS=[/`wayfinder:[^`]*`/g,/\(`research`[^)]*`task`\)/g,/`research`\/`prototype`\/`grilling`\/`task`/g,/`to-questionnaire-<slug>\.md`/g,/\/goal\b/g,/<a id="[^"]*"><\/a>/g];
+ // brainstorming, goal and grilling are also ordinary words, so only their path, code and "skill" forms count.
+ const hyphenated=['writing-plans','grill-me','grill-with-docs','to-spec','to-tickets','to-questionnaire','wayfinder'];
+ const hits=[];
+ for(const file of await walk(path.join(packageRoot,'skills'))){
+  let text=await fs.readFile(file,'utf8');for(const re of LABELS)text=text.replace(re,'');
+  for(const name of REMOVED){
+   const forms=[new RegExp(`(\.\./|skills/)${name}/`),new RegExp(`\`${name}\``),new RegExp(`\b${name} skill\b`)];
+   if(hyphenated.includes(name))forms.push(new RegExp(`(?<![\w/.#"\`-])${name}(?![\w.:-])`));
+   if(forms.some(re=>re.test(text)))hits.push(`${path.relative(packageRoot,file)}: ${name}`);
+  }
+ }
+ assert.deepEqual(hits,[]);
+});
+```
+
+## File: `tests/plugin-eval.test.mjs`
+
+```javascript
+import assert from "node:assert/strict";
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import { execFile } from "node:child_process";
+import test from "node:test";
+import { promisify } from "node:util";
+import { fileURLToPath } from "node:url";
+
+import { analyzePath, explainBudget } from "../src/eval/plugin-eval/core/analyze.js";
+import { initializeBenchmark, runBenchmark } from "../src/eval/plugin-eval/core/benchmark.js";
+import { provisionBenchmarkWorkspace } from "../src/eval/plugin-eval/core/benchmark-workspace.js";
+import { parseCodexJsonStream, summarizeCodexEvents } from "../src/eval/plugin-eval/core/benchmark-events.js";
+import { compareResults } from "../src/eval/plugin-eval/core/compare.js";
+import { buildWorkflowGuide } from "../src/eval/plugin-eval/core/workflow-guide.js";
+import { parseFrontmatter } from "../src/eval/plugin-eval/lib/frontmatter.js";
+import { formatCommandPath } from "../src/eval/plugin-eval/lib/files.js";
+import { renderPayload } from "../src/eval/plugin-eval/renderers/index.js";
+
+const execFileAsync = promisify(execFile);
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const fixturesRoot = path.join(repoRoot, "fixtures", "plugin-eval");
+const cliPath = path.join(repoRoot, "scripts", "plugin-eval.js");
+const nodeBin = process.execPath;
+
+async function makeTempDir(prefix) {
+  return fs.mkdtemp(path.join(os.tmpdir(), `${prefix}-`));
+}
+
+async function writeSkillFixture(rootPath, { description, bodyLines }) {
+  await fs.mkdir(rootPath, { recursive: true });
+  const body = Array.from({ length: bodyLines }, (_, index) => `Line ${index + 1}`).join("\n");
+  await fs.writeFile(
+    path.join(rootPath, "SKILL.md"),
+    `---\nname: temp-skill\ndescription: ${description}\n---\n\n# Temp Skill\n\n${body}\n`,
+    "utf8",
+  );
+}
+
+async function writeBlockScalarSkillFixture(rootPath, { style = ">", descriptionLines, bodyLines = 3 }) {
+  await fs.mkdir(rootPath, { recursive: true });
+  const description = descriptionLines.map((line) => `  ${line}`).join("\n");
+  const body = Array.from({ length: bodyLines }, (_, index) => `Line ${index + 1}`).join("\n");
+  await fs.writeFile(
+    path.join(rootPath, "SKILL.md"),
+    `---\nname: temp-skill\ndescription: ${style}\n${description}\n---\n\n# Temp Skill\n\n${body}\n`,
+    "utf8",
+  );
+}
+
+async function writePluginBudgetFixture(rootPath) {
+  await fs.mkdir(path.join(rootPath, ".codex-plugin"), { recursive: true });
+  await fs.writeFile(
+    path.join(rootPath, ".codex-plugin", "plugin.json"),
+    JSON.stringify(
+      {
+        name: "policy-aware-plugin",
+        version: "0.1.0",
+        description: "Evaluate policy-aware plugin budgets.",
+        author: {
+          name: "Plugin Eval",
+        },
+        homepage: "https://example.com/",
+        license: "MIT",
+        keywords: ["fixture"],
+        skills: "./skills/",
+        interface: {
+          displayName: "Policy Aware Plugin",
+          shortDescription: "Fixture for policy-aware budgets",
+          longDescription: "Fixture for policy-aware budget tests.",
+          developerName: "Plugin Eval",
+          category: "Developer Tools",
+          capabilities: ["Read"],
+          defaultPrompt: ["Route the request first."],
+          brandColor: "#0B7285",
+          composerIcon: "./assets/icon.svg",
+          logo: "./assets/logo.svg",
+          screenshots: [],
+        },
+      },
+      null,
+      2,
+    ),
+    "utf8",
+  );
+
+  await writeSkillFixture(path.join(rootPath, "skills", "router"), {
+    description: "Route fixture requests.",
+    bodyLines: 3,
+  });
+  await fs.mkdir(path.join(rootPath, "skills", "router", "agents"), { recursive: true });
+  await fs.writeFile(
+    path.join(rootPath, "skills", "router", "agents", "openai.yaml"),
+    "policy:\n  allow_implicit_invocation: true\n",
+    "utf8",
+  );
+
+  await writeSkillFixture(path.join(rootPath, "skills", "specialist"), {
+    description: `Specialist fixture ${"x".repeat(500)}`,
+    bodyLines: 200,
+  });
+  await fs.mkdir(path.join(rootPath, "skills", "specialist", "agents"), { recursive: true });
+  await fs.writeFile(
+    path.join(rootPath, "skills", "specialist", "agents", "openai.yaml"),
+    "policy:\n  allow_implicit_invocation: false\n",
+    "utf8",
+  );
+}
+
+async function copyDirectory(source, destination) {
+  await fs.cp(source, destination, { recursive: true });
+}
+
+async function createFakeCodexExecutable(rootPath) {
+  const binDir = path.join(rootPath, "bin");
+  const executablePath = path.join(binDir, "codex");
+  await fs.mkdir(binDir, { recursive: true });
+  await fs.writeFile(
+    executablePath,
+    `#!/bin/sh
+if [ "$1" = "--version" ]; then
+  echo "codex-cli fake-test"
+  exit 0
+fi
+
+if [ "$1" = "exec" ]; then
+  final=""
+  workspace=""
+  while [ "$#" -gt 0 ]; do
+    if [ "$1" = "--output-last-message" ]; then
+      shift
+      final="$1"
+    elif [ "$1" = "--cd" ]; then
+      shift
+      workspace="$1"
+    fi
+    shift
+  done
+
+  mkdir -p "$(dirname "$final")"
+  printf "Implemented benchmark fixture.\\n" > "$final"
+  printf 'export const generated = 1;\\n' > "$workspace/generated.ts"
+  printf 'import { generated } from "./generated";\\nexport default generated;\\n' > "$workspace/generated.test.ts"
+  printf '{"type":"thread.started","thread_id":"thread-test"}\\n'
+  printf '{"type":"tool.called","tool_name":"functions.exec_command"}\\n'
+  printf '{"type":"shell.command","command":"npm test"}\\n'
+  printf '{"type":"turn.completed","usage":{"input_tokens":120,"output_tokens":45,"total_tokens":165}}\\n'
+  exit 0
+fi
+
+echo "unsupported invocation" >&2
+exit 1
+`,
+    "utf8",
+  );
+  await fs.chmod(executablePath, 0o755);
+  return executablePath;
+}
+
+test("analyze minimal skill and render markdown/html", async () => {
+  const skillPath = path.join(fixturesRoot, "minimal-skill");
+  const result = await analyzePath(skillPath);
+
+  assert.equal(result.target.kind, "skill");
+  assert.equal(result.budgets.method, "estimated-static");
+  assert.ok(result.summary.score > 0);
+  assert.ok(result.metrics.some((metric) => metric.id === "trigger_cost_tokens"));
+  assert.ok(Array.isArray(result.summary.whyBullets));
+  assert.ok(Array.isArray(result.summary.fixFirst));
+  assert.ok(result.nextAction);
+
+  const markdown = renderPayload(result, "markdown");
+  const html = renderPayload(result, "html");
+
+  assert.match(markdown, /Plugin Eval Report: minimal-skill/);
+  assert.match(markdown, /At a Glance/);
+  assert.match(markdown, /Why It Matters/);
+  assert.match(markdown, /Fix First/);
+  assert.match(markdown, /Recommended Next Step/);
+  assert.match(markdown, /<details>/);
+  assert.match(html, /<!doctype html>/i);
+  assert.match(html, /Risk Assessment/);
+  assert.match(html, /Use From Codex Chat/);
+  assert.match(html, /Quick local entrypoint/);
+});
+
+test("flags oversized descriptions and bloated SKILL.md files", async () => {
+  const tempDir = await makeTempDir("plugin-eval-skill");
+  await writeSkillFixture(tempDir, {
+    description: `Verbose description ${"x".repeat(1300)}`,
+    bodyLines: 650,
+  });
+
+  const result = await analyzePath(tempDir);
+  const ids = new Set(result.checks.map((check) => check.id));
+
+  assert.ok(ids.has("description-too-long"));
+  assert.ok(ids.has("skill-large") || ids.has("skill-too-large"));
+  assert.notEqual(result.budgets.trigger_cost_tokens.band, "good");
+});
+
+test("parses folded and literal YAML block scalars in frontmatter", async () => {
+  const folded = parseFrontmatter(`---\nname: temp-skill\ndescription: >\n  Use when the task needs\n  a folded block scalar.\n---\n`);
+  const literal = parseFrontmatter(`---\nname: temp-skill\ndescription: |\n  First line.\n  Second line.\n---\n`);
+
+  assert.deepEqual(folded.errors, []);
+  assert.equal(folded.data.description, "Use when the task needs a folded block scalar.");
+
+  assert.deepEqual(literal.errors, []);
+  assert.equal(literal.data.description, "First line.\nSecond line.");
+});
+
+test("analyze accepts skills with block-scalar descriptions", async () => {
+  const tempDir = await makeTempDir("plugin-eval-block-scalar");
+  await writeBlockScalarSkillFixture(tempDir, {
+    style: ">",
+    descriptionLines: [
+      "Use when the task needs",
+      "a folded block scalar description.",
+    ],
+  });
+
+  const result = await analyzePath(tempDir);
+  const ids = new Set(result.checks.map((check) => check.id));
+
+  assert.ok(!ids.has("frontmatter-invalid"));
+  assert.ok(!ids.has("name-missing"));
+  assert.ok(!ids.has("description-missing"));
+  assert.ok(result.summary.score > 0);
+});
+
+test("explicit-only skill policy removes trigger budget", async () => {
+  const tempDir = await makeTempDir("plugin-eval-explicit-skill");
+  await writeSkillFixture(tempDir, {
+    description: `Explicit-only description ${"x".repeat(500)}`,
+    bodyLines: 10,
+  });
+  await fs.mkdir(path.join(tempDir, "agents"), { recursive: true });
+  await fs.writeFile(
+    path.join(tempDir, "agents", "openai.yaml"),
+    "policy:\n  allow_implicit_invocation: false\n",
+    "utf8",
+  );
+
+  const result = await analyzePath(tempDir);
+
+  assert.equal(result.budgets.method, "estimated-static-policy-aware");
+  assert.equal(result.budgets.invocation_policy.allow_implicit_invocation, false);
+  assert.equal(result.budgets.trigger_cost_tokens.value, 0);
+  assert.ok(result.budgets.invoke_cost_tokens.value > 0);
+  assert.ok(!result.checks.some((check) => check.id === "trigger_cost_tokens-budget-high"));
+});
+
+test("plugin budget excludes explicit-only specialist skills from implicit active budget", async () => {
+  const tempDir = await makeTempDir("plugin-eval-policy-plugin");
+  await writePluginBudgetFixture(tempDir);
+
+  const result = await analyzePath(tempDir);
+  const triggerLabels = result.budgets.trigger_cost_tokens.components.map((component) => component.label);
+  const invokeLabels = result.budgets.invoke_cost_tokens.components.map((component) => component.label);
+  const explicitLabels = result.budgets.explicit_only_invoke_cost_tokens.components.map((component) => component.label);
+
+  assert.equal(result.target.kind, "plugin");
+  assert.equal(result.budgets.method, "estimated-static-policy-aware");
+  assert.equal(result.budgets.invocation_policy.implicit_skill_count, 1);
+  assert.equal(result.budgets.invocation_policy.explicit_only_skill_count, 1);
+  assert.ok(triggerLabels.includes("router-description"));
+  assert.ok(!triggerLabels.includes("specialist-description"));
+  assert.ok(invokeLabels.includes("router-skill-file"));
+  assert.ok(!invokeLabels.includes("specialist-skill-file"));
+  assert.deepEqual(explicitLabels, ["specialist-skill-file"]);
+  assert.ok(result.metrics.some((metric) => metric.id === "explicit_only_invoke_cost_tokens"));
+});
+
+test("finds broken plugin manifests, missing paths, and prompt issues", async () => {
+  const tempDir = await makeTempDir("plugin-eval-plugin");
+  await fs.mkdir(path.join(tempDir, ".codex-plugin"), { recursive: true });
+  await fs.writeFile(
+    path.join(tempDir, ".codex-plugin", "plugin.json"),
+    JSON.stringify(
+      {
+        name: "bad-plugin",
+        version: "0.1.0",
+        description: "Broken plugin for testing.",
+        author: {
+          name: "Plugin Eval",
+          email: "support@example.com",
+          url: "https://example.com/",
+        },
+        homepage: "https://example.com/",
+        repository: "https://example.com/repo",
+        license: "MIT",
+        keywords: ["fixture"],
+        skills: "./missing-skills/",
+        interface: {
+          displayName: "Bad Plugin",
+          shortDescription: "Broken fixture",
+          longDescription: "Broken fixture for plugin-eval tests.",
+          developerName: "Plugin Eval",
+          category: "Developer Tools",
+          capabilities: ["Interactive", "Write"],
+          websiteURL: "https://example.com/",
+          privacyPolicyURL: "https://example.com/privacy",
+          termsOfServiceURL: "https://example.com/terms",
+          defaultPrompt: [
+            "Prompt one that is fine.",
+            "Prompt two that is also fine.",
+            "Prompt three that is also fine.",
+            "Prompt four is ignored and should be flagged because there are too many starter prompts in this broken fixture, and this sentence is intentionally extended well past the interface length budget so the evaluator can deterministically flag it as too long."
+          ],
+          brandColor: "teal",
+          composerIcon: "./assets/missing.svg",
+          logo: "./assets/missing.svg",
+          screenshots: []
+        }
+      },
+      null,
+      2,
+    ),
+    "utf8",
+  );
+
+  const result = await analyzePath(tempDir);
+  const ids = new Set(result.checks.map((check) => check.id));
+
+  assert.ok(ids.has("skills-path-missing"));
+  assert.ok(ids.has("default-prompt-too-many"));
+  assert.ok(ids.has("default-prompt-too-long"));
+  assert.ok(ids.has("brand-color-invalid"));
+  assert.ok(ids.has("plugin-skills-missing"));
+});
+
+test("collects deterministic TypeScript and Python metrics", async () => {
+  const samplePath = path.join(fixturesRoot, "ts-python-sample");
+  const result = await analyzePath(samplePath);
+
+  const metric = (id) => result.metrics.find((item) => item.id === id)?.value;
+
+  assert.equal(metric("ts_file_count"), 2);
+  assert.equal(metric("py_file_count"), 2);
+  assert.equal(metric("ts_test_file_count"), 1);
+  assert.equal(metric("py_test_file_count"), 1);
+  assert.ok(metric("ts_max_cyclomatic_complexity") >= 4);
+  assert.ok(metric("py_max_cyclomatic_complexity") >= 4);
+});
+
+test("ingests lcov, coverage.xml, and coverage-final.json artifacts", async () => {
+  const samplePath = path.join(fixturesRoot, "coverage-samples");
+  const result = await analyzePath(samplePath);
+  const coveragePercent = result.metrics.find((metric) => metric.id === "coverage_percent")?.value;
+
+  assert.equal(coveragePercent, 82);
+  assert.equal(result.metrics.find((metric) => metric.id === "coverage_artifact_count")?.value, 3);
+});
+
+test("merges custom metric pack output without changing the core summary", async () => {
+  const skillPath = path.join(fixturesRoot, "minimal-skill");
+  const result = await analyzePath(skillPath, {
+    metricPackManifests: [path.join(fixturesRoot, "metric-pack", "manifest.json")],
+  });
+
+  assert.equal(result.extensions.length, 1);
+  assert.equal(result.extensions[0].metrics[0].id, "custom-pack-score");
+  assert.ok(result.summary.score > 0);
+});
+
+test("ingests observed usage files and compares estimates against real sessions", async () => {
+  const skillPath = path.join(fixturesRoot, "minimal-skill");
+  const usagePath = path.join(fixturesRoot, "observed-usage", "responses.jsonl");
+  const result = await analyzePath(skillPath, {
+    observedUsagePaths: [usagePath],
+  });
+
+  assert.equal(result.observedUsage.sampleCount, 3);
+  assert.equal(result.metrics.find((metric) => metric.id === "observed_usage_sample_count")?.value, 3);
+  assert.ok(result.metrics.some((metric) => metric.id === "estimate_vs_observed_input_ratio"));
+  assert.ok(result.measurementPlan.toolsets.length >= 5);
+});
+
+test("init-benchmark writes a beginner-friendly starter config", async () => {
+  const sourcePath = path.join(fixturesRoot, "minimal-skill");
+  const tempDir = await makeTempDir("plugin-eval-benchmark-init");
+  const skillPath = path.join(tempDir, "minimal-skill");
+  await copyDirectory(sourcePath, skillPath);
+
+  const payload = await initializeBenchmark(skillPath);
+  const config = JSON.parse(await fs.readFile(path.join(skillPath, ".plugin-eval", "benchmark.json"), "utf8"));
+
+  assert.equal(payload.kind, "benchmark-template-init");
+  assert.equal(config.kind, "plugin-eval-benchmark");
+  assert.equal(config.schemaVersion, 2);
+  assert.equal(config.runner.type, "codex-cli");
+  assert.equal(config.workspace.setupMode, "copy");
+  assert.equal(config.scenarios.length, 3);
+  assert.ok(Array.isArray(config.setupQuestions));
+  assert.ok(config.setupQuestions.length >= 3);
+  assert.match(config.notes[0], /workspace\.sourcePath/i);
+  assert.ok(Array.isArray(payload.setupQuestions));
+  assert.ok(payload.setupQuestions.some((item) => /must-pass/i.test(item)));
+  assert.ok(payload.workflowGuide);
+});
+
+test("benchmark rejects the removed dry-run mode", async () => {
+  const sourcePath = path.join(fixturesRoot, "minimal-skill");
+  const tempDir = await makeTempDir("plugin-eval-benchmark-dry-run");
+  const skillPath = path.join(tempDir, "minimal-skill");
+  await copyDirectory(sourcePath, skillPath);
+
+  await initializeBenchmark(skillPath);
+  await assert.rejects(
+    () =>
+      runBenchmark(skillPath, {
+        configPath: path.join(skillPath, ".plugin-eval", "benchmark.json"),
+        dryRun: true,
+      }),
+    /no longer supports --dry-run/i,
+  );
+});
+
+test("parses codex json event streams and extracts usage plus shell activity", async () => {
+  const stream = [
+    JSON.stringify({ type: "thread.started", thread_id: "thread-123" }),
+    JSON.stringify({ type: "tool.called", tool_name: "functions.exec_command" }),
+    JSON.stringify({ type: "shell.command", command: "npm test" }),
+    "warning text that should be ignored",
+    JSON.stringify({ type: "turn.completed", usage: { input_tokens: 101, output_tokens: 44, total_tokens: 145 } }),
+  ].join("\n");
+
+  const parsed = parseCodexJsonStream(stream);
+  const summary = summarizeCodexEvents(parsed.events);
+
+  assert.equal(parsed.events.length, 4);
+  assert.equal(parsed.ignoredLines.length, 1);
+  assert.equal(summary.threadId, "thread-123");
+  assert.equal(summary.toolCallCount, 1);
+  assert.equal(summary.shellCommandCount, 1);
+  assert.equal(summary.failedShellCommandCount, 0);
+  assert.equal(summary.usage.input_tokens, 101);
+  assert.equal(summary.finalStatus, "completed");
+});
+
+test("formats command paths with home shorthand for user-facing commands", () => {
+  const formatted = formatCommandPath(path.join(os.homedir(), ".codex", "skills", "game-dev"), {
+    cwd: repoRoot,
+  });
+
+  assert.equal(formatted, "~/.codex/skills/game-dev");
+});
+
+test("workflow guide next action uses the first actionable local command", async () => {
+  const sourcePath = path.join(fixturesRoot, "minimal-skill");
+  const tempDir = await makeTempDir("plugin-eval-workflow-guide");
+  const skillPath = path.join(tempDir, "minimal-skill");
+  await copyDirectory(sourcePath, skillPath);
+
+  const guide = await buildWorkflowGuide(skillPath, {
+    request: "Measure the real token usage of this skill.",
+  });
+
+  assert.equal(guide.nextAction.command, `plugin-eval init-benchmark ${formatCommandPath(skillPath)}`);
+});
+
+test("benchmark run writes usage logs and generated-code analysis from a codex-cli run", async () => {
+  const sourcePath = path.join(fixturesRoot, "minimal-skill");
+  const tempDir = await makeTempDir("plugin-eval-benchmark-live");
+  const skillPath = path.join(tempDir, "minimal-skill");
+  await copyDirectory(sourcePath, skillPath);
+
+  await initializeBenchmark(skillPath);
+  const payload = await runBenchmark(skillPath, {
+    configPath: path.join(skillPath, ".plugin-eval", "benchmark.json"),
+    processRunner: async ({ kind, args }) => {
+      if (kind === "codex-version") {
+        return {
+          code: 0,
+          signal: null,
+          durationMs: 1,
+          stdoutText: "codex-cli fake-test\n",
+          stderrText: "",
+        };
+      }
+
+      if (kind === "codex") {
+        const finalMessagePath = args[args.indexOf("--output-last-message") + 1];
+        const workspacePath = args[args.indexOf("--cd") + 1];
+        await fs.writeFile(finalMessagePath, "Benchmark completed.\n", "utf8");
+        await fs.writeFile(path.join(workspacePath, "generated.ts"), "export const value = 1;\n", "utf8");
+        await fs.writeFile(path.join(workspacePath, "generated.test.ts"), "import { value } from './generated';\nconsole.log(value);\n", "utf8");
+        return {
+          code: 0,
+          signal: null,
+          durationMs: 10,
+          stdoutText: [
+            JSON.stringify({ type: "thread.started", thread_id: "thread-test" }),
+            JSON.stringify({ type: "tool.called", tool_name: "functions.exec_command" }),
+            JSON.stringify({ type: "shell.command", command: "npm test" }),
+            JSON.stringify({ type: "turn.completed", usage: { input_tokens: 150, output_tokens: 70, total_tokens: 220 } }),
+          ].join("\n"),
+          stderrText: "",
+        };
+      }
+
+      return {
+        code: 0,
+        signal: null,
+        durationMs: 5,
+        stdoutText: "",
+        stderrText: "",
+      };
+    },
+  });
+
+  assert.equal(payload.mode, "codex-cli");
+  assert.equal(payload.summary.sampleCount, 3);
+  assert.equal(payload.summary.generatedFileCount, 6);
+  assert.equal(payload.summary.generatedTestFileCount, 3);
+  assert.equal(payload.scenarios[0].generatedCode.metrics.find((metric) => metric.id === "ts_file_count")?.value, 2);
+
+  const result = await analyzePath(skillPath, {
+    observedUsagePaths: [payload.usageLogPath],
+  });
+  assert.equal(result.observedUsage.sampleCount, 3);
+});
+
+test("benchmark run uses config-based approval policy syntax for codex exec", async () => {
+  const sourcePath = path.join(fixturesRoot, "minimal-skill");
+  const tempDir = await makeTempDir("plugin-eval-benchmark-args");
+  const skillPath = path.join(tempDir, "minimal-skill");
+  await copyDirectory(sourcePath, skillPath);
+
+  await initializeBenchmark(skillPath);
+  const seenArgs = [];
+
+  await runBenchmark(skillPath, {
+    configPath: path.join(skillPath, ".plugin-eval", "benchmark.json"),
+    processRunner: async ({ kind, args }) => {
+      if (kind === "codex-version") {
+        return {
+          code: 0,
+          signal: null,
+          durationMs: 1,
+          stdoutText: "codex-cli fake-test\n",
+          stderrText: "",
+        };
+      }
+
+      if (kind === "codex") {
+        seenArgs.push(args);
+        const finalMessagePath = args[args.indexOf("--output-last-message") + 1];
+        const workspacePath = args[args.indexOf("--cd") + 1];
+        await fs.writeFile(finalMessagePath, "Benchmark completed.\n", "utf8");
+        await fs.writeFile(path.join(workspacePath, "generated.ts"), "export const value = 1;\n", "utf8");
+        return {
+          code: 0,
+          signal: null,
+          durationMs: 10,
+          stdoutText: [
+            JSON.stringify({ type: "thread.started", thread_id: "thread-test" }),
+            JSON.stringify({ type: "turn.completed", usage: { input_tokens: 150, output_tokens: 70, total_tokens: 220 } }),
+          ].join("\n"),
+          stderrText: "",
+        };
+      }
+
+      return {
+        code: 0,
+        signal: null,
+        durationMs: 5,
+        stdoutText: "",
+        stderrText: "",
+      };
+    },
+  });
+
+  assert.equal(seenArgs.length, 3);
+  assert.ok(seenArgs.every((args) => !args.includes("-a")));
+  assert.ok(seenArgs.every((args) => args.includes("-c")));
+  assert.ok(seenArgs.every((args) => args.includes('approval_policy="never"')));
+});
+
+test("provisionBenchmarkWorkspace seeds auth and config into the isolated codex home", async () => {
+  const sourcePath = path.join(fixturesRoot, "minimal-skill");
+  const tempDir = await makeTempDir("plugin-eval-benchmark-home");
+  const skillPath = path.join(tempDir, "minimal-skill");
+  const codexHomeSource = path.join(tempDir, "codex-home-source");
+  await copyDirectory(sourcePath, skillPath);
+  await fs.mkdir(codexHomeSource, { recursive: true });
+  await fs.writeFile(path.join(codexHomeSource, "auth.json"), '{"token":"test"}\n', "utf8");
+  await fs.writeFile(path.join(codexHomeSource, "config.toml"), 'model = "gpt-5.4"\n', "utf8");
+
+  const previousSource = process.env.PLUGIN_EVAL_CODEX_HOME_SOURCE;
+  process.env.PLUGIN_EVAL_CODEX_HOME_SOURCE = codexHomeSource;
+
+  const provisioned = await provisionBenchmarkWorkspace({
+    target: {
+      kind: "skill",
+      name: "minimal-skill",
+      path: skillPath,
+    },
+    config: {
+      workspace: {
+        sourcePath: skillPath,
+        setupMode: "copy",
+      },
+      targetProvisioning: {
+        mode: "isolated-skill-home",
+      },
+    },
+    scenarioId: "seed-auth",
+  });
+
+  try {
+    assert.equal(
+      await fs.readFile(path.join(provisioned.codexHomePath, "auth.json"), "utf8"),
+      '{"token":"test"}\n',
+    );
+    assert.equal(
+      await fs.readFile(path.join(provisioned.codexHomePath, "config.toml"), "utf8"),
+      'model = "gpt-5.4"\n',
+    );
+  } finally {
+    if (previousSource === undefined) {
+      delete process.env.PLUGIN_EVAL_CODEX_HOME_SOURCE;
+    } else {
+      process.env.PLUGIN_EVAL_CODEX_HOME_SOURCE = previousSource;
+    }
+    await provisioned.cleanup();
+  }
+});
+
+test("generates improvement briefs and comparison payloads", async () => {
+  const goodPath = path.join(fixturesRoot, "minimal-skill");
+  const badDir = await makeTempDir("plugin-eval-compare");
+  await writeSkillFixture(badDir, {
+    description: `Verbose description ${"y".repeat(1300)}`,
+    bodyLines: 650,
+  });
+
+  const before = await analyzePath(badDir);
+  const after = await analyzePath(goodPath);
+  const diff = compareResults(before, after);
+
+  assert.match(after.improvementBrief.suggestedPrompt, /skill-creator/i);
+  assert.ok(diff.scoreDelta > 0);
+  assert.ok(diff.resolvedFailures.length >= 1);
+});
+
+test("summary includes deductions, category totals, and risk reasons", async () => {
+  const tempDir = await makeTempDir("plugin-eval-summary");
+  await writeSkillFixture(tempDir, {
+    description: `Verbose description ${"z".repeat(1300)}`,
+    bodyLines: 650,
+  });
+
+  const result = await analyzePath(tempDir);
+
+  assert.ok(result.summary.scoreBreakdown.totalDeductions > 0);
+  assert.ok(result.summary.deductions.length > 0);
+  assert.ok(result.summary.categoryDeductions.length > 0);
+  assert.ok(result.summary.riskReasons.length > 0);
+  assert.equal(result.summary.scoreBreakdown.finalScore, result.summary.score);
+});
+
+test("CLI analyze, report, compare, and explain-budget commands work together", async () => {
+  const tempDir = await makeTempDir("plugin-eval-cli");
+  const resultPath = path.join(tempDir, "result.json");
+  const markdownPath = path.join(tempDir, "result.md");
+  const comparePath = path.join(tempDir, "compare.md");
+  const briefPath = path.join(tempDir, "brief.json");
+  const measuresPath = path.join(tempDir, "measures.md");
+  const skillPath = path.join(fixturesRoot, "minimal-skill");
+  const usagePath = path.join(fixturesRoot, "observed-usage", "responses.jsonl");
+
+  await execFileAsync(
+    nodeBin,
+    [cliPath, "analyze", skillPath, "--output", resultPath, "--brief-out", briefPath, "--observed-usage", usagePath],
+    {
+      cwd: repoRoot,
+    },
+  );
+  const result = JSON.parse(await fs.readFile(resultPath, "utf8"));
+  assert.equal(result.target.kind, "skill");
+  assert.ok(await fs.stat(briefPath));
+  assert.equal(result.observedUsage.sampleCount, 3);
+
+  await execFileAsync(nodeBin, [cliPath, "report", resultPath, "--format", "markdown", "--output", markdownPath], {
+    cwd: repoRoot,
+  });
+  assert.match(await fs.readFile(markdownPath, "utf8"), /Plugin Eval Report/);
+  assert.match(await fs.readFile(markdownPath, "utf8"), /Recommended Next Step/);
+
+  await execFileAsync(nodeBin, [cliPath, "compare", resultPath, resultPath, "--format", "markdown", "--output", comparePath], {
+    cwd: repoRoot,
+  });
+  assert.match(await fs.readFile(comparePath, "utf8"), /Plugin Eval Comparison/);
+  assert.match(await fs.readFile(comparePath, "utf8"), /Recommended Next Step/);
+
+  const { stdout } = await execFileAsync(nodeBin, [cliPath, "explain-budget", skillPath], {
+    cwd: repoRoot,
+  });
+  const budgetPayload = JSON.parse(stdout);
+  assert.equal(budgetPayload.kind, "budget-explanation");
+  assert.ok(budgetPayload.nextAction);
+
+  await execFileAsync(
+    nodeBin,
+    [cliPath, "measurement-plan", skillPath, "--format", "markdown", "--output", measuresPath, "--observed-usage", usagePath],
+    {
+      cwd: repoRoot,
+    },
+  );
+  assert.match(await fs.readFile(measuresPath, "utf8"), /Measurement Plan/);
+  assert.match(await fs.readFile(measuresPath, "utf8"), /Recommended Next Step/);
+  assert.match(await fs.readFile(measuresPath, "utf8"), /<details>/);
+});
+
+test("CLI init-benchmark and benchmark commands work together with a fake codex executable", { skip: process.platform === "win32" && "fake codex fixture is a POSIX sh script; covered on Linux/macOS" }, async () => {
+  const sourcePath = path.join(fixturesRoot, "minimal-skill");
+  const tempDir = await makeTempDir("plugin-eval-cli-benchmark");
+  const skillPath = path.join(tempDir, "minimal-skill");
+  const fakeCodexPath = await createFakeCodexExecutable(tempDir);
+  const initPath = path.join(tempDir, "init.md");
+  const runPath = path.join(tempDir, "run.md");
+  await copyDirectory(sourcePath, skillPath);
+
+  await execFileAsync(
+    nodeBin,
+    [cliPath, "init-benchmark", skillPath, "--format", "markdown", "--output", path.join(skillPath, ".plugin-eval", "benchmark.json")],
+    {
+      cwd: repoRoot,
+    },
+  );
+
+  const { stdout } = await execFileAsync(
+    nodeBin,
+    [cliPath, "init-benchmark", skillPath, "--format", "markdown"],
+    {
+      cwd: repoRoot,
+    },
+  );
+  await fs.writeFile(initPath, stdout, "utf8");
+  assert.match(await fs.readFile(initPath, "utf8"), /Benchmark Template Ready/);
+  assert.match(await fs.readFile(initPath, "utf8"), /Use From Codex Chat/);
+
+  const run = await execFileAsync(
+    nodeBin,
+    [cliPath, "benchmark", skillPath, "--format", "markdown"],
+    {
+      cwd: repoRoot,
+      env: {
+        ...process.env,
+        PATH: `${path.dirname(fakeCodexPath)}:${process.env.PATH}`,
+        PLUGIN_EVAL_CODEX_EXECUTABLE: fakeCodexPath,
+      },
+    },
+  );
+  await fs.writeFile(runPath, run.stdout, "utf8");
+  assert.match(await fs.readFile(runPath, "utf8"), /Benchmark Run/);
+  assert.match(await fs.readFile(runPath, "utf8"), /Recommended Next Step/);
+  assert.match(await fs.readFile(runPath, "utf8"), /Scenarios/);
+  assert.match(await fs.readFile(runPath, "utf8"), /Codex version: codex-cli fake-test/);
+});
+
+test("explainBudget returns a budget-only payload", async () => {
+  const payload = await explainBudget(path.join(fixturesRoot, "minimal-skill"));
+
+  assert.equal(payload.kind, "budget-explanation");
+  assert.equal(payload.budgets.method, "estimated-static");
+  assert.ok(payload.budgets.trigger_cost_tokens.value > 0);
+  assert.ok(payload.workflowGuide);
+});
+
+test("workflow guide routes natural chat requests into the beginner-friendly path", async () => {
+  const skillPath = path.join(fixturesRoot, "minimal-skill");
+  const guide = await buildWorkflowGuide(skillPath, {
+    request: "Measure the real token usage of this skill.",
+  });
+  const markdown = renderPayload(guide, "markdown");
+
+  assert.equal(guide.kind, "workflow-guide");
+  assert.equal(guide.recommendedWorkflowId, "measure");
+  assert.equal(guide.requestRouting.goal, "measure");
+  assert.ok(guide.nextAction);
+  assert.match(markdown, /Plugin Eval Start Here/);
+  assert.match(markdown, /Measure the real token usage of this skill\./);
+  assert.match(markdown, /Quick local entrypoint: `plugin-eval start/);
+  assert.match(markdown, /plugin-eval init-benchmark/);
+});
+
+test("workflow guide routes analysis requests into report plus benchmark setup", async () => {
+  const skillPath = path.join(fixturesRoot, "minimal-skill");
+  const guide = await buildWorkflowGuide(skillPath, {
+    request: "give me an analysis of the game dev skill",
+  });
+  const markdown = renderPayload(guide, "markdown");
+
+  assert.equal(guide.kind, "workflow-guide");
+  assert.equal(guide.recommendedWorkflowId, "analysis");
+  assert.equal(guide.requestRouting.goal, "analysis");
+  assert.equal(guide.startHere.firstCommand, `plugin-eval analyze ${formatCommandPath(skillPath)} --format markdown`);
+  assert.ok(guide.startHere.commands.some((command) => command.includes("plugin-eval init-benchmark")));
+  assert.match(markdown, /Full Skill Analysis/);
+  assert.match(markdown, /plugin-eval init-benchmark/);
+});
+
+test("CLI start command renders chat-first workflow suggestions", async () => {
+  const skillPath = path.join(fixturesRoot, "minimal-skill");
+  const { stdout } = await execFileAsync(
+    nodeBin,
+    [cliPath, "start", skillPath, "--request", "what should I run next?", "--format", "markdown"],
+    {
+      cwd: repoRoot,
+    },
+  );
+
+  assert.match(stdout, /Plugin Eval Start Here/);
+  assert.match(stdout, /What should I run next\?/i);
+  assert.match(stdout, /plugin-eval start .*what should I run next/i);
+  assert.match(stdout, /plugin-eval analyze/);
+  assert.match(stdout, /Recommended Next Step/);
+});
+
+test("studio-quality eval mode advertises the beginner chat prompts of the absorbed plugin", async () => {
+  // The standalone plugin was retired; its manifest prompts and umbrella skill now live in eval mode.
+  const evalMode = await fs.readFile(path.join(repoRoot, "skills", "studio-quality", "modes", "eval.md"), "utf8");
+  const readme = await fs.readFile(path.join(repoRoot, "references", "plugin-eval", "README.md"), "utf8");
+
+  for (const prompt of ["Give me an analysis of the game studio plugin.", "Evaluate this plugin.", "Why did this score that way?"]) {
+    assert.ok(evalMode.includes(prompt), prompt);
+  }
+  assert.match(evalMode, /plugin-eval\.js start <path> --request/);
+  assert.match(evalMode, /analysis of the game dev skill/i);
+  assert.match(evalMode, /plugin-eval\.js measurement-plan/);
+  assert.match(evalMode, /What should I fix first\?/);
+  assert.match(readme, /Start From Chat/);
+  assert.match(readme, /plugin-eval start <path> --request/);
+  assert.match(readme, /analysis of the game dev skill/i);
+  assert.match(readme, /Why did this score that way\?/);
+});
+```
+
 ## File: `tests/plugin-studio.test.mjs`
 
 ```javascript
@@ -1901,6 +3049,66 @@ for(const newline of ['\n','\r\n']){
   assert.ok((await selfCheck(root)).errors.includes('Package/integration registry version mismatch'));
  });
 }
+```
+
+## File: `tests/review-consolidation.test.mjs`
+
+```javascript
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {packageRoot,route} from '../src/registry.mjs';
+import {checkMatrix} from '../src/consolidation/check.mjs';
+
+const C=path.join(packageRoot,'references/consolidation');
+const MODES=path.join(packageRoot,'skills/studio-review/modes');
+const readJson=async f=>JSON.parse(await fs.readFile(f,'utf8'));
+const lfHash=buf=>createHash('sha256').update(buf.toString('utf8').replace(/\r\n/g,'\n')).digest('hex');
+
+test('shared review modes match the hashes pinned for Studio and DevSuite',async()=>{
+ const pinned=await readJson(path.join(C,'shared-review-modes.json'));
+ assert.deepEqual(Object.keys(pinned.files).sort(),['code-reviewer.md','code.md','decide.md','receive.md','request.md','verify.md']);
+ for(const [file,hash] of Object.entries(pinned.files))assert.equal(lfHash(await fs.readFile(path.join(MODES,file))),hash,file);
+});
+
+test('shared review modes carry no package-specific links',async()=>{
+ for(const file of Object.keys((await readJson(path.join(C,'shared-review-modes.json'))).files)){
+  const text=await fs.readFile(path.join(MODES,file),'utf8');
+  assert.doesNotMatch(text,/\]\(\.\.\/\.\.\/|studio-policy|policy\.md/,file);
+ }
+});
+
+test('review matrix covers every capability of the merged skills',async()=>{
+ const r=await checkMatrix(await readJson(path.join(C,'review-matrix.json')),{repoRoot:packageRoot});
+ assert.deepEqual(r.errors,[]);assert.equal(r.counts.unmapped,0);
+});
+
+test('every removed review trigger routes to studio-review and its mode',async()=>{
+ const m=await readJson(path.join(C,'review-matrix.json'));
+ const misses=[];
+ for(const e of m.entries.filter(e=>e.kind==='trigger'&&/skills\/studio-review\/SKILL\.md#mode-/.test(e.target??''))){
+  const want=e.target.split('#mode-')[1],r=await route(e.text);
+  if(r.selected!=='studio-review'||r.mode!==want)misses.push(`${e.id}: got ${r.selected}/${r.mode}, want studio-review/${want}`);
+ }
+ assert.deepEqual(misses,[]);
+});
+
+test('no Studio skill names a removed review skill',async()=>{
+ const REMOVED=['code-review','requesting-code-review','receiving-code-review','review-decision','verification-before-completion','verify-work','risk-review'];
+ const walk=async d=>(await fs.readdir(d,{withFileTypes:true})).flatMap(e=>e.isDirectory()?[]:[path.join(d,e.name)]).concat(...await Promise.all((await fs.readdir(d,{withFileTypes:true})).filter(e=>e.isDirectory()).map(e=>walk(path.join(d,e.name)))));
+ const hits=[];
+ for(const file of (await walk(path.join(packageRoot,'skills'))).filter(f=>f.endsWith('.md'))){
+  const text=await fs.readFile(file,'utf8');
+  for(const name of REMOVED)if(new RegExp(`(?<![\\w/.#"-])${name}(?![\\w.-])`).test(text.replace(/<a id="[^"]*"><\/a>/g,'')))hits.push(`${path.relative(packageRoot,file)}: ${name}`);
+ }
+ assert.deepEqual(hits,[]);
+});
+
+test('risk requests route to the studio-quality risk mode',async()=>{
+ const r=await route('risk scan this skill');assert.equal(r.selected,'studio-quality');assert.equal(r.mode,'risk');
+});
 ```
 
 ## File: `tests/services.test.mjs`

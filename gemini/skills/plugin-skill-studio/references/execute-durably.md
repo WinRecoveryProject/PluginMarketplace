@@ -1,6 +1,6 @@
 # Skill: execute-durably
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/execute-durably/SKILL.md`
 
 > Runs long or interruption-prone work from a durable state file with falsifiable criteria and evidence. Use when work spans turns, risks compaction, or must resume after interruption.
@@ -108,7 +108,7 @@ DO-CONFIRM: work from judgment, then stop at each point and confirm every item. 
 
 #### Boundaries
 
-This skill governs durability and proof, not the work itself. Debugging method belongs to diagnose-systematically; safe restructuring to refactor-safely; auditing a finished delivery claim to verify-work; web and desktop evidence capture to automate-ui; version-bound documentation lookup to research-systematically. Following a written implementation plan's task sequence is executing-plans / subagent-driven-development; this skill supplies the durable state and evidence discipline underneath long work.
+This skill governs durability and proof, not the work itself. Debugging method belongs to diagnose-systematically; safe restructuring to refactor-safely; auditing a finished delivery claim to studio-review verify mode; web and desktop evidence capture to automate-ui; version-bound documentation lookup to research-systematically. Following a written implementation plan's task sequence is executing-plans / subagent-driven-development; this skill supplies the durable state and evidence discipline underneath long work.
 
 ## Bundled files
 

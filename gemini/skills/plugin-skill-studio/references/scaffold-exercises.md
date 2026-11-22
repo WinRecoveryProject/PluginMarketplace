@@ -1,6 +1,6 @@
 # Skill: scaffold-exercises
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/scaffold-exercises/SKILL.md`
 
 > Scaffold course, workshop, or tutorial exercises following repository conventions. Use when creating exercise folders, problem/solution/explainer variants, numbered lesson files, or workshop boilerplate — even if the user says "add a new exercise". Do NOT use for routine application feature scaffolding.

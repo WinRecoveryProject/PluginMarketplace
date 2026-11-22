@@ -1,6 +1,6 @@
 # Skill: workspace-operator
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/workspace-operator/SKILL.md`
 
 > Use when a ChatGPT/Codex Plugin workflow needs to inspect, search, modify, or verify files in the host workspace using the safest native tools available.

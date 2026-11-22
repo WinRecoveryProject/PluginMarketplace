@@ -1,6 +1,6 @@
 # Skill: devsuite-debug
 
-- Plugin: `winrecoveryproject-devsuite` (0.2.7)
+- Plugin: `winrecoveryproject-devsuite` (0.4.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-debug/SKILL.md`
 
 > Use when observed software behavior differs from its expected contract and needs reproduction, root-cause diagnosis or an authorized fix.

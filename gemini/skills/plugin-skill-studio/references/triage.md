@@ -1,6 +1,6 @@
 # Skill: triage
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/triage/SKILL.md`
 
 > Classify, verify, and prepare external bug reports and feature requests into agent-ready briefs. Use when processing incoming issues, validating bug reproductions, rejecting out-of-scope requests, or structuring contributor tickets — even if the user says "triage these issues". Do NOT use for internal tickets already produced by to-tickets.

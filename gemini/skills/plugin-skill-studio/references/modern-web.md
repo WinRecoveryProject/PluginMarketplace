@@ -1,6 +1,6 @@
 # Skill: modern-web
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/modern-web/SKILL.md`
 
 > Use when building or reviewing Studio HTML reports, responsive tables, accessibility, CSS or client-side browser behavior.

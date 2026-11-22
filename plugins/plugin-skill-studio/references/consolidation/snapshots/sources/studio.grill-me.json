@@ -1,0 +1,11 @@
+{
+  "id": "studio.grill-me",
+  "root": "skills/grill-me",
+  "commit": "4bbf25a",
+  "files": {
+    "SKILL.md": "2282e709dd812aadf08ad7d0317e91d44fde635cffb309ced04d60d953a278d8",
+    "agents/openai.yaml": "5096cea07750e2f3a797587e9f4d72bf3d8ee763e16ef208d41b96fdc4721c98",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "studio.writing-plans",
+  "root": "skills/writing-plans",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "ad8c419ee7b5bfba03295be4a682de60c897959537213d6e64edf5de5750c276",
+    "agents/openai.yaml": "7217a825fc32ee31e4530c4a2840a631561d09c1ecc240f499c17fec1a8a73f0",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814",
+    "references/full-plan.md": "ccbbcf57c3701a88082de1e35076c63daf5a63abaad92a38b721b074bb0944dd"
+  }
+}

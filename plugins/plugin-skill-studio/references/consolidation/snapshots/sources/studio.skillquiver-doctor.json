@@ -1,0 +1,14 @@
+{
+  "id": "studio.skillquiver-doctor",
+  "root": "plugins/plugin-skill-studio/skills/skillquiver-doctor",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "8ab1f311effe8fe0b681cb32eaa0fb3c21e9dd27ca96ddbe43840ea60bf637ef",
+    "agents/openai.yaml": "33b5eb8a70f1877fc151f99ea6228bd446583145ec221b88a10e671679a2a0ff",
+    "assets/wrp-icon-128.png": "2accfc8ac8159a6e793af46cf6ab8ab31c3b2e6536cdd98a991203bfa7a3ade6",
+    "assets/wrp-icon-256.png": "855c1640fe5bff551dccf54f768222c8b98c0de7122a79167c32b30be7eea986",
+    "references/chatgpt.md": "694d33fd976da9da738a218e8560c3169e8a2195d86758b27cd79961ed68cd63",
+    "references/claude.md": "3a5f12a94a5731efff8d3d3019f30a9e3814758ac64547d7d7647ec416ca095b",
+    "references/codex.md": "70302b6c0a0c7cb6baa7cb333f84a977d0302d5635d6305c404f15f888651ddc"
+  }
+}

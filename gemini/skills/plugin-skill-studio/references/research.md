@@ -1,6 +1,6 @@
 # Skill: research
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/research/SKILL.md`
 
 > Investigate a technical question against high-trust primary sources and capture findings as a cited Markdown note. Use when gathering API facts, reading documentation, verifying library capabilities, or delegating reading legwork — even if the user says "look into this library". Do NOT use for writing production feature code.

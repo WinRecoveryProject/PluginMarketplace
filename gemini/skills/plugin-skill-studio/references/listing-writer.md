@@ -1,6 +1,6 @@
 # Skill: listing-writer
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/listing-writer/SKILL.md`
 
 > Use when a validated ChatGPT/Codex Plugin needs accurate Plugin Directory fields, discovery metadata, starter prompts, and reviewer-facing listing details grounded in the packaged product.

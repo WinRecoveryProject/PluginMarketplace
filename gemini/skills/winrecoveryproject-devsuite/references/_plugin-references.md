@@ -4,7 +4,367 @@ Source: `plugins/winrecoveryproject-devsuite`. Files outside the `skills/*` fold
 
 ## File: `references/capability-matrix.json`
 
-_169 KB, too large to embed. Read it in the repository._
+_182 KB, too large to embed. Read it in the repository._
+
+## File: `references/consolidation/plan-matrix.json`
+
+_182 KB, too large to embed. Read it in the repository._
+
+## File: `references/consolidation/review-matrix.json`
+
+_117 KB, too large to embed. Read it in the repository._
+
+## File: `references/consolidation/shared-plan-modes.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-plan/modes and DevSuite skills/devsuite-planning/modes; hashed with LF line endings.",
+  "files": {
+    "discover.md": "13ca74e84ea0eb7bf25b3d03153225edbc32e63a8c15f0975232ebc065a53d70",
+    "goal.md": "16ba0c67d11cb823b046f8209dd74158650a6dc157df145a269e8c35e7a343ff",
+    "interview.md": "e28726244724430c64d688ab329c40d8a866d9ab4ee602fcfd17c3c64a293029",
+    "map.md": "a9142b435036e8e8cda74283e6b0f1a966bfac02d5b34238a63c893e42c263af",
+    "plan-full.md": "ae63abfc24e1ba2887aae99c311c3ffeefd2930a4f1816b584eafaf9a1060428",
+    "plan.md": "44667b2b35c08f349d7eb297c6470e68965280884e383ca85e430521d2dbf597",
+    "questions.md": "50d339a6b23ab96f80a5d47389e06092661583867160829a3043b4177079b474",
+    "spec.md": "9b05d1c7ed12582fd627907741b355acc00a7ea708fe11e0ac969a1dfb342225",
+    "tickets.md": "ce7baa758af8e0da116b6c156d6cb72630c0d1397f6ff0e0b79c0782e3eaf99a"
+  }
+}
+```
+
+## File: `references/consolidation/shared-review-modes.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-review/modes and DevSuite skills/devsuite-review/modes; hashed with LF line endings.",
+  "files": {
+    "code-reviewer.md": "2980e3a0f7d549206e58d661234b75f53b3d01a9eb87b0dbf50c4332d3134d91",
+    "code.md": "094638d242d9936b73e3d5a72511d1f652a3e3a4010f00d807c8138607673e38",
+    "decide.md": "01a608d33ebcf2b7ea51146a268c4deadd7690225c2e7b6ba8edf61cb6b8ffd4",
+    "receive.md": "8411d5b64d260bbf0a5b657654a225b2a89157161ea1fc7eec3ff50ae015d7fd",
+    "request.md": "5c88b6ac3bb840f81d9358543ce9a84e1e600cb7797f8fba59e817bab9867983",
+    "verify.md": "9bc323bcba11b7757174472a464b9892a6059477454704b05d98da4c32b7f064"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/devsuite.devsuite-planning.json`
+
+```json
+{
+  "id": "devsuite.devsuite-planning",
+  "root": "skills/devsuite-planning",
+  "source": "WinRecoveryProject-DevSuite@4c2857d",
+  "files": {
+    "SKILL.md": "6999b09906417fa970d05056625281c6785845347d80a4e128cf40d114a9db9e",
+    "agents/openai.yaml": "4ecb2e69deacebc3c4702218c75becfb9097fdc38a00c9dae48c80379ff67719",
+    "assets/icon.png": "d77bb05d6c8f8175f7bcb13d9427510a09361562842a7ea2be24ddc239ec19b6",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/devsuite.devsuite-quality.json`
+
+```json
+{
+  "id": "devsuite.devsuite-quality",
+  "root": "skills/devsuite-quality",
+  "source": "WinRecoveryProject-DevSuite@1cedd8e",
+  "files": {
+    "SKILL.md": "0ecbfc3faa7d072a12abab5f663cfa17a5f0b6ed43b5feb15ed799a7aac2f068",
+    "agents/openai.yaml": "29cc115e1b2db69d98e1fd0d1213dfc98ce154b3a5722d65fbc68f5a1456e948",
+    "assets/icon.png": "d77bb05d6c8f8175f7bcb13d9427510a09361562842a7ea2be24ddc239ec19b6",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/devsuite.devsuite-review.json`
+
+```json
+{
+  "id": "devsuite.devsuite-review",
+  "root": "skills/devsuite-review",
+  "source": "WinRecoveryProject-DevSuite@1cedd8e",
+  "files": {
+    "SKILL.md": "103058cf9a679ec575bee6fe6d939cee46d8fb5343cbe6f767e25efb712b2dc2",
+    "agents/openai.yaml": "4f6f297ad9c8f7b169c050da36ec640ea1d0fd25fafaad1f8b4d9368ebf67344",
+    "assets/icon.png": "d77bb05d6c8f8175f7bcb13d9427510a09361562842a7ea2be24ddc239ec19b6",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.brainstorming.json`
+
+```json
+{
+  "id": "studio.brainstorming",
+  "root": "skills/brainstorming",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "9f60b4f11a58a0b8d6f0989fc8e7e9f325957a107a9617debb46b1766ed26a88",
+    "agents/openai.yaml": "7c7891988cd1249ca7586af6709d57cfd1d35b41162a1cb51309e3a2b5c3ed10",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814",
+    "scripts/frame-template.html": "b42f2eb2a14bd719adb35ac32bca2b14c7735231eb224e1dc9d65709d1369119",
+    "scripts/helper.js": "ece6e6d4e0690615e433fe24e89ce58e713c18958234387715f796643b235e3b",
+    "scripts/server.cjs": "f2f27eb818a55f465583ecc0d1b0c9af5da4f5a13317f2afb30cbca6ea83c63b",
+    "scripts/start-server.sh": "b3705229c40fa614f69278388b6479d28ee6dcc0d56c3a67a4f6286a95447303",
+    "scripts/stop-server.sh": "bd68e79ce688e95eb966ff26461be0da5ed41fb0a646d9c8ca82897f70aaac07",
+    "visual-companion.md": "3f28e9e9412b425d4b1ff77cbef5ff665afc413c7ac78f76a7403b9eea8d33c1"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.code-review.json`
+
+```json
+{
+  "id": "studio.code-review",
+  "root": "skills/code-review",
+  "source": "Zilvereyes-Plugin-Studio@9594376",
+  "files": {
+    "SKILL.md": "e44bc71a83007bdd3aecd4d5e6d409830a4838115eee45b5c90bdb6e63726cb4",
+    "agents/openai.yaml": "b19e7f1e1727324471ac1f35588855d112f4965b613a9af3687140b9d892d80b",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.goal.json`
+
+```json
+{
+  "id": "studio.goal",
+  "root": "skills/goal",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "7ad2a77552a76818f9283048df2de1e49a55f46887c834c22cc3bf639353e539",
+    "agents/openai.yaml": "1e29c19b5b98b7e1e57d5cf9c7731a0146e5f72c525d9f22276fd2a231f3c341",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.grill-me.json`
+
+```json
+{
+  "id": "studio.grill-me",
+  "root": "skills/grill-me",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "900c163c71cd84a88e439d86ee00f50c3c77f4b0605662f656ef1ad84e4ccaef",
+    "agents/openai.yaml": "12d025d81c295c0edca1e949c1d28bef350055de7c1dee633f885c3cd288a096",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.grill-with-docs.json`
+
+```json
+{
+  "id": "studio.grill-with-docs",
+  "root": "skills/grill-with-docs",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "1e5d8b80ca1f48a702f37917a7576818d56718b8146f5e15e1f2a04e3b9ade51",
+    "agents/openai.yaml": "39766d441814e03b8e9e5abb5efa608a115aa6ab5b1a2ca7e8b20d0172565327",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.grilling.json`
+
+```json
+{
+  "id": "studio.grilling",
+  "root": "skills/grilling",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "ec743aaf057768bfe33f65b5edb89b32e4f654f57d38a6789f93444e30b4329f",
+    "agents/openai.yaml": "90dc6fd19929c4eb2de286cc49f319cc7750b46ac20aa1465c87a8363a9d64e7",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.receiving-code-review.json`
+
+```json
+{
+  "id": "studio.receiving-code-review",
+  "root": "skills/receiving-code-review",
+  "source": "Zilvereyes-Plugin-Studio@9594376",
+  "files": {
+    "SKILL.md": "3d4034bd6858caa9c1a2ba86b4ad04d04724a2276f68d9d3e7ca0ee3cbbde3bb",
+    "agents/openai.yaml": "11e9c3f27398e0fb4c2ba10a03bbbf7ec3257aeb8e54b612e6d7535f817cbe96",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.requesting-code-review.json`
+
+```json
+{
+  "id": "studio.requesting-code-review",
+  "root": "skills/requesting-code-review",
+  "source": "Zilvereyes-Plugin-Studio@9594376",
+  "files": {
+    "SKILL.md": "95dd55653d9fba354abf882c2c6bdcfcc3e9a9d10bae9ea049ade7c0498f86e6",
+    "agents/openai.yaml": "6415a013f5219aa68e021709faaa34cfe5e64f7a77cc206722988ad06be2d29a",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd",
+    "code-reviewer.md": "3be20fba591c8cf197c5c7ad00bb47186006307f0ab6c1fb7e10d0f577927d60"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.review-decision.json`
+
+```json
+{
+  "id": "studio.review-decision",
+  "root": "skills/review-decision",
+  "source": "Zilvereyes-Plugin-Studio@9594376",
+  "files": {
+    "SKILL.md": "331d066f7a8b19c509d02bdce206a7f2ab761fe57a001b0e737626bcd703dbc9",
+    "agents/openai.yaml": "6de6aeda3e16b303a71fbfda25b38a8efc5d8515d3c0495695f3d0866731843f",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.to-questionnaire.json`
+
+```json
+{
+  "id": "studio.to-questionnaire",
+  "root": "skills/to-questionnaire",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "f9a4aee00bb151facc65f4bfccf178cbbd397e0b2dccb0608beb1c494e31a88e",
+    "agents/openai.yaml": "0c369c2b51078c2924f45a1b617cc5fe25cf73cebba1e7aa7b07dd830537b228",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.to-spec.json`
+
+```json
+{
+  "id": "studio.to-spec",
+  "root": "skills/to-spec",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "28311314275bfa9d861bd84ba12cca3fdcad8814eade77de44a152ff280e7860",
+    "agents/openai.yaml": "9b7131bff0bf3e286ab099254e4146a46fe3e673d53f119e8706193d14503fd4",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.to-tickets.json`
+
+```json
+{
+  "id": "studio.to-tickets",
+  "root": "skills/to-tickets",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "da0817c817add50fb122cbe33c27f0160b68f0dec342caf592078d35d17b8a30",
+    "agents/openai.yaml": "e2aea19d3cee7ba011927d8edaddd3c5def3fdb41c3383819b61a153ac1912c7",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.verification-before-completion.json`
+
+```json
+{
+  "id": "studio.verification-before-completion",
+  "root": "skills/verification-before-completion",
+  "source": "Zilvereyes-Plugin-Studio@9594376",
+  "files": {
+    "SKILL.md": "f4e9565201ea0b151ef26ac3d5f0c30a8c6bf1b7d604bdaddbb3d800b72f7914",
+    "agents/openai.yaml": "f46712a427497e8214e971f6b6e27b3ca203de277ea3fb690aa849ac3f22d523",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.verify-work.json`
+
+```json
+{
+  "id": "studio.verify-work",
+  "root": "skills/verify-work",
+  "source": "Zilvereyes-Plugin-Studio@9594376",
+  "files": {
+    "SKILL.md": "3c90b27f7f60bd575769dae8edd32914e80fbb635f584a477ee796517da04ec0",
+    "agents/openai.yaml": "a6b4e848f11cadbdd953949d1f60976ab17ffa51f4067dbdacd056055ef608f2",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.wayfinder.json`
+
+```json
+{
+  "id": "studio.wayfinder",
+  "root": "skills/wayfinder",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "d1718fe2f449d4360ef00da802716884c434d93963af3181ee160ed74e01cfb1",
+    "agents/openai.yaml": "313cde4e86fa5a05897cb58cabd0459fe3e2434e7f54c0672ba9026c9a085b67",
+    "assets/wrp-icon-128.png": "21d925a6409d7fe1834bba8de13ff2459574227b3747c1f3cebac8573f1a16a1",
+    "assets/wrp-icon-256.png": "2c06a39c1a973bfbcf39c1ab54d2feed7714ec136a356a8db63151f4bc414293"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.writing-plans.json`
+
+```json
+{
+  "id": "studio.writing-plans",
+  "root": "skills/writing-plans",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "ad8c419ee7b5bfba03295be4a682de60c897959537213d6e64edf5de5750c276",
+    "agents/openai.yaml": "7217a825fc32ee31e4530c4a2840a631561d09c1ecc240f499c17fec1a8a73f0",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814",
+    "references/full-plan.md": "ccbbcf57c3701a88082de1e35076c63daf5a63abaad92a38b721b074bb0944dd"
+  }
+}
+```
 
 ## File: `references/conversion.md`
 
@@ -683,7 +1043,7 @@ host service. No asynchronous work is started by selection or validation tests.
       "versionInspected": "1.1.1",
       "originalSkill": "code-verification",
       "owners": [
-        "devsuite-quality"
+        "devsuite-review"
       ],
       "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
       "sourceSkillRelativePath": "skills/code-verification/SKILL.md"
@@ -694,7 +1054,7 @@ host service. No asynchronous work is started by selection or validation tests.
       "versionInspected": "1.1.1",
       "originalSkill": "code-verification",
       "owners": [
-        "devsuite-quality"
+        "devsuite-review"
       ],
       "action": "disable only overlapping skill trigger after validation and review; retain provider package/connections",
       "sourceSkillRelativePath": "skills/code-verification/SKILL.md"
@@ -801,6 +1161,34 @@ both installed Guardrails variants. CloudConvert original source/skill inventory
 unavailable; only its actual App metadata and independent owned conversion behavior
 can be validated here. Free quota and live conversion remain unverified.
 
+## File: `references/platforms/batch-cmd.md`
+
+### Batch and CMD guidance
+
+Use this reference for `.bat` and `.cmd` launchers and scripts. First find out how each file is started (double-click, another script, a scheduled task, an installer) and which Windows versions must run it.
+
+#### Implementation focus
+
+- Keep `.bat`/`.cmd` files with CRLF line endings; LF-only files can break labels, `goto` and `call :label`. A `.gitattributes` rule (`*.cmd text eol=crlf`) keeps checkouts correct.
+- Use `setlocal` so variables do not leak into the caller, and delayed expansion (`!var!`) for values changed inside parenthesized blocks.
+- Quote paths: `"%~dp0"` for the script folder (it ends with a backslash) and `set "name=value"` to avoid trailing spaces.
+- Escape `&`, `|`, `<`, `>`, `^` and parentheses outside quotes, including inside `echo` lines within blocks; quote path-bearing messages.
+- Return explicit exit codes with `exit /b <code>` and check `if errorlevel 1` right after the command that matters.
+- Keep launchers thin: resolve the project root, call the real PowerShell or other tool with explicit arguments, and pass its exit code back.
+- Never delete with `rmdir /s /q` or `del /s` on a path built from arguments without first validating it.
+
+#### Validation
+
+There is no built-in parser check, and running the file is not a test. Review by reading: balanced parentheses, `%var%` inside blocks, every exit path, and quoting of every path. Exercise launchers through the project's own test harness in a simulation folder when one exists.
+
+#### QA watch list
+
+- paths containing spaces, parentheses, `&` or `!`
+- behavior with delayed expansion on versus off
+- code page (`chcp 65001`) and non-ASCII output
+- `pause` in non-interactive contexts such as CI or scheduled tasks
+- the command-line length limit of 8191 characters
+
 ## File: `references/platforms/flutter.md`
 
 ### Flutter guidance
@@ -887,6 +1275,63 @@ Use repository commands and existing test configuration. Typical checks may incl
 - cache/session behavior, locale/timezone formatting, and pagination/filtering boundaries
 - HTTP status/error contracts, database constraints, and concurrency-sensitive writes
 
+## File: `references/platforms/lua-wow.md`
+
+### Lua and World of Warcraft addon guidance
+
+Use this reference for Lua code, including World of Warcraft addons. First identify the runtime: PUC Lua 5.1 to 5.4, LuaJIT, or an embedded host. World of Warcraft embeds a modified Lua 5.1 with its own API, so identify the game branch and build the addon targets (Retail or a Classic branch) and read the addon's TOC files.
+
+#### Implementation focus
+
+- Write for the target version: World of Warcraft code cannot use `goto`, integer division `//`, native bitwise operators or `<const>`/`<close>`.
+- Keep state local. Addons share one global environment, so expose at most one addon table and avoid leaking globals.
+- Respect load order: files load in the order listed in the TOC, and libraries must load before code that uses them.
+- Register for events instead of polling, and unregister when no longer needed.
+- Treat API availability as branch-specific; check the current API for the targeted build instead of relying on memory.
+- Avoid protected or secure actions in combat unless the API allows them; tainted code paths cause blocked actions.
+- Keep `SavedVariables` names in the TOC in sync with the globals the code writes, and handle missing or old saved data.
+
+#### Validation
+
+Use the project's configured checks, such as `luacheck` with the project's globals and a version-matched `luac -p` parse. Parse success does not prove World of Warcraft compatibility; in-game testing on the targeted build is the real check, and the user runs it.
+
+#### QA watch list
+
+- nil handling for API returns that differ per branch or when data is not loaded yet
+- `#` on tables with gaps, and integer versus float differences between Lua versions
+- per-character versus account-wide saved data and migration from older formats
+- localization, UI scaling and font differences
+- event order at login, reload and zoning
+
+## File: `references/platforms/powershell.md`
+
+### PowerShell guidance
+
+Use this reference for PowerShell scripts and modules. First inspect `#Requires` lines, module manifests (`.psd1`), repository instructions, CI and existing tests. Establish which hosts must run the code: Windows PowerShell 5.1, PowerShell 7, or both.
+
+#### Implementation focus
+
+- Keep both hosts working when both are supported: avoid PowerShell 7-only syntax (`??`, `?.`, ternary `? :`, `&&`/`||` pipeline chains, `ForEach-Object -Parallel`) in code that must run on 5.1.
+- Start scripts with `Set-StrictMode -Version Latest` and `$ErrorActionPreference = 'Stop'` when the project does; non-terminating errors otherwise continue silently.
+- Native commands do not throw on failure. Check `$LASTEXITCODE` after each one that matters.
+- Use `-LiteralPath` for paths that can contain `[`, `]` or `*`, and resolve roots from parameters or `$PSScriptRoot`, never from the current directory or a hard-coded drive.
+- Do not assign to automatic variables (`$input`, `$args`, `$PSItem`, `$Error`, `$host`, `$matches`).
+- Be explicit about text encoding: Windows PowerShell 5.1 writes UTF-16 or ANSI by default and reads BOM-less files as ANSI; PowerShell 7 defaults to UTF-8 without BOM.
+- Wrap single results in `@()` when the caller expects an array; a pipeline returning one item yields a scalar.
+- Keep destructive actions behind `SupportsShouldProcess` (`-WhatIf`/`-Confirm`) and explicit parameters.
+
+#### Validation
+
+Use the project's configured checks. A common baseline is a parser check of every script in each supported host, `Invoke-ScriptAnalyzer` with the project settings, and Pester or the repository's own `Test-*.ps1` scripts run in both hosts. Do not run scripts that change the system, install drivers or touch the registry as part of validation unless the user authorized that environment.
+
+#### QA watch list
+
+- paths with spaces, brackets and non-ASCII characters; UNC and long paths
+- 5.1 versus 7 differences in encoding, `ConvertTo-Json`/`ConvertFrom-Json`, and `Start-Process` argument quoting
+- exit codes from native tools and from `exit` inside scripts called with `&`
+- execution policy, elevation, and 32- versus 64-bit hosts
+- scheduled-task or service contexts with a different user profile and working directory
+
 ## File: `references/platforms/python.md`
 
 ### Python guidance
@@ -916,16 +1361,20 @@ Run the project's formatter, linter, type checker, and test suite. Common tools 
 
 ### Platform guidance
 
-Load only the matching MIT-adapted platform page and confirm commands against the
+Load only the matching platform page and confirm commands against the
 actual repository. No default command is proof of project configuration.
 
 - [JavaScript and TypeScript](_plugin-references.md#file-referencesplatformsjavascript-typescriptmd)
 - [Python](_plugin-references.md#file-referencesplatformspythonmd)
 - [Flutter](_plugin-references.md#file-referencesplatformsfluttermd)
 - [Laravel and PHP](_plugin-references.md#file-referencesplatformslaravel-phpmd)
+- [PowerShell](_plugin-references.md#file-referencesplatformspowershellmd)
+- [Batch and CMD](_plugin-references.md#file-referencesplatformsbatch-cmdmd)
+- [Lua and World of Warcraft addons](_plugin-references.md#file-referencesplatformslua-wowmd)
 
-These pages retain Codex Dev Workflows contributors' MIT copyright in the package's
-license notices. The shared execution policy controls scope, authorization and tools.
+The JavaScript/TypeScript, Python, Flutter and Laravel/PHP pages retain Codex Dev Workflows
+contributors' MIT copyright in the package's license notices. The PowerShell, Batch/CMD and
+Lua/WoW pages are original DevSuite content. The shared execution policy controls scope, authorization and tools.
 
 ## File: `references/policy.md`
 
@@ -1695,7 +2144,10 @@ with the prepared local payload retained for review.
     {
       "from": "codex-dev-workflows",
       "files": [
-        "references/platforms/*.md"
+        "references/platforms/flutter.md",
+        "references/platforms/javascript-typescript.md",
+        "references/platforms/laravel-php.md",
+        "references/platforms/python.md"
       ],
       "changes": "Platform guidance adapted; shared policy and commands remain repository-bound"
     },

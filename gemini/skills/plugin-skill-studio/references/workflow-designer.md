@@ -1,6 +1,6 @@
 # Skill: workflow-designer
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/workflow-designer/SKILL.md`
 
 > Specify recurring operational, review, or content workflows with explicit triggers, inputs, actions, and ownership. Use when designing repeatable team routines, approval loops, release checklists, or automated processes — even if the user says "design a workflow for this". Do NOT use for one-off coding tasks.
@@ -35,7 +35,7 @@ Design and formalize repeatable human-in-the-loop and autonomous workflows by id
 |---|---|---|
 | **Workflow Specification** | Executable contract (trigger, inputs, actions, checkpoints) | `workflows/*.md` |
 | **Domain & Tools Notes** | Observed vocabulary, habits, tools, and channels | `NOTES.md` |
-| **Grilling Protocol** | Socratic distillation of requirements and boundary edges | `skills/grilling/SKILL.md` |
+| **Grilling Protocol** | Socratic distillation of requirements and boundary edges | `skills/studio-plan/modes/interview.md` |
 
 ---
 

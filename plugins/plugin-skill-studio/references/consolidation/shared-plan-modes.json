@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-plan/modes and DevSuite skills/devsuite-planning/modes; hashed with LF line endings.",
+  "files": {
+    "discover.md": "13ca74e84ea0eb7bf25b3d03153225edbc32e63a8c15f0975232ebc065a53d70",
+    "goal.md": "16ba0c67d11cb823b046f8209dd74158650a6dc157df145a269e8c35e7a343ff",
+    "interview.md": "e28726244724430c64d688ab329c40d8a866d9ab4ee602fcfd17c3c64a293029",
+    "map.md": "a9142b435036e8e8cda74283e6b0f1a966bfac02d5b34238a63c893e42c263af",
+    "plan-full.md": "ae63abfc24e1ba2887aae99c311c3ffeefd2930a4f1816b584eafaf9a1060428",
+    "plan.md": "44667b2b35c08f349d7eb297c6470e68965280884e383ca85e430521d2dbf597",
+    "questions.md": "50d339a6b23ab96f80a5d47389e06092661583867160829a3043b4177079b474",
+    "spec.md": "9b05d1c7ed12582fd627907741b355acc00a7ea708fe11e0ac969a1dfb342225",
+    "tickets.md": "ce7baa758af8e0da116b6c156d6cb72630c0d1397f6ff0e0b79c0782e3eaf99a"
+  }
+}

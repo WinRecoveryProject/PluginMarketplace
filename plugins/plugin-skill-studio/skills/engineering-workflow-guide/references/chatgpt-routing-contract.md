@@ -38,7 +38,7 @@ When a user interacts with ChatGPT / Codex, follow this strict 4-step execution 
 
 ### Step 4: Phase Handshake & Next Route
 - **Action**: Conclude each phase with a checkable completion bound and announce the subsequent phase in the lifecycle pipeline.
-- **Example**: After finishing `grill-with-docs`, announce transition to `to-spec`.
+- **Example**: After finishing `studio-plan` (interview mode), announce transition to `studio-plan` (spec mode).
 
 ---
 
@@ -46,11 +46,11 @@ When a user interacts with ChatGPT / Codex, follow this strict 4-step execution 
 
 | Scenario | Canonical Multi-Phase Pipeline | Phase Transition Trigger |
 |---|---|---|
-| **Greenfield Feature** | `grill-with-docs` ➔ `to-spec` ➔ `to-tickets` ➔ `implement` ➔ `code-review` | User approves spec & ticket graph |
-| **Bug / Regression** | `diagnosing-bugs` ➔ `tdd` ➔ `code-review` | Red failure reproduced & minimal repro isolated |
-| **Wide Refactoring** | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` ➔ `code-review` | Visual architecture report approved |
-| **AI / ML Initiative** | `ai-engineering` ➔ `ml-best-practices` ➔ `code-review` | Naive baseline beaten & 95% CIs verified |
-| **Massive Initiative** | `wayfinder` ➔ `to-spec` ➔ `to-tickets` ➔ `implement-spec` | Fog cleared & frontier tickets claimed |
+| **Greenfield Feature** | `studio-plan` (interview mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `implement` ➔ `studio-review` (code mode) | User approves spec & ticket graph |
+| **Bug / Regression** | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Red failure reproduced & minimal repro isolated |
+| **Wide Refactoring** | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` ➔ `studio-review` (code mode) | Visual architecture report approved |
+| **AI / ML Initiative** | `ai-engineering` ➔ `ml-best-practices` ➔ `studio-review` (code mode) | Naive baseline beaten & 95% CIs verified |
+| **Massive Initiative** | `studio-plan` (map mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `implement-spec` | Fog cleared & frontier tickets claimed |
 | **Long-Form Essay** | `writing-fragments` ➔ `writing-shape` ➔ `writing-beats` | Raw pile assembled & candidate openings chosen |
 
 ---
@@ -59,5 +59,5 @@ When a user interacts with ChatGPT / Codex, follow this strict 4-step execution 
 
 1. **No Phantom Skills**: ChatGPT must NEVER invent skill names not present in `references/catalog.md`.
 2. **No Unasked Scope Drift**: Implement strictly what the approved specification mandates.
-3. **No Blind Approvals**: If a requirement is missing or contradictory, halt and clarify with `grill-me` or `to-questionnaire`.
+3. **No Blind Approvals**: If a requirement is missing or contradictory, halt and clarify with `studio-plan` (interview mode) or `studio-plan` (questions mode).
 4. **Zero Leaked Secrets**: Never echo private API keys, tokens, or environment passwords.

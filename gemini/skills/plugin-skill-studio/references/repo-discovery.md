@@ -1,6 +1,6 @@
 # Skill: repo-discovery
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/repo-discovery/SKILL.md`
 
 > Use when an existing repository contains agents, prompts, workflows, playbooks, commands, or Skills and you need to identify which capabilities are worth converting into a ChatGPT/Codex Plugin.
@@ -21,7 +21,7 @@ Find the reusable user workflows inside a repository before creating Plugin file
 2. Run the bundled analyzer when filesystem execution is available:
 
 ```bash
-python3 ../plugin-autopilot/scripts/analyze_repo.py <target-repo> --json
+python3 ../studio-build/scripts/analyze_repo.py <target-repo> --json
 ```
 
 3. Inspect high-scoring candidates in context. The analyzer finds signals; it does not understand the full product by itself.

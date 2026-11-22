@@ -1,0 +1,11 @@
+{
+  "id": "studio.release-workflow",
+  "root": "plugins/plugin-skill-studio/skills/release-workflow",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "fd2629d3f8b943a4367b94bfa29f62e7cbbc01dfe4ff337041710dc248727267",
+    "agents/openai.yaml": "18cd8cb2f23c08c8912b5fe3c0ddd73d2f1c180a12f383139722db8053f02c50",
+    "assets/wrp-icon-128.png": "359822245c83c60f274bb9c7ee6b763e9e1cd0ef3fbaf0abf4cdced75414d31c",
+    "assets/wrp-icon-256.png": "2633be056d51373483ae7ba3621976cbfa8b2de4542071629a02dda5a9c3063f"
+  }
+}

@@ -1,6 +1,6 @@
 # Skill: executing-plans
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/executing-plans/SKILL.md`
 
 > Executes a written implementation plan inline, task by task, stopping only on blockers. Use when a plan exists and subagent dispatch is unavailable, or the user wants the plan executed in a separate session.
@@ -41,7 +41,7 @@ Track completed tasks in a ledger file (reuse subagent-driven-development's conv
 ##### Step 3: Complete Development
 
 After all tasks complete and verified:
-- Before claiming the work is done, apply verification-before-completion: run the verification commands and confirm their output first
+- Before claiming the work is done, apply studio-review verify mode: run the verification commands and confirm their output first
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
 - **REQUIRED SUB-SKILL:** Use finishing-a-development-branch
 - Follow that skill to verify tests, present options, execute choice

@@ -1,0 +1,8 @@
+interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
+  display_name: "Studio Quality"
+  short_description: "Evaluate, review, benchmark and improve skills and plugins"
+  default_prompt: "Use $studio-quality for this task."
+policy:
+  allow_implicit_invocation: true

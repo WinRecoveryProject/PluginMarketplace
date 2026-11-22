@@ -1,6 +1,6 @@
 # Skill: codebase-design
 
-- Plugin: `plugin-skill-studio` (0.3.33)
+- Plugin: `plugin-skill-studio` (0.6.0)
 - Source: `plugins/plugin-skill-studio/skills/codebase-design/SKILL.md`
 
 > Shared vocabulary and patterns for designing deep modules with narrow interfaces and clean seams. Use when designing module interfaces, finding deepening opportunities, deciding where seams go, or making code more testable and AI-navigable — even if the user says "improve this module". Do NOT use for whole-codebase architectural surveys.

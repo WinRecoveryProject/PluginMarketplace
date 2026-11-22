@@ -1,6 +1,6 @@
 # Skill: devsuite-test
 
-- Plugin: `winrecoveryproject-devsuite` (0.2.7)
+- Plugin: `winrecoveryproject-devsuite` (0.4.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-test/SKILL.md`
 
 > Use for feature testing, broad QA, user journeys, regression checks and evidence-based verification.

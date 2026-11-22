@@ -79,4 +79,4 @@ The pack should contain or reference:
 - residual warnings
 - exact submission state
 
-Use `../plugin-autopilot/references/submission-checklist.md`, `../plugin-autopilot/references/branding-and-listing.md`, and current official OpenAI documentation as the authority chain.
+Use `../studio-build/references/submission-checklist.md`, `../studio-build/references/branding-and-listing.md`, and current official OpenAI documentation as the authority chain.
