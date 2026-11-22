@@ -11,7 +11,7 @@ import tempfile
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
-ENGINE=ROOT/'skills/plugin-autopilot/scripts'
+ENGINE=ROOT/'skills/studio-build/scripts'
 ENV={**os.environ,'PYTHONDONTWRITEBYTECODE':'1','PYTHONIOENCODING':'utf-8'}
 MEMBERS=['plugin.json','.codex-plugin','package.json','README.md','LICENSE','THIRD_PARTY_NOTICES.md',
          'PRIVACY.md','TERMS.md','SUPPORT.md','AGENTS.md','assets','references','skills','scripts','src','schemas','tools']
@@ -54,7 +54,7 @@ def build(out):
         fresh=run(sys.executable,'-B',ENGINE/'validate_plugin.py',extraction,'--json')
         isolated=run('node',extraction/'scripts/studio.mjs','self-check')
         # Static evaluation of a real bundled skill, using only extracted runtime modules.
-        sample=run('node',extraction/'scripts/studio.mjs','skill-eval',extraction/'skills/skill-eval')
+        sample=run('node',extraction/'scripts/studio.mjs','skill-eval',extraction/'skills/studio-quality')
         for report in (validation,fresh):report.pop('pluginRoot',None)
         report={'package':manifest['name'],'version':manifest['version'],'archive':archive.name,
                 'sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'bytes':archive.stat().st_size,

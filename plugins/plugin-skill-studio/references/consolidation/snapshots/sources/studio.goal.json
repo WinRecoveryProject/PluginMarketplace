@@ -1,0 +1,11 @@
+{
+  "id": "studio.goal",
+  "root": "skills/goal",
+  "commit": "4bbf25a",
+  "files": {
+    "SKILL.md": "3de41898f0f9d62417fcbbfdc3dff6161899c158911f0ceea61e77a4e6d9421d",
+    "agents/openai.yaml": "5b0037b489e37973737620cffbb940487884a58baca8357f7e97c9e5079fbd30",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

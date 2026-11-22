@@ -1,0 +1,11 @@
+{
+  "id": "studio.skill-walkthrough",
+  "root": "plugins/plugin-skill-studio/skills/skill-walkthrough",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "bd8d34c808d4b9b2aa7a56a7ad4e699390b5007302abf30a9b64a2177e956f1a",
+    "agents/openai.yaml": "0a9adec9cf36db095796f2ed21a7822f666b70f7dbafb08b9c92e52c922a244e",
+    "assets/wrp-icon-128.png": "a850613cea31a201dc848726fff334a14f15939cf59d37c43c97abb58fbbedea",
+    "assets/wrp-icon-256.png": "31342a2ffe8e7b39fbc11fe7481b18e2422a316a429c0d4e726bc5763de329fd"
+  }
+}

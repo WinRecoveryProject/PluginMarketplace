@@ -6,6 +6,7 @@ description: "Use when researching sql syntax, runtime, parser and component-con
 
 Read ../powershell-scaffold/references/language-docs.md and the `sql` entry in
 ../../assets/language-documentation-catalog.json. Scope: Identify database vendor/version first; this seed covers T-SQL only.
+Then read references/notes.md: version cues, primary sources, pitfalls and safe checks for this language.
 
 Open relevant primary sources before technical claims. Read ../../assets/component-parser-catalog.json
 for parser IDs/capability states and apply ../powershell-scaffold/references/component-pipeline.md

@@ -1,0 +1,11 @@
+{
+  "id": "studio.verify-work",
+  "root": "skills/verify-work",
+  "source": "Zilvereyes-Plugin-Studio@9594376",
+  "files": {
+    "SKILL.md": "3c90b27f7f60bd575769dae8edd32914e80fbb635f584a477ee796517da04ec0",
+    "agents/openai.yaml": "a6b4e848f11cadbdd953949d1f60976ab17ffa51f4067dbdacd056055ef608f2",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}

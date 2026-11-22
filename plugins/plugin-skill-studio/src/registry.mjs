@@ -13,34 +13,61 @@ export async function loadRegistry(root=packageRoot) {
   return registry;
 }
 
+// [capability, mode|null, pattern]; the first match wins, so specific workflows precede broad ones.
 const rules=[
- ['skill-eval',/skill.{0,35}(eval|vurder|test|analy[sz])|(?:eval|vurder|test|analy[sz]).{0,35}skill/i],
- ['plugin-eval',/plugin.{0,35}(eval|vurder|analy[sz])|(?:eval|vurder|analy[sz]).{0,35}plugin/i],
- ['risk-review',/risik|risk|malici|hemmelig|secret|sikkerhedsscan/i],
- ['evidence-matrix',/evidensmatrix|evidence matrix|freshwithin|kompetencebevis/i],
- ['import-gpt',/\bgpt\b|gpts/i],
- ['release-workflow',/publicer|publish|release|submission|indsend|pakning|\bzip\b/i],
- ['import-plugins',/(import|konvert|adapt).{0,25}(mappe|folder|skill|plugin)/i],
- ['catalog',/find.{0,25}(skill|plugin)|discover|katalog|catalog|radar/i],
- ['local-management',/permission|tilladelse|installed|installeret|afhængighed|dependenc/i],
- ['modern-web',/html|css|\bdom\b|accessibility|tilgængelig|web\s*ui/i],
- ['writing-plans',/\bplan\b|planlæg|specifikation/i],
- ['diagnose-systematically',/fejlsøg|debug|diagnos|failing|fejler/i],
- ['test-driven-development',/\btdd\b|test.driven|testdrevet/i],
- ['create-skill',/(opret|create|byg|build|lav).{0,25}skill/i],
- ['create-plugin',/(opret|create|byg|build|lav).{0,25}plugin/i],
- ['update-plugin',/(opdat|update|extend|udvid).{0,25}plugin/i],
- ['automate-ui',/desktop|skærmfangst|museklik|screenshot|mouse.click/i],
+ ['studio-plan','goal',/\/goal|goal prompt|unattended execution|overnight autonomous|autonomous goal contract|agentic mission/i],
+ ['studio-plan','map',/decision tickets|multi-session|map out this massive|small, well-scoped features/i],
+ ['studio-plan','questions',/questionnaire|stakeholder|what should i ask them|answer the questions themselves/i],
+ ['studio-plan','tickets',/tracer-bullet|break this into tickets|tracker issues|initial requirements gathering/i],
+ ['studio-plan','spec',/technical spec|write a spec|fuzzy and ungrilled/i],
+ ['studio-plan','interview',/grill|interview the user|poke holes|domain modeling with doc generation|documentation trail is needed|immediate implementation/i],
+ ['studio-plan','discover',/explores user intent|starting a new feature|whose requirements or design|trivial single-file changes/i],
+ ['studio-plan','plan',/implementation plans?\b|needs planning/i],
+ ['studio-review','verify',/about to claim|verification commands|success claims|bounded static-page capture|audits finished work|completion claim|double-check that|unsupported claims/i],
+ ['studio-review','receive',/review feedback|pushes back|feedback is unclear|receiving code review/i],
+ ['studio-review','request',/dispatch(es)? a bounded reviewer|read-only review before merge|request(ing)? (a )?code review/i],
+ ['studio-review','decide',/review decision|require human attention|minimal, targeted or deep/i],
+ ['studio-review','code',/review changed code|reviewing a branch|code review|review this (diff|branch|pr|change)|authoring new code or diagnosing/i],
+ ['studio-build','lifecycle',/from scratch|full lifecycle|general software coding|pre-existing skills/i],
+ ['studio-build','autopilot',/agentic repo|autopilot|repo.{0,15}(to|into).{0,20}plugin/i],
+ ['studio-quality','risk',/risik|risk|malici|hemmelig|secret|sikkerhedsscan/i],
+ ['studio-build','import',/\bgpt\b|gpts/i],
+ ['studio-build','import',/(import|konvert|adapt).{0,25}(mappe|folder|skill|plugin)/i],
+ ['studio-build','catalog',/find.{0,25}(skill|plugin)|discover|katalog|catalog|radar/i],
+ ['studio-build','portfolio',/portfolio|worklist|directory of plugins/i],
+ ['studio-build','install',/\binstall\b|inventory, preview/i],
+ ['studio-build','update',/update an owned|git-managed plugin/i],
+ ['studio-build','create-skill',/create or update a codex skill|scoped instructions/i],
+ ['studio-build','create-plugin',/plugin candidate built|new local or marketplace plugin/i],
+ ['studio-quality','doctor',/doctor|skillquiver|double-fire|conflicting skills|duplicate, shadow/i],
+ ['studio-quality','improve',/improv|forbedr|rewrite brief|auto-?research|keep\/discard|pass count|research agents/i],
+ ['studio-quality','metric-pack',/metric.?pack|verifiers and metrics|own evaluation criteria|rubric/i],
+ ['studio-quality','walkthrough',/walkthrough|explaining what a skill does|forklar.{0,25}skill/i],
+ ['studio-quality','review',/behavior-focused|technical review|review this skill/i],
+ ['studio-quality','evidence',/evidensmatrix|evidence matrix|supplied evidence|freshwithin|kompetencebevis/i],
+ ['studio-quality','eval',/skill.{0,35}(eval|vurder|test|analy[sz])|(?:eval|vurder|test|analy[sz]).{0,35}skill|plugin.{0,35}(eval|vurder|analy[sz])|(?:eval|vurder|analy[sz]).{0,35}plugin|evaluat|audit th|why did this .{0,10}score|fix first|token usage|assessing a plugin|benchmark/i],
+ ['studio-build','release',/publicer|publish|release|submission|indsend|pakning|\bzip\b/i],
+ ['local-management',null,/permission|tilladelse|installed|installeret|afhængighed|dependenc/i],
+ ['modern-web',null,/html|css|\bdom\b|accessibility|tilgængelig|web\s*ui/i],
+ ['studio-plan','plan',/\bplan\b|planlæg|specifikation/i],
+ ['diagnose-systematically',null,/fejlsøg|debug|diagnos|failing|fejler/i],
+ ['test-driven-development',null,/\btdd\b|test.driven|testdrevet/i],
+ ['studio-build','create-skill',/(opret|create|byg|build|lav).{0,25}skill/i],
+ ['studio-build','create-plugin',/(opret|create|byg|build|lav).{0,25}plugin/i],
+ ['studio-build','update',/(opdat|update|extend|udvid).{0,25}plugin/i],
+ ['automate-ui',null,/desktop|skærmfangst|museklik|screenshot|mouse.click/i],
 ];
 export async function route(request,root=packageRoot) {
   if (typeof request!=='string'||!request.trim()) throw new Error('A nonempty request is required');
   const registry=await loadRegistry(root);
   const exact=registry.capabilities.find(x=>x.id===request.trim());
-  const selected=exact?.id ?? rules.find(([,pattern])=>pattern.test(request))?.[0] ?? 'plugin-skill-studio';
+  const rule=exact?null:rules.find(([,,pattern])=>pattern.test(request));
+  const selected=exact?.id ?? rule?.[0] ?? 'studio-build';
+  const mode=rule?.[1]??null;
   const capability=registry.capabilities.find(x=>x.id===selected);
   if (!capability) throw new Error('Router target missing: '+selected);
   return {schemaVersion:1,request,selected:capability.id,entrypoint:capability.entrypoint,
-          reason:exact?'Exact local capability name':'Local intent routing',externalDependencies:[]};
+          mode,reason:exact?'Exact local capability name':'Local intent routing',externalDependencies:[]};
 }
 
 export async function selfCheck(root=packageRoot) {

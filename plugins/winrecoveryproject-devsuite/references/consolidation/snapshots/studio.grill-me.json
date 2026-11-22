@@ -1,0 +1,11 @@
+{
+  "id": "studio.grill-me",
+  "root": "skills/grill-me",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "900c163c71cd84a88e439d86ee00f50c3c77f4b0605662f656ef1ad84e4ccaef",
+    "agents/openai.yaml": "12d025d81c295c0edca1e949c1d28bef350055de7c1dee633f885c3cd288a096",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

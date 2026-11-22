@@ -1,0 +1,45 @@
+# Plugin files: zilvereyes-context-handoff — `.codex-plugin/`
+
+Source: `plugins/zilvereyes-context-handoff`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `.codex-plugin/plugin.json`
+
+```json
+{
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "description": "Zilvereyes Context Handoff: MIT-derived personal candidate with preserved provenance and evidence-led workflows.",
+  "interface": {
+    "brandColor": "#23786B",
+    "brandColorDark": "#23786B",
+    "capabilities": [
+      "Workflow",
+      "Continuity",
+      "Lifecycle hooks"
+    ],
+    "category": "Productivity",
+    "composerIcon": "./assets/composer-128.png",
+    "defaultPrompt": [
+      "Lav et verificerbart checkpoint for denne opgave.",
+      "Forbered en handoff-pakke med alle accepterede krav."
+    ],
+    "developerName": "Zilvereyes",
+    "displayName": "Zilvereyes Context Handoff",
+    "logo": "./assets/logo-512.png",
+    "longDescription": "Zilvereyes Context Handoff: MIT-derived personal candidate with preserved provenance and evidence-led workflows. Local validation, installation and publication are separate states.",
+    "shortDescription": "Bevar kontekst og evidens"
+  },
+  "keywords": [
+    "codex",
+    "context",
+    "handoff",
+    "continuity",
+    "productivity"
+  ],
+  "license": "MIT",
+  "name": "zilvereyes-context-handoff",
+  "skills": "./skills/",
+  "version": "0.3.5+zilvereyes.1"
+}
+```

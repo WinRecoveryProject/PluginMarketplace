@@ -1,0 +1,42 @@
+# Plugin files: winrecoveryproject-linter — `.codex-plugin/`
+
+Source: `plugins/winrecoveryproject-linter`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `.codex-plugin/plugin.json`
+
+```json
+{
+  "name": "winrecoveryproject-linter",
+  "version": "0.1.6",
+  "description": "Local read-only linting for selected source types with visible coverage, pinned tools and no paid services.",
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "WinRecoveryProjectLinter",
+    "shortDescription": "Lokal lint med synlig dækning",
+    "longDescription": "Read-only local source checks with actual language parsers, explicit missing-tool reports and a zero-paid-services default. Explicit setup prepares only detected or selected tools in a verified per-user runtime cache that survives plugin replacement.",
+    "developerName": "Zilvereyes",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Scan dette projekts valgte filtyper og vis dækning og fund.",
+      "Kontrollér hvilke lokale lintværktøjer projektet behøver.",
+      "Opsæt kun de detekterede lintværktøjer med 0 kr i tjenester."
+    ],
+    "logo": "./assets/logo.png",
+    "composerIcon": "./assets/composer-icon.png",
+    "brandColor": "#147D92",
+    "brandColorDark": "#4DD3D0",
+    "websiteURL": "https://github.com/WinRecoveryProject/WinRecoveryProjectLinter",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/WinRecoveryProjectLinter/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/WinRecoveryProjectLinter/blob/main/TERMS.md"
+  }
+}
+```

@@ -1,0 +1,3599 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "studio.brainstorming",
+      "snapshot": "references/consolidation/snapshots/studio.brainstorming.json"
+    },
+    {
+      "id": "studio.writing-plans",
+      "snapshot": "references/consolidation/snapshots/studio.writing-plans.json"
+    },
+    {
+      "id": "studio.grill-me",
+      "snapshot": "references/consolidation/snapshots/studio.grill-me.json"
+    },
+    {
+      "id": "studio.grill-with-docs",
+      "snapshot": "references/consolidation/snapshots/studio.grill-with-docs.json"
+    },
+    {
+      "id": "studio.grilling",
+      "snapshot": "references/consolidation/snapshots/studio.grilling.json"
+    },
+    {
+      "id": "studio.to-spec",
+      "snapshot": "references/consolidation/snapshots/studio.to-spec.json"
+    },
+    {
+      "id": "studio.to-tickets",
+      "snapshot": "references/consolidation/snapshots/studio.to-tickets.json"
+    },
+    {
+      "id": "studio.to-questionnaire",
+      "snapshot": "references/consolidation/snapshots/studio.to-questionnaire.json"
+    },
+    {
+      "id": "studio.goal",
+      "snapshot": "references/consolidation/snapshots/studio.goal.json"
+    },
+    {
+      "id": "studio.wayfinder",
+      "snapshot": "references/consolidation/snapshots/studio.wayfinder.json"
+    },
+    {
+      "id": "devsuite.devsuite-planning",
+      "snapshot": "references/consolidation/snapshots/devsuite.devsuite-planning.json"
+    }
+  ],
+  "entries": [
+    {
+      "id": "studio.brainstorming.brainstorming.trigger.1",
+      "source": "studio.brainstorming/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Explores user intent, requirements, and design before implementation.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-discover",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.trigger.2",
+      "source": "studio.brainstorming/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when starting a new feature, component, or behavior change whose requirements or design are not yet agreed; skip for trivial single-file changes the user has already specified.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-discover",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L6",
+      "source": "studio.brainstorming/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L11",
+      "source": "studio.brainstorming/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Help turn ideas into fully formed designs and specs through natural collaborative dialogue.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-brainstorming-ideas-into-designs",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L13",
+      "source": "studio.brainstorming/SKILL.md:13",
+      "kind": "instruction",
+      "text": "Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design and get user approval.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-brainstorming-ideas-into-designs",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L15",
+      "source": "studio.brainstorming/SKILL.md:15",
+      "kind": "instruction",
+      "text": "<HARD-GATE> Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. This applies to EVERY project regardless of perceived simplicity. </HARD-GATE>",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-brainstorming-ideas-into-designs",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L21",
+      "source": "studio.brainstorming/SKILL.md:21",
+      "kind": "instruction",
+      "text": "\"Simple\" projects are where unexamined assumptions cause the most wasted work. The design can be short (a few sentences for truly simple projects), but you MUST present it and get approval.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-anti-pattern-this-is-too-simple-to-need-a-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L25",
+      "source": "studio.brainstorming/SKILL.md:25",
+      "kind": "instruction",
+      "text": "You MUST create a task for each of these items and complete them in order:",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L27",
+      "source": "studio.brainstorming/SKILL.md:27",
+      "kind": "instruction",
+      "text": "1. **Explore project context** — check files, docs, recent commits",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L28",
+      "source": "studio.brainstorming/SKILL.md:28",
+      "kind": "instruction",
+      "text": "2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L29",
+      "source": "studio.brainstorming/SKILL.md:29",
+      "kind": "instruction",
+      "text": "3. **Propose 2-3 approaches** — with trade-offs and your recommendation",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L30",
+      "source": "studio.brainstorming/SKILL.md:30",
+      "kind": "instruction",
+      "text": "4. **Present design** — in sections scaled to their complexity, get user approval after each section",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L31",
+      "source": "studio.brainstorming/SKILL.md:31",
+      "kind": "instruction",
+      "text": "5. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md`; commit only with explicit user consent",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L32",
+      "source": "studio.brainstorming/SKILL.md:32",
+      "kind": "instruction",
+      "text": "6. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L33",
+      "source": "studio.brainstorming/SKILL.md:33",
+      "kind": "instruction",
+      "text": "7. **User reviews written spec** — ask user to review the spec file before proceeding",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L34",
+      "source": "studio.brainstorming/SKILL.md:34",
+      "kind": "instruction",
+      "text": "8. **Transition to implementation** — invoke writing-plans skill to create implementation plan",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L36",
+      "source": "studio.brainstorming/SKILL.md:36",
+      "kind": "instruction",
+      "text": "**Standing rule — visual companion:** offer it just-in-time, NOT upfront. The first time a question would genuinely be clearer shown than described, offer it then (its own message); on approval its browser tab opens for you. If no visual question ever arises, never offer it. See the Visual Companion section below.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-checklist",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L40",
+      "source": "studio.brainstorming/SKILL.md:40",
+      "kind": "instruction",
+      "text": "```dot\ndigraph brainstorming {\n    \"Explore project context\" [shape=box];\n    \"Ask clarifying questions\" [shape=box];\n    \"Propose 2-3 approaches\" [shape=box];\n    \"Present design sections\" [shape=box];\n    \"User approves design?\" [shape=diamond];\n    \"Write design doc\" [shape=box];\n    \"Spec self-review\\n(fix inline)\" [shape=box];\n    \"User reviews spec?\" [shape=diamond];\n    \"Invoke writing-plans skill\" [shape=doublecircle];\n\n    \"Explore project context\" -> \"Ask clarifying questions\";\n    \"Ask clarifying questions\" -> \"Propose 2-3 approaches\";\n    \"Propose 2-3 approaches\" -> \"Present design sections\";\n    \"Present design sections\" -> \"User approves design?\";\n    \"User approves design?\" -> \"Present design sections\" [label=\"no, revise\"];\n    \"User approves design?\" -> \"Write design doc\" [label=\"yes\"];\n    \"Write design doc\" -> \"Spec self-review\\n(fix inline)\";\n    \"Spec self-review\\n(fix inline)\" -> \"User reviews spec?\";\n    \"User reviews spec?\" -> \"Write design doc\" [label=\"changes requested\"];\n    \"User reviews spec?\" -> \"Invoke writing-plans skill\" [label=\"approved\"];\n}\n```",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-process-flow",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L65",
+      "source": "studio.brainstorming/SKILL.md:65",
+      "kind": "instruction",
+      "text": "**The terminal state is invoking writing-plans.** Do NOT invoke design-ui or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-process-flow",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L69",
+      "source": "studio.brainstorming/SKILL.md:69",
+      "kind": "instruction",
+      "text": "**Understanding the idea:**",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L71",
+      "source": "studio.brainstorming/SKILL.md:71",
+      "kind": "instruction",
+      "text": "- Check out the current project state first (files, docs, recent commits)",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L72",
+      "source": "studio.brainstorming/SKILL.md:72",
+      "kind": "instruction",
+      "text": "- Before asking detailed questions, assess scope: if the request describes multiple independent subsystems (e.g., \"build a platform with chat, file storage, billing, and analytics\"), flag this immediately. Don't spend questions refining details of a project that needs to be decomposed first.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L73",
+      "source": "studio.brainstorming/SKILL.md:73",
+      "kind": "instruction",
+      "text": "- If the project is too large for a single spec, help the user decompose into sub-projects: what are the independent pieces, how do they relate, what order should they be built? Then brainstorm the first sub-project through the normal design flow. Each sub-project gets its own spec → plan → implementation cycle.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L74",
+      "source": "studio.brainstorming/SKILL.md:74",
+      "kind": "instruction",
+      "text": "- For appropriately-scoped projects, ask questions one at a time to refine the idea",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L75",
+      "source": "studio.brainstorming/SKILL.md:75",
+      "kind": "instruction",
+      "text": "- Prefer multiple choice questions when possible, but open-ended is fine too",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L76",
+      "source": "studio.brainstorming/SKILL.md:76",
+      "kind": "instruction",
+      "text": "- Only one question per message - if a topic needs more exploration, break it into multiple questions",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L77",
+      "source": "studio.brainstorming/SKILL.md:77",
+      "kind": "instruction",
+      "text": "- Focus on understanding: purpose, constraints, success criteria",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L79",
+      "source": "studio.brainstorming/SKILL.md:79",
+      "kind": "instruction",
+      "text": "**Exploring approaches:**",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L81",
+      "source": "studio.brainstorming/SKILL.md:81",
+      "kind": "instruction",
+      "text": "- Propose 2-3 different approaches with trade-offs",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L82",
+      "source": "studio.brainstorming/SKILL.md:82",
+      "kind": "instruction",
+      "text": "- Present options conversationally with your recommendation and reasoning",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L83",
+      "source": "studio.brainstorming/SKILL.md:83",
+      "kind": "instruction",
+      "text": "- Lead with your recommended option and explain why",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L84",
+      "source": "studio.brainstorming/SKILL.md:84",
+      "kind": "instruction",
+      "text": "- YAGNI ruthlessly - remove unnecessary features from every approach and design",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L86",
+      "source": "studio.brainstorming/SKILL.md:86",
+      "kind": "instruction",
+      "text": "**Presenting the design:**",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L88",
+      "source": "studio.brainstorming/SKILL.md:88",
+      "kind": "instruction",
+      "text": "- Once you believe you understand what you're building, present the design",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L89",
+      "source": "studio.brainstorming/SKILL.md:89",
+      "kind": "instruction",
+      "text": "- Scale each section to its complexity: a few sentences if straightforward, up to 200-300 words if nuanced",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L90",
+      "source": "studio.brainstorming/SKILL.md:90",
+      "kind": "instruction",
+      "text": "- Ask after each section whether it looks right so far",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L91",
+      "source": "studio.brainstorming/SKILL.md:91",
+      "kind": "instruction",
+      "text": "- Cover: architecture, components, data flow, error handling, testing",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L92",
+      "source": "studio.brainstorming/SKILL.md:92",
+      "kind": "instruction",
+      "text": "- Be ready to go back and clarify if something doesn't make sense",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L94",
+      "source": "studio.brainstorming/SKILL.md:94",
+      "kind": "instruction",
+      "text": "**Design for isolation and clarity:**",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L96",
+      "source": "studio.brainstorming/SKILL.md:96",
+      "kind": "instruction",
+      "text": "- Break the system into smaller units that each have one clear purpose, communicate through well-defined interfaces, and can be understood and tested independently",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L97",
+      "source": "studio.brainstorming/SKILL.md:97",
+      "kind": "instruction",
+      "text": "- For each unit, you should be able to answer: what does it do, how do you use it, and what does it depend on?",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L98",
+      "source": "studio.brainstorming/SKILL.md:98",
+      "kind": "instruction",
+      "text": "- Can someone understand what a unit does without reading its internals? Can you change the internals without breaking consumers? If not, the boundaries need work.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L99",
+      "source": "studio.brainstorming/SKILL.md:99",
+      "kind": "instruction",
+      "text": "- Smaller, well-bounded units are also easier for you to work with - you reason better about code you can hold in context at once, and your edits are more reliable when files are focused. When a file grows large, that's often a signal that it's doing too much.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L101",
+      "source": "studio.brainstorming/SKILL.md:101",
+      "kind": "instruction",
+      "text": "**Working in existing codebases:**",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L103",
+      "source": "studio.brainstorming/SKILL.md:103",
+      "kind": "instruction",
+      "text": "- Explore the current structure before proposing changes. Follow existing patterns.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L104",
+      "source": "studio.brainstorming/SKILL.md:104",
+      "kind": "instruction",
+      "text": "- Where existing code has problems that affect the work (e.g., a file that's grown too large, unclear boundaries, tangled responsibilities), include targeted improvements as part of the design - the way a good developer improves code they're working in.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L105",
+      "source": "studio.brainstorming/SKILL.md:105",
+      "kind": "instruction",
+      "text": "- Don't propose unrelated refactoring. Stay focused on what serves the current goal.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-the-process",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L109",
+      "source": "studio.brainstorming/SKILL.md:109",
+      "kind": "instruction",
+      "text": "**Documentation:**",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L111",
+      "source": "studio.brainstorming/SKILL.md:111",
+      "kind": "instruction",
+      "text": "- Write the validated design (spec) to `docs/specs/YYYY-MM-DD-<topic>-design.md`",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L112",
+      "source": "studio.brainstorming/SKILL.md:112",
+      "kind": "instruction",
+      "text": "- (User preferences for spec location override this default)",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L113",
+      "source": "studio.brainstorming/SKILL.md:113",
+      "kind": "instruction",
+      "text": "- Ask the user whether to commit the design document to git; commit only if they say yes",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L115",
+      "source": "studio.brainstorming/SKILL.md:115",
+      "kind": "instruction",
+      "text": "**Spec Self-Review:** After writing the spec document, look at it with fresh eyes:",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L118",
+      "source": "studio.brainstorming/SKILL.md:118",
+      "kind": "instruction",
+      "text": "1. **Placeholder scan:** Any \"TBD\", \"TODO\", incomplete sections, or vague requirements? Fix them.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L119",
+      "source": "studio.brainstorming/SKILL.md:119",
+      "kind": "instruction",
+      "text": "2. **Internal consistency:** Do any sections contradict each other? Does the architecture match the feature descriptions?",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L120",
+      "source": "studio.brainstorming/SKILL.md:120",
+      "kind": "instruction",
+      "text": "3. **Scope check:** Is this focused enough for a single implementation plan, or does it need decomposition?",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L121",
+      "source": "studio.brainstorming/SKILL.md:121",
+      "kind": "instruction",
+      "text": "4. **Ambiguity check:** Could any requirement be interpreted two different ways? If so, pick one and make it explicit.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L123",
+      "source": "studio.brainstorming/SKILL.md:123",
+      "kind": "instruction",
+      "text": "Fix any issues inline. No need to re-review — just fix and move on.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L125",
+      "source": "studio.brainstorming/SKILL.md:125",
+      "kind": "instruction",
+      "text": "**User Review Gate:** After the spec review loop passes, ask the user to review the written spec before proceeding:",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L128",
+      "source": "studio.brainstorming/SKILL.md:128",
+      "kind": "instruction",
+      "text": "> \"Spec written to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan.\"",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L130",
+      "source": "studio.brainstorming/SKILL.md:130",
+      "kind": "instruction",
+      "text": "Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L132",
+      "source": "studio.brainstorming/SKILL.md:132",
+      "kind": "instruction",
+      "text": "**Implementation:**",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L134",
+      "source": "studio.brainstorming/SKILL.md:134",
+      "kind": "instruction",
+      "text": "- Invoke the writing-plans skill to create a detailed implementation plan",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L135",
+      "source": "studio.brainstorming/SKILL.md:135",
+      "kind": "instruction",
+      "text": "- Do NOT invoke any other skill. writing-plans is the next step.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-after-the-design",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L139",
+      "source": "studio.brainstorming/SKILL.md:139",
+      "kind": "instruction",
+      "text": "A browser-based companion for showing mockups, diagrams, and visual options during brainstorming. Available as a tool — not a mode. Accepting the companion means it's available for questions that benefit from visual treatment; it does NOT mean every question goes through the browser.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-visual-companion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L141",
+      "source": "studio.brainstorming/SKILL.md:141",
+      "kind": "instruction",
+      "text": "**Offering the companion (just-in-time):** Do NOT offer it upfront. Wait until a question would genuinely be clearer shown than told — a real mockup / layout / diagram question, not merely a UI *topic*. The first time that happens, offer it then, as its own message: > \"This next part might be easier if I show you — I can put together mockups, diagrams, and comparisons in a browser tab as we go. It's still new and can be token-intensive. Want me to? I'll open it for you.\"",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-visual-companion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L144",
+      "source": "studio.brainstorming/SKILL.md:144",
+      "kind": "instruction",
+      "text": "**This offer MUST be its own message.** Only the offer — no clarifying question, summary, or other content. Wait for the user's response. If they accept, start the server with `--open` so their browser opens to the first screen automatically. If they decline, continue text-only and don't offer again unless they raise it.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-visual-companion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L146",
+      "source": "studio.brainstorming/SKILL.md:146",
+      "kind": "instruction",
+      "text": "**Per-question decision:** Even after the user accepts, decide FOR EACH QUESTION whether to use the browser or the terminal. The test: **would the user understand this better by seeing it than reading it?**",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-visual-companion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L148",
+      "source": "studio.brainstorming/SKILL.md:148",
+      "kind": "instruction",
+      "text": "- **Use the browser** for content that IS visual — mockups, wireframes, layout comparisons, architecture diagrams, side-by-side visual designs",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-visual-companion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L149",
+      "source": "studio.brainstorming/SKILL.md:149",
+      "kind": "instruction",
+      "text": "- **Use the terminal** for content that is text — requirements questions, conceptual choices, tradeoff lists, A/B/C/D text options, scope decisions",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-visual-companion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L151",
+      "source": "studio.brainstorming/SKILL.md:151",
+      "kind": "instruction",
+      "text": "A question about a UI topic is not automatically a visual question. \"What does personality mean in this context?\" is a conceptual question — use the terminal. \"Which wizard layout works better?\" is a visual question — use the browser.",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-visual-companion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.L153",
+      "source": "studio.brainstorming/SKILL.md:153",
+      "kind": "instruction",
+      "text": "If they agree to the companion, read the detailed guide before proceeding: `visual-companion.md` (in this skill's directory)",
+      "target": "skills/devsuite-planning/modes/discover.md#src-brainstorming-visual-companion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.policy.interface",
+      "source": "studio.brainstorming/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.brainstorming.policy.policy",
+      "source": "studio.brainstorming/agents/openai.yaml",
+      "kind": "policy",
+      "text": "policy",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.file:assets/wrp-icon-128.png",
+      "source": "studio.brainstorming/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.file:assets/wrp-icon-256.png",
+      "source": "studio.brainstorming/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.brainstorming.file:scripts/frame-template.html",
+      "source": "studio.brainstorming/scripts/frame-template.html",
+      "kind": "file",
+      "text": "scripts/frame-template.html",
+      "target": null,
+      "status": "dropped",
+      "approved": true,
+      "reason": "Studio-only visual companion: needs the Node browser server; DevSuite ships no Node runtime (owner approval 2026-11-20)."
+    },
+    {
+      "id": "studio.brainstorming.file:scripts/helper.js",
+      "source": "studio.brainstorming/scripts/helper.js",
+      "kind": "file",
+      "text": "scripts/helper.js",
+      "target": null,
+      "status": "dropped",
+      "approved": true,
+      "reason": "Studio-only visual companion: needs the Node browser server; DevSuite ships no Node runtime (owner approval 2026-11-20)."
+    },
+    {
+      "id": "studio.brainstorming.file:scripts/server.cjs",
+      "source": "studio.brainstorming/scripts/server.cjs",
+      "kind": "file",
+      "text": "scripts/server.cjs",
+      "target": null,
+      "status": "dropped",
+      "approved": true,
+      "reason": "Studio-only visual companion: needs the Node browser server; DevSuite ships no Node runtime (owner approval 2026-11-20)."
+    },
+    {
+      "id": "studio.brainstorming.file:scripts/start-server.sh",
+      "source": "studio.brainstorming/scripts/start-server.sh",
+      "kind": "file",
+      "text": "scripts/start-server.sh",
+      "target": null,
+      "status": "dropped",
+      "approved": true,
+      "reason": "Studio-only visual companion: needs the Node browser server; DevSuite ships no Node runtime (owner approval 2026-11-20)."
+    },
+    {
+      "id": "studio.brainstorming.file:scripts/stop-server.sh",
+      "source": "studio.brainstorming/scripts/stop-server.sh",
+      "kind": "file",
+      "text": "scripts/stop-server.sh",
+      "target": null,
+      "status": "dropped",
+      "approved": true,
+      "reason": "Studio-only visual companion: needs the Node browser server; DevSuite ships no Node runtime (owner approval 2026-11-20)."
+    },
+    {
+      "id": "studio.brainstorming.file:visual-companion.md",
+      "source": "studio.brainstorming/visual-companion.md",
+      "kind": "file",
+      "text": "visual-companion.md",
+      "target": null,
+      "status": "dropped",
+      "approved": true,
+      "reason": "Studio-only visual companion: needs the Node browser server; DevSuite ships no Node runtime (owner approval 2026-11-20)."
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.trigger.1",
+      "source": "studio.writing-plans/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Creates implementation plans with interfaces, tests, and open decisions.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.trigger.2",
+      "source": "studio.writing-plans/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when a multi-step change needs planning.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L6",
+      "source": "studio.writing-plans/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L11",
+      "source": "studio.writing-plans/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Create a plan that another engineer can implement without inventing product decisions. Announce: \"I'm using the writing-plans skill to create the implementation plan.\"",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-writing-plans",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L17",
+      "source": "studio.writing-plans/SKILL.md:17",
+      "kind": "instruction",
+      "text": "Use **Bounded inline planning** when the user explicitly requests planning only, requests read-only work, or says not to write code, and the prompt already supplies the behavior, constraints, and required interfaces.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-choose-one-route",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L21",
+      "source": "studio.writing-plans/SKILL.md:21",
+      "kind": "instruction",
+      "text": "Use **Full repository planning** when the user requests a saved plan artifact, asks for alignment with an existing codebase, names existing paths that affect the design, or leaves architecture dependent on repository evidence.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-choose-one-route",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L25",
+      "source": "studio.writing-plans/SKILL.md:25",
+      "kind": "instruction",
+      "text": "Bounded inline planning takes precedence whenever its conditions match. A named interface without a repository path is part of the supplied contract, not a request for repository alignment. Do not switch routes merely because the future implementation will integrate with existing code.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-choose-one-route",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L30",
+      "source": "studio.writing-plans/SKILL.md:30",
+      "kind": "instruction",
+      "text": "Creating a plan file is a workspace change. Return the plan inline unless the user requests an artifact or the active workflow already authorizes one.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-choose-one-route",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L35",
+      "source": "studio.writing-plans/SKILL.md:35",
+      "kind": "instruction",
+      "text": "- List externally observable decisions the requirements do not settle, such as",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L36",
+      "source": "studio.writing-plans/SKILL.md:36",
+      "kind": "instruction",
+      "text": "exit status, output channel, overwrite policy, and partial-success semantics. Never silently choose them. Ask only when an answer changes plan structure.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L38",
+      "source": "studio.writing-plans/SKILL.md:38",
+      "kind": "instruction",
+      "text": "- Do not add validation, normalization, or required-field rules for data the",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L39",
+      "source": "studio.writing-plans/SKILL.md:39",
+      "kind": "instruction",
+      "text": "prompt only names. Preserve it as supplied and list any policy as unresolved.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L40",
+      "source": "studio.writing-plans/SKILL.md:40",
+      "kind": "instruction",
+      "text": "- Never specify a behavior as required and then list that same behavior as",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L41",
+      "source": "studio.writing-plans/SKILL.md:41",
+      "kind": "instruction",
+      "text": "unresolved. Describe the decision seam instead until the product choice exists.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L42",
+      "source": "studio.writing-plans/SKILL.md:42",
+      "kind": "instruction",
+      "text": "- Label engineering recommendations as recommendations, not requirements.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L43",
+      "source": "studio.writing-plans/SKILL.md:43",
+      "kind": "instruction",
+      "text": "- Define file responsibilities and interfaces. Mark unverified paths as",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L44",
+      "source": "studio.writing-plans/SKILL.md:44",
+      "kind": "instruction",
+      "text": "proposed.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L45",
+      "source": "studio.writing-plans/SKILL.md:45",
+      "kind": "instruction",
+      "text": "- Make each task an independently testable deliverable with focused tests.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L46",
+      "source": "studio.writing-plans/SKILL.md:46",
+      "kind": "instruction",
+      "text": "- Include concrete behavior, edge cases, commands, and expected outcomes. Do",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L47",
+      "source": "studio.writing-plans/SKILL.md:47",
+      "kind": "instruction",
+      "text": "not use `TBD`, `TODO`, \"handle errors\", or other placeholders.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L48",
+      "source": "studio.writing-plans/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- Split independent subsystems into separate plans when each can deliver useful",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L49",
+      "source": "studio.writing-plans/SKILL.md:49",
+      "kind": "instruction",
+      "text": "software alone.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-rules-for-every-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L53",
+      "source": "studio.writing-plans/SKILL.md:53",
+      "kind": "instruction",
+      "text": "1. Treat facts supplied in the prompt as the planning contract. Do not inspect the",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L54",
+      "source": "studio.writing-plans/SKILL.md:54",
+      "kind": "instruction",
+      "text": "workspace unless the user requests repository alignment.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L55",
+      "source": "studio.writing-plans/SKILL.md:55",
+      "kind": "instruction",
+      "text": "2. Return at most four implementation tasks. Each task names proposed files,",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L56",
+      "source": "studio.writing-plans/SKILL.md:56",
+      "kind": "instruction",
+      "text": "consumed and produced interfaces, behavior, edge cases, and focused tests.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L57",
+      "source": "studio.writing-plans/SKILL.md:57",
+      "kind": "instruction",
+      "text": "3. Omit code samples, commit steps, plan files, todo tools, and execution-choice",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L58",
+      "source": "studio.writing-plans/SKILL.md:58",
+      "kind": "instruction",
+      "text": "menus unless the user asks for them.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L59",
+      "source": "studio.writing-plans/SKILL.md:59",
+      "kind": "instruction",
+      "text": "4. Cover parsing, validation, success and failure flow, integration boundaries,",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L60",
+      "source": "studio.writing-plans/SKILL.md:60",
+      "kind": "instruction",
+      "text": "and tests where applicable.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L61",
+      "source": "studio.writing-plans/SKILL.md:61",
+      "kind": "instruction",
+      "text": "5. End with unresolved externally observable decisions only, then deliver the",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L62",
+      "source": "studio.writing-plans/SKILL.md:62",
+      "kind": "instruction",
+      "text": "plan immediately.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-bounded-inline-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L66",
+      "source": "studio.writing-plans/SKILL.md:66",
+      "kind": "instruction",
+      "text": "Read [references/full-plan.md](references/full-plan.md) completely before inspecting the repository or drafting the plan. Follow that reference in addition to the rules above. An explicit user output path overrides its default artifact location.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-full-repository-planning",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L73",
+      "source": "studio.writing-plans/SKILL.md:73",
+      "kind": "instruction",
+      "text": "Before responding, check specification coverage, placeholder absence, and interface-name consistency. Fix gaps inline once; do not start a separate todo or review workflow.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-self-review",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.L77",
+      "source": "studio.writing-plans/SKILL.md:77",
+      "kind": "instruction",
+      "text": "Completion requires a plan with complete behavior, interfaces, boundaries, edge cases, and tests, plus an explicit list of unresolved product decisions.",
+      "target": "skills/devsuite-planning/modes/plan.md#src-writing-plans-self-review",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.policy.interface",
+      "source": "studio.writing-plans/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.writing-plans.policy.policy",
+      "source": "studio.writing-plans/agents/openai.yaml",
+      "kind": "policy",
+      "text": "policy",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.file:assets/wrp-icon-128.png",
+      "source": "studio.writing-plans/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.file:assets/wrp-icon-256.png",
+      "source": "studio.writing-plans/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.writing-plans.file:references/full-plan.md",
+      "source": "studio.writing-plans/references/full-plan.md",
+      "kind": "file",
+      "text": "references/full-plan.md",
+      "target": "skills/devsuite-planning/modes/plan-full.md",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.trigger.1",
+      "source": "studio.grill-me/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Interview the user relentlessly to sharpen an idea, requirement, or decision before execution.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-interview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.trigger.2",
+      "source": "studio.grill-me/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when a plan, design, requirement, or decision needs a focused interview to expose ambiguity, missing constraints, trade-offs, or weak assumptions — even if the user just says \"grill me on this\".",
+      "target": "skills/devsuite-planning/SKILL.md#mode-interview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.trigger.3",
+      "source": "studio.grill-me/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use for repo-stateful domain modeling with doc generation.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-interview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L6",
+      "source": "studio.grill-me/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L11",
+      "source": "studio.grill-me/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Conduct a focused, relentless Socratic interview to stress-test a plan, architectural decision, requirement, or nascent concept before writing code.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-grill-me",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L17",
+      "source": "studio.grill-me/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **Relentless Frontier Exploration**: Model the design space as a decision tree and exhaust the frontier before declaring alignment.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L18",
+      "source": "studio.grill-me/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **One Question Round per Turn**: Batch questions into structured frontier rounds with recommended defaults; never interrogate with one-off dribble.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L19",
+      "source": "studio.grill-me/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **Autonomous Fact Extraction**: Retrieve codebase, system, and file facts autonomously; never ask the user what the environment can reveal.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L20",
+      "source": "studio.grill-me/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Active Assumption Invalidation**: Proactively challenge comfortable assumptions, scale bottlenecks, edge-case failure modes, and hidden dependencies.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L21",
+      "source": "studio.grill-me/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **No Premature Implementation**: Refuse to write production code or tickets until the interview frontier is completely empty and mutually agreed.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L27",
+      "source": "studio.grill-me/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ Nascent Idea / Unsettled Decision ] ──► [ Autonomous Codebase Recon ] ──► [ Frontier Question Round ] ──► [ Socratic Refinement ] ──► [ Settled Alignment ]\n```",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L31",
+      "source": "studio.grill-me/SKILL.md:31",
+      "kind": "instruction",
+      "text": "| Component | Responsibility | Reference / Target |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L33",
+      "source": "studio.grill-me/SKILL.md:33",
+      "kind": "instruction",
+      "text": "| **Autonomous Recon** | Read repo context, ADRs, schemas | Primary source files |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L34",
+      "source": "studio.grill-me/SKILL.md:34",
+      "kind": "instruction",
+      "text": "| **Frontier Tree** | Map open decision nodes & prerequisites | `skills/grilling/SKILL.md` |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L35",
+      "source": "studio.grill-me/SKILL.md:35",
+      "kind": "instruction",
+      "text": "| **Question Round** | Formatted numbered prompts + defaults | User interaction loop |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L36",
+      "source": "studio.grill-me/SKILL.md:36",
+      "kind": "instruction",
+      "text": "| **Settled Alignment** | Clean, unambiguous problem/solution contract | Handoff to `to-spec` |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L43",
+      "source": "studio.grill-me/SKILL.md:43",
+      "kind": "instruction",
+      "text": "- **Action**: Inspect relevant codebase files, configurations, documentation, and existing architectural decisions before drafting questions.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-1-autonomous-reconnaissance--context-gathering",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L44",
+      "source": "studio.grill-me/SKILL.md:44",
+      "kind": "instruction",
+      "text": "- **Key Point**: Form a grounded mental model of existing constraints without asking the user for baseline facts.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-1-autonomous-reconnaissance--context-gathering",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L45",
+      "source": "studio.grill-me/SKILL.md:45",
+      "kind": "instruction",
+      "text": "- **Why**: Asking users for facts available in the repository wastes their cognitive bandwidth and damages credibility.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-1-autonomous-reconnaissance--context-gathering",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L48",
+      "source": "studio.grill-me/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- **Action**: Identify all open decisions whose prerequisites are settled and present them in a single batch with explicit recommendations.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-2-formulate-frontier-question-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L49",
+      "source": "studio.grill-me/SKILL.md:49",
+      "kind": "instruction",
+      "text": "- **Key Point**: Format each question as `❓ **Q[N]** - **[Title]**:` with options and `➡️ [Recommended Default]`.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-2-formulate-frontier-question-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L50",
+      "source": "studio.grill-me/SKILL.md:50",
+      "kind": "instruction",
+      "text": "- **Why**: Presenting strong recommendations lowers decision fatigue while forcing the user to actively affirm or override specific choices.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-2-formulate-frontier-question-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L51",
+      "source": "studio.grill-me/SKILL.md:51",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-2-formulate-frontier-question-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L52",
+      "source": "studio.grill-me/SKILL.md:52",
+      "kind": "instruction",
+      "text": "- [ ] Every question targets a genuine decision rather than an environmental fact",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-2-formulate-frontier-question-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L53",
+      "source": "studio.grill-me/SKILL.md:53",
+      "kind": "instruction",
+      "text": "- [ ] Questions are independent and can be answered in parallel",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-2-formulate-frontier-question-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L54",
+      "source": "studio.grill-me/SKILL.md:54",
+      "kind": "instruction",
+      "text": "- [ ] Concrete recommendation provided for every question",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-2-formulate-frontier-question-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L55",
+      "source": "studio.grill-me/SKILL.md:55",
+      "kind": "instruction",
+      "text": "- [ ] No implementation code started",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-2-formulate-frontier-question-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L58",
+      "source": "studio.grill-me/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- **Action**: Ingest user answers, collapse resolved nodes, uncover new downstream branches, and issue the next frontier round.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-3-iterate-and-deepen-the-decision-tree",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L59",
+      "source": "studio.grill-me/SKILL.md:59",
+      "kind": "instruction",
+      "text": "- **Key Point**: Probe edge cases: failure modes, security boundaries, migration paths, and non-happy paths.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-3-iterate-and-deepen-the-decision-tree",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L60",
+      "source": "studio.grill-me/SKILL.md:60",
+      "kind": "instruction",
+      "text": "- **Why**: Most architectural failures occur at boundaries that initial proposals casually gloss over.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-3-iterate-and-deepen-the-decision-tree",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L63",
+      "source": "studio.grill-me/SKILL.md:63",
+      "kind": "instruction",
+      "text": "- **Action**: Summarize the unified decision contract and ask for explicit user confirmation.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-4-verify-alignment-and-closure",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L64",
+      "source": "studio.grill-me/SKILL.md:64",
+      "kind": "instruction",
+      "text": "- **Key Point**: Confirm that the frontier is empty and zero unexamined assumptions remain.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-4-verify-alignment-and-closure",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L65",
+      "source": "studio.grill-me/SKILL.md:65",
+      "kind": "instruction",
+      "text": "- **Why**: Clear alignment prevents costly rewrites during implementation.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-step-4-verify-alignment-and-closure",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L71",
+      "source": "studio.grill-me/SKILL.md:71",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L73",
+      "source": "studio.grill-me/SKILL.md:73",
+      "kind": "instruction",
+      "text": "| *\"The user's initial prompt looks clear enough, let's start coding.\"* | **Mandatory grilling on all non-trivial plans.** | Initial prompts almost always conceal edge-case ambiguities and conflicting constraints. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L74",
+      "source": "studio.grill-me/SKILL.md:74",
+      "kind": "instruction",
+      "text": "| *\"I'll ask questions one by one across multiple back-and-forth turns.\"* | **Batch the entire frontier into numbered rounds.** | Single-question ping-pong creates conversational fatigue and fragments context. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L75",
+      "source": "studio.grill-me/SKILL.md:75",
+      "kind": "instruction",
+      "text": "| *\"Ask the user which database schema or library version is used.\"* | **Discover environment facts autonomously.** | Agents must look up facts directly in code and configs rather than burdening the user. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.L76",
+      "source": "studio.grill-me/SKILL.md:76",
+      "kind": "instruction",
+      "text": "| *\"Agree with the user's preferred approach without challenging trade-offs.\"* | **Stress-test every critical design decision.** | Sycophancy allows architectural bugs and scaling bottlenecks to slip into production. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-me-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.grill-me.policy.interface",
+      "source": "studio.grill-me/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.file:assets/wrp-icon-128.png",
+      "source": "studio.grill-me/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-me.file:assets/wrp-icon-256.png",
+      "source": "studio.grill-me/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.trigger.1",
+      "source": "studio.grill-with-docs/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Interview the user to stress-test a design while simultaneously recording domain terms and architectural decisions in project documentation.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-interview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.trigger.2",
+      "source": "studio.grill-with-docs/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when planning features in a codebase and wanting domain terms captured in CONTEXT.md and ADRs — even if the user says \"grill this feature\".",
+      "target": "skills/devsuite-planning/SKILL.md#mode-interview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.trigger.3",
+      "source": "studio.grill-with-docs/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use when no codebase context or documentation trail is needed.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-interview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L6",
+      "source": "studio.grill-with-docs/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L11",
+      "source": "studio.grill-with-docs/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Conduct a structured Socratic design interview that concurrently distills and commits domain terminology into `CONTEXT.md` and hard-to-reverse architectural decisions into Architectural Decision Records (`docs/adr/*.md`).",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-grill-with-docs",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L17",
+      "source": "studio.grill-with-docs/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **Simultaneous Documentation Distillation**: Extract and record ubiquitous domain language into `CONTEXT.md` and architectural choices into ADRs in real time as decisions settle.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L18",
+      "source": "studio.grill-with-docs/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **Batch Frontier Questioning**: Present independent frontier questions in structured batches with explicit defaults rather than one-off queries.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L19",
+      "source": "studio.grill-with-docs/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **Autonomous Fact Reconnaissance**: Research existing codebase architecture, types, and schemas autonomously before posing design questions.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L20",
+      "source": "studio.grill-with-docs/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Lightweight ADR Trigger**: When a design choice creates significant technical debt or is difficult to reverse (e.g. database choice, sync strategy), write a dedicated ADR immediately.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L21",
+      "source": "studio.grill-with-docs/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **Zero Speculative Prose**: Document only decisions that have actively settled during the interview; keep draft notes clearly demarcated.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L27",
+      "source": "studio.grill-with-docs/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ User Feature Idea ] ──► [ Codebase Recon & ADR Review ] ──► [ Socratic Grilling Rounds ]\n                                                                       │\n                                      ┌────────────────────────────────┴────────────────────────────────┐\n                                      ▼                                                                 ▼\n                            [ Update CONTEXT.md ]                                              [ Author ADR Docs ]\n                            - Ubiquitous language                                              - Context & Decision\n                            - Entity definitions                                               - Consequences & Tradeoffs\n```",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L37",
+      "source": "studio.grill-with-docs/SKILL.md:37",
+      "kind": "instruction",
+      "text": "| Artifact | Purpose | Reference Format |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L39",
+      "source": "studio.grill-with-docs/SKILL.md:39",
+      "kind": "instruction",
+      "text": "| **Domain Dictionary** | Capture ubiquitous language and entity relationships | `skills/domain-modeling/CONTEXT-FORMAT.md` |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L40",
+      "source": "studio.grill-with-docs/SKILL.md:40",
+      "kind": "instruction",
+      "text": "| **Architectural Record** | Record irreversible architectural choices | `skills/domain-modeling/ADR-FORMAT.md` |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L41",
+      "source": "studio.grill-with-docs/SKILL.md:41",
+      "kind": "instruction",
+      "text": "| **Grilling Protocol** | Drive structured frontier question rounds | `skills/grilling/SKILL.md` |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L48",
+      "source": "studio.grill-with-docs/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- **Action**: Check for existing `CONTEXT.md`, `GLOSSARY.md`, and `docs/adr/` records in the repository.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-1-discover-existing-documentation-baseline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L49",
+      "source": "studio.grill-with-docs/SKILL.md:49",
+      "kind": "instruction",
+      "text": "- **Key Point**: Adopt existing project conventions for domain modeling and decision logging.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-1-discover-existing-documentation-baseline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L50",
+      "source": "studio.grill-with-docs/SKILL.md:50",
+      "kind": "instruction",
+      "text": "- **Why**: Maintaining architectural consistency prevents duplicate terminology and fragmented records.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-1-discover-existing-documentation-baseline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L53",
+      "source": "studio.grill-with-docs/SKILL.md:53",
+      "kind": "instruction",
+      "text": "- **Action**: Identify unsettled requirements and formulate numbered question rounds with recommended defaults.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-2-conduct-socratic-grilling-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L54",
+      "source": "studio.grill-with-docs/SKILL.md:54",
+      "kind": "instruction",
+      "text": "- **Key Point**: Ask about boundaries, invariants, entity lifecycles, and failure recovery.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-2-conduct-socratic-grilling-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L55",
+      "source": "studio.grill-with-docs/SKILL.md:55",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-2-conduct-socratic-grilling-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L56",
+      "source": "studio.grill-with-docs/SKILL.md:56",
+      "kind": "instruction",
+      "text": "- [ ] Terminology vetted against existing domain dictionary",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-2-conduct-socratic-grilling-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L57",
+      "source": "studio.grill-with-docs/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- [ ] Questions formatted with clear recommendations",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-2-conduct-socratic-grilling-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L58",
+      "source": "studio.grill-with-docs/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- [ ] Architecture tradeoffs highlighted",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-2-conduct-socratic-grilling-rounds",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L61",
+      "source": "studio.grill-with-docs/SKILL.md:61",
+      "kind": "instruction",
+      "text": "- **Action**: As terms and entities are clarified, update or create `CONTEXT.md` using the standard format.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-3-distill-and-update-domain-glossary",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L62",
+      "source": "studio.grill-with-docs/SKILL.md:62",
+      "kind": "instruction",
+      "text": "- **Key Point**: Ensure terms are strictly defined with unambiguous scope.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-3-distill-and-update-domain-glossary",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L63",
+      "source": "studio.grill-with-docs/SKILL.md:63",
+      "kind": "instruction",
+      "text": "- **Why**: Shared ubiquitous language prevents misalignment between engineers and agents.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-3-distill-and-update-domain-glossary",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L66",
+      "source": "studio.grill-with-docs/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- **Action**: For significant architectural choices, author a new numbered ADR in `docs/adr/NNNN-<slug>.md`.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-4-author-architectural-decision-records-adrs",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L67",
+      "source": "studio.grill-with-docs/SKILL.md:67",
+      "kind": "instruction",
+      "text": "- **Key Point**: Include Context, Decision, Status, and Consequences (both positive and negative).",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-4-author-architectural-decision-records-adrs",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L68",
+      "source": "studio.grill-with-docs/SKILL.md:68",
+      "kind": "instruction",
+      "text": "- **Why**: ADRs preserve institutional memory and prevent rehashing past debates.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-step-4-author-architectural-decision-records-adrs",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L74",
+      "source": "studio.grill-with-docs/SKILL.md:74",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L76",
+      "source": "studio.grill-with-docs/SKILL.md:76",
+      "kind": "instruction",
+      "text": "| *\"I'll write the documentation after the entire interview finishes.\"* | **Capture terms and ADRs as decisions settle.** | Post-hoc documentation often drops subtle nuances, tradeoffs, and rationale. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L77",
+      "source": "studio.grill-with-docs/SKILL.md:77",
+      "kind": "instruction",
+      "text": "| *\"This architectural choice is minor, no ADR needed.\"* | **If it is hard to reverse, author an ADR.** | Seemingly minor choices often cascade into major technical debt. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.L78",
+      "source": "studio.grill-with-docs/SKILL.md:78",
+      "kind": "instruction",
+      "text": "| *\"I will ask the user to explain the existing domain model.\"* | **Read existing docs and schemas autonomously.** | Agents must build initial context from repo artifacts before engaging the user. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grill-with-docs-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.grill-with-docs.policy.interface",
+      "source": "studio.grill-with-docs/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.file:assets/wrp-icon-128.png",
+      "source": "studio.grill-with-docs/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grill-with-docs.file:assets/wrp-icon-256.png",
+      "source": "studio.grill-with-docs/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.trigger.1",
+      "source": "studio.grilling/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Relentlessly interview the user round-by-round to stress-test thinking and expose unexamined assumptions.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-interview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.trigger.2",
+      "source": "studio.grilling/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when the user requests a grilling interview, wants their idea challenged, or uses trigger phrases like \"grill me\" — even if they just say \"poke holes in my plan\".",
+      "target": "skills/devsuite-planning/SKILL.md#mode-interview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.trigger.3",
+      "source": "studio.grilling/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use when the user asks for immediate implementation.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-interview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L6",
+      "source": "studio.grilling/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L11",
+      "source": "studio.grilling/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Relentlessly stress-test thinking, expose hidden assumptions, and map the design space as an expanding decision tree until mutual understanding is reached.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-grilling",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L17",
+      "source": "studio.grilling/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **Frontier-Based Batched Rounds**: Ask all currently unblocked questions together in a single numbered round; never drip questions one by one.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L18",
+      "source": "studio.grilling/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **Mandatory Concrete Recommendations**: Every question must include a definitive recommended answer (`➡️ [Recommendation]`) to streamline decision-making.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L19",
+      "source": "studio.grilling/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **Autonomous Fact Exploration**: Investigate the codebase, configs, and dependencies with background exploration before asking questions; never query the user for discoverable facts.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L20",
+      "source": "studio.grilling/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Strict Topological Dependency Ordering**: Questions whose answers depend on open decisions must wait for future rounds; never mix dependent questions into the current frontier.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L21",
+      "source": "studio.grilling/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **Verified Exhaustion Gate**: The interview concludes only when the frontier is completely empty and the user explicitly validates the final consensus.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L27",
+      "source": "studio.grilling/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ Problem Space / Initial Proposal ]\n                │\n                ▼\n┌───────────────────────────────────────┐\n│ 1. Compute Decision Frontier Tree     │\n│    (Unblocked questions with defaults)│\n└──────────────────┬────────────────────┘\n                   │\n                   ▼\n┌───────────────────────────────────────┐\n│ 2. Issue Formatted Round (Q1..Qn)     │\n│    (Questions + Strong Recommendations)│\n└──────────────────┬────────────────────┘\n                   │\n                   ▼\n┌───────────────────────────────────────┐\n│ 3. Ingest Answers & Advance Frontier  │\n│    (Prune resolved, unlock downstream)│\n└──────────────────┬────────────────────┘\n                   │\n                   ▼\n┌───────────────────────────────────────┐\n│ 4. Verification & Consensus Handshake │\n└───────────────────────────────────────┘\n```",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L54",
+      "source": "studio.grilling/SKILL.md:54",
+      "kind": "instruction",
+      "text": "| Phase | Responsibility | Expected Output |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L56",
+      "source": "studio.grilling/SKILL.md:56",
+      "kind": "instruction",
+      "text": "| **Frontier Extraction** | Identify independent decision nodes | Filtered list of unblocked questions |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L57",
+      "source": "studio.grilling/SKILL.md:57",
+      "kind": "instruction",
+      "text": "| **Round Formatting** | Apply standardized Markdown question templates | User-facing numbered interview round |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L58",
+      "source": "studio.grilling/SKILL.md:58",
+      "kind": "instruction",
+      "text": "| **Downstream Unblocking** | Re-evaluate tree based on user decisions | Updated frontier state |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L59",
+      "source": "studio.grilling/SKILL.md:59",
+      "kind": "instruction",
+      "text": "| **Consensus Handshake** | Synthesize agreed architecture & requirements | Clean brief ready for specification |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L66",
+      "source": "studio.grilling/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- **Action**: Analyze the user's intent, identify all decision nodes, and select only those whose prerequisites are fully settled.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-1-map-the-design-space--compute-frontier",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L67",
+      "source": "studio.grilling/SKILL.md:67",
+      "kind": "instruction",
+      "text": "- **Key Point**: Filter out any question that requires guessing the answer to an unresolved peer question.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-1-map-the-design-space--compute-frontier",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L68",
+      "source": "studio.grilling/SKILL.md:68",
+      "kind": "instruction",
+      "text": "- **Why**: Asking dependent questions simultaneously forces the user into speculative, conditional answers that clutter context.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-1-map-the-design-space--compute-frontier",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L71",
+      "source": "studio.grilling/SKILL.md:71",
+      "kind": "instruction",
+      "text": "- **Action**: Present the current frontier using the standardized Markdown question format:",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-2-format-and-dispatch-the-question-round",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L72",
+      "source": "studio.grilling/SKILL.md:72",
+      "kind": "instruction",
+      "text": "  ```markdown\n  ❓ **Q1** - **<Question Title>**: <Detailed question body and options>\n\n  ➡️ **Recommendation**: <Specific proposed answer and technical rationale>\n\n  ---\n\n  ❓ **Q2** - **<Question Title>**: <Detailed question body and options>\n\n  ➡️ **Recommendation**: <Specific proposed answer and technical rationale>\n  ```",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-2-format-and-dispatch-the-question-round",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L83",
+      "source": "studio.grilling/SKILL.md:83",
+      "kind": "instruction",
+      "text": "- **Key Point**: Keep recommendations opinionated, clear, and grounded in industry best practices.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-2-format-and-dispatch-the-question-round",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L84",
+      "source": "studio.grilling/SKILL.md:84",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-2-format-and-dispatch-the-question-round",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L85",
+      "source": "studio.grilling/SKILL.md:85",
+      "kind": "instruction",
+      "text": "- [ ] Every question numbered and titled",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-2-format-and-dispatch-the-question-round",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L86",
+      "source": "studio.grilling/SKILL.md:86",
+      "kind": "instruction",
+      "text": "- [ ] Concrete recommendation provided for each question",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-2-format-and-dispatch-the-question-round",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L87",
+      "source": "studio.grilling/SKILL.md:87",
+      "kind": "instruction",
+      "text": "- [ ] No dependent questions included in the same round",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-2-format-and-dispatch-the-question-round",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L90",
+      "source": "studio.grilling/SKILL.md:90",
+      "kind": "instruction",
+      "text": "- **Action**: Parse user responses, record settled decisions, unlock newly available downstream questions, and generate the next round.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-3-ingest-answers--advance-the-frontier-tree",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L91",
+      "source": "studio.grilling/SKILL.md:91",
+      "kind": "instruction",
+      "text": "- **Key Point**: If a user response reveals a new unknown in the codebase, dispatch background exploration immediately to resolve it.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-3-ingest-answers--advance-the-frontier-tree",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L92",
+      "source": "studio.grilling/SKILL.md:92",
+      "kind": "instruction",
+      "text": "- **Why**: Real-time background discovery prevents passing factual burdens onto the user.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-3-ingest-answers--advance-the-frontier-tree",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L95",
+      "source": "studio.grilling/SKILL.md:95",
+      "kind": "instruction",
+      "text": "- **Action**: Once all branches of the decision tree have been explored and no frontier items remain, present a concise synthesis of all resolved decisions.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-4-verify-alignment-and-completion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L96",
+      "source": "studio.grilling/SKILL.md:96",
+      "kind": "instruction",
+      "text": "- **Key Point**: Require explicit user confirmation before proceeding to specification or execution.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-4-verify-alignment-and-completion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L97",
+      "source": "studio.grilling/SKILL.md:97",
+      "kind": "instruction",
+      "text": "- **Why**: Mutual alignment guarantees that the subsequent implementation phase proceeds without friction or false assumptions.",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-step-4-verify-alignment-and-completion",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L103",
+      "source": "studio.grilling/SKILL.md:103",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L105",
+      "source": "studio.grilling/SKILL.md:105",
+      "kind": "instruction",
+      "text": "| *\"I'll ask just one question now to see what they say.\"* | **Ask the entire frontier in one turn.** | Drip-feeding questions creates annoying latency and loses the macro structure of the design. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L106",
+      "source": "studio.grilling/SKILL.md:106",
+      "kind": "instruction",
+      "text": "| *\"Let the user decide without biasing them with my recommendation.\"* | **Mandatory recommended answer for every question.** | Concrete recommendations speed up review and give users a clear baseline to react against. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L107",
+      "source": "studio.grilling/SKILL.md:107",
+      "kind": "instruction",
+      "text": "| *\"Ask the user where configuration files or types are defined.\"* | **Discover environment facts autonomously.** | User interviews are exclusively for product and architectural decisions, not repo search. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.L108",
+      "source": "studio.grilling/SKILL.md:108",
+      "kind": "instruction",
+      "text": "| *\"The user gave a vague answer, but I can guess what they meant.\"* | **Clarify ambiguous answers immediately.** | Guessing user intent during grilling undermines the entire purpose of stress-testing. |",
+      "target": "skills/devsuite-planning/modes/interview.md#src-grilling-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.grilling.policy.interface",
+      "source": "studio.grilling/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.file:assets/wrp-icon-128.png",
+      "source": "studio.grilling/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.grilling.file:assets/wrp-icon-256.png",
+      "source": "studio.grilling/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.trigger.1",
+      "source": "studio.to-spec/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Synthesize conversation and codebase context into an unambiguous, buildable technical specification.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-spec",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.trigger.2",
+      "source": "studio.to-spec/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when requirements and design decisions are settled and need to be formalized into a technical spec — even if the user says \"write a spec for this\".",
+      "target": "skills/devsuite-planning/SKILL.md#mode-spec",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.trigger.3",
+      "source": "studio.to-spec/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use when the core idea is still fuzzy and ungrilled.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-spec",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L6",
+      "source": "studio.to-spec/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L11",
+      "source": "studio.to-spec/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Synthesize settled conversation context and codebase understanding into an unambiguous, buildable technical specification with minimal test seams and complete user stories.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-to-spec",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L17",
+      "source": "studio.to-spec/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **Pure Synthesis, Zero Interrogation**: Synthesize strictly from established context and codebase facts; do not interview the user.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L18",
+      "source": "studio.to-spec/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **Minimal Seams at the Highest Tier**: Prefer existing high-level test seams; never introduce unnecessary internal mocking seams.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L19",
+      "source": "studio.to-spec/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **Exhaustive User Stories**: Generate a comprehensive, numbered list of `As an <actor>, I want <feature>, so that <benefit>` stories covering all user paths.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L20",
+      "source": "studio.to-spec/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Decisions Over Concrete Snippets**: Specify architectural decisions, interfaces, and schema changes without fragile, hardcoded code snippets (unless derived from a validated prototype).",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L21",
+      "source": "studio.to-spec/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **Strict Out-of-Scope Demarcation**: Explicitly list out-of-scope capabilities to prevent scope creep and unbound work.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L27",
+      "source": "studio.to-spec/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ Settled Context & ADRs ] ──► [ Codebase Seam Inspection ] ──► [ Spec Document Synthesis ] ──► [ Tracker Publication ]\n```",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L31",
+      "source": "studio.to-spec/SKILL.md:31",
+      "kind": "instruction",
+      "text": "| Component | Responsibility | Format / Template |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L33",
+      "source": "studio.to-spec/SKILL.md:33",
+      "kind": "instruction",
+      "text": "| **Problem & Solution** | Frame user-centric intent | Problem / Solution statements |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L34",
+      "source": "studio.to-spec/SKILL.md:34",
+      "kind": "instruction",
+      "text": "| **User Stories** | Enumerate all functional paths | Numbered standard user stories |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L35",
+      "source": "studio.to-spec/SKILL.md:35",
+      "kind": "instruction",
+      "text": "| **Implementation Decisions** | Define module boundaries & contracts | Architecture & schema decisions |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L36",
+      "source": "studio.to-spec/SKILL.md:36",
+      "kind": "instruction",
+      "text": "| **Testing Decisions** | Specify external verification seams | Behavior-driven test strategy |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L43",
+      "source": "studio.to-spec/SKILL.md:43",
+      "kind": "instruction",
+      "text": "- **Action**: Explore the repository to inspect existing modules, domain glossary terms, and ADRs.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-1-autonomous-codebase--seam-inspection",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L44",
+      "source": "studio.to-spec/SKILL.md:44",
+      "kind": "instruction",
+      "text": "- **Key Point**: Identify the highest available integration seam to test the feature externally.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-1-autonomous-codebase--seam-inspection",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L45",
+      "source": "studio.to-spec/SKILL.md:45",
+      "kind": "instruction",
+      "text": "- **Why**: Testing through high-level seams verifies true system behavior while leaving internal implementation details free to refactor.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-1-autonomous-codebase--seam-inspection",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L48",
+      "source": "studio.to-spec/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- **Action**: Draft an exhaustive, numbered list of user stories capturing all primary and edge-case user interactions.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-2-formulate-comprehensive-user-stories",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L49",
+      "source": "studio.to-spec/SKILL.md:49",
+      "kind": "instruction",
+      "text": "- **Key Point**: Follow the strict template: `1. As an <actor>, I want a <feature>, so that <benefit>`.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-2-formulate-comprehensive-user-stories",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L50",
+      "source": "studio.to-spec/SKILL.md:50",
+      "kind": "instruction",
+      "text": "- **Why**: Detailed user stories prevent implementers from making ad-hoc product assumptions during coding.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-2-formulate-comprehensive-user-stories",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L51",
+      "source": "studio.to-spec/SKILL.md:51",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-2-formulate-comprehensive-user-stories",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L52",
+      "source": "studio.to-spec/SKILL.md:52",
+      "kind": "instruction",
+      "text": "- [ ] Every user story has an explicit actor and tangible benefit",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-2-formulate-comprehensive-user-stories",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L53",
+      "source": "studio.to-spec/SKILL.md:53",
+      "kind": "instruction",
+      "text": "- [ ] Edge cases and failure states are covered as distinct stories",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-2-formulate-comprehensive-user-stories",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L54",
+      "source": "studio.to-spec/SKILL.md:54",
+      "kind": "instruction",
+      "text": "- [ ] No implementation jargon inside user story statements",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-2-formulate-comprehensive-user-stories",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L57",
+      "source": "studio.to-spec/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- **Action**: Document module boundaries, modified interfaces, database schema changes, and API contracts.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-3-formalize-implementation-and-testing-decisions",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L58",
+      "source": "studio.to-spec/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- **Key Point**: Omit volatile file line numbers or speculative code snippets.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-3-formalize-implementation-and-testing-decisions",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L59",
+      "source": "studio.to-spec/SKILL.md:59",
+      "kind": "instruction",
+      "text": "- **Why**: Fragile code snippets go stale immediately and misdirect downstream implementation agents.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-3-formalize-implementation-and-testing-decisions",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L62",
+      "source": "studio.to-spec/SKILL.md:62",
+      "kind": "instruction",
+      "text": "- **Action**: Detail what is explicitly NOT included, apply the `ready-for-agent` triage label, and publish to the configured issue tracker or `.scratch/<feature-slug>/spec.md`.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-4-define-out-of-scope-boundaries--publish",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L63",
+      "source": "studio.to-spec/SKILL.md:63",
+      "kind": "instruction",
+      "text": "- **Key Point**: If the issue tracker is unconfigured, instruct the user to run `/setup-engineering-workflows`.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-4-define-out-of-scope-boundaries--publish",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L64",
+      "source": "studio.to-spec/SKILL.md:64",
+      "kind": "instruction",
+      "text": "- **Why**: Clear negative boundaries prevent scope bloat and keep subsequent ticket decomposition bounded.",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-step-4-define-out-of-scope-boundaries--publish",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L70",
+      "source": "studio.to-spec/SKILL.md:70",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L72",
+      "source": "studio.to-spec/SKILL.md:72",
+      "kind": "instruction",
+      "text": "| *\"I'll ask the user a few more questions before writing the spec.\"* | **No interviewing during to-spec.** | If requirements are still fuzzy, route back to `grill-me`. `to-spec` is pure synthesis. |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L73",
+      "source": "studio.to-spec/SKILL.md:73",
+      "kind": "instruction",
+      "text": "| *\"I will write extensive mock-heavy unit test decisions.\"* | **Test at the highest possible public seam.** | Mock-heavy tests break during refactors and fail to verify actual end-to-end functionality. |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L74",
+      "source": "studio.to-spec/SKILL.md:74",
+      "kind": "instruction",
+      "text": "| *\"Include complete implementation code blocks in the spec.\"* | **Specify interfaces and decisions, not full code.** | Implementation code in specs blinds the developer agent to live codebase nuances. |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.L75",
+      "source": "studio.to-spec/SKILL.md:75",
+      "kind": "instruction",
+      "text": "| *\"Skip the out-of-scope section since it seems obvious.\"* | **Mandatory explicit Out-of-Scope section.** | Ambiguity in scope boundaries causes runaway scope creep during implementation. |",
+      "target": "skills/devsuite-planning/modes/spec.md#src-to-spec-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.to-spec.policy.interface",
+      "source": "studio.to-spec/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.file:assets/wrp-icon-128.png",
+      "source": "studio.to-spec/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-spec.file:assets/wrp-icon-256.png",
+      "source": "studio.to-spec/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.trigger.1",
+      "source": "studio.to-tickets/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Decompose an approved specification or plan into ordered, dependency-linked tracer-bullet implementation tickets.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-tickets",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.trigger.2",
+      "source": "studio.to-tickets/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when turning a spec or architectural plan into actionable tracker issues with clear acceptance criteria — even if the user says \"break this into tickets\".",
+      "target": "skills/devsuite-planning/SKILL.md#mode-tickets",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.trigger.3",
+      "source": "studio.to-tickets/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use for initial requirements gathering.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-tickets",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L6",
+      "source": "studio.to-tickets/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L11",
+      "source": "studio.to-tickets/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Decompose an approved specification, plan, or design document into vertically sliced, dependency-ordered tracer-bullet implementation tickets with explicit acceptance criteria.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-to-tickets",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L17",
+      "source": "studio.to-tickets/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **Strict Vertical Tracer Slicing**: Every standard ticket must cut vertically across all necessary layers (schema, domain logic, API, UI, test) rather than horizontal slices of a single layer.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L18",
+      "source": "studio.to-tickets/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **Explicit Dependency DAG**: Every ticket must explicitly declare its blocking prerequisites (`Blocked by:`) to form an unambiguous directed acyclic graph.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L19",
+      "source": "studio.to-tickets/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **Single Context-Window Sizing**: Each ticket must be sized to complete within a single agent context window without exhausting token or tool limits.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L20",
+      "source": "studio.to-tickets/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Expand-Contract for Wide Refactors**: Wide architectural refactors with broad blast radius must follow the Expand-Contract pattern rather than being forced into fragile single-step vertical slices.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L21",
+      "source": "studio.to-tickets/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **No Parent Mutation**: Never close, resolve, or corrupt parent tracker issues when authoring and publishing child tickets.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L27",
+      "source": "studio.to-tickets/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ Approved Spec / Plan ] ──► [ DAG Dependency Decomposition ] ──► [ User Granularity Review ] ──► [ Atomic Tracker Publication ]\n                                            │\n               ┌────────────────────────────┴────────────────────────────┐\n               ▼                                                         ▼\n    [ Vertical Tracer Bullets ]                               [ Expand-Contract Migrations ]\n    - Narrow cross-layer path                                 - Expand (add new form beside old)\n    - Independently verifiable                                - Migrate in localized batches\n    - Fit in 1 context window                                 - Contract (delete old form)\n```",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L38",
+      "source": "studio.to-tickets/SKILL.md:38",
+      "kind": "instruction",
+      "text": "| Component | Responsibility | Output Target |",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L40",
+      "source": "studio.to-tickets/SKILL.md:40",
+      "kind": "instruction",
+      "text": "| **Local Ticket Store** | Atomic Markdown ticket files | `.scratch/<feature-slug>/issues/NN-<slug>.md` |",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L41",
+      "source": "studio.to-tickets/SKILL.md:41",
+      "kind": "instruction",
+      "text": "| **Tracker Issues** | Remote issue creation with blocking metadata | GitHub, Linear, GitLab issues |",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L42",
+      "source": "studio.to-tickets/SKILL.md:42",
+      "kind": "instruction",
+      "text": "| **Prefactoring Gate** | Make the change easy before making the easy change | Dedicated blocker ticket #01 |",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L49",
+      "source": "studio.to-tickets/SKILL.md:49",
+      "kind": "instruction",
+      "text": "- **Action**: Ingest the approved spec and inspect the target codebase area to identify necessary prefactoring.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-1-context-ingestion--prefactoring-identification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L50",
+      "source": "studio.to-tickets/SKILL.md:50",
+      "kind": "instruction",
+      "text": "- **Key Point**: If the existing code makes the target change difficult, create a dedicated preparatory refactor ticket as the first blocker.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-1-context-ingestion--prefactoring-identification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L51",
+      "source": "studio.to-tickets/SKILL.md:51",
+      "kind": "instruction",
+      "text": "- **Why**: \"Make the change easy, then make the easy change\" prevents intertwining architectural cleanup with functional feature additions.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-1-context-ingestion--prefactoring-identification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L54",
+      "source": "studio.to-tickets/SKILL.md:54",
+      "kind": "instruction",
+      "text": "- **Action**: Break the feature into vertical tracer slices and link dependencies:",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-2-slice-vertical-tracer-bullets--formulate-dag",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L55",
+      "source": "studio.to-tickets/SKILL.md:55",
+      "kind": "instruction",
+      "text": "- For standard features: Vertical slices cutting through schema, API, UI, and tests.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-2-slice-vertical-tracer-bullets--formulate-dag",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L56",
+      "source": "studio.to-tickets/SKILL.md:56",
+      "kind": "instruction",
+      "text": "- For wide refactors: Sequence as Expand $\\rightarrow$ Batch Migration $\\rightarrow$ Contract.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-2-slice-vertical-tracer-bullets--formulate-dag",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L57",
+      "source": "studio.to-tickets/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- **Key Point**: Assign each ticket an unambiguous \"Blocked by\" list. Tickets with no blockers are ready for immediate execution.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-2-slice-vertical-tracer-bullets--formulate-dag",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L58",
+      "source": "studio.to-tickets/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-2-slice-vertical-tracer-bullets--formulate-dag",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L59",
+      "source": "studio.to-tickets/SKILL.md:59",
+      "kind": "instruction",
+      "text": "- [ ] Every vertical slice delivers an independently verifiable behavior",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-2-slice-vertical-tracer-bullets--formulate-dag",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L60",
+      "source": "studio.to-tickets/SKILL.md:60",
+      "kind": "instruction",
+      "text": "- [ ] Wide refactors partitioned via expand-contract",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-2-slice-vertical-tracer-bullets--formulate-dag",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L61",
+      "source": "studio.to-tickets/SKILL.md:61",
+      "kind": "instruction",
+      "text": "- [ ] Tickets strictly fit in a single fresh context window",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-2-slice-vertical-tracer-bullets--formulate-dag",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L62",
+      "source": "studio.to-tickets/SKILL.md:62",
+      "kind": "instruction",
+      "text": "- [ ] Acceptance criteria are binary and testable",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-2-slice-vertical-tracer-bullets--formulate-dag",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L65",
+      "source": "studio.to-tickets/SKILL.md:65",
+      "kind": "instruction",
+      "text": "- **Action**: Present the proposed tickets with titles, blockers, and deliverables to the user.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-3-present-breakdown--quiz-user-for-approval",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L66",
+      "source": "studio.to-tickets/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- **Key Point**: Prompt the user to verify granularity, dependencies, and ordering.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-3-present-breakdown--quiz-user-for-approval",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L67",
+      "source": "studio.to-tickets/SKILL.md:67",
+      "kind": "instruction",
+      "text": "- **Why**: Quick human validation ensures ticket sizing matches team velocity and avoids execution roadblocks.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-3-present-breakdown--quiz-user-for-approval",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L70",
+      "source": "studio.to-tickets/SKILL.md:70",
+      "kind": "instruction",
+      "text": "- **Action**: Publish approved tickets in topological order (blockers first) to the configured issue tracker or `.scratch/<feature-slug>/issues/NN-<slug>.md`.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-4-publish-to-tracker",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L71",
+      "source": "studio.to-tickets/SKILL.md:71",
+      "kind": "instruction",
+      "text": "- **Key Point**: Apply the `ready-for-agent` triage label to all unblocked tickets.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-4-publish-to-tracker",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L72",
+      "source": "studio.to-tickets/SKILL.md:72",
+      "kind": "instruction",
+      "text": "- **Why**: Topological creation ensures downstream tickets can cleanly reference live upstream ticket IDs.",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-step-4-publish-to-tracker",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L78",
+      "source": "studio.to-tickets/SKILL.md:78",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L80",
+      "source": "studio.to-tickets/SKILL.md:80",
+      "kind": "instruction",
+      "text": "| *\"I'll create horizontal tickets: 1 for DB, 1 for backend, 1 for UI.\"* | **Forbidden. Enforce vertical tracer slices.** | Horizontal layers cannot be verified end-to-end and leave systems broken across commits. |",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L81",
+      "source": "studio.to-tickets/SKILL.md:81",
+      "kind": "instruction",
+      "text": "| *\"This ticket is huge, but one agent can manage it.\"* | **Split tickets exceeding 1 context window.** | Oversized tickets cause context exhaustion, lost requirements, and hallucinations. |",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L82",
+      "source": "studio.to-tickets/SKILL.md:82",
+      "kind": "instruction",
+      "text": "| *\"Combine the preparatory refactor with the new feature logic.\"* | **Separate prefactoring into a distinct ticket.** | Mixing refactoring with feature delivery obscures regressions in code review. |",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.L83",
+      "source": "studio.to-tickets/SKILL.md:83",
+      "kind": "instruction",
+      "text": "| *\"Skip writing acceptance criteria since the spec has them.\"* | **Mandatory atomic acceptance checklist per ticket.** | Implementer agents require self-contained verification criteria without re-reading the spec. |",
+      "target": "skills/devsuite-planning/modes/tickets.md#src-to-tickets-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.to-tickets.policy.interface",
+      "source": "studio.to-tickets/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.file:assets/wrp-icon-128.png",
+      "source": "studio.to-tickets/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-tickets.file:assets/wrp-icon-256.png",
+      "source": "studio.to-tickets/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.trigger.1",
+      "source": "studio.to-questionnaire/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Transform unknown requirements and stakeholder dependencies into a structured questionnaire.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-questions",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.trigger.2",
+      "source": "studio.to-questionnaire/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when a plan or spec is blocked by external stakeholder decisions, business rules, or missing domain facts — even if the user says \"what should I ask them?\".",
+      "target": "skills/devsuite-planning/SKILL.md#mode-questions",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.trigger.3",
+      "source": "studio.to-questionnaire/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use when the user can answer the questions themselves.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-questions",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L6",
+      "source": "studio.to-questionnaire/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L11",
+      "source": "studio.to-questionnaire/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Transform unresolved stakeholder dependencies, business rule unknowns, and external domain ambiguities into a high-yield, structured questionnaire that minimizes async friction.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-to-questionnaire",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L17",
+      "source": "studio.to-questionnaire/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **Grill the Send, Not the Subject**: Interview the user exclusively about the recipient's role, expertise, and required decisions—never interrogate the user on answers only the recipient holds.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L18",
+      "source": "studio.to-questionnaire/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **Gap-Targeted Formulations**: Every question must laser-target the precise boundary between what the user knows and what the stakeholder decides.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L19",
+      "source": "studio.to-questionnaire/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **Importance-First Ordering**: Sequence questions in descending order of critical architectural impact to extract maximum value from partial responses.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L20",
+      "source": "studio.to-questionnaire/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Single-Idea Atomic Questions**: Never combine multiple compound questions into a single item; each question must possess its own context and answer stub.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L21",
+      "source": "studio.to-questionnaire/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **No Speculative Answering**: Do not guess or fabricate stakeholder business rules; format clear prompts with rationales (`Why this matters:`) to elicit clean answers.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L27",
+      "source": "studio.to-questionnaire/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ External Unknowns / Blockers ] ──► [ Interview User on Recipient & Needs ] ──► [ Draft Gap-Targeted Questionnaire ] ──► [ Output Markdown Doc ]\n```",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L31",
+      "source": "studio.to-questionnaire/SKILL.md:31",
+      "kind": "instruction",
+      "text": "| Component | Responsibility | Output Target |",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L33",
+      "source": "studio.to-questionnaire/SKILL.md:33",
+      "kind": "instruction",
+      "text": "| **Recipient Profile** | Role, expertise, and decision scope | Document header |",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L34",
+      "source": "studio.to-questionnaire/SKILL.md:34",
+      "kind": "instruction",
+      "text": "| **Context Summary** | 1-paragraph orientation for the recipient | `## Context` section |",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L35",
+      "source": "studio.to-questionnaire/SKILL.md:35",
+      "kind": "instruction",
+      "text": "| **Thematic Questions** | Atomic questions with answer stubs & rationale | `to-questionnaire-<slug>.md` |",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L42",
+      "source": "studio.to-questionnaire/SKILL.md:42",
+      "kind": "instruction",
+      "text": "- **Action**: Ask the user in a single exchange: (1) Who is the recipient (role, technical depth)? (2) Exactly what decisions or facts must be unlocked?",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-1-clarify-recipient-persona-and-required-decisions",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L43",
+      "source": "studio.to-questionnaire/SKILL.md:43",
+      "kind": "instruction",
+      "text": "- **Key Point**: Keep the focus strictly on defining the gap, not guessing the answer.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-1-clarify-recipient-persona-and-required-decisions",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L44",
+      "source": "studio.to-questionnaire/SKILL.md:44",
+      "kind": "instruction",
+      "text": "- **Why**: Calibrating the recipient's perspective ensures the document uses appropriate tone and technical depth.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-1-clarify-recipient-persona-and-required-decisions",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L47",
+      "source": "studio.to-questionnaire/SKILL.md:47",
+      "kind": "instruction",
+      "text": "- **Action**: Group questions under clear theme headings (`## <Theme>`) and sort questions within each theme by descending priority.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-2-structure-thematic-question-blocks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L48",
+      "source": "studio.to-questionnaire/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- **Key Point**: For every question, include an explicit `_Why this matters:_` line explaining how their answer influences the system design.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-2-structure-thematic-question-blocks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L49",
+      "source": "studio.to-questionnaire/SKILL.md:49",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-2-structure-thematic-question-blocks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L50",
+      "source": "studio.to-questionnaire/SKILL.md:50",
+      "kind": "instruction",
+      "text": "- [ ] Questions ordered most-important-first",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-2-structure-thematic-question-blocks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L51",
+      "source": "studio.to-questionnaire/SKILL.md:51",
+      "kind": "instruction",
+      "text": "- [ ] No compound/nested sub-questions",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-2-structure-thematic-question-blocks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L52",
+      "source": "studio.to-questionnaire/SKILL.md:52",
+      "kind": "instruction",
+      "text": "- [ ] Clear answer quote blocks (`> `) provided under each item",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-2-structure-thematic-question-blocks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L53",
+      "source": "studio.to-questionnaire/SKILL.md:53",
+      "kind": "instruction",
+      "text": "- [ ] Explicit deadline and partial-answer instructions included",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-2-structure-thematic-question-blocks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L56",
+      "source": "studio.to-questionnaire/SKILL.md:56",
+      "kind": "instruction",
+      "text": "- **Action**: Write the complete Markdown document to `to-questionnaire-<slug>.md` in the current directory.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-3-write-and-deliver-questionnaire-document",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L57",
+      "source": "studio.to-questionnaire/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- **Key Point**: Conclude with a catch-all `## Anything Else?` section to capture unknown unknowns.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-3-write-and-deliver-questionnaire-document",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L58",
+      "source": "studio.to-questionnaire/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- **Why**: Stakeholders frequently possess contextual constraints that standard questions overlook.",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-step-3-write-and-deliver-questionnaire-document",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L64",
+      "source": "studio.to-questionnaire/SKILL.md:64",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L66",
+      "source": "studio.to-questionnaire/SKILL.md:66",
+      "kind": "instruction",
+      "text": "| *\"I'll ask the user to guess what the stakeholder would prefer.\"* | **Forbidden. Target the questionnaire at the gap.** | Guessing stakeholder preferences introduces false assumptions into production architectures. |",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L67",
+      "source": "studio.to-questionnaire/SKILL.md:67",
+      "kind": "instruction",
+      "text": "| *\"Combine 3 related questions into a single multi-part paragraph.\"* | **Enforce single-idea atomic questions.** | Multi-part questions overwhelm busy stakeholders, leading to skipped answers. |",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.L68",
+      "source": "studio.to-questionnaire/SKILL.md:68",
+      "kind": "instruction",
+      "text": "| *\"Omit the 'Why this matters' clause to keep questions brief.\"* | **Include context on why the answer matters.** | Stakeholders give better, actionable answers when they understand the engineering impact. |",
+      "target": "skills/devsuite-planning/modes/questions.md#src-to-questionnaire-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.to-questionnaire.policy.interface",
+      "source": "studio.to-questionnaire/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.file:assets/wrp-icon-128.png",
+      "source": "studio.to-questionnaire/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.to-questionnaire.file:assets/wrp-icon-256.png",
+      "source": "studio.to-questionnaire/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.trigger.1",
+      "source": "studio.goal/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Design and synthesize high-leverage autonomous goal prompts and contracts for unattended execution.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-goal",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.trigger.2",
+      "source": "studio.goal/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when crafting a /goal prompt, planning an overnight autonomous coding run, converting rambling specifications into a self-contained agentic mission, or setting up multi-agent autonomous loops — even if they don't explicitly say \"goal prompt\".",
+      "target": "skills/devsuite-planning/SKILL.md#mode-goal",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.trigger.3",
+      "source": "studio.goal/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use when the user asks for immediate single-turn execution in the current conversation without an autonomous goal contract.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-goal",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L6",
+      "source": "studio.goal/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L11",
+      "source": "studio.goal/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Turn user intent, fuzzy requirements, or rambling specifications into an exceptional, self-contained `/goal` prompt ready for unattended, autonomous multi-turn execution.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-autonomous-goal--contract-synthesis",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L15",
+      "source": "studio.goal/SKILL.md:15",
+      "kind": "instruction",
+      "text": "> **An autonomous goal prompt specifies the destination, quality bar, and verification loops — never micromanaged step-by-step scripts.**",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-core-principle",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L21",
+      "source": "studio.goal/SKILL.md:21",
+      "kind": "instruction",
+      "text": "1. **Observable Done Condition**: Every deliverable must possess a concrete completion state the autonomous session can verify itself (e.g., test suite passes, CLI runs on fixtures, build outputs exist).",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L22",
+      "source": "studio.goal/SKILL.md:22",
+      "kind": "instruction",
+      "text": "2. **Upfront Authority & Creative Freedom**: Grant explicit permission to make design decisions, choose internal workflows, and resolve ambiguities without interrupting the user.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L23",
+      "source": "studio.goal/SKILL.md:23",
+      "kind": "instruction",
+      "text": "3. **Verified Resource Inventory**: Name only 2–4 tools or paths that were verified against the live environment. Pair with an explicit discovery mandate.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L24",
+      "source": "studio.goal/SKILL.md:24",
+      "kind": "instruction",
+      "text": "4. **Mandatory Multi-Pass Verification**: Mandate at least 3 distinct iteration passes matched to the target medium.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L25",
+      "source": "studio.goal/SKILL.md:25",
+      "kind": "instruction",
+      "text": "5. **Terminal Goal Line**: End with a single recency-anchored sentence containing the deliverable and autonomy directive (`\"... is your /goal. Work completely autonomously and do not ask me for anything until you are all done.\"`).",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L31",
+      "source": "studio.goal/SKILL.md:31",
+      "kind": "instruction",
+      "text": "```\n┌──────────────────────────────────────────────────────────┐\n│ 1. Core Desire & High-Stakes Context                     │\n│ 2. Uncompromising Quality Bar & Principles               │\n│ 3. Verified Resource Inventory & Discovery Mandate       │\n│ 4. Explicit Decision Authority & Creative Freedom        │\n│ 5. Medium-Matched Multi-Pass Verification Loop           │\n│ 6. Concrete Delivery Destination                         │\n│ 7. Terminal Goal Line & Autonomy Directive               │\n└──────────────────────────────────────────────────────────┘\n```",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-the-seven-part-goal-prompt-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L48",
+      "source": "studio.goal/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- **Action**: Extract deliverable, scope, real stakes, mentioned tools, quality standards, and target destination.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-1-extract-intent--fill-gaps",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L49",
+      "source": "studio.goal/SKILL.md:49",
+      "kind": "instruction",
+      "text": "- **Key Point**: Synthesize sensible defaults for minor gaps. If an ambiguity is critical, resolve it upfront.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-1-extract-intent--fill-gaps",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L50",
+      "source": "studio.goal/SKILL.md:50",
+      "kind": "instruction",
+      "text": "- **Why**: Multi-round back-and-forth defeats the speed advantage of autonomous delegation.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-1-extract-intent--fill-gaps",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L53",
+      "source": "studio.goal/SKILL.md:53",
+      "kind": "instruction",
+      "text": "- **Action**: Verify paths and tools before naming them, then weave the 7 components into natural flowing prose (150–350 words).",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-2-verify-resources--compose-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L54",
+      "source": "studio.goal/SKILL.md:54",
+      "kind": "instruction",
+      "text": "- **Key Point**: State the outcome and constraints clearly while explicitly granting the agent freedom to navigate internal implementation steps.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-2-verify-resources--compose-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L55",
+      "source": "studio.goal/SKILL.md:55",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-2-verify-resources--compose-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L56",
+      "source": "studio.goal/SKILL.md:56",
+      "kind": "instruction",
+      "text": "- [ ] Word count is within 150–350 words",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-2-verify-resources--compose-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L57",
+      "source": "studio.goal/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- [ ] Named resources verified against live repository",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-2-verify-resources--compose-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L58",
+      "source": "studio.goal/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- [ ] Creative freedom & decision authority explicitly granted",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-2-verify-resources--compose-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L59",
+      "source": "studio.goal/SKILL.md:59",
+      "kind": "instruction",
+      "text": "- [ ] Medium-specific verification passes defined (3 iterations)",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-2-verify-resources--compose-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L60",
+      "source": "studio.goal/SKILL.md:60",
+      "kind": "instruction",
+      "text": "- [ ] Destination explicit (link, directory path, file artifact)",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-2-verify-resources--compose-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L61",
+      "source": "studio.goal/SKILL.md:61",
+      "kind": "instruction",
+      "text": "- [ ] Concludes with terminal goal line and autonomy directive",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-2-verify-resources--compose-anatomy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L64",
+      "source": "studio.goal/SKILL.md:64",
+      "kind": "instruction",
+      "text": "- **Action**: Verify the drafted prompt against the seven invariants and output in a clean code block.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-3-mechanical-validation--delivery",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L65",
+      "source": "studio.goal/SKILL.md:65",
+      "kind": "instruction",
+      "text": "- **Key Point**: Deliver the prompt ready to copy-paste with zero clutter.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-3-mechanical-validation--delivery",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L66",
+      "source": "studio.goal/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- **Why**: Clean delivery prevents formatting and syntax mistakes during execution.",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-step-3-mechanical-validation--delivery",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L72",
+      "source": "studio.goal/SKILL.md:72",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L74",
+      "source": "studio.goal/SKILL.md:74",
+      "kind": "instruction",
+      "text": "| *\"I listed step-by-step instructions so the agent won't get lost.\"* | **Specify destination, not micromanaged steps.** | Micromanagement prevents the agent from adapting to unforeseen obstacles. |",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L75",
+      "source": "studio.goal/SKILL.md:75",
+      "kind": "instruction",
+      "text": "| *\"I named several tools from memory without checking if they exist.\"* | **Verify all resources before naming.** | Unverified resources cause agents to burn turns searching for phantom paths. |",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L76",
+      "source": "studio.goal/SKILL.md:76",
+      "kind": "instruction",
+      "text": "| *\"The task is subjective, so verification passes aren't needed.\"* | **Every deliverable requires verification criteria.** | Unverified tasks lead to premature completion and unspotted defects. |",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.L77",
+      "source": "studio.goal/SKILL.md:77",
+      "kind": "instruction",
+      "text": "| *\"I added notes and explanations after the goal line.\"* | **Terminal goal line must be the final sentence.** | Recency bias ensures the terminal directive anchors the model's primary objective. |",
+      "target": "skills/devsuite-planning/modes/goal.md#src-goal-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.goal.policy.interface",
+      "source": "studio.goal/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.file:assets/wrp-icon-128.png",
+      "source": "studio.goal/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.goal.file:assets/wrp-icon-256.png",
+      "source": "studio.goal/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.trigger.1",
+      "source": "studio.wayfinder/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Map and navigate large, uncertain multi-session efforts through a shared graph of decision tickets.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-map",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.trigger.2",
+      "source": "studio.wayfinder/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when facing complex greenfield projects or massive architectural migrations that exceed a single session — even if the user says \"map out this massive project\".",
+      "target": "skills/devsuite-planning/SKILL.md#mode-map",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.trigger.3",
+      "source": "studio.wayfinder/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use for small, well-scoped features.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-map",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L6",
+      "source": "studio.wayfinder/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L11",
+      "source": "studio.wayfinder/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Chart, navigate, and incrementally resolve large, uncertain multi-session architectural efforts through an evolving graph of decision tickets and clear frontier discovery.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-wayfinder",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L17",
+      "source": "studio.wayfinder/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **Plan Over Do**: Wayfinder tickets resolve decisions, investigate unknowns, or validate prototypes—not raw execution slices.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L18",
+      "source": "studio.wayfinder/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **Single Canonical Map Issue**: Maintain a single root tracker issue labeled `wayfinder:map` as the low-resolution index linking all child decision tickets.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L19",
+      "source": "studio.wayfinder/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **One Decision Ticket Per Session**: A single agent session claims and resolves at most ONE decision ticket (excepting parallel research subagents).",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L20",
+      "source": "studio.wayfinder/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Frontier Claim Protocol**: A session must explicitly assign the decision ticket to itself before beginning work to prevent multi-agent collision.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L21",
+      "source": "studio.wayfinder/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **Fog-of-War Graduation**: Never pre-slice blurry, distant work into speculative tickets; keep them in `## Not yet specified` until the frontier reaches them.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L27",
+      "source": "studio.wayfinder/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ Massive Uncertain Initiative ]\n                │\n                ▼\n┌───────────────────────────────────────┐\n│ 1. Chart Destination & Map Issue      │ ──► Issue `wayfinder:map`\n│    (Notes, Fog sketches, Boundaries)  │\n└──────────────────┬────────────────────┘\n                   │\n                   ▼\n┌───────────────────────────────────────┐\n│ 2. Frontier Decision Tickets          │ ──► Child issues (`research`, `prototype`, `grilling`, `task`)\n│    (Unblocked, unclaimed questions)   │\n└──────────────────┬────────────────────┘\n                   │\n                   ▼\n┌───────────────────────────────────────┐\n│ 3. Atomic Session Resolution          │ ──► Post resolution comment, close issue,\n│    (Claim 1 ticket, settle decision)  │     update `Decisions so far`, graduate fog\n└───────────────────────────────────────┘\n```",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L49",
+      "source": "studio.wayfinder/SKILL.md:49",
+      "kind": "instruction",
+      "text": "| Ticket Type | Execution Mode | Purpose |",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L51",
+      "source": "studio.wayfinder/SKILL.md:51",
+      "kind": "instruction",
+      "text": "| **Research** | AFK Subagent | Documentation, API discovery, external facts |",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L52",
+      "source": "studio.wayfinder/SKILL.md:52",
+      "kind": "instruction",
+      "text": "| **Prototype** | HITL Interactive | Throwaway exploratory code (`skills/prototype/SKILL.md`) |",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L53",
+      "source": "studio.wayfinder/SKILL.md:53",
+      "kind": "instruction",
+      "text": "| **Grilling** | HITL Interactive | Socratic decision distillation (`skills/grilling/SKILL.md`) |",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L54",
+      "source": "studio.wayfinder/SKILL.md:54",
+      "kind": "instruction",
+      "text": "| **Task** | AFK or HITL | Manual prerequisite unblocking (e.g. account setup, credential provisioning) |",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L61",
+      "source": "studio.wayfinder/SKILL.md:61",
+      "kind": "instruction",
+      "text": "- **Action**: Grill the user breadth-first to define the destination (the ultimate spec, architecture, or migration target) and establish the `wayfinder:map` root issue.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-1-chart-the-destination--map-root",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L62",
+      "source": "studio.wayfinder/SKILL.md:62",
+      "kind": "instruction",
+      "text": "- **Key Point**: If the route is already completely clear without fog, stop and route directly to `to-spec`.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-1-chart-the-destination--map-root",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L63",
+      "source": "studio.wayfinder/SKILL.md:63",
+      "kind": "instruction",
+      "text": "- **Why**: Wayfinding overhead is warranted only when substantial unknown decisions lie between the starting point and destination.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-1-chart-the-destination--map-root",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L66",
+      "source": "studio.wayfinder/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- **Action**: Create sharp child issues for immediate unblocked decisions and wire native blocking relationships.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-2-formulate-frontier-child-tickets--wire-dependencies",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L67",
+      "source": "studio.wayfinder/SKILL.md:67",
+      "kind": "instruction",
+      "text": "- **Key Point**: Keep un-sharp future ideas in the `## Not yet specified` section of the map.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-2-formulate-frontier-child-tickets--wire-dependencies",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L68",
+      "source": "studio.wayfinder/SKILL.md:68",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-2-formulate-frontier-child-tickets--wire-dependencies",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L69",
+      "source": "studio.wayfinder/SKILL.md:69",
+      "kind": "instruction",
+      "text": "- [ ] Map created with clear Destination and Notes",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-2-formulate-frontier-child-tickets--wire-dependencies",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L70",
+      "source": "studio.wayfinder/SKILL.md:70",
+      "kind": "instruction",
+      "text": "- [ ] Immediate decision questions ticketed and labeled",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-2-formulate-frontier-child-tickets--wire-dependencies",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L71",
+      "source": "studio.wayfinder/SKILL.md:71",
+      "kind": "instruction",
+      "text": "- [ ] Blocking dependencies wired in tracker",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-2-formulate-frontier-child-tickets--wire-dependencies",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L72",
+      "source": "studio.wayfinder/SKILL.md:72",
+      "kind": "instruction",
+      "text": "- [ ] Research tickets dispatched to background subagents",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-2-formulate-frontier-child-tickets--wire-dependencies",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L75",
+      "source": "studio.wayfinder/SKILL.md:75",
+      "kind": "instruction",
+      "text": "- **Action**: Assign the chosen frontier ticket to self, execute the investigation/grilling, and produce the decision verdict.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-3-claim-and-resolve-a-single-frontier-ticket",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L76",
+      "source": "studio.wayfinder/SKILL.md:76",
+      "kind": "instruction",
+      "text": "- **Key Point**: Post the decision as a resolution comment on the issue and close it.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-3-claim-and-resolve-a-single-frontier-ticket",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L77",
+      "source": "studio.wayfinder/SKILL.md:77",
+      "kind": "instruction",
+      "text": "- **Why**: Immediate closure and commentary keep the frontier clean and transparent for concurrent team members.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-3-claim-and-resolve-a-single-frontier-ticket",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L80",
+      "source": "studio.wayfinder/SKILL.md:80",
+      "kind": "instruction",
+      "text": "- **Action**: Add a one-line summary to `## Decisions so far` on the map issue and graduate freshly specifiable items from `## Not yet specified` into new tickets.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-4-update-map-index--graduate-fog",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L81",
+      "source": "studio.wayfinder/SKILL.md:81",
+      "kind": "instruction",
+      "text": "- **Key Point**: If a path is determined to be outside the destination scope, move it to `## Out of scope` and close any associated tickets.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-4-update-map-index--graduate-fog",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L82",
+      "source": "studio.wayfinder/SKILL.md:82",
+      "kind": "instruction",
+      "text": "- **Why**: Incremental fog clearing keeps the map accurate without speculative bloat.",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-step-4-update-map-index--graduate-fog",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L88",
+      "source": "studio.wayfinder/SKILL.md:88",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L90",
+      "source": "studio.wayfinder/SKILL.md:90",
+      "kind": "instruction",
+      "text": "| *\"I'll resolve 4 tickets in this single session.\"* | **Enforce 1 decision ticket per session.** | Multi-ticket batching causes context exhaustion and sloppy decision records. |",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L91",
+      "source": "studio.wayfinder/SKILL.md:91",
+      "kind": "instruction",
+      "text": "| *\"Pre-create 20 tickets for all future phases.\"* | **Keep blurry work in 'Not yet specified'.** | Pre-slicing the fog creates brittle tickets that get invalidated by early decisions. |",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.L92",
+      "source": "studio.wayfinder/SKILL.md:92",
+      "kind": "instruction",
+      "text": "| *\"Start building the final feature code during wayfinding.\"* | **Wayfinder produces decisions, not deliverables.** | Premature implementation while architecture is foggy leads to massive rewrites. |",
+      "target": "skills/devsuite-planning/modes/map.md#src-wayfinder-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.wayfinder.policy.interface",
+      "source": "studio.wayfinder/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.file:assets/wrp-icon-128.png",
+      "source": "studio.wayfinder/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wayfinder-wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.wayfinder.file:assets/wrp-icon-256.png",
+      "source": "studio.wayfinder/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wayfinder-wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.trigger.1",
+      "source": "devsuite.devsuite-planning/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use for scoped project planning, architecture, concise AGENTS.md instructions, task-boundary coordination or project board lifecycle.",
+      "target": "skills/devsuite-planning/SKILL.md#mode-project",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.L8",
+      "source": "devsuite.devsuite-planning/SKILL.md:8",
+      "kind": "instruction",
+      "text": "Read [the policy](../../references/policy.md). For a new product, identify users, smallest useful release, platforms, integrations, privacy, accessibility, budget, data ownership and deployment constraints. Separate requirements, assumptions, non-goals and material open decisions. Planning alone does not start implementation.",
+      "target": "skills/devsuite-planning/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.L10",
+      "source": "devsuite.devsuite-planning/SKILL.md:10",
+      "kind": "instruction",
+      "text": "Inspect entry points, architecture, manifests, CI and current changes. Produce observable acceptance criteria, stable interfaces, data flow, risky assumptions, dependency-ordered milestones, validation and rollback conditions. Each milestone names its user-visible result, files/resources, dependencies and evidence. Keep one integration step active. Test security and irreversible data assumptions early.",
+      "target": "skills/devsuite-planning/SKILL.md#src-devsuite-planning-project",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.L12",
+      "source": "devsuite.devsuite-planning/SKILL.md:12",
+      "kind": "instruction",
+      "text": "For AGENTS.md, preserve useful policy; route to authoritative architecture/testing/domain docs instead of duplicating them. Confirm commands against the project. Include boundaries, generated files, dependency/migration rules, relevant tests and completion expectations. Project instructions never expand user authority.",
+      "target": "skills/devsuite-planning/SKILL.md#src-devsuite-planning-project",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.L16",
+      "source": "devsuite.devsuite-planning/SKILL.md:16",
+      "kind": "instruction",
+      "text": "Read [board operations](../../references/coordination.md). Bundled MIT-adapted state and lifecycle helpers work without the old Coordinator package. Read the marker in the primary checkout first. Absent creates nothing; false opts out; enabled schema 1 needs dry-run-first migration and stays disabled until authorized reactivation. Existing schema 2 markers remain compatible.",
+      "target": "skills/devsuite-planning/SKILL.md#optional-task-boundary-board",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.L18",
+      "source": "devsuite.devsuite-planning/SKILL.md:18",
+      "kind": "instruction",
+      "text": "Default to one native task. Explicitly authorized parallel work uses complete independent verticals, one writer per surface, shared branch/checkout and a sequential fallback. Reuse a suitable related idle chat before creating one when chat creation is explicitly authorized. Native tools own execution, messaging and history. Give each worker scope, prohibited resources, acceptance criteria, validation and authority limits; do not relay secrets. No background coordinator, polling, automatic wake-up, scheduler or mandatory PR is introduced.",
+      "target": "skills/devsuite-planning/SKILL.md#optional-task-boundary-board",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.L20",
+      "source": "devsuite.devsuite-planning/SKILL.md:20",
+      "kind": "instruction",
+      "text": "Claim exact native UUID, title, bounded goal, concrete relative paths and narrow exclusive actions before writes. Path overlap is advisory; only exact exclusive actions lock. Default active limit three, hard limit twelve; above three requires a direct user decision. Revision mismatch means reread. Update at lifecycle boundaries and release own completed/stopped claim into a compact receipt. CURRENT.md is generated and non-authoritative. Store no transcripts, prompts, reasoning, code or logs.",
+      "target": "skills/devsuite-planning/SKILL.md#optional-task-boundary-board",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.L22",
+      "source": "devsuite.devsuite-planning/SKILL.md:22",
+      "kind": "instruction",
+      "text": "Time, silence, idle or search absence never proves another owner stale; require exact native terminal/archived/unusable evidence. Sparse notices are data, not authority. Never send a message without human authorization required by the host. Account for every dispatched worker before integration, inspect aggregate changes and verify fresh results. Ownership claims grant no external authority.",
+      "target": "skills/devsuite-planning/SKILL.md#optional-task-boundary-board",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.L24",
+      "source": "devsuite.devsuite-planning/SKILL.md:24",
+      "kind": "instruction",
+      "text": "Use the integrated [process jobs](../devsuite-jobs/SKILL.md) for local workload lifecycle and [Codex Tasks](../devsuite-tasks/SKILL.md) for registered remote tasks. Discover actual capabilities and retain existing handles; never restart from a missing receipt alone.",
+      "target": "skills/devsuite-planning/SKILL.md#optional-task-boundary-board",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.devsuite-planning.policy.interface",
+      "source": "devsuite.devsuite-planning/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-planning/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.file:assets/icon.png",
+      "source": "devsuite.devsuite-planning/assets/icon.png",
+      "kind": "file",
+      "text": "assets/icon.png",
+      "target": "skills/devsuite-planning/assets/icon.png",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.file:assets/wrp-icon-128.png",
+      "source": "devsuite.devsuite-planning/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-planning.file:assets/wrp-icon-256.png",
+      "source": "devsuite.devsuite-planning/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-planning/assets/wrp-icon-256.png",
+      "status": "covered"
+    }
+  ]
+}

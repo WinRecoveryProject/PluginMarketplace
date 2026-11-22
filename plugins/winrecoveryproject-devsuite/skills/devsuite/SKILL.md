@@ -12,7 +12,7 @@ Read [the policy](../../references/policy.md). Select one owned workflow for the
 - Feature tests or broad QA: [testing](../devsuite-test/SKILL.md). Independent review, patch risk or release readiness: [review](../devsuite-review/SKILL.md).
 - Repository/diff audit, threat modeling, discovery, triage and validation: [security assessment](../devsuite-security-assess/SKILL.md).
 - Security fixes, hardening, policy, writeups and tracking: [security remediation](../devsuite-security-fix/SKILL.md).
-- Shared checks and existing Linter integration: [quality](../devsuite-quality/SKILL.md).
+- Shared checks and existing Linter integration: [review gate mode](../devsuite-review/modes/gate.md).
 - Interrupted work and session handoff: [handoff](../devsuite-handoff/SKILL.md).
 - Local/cloud workspaces, desktop, networking and tools: [environment](../devsuite-environment/SKILL.md).
 - Local builds, background job status/logs/results and safe cancellation: [process jobs](../devsuite-jobs/SKILL.md).

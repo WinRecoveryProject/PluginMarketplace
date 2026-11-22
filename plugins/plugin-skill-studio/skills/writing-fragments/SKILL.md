@@ -1,6 +1,6 @@
 ---
 name: writing-fragments
-description: "Capture and refine raw ideas, quotes, and observations before committing to an article outline. Use when collecting source material, brainstorming essay fragments, or exploring angles without structure pressure — even if the user says \"help me brainstorm notes\". Do NOT use for final draft formatting."
+description: "Capture and refine raw ideas, quotes, and observations before committing to an article outline. Use when collecting source material, studio-plan discover mode essay fragments, or exploring angles without structure pressure — even if the user says \"help me brainstorm notes\". Do NOT use for final draft formatting."
 ---
 
 Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.
@@ -64,5 +64,5 @@ Facilitate low-pressure idea capture and Socratic exploration by continuously ex
 |---|---|---|
 | *"Organize the raw fragments into numbered thematic sections."* | **Forbidden. Keep raw fragments unstructured.** | Premature organization closes off novel angles and creates cognitive friction. |
 | *"Overwrite the file with a newly organized version."* | **Append only; preserve human manual edits.** | Overwriting destroys out-of-band human phrasing and edits. |
-| *"Ask permission before writing every single fragment."* | **Append silently and mention in passing.** | Constant save confirmation prompts derail productive brainstorming flow. |
+| *"Ask permission before writing every single fragment."* | **Append silently and mention in passing.** | Constant save confirmation prompts derail productive studio-plan discover mode flow. |
 

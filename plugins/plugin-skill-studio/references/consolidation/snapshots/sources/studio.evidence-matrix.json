@@ -1,0 +1,11 @@
+{
+  "id": "studio.evidence-matrix",
+  "root": "plugins/plugin-skill-studio/skills/evidence-matrix",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "c7489df86bb279e93dfa05e6cc67703270e0f44909ca83ec29c72db2560b62cf",
+    "agents/openai.yaml": "1acba4bf0c4743162566f7152034540133489fb779825a28b82c59cdf452f0b5",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}

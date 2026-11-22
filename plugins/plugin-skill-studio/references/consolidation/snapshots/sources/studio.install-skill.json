@@ -1,0 +1,12 @@
+{
+  "id": "studio.install-skill",
+  "root": "plugins/plugin-skill-studio/skills/install-skill",
+  "commit": "1224266",
+  "files": {
+    "SKILL.md": "583a832001d2520ed13651c8b173de10d46f127811cb243acb696fc59f82a3b9",
+    "agents/openai.yaml": "9a2135ff5e54f9fccb59a5255453c0316c783c5785b8379c5e13776f0ba47cfb",
+    "assets/plugin-studio.svg": "66dcd8ed1e05a8de2e7b113d710c09b2c371761da90ea5bd8e7776a13fa16c4b",
+    "assets/wrp-icon-128.png": "faf5691223edca6e7032683534c0dfa7d0155e1998808af22aca48da172ab22d",
+    "assets/wrp-icon-256.png": "89ec8b1dd4bb8613ddabd6e6a4eb2cde20bd4c3040f41e417052fe500eb80cd9"
+  }
+}

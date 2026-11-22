@@ -1,0 +1,8 @@
+interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
+  display_name: "Studio Plan"
+  short_description: "Discover, interview, spec, plan, ticket and map work"
+  default_prompt: "Use $studio-plan for this task."
+policy:
+  allow_implicit_invocation: true

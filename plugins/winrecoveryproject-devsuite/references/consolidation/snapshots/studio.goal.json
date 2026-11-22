@@ -1,0 +1,11 @@
+{
+  "id": "studio.goal",
+  "root": "skills/goal",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "7ad2a77552a76818f9283048df2de1e49a55f46887c834c22cc3bf639353e539",
+    "agents/openai.yaml": "1e29c19b5b98b7e1e57d5cf9c7731a0146e5f72c525d9f22276fd2a231f3c341",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

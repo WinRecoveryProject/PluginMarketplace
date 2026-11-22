@@ -65,10 +65,6 @@
     "catalogId": "plugin-creator-plus@openai-curated-remote"
   },
   {
-    "publishedId": "plugin-eval@winrecoveryproject-digital",
-    "catalogId": "plugin-eval@openai-curated-remote"
-  },
-  {
     "publishedId": "sharepoint@winrecoveryproject-digital",
     "catalogId": "sharepoint@openai-curated-remote"
   },

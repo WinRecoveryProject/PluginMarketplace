@@ -1,0 +1,11 @@
+{
+  "id": "studio.risk-review",
+  "root": "skills/risk-review",
+  "commit": "9594376",
+  "files": {
+    "SKILL.md": "c7262ed5a80656946faa0411f7b042df8537b55aac27d661865412dd313ead03",
+    "agents/openai.yaml": "6116881a3ab6edc3e558a7a690af75269a426982b2f6e3547e6fc80435cdc82c",
+    "assets/wrp-icon-128.png": "adf724a5d85578e7ac4e1640bbd9ce4ae25dada578ccc1308391301fc8cb8998",
+    "assets/wrp-icon-256.png": "c2e53324c994a51d6e96239339e8662de4812c097dbc553daf5a372e86852dfe"
+  }
+}

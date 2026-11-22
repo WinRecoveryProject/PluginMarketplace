@@ -6,6 +6,7 @@ description: "Use when researching javascript syntax, runtime, parser and compon
 
 Read ../powershell-scaffold/references/language-docs.md and the `javascript` entry in
 ../../assets/language-documentation-catalog.json. Scope: ECMAScript versus Node/browser runtime and CommonJS versus ESM.
+Then read references/notes.md: version cues, primary sources, pitfalls and safe checks for this language.
 
 Open relevant primary sources before technical claims. Read ../../assets/component-parser-catalog.json
 for parser IDs/capability states and apply ../powershell-scaffold/references/component-pipeline.md

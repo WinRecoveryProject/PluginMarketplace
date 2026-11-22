@@ -409,22 +409,6 @@
       }
     },
     {
-      "name": "plugin-eval",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/openai/plugins.git",
-        "path": "plugins/plugin-eval"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Developer Tools",
-      "interface": {
-        "displayName": "Plugin Eval"
-      }
-    },
-    {
       "name": "winrecoveryproject-linter",
       "source": "./plugins/winrecoveryproject-linter",
       "policy": {

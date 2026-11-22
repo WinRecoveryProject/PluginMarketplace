@@ -1,0 +1,12 @@
+{
+  "id": "studio.writing-plans",
+  "root": "skills/writing-plans",
+  "commit": "4bbf25a",
+  "files": {
+    "SKILL.md": "ae95d1aee8c931f9a00f32b8d54a04921ccd1f1f4da7a047e3d8b9b02991c05e",
+    "agents/openai.yaml": "e8407c9d1669e6db28cbafefb3b49cc43482ce838f8fffc974a6addcc95f427c",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814",
+    "references/full-plan.md": "05223fbeb73718d02ca81a503fbd9dc2bddf63ddd23a4466fba79741269dd8b3"
+  }
+}

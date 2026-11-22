@@ -6,6 +6,7 @@ description: "Use when researching batch syntax, runtime, parser and component-c
 
 Read ../powershell-scaffold/references/language-docs.md and the `batch` entry in
 ../../assets/language-documentation-catalog.json. Scope: Batch file expansion, %% variables, delayed expansion, errorlevel and control flow.
+Then read references/notes.md: version cues, primary sources, pitfalls and safe checks for this language.
 
 Open relevant primary sources before technical claims. Read ../../assets/component-parser-catalog.json
 for parser IDs/capability states and apply ../powershell-scaffold/references/component-pipeline.md

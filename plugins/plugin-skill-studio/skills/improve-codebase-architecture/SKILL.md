@@ -32,7 +32,7 @@ Survey codebases for shallow modules, leaky abstractions, and weak seams, genera
 |---|---|---|
 | **Hotspot Scanner** | Identify frequently changed, high-friction files | Git log & subagent exploration |
 | **HTML Visual Report** | Render side-by-side Mermaid & Tailwind cards | `skills/improve-codebase-architecture/HTML-REPORT.md` |
-| **Candidate Deepening** | Socratic review of selected candidate | `skills/grilling/SKILL.md` + `skills/codebase-design/SKILL.md` |
+| **Candidate Deepening** | Socratic review of selected candidate | `skills/studio-plan/modes/interview.md` + `skills/codebase-design/SKILL.md` |
 
 ---
 

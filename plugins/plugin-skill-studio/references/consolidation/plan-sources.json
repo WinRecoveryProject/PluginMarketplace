@@ -1,0 +1,42 @@
+[
+  {
+    "id": "studio.brainstorming",
+    "snapshot": "references/consolidation/snapshots/sources/studio.brainstorming.json"
+  },
+  {
+    "id": "studio.writing-plans",
+    "snapshot": "references/consolidation/snapshots/sources/studio.writing-plans.json"
+  },
+  {
+    "id": "studio.grill-me",
+    "snapshot": "references/consolidation/snapshots/sources/studio.grill-me.json"
+  },
+  {
+    "id": "studio.grill-with-docs",
+    "snapshot": "references/consolidation/snapshots/sources/studio.grill-with-docs.json"
+  },
+  {
+    "id": "studio.grilling",
+    "snapshot": "references/consolidation/snapshots/sources/studio.grilling.json"
+  },
+  {
+    "id": "studio.to-spec",
+    "snapshot": "references/consolidation/snapshots/sources/studio.to-spec.json"
+  },
+  {
+    "id": "studio.to-tickets",
+    "snapshot": "references/consolidation/snapshots/sources/studio.to-tickets.json"
+  },
+  {
+    "id": "studio.to-questionnaire",
+    "snapshot": "references/consolidation/snapshots/sources/studio.to-questionnaire.json"
+  },
+  {
+    "id": "studio.goal",
+    "snapshot": "references/consolidation/snapshots/sources/studio.goal.json"
+  },
+  {
+    "id": "studio.wayfinder",
+    "snapshot": "references/consolidation/snapshots/sources/studio.wayfinder.json"
+  }
+]

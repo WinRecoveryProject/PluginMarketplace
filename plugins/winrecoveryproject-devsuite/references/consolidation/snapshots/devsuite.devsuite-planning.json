@@ -1,0 +1,12 @@
+{
+  "id": "devsuite.devsuite-planning",
+  "root": "skills/devsuite-planning",
+  "source": "WinRecoveryProject-DevSuite@4c2857d",
+  "files": {
+    "SKILL.md": "6999b09906417fa970d05056625281c6785845347d80a4e128cf40d114a9db9e",
+    "agents/openai.yaml": "4ecb2e69deacebc3c4702218c75becfb9097fdc38a00c9dae48c80379ff67719",
+    "assets/icon.png": "d77bb05d6c8f8175f7bcb13d9427510a09361562842a7ea2be24ddc239ec19b6",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

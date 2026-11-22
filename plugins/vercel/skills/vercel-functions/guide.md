@@ -583,8 +583,9 @@ The cron endpoint receives a normal HTTP request. Verify it's from Vercel:
 
 ```ts
 export async function GET(req: Request) {
-  const authHeader = req.headers.get('authorization')
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  const cronSecret = process.env.CRON_SECRET
+  // Reject when the secret is unset; otherwise "Bearer undefined" would pass.
+  if (!cronSecret || req.headers.get('authorization') !== `Bearer ${cronSecret}`) {
     return new Response('Unauthorized', { status: 401 })
   }
   // Do scheduled work

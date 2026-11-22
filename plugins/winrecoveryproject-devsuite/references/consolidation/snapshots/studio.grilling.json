@@ -1,0 +1,11 @@
+{
+  "id": "studio.grilling",
+  "root": "skills/grilling",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "ec743aaf057768bfe33f65b5edb89b32e4f654f57d38a6789f93444e30b4329f",
+    "agents/openai.yaml": "90dc6fd19929c4eb2de286cc49f319cc7750b46ac20aa1465c87a8363a9d64e7",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

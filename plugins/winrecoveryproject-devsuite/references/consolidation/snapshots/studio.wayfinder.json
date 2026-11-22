@@ -1,0 +1,11 @@
+{
+  "id": "studio.wayfinder",
+  "root": "skills/wayfinder",
+  "source": "Zilvereyes-Plugin-Studio@a9c64ed",
+  "files": {
+    "SKILL.md": "d1718fe2f449d4360ef00da802716884c434d93963af3181ee160ed74e01cfb1",
+    "agents/openai.yaml": "313cde4e86fa5a05897cb58cabd0459fe3e2434e7f54c0672ba9026c9a085b67",
+    "assets/wrp-icon-128.png": "21d925a6409d7fe1834bba8de13ff2459574227b3747c1f3cebac8573f1a16a1",
+    "assets/wrp-icon-256.png": "2c06a39c1a973bfbcf39c1ab54d2feed7714ec136a356a8db63151f4bc414293"
+  }
+}

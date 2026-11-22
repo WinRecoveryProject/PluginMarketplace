@@ -1,0 +1,60 @@
+# Plugin files: codex-coordinator — `.codex-plugin/`
+
+Source: `plugins/codex-coordinator`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `.codex-plugin/assets/composer-icon.png`
+
+_Binary asset, not embedded._
+
+## File: `.codex-plugin/assets/logo.png`
+
+_Binary asset, not embedded._
+
+## File: `.codex-plugin/plugin.json`
+
+```json
+{
+  "author": {
+    "name": "Six Ideas",
+    "url": "https://github.com/eyeinthesky6"
+  },
+  "description": "Coordinate parallel Codex tasks in one shared checkout with a small active-only boundary board.",
+  "homepage": "https://eyeinthesky6.github.io/codex-coordinator/",
+  "interface": {
+    "brandColor": "#06142F",
+    "brandColorDark": "#D0DEF9",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "category": "Productivity",
+    "composerIcon": "./.codex-plugin/assets/composer-icon.png",
+    "defaultPrompt": [
+      "Help my Codex tasks move in parallel with less duplicate work and fewer crossed edits",
+      "Show me who is working on what and flag work that may collide",
+      "Coordinate this goal across the right existing tasks and keep each task focused"
+    ],
+    "developerName": "Six Ideas",
+    "displayName": "Codex Coordinator",
+    "logo": "./.codex-plugin/assets/logo.png",
+    "longDescription": "Keep parallel Codex tasks moving in one shared checkout without duplicate work or crossed edits. Codex Coordinator gives each task a visible, bounded lane, reuses related tasks before creating new ones, and stays lightweight—no background manager, polling loop, transcript store, extra worktrees, or required pull requests. An optional manual, read-only Doctor checks package compatibility and recommends update or reinstall when something is broken.",
+    "privacyPolicyURL": "https://github.com/eyeinthesky6/codex-coordinator/blob/main/PRIVACY.md",
+    "shortDescription": "Coordinate parallel Codex work",
+    "supportURL": "https://github.com/eyeinthesky6/codex-coordinator/blob/main/SUPPORT.md",
+    "termsOfServiceURL": "https://github.com/eyeinthesky6/codex-coordinator/blob/main/TERMS.md",
+    "websiteURL": "https://eyeinthesky6.github.io/codex-coordinator/"
+  },
+  "keywords": [
+    "codex",
+    "coordination",
+    "parallel-work",
+    "multi-agent",
+    "repository"
+  ],
+  "license": "MIT",
+  "name": "codex-coordinator",
+  "repository": "https://github.com/eyeinthesky6/codex-coordinator",
+  "skills": "./skills/",
+  "version": "0.4.0"
+}
+```

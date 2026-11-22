@@ -50,6 +50,6 @@
   "name": "vercel",
   "repository": "https://github.com/vercel/vercel-plugin",
   "skills": "./skills/",
-  "version": "0.56.0-wrp.1",
+  "version": "0.56.0-wrp.2",
   "mcpServers": "./.mcp.json"
 }

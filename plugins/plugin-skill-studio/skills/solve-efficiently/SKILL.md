@@ -79,7 +79,7 @@ Design before code: default to the design that keeps the next change cheap; take
 
 ## 5. Verify before claiming
 
-Run the smallest meaningful check first, then broader checks in proportion to risk. Inspection, static checks, build success, behavioral tests, and runtime validation are distinct; none proves the others. Never say a command passed unless it ran in the current work — record the exact command, exit code, and decisive output lines. Report missing dependencies, skips, timeouts, and untested surfaces as unverified. For a separate completion audit, invoke verify-work.
+Run the smallest meaningful check first, then broader checks in proportion to risk. Inspection, static checks, build success, behavioral tests, and runtime validation are distinct; none proves the others. Never say a command passed unless it ran in the current work — record the exact command, exit code, and decisive output lines. Report missing dependencies, skips, timeouts, and untested surfaces as unverified. For a separate completion audit, invoke studio-review verify mode.
 
 ## 6. Hand off compactly
 

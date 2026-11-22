@@ -1,0 +1,24 @@
+# Plugin files: plugin-skill-studio — `schemas/`
+
+Source: `plugins/plugin-skill-studio`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `schemas/services-risk.schema.json`
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Plugin-Skill-Studio risk report",
+  "type": "object",
+  "required": ["kind", "schemaVersion", "complete", "exitCode", "findings", "errors", "limitation"],
+  "properties": {
+    "kind": { "const": "skill-risk-report" }, "schemaVersion": { "const": 1 },
+    "complete": { "type": "boolean" }, "exitCode": { "enum": [0, 1, 2] },
+    "findings": { "type": "array", "items": { "type": "object", "required": ["ruleId", "ruleVersion", "severity", "path", "line", "column", "evidence", "fingerprint", "suppressed"], "properties": {
+      "ruleId": { "type": "string" }, "ruleVersion": { "type": "string" }, "severity": { "enum": ["low", "medium", "high", "critical"] },
+      "path": { "type": "string" }, "line": { "type": "integer", "minimum": 1 }, "column": { "type": "integer", "minimum": 1 },
+      "evidence": { "type": "string" }, "fingerprint": { "type": "string", "pattern": "^[a-f0-9]{64}$" }, "suppressed": { "type": "boolean" }
+    } } },
+    "errors": { "type": "array" }, "limitation": { "type": "string" }
+  }
+}
+```

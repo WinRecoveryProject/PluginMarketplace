@@ -4,15 +4,15 @@ Use one primary skill by default. Add another only for a distinct phase.
 
 ## Discovery and planning
 
-- `grill-with-docs`: Use when a plan or design needs a focused interview and the resulting domain terms or architectural decisions should be captured in project documentation as they are resolved.
-- `grill-me`: Use when a plan, design, requirement, or decision needs a focused interview to expose ambiguity, missing constraints, trade-offs, or weak assumptions before execution.
-- `grilling`: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
-- `to-spec`: Use when the current conversation and repository context are sufficient to synthesize a buildable specification without another interview, including implementation and testing decisions.
-- `to-tickets`: Use when an approved plan, spec, or current conversation should be decomposed into ordered tracer-bullet implementation tickets with explicit dependencies on the configured tracker.
-- `wayfinder`: Use when a goal is too large or uncertain for one agent session and needs a shared map of decision tickets, blockers, claims, and resolved context across multiple sessions.
+- `studio-plan` (interview mode): Use when a plan or design needs a focused interview and the resulting domain terms or architectural decisions should be captured in project documentation as they are resolved.
+- `studio-plan` (interview mode): Use when a plan, design, requirement, or decision needs a focused interview to expose ambiguity, missing constraints, trade-offs, or weak assumptions before execution.
+- `studio-plan` (interview mode): Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
+- `studio-plan` (spec mode): Use when the current conversation and repository context are sufficient to synthesize a buildable specification without another interview, including implementation and testing decisions.
+- `studio-plan` (tickets mode): Use when an approved plan, spec, or current conversation should be decomposed into ordered tracer-bullet implementation tickets with explicit dependencies on the configured tracker.
+- `studio-plan` (map mode): Use when a goal is too large or uncertain for one agent session and needs a shared map of decision tickets, blockers, claims, and resolved context across multiple sessions.
 - `prototype`: Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.
 - `research`: Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.
-- `to-questionnaire`: Use when a decision, spec, or implementation question depends on facts only another stakeholder can provide and those unknowns should be turned into a precise questionnaire.
+- `studio-plan` (questions mode): Use when a decision, spec, or implementation question depends on facts only another stakeholder can provide and those unknowns should be turned into a precise questionnaire.
 - `workflow-designer`: Use when a recurring task, operational routine, content process, review loop, or personal/team workflow should be turned into an implementable specification with triggers, inputs, actions, human checkpoints, outputs, failure handling, and ownership.
 
 ## Implementation and quality
@@ -20,7 +20,7 @@ Use one primary skill by default. Add another only for a distinct phase.
 - `implement`: Use when a concrete spec, approved plan, or set of tickets is ready to implement and the task requires scoped code changes plus verification.
 - `implement-spec`: Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated branches, and the goal is a complete pull request on a single branch.
 - `tdd`: Use when implementing a feature or fixing a bug test-first with a red-green cycle, or when the task needs durable integration-style tests around public behavior.
-- `code-review`: Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes - Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
+- `studio-review` (code mode): Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes - Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
 - `diagnosing-bugs`: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
 - `resolving-merge-conflicts`: Use when you need to resolve an in-progress git merge/rebase conflict.
 - `migrate-to-shoehorn`: Use when TypeScript tests rely on unsafe `as` or `as unknown as` assertions for fixtures and the user wants to migrate those test-only values to `@total-typescript/shoehorn` with explicit intent.
@@ -34,7 +34,7 @@ Use one primary skill by default. Add another only for a distinct phase.
 ## Cognitive and Autonomous Orchestration
 
 - `j-space`: Operate the inner cognitive workspace for multi-step chained reasoning, long-horizon planning, calibrated confidence, three registers (inner/ledger/outer), and seam invariant audits.
-- `goal`: Synthesize high-leverage autonomous /goal prompts and contracts with observable done criteria, verified resource inventories, and terminal goal anchoring for unattended execution.
+- `studio-plan` (goal mode): Synthesize high-leverage autonomous /goal prompts and contracts with observable done criteria, verified resource inventories, and terminal goal anchoring for unattended execution.
 - `skill-conductor`: Full lifecycle management for agent skills (draft, test, review, improve, package) using the 10 canonical authoring principles and BinEval 5-dimension scoring.
 
 ## Design and architecture

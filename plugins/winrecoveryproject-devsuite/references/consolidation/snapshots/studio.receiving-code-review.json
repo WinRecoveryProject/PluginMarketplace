@@ -1,0 +1,11 @@
+{
+  "id": "studio.receiving-code-review",
+  "root": "skills/receiving-code-review",
+  "source": "Zilvereyes-Plugin-Studio@9594376",
+  "files": {
+    "SKILL.md": "3d4034bd6858caa9c1a2ba86b4ad04d04724a2276f68d9d3e7ca0ee3cbbde3bb",
+    "agents/openai.yaml": "11e9c3f27398e0fb4c2ba10a03bbbf7ec3257aeb8e54b612e6d7535f817cbe96",
+    "assets/wrp-icon-128.png": "d38a521cbd42923bd4f679fb2883ae24fab48472d9d626683ad6310665ff6515",
+    "assets/wrp-icon-256.png": "7887f3c7d254a2d8889f285c436097058630b79e12f09579f02d4bc91fcb32cd"
+  }
+}
