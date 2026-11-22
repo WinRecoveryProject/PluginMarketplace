@@ -1,6 +1,6 @@
 # Skill: feature-testing
 
-- Plugin: `codex-dev-workflows` (0.4.2)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.1)
 - Source: `plugins/codex-dev-workflows/skills/feature-testing/SKILL.md`
 
 > Test a recently implemented feature for intended behavior, edge cases, regressions, and meaningful missing coverage.

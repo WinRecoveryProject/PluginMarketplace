@@ -1,6 +1,6 @@
 # Skill: session-handoff
 
-- Plugin: `codex-dev-workflows` (0.4.2)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.1)
 - Source: `plugins/codex-dev-workflows/skills/session-handoff/SKILL.md`
 
 > Create a concise, evidence-based handoff that lets the next development session continue safely without re-discovering context.

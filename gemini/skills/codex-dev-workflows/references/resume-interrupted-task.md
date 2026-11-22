@@ -1,6 +1,6 @@
 # Skill: resume-interrupted-task
 
-- Plugin: `codex-dev-workflows` (0.4.2)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.1)
 - Source: `plugins/codex-dev-workflows/skills/resume-interrupted-task/SKILL.md`
 
 > Safely resume interrupted software work by reconstructing the current state from repository evidence, preserving valid changes, and making the next step explicit.

@@ -1,6 +1,6 @@
 # Skill: code-review
 
-- Plugin: `codex-dev-workflows` (0.4.2)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.1)
 - Source: `plugins/codex-dev-workflows/skills/code-review/SKILL.md`
 
 > Review a change set for correctness, regressions, security, maintainability, and missing tests without changing unrelated code.

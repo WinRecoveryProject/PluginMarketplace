@@ -13,9 +13,12 @@ Every file and skill folder of `plugins/codex-dev-workflows` and where its conte
 | `IMPORT-RECEIPT.json` | `references/_plugin.md#file-import-receiptjson` |
 | `LICENSE` | `references/_plugin.md#file-license` |
 | `plugin.json` | `references/_plugin.md#file-pluginjson` |
+| `shared/platforms/batch-cmd.md` | `references/_plugin-shared.md#file-sharedplatformsbatch-cmdmd` |
 | `shared/platforms/flutter.md` | `references/_plugin-shared.md#file-sharedplatformsfluttermd` |
 | `shared/platforms/javascript-typescript.md` | `references/_plugin-shared.md#file-sharedplatformsjavascript-typescriptmd` |
 | `shared/platforms/laravel-php.md` | `references/_plugin-shared.md#file-sharedplatformslaravel-phpmd` |
+| `shared/platforms/lua-wow.md` | `references/_plugin-shared.md#file-sharedplatformslua-wowmd` |
+| `shared/platforms/powershell.md` | `references/_plugin-shared.md#file-sharedplatformspowershellmd` |
 | `shared/platforms/python.md` | `references/_plugin-shared.md#file-sharedplatformspythonmd` |
 | `skills/bug-investigation` | `references/bug-investigation.md` |
 | `skills/bug-investigation/SKILL.md` | `references/bug-investigation.md` |
@@ -42,3 +45,4 @@ Every file and skill folder of `plugins/codex-dev-workflows` and where its conte
 | `skills/resume-interrupted-task/SKILL.md` | `references/resume-interrupted-task.md` |
 | `skills/session-handoff` | `references/session-handoff.md` |
 | `skills/session-handoff/SKILL.md` | `references/session-handoff.md` |
+| `WRP-MODIFICATIONS.md` | `references/_plugin.md#file-wrp-modificationsmd` |
