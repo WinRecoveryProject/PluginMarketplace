@@ -268,7 +268,7 @@
 
 ## Vercel (`vercel`)
 
-- Version: `0.56.0-wrp.2`
+- Version: `0.56.0-wrp.3`
 - Installs from: `plugins/vercel` (this repository)
 - Exported from: `plugins/vercel`
 - Gemini skill folder: `gemini/skills/vercel/`

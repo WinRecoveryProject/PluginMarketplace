@@ -1718,10 +1718,10 @@
       "repository": "https://github.com/vercel/vercel-plugin.git",
       "commit": "e69e3ba0ac0d7d24033c5ba95041acc4fc656480",
       "sourceSubdir": ".",
-      "version": "0.56.0-wrp.2",
+      "version": "0.56.0-wrp.3",
       "files": {
         ".app.json": "bb7ac58f944d972ca5da5e55405376fa4b647e628e74d0a1b1a332bcb190bd15",
-        ".codex-plugin/plugin.json": "67c90b4ce743f260143528d28753e031bad1e3acc0651103677c5bdc150fbe96",
+        ".codex-plugin/plugin.json": "0dc26aa9de969520615a86d7eefb42ee42199a2a81d1397d204f8985087feaef",
         ".mcp.json": "9ac937975fe5f5f330648a5e6ffb6faea37bb8601e81af325189774880803b3f",
         "agents/ai-architect.md": "4bb3edf2fa94d0609305d61d0211c372f1a95309d3a6da3d815afcf7db7e96b4",
         "agents/ai-architect.md.tmpl": "25b724d6b8a0f15d179a81a10b78fa2ba7234112c182889d724316bd1d45d706",
@@ -1887,7 +1887,7 @@
         "skills/queues/.vercel.approvers": "9989f04e3c1456b36acfc2d01f01b17767b85ca0fd6929d5dc800e490f55aaa4",
         "skills/queues/SKILL.md": "1fa567f28dbf967ea6097f3365d7f90947f71b7d1cc723b2c7aeecc247d52296",
         "skills/react-best-practices/.vercel.approvers": "bcb7f202bef29b020afbd269ee8f13baebfb51323f3ae1f7693808427ecdabb0",
-        "skills/react-best-practices/AGENTS.md": "fc93e7421177bbf869cce892bc60a6c83a4517d974bc3bf65c4e2c1e58a6ccf6",
+        "skills/react-best-practices/AGENTS.md": "1fe182a457585dc5d1f532beef4c956f2d071d452a1fa243602297c97b7eb7e4",
         "skills/react-best-practices/overlay.yaml": "84e65e60179693a83cce96f361af68027ea13f086c5ad5ef483b4a1d2a7f98bd",
         "skills/react-best-practices/rules/_sections.md": "01c59969e4e867f0708c8f8ef9c6d87fab9a07d0586244f429ff84013db8a115",
         "skills/react-best-practices/rules/_template.md": "99df2a3ea088c6c22de2484ddc7e964d0e9923846f44c63380343ecc64455442",
@@ -2519,7 +2519,8 @@
         "Preserve the existing Codex plugin name, App ID, MCP declarations and skill coverage",
         "Adapt vendor skill entry points and use scoped existing connections for account operations",
         "Retain the public OpenAI compatibility files and Apache-2.0 notices",
-        "Reject cron requests when CRON_SECRET is unset in the cron-jobs and vercel-functions handler examples"
+        "Reject cron requests when CRON_SECRET is unset in the cron-jobs and vercel-functions handler examples",
+        "Point the three cross-rule links in react-best-practices/AGENTS.md at rules/; the upstream copy keeps its original links"
       ],
       "compatibilitySource": {
         "repo": "https://github.com/openai/plugins",

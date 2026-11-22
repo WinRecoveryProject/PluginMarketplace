@@ -57,7 +57,7 @@ Source: `plugins/vercel`. Files outside the `skills/*` folders, embedded as text
   "name": "vercel",
   "repository": "https://github.com/vercel/vercel-plugin",
   "skills": "./skills/",
-  "version": "0.56.0-wrp.2",
+  "version": "0.56.0-wrp.3",
   "mcpServers": "./.mcp.json"
 }
 ```
