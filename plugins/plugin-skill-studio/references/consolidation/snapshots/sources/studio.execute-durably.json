@@ -1,0 +1,11 @@
+{
+  "id": "studio.execute-durably",
+  "root": "skills/execute-durably",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "572dc24c04d640d60177e89183309020958503240265ccbd63086df737dc0f48",
+    "agents/openai.yaml": "ca6dccf11effd39734578f43d0e14d272913ba59978bf035fbe320e84fa1494e",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

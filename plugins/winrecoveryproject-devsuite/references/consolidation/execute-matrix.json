@@ -1,0 +1,2635 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "studio.executing-plans",
+      "snapshot": "references/consolidation/snapshots/studio.executing-plans.json"
+    },
+    {
+      "id": "studio.subagent-driven-development",
+      "snapshot": "references/consolidation/snapshots/studio.subagent-driven-development.json"
+    },
+    {
+      "id": "studio.implement",
+      "snapshot": "references/consolidation/snapshots/studio.implement.json"
+    },
+    {
+      "id": "studio.implement-spec",
+      "snapshot": "references/consolidation/snapshots/studio.implement-spec.json"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents",
+      "snapshot": "references/consolidation/snapshots/studio.dispatching-parallel-agents.json"
+    },
+    {
+      "id": "studio.execute-durably",
+      "snapshot": "references/consolidation/snapshots/studio.execute-durably.json"
+    },
+    {
+      "id": "devsuite.devsuite-implement",
+      "snapshot": "references/consolidation/snapshots/devsuite.devsuite-implement.json"
+    }
+  ],
+  "entries": [
+    {
+      "id": "studio.executing-plans.executing-plans.trigger.1",
+      "source": "studio.executing-plans/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Executes a written implementation plan inline, task by task, stopping only on blockers.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-execute",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.trigger.2",
+      "source": "studio.executing-plans/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when a plan exists and subagent dispatch is unavailable, or the user wants the plan executed in a separate session.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-execute",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L6",
+      "source": "studio.executing-plans/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-implement/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L13",
+      "source": "studio.executing-plans/SKILL.md:13",
+      "kind": "instruction",
+      "text": "Load plan, review critically, execute all tasks, report when complete.",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L15",
+      "source": "studio.executing-plans/SKILL.md:15",
+      "kind": "instruction",
+      "text": "**Announce at start:** \"I'm using the executing-plans skill to implement this plan.\"",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L17",
+      "source": "studio.executing-plans/SKILL.md:17",
+      "kind": "instruction",
+      "text": "**Routing:** Use this skill when subagent dispatch is unavailable OR the user wants a separate execution session; otherwise use subagent-driven-development.",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L22",
+      "source": "studio.executing-plans/SKILL.md:22",
+      "kind": "instruction",
+      "text": "1. Ensure an isolated workspace: use using-git-worktrees to create one or verify the existing one",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-1-load-and-review-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L23",
+      "source": "studio.executing-plans/SKILL.md:23",
+      "kind": "instruction",
+      "text": "2. Read plan file",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-1-load-and-review-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L24",
+      "source": "studio.executing-plans/SKILL.md:24",
+      "kind": "instruction",
+      "text": "3. Review critically - identify any questions or concerns about the plan",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-1-load-and-review-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L25",
+      "source": "studio.executing-plans/SKILL.md:25",
+      "kind": "instruction",
+      "text": "4. If concerns: Raise them with the user before starting",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-1-load-and-review-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L26",
+      "source": "studio.executing-plans/SKILL.md:26",
+      "kind": "instruction",
+      "text": "5. If no concerns: Create todos for the plan items and proceed",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-1-load-and-review-plan",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L30",
+      "source": "studio.executing-plans/SKILL.md:30",
+      "kind": "instruction",
+      "text": "For each task:",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-2-execute-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L31",
+      "source": "studio.executing-plans/SKILL.md:31",
+      "kind": "instruction",
+      "text": "1. Mark as in_progress",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-2-execute-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L32",
+      "source": "studio.executing-plans/SKILL.md:32",
+      "kind": "instruction",
+      "text": "2. Follow each step exactly (plan has bite-sized steps)",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-2-execute-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L33",
+      "source": "studio.executing-plans/SKILL.md:33",
+      "kind": "instruction",
+      "text": "3. Run verifications as specified",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-2-execute-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L34",
+      "source": "studio.executing-plans/SKILL.md:34",
+      "kind": "instruction",
+      "text": "4. Mark as completed",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-2-execute-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L36",
+      "source": "studio.executing-plans/SKILL.md:36",
+      "kind": "instruction",
+      "text": "Track completed tasks in a ledger file (reuse subagent-driven-development's convention: `<workspace>/progress.md`, first line naming the plan file, one `Task <N>: complete` line per finished task) so a compacted session can resume where it stopped.",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-2-execute-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L40",
+      "source": "studio.executing-plans/SKILL.md:40",
+      "kind": "instruction",
+      "text": "After all tasks complete and verified:",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-3-complete-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L41",
+      "source": "studio.executing-plans/SKILL.md:41",
+      "kind": "instruction",
+      "text": "- Before claiming the work is done, apply studio-review verify mode: run the verification commands and confirm their output first",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-3-complete-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L42",
+      "source": "studio.executing-plans/SKILL.md:42",
+      "kind": "instruction",
+      "text": "- Announce: \"I'm using the finishing-a-development-branch skill to complete this work.\"",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-3-complete-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L43",
+      "source": "studio.executing-plans/SKILL.md:43",
+      "kind": "instruction",
+      "text": "- **REQUIRED SUB-SKILL:** Use finishing-a-development-branch",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-3-complete-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L44",
+      "source": "studio.executing-plans/SKILL.md:44",
+      "kind": "instruction",
+      "text": "- Follow that skill to verify tests, present options, execute choice",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-step-3-complete-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L48",
+      "source": "studio.executing-plans/SKILL.md:48",
+      "kind": "instruction",
+      "text": "**STOP executing immediately when:**",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-stop-and-ask-for-help",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L49",
+      "source": "studio.executing-plans/SKILL.md:49",
+      "kind": "instruction",
+      "text": "- Hit a blocker (missing dependency, test fails, instruction unclear)",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-stop-and-ask-for-help",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L50",
+      "source": "studio.executing-plans/SKILL.md:50",
+      "kind": "instruction",
+      "text": "- Plan has critical gaps preventing starting",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-stop-and-ask-for-help",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L51",
+      "source": "studio.executing-plans/SKILL.md:51",
+      "kind": "instruction",
+      "text": "- You don't understand an instruction",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-stop-and-ask-for-help",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L52",
+      "source": "studio.executing-plans/SKILL.md:52",
+      "kind": "instruction",
+      "text": "- Verification fails repeatedly",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-stop-and-ask-for-help",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L54",
+      "source": "studio.executing-plans/SKILL.md:54",
+      "kind": "instruction",
+      "text": "**Ask for clarification rather than guessing.**",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-stop-and-ask-for-help",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L58",
+      "source": "studio.executing-plans/SKILL.md:58",
+      "kind": "instruction",
+      "text": "**Return to Review (Step 1) when:**",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-revisit-earlier-steps",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L59",
+      "source": "studio.executing-plans/SKILL.md:59",
+      "kind": "instruction",
+      "text": "- The user updates the plan based on your feedback",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-revisit-earlier-steps",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L60",
+      "source": "studio.executing-plans/SKILL.md:60",
+      "kind": "instruction",
+      "text": "- Fundamental approach needs rethinking",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-revisit-earlier-steps",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L62",
+      "source": "studio.executing-plans/SKILL.md:62",
+      "kind": "instruction",
+      "text": "**Don't force through blockers** - stop and ask.",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-when-to-revisit-earlier-steps",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L65",
+      "source": "studio.executing-plans/SKILL.md:65",
+      "kind": "instruction",
+      "text": "- Review plan critically first",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-remember",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L66",
+      "source": "studio.executing-plans/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- Follow plan steps exactly",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-remember",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L67",
+      "source": "studio.executing-plans/SKILL.md:67",
+      "kind": "instruction",
+      "text": "- Don't skip verifications",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-remember",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L68",
+      "source": "studio.executing-plans/SKILL.md:68",
+      "kind": "instruction",
+      "text": "- Reference skills when plan says to",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-remember",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L69",
+      "source": "studio.executing-plans/SKILL.md:69",
+      "kind": "instruction",
+      "text": "- Stop when blocked, don't guess",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-remember",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.L70",
+      "source": "studio.executing-plans/SKILL.md:70",
+      "kind": "instruction",
+      "text": "- Never start implementation on main/master branch without explicit user consent",
+      "target": "skills/devsuite-implement/modes/execute.md#src-executing-plans-remember",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.policy.interface",
+      "source": "studio.executing-plans/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.executing-plans.policy.policy",
+      "source": "studio.executing-plans/agents/openai.yaml",
+      "kind": "policy",
+      "text": "policy",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.file:assets/wrp-icon-128.png",
+      "source": "studio.executing-plans/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-implement/assets/executing-plans-wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.executing-plans.file:assets/wrp-icon-256.png",
+      "source": "studio.executing-plans/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-implement/assets/executing-plans-wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.trigger.1",
+      "source": "studio.subagent-driven-development/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Executes an implementation plan by dispatching one subagent per task with per-task review gates, keeping the orchestrator's context small.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-subagent",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.trigger.2",
+      "source": "studio.subagent-driven-development/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when executing plans with independent tasks in the current session.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-subagent",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L6",
+      "source": "studio.subagent-driven-development/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-implement/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L11",
+      "source": "studio.subagent-driven-development/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Execute a plan with one fresh implementer per task, a task-scoped review after each implementation, and one whole-branch review at the end.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-subagent-driven-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L13",
+      "source": "studio.subagent-driven-development/SKILL.md:13",
+      "kind": "instruction",
+      "text": "This workflow requires isolated worker dispatch. If the host cannot dispatch subagents, use `executing-plans` instead.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-subagent-driven-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L15",
+      "source": "studio.subagent-driven-development/SKILL.md:15",
+      "kind": "instruction",
+      "text": "**Core principle:** Fresh implementer + spec and quality review + scoped fixes + final review.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-subagent-driven-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L17",
+      "source": "studio.subagent-driven-development/SKILL.md:17",
+      "kind": "instruction",
+      "text": "**Narration:** Between tool calls, use at most one short line. The ledger and tool results carry the durable record.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-subagent-driven-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L19",
+      "source": "studio.subagent-driven-development/SKILL.md:19",
+      "kind": "instruction",
+      "text": "**Continuous execution:** Run every task without asking whether to continue. Stop only for an unresolved blocker, ambiguity that prevents safe progress, or completed work.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-subagent-driven-development",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L23",
+      "source": "studio.subagent-driven-development/SKILL.md:23",
+      "kind": "instruction",
+      "text": "Use this workflow when all are true:",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L25",
+      "source": "studio.subagent-driven-development/SKILL.md:25",
+      "kind": "instruction",
+      "text": "- A decision-complete implementation plan exists.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L26",
+      "source": "studio.subagent-driven-development/SKILL.md:26",
+      "kind": "instruction",
+      "text": "- Tasks are independent enough for one implementer at a time.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L27",
+      "source": "studio.subagent-driven-development/SKILL.md:27",
+      "kind": "instruction",
+      "text": "- Work stays in the current session.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L28",
+      "source": "studio.subagent-driven-development/SKILL.md:28",
+      "kind": "instruction",
+      "text": "- The host supports isolated workers.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L30",
+      "source": "studio.subagent-driven-development/SKILL.md:30",
+      "kind": "instruction",
+      "text": "Use `executing-plans` for a parallel session. Return to planning when tasks are tightly coupled or the plan is incomplete.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L34",
+      "source": "studio.subagent-driven-development/SKILL.md:34",
+      "kind": "instruction",
+      "text": "1. Verify an isolated workspace with `using-git-worktrees`. Work on `main` or `master` only with explicit user consent.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L35",
+      "source": "studio.subagent-driven-development/SKILL.md:35",
+      "kind": "instruction",
+      "text": "2. Invoke this skill's scripts through Bash on every platform because packaging may not preserve executable bits. On Windows, use Git Bash.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L36",
+      "source": "studio.subagent-driven-development/SKILL.md:36",
+      "kind": "instruction",
+      "text": "3. Resolve the plan workspace:",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L38",
+      "source": "studio.subagent-driven-development/SKILL.md:38",
+      "kind": "instruction",
+      "text": "   ```bash\n   bash <skill-dir>/scripts/sdd-workspace PLAN_FILE\n   ```",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L42",
+      "source": "studio.subagent-driven-development/SKILL.md:42",
+      "kind": "instruction",
+      "text": "The command prints `<repo-root>/.skillquiver/sdd/<plan-basename>-<path-hash>/`. This git-ignored directory owns every artifact for this plan: ledger, briefs, reports, and review packages. Never reuse another plan's directory.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L43",
+      "source": "studio.subagent-driven-development/SKILL.md:43",
+      "kind": "instruction",
+      "text": "4. Inspect `<workspace>/progress.md`:",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L44",
+      "source": "studio.subagent-driven-development/SKILL.md:44",
+      "kind": "instruction",
+      "text": "- If its first line names this plan, treat every `Task <N>: complete` line as authoritative and resume at the first incomplete task.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L45",
+      "source": "studio.subagent-driven-development/SKILL.md:45",
+      "kind": "instruction",
+      "text": "- If a task ends with a fix-round entry, resume at the next round.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L46",
+      "source": "studio.subagent-driven-development/SKILL.md:46",
+      "kind": "instruction",
+      "text": "- If the ledger names another plan, or exists at the obsolete `.superpowers/sdd/progress.md`, leave it intact and create this plan's ledger.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L47",
+      "source": "studio.subagent-driven-development/SKILL.md:47",
+      "kind": "instruction",
+      "text": "5. Create a missing ledger with `# SDD ledger — plan: <plan file path>` as its first line.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L48",
+      "source": "studio.subagent-driven-development/SKILL.md:48",
+      "kind": "instruction",
+      "text": "6. Read the plan once, record its context and Global Constraints, and create one todo per task.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L49",
+      "source": "studio.subagent-driven-development/SKILL.md:49",
+      "kind": "instruction",
+      "text": "7. Before Task 1, scan the complete plan for contradictions between tasks, Global Constraints, and the review rubric. Present all conflicts in one batched question beside the binding plan text. Proceed immediately when the scan is clean.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L51",
+      "source": "studio.subagent-driven-development/SKILL.md:51",
+      "kind": "instruction",
+      "text": "The ledger is the recovery map after compaction. Trust it and `git log` over conversation memory. `git clean -fdx` destroys this scratch workspace; recover task state from git history if that happens.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L53",
+      "source": "studio.subagent-driven-development/SKILL.md:53",
+      "kind": "instruction",
+      "text": "Completion criterion: the workspace belongs to the active plan, its ledger identity is correct, completed tasks are not re-dispatched, and every plan conflict is resolved before implementation.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L57",
+      "source": "studio.subagent-driven-development/SKILL.md:57",
+      "kind": "instruction",
+      "text": "Read [dispatch-and-model-selection.md](references/dispatch-and-model-selection.md) before dispatching the first worker. Re-read its model-selection section whenever the role or task complexity changes.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-before-the-first-dispatch",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L59",
+      "source": "studio.subagent-driven-development/SKILL.md:59",
+      "kind": "instruction",
+      "text": "Worker context is constructed, not inherited. Pass only the task's requirements, relevant interfaces, constraints, and artifact paths. Every pasted prompt and worker response remains in controller context; hand large artifacts over as files.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-before-the-first-dispatch",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L63",
+      "source": "studio.subagent-driven-development/SKILL.md:63",
+      "kind": "instruction",
+      "text": "Run these steps sequentially for each incomplete task. Never dispatch implementation workers in parallel.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-task-loop",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L67",
+      "source": "studio.subagent-driven-development/SKILL.md:67",
+      "kind": "instruction",
+      "text": "1. Record `BASE` with `git rev-parse HEAD`.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L68",
+      "source": "studio.subagent-driven-development/SKILL.md:68",
+      "kind": "instruction",
+      "text": "2. Generate the task brief:",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L70",
+      "source": "studio.subagent-driven-development/SKILL.md:70",
+      "kind": "instruction",
+      "text": "   ```bash\n   bash <skill-dir>/scripts/task-brief PLAN_FILE N\n   ```",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L74",
+      "source": "studio.subagent-driven-development/SKILL.md:74",
+      "kind": "instruction",
+      "text": "3. Derive the report path from the brief: `task-N-brief.md` becomes `task-N-report.md` in the same workspace.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L75",
+      "source": "studio.subagent-driven-development/SKILL.md:75",
+      "kind": "instruction",
+      "text": "4. Compose one task dispatch containing:",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L76",
+      "source": "studio.subagent-driven-development/SKILL.md:76",
+      "kind": "instruction",
+      "text": "- One line explaining where the task fits.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L77",
+      "source": "studio.subagent-driven-development/SKILL.md:77",
+      "kind": "instruction",
+      "text": "- The brief path introduced as the requirements and source of exact values.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L78",
+      "source": "studio.subagent-driven-development/SKILL.md:78",
+      "kind": "instruction",
+      "text": "- Interfaces and decisions from earlier tasks that the brief cannot know.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L79",
+      "source": "studio.subagent-driven-development/SKILL.md:79",
+      "kind": "instruction",
+      "text": "- Any resolved ambiguity.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L80",
+      "source": "studio.subagent-driven-development/SKILL.md:80",
+      "kind": "instruction",
+      "text": "- A pointer to each parked ledger finding in an area this task touches.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L81",
+      "source": "studio.subagent-driven-development/SKILL.md:81",
+      "kind": "instruction",
+      "text": "- The report path and short return contract.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L82",
+      "source": "studio.subagent-driven-development/SKILL.md:82",
+      "kind": "instruction",
+      "text": "5. Keep exact values, signatures, and test cases in the brief. Do not paste accumulated task history or send the whole plan.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L83",
+      "source": "studio.subagent-driven-development/SKILL.md:83",
+      "kind": "instruction",
+      "text": "6. Dispatch with [implementer-prompt.md](implementer-prompt.md) using the host mapping and model selected from the dispatch reference.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L84",
+      "source": "studio.subagent-driven-development/SKILL.md:84",
+      "kind": "instruction",
+      "text": "7. Record the worker identity so fix rounds 1–3 can resume it.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L86",
+      "source": "studio.subagent-driven-development/SKILL.md:86",
+      "kind": "instruction",
+      "text": "Completion criterion: the worker has isolated context, one task brief, one report path, the necessary prior interfaces, and no unrelated history.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-1-dispatch-the-implementer",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L90",
+      "source": "studio.subagent-driven-development/SKILL.md:90",
+      "kind": "instruction",
+      "text": "- `DONE`: generate the review package and continue to task review.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-2-handle-the-implementer-status",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L91",
+      "source": "studio.subagent-driven-development/SKILL.md:91",
+      "kind": "instruction",
+      "text": "- `DONE_WITH_CONCERNS`: read the concerns. Resolve correctness or scope doubts before review; ledger observations and continue.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-2-handle-the-implementer-status",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L92",
+      "source": "studio.subagent-driven-development/SKILL.md:92",
+      "kind": "instruction",
+      "text": "- `NEEDS_CONTEXT`: provide the missing information and resume the same worker.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-2-handle-the-implementer-status",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L93",
+      "source": "studio.subagent-driven-development/SKILL.md:93",
+      "kind": "instruction",
+      "text": "- `BLOCKED`: change the conditions before retrying—supply missing context, choose a more capable model, split an oversized task, or escalate a defective plan to the user.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-2-handle-the-implementer-status",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L95",
+      "source": "studio.subagent-driven-development/SKILL.md:95",
+      "kind": "instruction",
+      "text": "Answer worker questions completely. Never repeat an unchanged dispatch after a worker reports that it is stuck.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-2-handle-the-implementer-status",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L97",
+      "source": "studio.subagent-driven-development/SKILL.md:97",
+      "kind": "instruction",
+      "text": "Completion criterion: implementation is complete with a report and commit range, or the task has an explicit unresolved blocker.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-2-handle-the-implementer-status",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L101",
+      "source": "studio.subagent-driven-development/SKILL.md:101",
+      "kind": "instruction",
+      "text": "Before the first task review, read [review-and-fix-loop.md](references/review-and-fix-loop.md) through “Complete the Task.” Follow it for every review, finding, fix round, re-review, ledger entry, and breaker decision.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-3-review-the-task",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L103",
+      "source": "studio.subagent-driven-development/SKILL.md:103",
+      "kind": "instruction",
+      "text": "Generate the initial package with the `BASE` captured before implementation:",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-3-review-the-task",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L105",
+      "source": "studio.subagent-driven-development/SKILL.md:105",
+      "kind": "instruction",
+      "text": "```bash\nbash <skill-dir>/scripts/review-package PLAN_FILE BASE HEAD\n```",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-3-review-the-task",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L109",
+      "source": "studio.subagent-driven-development/SKILL.md:109",
+      "kind": "instruction",
+      "text": "Dispatch [task-reviewer-prompt.md](task-reviewer-prompt.md) with the printed package path, task brief, implementer report, and binding Global Constraints.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-3-review-the-task",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L111",
+      "source": "studio.subagent-driven-development/SKILL.md:111",
+      "kind": "instruction",
+      "text": "- Clean spec and quality verdicts: record task completion.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-3-review-the-task",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L112",
+      "source": "studio.subagent-driven-development/SKILL.md:112",
+      "kind": "instruction",
+      "text": "- Spec gap, Critical or Important finding, or confirmed `⚠️` gap: enter the referenced fix loop.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-3-review-the-task",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L113",
+      "source": "studio.subagent-driven-development/SKILL.md:113",
+      "kind": "instruction",
+      "text": "- Minor finding: defer it in the ledger for final review.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-3-review-the-task",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L114",
+      "source": "studio.subagent-driven-development/SKILL.md:114",
+      "kind": "instruction",
+      "text": "- Finding that conflicts with binding plan text: ask the user which governs.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-3-review-the-task",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L116",
+      "source": "studio.subagent-driven-development/SKILL.md:116",
+      "kind": "instruction",
+      "text": "Completion criterion: the ledger contains a task completion line and no Critical or Important finding remains open without a ruling at the five-round cap.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-3-review-the-task",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L120",
+      "source": "studio.subagent-driven-development/SKILL.md:120",
+      "kind": "instruction",
+      "text": "Mark the task todo complete and move directly to the next incomplete task. The task review is the gate; controller self-review never replaces it.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-4-continue",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L124",
+      "source": "studio.subagent-driven-development/SKILL.md:124",
+      "kind": "instruction",
+      "text": "After every task has a completion line, read “Final Whole-Branch Review” and “Cleanup” in [review-and-fix-loop.md](references/review-and-fix-loop.md).",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-final-review-and-finish",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L126",
+      "source": "studio.subagent-driven-development/SKILL.md:126",
+      "kind": "instruction",
+      "text": "Generate the final review package over `MERGE_BASE..HEAD`, dispatch the most capable available reviewer, resolve at most one final fix wave, and record a ruling for every residual finding. Then remove only this plan's workspace and use `finishing-a-development-branch`.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-final-review-and-finish",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L128",
+      "source": "studio.subagent-driven-development/SKILL.md:128",
+      "kind": "instruction",
+      "text": "Completion criterion: every task is complete in the ledger, the final review is clean or all residual findings have rulings, no load-bearing issue is hidden, and only the active plan's workspace is removed.",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-final-review-and-finish",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.L132",
+      "source": "studio.subagent-driven-development/SKILL.md:132",
+      "kind": "instruction",
+      "text": "When the controller stalls, rationalizes skipping a gate, or needs an end-to-end example, read [workflow-example.md](references/workflow-example.md).",
+      "target": "skills/devsuite-implement/modes/subagent.md#src-subagent-driven-development-calibration",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.policy.interface",
+      "source": "studio.subagent-driven-development/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.subagent-driven-development.policy.policy",
+      "source": "studio.subagent-driven-development/agents/openai.yaml",
+      "kind": "policy",
+      "text": "policy",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:assets/wrp-icon-128.png",
+      "source": "studio.subagent-driven-development/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-implement/assets/subagent-driven-development-wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:assets/wrp-icon-256.png",
+      "source": "studio.subagent-driven-development/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-implement/assets/subagent-driven-development-wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:implementer-prompt.md",
+      "source": "studio.subagent-driven-development/implementer-prompt.md",
+      "kind": "file",
+      "text": "implementer-prompt.md",
+      "target": "skills/devsuite-implement/modes/subagent/implementer-prompt.md",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:re-review-prompt.md",
+      "source": "studio.subagent-driven-development/re-review-prompt.md",
+      "kind": "file",
+      "text": "re-review-prompt.md",
+      "target": "skills/devsuite-implement/modes/subagent/re-review-prompt.md",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:references/dispatch-and-model-selection.md",
+      "source": "studio.subagent-driven-development/references/dispatch-and-model-selection.md",
+      "kind": "file",
+      "text": "references/dispatch-and-model-selection.md",
+      "target": "skills/devsuite-implement/modes/subagent/references/dispatch-and-model-selection.md",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:references/review-and-fix-loop.md",
+      "source": "studio.subagent-driven-development/references/review-and-fix-loop.md",
+      "kind": "file",
+      "text": "references/review-and-fix-loop.md",
+      "target": "skills/devsuite-implement/modes/subagent/references/review-and-fix-loop.md",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:references/workflow-example.md",
+      "source": "studio.subagent-driven-development/references/workflow-example.md",
+      "kind": "file",
+      "text": "references/workflow-example.md",
+      "target": "skills/devsuite-implement/modes/subagent/references/workflow-example.md",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:scripts/review-package",
+      "source": "studio.subagent-driven-development/scripts/review-package",
+      "kind": "file",
+      "text": "scripts/review-package",
+      "target": "skills/devsuite-implement/modes/subagent/scripts/review-package",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:scripts/sdd-workspace",
+      "source": "studio.subagent-driven-development/scripts/sdd-workspace",
+      "kind": "file",
+      "text": "scripts/sdd-workspace",
+      "target": "skills/devsuite-implement/modes/subagent/scripts/sdd-workspace",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:scripts/task-brief",
+      "source": "studio.subagent-driven-development/scripts/task-brief",
+      "kind": "file",
+      "text": "scripts/task-brief",
+      "target": "skills/devsuite-implement/modes/subagent/scripts/task-brief",
+      "status": "covered"
+    },
+    {
+      "id": "studio.subagent-driven-development.file:task-reviewer-prompt.md",
+      "source": "studio.subagent-driven-development/task-reviewer-prompt.md",
+      "kind": "file",
+      "text": "task-reviewer-prompt.md",
+      "target": "skills/devsuite-implement/modes/subagent/task-reviewer-prompt.md",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.trigger.1",
+      "source": "studio.implement/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Build scoped code changes and run verification from an approved specification or plan.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-implement",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.trigger.2",
+      "source": "studio.implement/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when a concrete spec, approved plan, or set of tickets is ready to implement, when the user asks to build or code a planned feature, or when executing tasks — even if they don't explicitly say \"implement\".",
+      "target": "skills/devsuite-implement/SKILL.md#mode-implement",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.trigger.3",
+      "source": "studio.implement/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use for initial architecture exploration or vague requirements.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-implement",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L6",
+      "source": "studio.implement/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-implement/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L11",
+      "source": "studio.implement/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Execute scoped code changes and thorough verification from an approved specification, plan, or ticket set.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-implement",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L15",
+      "source": "studio.implement/SKILL.md:15",
+      "kind": "instruction",
+      "text": "> **Implement incrementally via vertical tracer slices, verify at each step, and maintain a green build at every seam.**",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-core-principle",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L21",
+      "source": "studio.implement/SKILL.md:21",
+      "kind": "instruction",
+      "text": "1. **Approved Plan or Spec First**: Never start broad implementation on ambiguous or unapproved specs.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L22",
+      "source": "studio.implement/SKILL.md:22",
+      "kind": "instruction",
+      "text": "2. **Vertical Slice Progress**: Implement in small, testable tracer slices rather than mass horizontal file edits.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L23",
+      "source": "studio.implement/SKILL.md:23",
+      "kind": "instruction",
+      "text": "3. **Continuous Typecheck & Test Verification**: Run local typechecks and single test files after every file modification, and the full suite before completion.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L24",
+      "source": "studio.implement/SKILL.md:24",
+      "kind": "instruction",
+      "text": "4. **Pre-Commit Quality Gate**: Pass clean code review (`studio-review` (code mode)) and lint checks before committing.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L25",
+      "source": "studio.implement/SKILL.md:25",
+      "kind": "instruction",
+      "text": "5. **Zero Dead or Speculative Code**: Write strictly the code required to satisfy the spec; avoid speculative abstractions.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L31",
+      "source": "studio.implement/SKILL.md:31",
+      "kind": "instruction",
+      "text": "```\n[ Review Approved Spec ] ──► [ Order Tracer Slices ] ──► [ TDD Cycle per Slice ] ──► [ Full Suite Verification ] ──► [ Code Review & Commit ]\n```",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L35",
+      "source": "studio.implement/SKILL.md:35",
+      "kind": "instruction",
+      "text": "| Phase | Responsibility | Key Action |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L37",
+      "source": "studio.implement/SKILL.md:37",
+      "kind": "instruction",
+      "text": "| **1. Preparation** | Read spec, identify dependencies, check existing test seams | Verify repo builds cleanly before touching code |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L38",
+      "source": "studio.implement/SKILL.md:38",
+      "kind": "instruction",
+      "text": "| **2. Tracer Execution** | Implement slice-by-slice with TDD | Red-green cycles on target components |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L39",
+      "source": "studio.implement/SKILL.md:39",
+      "kind": "instruction",
+      "text": "| **3. Continuous Check** | Fast feedback on type errors and single tests | Run targeted test runner after each edit |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L40",
+      "source": "studio.implement/SKILL.md:40",
+      "kind": "instruction",
+      "text": "| **4. Integration Gate** | End-to-end regression validation | Full test suite, linter, and typecheck pass |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L41",
+      "source": "studio.implement/SKILL.md:41",
+      "kind": "instruction",
+      "text": "| **5. Delivery** | Review diff against standards and spec | Route to `studio-review` (code mode) and clean commit |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L48",
+      "source": "studio.implement/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- **Action**: Read the spec or ticket descriptions, inspect referenced files, and verify the existing test suite passes cleanly.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-1-ingest-spec--verify-baseline-cleanliness",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L49",
+      "source": "studio.implement/SKILL.md:49",
+      "kind": "instruction",
+      "text": "- **Key Point**: Never begin adding new features to a broken or failing baseline.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-1-ingest-spec--verify-baseline-cleanliness",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L50",
+      "source": "studio.implement/SKILL.md:50",
+      "kind": "instruction",
+      "text": "- **Why**: Existing failures confound regression detection for new changes.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-1-ingest-spec--verify-baseline-cleanliness",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L53",
+      "source": "studio.implement/SKILL.md:53",
+      "kind": "instruction",
+      "text": "- **Action**: For each ticket or component, write failing assertions at public seams, then implement minimal passing logic.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-2-implement-via-vertical-slices-tdd",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L54",
+      "source": "studio.implement/SKILL.md:54",
+      "kind": "instruction",
+      "text": "- **Key Point**: Keep edits contained and avoid touching unrelated modules.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-2-implement-via-vertical-slices-tdd",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L55",
+      "source": "studio.implement/SKILL.md:55",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-2-implement-via-vertical-slices-tdd",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L56",
+      "source": "studio.implement/SKILL.md:56",
+      "kind": "instruction",
+      "text": "- [ ] Public seam identified and tested",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-2-implement-via-vertical-slices-tdd",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L57",
+      "source": "studio.implement/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- [ ] Typecheck passes without errors",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-2-implement-via-vertical-slices-tdd",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L58",
+      "source": "studio.implement/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- [ ] Targeted test passes cleanly",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-2-implement-via-vertical-slices-tdd",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L61",
+      "source": "studio.implement/SKILL.md:61",
+      "kind": "instruction",
+      "text": "- **Action**: Run the complete project test suite, typechecker, and linter across the entire repository.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-3-full-test-suite--quality-verification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L62",
+      "source": "studio.implement/SKILL.md:62",
+      "kind": "instruction",
+      "text": "- **Key Point**: Zero failures, zero unexpected warnings, zero unformatted files.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-3-full-test-suite--quality-verification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L63",
+      "source": "studio.implement/SKILL.md:63",
+      "kind": "instruction",
+      "text": "- **Why**: Changes in one module can subtly break downstream consumers.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-3-full-test-suite--quality-verification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L66",
+      "source": "studio.implement/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- **Action**: Audit the git diff against repository coding standards and original requirements using `studio-review` (code mode).",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-4-code-review--final-commit",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L67",
+      "source": "studio.implement/SKILL.md:67",
+      "kind": "instruction",
+      "text": "- **Key Point**: Write a clear, value-communicating commit message summarizing the change.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-4-code-review--final-commit",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L68",
+      "source": "studio.implement/SKILL.md:68",
+      "kind": "instruction",
+      "text": "- **Why**: Durable commit histories preserve architectural reasoning for future maintainers.",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-step-4-code-review--final-commit",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L74",
+      "source": "studio.implement/SKILL.md:74",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L76",
+      "source": "studio.implement/SKILL.md:76",
+      "kind": "instruction",
+      "text": "| *\"I'll edit all 10 files at once before testing anything.\"* | **Vertical tracer slicing: verify each file/unit immediately.** | Massive multi-file edits make errors difficult to isolate and debug. |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L77",
+      "source": "studio.implement/SKILL.md:77",
+      "kind": "instruction",
+      "text": "| *\"Typechecks are slow, I'll run them at the very end.\"* | **Run fast targeted checks continuously.** | Catching type errors early prevents building on flawed data signatures. |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L78",
+      "source": "studio.implement/SKILL.md:78",
+      "kind": "instruction",
+      "text": "| *\"The existing test suite was failing before, so ignore it.\"* | **Establish clean baseline before modifying code.** | Unaccounted failures hide new regressions introduced by the feature. |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.L79",
+      "source": "studio.implement/SKILL.md:79",
+      "kind": "instruction",
+      "text": "| *\"Skip code review since the code runs fine.\"* | **Mandatory diff review against spec and standards.** | Functional code can still violate repository conventions and security standards. |",
+      "target": "skills/devsuite-implement/modes/implement.md#src-implement-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.implement.policy.interface",
+      "source": "studio.implement/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.file:assets/wrp-icon-128.png",
+      "source": "studio.implement/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-implement/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement.file:assets/wrp-icon-256.png",
+      "source": "studio.implement/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-implement/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.trigger.1",
+      "source": "studio.implement-spec/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Execute a full specification across task tickets using isolated subagent branches into a unified PR.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-spec-run",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.trigger.2",
+      "source": "studio.implement-spec/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated worktrees, and the goal is a complete pull request on a single branch — even if the user says \"build the whole spec\".",
+      "target": "skills/devsuite-implement/SKILL.md#mode-spec-run",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.trigger.3",
+      "source": "studio.implement-spec/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use for single isolated bug fixes or exploratory coding without tickets.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-spec-run",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L6",
+      "source": "studio.implement-spec/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-implement/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L11",
+      "source": "studio.implement-spec/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Orchestrate the parallel implementation of an approved specification and its DAG task graph across isolated subagent branches, culminating in a single unified, code-reviewed pull request.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-implement-spec",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L17",
+      "source": "studio.implement-spec/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **DAG Frontier Concurrency**: Implementer subagents work exclusively on unblocked frontier tickets; merge completions immediately unlock newly unblocked tickets.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L18",
+      "source": "studio.implement-spec/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **Strict Worktree Isolation**: Every implementer subagent executes in its own dedicated, isolated Git worktree and branch to prevent file collision.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L19",
+      "source": "studio.implement-spec/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **Context Pointers Exclusively**: Communicate to subagents strictly via context pointers (spec path, ticket IDs, ADRs); avoid dumping giant walls of text.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L20",
+      "source": "studio.implement-spec/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Dedicated Merger Verification**: Merging completed worktree branches into the main PR branch is handled by a merger subagent with full test suite verification.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L21",
+      "source": "studio.implement-spec/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **Unified Code-Review Quality Gate**: Run `studio-review` (code mode) across the unified PR branch before marking it ready for human review, fixing all findings in a final pass.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L27",
+      "source": "studio.implement-spec/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ Approved Spec & DAG Tickets ] ──► [ Create PR Branch ] ──► [ Parallel Worktree Subagents ]\n                                                                       │\n                                      ┌────────────────────────────────┴────────────────────────────────┐\n                                      ▼                                                                 ▼\n                            [ Ticket #01 Worktree ]                                           [ Ticket #02 Worktree ]\n                            - Isolated branch                                                 - Isolated branch\n                            - Red/Green TDD cycle                                             - Red/Green TDD cycle\n                                      │                                                                 │\n                                      └────────────────────────────────┬────────────────────────────────┘\n                                                                       ▼\n                                                       [ Merge & Verify on PR Branch ]\n                                                                       │\n                                                                       ▼\n                                                       [ Code Review & Worktree Cleanup ]\n```",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L44",
+      "source": "studio.implement-spec/SKILL.md:44",
+      "kind": "instruction",
+      "text": "| Role | Responsibility | Execution Mode |",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L46",
+      "source": "studio.implement-spec/SKILL.md:46",
+      "kind": "instruction",
+      "text": "| **Exploration Agent** | Pre-read external documentation and shared schemas | Background subagent (`research`) |",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L47",
+      "source": "studio.implement-spec/SKILL.md:47",
+      "kind": "instruction",
+      "text": "| **Implementer Agents** | Execute single tickets inside isolated worktrees | Parallel subagents (`implement`) |",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L48",
+      "source": "studio.implement-spec/SKILL.md:48",
+      "kind": "instruction",
+      "text": "| **Merger Agent** | Merge feature branches into PR branch & verify tests | Serial integration pass |",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L49",
+      "source": "studio.implement-spec/SKILL.md:49",
+      "kind": "instruction",
+      "text": "| **Review Gate** | Run two-axis code review on final PR branch | `skills/studio-review/modes/code.md` |",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L56",
+      "source": "studio.implement-spec/SKILL.md:56",
+      "kind": "instruction",
+      "text": "- **Action**: Read the specification and associated tickets to compute the initial unblocked frontier.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-1-ingest-task-graph--initialize-pr-branch",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L57",
+      "source": "studio.implement-spec/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- **Key Point**: Create a dedicated PR branch (`feat/<spec-slug>`) and draft pull request linking all target tickets.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-1-ingest-task-graph--initialize-pr-branch",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L58",
+      "source": "studio.implement-spec/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- **Why**: Linking tickets upfront ensures automated status tracking and traceability.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-1-ingest-task-graph--initialize-pr-branch",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L61",
+      "source": "studio.implement-spec/SKILL.md:61",
+      "kind": "instruction",
+      "text": "- **Action**: For each ticket on the unblocked frontier, spawn an implementer subagent in an isolated worktree (`.worktrees/<ticket-slug>`).",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-2-dispatch-parallel-implementer-subagents",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L62",
+      "source": "studio.implement-spec/SKILL.md:62",
+      "kind": "instruction",
+      "text": "- **Key Point**: Pass context pointers to the spec and ticket without duplicating instructions.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-2-dispatch-parallel-implementer-subagents",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L63",
+      "source": "studio.implement-spec/SKILL.md:63",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-2-dispatch-parallel-implementer-subagents",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L64",
+      "source": "studio.implement-spec/SKILL.md:64",
+      "kind": "instruction",
+      "text": "- [ ] Worktrees isolated from main repository workspace",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-2-dispatch-parallel-implementer-subagents",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L65",
+      "source": "studio.implement-spec/SKILL.md:65",
+      "kind": "instruction",
+      "text": "- [ ] Implementers follow strict TDD red-green cycle",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-2-dispatch-parallel-implementer-subagents",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L66",
+      "source": "studio.implement-spec/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- [ ] Each implementer works on a single assigned ticket",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-2-dispatch-parallel-implementer-subagents",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L69",
+      "source": "studio.implement-spec/SKILL.md:69",
+      "kind": "instruction",
+      "text": "- **Action**: When an implementer completes, merge its branch into the PR branch, run the test suite, and delete the worktree.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-3-merge-completed-tickets--advance-frontier",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L70",
+      "source": "studio.implement-spec/SKILL.md:70",
+      "kind": "instruction",
+      "text": "- **Key Point**: Recompute the task graph frontier to launch newly unblocked tickets immediately.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-3-merge-completed-tickets--advance-frontier",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L71",
+      "source": "studio.implement-spec/SKILL.md:71",
+      "kind": "instruction",
+      "text": "- **Why**: Continuous merging keeps integration diffs small and surfaces conflicts early.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-3-merge-completed-tickets--advance-frontier",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L74",
+      "source": "studio.implement-spec/SKILL.md:74",
+      "kind": "instruction",
+      "text": "- **Action**: Once all tickets are merged, run `studio-review` (code mode) on `feat/<spec-slug>`.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-4-run-two-axis-code-review--cleanup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L75",
+      "source": "studio.implement-spec/SKILL.md:75",
+      "kind": "instruction",
+      "text": "- **Key Point**: Remediate all Standards and Spec findings before marking the PR ready for human review.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-4-run-two-axis-code-review--cleanup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L76",
+      "source": "studio.implement-spec/SKILL.md:76",
+      "kind": "instruction",
+      "text": "- **Why**: Comprehensive pre-merge review guarantees production-grade architecture and full spec compliance.",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-step-4-run-two-axis-code-review--cleanup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L82",
+      "source": "studio.implement-spec/SKILL.md:82",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L84",
+      "source": "studio.implement-spec/SKILL.md:84",
+      "kind": "instruction",
+      "text": "| *\"Run all implementers in the same shared working tree.\"* | **Mandatory isolated git worktrees per subagent.** | Shared workspaces cause file lock contention, overwrites, and git index corruption. |",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L85",
+      "source": "studio.implement-spec/SKILL.md:85",
+      "kind": "instruction",
+      "text": "| *\"Skip code review since all unit tests passed.\"* | **Mandatory two-axis code review on the final PR branch.** | Passing tests do not catch architectural smells, Fowler anti-patterns, or missed spec clauses. |",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.L86",
+      "source": "studio.implement-spec/SKILL.md:86",
+      "kind": "instruction",
+      "text": "| *\"Implement blocked tickets before their dependencies merge.\"* | **Strictly adhere to the DAG frontier.** | Implementing blocked tickets prematurely results in massive merge conflicts and rework. |",
+      "target": "skills/devsuite-implement/modes/spec-run.md#src-implement-spec-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.implement-spec.policy.interface",
+      "source": "studio.implement-spec/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.file:assets/wrp-icon-128.png",
+      "source": "studio.implement-spec/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-implement/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.implement-spec.file:assets/wrp-icon-256.png",
+      "source": "studio.implement-spec/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-implement/assets/wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.trigger.1",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Dispatches one subagent per independent problem.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-parallel",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.trigger.2",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when two or more investigations or fixes can proceed concurrently without shared state or sequential dependencies.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-parallel",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L6",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-implement/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L13",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:13",
+      "kind": "instruction",
+      "text": "Subagents get isolated context you construct precisely — for the full rationale, see subagent-driven-development's \"Why subagents\" paragraph.",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L15",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:15",
+      "kind": "instruction",
+      "text": "When you have multiple unrelated failures (different test files, different subsystems, different bugs), investigating them sequentially wastes time. Each investigation is independent and can happen in parallel.",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L17",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:17",
+      "kind": "instruction",
+      "text": "**Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently.",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L21",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:21",
+      "kind": "instruction",
+      "text": "```dot\ndigraph when_to_use {\n    \"Multiple failures?\" [shape=diamond];\n    \"Are they independent?\" [shape=diamond];\n    \"Single agent investigates all\" [shape=box];\n    \"One agent per problem domain\" [shape=box];\n    \"Can they work in parallel?\" [shape=diamond];\n    \"Sequential agents\" [shape=box];\n    \"Parallel dispatch\" [shape=box];\n\n    \"Multiple failures?\" -> \"Are they independent?\" [label=\"yes\"];\n    \"Are they independent?\" -> \"Single agent investigates all\" [label=\"no - related\"];\n    \"Are they independent?\" -> \"Can they work in parallel?\" [label=\"yes\"];\n    \"Can they work in parallel?\" -> \"Parallel dispatch\" [label=\"yes\"];\n    \"Can they work in parallel?\" -> \"Sequential agents\" [label=\"no - shared state\"];\n}\n```",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L39",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:39",
+      "kind": "instruction",
+      "text": "**Use when:**",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L40",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:40",
+      "kind": "instruction",
+      "text": "- 2+ test files failing with different root causes",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L41",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:41",
+      "kind": "instruction",
+      "text": "- Multiple subsystems broken independently",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L42",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:42",
+      "kind": "instruction",
+      "text": "- Each problem can be understood without context from others",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L43",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:43",
+      "kind": "instruction",
+      "text": "- No shared state between investigations",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L45",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:45",
+      "kind": "instruction",
+      "text": "**Don't use when:**",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L46",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:46",
+      "kind": "instruction",
+      "text": "- Failures are related (fix one might fix others)",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L47",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:47",
+      "kind": "instruction",
+      "text": "- Need to understand full system state",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L48",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- Agents would interfere with each other",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-when-to-use",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L54",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:54",
+      "kind": "instruction",
+      "text": "Group failures by what's broken:",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-1-identify-independent-domains",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L55",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:55",
+      "kind": "instruction",
+      "text": "- File A tests: Tool approval flow",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-1-identify-independent-domains",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L56",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:56",
+      "kind": "instruction",
+      "text": "- File B tests: Batch completion behavior",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-1-identify-independent-domains",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L57",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- File C tests: Abort functionality",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-1-identify-independent-domains",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L59",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:59",
+      "kind": "instruction",
+      "text": "Each domain is independent - fixing tool approval doesn't affect abort tests.",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-1-identify-independent-domains",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L61",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:61",
+      "kind": "instruction",
+      "text": "Domains must map to disjoint files; if they can't, run sequentially or give each agent its own worktree (using-git-worktrees).",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-1-identify-independent-domains",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L65",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:65",
+      "kind": "instruction",
+      "text": "Each agent gets:",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-2-create-focused-agent-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L66",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- **Specific scope:** One test file or subsystem",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-2-create-focused-agent-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L67",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:67",
+      "kind": "instruction",
+      "text": "- **Clear goal:** Make these tests pass",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-2-create-focused-agent-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L68",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:68",
+      "kind": "instruction",
+      "text": "- **Constraints:** Don't change other code",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-2-create-focused-agent-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L69",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:69",
+      "kind": "instruction",
+      "text": "- **Expected output:** Summary of what you found and fixed",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-2-create-focused-agent-tasks",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L73",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:73",
+      "kind": "instruction",
+      "text": "Issue all three subagent dispatches in the same response — they run in parallel. Use the host's general-purpose worker role or its closest equivalent:",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-3-dispatch-in-parallel",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L75",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:75",
+      "kind": "instruction",
+      "text": "```text\nWorker: \"Fix agent-tool-abort.test.ts failures\"\nWorker: \"Fix batch-completion-behavior.test.ts failures\"\nWorker: \"Fix tool-approval-race-conditions.test.ts failures\"\n# All three run concurrently.\n```",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-3-dispatch-in-parallel",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L82",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:82",
+      "kind": "instruction",
+      "text": "Multiple dispatch calls in one response = parallel execution. One per response = sequential.",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-3-dispatch-in-parallel",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L86",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:86",
+      "kind": "instruction",
+      "text": "When agents return:",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-4-review-and-integrate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L87",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:87",
+      "kind": "instruction",
+      "text": "- Read each summary",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-4-review-and-integrate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L88",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:88",
+      "kind": "instruction",
+      "text": "- Verify fixes don't conflict",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-4-review-and-integrate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L89",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:89",
+      "kind": "instruction",
+      "text": "- Run full test suite",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-4-review-and-integrate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L90",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:90",
+      "kind": "instruction",
+      "text": "- Integrate all changes",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-4-review-and-integrate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L94",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:94",
+      "kind": "instruction",
+      "text": "Good agent prompts are:",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-agent-prompt-structure",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L95",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:95",
+      "kind": "instruction",
+      "text": "1. **Focused** - One clear problem domain",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-agent-prompt-structure",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L96",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:96",
+      "kind": "instruction",
+      "text": "2. **Self-contained** - All context needed to understand the problem",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-agent-prompt-structure",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L97",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:97",
+      "kind": "instruction",
+      "text": "3. **Specific about output** - What should the agent return?",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-agent-prompt-structure",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L99",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:99",
+      "kind": "instruction",
+      "text": "```markdown\nFix the 3 failing tests in src/agents/agent-tool-abort.test.ts:\n\n1. \"should abort tool with partial output capture\" - expects 'interrupted at' in message\n2. \"should handle mixed completed and aborted tools\" - fast tool aborted instead of completed\n3. \"should properly track pendingToolCount\" - expects 3 results but gets 0\n\nThese are timing/race condition issues. Your task:\n\n1. Read the test file and understand what each test verifies\n2. Identify root cause - timing issues or actual bugs?\n3. Fix by:\n   - Replacing arbitrary timeouts with event-based waiting\n   - Fixing bugs in abort implementation if found\n   - Adjusting test expectations if testing changed behavior\n\nDo NOT just increase timeouts - find the real issue.\n\nReturn: Summary of what you found and what you fixed.\n```",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-agent-prompt-structure",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L122",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:122",
+      "kind": "instruction",
+      "text": "**❌ Too broad:** \"Fix all the tests\" - agent gets lost **✅ Specific:** \"Fix agent-tool-abort.test.ts\" - focused scope",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-common-mistakes",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L125",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:125",
+      "kind": "instruction",
+      "text": "**❌ No context:** \"Fix the race condition\" - agent doesn't know where **✅ Context:** Paste the error messages and test names",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-common-mistakes",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L128",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:128",
+      "kind": "instruction",
+      "text": "**❌ No constraints:** Agent might refactor everything **✅ Constraints:** \"Do NOT change production code\" or \"Fix tests only\"",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-common-mistakes",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L131",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:131",
+      "kind": "instruction",
+      "text": "**❌ Vague output:** \"Fix it\" - you don't know what changed **✅ Specific:** \"Return summary of root cause and changes\"",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-common-mistakes",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L136",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:136",
+      "kind": "instruction",
+      "text": "6 test failures across 3 files after refactoring; one agent per file:",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-real-example-from-session",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L138",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:138",
+      "kind": "instruction",
+      "text": "- Agent 1: Replaced timeouts with event-based waiting",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-real-example-from-session",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L139",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:139",
+      "kind": "instruction",
+      "text": "- Agent 2: Fixed event structure bug (threadId in wrong place)",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-real-example-from-session",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L140",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:140",
+      "kind": "instruction",
+      "text": "- Agent 3: Added wait for async tool execution to complete",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-real-example-from-session",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L144",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:144",
+      "kind": "instruction",
+      "text": "After agents return:",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-verification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L145",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:145",
+      "kind": "instruction",
+      "text": "1. **Review each summary** - Understand what changed",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-verification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L146",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:146",
+      "kind": "instruction",
+      "text": "2. **Check for conflicts** - Did agents edit same code?",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-verification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L147",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:147",
+      "kind": "instruction",
+      "text": "3. **Run full suite** - Verify all fixes work together",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-verification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.L148",
+      "source": "studio.dispatching-parallel-agents/SKILL.md:148",
+      "kind": "instruction",
+      "text": "4. **Spot check** - Agents can make systematic errors",
+      "target": "skills/devsuite-implement/modes/parallel.md#src-dispatching-parallel-agents-verification",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.policy.interface",
+      "source": "studio.dispatching-parallel-agents/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.dispatching-parallel-agents.policy.policy",
+      "source": "studio.dispatching-parallel-agents/agents/openai.yaml",
+      "kind": "policy",
+      "text": "policy",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.file:assets/wrp-icon-128.png",
+      "source": "studio.dispatching-parallel-agents/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-implement/assets/dispatching-parallel-agents-wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.dispatching-parallel-agents.file:assets/wrp-icon-256.png",
+      "source": "studio.dispatching-parallel-agents/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-implement/assets/dispatching-parallel-agents-wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.trigger.1",
+      "source": "studio.execute-durably/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Runs long or interruption-prone work from a durable state file with falsifiable criteria and evidence.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-durable",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.trigger.2",
+      "source": "studio.execute-durably/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when work spans turns, risks compaction, or must resume after interruption.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-durable",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L6",
+      "source": "studio.execute-durably/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-implement/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L11",
+      "source": "studio.execute-durably/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Use durable state only when its recovery value exceeds its overhead. Keep state outside the repository so the project never acquires workflow artifacts.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-execute-durably",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L13",
+      "source": "studio.execute-durably/SKILL.md:13",
+      "kind": "instruction",
+      "text": "For finite process execution on Windows, read [Windows execution](../../references/windows-process-execution.md). Do not invoke a macOS/Linux-only process controller or install another runtime just because this workflow needs a job handle. Use the current host's supported execution/session tools; distinguish session tracking from machine-scoped durability.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-execute-durably",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L20",
+      "source": "studio.execute-durably/SKILL.md:20",
+      "kind": "instruction",
+      "text": "Create one state file per session (markdown or JSON) in a scratch directory or user-level location outside the repo. It holds:",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-1-initialize-the-state-file",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L22",
+      "source": "studio.execute-durably/SKILL.md:22",
+      "kind": "instruction",
+      "text": "- **Objective**: the complete outcome, stated once.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-1-initialize-the-state-file",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L23",
+      "source": "studio.execute-durably/SKILL.md:23",
+      "kind": "instruction",
+      "text": "- **Criteria**: numbered and falsifiable. Each names the exact command or observation that proves it and what failure would look like. A criterion you cannot fail is not a criterion.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-1-initialize-the-state-file",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L24",
+      "source": "studio.execute-durably/SKILL.md:24",
+      "kind": "instruction",
+      "text": "- **Per-criterion status**: `pending -> in_progress -> claimed -> verified`. Side exits: `failed`, `rejected`, `stale` — each reopens to `pending` with a written reason, never silently.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-1-initialize-the-state-file",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L25",
+      "source": "studio.execute-durably/SKILL.md:25",
+      "kind": "instruction",
+      "text": "- **Evidence log**: append-only. Never rewrite or delete an entry; correct by appending a new one.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-1-initialize-the-state-file",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L27",
+      "source": "studio.execute-durably/SKILL.md:27",
+      "kind": "instruction",
+      "text": "Order criteria tracer-first: the first criterion proves a thin end-to-end slice through every layer involved. Thicken behind proven wiring; do not perfect one layer while its connection to the next is a guess.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-1-initialize-the-state-file",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L29",
+      "source": "studio.execute-durably/SKILL.md:29",
+      "kind": "instruction",
+      "text": "Evidence is bound to the source it was captured against. Any later source change makes prior evidence stale: rerun the check and re-verify before closing.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-1-initialize-the-state-file",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L33",
+      "source": "studio.execute-durably/SKILL.md:33",
+      "kind": "instruction",
+      "text": "At the start of every later turn — and always after compaction or interruption — reread the state file before acting. Continue the first unresolved criterion. Do not rebuild the plan from memory; when memory and state disagree, state wins. The log, not recollection, says what has been proven.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-2-resume-from-state-not-memory",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L37",
+      "source": "studio.execute-durably/SKILL.md:37",
+      "kind": "instruction",
+      "text": "Append one log entry per check:",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L39",
+      "source": "studio.execute-durably/SKILL.md:39",
+      "kind": "instruction",
+      "text": "- **Executable check**: exact command, exit code, and the decisive output lines copied verbatim. Paraphrased output is not evidence. Only a zero exit code is eligible to support a claim.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L40",
+      "source": "studio.execute-durably/SKILL.md:40",
+      "kind": "instruction",
+      "text": "- **Visual, web, or desktop check**: screenshot or artifact path plus one line stating what it shows. Capture such evidence with automate-ui; it supports a behavioral criterion only alongside the executable check, and stays `claimed` until verified.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L41",
+      "source": "studio.execute-durably/SKILL.md:41",
+      "kind": "instruction",
+      "text": "- **Navigation or research findings**: record why files, tests, or sources were selected — but discovery evidence never completes a behavioral criterion by itself.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L43",
+      "source": "studio.execute-durably/SKILL.md:43",
+      "kind": "instruction",
+      "text": "A successful check makes a criterion `claimed`, never `verified`.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L45",
+      "source": "studio.execute-durably/SKILL.md:45",
+      "kind": "instruction",
+      "text": "**Red/green for any bug fix or regression test:**",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L47",
+      "source": "studio.execute-durably/SKILL.md:47",
+      "kind": "instruction",
+      "text": "1. Run the test before touching source and log the failing run: command, nonzero exit, failure lines. A test that already passes, a syntax error, a broken fixture, or invented output is not red.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L48",
+      "source": "studio.execute-durably/SKILL.md:48",
+      "kind": "instruction",
+      "text": "2. Change the source only after red is on record.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L49",
+      "source": "studio.execute-durably/SKILL.md:49",
+      "kind": "instruction",
+      "text": "3. Rerun the *identical* command and log the passing run. A changed command or unchanged source voids the cycle.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L51",
+      "source": "studio.execute-durably/SKILL.md:51",
+      "kind": "instruction",
+      "text": "**Upstream-bug claims**: before blaming a framework, library, or host, rule out this project's own code. The claim requires a minimal reproduction outside the project, logged as evidence like any other.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-3-record-evidence-verbatim",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L55",
+      "source": "studio.execute-durably/SKILL.md:55",
+      "kind": "instruction",
+      "text": "For implementation that splits into independent file sets, write one dependency-aware packet plan before starting workers. Do not use packets for a focused edit. Each packet declares:",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-4-delegate-with-work-packets-medium-or-large-work-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L57",
+      "source": "studio.execute-durably/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- **id, objective, owned paths** — one owner per file set; no ownership overlap between packets; coupled edits stay under one owner rather than being forced apart.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-4-delegate-with-work-packets-medium-or-large-work-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L58",
+      "source": "studio.execute-durably/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- **dependencies** — no cycles; start a packet only after its dependencies complete.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-4-delegate-with-work-packets-medium-or-large-work-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L59",
+      "source": "studio.execute-durably/SKILL.md:59",
+      "kind": "instruction",
+      "text": "- **invariants, checks** (exact commands), **integration notes**.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-4-delegate-with-work-packets-medium-or-large-work-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L61",
+      "source": "studio.execute-durably/SKILL.md:61",
+      "kind": "instruction",
+      "text": "A packet completes only when its declared checks pass against its current owned files. Later changes inside a completed packet's ownership invalidate it: reopen it and its dependents, rerun checks in dependency order. Packet checks are scoped implementation gates; they never replace integrated criteria or independent verification. Completing the last packet leaves the session open — run the integrated criterion checks and verify them independently.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-4-delegate-with-work-packets-medium-or-large-work-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L63",
+      "source": "studio.execute-durably/SKILL.md:63",
+      "kind": "instruction",
+      "text": "**Delegation contract** (fresh subagents; applies with or without packets): every assignment names the deliverable, minimum context, owned paths, permissions, executable check, and stop conditions. Every worker reports status, changed paths, commands actually run with exit codes, blockers, and remaining risks — missing fields are an invalid result, not implied success. Workers modify only owned paths and never verify work they touched. Give an investigator a question, not a remedy; a diagnosis that arrives pre-committed to a fix is the failure this exists to prevent. A researcher binds every finding to its source and version, and reports disagreeing sources as disagreement. A reviewer returns findings against a named standard, never a completion verdict; \"nothing found\" is valid, a manufactured minor finding is not. Split test writer from executor only when their edits cannot overlap; otherwise one executor keeps both and preserves the red/green record. Allow at most one classified retry per delegated unit, and re-evaluate the plan after each wave.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-4-delegate-with-work-packets-medium-or-large-work-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L67",
+      "source": "studio.execute-durably/SKILL.md:67",
+      "kind": "instruction",
+      "text": "Before any criterion moves `claimed -> verified`, a fresh subagent or second independent context inspects: the objective, the relevant diff, the criterion, and its evidence entries — without being told the expected verdict. Verdicts are `confirmed`, `rejected`, or `inconclusive`; only `confirmed` closes.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-5-verify-independently",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L69",
+      "source": "studio.execute-durably/SKILL.md:69",
+      "kind": "instruction",
+      "text": "- Self-verification never closes a criterion.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-5-verify-independently",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L70",
+      "source": "studio.execute-durably/SKILL.md:70",
+      "kind": "instruction",
+      "text": "- A different name without a fresh context is not independence; the verifier must not have seen the desired conclusion.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-5-verify-independently",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L71",
+      "source": "studio.execute-durably/SKILL.md:71",
+      "kind": "instruction",
+      "text": "- The verifier is read-only and distinct from everyone whose work it reviews.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-5-verify-independently",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L72",
+      "source": "studio.execute-durably/SKILL.md:72",
+      "kind": "instruction",
+      "text": "- Verification against stale evidence is invalid: rerun first.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-5-verify-independently",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L76",
+      "source": "studio.execute-durably/SKILL.md:76",
+      "kind": "instruction",
+      "text": "Rules that hold across every criterion, checkable against the diff and the log:",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-execution-discipline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L78",
+      "source": "studio.execute-durably/SKILL.md:78",
+      "kind": "instruction",
+      "text": "- **One authority per fact.** Before adding a constant, format, or rule, find its existing owner. Two authorities for one fact is itself a finding; a third blocks completion until one owner remains.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-execution-discipline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L79",
+      "source": "studio.execute-durably/SKILL.md:79",
+      "kind": "instruction",
+      "text": "- **One concern per diff.** A diff serves the concern its criterion names. Unrelated edits split out or revert; coupled edits stay under one owner.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-execution-discipline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L80",
+      "source": "studio.execute-durably/SKILL.md:80",
+      "kind": "instruction",
+      "text": "- **Crash early.** An impossible state raises a domain error at the point of detection, naming the failing thing. Code that limps past a detected impossibility fails review even with passing tests.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-execution-discipline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L81",
+      "source": "studio.execute-durably/SKILL.md:81",
+      "kind": "instruction",
+      "text": "- **Suspect this repository first** — see section 3's upstream-bug rule.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-execution-discipline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L82",
+      "source": "studio.execute-durably/SKILL.md:82",
+      "kind": "instruction",
+      "text": "- **Tracer first** — see section 1's criterion ordering.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-execution-discipline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L86",
+      "source": "studio.execute-durably/SKILL.md:86",
+      "kind": "instruction",
+      "text": "Complete the session only when every criterion is `verified` and no evidence is stale. Any pending, failed, blocked, rejected, inconclusive, or stale criterion blocks completion — there is no retry-limit or fail-open escape. Do not create commits, branches, PRs, security reviews, or publications unless the user asked for them.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-6-close-only-through-the-gate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L90",
+      "source": "studio.execute-durably/SKILL.md:90",
+      "kind": "instruction",
+      "text": "DO-CONFIRM: work from judgment, then stop at each point and confirm every item. An unconfirmed item goes in the report, never silently past it.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L92",
+      "source": "studio.execute-durably/SKILL.md:92",
+      "kind": "instruction",
+      "text": "**Before the first evidence entry**",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L93",
+      "source": "studio.execute-durably/SKILL.md:93",
+      "kind": "instruction",
+      "text": "- Criteria are falsifiable and ordered so the first proves end-to-end wiring.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L94",
+      "source": "studio.execute-durably/SKILL.md:94",
+      "kind": "instruction",
+      "text": "- State file lives outside the repository; resume reads state, not memory.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L96",
+      "source": "studio.execute-durably/SKILL.md:96",
+      "kind": "instruction",
+      "text": "**Before each criterion closes**",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L97",
+      "source": "studio.execute-durably/SKILL.md:97",
+      "kind": "instruction",
+      "text": "- Evidence shows the real command, exit code, and verbatim decisive output.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L98",
+      "source": "studio.execute-durably/SKILL.md:98",
+      "kind": "instruction",
+      "text": "- The diff serves one concern and introduced no second authority for any fact.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L99",
+      "source": "studio.execute-durably/SKILL.md:99",
+      "kind": "instruction",
+      "text": "- A different, fresh verifier confirmed the evidence without a suggested verdict.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L101",
+      "source": "studio.execute-durably/SKILL.md:101",
+      "kind": "instruction",
+      "text": "**Before completing the session**",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L102",
+      "source": "studio.execute-durably/SKILL.md:102",
+      "kind": "instruction",
+      "text": "- Every criterion verified; none pending, stale, or inconclusive.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L103",
+      "source": "studio.execute-durably/SKILL.md:103",
+      "kind": "instruction",
+      "text": "- Upstream-bug claims carry an out-of-project reproduction.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L104",
+      "source": "studio.execute-durably/SKILL.md:104",
+      "kind": "instruction",
+      "text": "- No commit, branch, or publication happened without an explicit request.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-pause-points",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.L108",
+      "source": "studio.execute-durably/SKILL.md:108",
+      "kind": "instruction",
+      "text": "This skill governs durability and proof, not the work itself. Debugging method belongs to diagnose-systematically; safe restructuring to refactor-safely; auditing a finished delivery claim to studio-review verify mode; web and desktop evidence capture to automate-ui; version-bound documentation lookup to research-systematically. Following a written implementation plan's task sequence is executing-plans / subagent-driven-development; this skill supplies the durable state and evidence discipline underneath long work.",
+      "target": "skills/devsuite-implement/modes/durable.md#src-execute-durably-boundaries",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.policy.interface",
+      "source": "studio.execute-durably/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.execute-durably.policy.policy",
+      "source": "studio.execute-durably/agents/openai.yaml",
+      "kind": "policy",
+      "text": "policy",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.file:assets/wrp-icon-128.png",
+      "source": "studio.execute-durably/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-implement/assets/execute-durably-wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.execute-durably.file:assets/wrp-icon-256.png",
+      "source": "studio.execute-durably/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-implement/assets/execute-durably-wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.devsuite-implement.trigger.1",
+      "source": "devsuite.devsuite-implement/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when authorized to implement, refactor, migrate or maintain software with bounded changes and fresh evidence.",
+      "target": "skills/devsuite-implement/SKILL.md#mode-build",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.devsuite-implement.L8",
+      "source": "devsuite.devsuite-implement/SKILL.md:8",
+      "kind": "instruction",
+      "text": "Read [the policy](../../references/policy.md) and applicable [platform guidance](../../references/platforms.md). Establish observable acceptance criteria, authorized files/interfaces/environments, preserved invariants, highest-risk failures and completion evidence. Inspect current status/diff and nearby implementation/tests. Use repository-native patterns and documented commands.",
+      "target": "skills/devsuite-implement/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.devsuite-implement.L10",
+      "source": "devsuite.devsuite-implement/SKILL.md:10",
+      "kind": "instruction",
+      "text": "A feature starts with a thin vertical slice; a defect follows [debugging](../devsuite-debug/SKILL.md); a refactor characterizes behavior; a migration maps producers/consumers, compatibility window, data transitions and rollback. Name concurrency, persistence, security, time and network failure boundaries where relevant. Use [engineering decisions](../../references/engineering-decisions.md) when selecting test levels and investigations.",
+      "target": "skills/devsuite-implement/SKILL.md#src-devsuite-implement-build",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.devsuite-implement.L12",
+      "source": "devsuite.devsuite-implement/SKILL.md:12",
+      "kind": "instruction",
+      "text": "For each behavior, demonstrate the missing/wrong behavior by focused failing check or deterministic reproduction where practical; confirm the intended failure cause. Make the smallest coherent change, verify it, and improve structure while green. Expected values come from requirements or independent invariants. Prefer real collaborators when safe and stable seams when isolation is needed. Preserve valid pre-existing work even if it was not developed test-first.",
+      "target": "skills/devsuite-implement/SKILL.md#src-devsuite-implement-build",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.devsuite-implement.L14",
+      "source": "devsuite.devsuite-implement/SKILL.md:14",
+      "kind": "instruction",
+      "text": "Inspect each slice for accidental API/data changes, copied secrets, generated noise, weak errors and unrelated edits. Do not replace a binding decision with a workaround. Resolve material ambiguity before dependent work while continuing independent work.",
+      "target": "skills/devsuite-implement/SKILL.md#src-devsuite-implement-build",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.devsuite-implement.L16",
+      "source": "devsuite.devsuite-implement/SKILL.md:16",
+      "kind": "instruction",
+      "text": "For authorized parallelism, partition write surfaces, serialize shared interfaces/migrations/generated outputs and verify combined results directly. No skill automatically creates another chat or agent. Run affected regression/unit/integration tests, project lint/type/build checks and meaningful runtime/migration/recovery checks proportionate to risk. Apply [review gate mode](../devsuite-review/modes/gate.md) once; preserve failures and classify product/test/environment/flaky/pre-existing/unresolved causes. Report behavior, checks, compatibility decisions and gaps.",
+      "target": "skills/devsuite-implement/SKILL.md#src-devsuite-implement-build",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.devsuite-implement.policy.interface",
+      "source": "devsuite.devsuite-implement/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-implement/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.file:assets/icon.png",
+      "source": "devsuite.devsuite-implement/assets/icon.png",
+      "kind": "file",
+      "text": "assets/icon.png",
+      "target": "skills/devsuite-implement/assets/icon.png",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.file:assets/wrp-icon-128.png",
+      "source": "devsuite.devsuite-implement/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-implement/assets/wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "devsuite.devsuite-implement.file:assets/wrp-icon-256.png",
+      "source": "devsuite.devsuite-implement/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-implement/assets/wrp-icon-256.png",
+      "status": "covered"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "studio.subagent-driven-development",
+  "root": "skills/subagent-driven-development",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "ed1fb549103903144fd30291e658b0961baaef321fe9415d8da259b669936101",
+    "agents/openai.yaml": "544110361ff230d40d5177b283b989809ad3edf695941d31d1e111aeba3414eb",
+    "assets/wrp-icon-128.png": "9040ba476c15ed153e68ab474f12bb56d3702a01105dd8edb5ad6cf848e0bf82",
+    "assets/wrp-icon-256.png": "8c41a2e7b225c7c85acf8a644e00e3f4a60890796931621e791c8a1a9d2ba9bd",
+    "implementer-prompt.md": "4b43a9e14efe68839e82b0a9e154145c0367b17a47bd43b27e3daad711b520f8",
+    "re-review-prompt.md": "d24124e2579a6493c5546bd754341761f89cc1c3ce8c17ad5de1af2aafcf2678",
+    "references/dispatch-and-model-selection.md": "285403c9c978695c9f63876d85829c258b15618d1fbaf6cf4bcc3a19a2b928d2",
+    "references/review-and-fix-loop.md": "9eb27536ff3dbe360783a026eb820d4ba873faf20e3a2f8023ded9a94ca85bd8",
+    "references/workflow-example.md": "343193b1a66408eeacd146b53feeb28d7f353c2dde41b3c4739be1a725d8173c",
+    "scripts/review-package": "633d4d11af8570d741c4a9d189905becc9cc0107d9d3020dde028f2eeddabf66",
+    "scripts/sdd-workspace": "c90d82032fe3e42b679f9fcb9acf1df71a186ad1944642b251daad13216f1920",
+    "scripts/task-brief": "544146b5850e88a228ff849770f68487cdb5ebc85a410086ad12e709e3701c8b",
+    "task-reviewer-prompt.md": "f6f6dd5c47dea5c408b0242ed42b2d2b98ede177c58b43b8925af80f6eb1b0e3"
+  }
+}

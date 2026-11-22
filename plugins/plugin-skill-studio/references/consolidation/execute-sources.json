@@ -1,0 +1,26 @@
+[
+  {
+    "id": "studio.executing-plans",
+    "snapshot": "references/consolidation/snapshots/sources/studio.executing-plans.json"
+  },
+  {
+    "id": "studio.subagent-driven-development",
+    "snapshot": "references/consolidation/snapshots/sources/studio.subagent-driven-development.json"
+  },
+  {
+    "id": "studio.implement",
+    "snapshot": "references/consolidation/snapshots/sources/studio.implement.json"
+  },
+  {
+    "id": "studio.implement-spec",
+    "snapshot": "references/consolidation/snapshots/sources/studio.implement-spec.json"
+  },
+  {
+    "id": "studio.dispatching-parallel-agents",
+    "snapshot": "references/consolidation/snapshots/sources/studio.dispatching-parallel-agents.json"
+  },
+  {
+    "id": "studio.execute-durably",
+    "snapshot": "references/consolidation/snapshots/sources/studio.execute-durably.json"
+  }
+]

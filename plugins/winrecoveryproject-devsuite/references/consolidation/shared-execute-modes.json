@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-execute/modes and DevSuite skills/devsuite-implement/modes (including subagent/); hashed with LF line endings.",
+  "files": {
+    "durable.md": "ee18c709e00b805f4fdb901b7ca803f3378fbb1e4f196fa66e7cf5c213712068",
+    "execute.md": "020ce1930cfee2a32c7691b9b8c39b64206265acd25619598811653197a11554",
+    "implement.md": "29a609a7a4cf5c989f3bc0948da43761dcd54c5fbcd87ab7fa4834ee89bc3011",
+    "parallel.md": "798417395c9da8f8b029073ec99e224ce7698aa650d795561df758ff956b27db",
+    "spec-run.md": "30e0a0f90e3d57f95f4ef841109e03cafd0dcd9cb570cb94db145917521ba7a2",
+    "subagent.md": "2f72bae42e12bce7b472f15bfac97e42a0208ca2763609cc4db65cfb38220a03",
+    "subagent/implementer-prompt.md": "4b43a9e14efe68839e82b0a9e154145c0367b17a47bd43b27e3daad711b520f8",
+    "subagent/re-review-prompt.md": "d24124e2579a6493c5546bd754341761f89cc1c3ce8c17ad5de1af2aafcf2678",
+    "subagent/references/dispatch-and-model-selection.md": "285403c9c978695c9f63876d85829c258b15618d1fbaf6cf4bcc3a19a2b928d2",
+    "subagent/references/review-and-fix-loop.md": "6f8f6c5d0a21fe7e62e912818a1effc04680175826e42f606a289e1e1c5d8daf",
+    "subagent/references/workflow-example.md": "598dfce8dc5b130b4634ab85ed9a0fe1630219583e24c1b948444cbb3d022954",
+    "subagent/scripts/review-package": "633d4d11af8570d741c4a9d189905becc9cc0107d9d3020dde028f2eeddabf66",
+    "subagent/scripts/sdd-workspace": "c90d82032fe3e42b679f9fcb9acf1df71a186ad1944642b251daad13216f1920",
+    "subagent/scripts/task-brief": "544146b5850e88a228ff849770f68487cdb5ebc85a410086ad12e709e3701c8b",
+    "subagent/task-reviewer-prompt.md": "f6f6dd5c47dea5c408b0242ed42b2d2b98ede177c58b43b8925af80f6eb1b0e3"
+  }
+}

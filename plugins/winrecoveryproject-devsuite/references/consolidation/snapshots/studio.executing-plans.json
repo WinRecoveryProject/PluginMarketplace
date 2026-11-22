@@ -1,0 +1,11 @@
+{
+  "id": "studio.executing-plans",
+  "root": "skills/executing-plans",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "55f3242429839231db9a89d9bb61de4ce425a49c76dc8e6dd35a2036b3aaacb2",
+    "agents/openai.yaml": "a2cde15a2d74300ae4bfdc542e2845a2019638150b5d10aaf1a475a48d757cc4",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

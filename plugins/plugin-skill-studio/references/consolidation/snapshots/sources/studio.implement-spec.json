@@ -1,0 +1,11 @@
+{
+  "id": "studio.implement-spec",
+  "root": "skills/implement-spec",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "e3c52e6456a12a7b3b6e3f2368ab20d4d9410295aba9cf70b16545a9680f83fc",
+    "agents/openai.yaml": "ce81c8461aff187e0500003ad69e7252bacc6ee95494b26defa9515d7c92345e",
+    "assets/wrp-icon-128.png": "9a5b9520c58573574f05754fb24275b7c83ede7c3f3a54119dbb12870f4cb046",
+    "assets/wrp-icon-256.png": "f52ccd82d7b03b73b7a2ef8ea4bf3657f0fb8549297e3f03e25d2efdce232d81"
+  }
+}

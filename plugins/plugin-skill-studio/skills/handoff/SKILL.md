@@ -33,7 +33,7 @@ Compact complex conversational history, locked architectural decisions, unblocke
 | **Goal & Scope** | What this initiative accomplishes | Spec boundary, user requirements |
 | **Decisions & Invariants** | Hard architectural contracts settled | Domain model choices, ADR pointers |
 | **Current State & Diff** | Exact working tree status | Git status, modified files, passing tests |
-| **Suggested Skills** | Local workflows needed for continuation | `skills/implement-spec/SKILL.md` |
+| **Suggested Skills** | Local workflows needed for continuation | `skills/studio-execute/modes/spec-run.md` |
 | **Exact Next Action** | Atomic next step | Command or task frontier claim |
 
 ---

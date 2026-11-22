@@ -1,0 +1,11 @@
+{
+  "id": "studio.implement-spec",
+  "root": "skills/implement-spec",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "68a4dc2776a33312da3bbb025f5b09367a2b0c824e58aacec767117027d7600b",
+    "agents/openai.yaml": "b2212ea0b2a89ec7f27c91e17070b530b1a542f18fcd01559ecd54f3e7e37acd",
+    "assets/wrp-icon-128.png": "9a5b9520c58573574f05754fb24275b7c83ede7c3f3a54119dbb12870f4cb046",
+    "assets/wrp-icon-256.png": "f52ccd82d7b03b73b7a2ef8ea4bf3657f0fb8549297e3f03e25d2efdce232d81"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "coverageStatement": "39 source skills map to 214 function-level rows. Jobs/Tasks add independent integration workflows and local planning/selection tests. Provider execution remains separate.",
   "capabilities": [
     {
@@ -2292,7 +2292,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-dev-workflows/feature-development/2",
@@ -2311,7 +2312,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-dev-workflows/feature-development/3",
@@ -2330,7 +2332,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-dev-workflows/feature-development/4",
@@ -2349,7 +2352,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-dev-workflows/feature-development/5",
@@ -2368,7 +2372,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-dev-workflows/bug-investigation/1",
@@ -3081,7 +3086,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-dev-workflows/platform-guidance/2",
@@ -3100,7 +3106,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-dev-workflows/platform-guidance/3",
@@ -3119,7 +3126,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-dev-workflows/platform-guidance/4",
@@ -3138,7 +3146,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-dev-workflows/platform-guidance/5",
@@ -3157,7 +3166,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-engineering-guardrails/code-work/1",
@@ -3177,7 +3187,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-engineering-guardrails/code-work/2",
@@ -3197,7 +3208,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-engineering-guardrails/code-work/3",
@@ -3217,7 +3229,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-engineering-guardrails/code-work/4",
@@ -3237,7 +3250,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-engineering-guardrails/code-work/5",
@@ -3257,7 +3271,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-engineering-guardrails/code-work/6",
@@ -3277,7 +3292,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-engineering-guardrails/code-work/7",
@@ -3297,7 +3313,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-engineering-guardrails/code-work/8",
@@ -3317,7 +3334,8 @@
         "tests/test_contracts.py::test_workflow_contracts"
       ],
       "evidenceType": "static workflow contract; provider execution not demonstrated",
-      "availability": "local owned instructions; actual task evidence required"
+      "availability": "local owned instructions; actual task evidence required",
+      "mode": "build"
     },
     {
       "id": "codex-engineering-guardrails/code-verification/1",
@@ -4621,6 +4639,126 @@
       ],
       "tests": [
         "tests/test_plan_consolidation.py::test_plan_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/executing-plans/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "executing-plans",
+      "function": "inline task-by-task plan execution stopping only on blockers",
+      "owner": "devsuite-implement",
+      "mode": "execute",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-execute)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-implement/modes/execute.md",
+        "references/consolidation/execute-matrix.json"
+      ],
+      "tests": [
+        "tests/test_execute_consolidation.py::test_execute_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/subagent-driven-development/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "subagent-driven-development",
+      "function": "one subagent per task with per-task review gates and review packages",
+      "owner": "devsuite-implement",
+      "mode": "subagent",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-execute)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-implement/modes/subagent.md",
+        "references/consolidation/execute-matrix.json"
+      ],
+      "tests": [
+        "tests/test_execute_consolidation.py::test_execute_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/implement/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "implement",
+      "function": "scoped code changes and verification from an approved spec, plan or tickets",
+      "owner": "devsuite-implement",
+      "mode": "implement",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-execute)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-implement/modes/implement.md",
+        "references/consolidation/execute-matrix.json"
+      ],
+      "tests": [
+        "tests/test_execute_consolidation.py::test_execute_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/implement-spec/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "implement-spec",
+      "function": "full specification across ticket branches into one unified PR",
+      "owner": "devsuite-implement",
+      "mode": "spec-run",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-execute)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-implement/modes/spec-run.md",
+        "references/consolidation/execute-matrix.json"
+      ],
+      "tests": [
+        "tests/test_execute_consolidation.py::test_execute_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/dispatching-parallel-agents/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "dispatching-parallel-agents",
+      "function": "one subagent per independent concurrent problem",
+      "owner": "devsuite-implement",
+      "mode": "parallel",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-execute)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-implement/modes/parallel.md",
+        "references/consolidation/execute-matrix.json"
+      ],
+      "tests": [
+        "tests/test_execute_consolidation.py::test_execute_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/execute-durably/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "execute-durably",
+      "function": "durable state file with falsifiable criteria and evidence for long work",
+      "owner": "devsuite-implement",
+      "mode": "durable",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-execute)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-implement/modes/durable.md",
+        "references/consolidation/execute-matrix.json"
+      ],
+      "tests": [
+        "tests/test_execute_consolidation.py::test_execute_matrix_union"
       ],
       "evidenceType": "static workflow contract and capability matrix",
       "availability": "local",
