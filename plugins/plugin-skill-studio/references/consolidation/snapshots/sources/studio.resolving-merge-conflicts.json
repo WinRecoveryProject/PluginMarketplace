@@ -1,0 +1,11 @@
+{
+  "id": "studio.resolving-merge-conflicts",
+  "root": "skills/resolving-merge-conflicts",
+  "commit": "0ba9f82",
+  "files": {
+    "SKILL.md": "86cdf89266dde1eaa5424b402c8d9d4f7e30fca5f4f8f110abf9fb0928d6e54d",
+    "agents/openai.yaml": "5b2a33764226a0f043f222d845934b8420ccd28a9ce21964988bca1fa03df81f",
+    "assets/wrp-icon-128.png": "2accfc8ac8159a6e793af46cf6ab8ab31c3b2e6536cdd98a991203bfa7a3ade6",
+    "assets/wrp-icon-256.png": "855c1640fe5bff551dccf54f768222c8b98c0de7122a79167c32b30be7eea986"
+  }
+}

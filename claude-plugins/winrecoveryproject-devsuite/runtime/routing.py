@@ -12,6 +12,7 @@ LOCAL_WORKFLOWS = (
     "devsuite-review",
     "devsuite-test",
     "devsuite-handoff",
+    "devsuite-git",
 )
 
 # Specific review intents shared with Plugin-Skill-Studio studio-review; checked before broad phases.
@@ -23,6 +24,14 @@ REVIEW_MODES = (
     ("decide", r"review decision|require human attention|minimal, targeted or deep"),
     ("code", r"review changed code|reviewing a branch|code review|review this (?:diff|branch|pr|change)|authoring new code or diagnosing"),
 )
+# Specific git intents shared with Plugin-Skill-Studio studio-git; checked before execution and planning.
+GIT_MODES = (
+    ("safety", r"force push|hard reset|history re-?writ|destructive|clean up git history|routine safe git"),
+    ("conflicts", r"merge conflicts?|rebase conflicts?|conflict markers|fix this merge|rebase pauses|routine rebasing without conflicts|creating new branches"),
+    ("finish", r"integration of a finished branch|merge/pr/keep/discard|work needs to be integrated"),
+    ("worktree", r"isolation from current workspace|isolated workspace|git worktree"),
+)
+
 # Specific execution intents shared with Plugin-Skill-Studio studio-execute; checked before planning.
 EXECUTE_MODES = (
     ("durable", r"durable state file|interruption-prone|risks compaction|resume after interruption"),
@@ -98,6 +107,7 @@ def route(request: str) -> dict:
     job_target = bool(re.search(JOB_TARGET, text))
     review_mode = next((name for name, pattern in REVIEW_MODES if re.search(pattern, text)), None)
     # Planning boundaries ("Do NOT use for ...") still name planning intent, so match before negation stripping.
+    git_mode = next((name for name, pattern in GIT_MODES if re.search(pattern, request.casefold())), None)
     execute_mode = next((name for name, pattern in EXECUTE_MODES if re.search(pattern, request.casefold())), None)
     plan_mode = next((name for name, pattern in PLAN_MODES if re.search(pattern, request.casefold())), None)
     mode = None
@@ -105,6 +115,8 @@ def route(request: str) -> dict:
         skill = explicit_owner
     elif review_mode:
         skill, mode = "devsuite-review", review_mode
+    elif git_mode:
+        skill, mode = "devsuite-git", git_mode
     elif execute_mode:
         skill, mode = "devsuite-implement", execute_mode
     elif plan_mode:

@@ -1,6 +1,6 @@
 # Skill: diagnose-systematically
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/diagnose-systematically/SKILL.md`
 
 > Finds root causes through reproduction and falsifiable experiments. Use when a failure, flaky behavior, or regression lacks a demonstrated cause.

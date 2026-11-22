@@ -37,6 +37,33 @@ _131 KB, too large to embed. Read it in the repository._
 ]
 ```
 
+## File: `references/consolidation/git-matrix.json`
+
+_92 KB, too large to embed. Read it in the repository._
+
+## File: `references/consolidation/git-sources.json`
+
+```json
+[
+  {
+    "id": "studio.using-git-worktrees",
+    "snapshot": "references/consolidation/snapshots/sources/studio.using-git-worktrees.json"
+  },
+  {
+    "id": "studio.finishing-a-development-branch",
+    "snapshot": "references/consolidation/snapshots/sources/studio.finishing-a-development-branch.json"
+  },
+  {
+    "id": "studio.resolving-merge-conflicts",
+    "snapshot": "references/consolidation/snapshots/sources/studio.resolving-merge-conflicts.json"
+  },
+  {
+    "id": "studio.git-safety-guardrails",
+    "snapshot": "references/consolidation/snapshots/sources/studio.git-safety-guardrails.json"
+  }
+]
+```
+
 ## File: `references/consolidation/lifecycle-matrix.json`
 
 _279 KB, too large to embed. Read it in the repository._
@@ -252,6 +279,23 @@ _110 KB, too large to embed. Read it in the repository._
     "subagent/scripts/sdd-workspace": "c90d82032fe3e42b679f9fcb9acf1df71a186ad1944642b251daad13216f1920",
     "subagent/scripts/task-brief": "544146b5850e88a228ff849770f68487cdb5ebc85a410086ad12e709e3701c8b",
     "subagent/task-reviewer-prompt.md": "f6f6dd5c47dea5c408b0242ed42b2d2b98ede177c58b43b8925af80f6eb1b0e3"
+  }
+}
+```
+
+## File: `references/consolidation/shared-git-modes.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-git/modes and DevSuite skills/devsuite-git/modes (including safety/); hashed with LF line endings.",
+  "files": {
+    "conflicts.md": "0567600df6afd070ecfc442acb680f20a4212a9a157288e80e496245aa0a1c40",
+    "finish.md": "33bd4f5a835588b73a24846c96f3dd58ec35a034ddf324b1fcd33e289127651d",
+    "safety.md": "c2a96bb373a3a27359b875d9347ce188cd3d3c6597f2aed200fd4755a043b29f",
+    "safety/scripts/block-dangerous-git.sh": "234922b83c0a1737ee7300806c21ac0f389b07aaeb65c2d71ccedafbc5e1ea4b",
+    "safety/scripts/classify_git_command.py": "8cc648fd81b454ab0660866362cf3aba35bbd0b3ecdaef0d2b3da414f06eb367",
+    "worktree.md": "dadef7e1056a988fb771c39df6ca26d6f9ae7a8fd2ed341115fb2321b121dd2e"
   }
 }
 ```
@@ -1010,6 +1054,40 @@ Good checks:
 }
 ```
 
+## File: `references/consolidation/snapshots/sources/studio.finishing-a-development-branch.json`
+
+```json
+{
+  "id": "studio.finishing-a-development-branch",
+  "root": "skills/finishing-a-development-branch",
+  "commit": "0ba9f82",
+  "files": {
+    "SKILL.md": "cacb3f82ce5e14425b25955bb61c837fc987df0f52a9fd082092837b006cdc6b",
+    "agents/openai.yaml": "5b93f4499c83114472909c7f8f5eee12afef9a368ecd7e4e7a31c3ee5c4e601a",
+    "assets/wrp-icon-128.png": "359822245c83c60f274bb9c7ee6b763e9e1cd0ef3fbaf0abf4cdced75414d31c",
+    "assets/wrp-icon-256.png": "2633be056d51373483ae7ba3621976cbfa8b2de4542071629a02dda5a9c3063f"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/sources/studio.git-safety-guardrails.json`
+
+```json
+{
+  "id": "studio.git-safety-guardrails",
+  "root": "skills/git-safety-guardrails",
+  "commit": "0ba9f82",
+  "files": {
+    "SKILL.md": "78e0999c3056097f12b23d4ae0849a5315e420f6d509ddfb61283844e96ceb8d",
+    "agents/openai.yaml": "bb0ac836452a23915b3f524aca73ef1b71d0384c150adfe563410be5fe1e56ed",
+    "assets/wrp-icon-128.png": "adf724a5d85578e7ac4e1640bbd9ce4ae25dada578ccc1308391301fc8cb8998",
+    "assets/wrp-icon-256.png": "c2e53324c994a51d6e96239339e8662de4812c097dbc553daf5a372e86852dfe",
+    "scripts/block-dangerous-git.sh": "234922b83c0a1737ee7300806c21ac0f389b07aaeb65c2d71ccedafbc5e1ea4b",
+    "scripts/classify_git_command.py": "8cc648fd81b454ab0660866362cf3aba35bbd0b3ecdaef0d2b3da414f06eb367"
+  }
+}
+```
+
 ## File: `references/consolidation/snapshots/sources/studio.goal.json`
 
 ```json
@@ -1320,6 +1398,22 @@ Good checks:
 }
 ```
 
+## File: `references/consolidation/snapshots/sources/studio.resolving-merge-conflicts.json`
+
+```json
+{
+  "id": "studio.resolving-merge-conflicts",
+  "root": "skills/resolving-merge-conflicts",
+  "commit": "0ba9f82",
+  "files": {
+    "SKILL.md": "86cdf89266dde1eaa5424b402c8d9d4f7e30fca5f4f8f110abf9fb0928d6e54d",
+    "agents/openai.yaml": "5b2a33764226a0f043f222d845934b8420ccd28a9ce21964988bca1fa03df81f",
+    "assets/wrp-icon-128.png": "2accfc8ac8159a6e793af46cf6ab8ab31c3b2e6536cdd98a991203bfa7a3ade6",
+    "assets/wrp-icon-256.png": "855c1640fe5bff551dccf54f768222c8b98c0de7122a79167c32b30be7eea986"
+  }
+}
+```
+
 ## File: `references/consolidation/snapshots/sources/studio.review-decision.json`
 
 ```json
@@ -1525,6 +1619,22 @@ Good checks:
 }
 ```
 
+## File: `references/consolidation/snapshots/sources/studio.using-git-worktrees.json`
+
+```json
+{
+  "id": "studio.using-git-worktrees",
+  "root": "skills/using-git-worktrees",
+  "commit": "0ba9f82",
+  "files": {
+    "SKILL.md": "14f4fa9892e963f07f57fe4bb9e6100efcb3f846b919330d40cc22d4b38ece79",
+    "agents/openai.yaml": "051a9dd8a460d84c0bb81f77aabf6c6996580fa60170505065616ed73ab2e0b5",
+    "assets/wrp-icon-128.png": "faf5691223edca6e7032683534c0dfa7d0155e1998808af22aca48da172ab22d",
+    "assets/wrp-icon-256.png": "89ec8b1dd4bb8613ddabd6e6a4eb2cde20bd4c3040f41e417052fe500eb80cd9"
+  }
+}
+```
+
 ## File: `references/consolidation/snapshots/sources/studio.verification-before-completion.json`
 
 ```json
@@ -1716,7 +1826,7 @@ execution, configuration changes or cache restoration. Budget: 0 kr.
 
 ## File: `references/integration-registry.json`
 
-_148 KB, too large to embed. Read it in the repository._
+_146 KB, too large to embed. Read it in the repository._
 
 ## File: `references/inventory-versions.md`
 

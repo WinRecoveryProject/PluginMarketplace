@@ -1,6 +1,6 @@
 # Skill: writing-beats
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/writing-beats/SKILL.md`
 
 > Develop long-form writing through an interactive progression of narrative and argumentative beats. Use when drafting essays, articles, documentation, or blog posts where structure evolves beat by beat — even if the user says "write this post with me". Do NOT use for quick single-sentence copy edits.

@@ -14,6 +14,7 @@ Read [the policy](../../references/policy.md). Select one owned workflow for the
 - Security fixes, hardening, policy, writeups and tracking: [security remediation](../devsuite-security-fix/SKILL.md).
 - Shared checks and existing Linter integration: [review gate mode](../devsuite-review/modes/gate.md).
 - Interrupted work and session handoff: [handoff](../devsuite-handoff/SKILL.md).
+- Isolated worktrees, branch finishing, conflicts and git safety: [git](../devsuite-git/SKILL.md).
 - Local/cloud workspaces, desktop, networking and tools: [environment](../devsuite-environment/SKILL.md).
 - Local builds, background job status/logs/results and safe cancellation: [process jobs](../devsuite-jobs/SKILL.md).
 - Registered environments and explicitly requested remote tasks: [Codex Tasks](../devsuite-tasks/SKILL.md).

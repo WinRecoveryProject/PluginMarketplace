@@ -1,0 +1,13 @@
+{
+  "id": "studio.git-safety-guardrails",
+  "root": "skills/git-safety-guardrails",
+  "source": "Zilvereyes-Plugin-Studio@0ba9f82",
+  "files": {
+    "SKILL.md": "1bb2554d15ddef373beddc7c4932c09eea0e1e079af725cc2983143073cc3f38",
+    "agents/openai.yaml": "01c39ae7663d619f9e38b1e1446d6a930bc0b98c05e135f6ceb0446782e3bc07",
+    "assets/wrp-icon-128.png": "adf724a5d85578e7ac4e1640bbd9ce4ae25dada578ccc1308391301fc8cb8998",
+    "assets/wrp-icon-256.png": "c2e53324c994a51d6e96239339e8662de4812c097dbc553daf5a372e86852dfe",
+    "scripts/block-dangerous-git.sh": "bb5dc3a96ae81924ff3b88b959979b4eb68b7810f6fa9bd395fb8f781e0d8c12",
+    "scripts/classify_git_command.py": "1d8bbb3ee06e7c77237859e08f9ff9a06ec104f9b932de8931c0744223ab65bd"
+  }
+}

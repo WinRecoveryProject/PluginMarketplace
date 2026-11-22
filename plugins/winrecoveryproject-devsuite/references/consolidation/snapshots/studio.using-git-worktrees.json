@@ -1,0 +1,11 @@
+{
+  "id": "studio.using-git-worktrees",
+  "root": "skills/using-git-worktrees",
+  "source": "Zilvereyes-Plugin-Studio@0ba9f82",
+  "files": {
+    "SKILL.md": "1cf8cc006af27d9c9139d18d9718b2dbbe3d3d4c5a69ba3546af7850cda11d06",
+    "agents/openai.yaml": "d7461d4c1d872e4b5075d0214c9001861309a9fe71d58fa91878499cd61ea5a4",
+    "assets/wrp-icon-128.png": "faf5691223edca6e7032683534c0dfa7d0155e1998808af22aca48da172ab22d",
+    "assets/wrp-icon-256.png": "89ec8b1dd4bb8613ddabd6e6a4eb2cde20bd4c3040f41e417052fe500eb80cd9"
+  }
+}

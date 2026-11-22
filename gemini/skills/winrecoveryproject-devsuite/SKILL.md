@@ -1,11 +1,11 @@
 ---
 name: winrecoveryproject-devsuite
-description: "WinRecoveryProject DevSuite: One development toolkit for planning, coding, security, testing, local processes and registered Codex tasks. Use when the user asks for devsuite, devsuite-convert, devsuite-debug, devsuite-environment, devsuite-handoff, devsuite-implement, devsuite-jobs, devsuite-planning, devsuite-review, devsuite-security-assess, devsuite-security-fix, devsuite-tasks work, or names the winrecoveryproject-devsuite plugin."
+description: "WinRecoveryProject DevSuite: One development toolkit for planning, coding, security, testing, local processes and registered Codex tasks. Use when the user asks for devsuite, devsuite-convert, devsuite-debug, devsuite-environment, devsuite-git, devsuite-handoff, devsuite-implement, devsuite-jobs, devsuite-planning, devsuite-review, devsuite-security-assess, devsuite-security-fix work, or names the winrecoveryproject-devsuite plugin."
 ---
 
 # WinRecoveryProject DevSuite
 
-Gemini export of the `winrecoveryproject-devsuite` plugin from WinRecoveryProject/PluginMarketplace, version `0.5.0`. Source: `plugins/winrecoveryproject-devsuite`.
+Gemini export of the `winrecoveryproject-devsuite` plugin from WinRecoveryProject/PluginMarketplace, version `0.6.0`. Source: `plugins/winrecoveryproject-devsuite`.
 
 Fra idé til verificeret kode: planlægning, implementering, fejlfinding, tests, kodegennemgang, sikkerhed og kvalitetskontrol i én DevSuite. Følg lokale builds og processer med Windows-kompatibel styring, eller brug eksisterende registrerede Codex Tasks-miljøer, når det er bestilt. Bevarer forbindelser og skelner mellem tilgængelige værktøjer og faktisk testede resultater. Ingen nye konti eller betalte tjenester kræves til lokale funktioner.
 
@@ -26,6 +26,7 @@ Fra idé til verificeret kode: planlægning, implementering, fejlfinding, tests,
 | `devsuite-convert` | Use for authorized file conversion through free/included CloudConvert or installed local tools, with verified output and no added charges. | `references/devsuite-convert.md` |
 | `devsuite-debug` | Use when observed software behavior differs from its expected contract and needs reproduction, root-cause diagnosis or an authorized fix. | `references/devsuite-debug.md` |
 | `devsuite-environment` | Use for local/cloud development, repositories, packages, Docker, networking/VPN, desktop testing and environment repair. | `references/devsuite-environment.md` |
+| `devsuite-git` | Use when starting feature work that needs an isolated workspace or worktree before executing a plan; integrating a finished branch (verify tests, choose merge, PR, keep or discard, clean up worktrees); resolving in-progress merge or rebase conflicts and CONFLICT markers by traced intent (even if the user just says "fix this merge"); or safeguarding a repository against force pushes, hard resets, branch deletions, cleans, destructive restores and history rewrites ("clean up git history"). Do NOT use for routine safe git status, fetch, diff or branch queries, or for routine rebasing without conflicts. | `references/devsuite-git.md` |
 | `devsuite-handoff` | Use when development was interrupted and must resume, or when the user requests an evidence-based session handoff and precise next step. | `references/devsuite-handoff.md` |
 | `devsuite-implement` | Use when authorized to implement, refactor, migrate or maintain software with bounded changes and fresh evidence; executing a written implementation plan inline task by task, or by dispatching one subagent per task with review gates; building scoped code changes from an approved spec, plan or tickets (even if the user doesn't say "implement"); executing a full specification across ticket branches into one unified PR ("build the whole spec"); dispatching one subagent per independent problem that can run concurrently; or running long, interruption-prone work from a durable state file with falsifiable criteria. Do NOT use for initial architecture exploration, vague requirements, or planning work that has no plan yet (use devsuite-planning). | `references/devsuite-implement.md` |
 | `devsuite-jobs` | Use when running or inspecting finite local builds, tests and background processes with exact job ownership; Windows uses real host sessions. | `references/devsuite-jobs.md` |

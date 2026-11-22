@@ -1,0 +1,11 @@
+{
+  "id": "studio.using-git-worktrees",
+  "root": "skills/using-git-worktrees",
+  "commit": "0ba9f82",
+  "files": {
+    "SKILL.md": "14f4fa9892e963f07f57fe4bb9e6100efcb3f846b919330d40cc22d4b38ece79",
+    "agents/openai.yaml": "051a9dd8a460d84c0bb81f77aabf6c6996580fa60170505065616ed73ab2e0b5",
+    "assets/wrp-icon-128.png": "faf5691223edca6e7032683534c0dfa7d0155e1998808af22aca48da172ab22d",
+    "assets/wrp-icon-256.png": "89ec8b1dd4bb8613ddabd6e6a4eb2cde20bd4c3040f41e417052fe500eb80cd9"
+  }
+}

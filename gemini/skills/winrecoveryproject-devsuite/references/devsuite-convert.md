@@ -1,6 +1,6 @@
 # Skill: devsuite-convert
 
-- Plugin: `winrecoveryproject-devsuite` (0.5.0)
+- Plugin: `winrecoveryproject-devsuite` (0.6.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-convert/SKILL.md`
 
 > Use for authorized file conversion through free/included CloudConvert or installed local tools, with verified output and no added charges.

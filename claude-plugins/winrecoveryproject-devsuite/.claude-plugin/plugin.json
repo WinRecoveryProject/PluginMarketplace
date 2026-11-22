@@ -1,6 +1,6 @@
 {
   "name": "winrecoveryproject-devsuite",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Local workflows for planning, implementation, debugging, review, tests, quality and handoff in Claude Code.",
   "author": {
     "name": "Zilvereyes",

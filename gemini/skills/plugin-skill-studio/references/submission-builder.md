@@ -1,6 +1,6 @@
 # Skill: submission-builder
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/submission-builder/SKILL.md`
 
 > Use when an exact ChatGPT/Codex Plugin artifact has passed local package, brand, and listing gates and you need reviewer-ready submission evidence without confusing preparation, submission, approval, and publication states.

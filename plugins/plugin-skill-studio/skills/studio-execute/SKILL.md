@@ -19,6 +19,6 @@ Pick one mode, read only that mode file, and follow it.
 | <a id="mode-parallel"></a>parallel | Dispatch one subagent per independent problem that can run concurrently | [modes/parallel.md](modes/parallel.md) |
 | <a id="mode-durable"></a>durable | Run long or interruption-prone work from a durable state file with evidence | [modes/durable.md](modes/durable.md) |
 
-In this package, the review skill is `studio-review`, the worktree and branch-finishing workflows are `using-git-worktrees` and `finishing-a-development-branch`, the debugging workflow is `diagnose-systematically`, refactoring is `refactor-safely`, research is `research-systematically`, UI automation is `automate-ui`, and the Windows process-execution reference is [windows-process-execution.md](../../references/windows-process-execution.md).
+In this package, the review skill is `studio-review`, the worktree and branch-finishing workflows are `studio-git` (worktree mode) and `studio-git` (finish mode), the debugging workflow is `diagnose-systematically`, refactoring is `refactor-safely`, research is `research-systematically`, UI automation is `automate-ui`, and the Windows process-execution reference is [windows-process-execution.md](../../references/windows-process-execution.md).
 
 The mode files and everything under `modes/subagent/` are shared byte-for-byte with DevSuite's `devsuite-implement`. Change them only together with DevSuite, and update `references/consolidation/shared-execute-modes.json` in both packages.

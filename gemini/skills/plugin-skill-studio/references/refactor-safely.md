@@ -1,6 +1,6 @@
 # Skill: refactor-safely
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/refactor-safely/SKILL.md`
 
 > Refactors working or legacy code without changing observable behavior, using characterization tests when needed. Use when code is messy, nested, duplicated, or uncovered.

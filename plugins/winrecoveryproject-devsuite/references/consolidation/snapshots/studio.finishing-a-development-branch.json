@@ -1,0 +1,11 @@
+{
+  "id": "studio.finishing-a-development-branch",
+  "root": "skills/finishing-a-development-branch",
+  "source": "Zilvereyes-Plugin-Studio@0ba9f82",
+  "files": {
+    "SKILL.md": "38c0fec68ca4a3e1389f1c3d812f5824790db6d1af317ff8f1a676fdada0973f",
+    "agents/openai.yaml": "8878bf3885a1d5ccbdc55ffa4f18448d9d7308b01481be9bbe4850899cea2b17",
+    "assets/wrp-icon-128.png": "359822245c83c60f274bb9c7ee6b763e9e1cd0ef3fbaf0abf4cdced75414d31c",
+    "assets/wrp-icon-256.png": "2633be056d51373483ae7ba3621976cbfa8b2de4542071629a02dda5a9c3063f"
+  }
+}

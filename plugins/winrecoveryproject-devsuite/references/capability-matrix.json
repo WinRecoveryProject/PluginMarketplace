@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.5.0",
+  "version": "0.6.0",
   "coverageStatement": "39 source skills map to 214 function-level rows. Jobs/Tasks add independent integration workflows and local planning/selection tests. Provider execution remains separate.",
   "capabilities": [
     {
@@ -4759,6 +4759,86 @@
       ],
       "tests": [
         "tests/test_execute_consolidation.py::test_execute_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/using-git-worktrees/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "using-git-worktrees",
+      "function": "isolated workspace via native tools or git worktree fallback",
+      "owner": "devsuite-git",
+      "mode": "worktree",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-git)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-git/modes/worktree.md",
+        "references/consolidation/git-matrix.json"
+      ],
+      "tests": [
+        "tests/test_git_consolidation.py::test_git_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/finishing-a-development-branch/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "finishing-a-development-branch",
+      "function": "verified branch integration with merge/PR/keep/discard choice and cleanup",
+      "owner": "devsuite-git",
+      "mode": "finish",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-git)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-git/modes/finish.md",
+        "references/consolidation/git-matrix.json"
+      ],
+      "tests": [
+        "tests/test_git_consolidation.py::test_git_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/resolving-merge-conflicts/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "resolving-merge-conflicts",
+      "function": "merge and rebase conflict resolution by traced intent",
+      "owner": "devsuite-git",
+      "mode": "conflicts",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-git)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-git/modes/conflicts.md",
+        "references/consolidation/git-matrix.json"
+      ],
+      "tests": [
+        "tests/test_git_consolidation.py::test_git_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/git-safety-guardrails/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "git-safety-guardrails",
+      "function": "classifier hook against destructive or history-rewriting git operations",
+      "owner": "devsuite-git",
+      "mode": "safety",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-git)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-git/modes/safety.md",
+        "references/consolidation/git-matrix.json"
+      ],
+      "tests": [
+        "tests/test_git_consolidation.py::test_git_matrix_union"
       ],
       "evidenceType": "static workflow contract and capability matrix",
       "availability": "local",

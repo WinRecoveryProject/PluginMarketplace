@@ -1,6 +1,6 @@
 # Skill: solve-efficiently
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/solve-efficiently/SKILL.md`
 
 > Routes multi-module work with progressive discovery, matched effort, and context economy. Use when boundaries are unclear, context must stay small, or a durable project map is needed.

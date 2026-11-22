@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.8.0 — 2026-11-22
+
+Breaking: four git skills are consolidated into `studio-git`. Every capability is mapped in `references/consolidation/git-matrix.json` (208 capabilities, none dropped).
+
+| Removed skill | New skill | Mode |
+|---|---|---|
+| `using-git-worktrees` | `studio-git` | `worktree` |
+| `finishing-a-development-branch` | `studio-git` | `finish` |
+| `resolving-merge-conflicts` | `studio-git` | `conflicts` |
+| `git-safety-guardrails` | `studio-git` | `safety` (scripts in `modes/safety/scripts/`) |
+
+The mode files and everything under `modes/safety/` are shared byte-for-byte with WinRecoveryProject DevSuite `devsuite-git`; `references/consolidation/shared-git-modes.json` pins their hashes in both packages. The preserved upstream tools in `tools/matt/` are unchanged; their test still points at the upstream layout and was already failing before this release.
+
 ## 0.7.0 — 2026-11-22
 
 Breaking: six execution skills are consolidated into `studio-execute`. Every capability is mapped in `references/consolidation/execute-matrix.json` (315 capabilities, none dropped).

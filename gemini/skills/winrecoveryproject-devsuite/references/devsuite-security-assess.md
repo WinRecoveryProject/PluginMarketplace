@@ -1,6 +1,6 @@
 # Skill: devsuite-security-assess
 
-- Plugin: `winrecoveryproject-devsuite` (0.5.0)
+- Plugin: `winrecoveryproject-devsuite` (0.6.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-security-assess/SKILL.md`
 
 > Use for repository or diff security audits, threat models, discovery, static triage, attack paths and controlled validation.

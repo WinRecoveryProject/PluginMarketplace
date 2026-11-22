@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-git/modes and DevSuite skills/devsuite-git/modes (including safety/); hashed with LF line endings.",
+  "files": {
+    "conflicts.md": "0567600df6afd070ecfc442acb680f20a4212a9a157288e80e496245aa0a1c40",
+    "finish.md": "33bd4f5a835588b73a24846c96f3dd58ec35a034ddf324b1fcd33e289127651d",
+    "safety.md": "c2a96bb373a3a27359b875d9347ce188cd3d3c6597f2aed200fd4755a043b29f",
+    "safety/scripts/block-dangerous-git.sh": "234922b83c0a1737ee7300806c21ac0f389b07aaeb65c2d71ccedafbc5e1ea4b",
+    "safety/scripts/classify_git_command.py": "8cc648fd81b454ab0660866362cf3aba35bbd0b3ecdaef0d2b3da414f06eb367",
+    "worktree.md": "dadef7e1056a988fb771c39df6ca26d6f9ae7a8fd2ed341115fb2321b121dd2e"
+  }
+}

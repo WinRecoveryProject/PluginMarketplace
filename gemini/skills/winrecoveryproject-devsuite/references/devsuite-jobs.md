@@ -1,6 +1,6 @@
 # Skill: devsuite-jobs
 
-- Plugin: `winrecoveryproject-devsuite` (0.5.0)
+- Plugin: `winrecoveryproject-devsuite` (0.6.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-jobs/SKILL.md`
 
 > Use when running or inspecting finite local builds, tests and background processes with exact job ownership; Windows uses real host sessions.

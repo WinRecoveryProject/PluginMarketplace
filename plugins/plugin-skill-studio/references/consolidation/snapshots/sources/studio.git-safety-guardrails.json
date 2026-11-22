@@ -1,0 +1,13 @@
+{
+  "id": "studio.git-safety-guardrails",
+  "root": "skills/git-safety-guardrails",
+  "commit": "0ba9f82",
+  "files": {
+    "SKILL.md": "78e0999c3056097f12b23d4ae0849a5315e420f6d509ddfb61283844e96ceb8d",
+    "agents/openai.yaml": "bb0ac836452a23915b3f524aca73ef1b71d0384c150adfe563410be5fe1e56ed",
+    "assets/wrp-icon-128.png": "adf724a5d85578e7ac4e1640bbd9ce4ae25dada578ccc1308391301fc8cb8998",
+    "assets/wrp-icon-256.png": "c2e53324c994a51d6e96239339e8662de4812c097dbc553daf5a372e86852dfe",
+    "scripts/block-dangerous-git.sh": "234922b83c0a1737ee7300806c21ac0f389b07aaeb65c2d71ccedafbc5e1ea4b",
+    "scripts/classify_git_command.py": "8cc648fd81b454ab0660866362cf3aba35bbd0b3ecdaef0d2b3da414f06eb367"
+  }
+}

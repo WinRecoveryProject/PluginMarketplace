@@ -15,6 +15,10 @@ export async function loadRegistry(root=packageRoot) {
 
 // [capability, mode|null, pattern]; the first match wins, so specific workflows precede broad ones.
 const rules=[
+ ['studio-git','safety',/force push|hard reset|history re-?writ|destructive|clean up git history|routine safe git/i],
+ ['studio-git','conflicts',/merge conflicts?|rebase conflicts?|conflict markers|fix this merge|rebase pauses|routine rebasing without conflicts|creating new branches/i],
+ ['studio-git','finish',/integration of a finished branch|merge\/pr\/keep\/discard|work needs to be integrated/i],
+ ['studio-git','worktree',/isolation from current workspace|isolated workspace|git worktree/i],
  ['studio-execute','durable',/durable state file|interruption-prone|risks compaction|resume after interruption/i],
  ['studio-execute','spec-run',/full specification across task tickets|unified pr|build the whole spec|single isolated bug fixes|exploratory coding without tickets/i],
  ['studio-execute','parallel',/one subagent per independent problem|proceed concurrently|without shared state/i],
