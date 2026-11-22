@@ -1,6 +1,6 @@
 # Skill: vercel-connect
 
-- Plugin: `vercel` (0.56.0-wrp.2)
+- Plugin: `vercel` (0.56.0-wrp.3)
 - Source: `plugins/vercel/skills/vercel-connect/SKILL.md`
 
 > Vercel Connect expert guidance for securely obtaining scoped credentials for third-party services on behalf of apps or users. Use when wiring up provider API access, OAuth, API-key services, MCP servers, triggers, framework adapters, eve agent connections, or provider tokens for Passport-authenticated users.

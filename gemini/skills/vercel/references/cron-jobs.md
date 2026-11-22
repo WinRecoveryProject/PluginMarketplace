@@ -1,6 +1,6 @@
 # Skill: cron-jobs
 
-- Plugin: `vercel` (0.56.0-wrp.2)
+- Plugin: `vercel` (0.56.0-wrp.3)
 - Source: `plugins/vercel/skills/cron-jobs/SKILL.md`
 
 > Vercel Cron Jobs configuration and best practices. Use when adding, editing, or debugging scheduled tasks in vercel.json.

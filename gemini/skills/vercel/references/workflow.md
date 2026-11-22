@@ -1,6 +1,6 @@
 # Skill: workflow
 
-- Plugin: `vercel` (0.56.0-wrp.2)
+- Plugin: `vercel` (0.56.0-wrp.3)
 - Source: `plugins/vercel/skills/workflow/SKILL.md`
 
 > Vercel Workflow SDK expert guidance. Use when building durable workflows, long-running tasks, API routes or agents that need pause/resume, retries, step-based execution, or crash-safe orchestration with Vercel Workflow.

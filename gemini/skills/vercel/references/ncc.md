@@ -1,6 +1,6 @@
 # Skill: ncc
 
-- Plugin: `vercel` (0.56.0-wrp.2)
+- Plugin: `vercel` (0.56.0-wrp.3)
 - Source: `plugins/vercel/skills/ncc/SKILL.md`
 
 > Expert guidance for @vercel/ncc — a simple CLI for compiling Node.js modules into a single file with all dependencies included. Use when bundling serverless functions, CLI tools, or any Node.js project into a self-contained file.

@@ -1,6 +1,6 @@
 # Skill: investigation-mode
 
-- Plugin: `vercel` (0.56.0-wrp.2)
+- Plugin: `vercel` (0.56.0-wrp.3)
 - Source: `plugins/vercel/skills/investigation-mode/SKILL.md`
 
 > Use when a Vercel workflow is stuck or returning errors. Triages logs, workflow state, deployment configuration and browser behavior.
