@@ -1,6 +1,6 @@
 # Skill: knowledge-update
 
-- Plugin: `vercel` (0.56.0-wrp.2)
+- Plugin: `vercel` (0.56.0-wrp.3)
 - Source: `plugins/vercel/skills/knowledge-update/SKILL.md`
 
 > Use when the task requires current Vercel product behavior or a version-specific API. Verify against the official documentation.
