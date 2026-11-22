@@ -1,6 +1,6 @@
 # Skill: powershell-agent-harness-development
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/powershell-agent-harness-development/SKILL.md`
 
 > Build or review PowerShell orchestration for local or hosted AI models, coding agents, capability registries, evaluations, checkpoints, session exports, and provider switching.

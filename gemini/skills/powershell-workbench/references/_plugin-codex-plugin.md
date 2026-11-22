@@ -7,7 +7,7 @@ Source: `plugins/powershell-workbench`. Files outside the `skills/*` folders, em
 ```json
 {
   "name": "powershell-workbench",
-  "version": "0.9.0-beta.6",
+  "version": "0.9.0-beta.7",
   "description": "Portable PowerShell and mixed-language scaffolding, refactoring, discovery, agent harnesses, game tooling, and opt-in quality workflows.",
   "license": "MIT",
   "repository": "https://github.com/WinRecoveryProject/PowerShellWorkbench",

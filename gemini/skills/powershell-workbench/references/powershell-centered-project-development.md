@@ -1,6 +1,6 @@
 # Skill: powershell-centered-project-development
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/powershell-centered-project-development/SKILL.md`
 
 > Use when asked to develop mixed-language projects where Windows PowerShell 5.1 or PowerShell 7 is the primary automation, orchestration, installation, build, or recovery layer.

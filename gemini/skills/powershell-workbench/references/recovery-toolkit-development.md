@@ -1,6 +1,6 @@
 # Skill: recovery-toolkit-development
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/recovery-toolkit-development/SKILL.md`
 
 > Use when asked to develop or review the local RecoveryToolkit using its split-function architecture, contract tests, safe local path rules, and non-executable recovery-media and servicing boundaries.

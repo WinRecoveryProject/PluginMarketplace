@@ -1,6 +1,6 @@
 # Skill: powershell-docs
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/powershell-docs/SKILL.md`
 
 > Use when asked to research PowerShell language, engine, module, compatibility, and tooling questions from official Microsoft documentation with explicit version scope.

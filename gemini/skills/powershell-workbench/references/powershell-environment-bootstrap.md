@@ -1,6 +1,6 @@
 # Skill: powershell-environment-bootstrap
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/powershell-environment-bootstrap/SKILL.md`
 
 > Use when asked to diagnose PowerShell, Codex CLI, Node/npm, Git, GitHub CLI, Docker, winget, and PATH availability on Windows before giving installation or plugin setup commands.

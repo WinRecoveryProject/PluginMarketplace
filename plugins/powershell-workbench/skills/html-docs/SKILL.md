@@ -6,6 +6,7 @@ description: "Use when researching html syntax, runtime, parser and component-co
 
 Read ../powershell-scaffold/references/language-docs.md and the `html` entry in
 ../../assets/language-documentation-catalog.json. Scope: HTML parsing versus browser DOM, scripts and application behavior.
+Then read references/notes.md: version cues, primary sources, pitfalls and safe checks for this language.
 
 Open relevant primary sources before technical claims. Read ../../assets/component-parser-catalog.json
 for parser IDs/capability states and apply ../powershell-scaffold/references/component-pipeline.md

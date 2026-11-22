@@ -273,7 +273,7 @@
 
 ## PowerShell Workbench (`powershell-workbench`)
 
-- Version: `0.9.0-beta.6`
+- Version: `0.9.0-beta.7`
 - Installs from: `plugins/powershell-workbench` (this repository)
 - Exported from: `plugins/powershell-workbench`
 - Gemini skill folder: `gemini/skills/powershell-workbench/`

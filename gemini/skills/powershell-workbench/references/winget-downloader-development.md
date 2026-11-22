@@ -1,6 +1,6 @@
 # Skill: winget-downloader-development
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/winget-downloader-development/SKILL.md`
 
 > Use when asked to modernize WingetDownloader with explicit exports, help, tests, structured status, cache integrity, safe paths, and recovery handoff compatibility.

@@ -38,7 +38,7 @@ codex plugin add <plugin>@winrecoveryproject-digital
 | `onedrive` | `1.2.2` | 2 | OneDrive files through the existing registered App and its hosted CloudStorage Portal MCP connection. |
 | `plugin-eval` | `0.1.2` from upstream; this export: snapshot `0.1.3` | 5 | Evaluate Codex skills and plugins from chat with a beginner-friendly start command, local-first reports, token budget explanations, and guided benchmarking. |
 | `plugin-skill-studio` | `0.3.33` | 95 | Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate. |
-| `powershell-workbench` | `0.9.0-beta.6` | 33 | Portable PowerShell and mixed-language scaffolding, refactoring, discovery, agent harnesses, game tooling, and opt-in quality workflows. |
+| `powershell-workbench` | `0.9.0-beta.7` | 33 | Portable PowerShell and mixed-language scaffolding, refactoring, discovery, agent harnesses, game tooling, and opt-in quality workflows. |
 | `vercel` | `0.56.0-wrp.2` | 66 | Build and deploy web apps and agents |
 | `windows-dism-update-docs` | `0.1.4` | 1 | Local Windows servicing knowledge assistant for DISM, .NET, Defender, ESU and Home/Pro integration evidence. |
 | `winrecoveryproject-devsuite` | `0.2.7` | 14 | One development toolkit for planning, coding, security, testing, local processes and registered Codex tasks. |

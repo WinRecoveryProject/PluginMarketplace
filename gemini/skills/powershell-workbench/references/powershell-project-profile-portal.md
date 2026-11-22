@@ -1,6 +1,6 @@
 # Skill: powershell-project-profile-portal
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/powershell-project-profile-portal/SKILL.md`
 
 > Use when asked to show and safely update a portable PowerShell Workbench project profile through a human-readable, color-coded terminal portal.

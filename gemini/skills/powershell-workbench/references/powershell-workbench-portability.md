@@ -1,6 +1,6 @@
 # Skill: powershell-workbench-portability
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/powershell-workbench-portability/SKILL.md`
 
 > Package PowerShell Workbench for another project, workstation, laptop, local marketplace, or Git-backed Codex marketplace without embedding machine-specific project paths.

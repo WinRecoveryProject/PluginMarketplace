@@ -6,6 +6,7 @@ description: "Use when researching css syntax, runtime, parser and component-con
 
 Read ../powershell-scaffold/references/language-docs.md and the `css` entry in
 ../../assets/language-documentation-catalog.json. Scope: Module level, browser support and cascade context.
+Then read references/notes.md: version cues, primary sources, pitfalls and safe checks for this language.
 
 Open relevant primary sources before technical claims. Read ../../assets/component-parser-catalog.json
 for parser IDs/capability states and apply ../powershell-scaffold/references/component-pipeline.md

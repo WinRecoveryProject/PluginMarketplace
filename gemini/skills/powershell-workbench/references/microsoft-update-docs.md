@@ -1,6 +1,6 @@
 # Skill: microsoft-update-docs
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/microsoft-update-docs/SKILL.md`
 
 > Use when asked to research Windows Update, Microsoft Update, UUP, update policy, deployment, troubleshooting, releases, and build history from official Microsoft sources.

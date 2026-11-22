@@ -1,6 +1,6 @@
 # Skill: powershell-portfolio-discovery
 
-- Plugin: `powershell-workbench` (0.9.0-beta.6)
+- Plugin: `powershell-workbench` (0.9.0-beta.7)
 - Source: `plugins/powershell-workbench/skills/powershell-portfolio-discovery/SKILL.md`
 
 > Use when asked to inventory several explicitly scoped project roots or a project-profile registry and route PowerShell-centered work without scanning entire drives or importing machine-specific paths into the plugin.
