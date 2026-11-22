@@ -52,6 +52,6 @@ _Binary asset, not embedded._
   "name": "codex-dev-workflows",
   "repository": "https://github.com/srajpal/codex-dev-workflows",
   "skills": "./skills/",
-  "version": "0.4.2"
+  "version": "0.4.2-wrp.1"
 }
 ```

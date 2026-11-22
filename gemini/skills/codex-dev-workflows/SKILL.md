@@ -5,7 +5,7 @@ description: "Codex Dev Workflows: Reusable software-development workflows and p
 
 # Codex Dev Workflows
 
-Gemini export of the `codex-dev-workflows` plugin from WinRecoveryProject/PluginMarketplace, version `0.4.2`. Source: `plugins/codex-dev-workflows`.
+Gemini export of the `codex-dev-workflows` plugin from WinRecoveryProject/PluginMarketplace, version `0.4.2-wrp.1`. Source: `plugins/codex-dev-workflows`.
 
 A skills-only library for planning, orchestration, feature work, testing, comprehensive QA, debugging, review, release readiness, and handoffs.
 
@@ -30,7 +30,7 @@ A skills-only library for planning, orchestration, feature work, testing, compre
 | `feature-testing` | Test a recently implemented feature for intended behavior, edge cases, regressions, and meaningful missing coverage. | `references/feature-testing.md` |
 | `new-project` | Turn a new software idea into a scoped, buildable project plan before implementation begins. | `references/new-project.md` |
 | `orchestrate-work` | Coordinate complex, divisible work by planning, delegating independent tasks in parallel, integrating the results, and verifying the complete outcome. | `references/orchestrate-work.md` |
-| `platform-guidance` | Load focused development and QA guidance for Flutter, JavaScript/TypeScript, Python, or Laravel/PHP projects. | `references/platform-guidance.md` |
+| `platform-guidance` | Load focused development and QA guidance for Flutter, JavaScript/TypeScript, Python, Laravel/PHP, PowerShell, Batch/CMD, or Lua (including World of Warcraft addons) projects. | `references/platform-guidance.md` |
 | `pre-release-review` | Assess whether a software change is ready to release by checking scope, validation, risk, operations, and rollback readiness. | `references/pre-release-review.md` |
 | `resume-interrupted-task` | Safely resume interrupted software work by reconstructing the current state from repository evidence, preserving valid changes, and making the next step explicit. | `references/resume-interrupted-task.md` |
 | `session-handoff` | Create a concise, evidence-based handoff that lets the next development session continue safely without re-discovering context. | `references/session-handoff.md` |

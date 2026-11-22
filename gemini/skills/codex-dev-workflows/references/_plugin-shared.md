@@ -2,6 +2,34 @@
 
 Source: `plugins/codex-dev-workflows`. Files outside the `skills/*` folders, embedded as text.
 
+## File: `shared/platforms/batch-cmd.md`
+
+### Batch and CMD guidance
+
+Use this reference for `.bat` and `.cmd` launchers and scripts. First find out how each file is started (double-click, another script, a scheduled task, an installer) and which Windows versions must run it.
+
+#### Implementation focus
+
+- Keep `.bat`/`.cmd` files with CRLF line endings; LF-only files can break labels, `goto` and `call :label`. A `.gitattributes` rule (`*.cmd text eol=crlf`) keeps checkouts correct.
+- Use `setlocal` so variables do not leak into the caller, and delayed expansion (`!var!`) for values changed inside parenthesized blocks.
+- Quote paths: `"%~dp0"` for the script folder (it ends with a backslash) and `set "name=value"` to avoid trailing spaces.
+- Escape `&`, `|`, `<`, `>`, `^` and parentheses outside quotes, including inside `echo` lines within blocks; quote path-bearing messages.
+- Return explicit exit codes with `exit /b <code>` and check `if errorlevel 1` right after the command that matters.
+- Keep launchers thin: resolve the project root, call the real PowerShell or other tool with explicit arguments, and pass its exit code back.
+- Never delete with `rmdir /s /q` or `del /s` on a path built from arguments without first validating it.
+
+#### Validation
+
+There is no built-in parser check, and running the file is not a test. Review by reading: balanced parentheses, `%var%` inside blocks, every exit path, and quoting of every path. Exercise launchers through the project's own test harness in a simulation folder when one exists.
+
+#### QA watch list
+
+- paths containing spaces, parentheses, `&` or `!`
+- behavior with delayed expansion on versus off
+- code page (`chcp 65001`) and non-ASCII output
+- `pause` in non-interactive contexts such as CI or scheduled tasks
+- the command-line length limit of 8191 characters
+
 ## File: `shared/platforms/flutter.md`
 
 ### Flutter guidance
@@ -87,6 +115,63 @@ Use repository commands and existing test configuration. Typical checks may incl
 - migrations, seeders, factories, rollback paths, and queue failures
 - cache/session behavior, locale/timezone formatting, and pagination/filtering boundaries
 - HTTP status/error contracts, database constraints, and concurrency-sensitive writes
+
+## File: `shared/platforms/lua-wow.md`
+
+### Lua and World of Warcraft addon guidance
+
+Use this reference for Lua code, including World of Warcraft addons. First identify the runtime: PUC Lua 5.1 to 5.4, LuaJIT, or an embedded host. World of Warcraft embeds a modified Lua 5.1 with its own API, so identify the game branch and build the addon targets (Retail or a Classic branch) and read the addon's TOC files.
+
+#### Implementation focus
+
+- Write for the target version: World of Warcraft code cannot use `goto`, integer division `//`, native bitwise operators or `<const>`/`<close>`.
+- Keep state local. Addons share one global environment, so expose at most one addon table and avoid leaking globals.
+- Respect load order: files load in the order listed in the TOC, and libraries must load before code that uses them.
+- Register for events instead of polling, and unregister when no longer needed.
+- Treat API availability as branch-specific; check the current API for the targeted build instead of relying on memory.
+- Avoid protected or secure actions in combat unless the API allows them; tainted code paths cause blocked actions.
+- Keep `SavedVariables` names in the TOC in sync with the globals the code writes, and handle missing or old saved data.
+
+#### Validation
+
+Use the project's configured checks, such as `luacheck` with the project's globals and a version-matched `luac -p` parse. Parse success does not prove World of Warcraft compatibility; in-game testing on the targeted build is the real check, and the user runs it.
+
+#### QA watch list
+
+- nil handling for API returns that differ per branch or when data is not loaded yet
+- `#` on tables with gaps, and integer versus float differences between Lua versions
+- per-character versus account-wide saved data and migration from older formats
+- localization, UI scaling and font differences
+- event order at login, reload and zoning
+
+## File: `shared/platforms/powershell.md`
+
+### PowerShell guidance
+
+Use this reference for PowerShell scripts and modules. First inspect `#Requires` lines, module manifests (`.psd1`), repository instructions, CI and existing tests. Establish which hosts must run the code: Windows PowerShell 5.1, PowerShell 7, or both.
+
+#### Implementation focus
+
+- Keep both hosts working when both are supported: avoid PowerShell 7-only syntax (`??`, `?.`, ternary `? :`, `&&`/`||` pipeline chains, `ForEach-Object -Parallel`) in code that must run on 5.1.
+- Start scripts with `Set-StrictMode -Version Latest` and `$ErrorActionPreference = 'Stop'` when the project does; non-terminating errors otherwise continue silently.
+- Native commands do not throw on failure. Check `$LASTEXITCODE` after each one that matters.
+- Use `-LiteralPath` for paths that can contain `[`, `]` or `*`, and resolve roots from parameters or `$PSScriptRoot`, never from the current directory or a hard-coded drive.
+- Do not assign to automatic variables (`$input`, `$args`, `$PSItem`, `$Error`, `$host`, `$matches`).
+- Be explicit about text encoding: Windows PowerShell 5.1 writes UTF-16 or ANSI by default and reads BOM-less files as ANSI; PowerShell 7 defaults to UTF-8 without BOM.
+- Wrap single results in `@()` when the caller expects an array; a pipeline returning one item yields a scalar.
+- Keep destructive actions behind `SupportsShouldProcess` (`-WhatIf`/`-Confirm`) and explicit parameters.
+
+#### Validation
+
+Use the project's configured checks. A common baseline is a parser check of every script in each supported host, `Invoke-ScriptAnalyzer` with the project settings, and Pester or the repository's own `Test-*.ps1` scripts run in both hosts. Do not run scripts that change the system, install drivers or touch the registry as part of validation unless the user authorized that environment.
+
+#### QA watch list
+
+- paths with spaces, brackets and non-ASCII characters; UNC and long paths
+- 5.1 versus 7 differences in encoding, `ConvertTo-Json`/`ConvertFrom-Json`, and `Start-Process` argument quoting
+- exit codes from native tools and from `exit` inside scripts called with `&`
+- execution policy, elevation, and 32- versus 64-bit hosts
+- scheduled-task or service contexts with a different user profile and working directory
 
 ## File: `shared/platforms/python.md`
 

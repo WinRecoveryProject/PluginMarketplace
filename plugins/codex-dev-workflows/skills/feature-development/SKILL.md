@@ -5,7 +5,7 @@ description: Implement a focused software feature with scoped investigation, ver
 
 # Feature development workflow
 
-Use this skill to implement a requested feature or small enhancement. First read the repository's agent instructions and only the documentation relevant to the task. If the project uses Flutter, JavaScript/TypeScript, Python, or Laravel/PHP, load the corresponding file in `../../shared/platforms/`.
+Use this skill to implement a requested feature or small enhancement. First read the repository's agent instructions and only the documentation relevant to the task. If the project uses Flutter, JavaScript/TypeScript, Python, Laravel/PHP, PowerShell, Batch/CMD, or Lua, load the corresponding file in `../../shared/platforms/`.
 
 ## Understand and scope
 
