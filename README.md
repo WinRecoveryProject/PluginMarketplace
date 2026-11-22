@@ -91,7 +91,7 @@ De 16 pakker, der ligger i dette repository, indlæses via relative stier i det 
 
 Claude Desktop og Claude Code kan bruge samme GitHub-repository. Claude-kataloget viser de lokale plugins, der kan indlæses uden Codex’ App-forbindelser. Brug `WinRecoveryProject/PluginMarketplace` i Claude Desktop eller kør `claude plugin marketplace add WinRecoveryProject/PluginMarketplace` i Claude Code.
 
-Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. Codex Process Jobs og Plugin Eval er bevidst kun i Codex-kataloget: de bygger på Codex' kørsel og afsluttende meddelelser. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
+Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. Codex Process Jobs er bevidst kun i Codex-kataloget: den bygger på Codex' kørsel og afsluttende meddelelser. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
 
 WinRecoveryProject DevSuite 0.4.0 tilbyder seks lokale arbejdsgange og en startguide i Claude; `devsuite-review` samler kodegennemgang, verifikation og kvalitetskontrol, og `devsuite-planning` samler opdagelse, interview, spec, plan, tickets, spørgeskemaer, mål og kortlægning. Installér via `claude plugin install winrecoveryproject-devsuite@winrecoveryproject-digital`. Codex-forbundne arbejdsgange bruger fortsat deres eksisterende plugin og App-forbindelser. [Kilde og testvejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/claude)
 
