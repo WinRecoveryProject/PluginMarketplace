@@ -75,6 +75,8 @@ workflow. Route suggestions never authorize execution.
 
 Version 0.4.0 consolidates planning: `devsuite-planning` gains discover, interview, spec, plan, tickets, questions, goal and map modes whose files are byte-identical with Plugin-Skill-Studio `studio-plan`, while its own planning and coordination text becomes the `project` mode; `references/consolidation/plan-matrix.json` maps every absorbed capability, and only Studio's Node browser companion is an approved drop. Version 0.3.0 consolidates review: `devsuite-review` absorbs `devsuite-quality` (now its `gate` mode) and adds `request`, `receive`, `decide` and `verify` modes whose files are byte-identical with Plugin-Skill-Studio `studio-review`; `references/consolidation/review-matrix.json` maps every absorbed capability. Version 0.2.7 lists available and unavailable saved environment configurations through the existing Codex Tasks connection. An unnamed selection requires one runnable candidate. The attached Cloud Environment desktop uses its own existing runtime access.
 
+Version 0.3.1 adds platform guidance for PowerShell (Windows PowerShell 5.1 and PowerShell 7), Batch/CMD launchers, and Lua including World of Warcraft addons. The debug, implement and test workflows load them from `references/platforms.md`.
+
 Version 0.2.6 routes requests for saved Codex cloud environments to the
 read-only Codex Tasks listing, including Danish requests with gemte or
 Codex-cloudmiljøer. Interactive Cloud Environment login still depends

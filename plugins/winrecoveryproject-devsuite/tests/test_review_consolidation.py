@@ -136,6 +136,9 @@ class ReviewConsolidationTests(unittest.TestCase):
                 # Tests may name the removed skill to assert that it is absent from built packages.
                 if CONSOLIDATION in file.parents or "__pycache__" in file.parts or file.name.startswith("test_"):
                     continue
+                # Tests may name the removed skill to assert that it is gone.
+                if file.name.startswith("test_"):
+                    continue
                 text = re.sub(r'<a id="[^"]*"></a>', "", file.read_text(encoding="utf-8", errors="ignore"))
                 if "devsuite-quality" in text:
                     hits.append(str(file.relative_to(ROOT)))

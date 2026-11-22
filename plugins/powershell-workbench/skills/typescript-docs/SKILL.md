@@ -6,6 +6,7 @@ description: "Use when researching typescript syntax, runtime, parser and compon
 
 Read ../powershell-scaffold/references/language-docs.md and the `typescript` entry in
 ../../assets/language-documentation-catalog.json. Scope: Compiler version, tsconfig, declaration and emit behavior.
+Then read references/notes.md: version cues, primary sources, pitfalls and safe checks for this language.
 
 Open relevant primary sources before technical claims. Read ../../assets/component-parser-catalog.json
 for parser IDs/capability states and apply ../powershell-scaffold/references/component-pipeline.md

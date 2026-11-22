@@ -1,0 +1,41 @@
+# Plugin files: plugin-skill-studio — `.codex-plugin/`
+
+Source: `plugins/plugin-skill-studio`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `.codex-plugin/plugin.json`
+
+```json
+{
+  "name": "plugin-skill-studio",
+  "version": "0.6.0",
+  "description": "Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.",
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Plugin-Skill-Studio",
+    "shortDescription": "Byg og vurder plugins & skills",
+    "longDescription": "Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.",
+    "developerName": "Zilvereyes",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Byg eller udvid et plugin med lokale workflows.",
+      "Vurdér denne skill med Skill Eval og vis evidensen.",
+      "Find, importér og gennemgå mine plugin- og skill-kilder."
+    ],
+    "logo": "./assets/logo-512.png",
+    "composerIcon": "./assets/composer-128.png",
+    "brandColor": "#635BFF",
+    "brandColorDark": "#A7A2FF",
+    "websiteURL": "https://github.com/WinRecoveryProject/PluginMarketplace/tree/main/plugins/plugin-skill-studio",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/plugins/plugin-skill-studio/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/plugins/plugin-skill-studio/TERMS.md"
+  }
+}
+```

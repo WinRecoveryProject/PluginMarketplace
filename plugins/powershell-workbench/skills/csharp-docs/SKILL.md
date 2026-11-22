@@ -6,6 +6,7 @@ description: "Use when researching csharp syntax, runtime, parser and component-
 
 Read ../powershell-scaffold/references/language-docs.md and the `csharp` entry in
 ../../assets/language-documentation-catalog.json. Scope: C# language version, SDK, framework and project type.
+Then read references/notes.md: version cues, primary sources, pitfalls and safe checks for this language.
 
 Open relevant primary sources before technical claims. Read ../../assets/component-parser-catalog.json
 for parser IDs/capability states and apply ../powershell-scaffold/references/component-pipeline.md

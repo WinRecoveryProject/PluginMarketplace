@@ -1,0 +1,37 @@
+# Plugin files: onedrive — `.codex-plugin/`
+
+Source: `plugins/onedrive`. Files outside the `skills/*` folders, embedded as text.
+
+## File: `.codex-plugin/plugin.json`
+
+```json
+{
+  "apps": "./.app.json",
+  "author": {
+    "name": "Zilvereyes",
+    "email": "zilver.muhlig.hansen@gmail.com"
+  },
+  "description": "OneDrive files through the existing registered App and its hosted CloudStorage Portal MCP connection.",
+  "interface": {
+    "displayName": "OneDrive",
+    "shortDescription": "Dine OneDrive-filer",
+    "longDescription": "Læs og administrér OneDrive-filer: mapper, søgning, download, upload, flytning, kopiering, versioner og deling gennem den eksisterende CloudStorage Portal-server.",
+    "developerName": "Zilvereyes",
+    "category": "Productivity",
+    "websiteURL": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
+    "privacyPolicyURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-privacy.md",
+    "termsOfServiceURL": "https://github.com/WinRecoveryProject/PluginMarketplace/blob/main/docs/cloudstorage-terms.md",
+    "capabilities": [],
+    "defaultPrompt": "Vis min verificerede OneDrive-konto og indholdet i roden uden at ændre filer.",
+    "logo": "./assets/logo-512.png",
+    "composerIcon": "./assets/composer-128.png",
+    "brandColor": "#0078D4",
+    "brandColorDark": "#4CC2FF"
+  },
+  "name": "onedrive",
+  "version": "1.2.2",
+  "skills": "./skills",
+  "onboardingSkill": "./skills/onedrive-setup/SKILL.md",
+  "license": "MIT"
+}
+```

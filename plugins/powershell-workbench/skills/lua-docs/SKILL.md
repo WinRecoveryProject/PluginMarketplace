@@ -6,6 +6,7 @@ description: "Use when researching lua syntax, runtime, parser and component-con
 
 Read ../powershell-scaffold/references/language-docs.md and the `lua` entry in
 ../../assets/language-documentation-catalog.json. Scope: Exact Lua runtime, host embedding and game API version.
+Then read references/notes.md: version cues, primary sources, pitfalls and safe checks for this language.
 
 Open relevant primary sources before technical claims. Read ../../assets/component-parser-catalog.json
 for parser IDs/capability states and apply ../powershell-scaffold/references/component-pipeline.md

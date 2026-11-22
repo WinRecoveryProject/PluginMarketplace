@@ -17,6 +17,8 @@ Seneste rettelser og praktiske regnearks-/PDF-prøver: [Marketplace-opfølgning]
 
 Praktiske prøver og resterende runtime-begrænsninger: [Studio 0.3.7](docs/PRACTICAL-STUDIO037-20261117.md).
 
+**Gemini:** [upload-klare færdigheder for alle plugins](gemini/README.md).
+
 Én samlet Git-markedsplads for de personlige Codex-plugins, der vedligeholdes under WinRecoveryProject/Zilvereyes.
 
 Seneste samlede installationskontrol: [fuld installationsliste og historisk afstemning med Studio 0.3.6/0.3.7](docs/INSTALLED-AUDIT-STUDIO036-20261117.md).
@@ -37,7 +39,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | CloudStorage Portal | `0.9.14` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.3` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Plugin-Skill-Studio | `0.6.0` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
-| PowerShell Workbench | `0.9.0-beta.6` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
+| PowerShell Workbench | `0.9.0-beta.7` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
 | Windows Dism Update Docs | `0.1.4` | `codex plugin add windows-dism-update-docs@winrecoveryproject-digital` |
 | Codex Security | `0.1.33` | `codex plugin add codex-security@winrecoveryproject-digital` |
 | Linear | `5.0.1` | `codex plugin add linear@winrecoveryproject-digital` |
@@ -50,7 +52,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | WinRecoveryProject DevSuite | `0.4.0` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
-| Vercel | `0.56.0-wrp.1` | `codex plugin add vercel@winrecoveryproject-digital` |
+| Vercel | `0.56.0-wrp.2` | `codex plugin add vercel@winrecoveryproject-digital` |
 | GitHub | `0.1.12` | `codex plugin add github@winrecoveryproject-digital` |
 | Google Drive | `0.1.15` | `codex plugin add google-drive@winrecoveryproject-digital` |
 | OpenAI Developers | `1.2.3` | `codex plugin add openai-developers@winrecoveryproject-digital` |

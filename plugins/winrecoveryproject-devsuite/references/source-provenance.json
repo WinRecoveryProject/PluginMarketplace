@@ -387,7 +387,10 @@
     {
       "from": "codex-dev-workflows",
       "files": [
-        "references/platforms/*.md"
+        "references/platforms/flutter.md",
+        "references/platforms/javascript-typescript.md",
+        "references/platforms/laravel-php.md",
+        "references/platforms/python.md"
       ],
       "changes": "Platform guidance adapted; shared policy and commands remain repository-bound"
     },
