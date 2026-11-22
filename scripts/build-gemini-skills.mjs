@@ -385,7 +385,7 @@ function renderSkillReference(pkg, skill, linkMap) {
   ].join('\n').replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';
 }
 
-function renderPluginSkill(pkg, pluginRefs) {
+function renderPluginSkill(pkg, pluginRefs, companion = null) {
   const description = clip(
     `${pkg.displayName}: ${pkg.description || 'WinRecoveryProject Marketplace plugin.'} ` +
     `Use when the user asks for ${pkg.skills.length ? pkg.skills.map(s => s.name).slice(0, 12).join(', ') : pkg.name} work, or names the ${pkg.name} plugin.`,
@@ -414,14 +414,20 @@ function renderPluginSkill(pkg, pluginRefs) {
     '4. Treat the original instructions as authoritative. Where they mention Codex- or Claude-only tools, use the closest Gemini capability or tell the user what to run.',
     '5. When you propose a change to this plugin, name the original repository path (shown in each reference) so it can be applied in PluginMarketplace.',
     '6. Instructions sometimes name another file by its original path (for example `../../shared/x.md` or `references/y.md`). Those paths do not exist in this upload: resolve them against the `Source:`/`File:` path of the text you are reading and look them up in `references/_index.md`, which says which reference file and section holds the content.',
+    companion ? `7. This plugin is large, so its code-only plugin files (scripts, assets, tests) are in the companion skill \`${companion.name}\`. When the index or a link points there and that skill is not available, ask the user to upload \`gemini/skills/${companion.name}/\` or to paste the file.` : '',
     '',
     pkg.skills.length ? '## Sub-skills\n\n| Skill | When to use | Reference |\n| --- | --- | --- |\n' + rows.join('\n') + '\n' : '## Sub-skills\n\nThis plugin ships no skills; see `references/_plugin.md`.\n',
     pkg.defaultPrompts.length ? '## Example prompts\n\n' + pkg.defaultPrompts.map(p => `- ${p}`).join('\n') + '\n' : '',
     '## Plugin-level files\n\nManifests, hooks, top-level scripts, tests and docs (outside `skills/`):\n\n' + pluginRefs.map(r => `- \`${r}\``).join('\n'),
+    companion ? `\n## In the companion skill \`${companion.name}\`\n\n` + companion.refs.map(r => `- \`${r}\``).join('\n') : '',
   ].join('\n').replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';
 }
 
 export const MAX_REFERENCE_BYTES = 256 * 1024;   // split plugin-level references above this size
+export const SPLIT_PLUGIN_BYTES = 1024 * 1024;   // above this, code-only plugin files move to <plugin>-source
+export const COMPANION_SUFFIX = '-source';
+const MANIFEST_PARTS = /^_plugin(-codex-plugin|-claude-plugin)?$/;  // manifests stay with the guidance
+export const MIN_COMPANION_BYTES = 256 * 1024;  // a smaller code share is not worth a second upload
 
 // Plugin-level files are grouped by their top-level folder (scripts, assets,
 // tests, ...) and split into parts so no single reference is too large to read.
@@ -558,7 +564,7 @@ function renderCatalog(packages) {
     parts.push(`- Version: ${versionNote(p)}`);
     parts.push(`- Installs from: ${p.installSource?.kind === 'upstream' ? p.installSource.label : `\`${p.rel}\` (this repository)`}`);
     parts.push(`- Exported from: \`${p.rel}\``);
-    parts.push(`- Gemini skill folder: \`gemini/skills/${p.name}/\``);
+    parts.push(`- Gemini skill folder: \`gemini/skills/${p.name}/\`${p.geminiCompanion ? ` (code files in \`gemini/skills/${p.geminiCompanion}/\`)` : ''}`);
     if (p.description) parts.push(`- Purpose: ${p.description}`);
     parts.push('');
     for (const s of p.skills) parts.push(`- **${s.name}** — ${s.description || '(no description)'}`);
@@ -578,11 +584,54 @@ function renderCatalogCsv(packages) {
   return lines.join('\n') + '\n';
 }
 
+function renderCompanionSkill(pkg, companion) {
+  return [
+    '---',
+    `name: ${companion.name}`,
+    `description: ${yamlString(clip(`Source code of the ${pkg.displayName} plugin (${pkg.name}): code-only plugin files such as scripts, assets and tests, embedded as text. Companion to the ${pkg.name} skill; use when a ${pkg.name} instruction or its references/_index.md points here, or the user asks to read or explain that code.`))}`,
+    '---',
+    '',
+    `# ${pkg.displayName}: source files`,
+    '',
+    `Companion to the \`${pkg.name}\` skill. The guidance, sub-skills and the path index live there; this skill holds the plugin-level files of \`${pkg.rel}\` that contain no Markdown, so the main skill stays small.`,
+    '',
+    '## How to use this skill',
+    '',
+    `1. Start from the \`${pkg.name}\` skill. Its \`references/_index.md\` says which file below holds a given source path.`,
+    '2. Scripts are shown for reading, adapting and explaining. Gemini cannot run them; give the user the exact command to run locally and ask for the output when it matters.',
+    '3. Each file keeps its original path in its `File:` heading, so changes can be applied in PluginMarketplace.',
+    '',
+    '## References',
+    '',
+    ...companion.refs.map(r => `- \`${r}\``),
+  ].join('\n').trimEnd() + '\n';
+}
+
+// Code-only plugin-level parts of a large plugin move to <plugin>-source, so the
+// main skill keeps the guidance and stays small enough to upload and use.
+function splitCompanion(pkg, plan, resolved, names) {
+  const total = [...resolved.values()].reduce((n, c) => n + Buffer.byteLength(c), 0);
+  if (total <= SPLIT_PLUGIN_BYTES) return null;
+  const moved = plan.filter(e => e.files.length && !MANIFEST_PARTS.test(e.name) && e.files.every(f => extname(f).toLowerCase() !== '.md')).map(e => e.name);
+  const movedBytes = moved.reduce((n, m) => n + Buffer.byteLength(resolved.get(`references/${m}.md`) ?? ''), 0);
+  if (movedBytes < MIN_COMPANION_BYTES) return null;
+  const name = `${pkg.name}${COMPANION_SUFFIX}`;
+  if (names.has(name)) throw new Error(`${name}: companion folder name collides with a plugin`);
+  return {name, moved, refs: moved.map(m => `references/${m}.md`)};
+}
+
+function pointToCompanion(content, companion) {
+  let out = content;
+  for (const m of companion.moved) {
+    out = out.replaceAll(`](${m}.md`, `](../../${companion.name}/references/${m}.md`)
+      .replaceAll(`\`references/${m}.md`, `companion \`${companion.name}\`: \`references/${m}.md`);
+  }
+  return out;
+}
+
 export function buildOutputs(packages) {
   const files = new Map();
-  files.set(`${HUB_NAME}/SKILL.md`, renderHub(packages));
-  files.set(`${HUB_NAME}/references/catalog.md`, renderCatalog(packages));
-  files.set(`${HUB_NAME}/references/catalog.csv`, renderCatalogCsv(packages));
+  const names = new Set(packages.map(p => p.name).concat(HUB_NAME));
   for (const p of packages) {
     const plan = planPluginLevel(p);
     const linkMap = buildLinkMap(p, plan);
@@ -592,8 +641,23 @@ export function buildOutputs(packages) {
     own.set('SKILL.md', renderPluginSkill(p, [...pluginLevel.keys()]));
     for (const [rel, content] of pluginLevel) own.set(rel, content);
     for (const s of p.skills) own.set(`references/${s.id}.md`, renderSkillReference(p, s, linkMap));
-    for (const [rel, content] of resolveAnchors(own)) files.set(`${p.name}/${rel}`, content);
+    const resolved = resolveAnchors(own);
+    const companion = splitCompanion(p, plan, resolved, names);
+    p.geminiCompanion = companion?.name ?? null;
+    if (companion) {
+      const keep = [...pluginLevel.keys()].filter(k => !companion.refs.includes(k));
+      resolved.set('SKILL.md', renderPluginSkill(p, keep, companion));
+      for (const rel of companion.refs) {
+        files.set(`${companion.name}/${rel}`, resolved.get(rel));
+        resolved.delete(rel);
+      }
+      files.set(`${companion.name}/SKILL.md`, renderCompanionSkill(p, companion));
+    }
+    for (const [rel, content] of resolved) files.set(`${p.name}/${rel}`, companion && rel !== 'SKILL.md' ? pointToCompanion(content, companion) : content);
   }
+  files.set(`${HUB_NAME}/SKILL.md`, renderHub(packages));
+  files.set(`${HUB_NAME}/references/catalog.md`, renderCatalog(packages));
+  files.set(`${HUB_NAME}/references/catalog.csv`, renderCatalogCsv(packages));
   return files;
 }
 

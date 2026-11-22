@@ -3,7 +3,7 @@ import test from 'node:test';
 import {mkdtempSync, mkdirSync, writeFileSync, symlinkSync, realpathSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join, dirname, extname} from 'node:path';
-import {parseFrontmatter, kebab, rewriteLinks, slug, describeSource, demoteHeadings, unsafeOutputDir, physicalPath, headingAnchors, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME} from './build-gemini-skills.mjs';
+import {parseFrontmatter, kebab, rewriteLinks, slug, describeSource, demoteHeadings, unsafeOutputDir, physicalPath, headingAnchors, collectPackages, buildOutputs, validateOutputs, ALLOWED_UPLOAD_EXT, HUB_NAME, SPLIT_PLUGIN_BYTES} from './build-gemini-skills.mjs';
 
 function fixture() {
   const base = mkdtempSync(join(tmpdir(), 'gemini-skills-'));
@@ -139,4 +139,24 @@ test('fragment-only links resolve inside their own merged file', () => {
   assert.deepEqual(links, ['#overview', '#overview-1']);
   assert.match(ref, /\[kept\]\(#overview\)/);
   assert.ok(!ref.includes('@@FRAG'));
+});
+
+test('large plugins move code-only files to a <plugin>-source companion', () => {
+  const base = fixture();
+  const put = (rel, content) => { const f = join(base, rel); mkdirSync(dirname(f), {recursive: true}); writeFileSync(f, content); };
+  const line = 'Write-Output "x"\n'.repeat(3000);
+  for (let i = 0; i < 30; i++) put(`plugins/demo-plugin/scripts/big${String(i).padStart(2, '0')}.ps1`, line);
+  put('plugins/demo-plugin/skills/do-thing/references/use.md', 'Run [big](../../../scripts/big00.ps1).\n');
+  const files = buildOutputs(collectPackages(base));
+  assert.ok([...files.values()].reduce((n, c) => n + c.length, 0) > SPLIT_PLUGIN_BYTES);
+  assert.deepEqual(validateOutputs(files), []);
+  const companion = [...files.keys()].filter(k => k.startsWith('demo-plugin-source/'));
+  assert.ok(companion.includes('demo-plugin-source/SKILL.md'));
+  assert.ok(companion.some(k => /references\/_plugin-scripts/.test(k)));
+  assert.ok(![...files.keys()].some(k => /^demo-plugin\/references\/_plugin-scripts/.test(k)), 'code parts leave the main skill');
+  assert.ok(files.has('demo-plugin/references/_plugin.md'), 'manifests stay');
+  assert.match(files.get('demo-plugin/SKILL.md'), /companion skill `demo-plugin-source`/);
+  assert.match(files.get('demo-plugin/references/_index.md'), /`scripts\/big00\.ps1` \| companion `demo-plugin-source`: `references\/_plugin-scripts/);
+  assert.match(files.get('demo-plugin/references/do-thing.md'), /\]\(\.\.\/\.\.\/demo-plugin-source\/references\/_plugin-scripts-part01\.md#file-scriptsbig00ps1\)/);
+  assert.match(files.get(`${HUB_NAME}/references/catalog.md`), /code files in `gemini\/skills\/demo-plugin-source\/`/);
 });

@@ -107,7 +107,7 @@
 - Version: `0.1.33` from upstream; this export: snapshot `0.1.33`
 - Installs from: https://github.com/openai/plugins (plugins/codex-security)
 - Exported from: `plugins/codex-security`
-- Gemini skill folder: `gemini/skills/codex-security/`
+- Gemini skill folder: `gemini/skills/codex-security/` (code files in `gemini/skills/codex-security-source/`)
 - Purpose: Codex Security workflows for security scans, analysis, and investigation.
 
 - **assess-patch-risk** — Assess an immutable patch artifact's program impact, regression risk, and auto-merge eligibility. Use for generated patch files, provider pull-request diffs, or commit ranges when reviewers need evidence about affected runtime paths, contracts, tests, and recoverability. This skill is read-only and does not generate, edit, apply, push, or merge the patch.
@@ -158,7 +158,7 @@
 - Version: `0.6.0`
 - Installs from: `plugins/plugin-skill-studio` (this repository)
 - Exported from: `plugins/plugin-skill-studio`
-- Gemini skill folder: `gemini/skills/plugin-skill-studio/`
+- Gemini skill folder: `gemini/skills/plugin-skill-studio/` (code files in `gemini/skills/plugin-skill-studio-source/`)
 - Purpose: Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.
 
 - **ai-data-remediation** — Self-healing data pipeline layer using semantic anomaly clustering, AST-validated lambda transformations, and zero-loss mathematical reconciliation. Use when data quality checks fail, anomalous records break ETL/ELT pipelines, you need automated data cleansing with sandboxed Python transformations, or you want to group data errors into semantic clusters — even if they don't explicitly say "data remediation". Do NOT use for standard database schema migrations, routine CRUD queries, or basic pipeline scheduling.
@@ -229,7 +229,7 @@
 - Version: `0.9.0-beta.7`
 - Installs from: `plugins/powershell-workbench` (this repository)
 - Exported from: `plugins/powershell-workbench`
-- Gemini skill folder: `gemini/skills/powershell-workbench/`
+- Gemini skill folder: `gemini/skills/powershell-workbench/` (code files in `gemini/skills/powershell-workbench-source/`)
 - Purpose: Portable PowerShell and mixed-language scaffolding, refactoring, discovery, agent harnesses, game tooling, and opt-in quality workflows.
 
 - **bash-docs** — Use when researching bash syntax, runtime, parser and component-contract documentation with explicit version scope inside PowerShell Workbench.
