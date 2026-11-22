@@ -1,6 +1,6 @@
 # Skill: find-dropbox-content
 
-- Plugin: `cloudstorage-portal` (0.9.14)
+- Plugin: `cloudstorage-portal` (0.9.15)
 - Source: `plugins/cloudstorage-portal/skills/find-dropbox-content/SKILL.md`
 
 > Find Dropbox files and folders relevant to a user request. Use when the user asks to search Dropbox, find a document, locate recent files, browse a folder, identify likely source files, or narrow down where content lives before reading, sharing, organizing, or restoring it.

@@ -1,6 +1,6 @@
 # Skill: cloudstorage-portal
 
-- Plugin: `cloudstorage-portal` (0.9.14)
+- Plugin: `cloudstorage-portal` (0.9.15)
 - Source: `plugins/cloudstorage-portal/skills/cloudstorage-portal/SKILL.md`
 
 > Use when the user wants to search, read, upload, organize, share, inspect file history or transfer files across Dropbox, Google Drive and OneDrive through their existing App or MCP connections.
@@ -33,7 +33,7 @@ Use the full provider workflows included in this package; do not limit the porta
 | Google Slides | [google-slides](google-slides.md) |
 | Google Drive comments | [google-drive-comments](google-drive-comments.md) |
 | Three-provider OAuth and connection setup | [cloudstorage-connections](cloudstorage-connections.md) |
-| OneDrive operations and adapter readiness | [onedrive](onedrive.md) |
+| OneDrive operations and adapter readiness | [cloudstorage-onedrive](cloudstorage-onedrive.md) |
 
 Skills contain workflows; executable tools, granted scopes and resource permissions determine actual access. Never report a copied skill as a newly granted permission. Provider tools remain provider-specific. Google Docs, Sheets and Slides operations have no automatic OneDrive or Dropbox equivalent.
 
@@ -780,13 +780,13 @@ Acceptance checks: two Google accounts searched independently; account A failure
 
 ##### Current App routing
 
-CloudStorage Portal declares the existing Dropbox, Google Drive and OneDrive Apps in `.app.json`. The [OneDrive skill](onedrive.md) uses the same hosted App as the OneDrive Marketplace package for Personal. Availability in Business depends on the tools and account binding exposed by that workspace. Discover the current provider tools and confirm the intended account before file access.
+CloudStorage Portal declares the existing Dropbox, Google Drive and OneDrive Apps in `.app.json`. The [OneDrive skill](../../onedrive/SKILL.md) uses the same hosted App as the OneDrive Marketplace package for Personal. Availability in Business depends on the tools and account binding exposed by that workspace. Discover the current provider tools and confirm the intended account before file access.
 
 Run `node scripts/verify-provider-workflows.mjs . <provider-tool-catalog.json>` with the tool names observed on the current host. The catalog uses `dropbox.tools`, `googleDrive.tools` and `oneDrive.tools`. It checks the twelve imported Dropbox and Google workflows plus the hosted OneDrive requirements for identity, drive, search, folder listing and creation, exact metadata, reading, uploading, updating and content readback. A missing OneDrive catalog or required tool fails the check. Catalog results establish tool availability. A live account, operation and readback each require their own evidence.
 
 The Google Drive catalog check requires `get_profile` because workflows must confirm the active account when the connector exposes no account selector. Google has exposed schemas both with and without explicit `link_id` values. Use the current schema and confirm the active account before writes. Local OneDrive sync-folder access provides filesystem metadata only.
 
-Follow the [exact-child fallback](onedrive.md#resolve-a-known-file-or-folder-after-an-empty-search) only with an already verified direct parent and a successful empty OneDrive search. Record search, full parent listing and exact item readback separately.
+Follow the [exact-child fallback](../../onedrive/SKILL.md#resolve-a-known-file-or-folder-after-an-empty-search) only with an already verified direct parent and a successful empty OneDrive search. Record search, full parent listing and exact item readback separately.
 
 ##### Live verification contract
 

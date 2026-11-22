@@ -27,7 +27,7 @@ codex plugin add <plugin>@winrecoveryproject-digital
 | Plugin | Version | Skills | Purpose |
 | --- | --- | --- | --- |
 | `agentmemory-asus` | `1.0.0` | 1 | Use the existing AgentMemory-ASUS App for scoped memory lookup, diagnostics and user-authorized memory changes. |
-| `cloudstorage-portal` | `0.9.14` | 16 | Coordinate Dropbox, Google Drive and OneDrive through existing authorized App or MCP connections and a unified skill layer. |
+| `cloudstorage-portal` | `0.9.15` | 16 | Coordinate Dropbox, Google Drive and OneDrive through existing authorized App or MCP connections and a unified skill layer. |
 | `coderabbit` | `1.1.7-wrp.1` | 1 | AI-powered code review in Codex, powered by CodeRabbit. |
 | `codex-coordinator` | `0.4.0` | 1 | Coordinate parallel Codex tasks in one shared checkout with a small active-only boundary board. |
 | `codex-dev-workflows` | `0.4.2-wrp.1` | 12 | Reusable software-development workflows and platform guidance for Codex. |

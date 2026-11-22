@@ -1,6 +1,6 @@
 # Skill: google-drive-comments
 
-- Plugin: `cloudstorage-portal` (0.9.14)
+- Plugin: `cloudstorage-portal` (0.9.15)
 - Source: `plugins/cloudstorage-portal/skills/google-drive-comments/SKILL.md`
 
 > Write, reply to, and resolve Google Drive comments on Docs, Sheets, Slides, and Drive files with evidence-backed location context. Use when the user asks to leave comments, review a file with comments, respond to comment threads, or resolve Drive comments.
