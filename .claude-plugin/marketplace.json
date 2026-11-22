@@ -42,21 +42,21 @@
     {
       "name": "codex-dev-workflows",
       "version": "0.4.2",
-      "description": "Reusable software-development workflows and platform guidance for Codex.",
+      "description": "Reusable software-development workflows and platform guidance for coding agents.",
       "source": "./plugins/codex-dev-workflows",
       "strict": false
     },
     {
       "name": "codex-engineering-guardrails",
       "version": "1.1.1",
-      "description": "Skills-only bundle for scoped software implementation and independent code verification in Codex.",
+      "description": "Skills-only bundle for scoped software implementation and independent code verification.",
       "source": "./plugins/codex-engineering-guardrails",
       "strict": false
     },
     {
       "name": "coderabbit",
       "version": "1.1.7-wrp.1",
-      "description": "AI-powered code review in Codex, powered by CodeRabbit.",
+      "description": "AI-powered code review, powered by CodeRabbit.",
       "source": "./plugins/coderabbit",
       "strict": false
     },
