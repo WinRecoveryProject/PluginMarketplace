@@ -15,7 +15,7 @@ const portablePackages = [
 ];
 // Codex manifest descriptions that name Codex are reworded for the Claude catalog.
 const claudeDescriptions = {
-  'codex-dev-workflows': 'Reusable software-development workflows and platform guidance for coding agents.',
+  'codex-dev-workflows': 'Standalone software-development workflows and platform guidance for coding agents. For WinRecoveryProject work, prefer winrecoveryproject-devsuite.',
   'codex-engineering-guardrails': 'Skills-only bundle for scoped software implementation and independent code verification.',
   'coderabbit': 'AI-powered code review, powered by CodeRabbit.',
 };

@@ -15,3 +15,10 @@ Changes on 2026-11-22 in version 0.4.2-wrp.1:
   new stacks. The four original platform pages are unchanged.
 - `IMPORT-RECEIPT.json` and `COPY-COMPLETE.json` describe the original import and
   are historical; they are not a new import claim.
+
+Changes on 2026-11-23 in version 0.4.2-wrp.2:
+
+- The plugin description and long description now point to
+  winrecoveryproject-devsuite for WinRecoveryProject work. DevSuite merged these
+  workflows (see its `references/source-provenance.json`) and adds integrated
+  planning, review and verification. No skill text changed.

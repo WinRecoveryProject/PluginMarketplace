@@ -193,6 +193,13 @@ Changes on 2026-11-22 in version 0.4.2-wrp.1:
 - `IMPORT-RECEIPT.json` and `COPY-COMPLETE.json` describe the original import and
   are historical; they are not a new import claim.
 
+Changes on 2026-11-23 in version 0.4.2-wrp.2:
+
+- The plugin description and long description now point to
+  winrecoveryproject-devsuite for WinRecoveryProject work. DevSuite merged these
+  workflows (see its `references/source-provenance.json`) and adds integrated
+  planning, review and verification. No skill text changed.
+
 ## File: `plugin.json`
 
 ```json
@@ -200,7 +207,7 @@ Changes on 2026-11-22 in version 0.4.2-wrp.1:
   "author": {
     "name": "Codex Dev Workflows contributors"
   },
-  "description": "Reusable software-development workflows and platform guidance for Codex.",
+  "description": "Standalone software-development workflows and platform guidance. For WinRecoveryProject work, prefer winrecoveryproject-devsuite, which integrates these workflows with verification gates.",
   "homepage": "https://github.com/srajpal/codex-dev-workflows",
   "interface": {
     "brandColor": "#0B1220",
@@ -216,7 +223,7 @@ Changes on 2026-11-22 in version 0.4.2-wrp.1:
     "developerName": "SUNNY RAJPAL",
     "displayName": "Codex Dev Workflows",
     "logo": "./.codex-plugin/assets/logo.png",
-    "longDescription": "A skills-only library for planning, orchestration, feature work, testing, comprehensive QA, debugging, review, release readiness, and handoffs.",
+    "longDescription": "A skills-only library for planning, orchestration, feature work, testing, comprehensive QA, debugging, review, release readiness, and handoffs. WinRecoveryProject DevSuite builds on these workflows and adds integrated planning, review and verification; use DevSuite when it is installed and these skills for a lightweight, standalone pass.",
     "privacyPolicyURL": "https://github.com/srajpal/codex-dev-workflows/blob/master/PRIVACY.md",
     "shortDescription": "Reusable developer workflows",
     "supportURL": "https://github.com/srajpal/codex-dev-workflows/blob/master/SUPPORT.md",
@@ -235,6 +242,6 @@ Changes on 2026-11-22 in version 0.4.2-wrp.1:
   "name": "codex-dev-workflows",
   "repository": "https://github.com/srajpal/codex-dev-workflows",
   "skills": "./skills/",
-  "version": "0.4.2-wrp.1"
+  "version": "0.4.2-wrp.2"
 }
 ```

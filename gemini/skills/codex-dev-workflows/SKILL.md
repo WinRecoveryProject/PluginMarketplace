@@ -1,13 +1,13 @@
 ---
 name: codex-dev-workflows
-description: "Codex Dev Workflows: Reusable software-development workflows and platform guidance for Codex. Use when the user asks for bug-investigation, code-review, comprehensive-qa, create-agent-instructions, feature-development, feature-testing, new-project, orchestrate-work, platform-guidance, pre-release-review, resume-interrupted-task, session-handoff work, or names the codex-dev-workflows plugin."
+description: "Codex Dev Workflows: Standalone software-development workflows and platform guidance. For WinRecoveryProject work, prefer winrecoveryproject-devsuite, which integrates these workflows with verification gates. Use when the user asks for bug-investigation, code-review, comprehensive-qa, create-agent-instructions, feature-development, feature-testing, new-project, orchestrate-work, platform-guidance, pre-release-review, resume-interrupted-task, session-handoff work, or names the codex-dev-workflows plugin."
 ---
 
 # Codex Dev Workflows
 
-Gemini export of the `codex-dev-workflows` plugin from WinRecoveryProject/PluginMarketplace, version `0.4.2-wrp.1`. Source: `plugins/codex-dev-workflows`.
+Gemini export of the `codex-dev-workflows` plugin from WinRecoveryProject/PluginMarketplace, version `0.4.2-wrp.2`. Source: `plugins/codex-dev-workflows`.
 
-A skills-only library for planning, orchestration, feature work, testing, comprehensive QA, debugging, review, release readiness, and handoffs.
+A skills-only library for planning, orchestration, feature work, testing, comprehensive QA, debugging, review, release readiness, and handoffs. WinRecoveryProject DevSuite builds on these workflows and adds integrated planning, review and verification; use DevSuite when it is installed and these skills for a lightweight, standalone pass.
 
 ## How to use this skill
 

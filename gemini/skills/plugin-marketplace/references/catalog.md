@@ -57,11 +57,11 @@
 
 ## Codex Dev Workflows (`codex-dev-workflows`)
 
-- Version: `0.4.2-wrp.1`
+- Version: `0.4.2-wrp.2`
 - Installs from: `plugins/codex-dev-workflows` (this repository)
 - Exported from: `plugins/codex-dev-workflows`
 - Gemini skill folder: `gemini/skills/codex-dev-workflows/`
-- Purpose: Reusable software-development workflows and platform guidance for Codex.
+- Purpose: Standalone software-development workflows and platform guidance. For WinRecoveryProject work, prefer winrecoveryproject-devsuite, which integrates these workflows with verification gates.
 
 - **bug-investigation** — Reproduce, isolate, fix, and verify a software defect with evidence and minimal scope.
 - **code-review** — Review a change set for correctness, regressions, security, maintainability, and missing tests without changing unrelated code.

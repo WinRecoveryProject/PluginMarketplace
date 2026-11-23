@@ -41,8 +41,8 @@
     },
     {
       "name": "codex-dev-workflows",
-      "version": "0.4.2-wrp.1",
-      "description": "Reusable software-development workflows and platform guidance for coding agents.",
+      "version": "0.4.2-wrp.2",
+      "description": "Standalone software-development workflows and platform guidance for coding agents. For WinRecoveryProject work, prefer winrecoveryproject-devsuite.",
       "source": "./plugins/codex-dev-workflows",
       "strict": false
     },

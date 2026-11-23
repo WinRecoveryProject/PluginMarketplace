@@ -1228,8 +1228,8 @@
       "sourceKind": "maintained-personal-snapshot",
       "repository": "https://github.com/srajpal/codex-dev-workflows",
       "sourceNamespace": "created-by-me-remote",
-      "version": "0.4.2-wrp.1",
-      "sourceHash": "2bb34b80598fcfeb4de93c1e18c0fa7d0befb7284a0141e6575e50350db19aad",
+      "version": "0.4.2-wrp.2",
+      "sourceHash": "886f33172446d422c5392332b474a8c8e510ce0cbebbf72b2d93a117c2054f0b",
       "upstreamUnmodified": false,
       "modificationNotice": "WRP-MODIFICATIONS.md",
       "baseSnapshotVersion": "0.4.2",
@@ -1238,14 +1238,14 @@
       "files": {
         ".codex-plugin/assets/composer-icon.png": "9c075f7ed93868a156cdc051c626ca4df9122d89932d97e85881c2dc54c220ef",
         ".codex-plugin/assets/logo.png": "9c075f7ed93868a156cdc051c626ca4df9122d89932d97e85881c2dc54c220ef",
-        ".codex-plugin/plugin.json": "f0dee92be89bd9cda6c4bd2acacf99f71e3fb336e304d216788c6876284e5b51",
+        ".codex-plugin/plugin.json": "3d18fd2e45436433461d880bdd09d0d7a8b01c0d210292b27805f00d8e31ca31",
         "COPY-COMPLETE.json": "014e663aba3fd0316fe80e465de0d18df9adf26fbd4f428bc84b6f9227c97163",
         "IMPORT-RECEIPT.json": "bef6dc48e672c915c2048e406f0bfd2ad5a95e2201d8f78d3e084e4ceb173347",
         "LICENSE": "c300da1844a533ce9234d26f70b2eaaeabcc8215d3f8ca3a3b738e456e4d90bb",
-        "WRP-MODIFICATIONS.md": "3fc70690ebd84c1537c5dc04a62eee96ddc8bfda841c1687afeffd0139ddc84e",
+        "WRP-MODIFICATIONS.md": "8d418f2fbf33468265a5515f0821b8fe60dab154203a81fb3581e50402bc0171",
         "assets/icon.png": "9c075f7ed93868a156cdc051c626ca4df9122d89932d97e85881c2dc54c220ef",
         "assets/logo.png": "9c075f7ed93868a156cdc051c626ca4df9122d89932d97e85881c2dc54c220ef",
-        "plugin.json": "f0dee92be89bd9cda6c4bd2acacf99f71e3fb336e304d216788c6876284e5b51",
+        "plugin.json": "3d18fd2e45436433461d880bdd09d0d7a8b01c0d210292b27805f00d8e31ca31",
         "shared/platforms/batch-cmd.md": "f45e93a6969c5a4230f98e1b5debab84b8dc976ed924442e8eb20befbf131b30",
         "shared/platforms/flutter.md": "73e31274da236f72e741b78c69af3b2dfef8fe664f83a6009acd787aeb3faa23",
         "shared/platforms/javascript-typescript.md": "ee69429ef7927fa110207e29cd943d715020037b49a9a97f8f2299e811baf5ae",
@@ -1266,7 +1266,8 @@
         "skills/pre-release-review/SKILL.md": "0961a2aff80b78665c6e97124a99d03aa391d25d600b72817de8657fbf91795e",
         "skills/resume-interrupted-task/SKILL.md": "299a7b5e9fdc5a13cfe97ef1d7a75cfed21706cfc8b21a1d69213c1b7a4917b6",
         "skills/session-handoff/SKILL.md": "4434c5406f86d1e4780d2950feb9b92cfcab0ff1644ac68e4a7caeda4d3ff417"
-      }
+      },
+      "previousMaintainedSnapshotHash": "2bb34b80598fcfeb4de93c1e18c0fa7d0befb7284a0141e6575e50350db19aad"
     },
     "codex-engineering-guardrails": {
       "sourceKind": "personal-installed-snapshot",
