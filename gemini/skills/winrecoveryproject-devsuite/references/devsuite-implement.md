@@ -1,6 +1,6 @@
 # Skill: devsuite-implement
 
-- Plugin: `winrecoveryproject-devsuite` (0.6.0)
+- Plugin: `winrecoveryproject-devsuite` (0.7.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-implement/SKILL.md`
 
 > Use when authorized to implement, refactor, migrate or maintain software with bounded changes and fresh evidence; executing a written implementation plan inline task by task, or by dispatching one subagent per task with review gates; building scoped code changes from an approved spec, plan or tickets (even if the user doesn't say "implement"); executing a full specification across ticket branches into one unified PR ("build the whole spec"); dispatching one subagent per independent problem that can run concurrently; or running long, interruption-prone work from a durable state file with falsifiable criteria. Do NOT use for initial architecture exploration, vague requirements, or planning work that has no plan yet (use devsuite-planning).

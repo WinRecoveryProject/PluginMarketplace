@@ -1,6 +1,6 @@
 # Skill: domain-modeling
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/domain-modeling/SKILL.md`
 
 > Build and sharpen a project's domain model, ubiquitous language, and architectural decision records. Use when establishing codebase terminology, challenging fuzzy concepts, writing ADRs, or updating CONTEXT.md — even if the user says "define our terms". Do NOT use for general code refactoring without domain shifts.

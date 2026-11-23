@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "plugin-skill-studio",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "sources": [
     {
       "id": "matt-skills-curated",
@@ -177,7 +177,7 @@
         {
           "sourceSkill": "diagnosing-bugs",
           "sourceFile": "skills/diagnosing-bugs/SKILL.md",
-          "implementation": "skills/diagnosing-bugs/SKILL.md",
+          "implementation": "skills/studio-debug/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -380,7 +380,7 @@
         {
           "sourceSkill": "triage",
           "sourceFile": "skills/triage/SKILL.md",
-          "implementation": "skills/triage/SKILL.md",
+          "implementation": "skills/studio-debug/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -591,7 +591,7 @@
         {
           "sourceSkill": "diagnose-systematically",
           "sourceFile": "skills/diagnose-systematically/SKILL.md",
-          "implementation": "skills/diagnose-systematically/SKILL.md",
+          "implementation": "skills/studio-debug/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -1776,22 +1776,6 @@
       "description": "Builds accessible interfaces and verifies renders. Use when creating or redesigning a page, dashboard, or static HTML file."
     },
     {
-      "id": "diagnose-systematically",
-      "entrypoint": "skills/diagnose-systematically/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Finds root causes through reproduction and falsifiable experiments. Use when a failure, flaky behavior, or regression lacks a demonstrated cause."
-    },
-    {
-      "id": "diagnosing-bugs",
-      "entrypoint": "skills/diagnosing-bugs/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Diagnose hard bugs, intermittent flakes, and performance regressions using a tight feedback loop. Use when the user reports broken behavior, runtime exceptions, failing tests, flaky CI, or says \\\"debug this\\\" / \\\"diagnose this\\\" — even if no error message is provided. Do NOT use for routine test-driven feature development."
-    },
-    {
       "id": "studio-execute",
       "entrypoint": "skills/studio-execute/SKILL.md",
       "sourceIds": [
@@ -1858,6 +1842,20 @@
         "zilvereyes-plugin-autopilot"
       ],
       "description": "Use when a set of candidate Skills or app capabilities is technically valid but still needs to become a clear, useful ChatGPT/Codex Plugin that people can understand, discover, and invoke for real work."
+    },
+    {
+      "id": "studio-debug",
+      "entrypoint": "skills/studio-debug/SKILL.md",
+      "sourceIds": [
+        "skillquiver",
+        "matt-skills-curated"
+      ],
+      "modes": [
+        "diagnose",
+        "loop",
+        "triage"
+      ],
+      "description": "Root-cause diagnosis, tight feedback loops and issue triage; mode files are shared with DevSuite."
     },
     {
       "id": "studio-git",
@@ -2065,14 +2063,6 @@
         "skillquiver"
       ],
       "description": "Runs a recorded red-green-refactor cycle. Use when implementing a feature, bug fix, or behavior change."
-    },
-    {
-      "id": "triage",
-      "entrypoint": "skills/triage/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Classify, verify, and prepare external bug reports and feature requests into agent-ready briefs. Use when processing incoming issues, validating bug reproductions, rejecting out-of-scope requests, or structuring contributor tickets — even if the user says \\\"triage these issues\\\". Do NOT use for internal tickets already produced by to-tickets."
     },
     {
       "id": "wait-what",

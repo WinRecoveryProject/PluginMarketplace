@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.9.0 — 2026-11-23
+
+Breaking: three debugging skills are consolidated into `studio-debug`. Every capability is mapped in `references/consolidation/debug-matrix.json` (128 capabilities, none dropped).
+
+| Removed skill | New skill | Mode |
+|---|---|---|
+| `diagnose-systematically` | `studio-debug` | `diagnose` (resources in `modes/diagnose/`, `find-polluter.sh` in `modes/diagnose/scripts/`) |
+| `diagnosing-bugs` | `studio-debug` | `loop` (template in `modes/loop/scripts/`) |
+| `triage` | `studio-debug` | `triage` (agent-brief and out-of-scope formats in `modes/triage/`) |
+
+The mode files and everything under `modes/` are shared byte-for-byte with WinRecoveryProject DevSuite `devsuite-debug`; `references/consolidation/shared-debug-modes.json` pins their hashes in both packages. The preserved upstream tools in `tools/matt/` are unchanged.
+
 ## 0.8.0 — 2026-11-22
 
 Breaking: four git skills are consolidated into `studio-git`. Every capability is mapped in `references/consolidation/git-matrix.json` (208 capabilities, none dropped).

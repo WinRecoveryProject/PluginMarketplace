@@ -9,7 +9,7 @@ Read [the policy](../../references/policy.md). Select one guide for the current 
 
 - [Planning](../devsuite-planning/SKILL.md) for scope, architecture and acceptance evidence.
 - [Implementation](../devsuite-implement/SKILL.md) for authorized code changes.
-- [Debugging](../devsuite-debug/SKILL.md) for root-cause diagnosis.
+- [Debugging](../devsuite-debug/SKILL.md) for root-cause diagnosis, tight feedback loops and issue triage.
 - [Code review](../devsuite-review/SKILL.md) for an independent read of local revisions and diffs.
 - [Testing](../devsuite-test/SKILL.md) for behavior, state and regressions.
 - [Review gate mode](../devsuite-review/modes/gate.md) for a project-native verification gate.

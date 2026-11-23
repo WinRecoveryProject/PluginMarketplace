@@ -17,7 +17,7 @@ Configure and standardize repository issue-tracking, triage-label vocabularies, 
 1. **Prompt-Driven Exploration**: Inspect existing remotes, directories, and labels before proposing changes; do not blindly overwrite existing tracker setups.
 2. **Single vs Multi-Context Prudence**: Default to single-context (`CONTEXT.md` at root); only suggest multi-context (`CONTEXT-MAP.md`) when monorepo signals (workspaces, `packages/*`) are detected.
 3. **Preserve Agent Instruction File**: If `CLAUDE.md` or `AGENTS.md` exists, edit it in-place; if neither exists, ask the user before creating one. Never create both.
-4. **Conditional Triage Configuration**: Only configure triage label files (`docs/agents/triage-labels.md`) if the `triage` skill is present in the repository.
+4. **Conditional Triage Configuration**: Only configure triage label files (`docs/agents/triage-labels.md`) if `studio-debug` (triage mode) is present in the repository.
 5. **Durable Workspace Documentation**: Persist all configured decisions into `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md`.
 
 ---

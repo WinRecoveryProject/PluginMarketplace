@@ -1,6 +1,6 @@
 # Skill: studio-git
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/studio-git/SKILL.md`
 
 > Use when starting feature work that needs an isolated workspace or worktree before executing a plan; integrating a finished branch (verify tests, choose merge, PR, keep or discard, clean up worktrees); resolving in-progress merge or rebase conflicts and CONFLICT markers by traced intent (even if the user just says "fix this merge"); or safeguarding a repository against force pushes, hard resets, branch deletions, cleans, destructive restores and history rewrites ("clean up git history"). Do NOT use for routine safe git status, fetch, diff or branch queries, or for routine rebasing without conflicts.

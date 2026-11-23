@@ -1,6 +1,6 @@
 # Skill: engineering-workflow-guide
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/engineering-workflow-guide/SKILL.md`
 
 > Route engineering, AI/ML, cognitive, or productivity tasks to the narrowest effective specialist skill. Use when a task spans planning, implementation, debugging, review, architecture, research, setup, AI modeling, data remediation, or autonomous goals, when the user asks what to do next, or when unsure which workflow fits — even if they don't explicitly name a skill. Do NOT use when the specific specialist skill is already obvious and unambiguous.
@@ -41,7 +41,7 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
 [ Discovery & Plan ]   [ Code & Architecture ]   [ AI, ML & Automation ]
 - `studio-plan` (interview mode)    - `studio-execute` (implement mode)             - `ai-engineering`
 - `studio-plan` (spec mode)            - `studio-review` (code mode)           - `ai-data-remediation`
-- `studio-plan` (tickets mode)         - `diagnosing-bugs`       - `ml-best-practices`
+- `studio-plan` (tickets mode)         - `studio-debug` (loop mode) - `ml-best-practices`
 - `studio-plan` (map mode)          - `domain-modeling`       - `j-space`
 - `prototype`          - `setup-ts-deep-modules` - `studio-plan` (goal mode)
                            │
@@ -62,7 +62,7 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
 | Lifecycle Scenario | Canonical Route Pipeline |
 |---|---|
 | **Fuzzy Greenfield Feature** | `studio-plan` (interview mode) $\rightarrow$ `studio-plan` (spec mode) $\rightarrow$ `studio-plan` (tickets mode) $\rightarrow$ `studio-execute` (implement mode) |
-| **Hard Bug or Regression** | `diagnosing-bugs` $\rightarrow$ `tdd` |
+| **Hard Bug or Regression** | `studio-debug` (loop mode) $\rightarrow$ `tdd` |
 | **Pull Request Review** | `studio-review` (code mode) (Two-axis: Standards & Spec) |
 | **Deep Module Restructuring** | `improve-codebase-architecture` $\rightarrow$ `setup-ts-deep-modules` |
 | **Large Multi-Session Map** | `studio-plan` (map mode) $\rightarrow$ `studio-plan` (spec mode) $\rightarrow$ `studio-plan` (tickets mode) |
@@ -205,7 +205,7 @@ Use one primary skill by default. Add another only for a distinct phase.
 - `studio-execute` (spec-run mode): Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated branches, and the goal is a complete pull request on a single branch.
 - `tdd`: Use when implementing a feature or fixing a bug test-first with a red-green cycle, or when the task needs durable integration-style tests around public behavior.
 - `studio-review` (code mode): Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes - Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
-- `diagnosing-bugs`: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
+- `studio-debug` (loop mode): Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
 - `studio-git` (conflicts mode): Use when you need to resolve an in-progress git merge/rebase conflict.
 - `migrate-to-shoehorn`: Use when TypeScript tests rely on unsafe `as` or `as unknown as` assertions for fixtures and the user wants to migrate those test-only values to `@total-typescript/shoehorn` with explicit intent.
 
@@ -233,7 +233,7 @@ Use one primary skill by default. Add another only for a distinct phase.
 - `setup-engineering-workflows`: Use when repository workflows need explicit issue-tracker, triage-label, domain-document, or agent-instruction conventions before planning, triage, wayfinding, or ticket work can run reliably.
 - `setup-pre-commit`: Use when a JavaScript or TypeScript repository needs reliable pre-commit quality checks with Husky and lint-staged, while preserving the repository's package manager, formatter, existing hooks, and test/typecheck conventions.
 - `studio-git` (safety mode): Use when a repository needs explicit safeguards around destructive or irreversible Git operations, especially force pushes, hard resets, cleans, destructive restores, branch deletion, or history rewrites.
-- `triage`: Use when repository issues or external contribution requests need classification, verification, missing-information follow-up, rejection handling, or a durable agent-ready implementation brief.
+- `studio-debug` (triage mode): Use when repository issues or external contribution requests need classification, verification, missing-information follow-up, rejection handling, or a durable agent-ready implementation brief.
 - `wizard`: Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself.
 
 ##### Continuity and communication
@@ -302,7 +302,7 @@ When a user interacts with ChatGPT / Codex, follow this strict 4-step execution 
 | Scenario | Canonical Multi-Phase Pipeline | Phase Transition Trigger |
 |---|---|---|
 | **Greenfield Feature** | `studio-plan` (interview mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `studio-execute` (implement mode) ➔ `studio-review` (code mode) | User approves spec & ticket graph |
-| **Bug / Regression** | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Red failure reproduced & minimal repro isolated |
+| **Bug / Regression** | `studio-debug` (loop mode) ➔ `tdd` ➔ `studio-review` (code mode) | Red failure reproduced & minimal repro isolated |
 | **Wide Refactoring** | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` ➔ `studio-review` (code mode) | Visual architecture report approved |
 | **AI / ML Initiative** | `ai-engineering` ➔ `ml-best-practices` ➔ `studio-review` (code mode) | Naive baseline beaten & 95% CIs verified |
 | **Massive Initiative** | `studio-plan` (map mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `studio-execute` (spec-run mode) | Fog cleared & frontier tickets claimed |
@@ -343,13 +343,13 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Implement approved spec", "Code feature", "Build ticket" | `studio-execute` (implement mode) | `studio-execute` (implement mode) ➔ `studio-review` (code mode) | Requirements fuzzy or unapproved |
 | "Parallel subagents", "Isolated worktrees", "Multi-agent PR" | `studio-execute` (spec-run mode) | `studio-execute` (spec-run mode) ➔ `studio-review` (code mode) | Single developer / single-file edit |
 | "Test-driven development", "Red-green-refactor", "Write tests" | `tdd` | `tdd` ➔ `studio-review` (code mode) | Throwaway exploratory spikes |
-| "Diagnose bug", "Fix failing test", "Flaky CI", "Crash" | `diagnosing-bugs` | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Trivial obvious syntax errors |
+| "Diagnose bug", "Fix failing test", "Flaky CI", "Crash" | `studio-debug` (loop mode) | `studio-debug` (loop mode) ➔ `tdd` ➔ `studio-review` (code mode) | Trivial obvious syntax errors |
 | "Review PR", "Review branch diff", "Check standards" | `studio-review` (code mode) | `studio-review` (code mode) | Writing new code or diagnosing bugs |
 | "Merge conflict", "Rebase conflict", "Fix conflict markers" | `studio-git` (conflicts mode) | `studio-git` (conflicts mode) ➔ `studio-review` (code mode) | Routine safe git rebases without conflicts |
 | "Prevent force push", "Block dangerous git", "Hard reset guard" | `studio-git` (safety mode) | `studio-git` (safety mode) | Safe git status or log commands |
 | "Setup issue tracker", "Configure triage labels", "Setup docs" | `setup-engineering-workflows` | `setup-engineering-workflows` | General npm package installation |
 | "Setup Husky", "lint-staged", "Prettier pre-commit hook" | `setup-pre-commit` | `setup-pre-commit` | Remote CI/CD pipeline automation |
-| "Triage incoming issues", "Author agent brief", "Out of scope" | `triage` | `triage` ➔ `studio-execute` (implement mode) | Internal tickets from studio-plan tickets mode |
+| "Triage incoming issues", "Author agent brief", "Out of scope" | `studio-debug` (triage mode) | `studio-debug` (triage mode) ➔ `studio-execute` (implement mode) | Internal tickets from studio-plan tickets mode |
 | "Map huge project", "Multi-session effort", "Fog of war" | `studio-plan` (map mode) | `studio-plan` (map mode) ➔ `studio-plan` (spec mode) | Small, single-session feature work |
 | "Interactive bash wizard", "Dashboard credentials setup" | `wizard` | `wizard` | Tasks the AI can execute directly |
 | "Train ML model", "LoRA fine-tuning", "vLLM serving" | `ai-engineering` | `ai-engineering` ➔ `ml-best-practices` | Standard CRUD backend development |

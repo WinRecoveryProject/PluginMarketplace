@@ -1,0 +1,13 @@
+{
+  "id": "studio.triage",
+  "root": "skills/triage",
+  "source": "Zilvereyes-Plugin-Studio@83da417",
+  "files": {
+    "AGENT-BRIEF.md": "7f5f87fed3033df1b06e083c480f3e847b1fbb0647746b8a4c6a50f9f26ef44f",
+    "OUT-OF-SCOPE.md": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d",
+    "SKILL.md": "846aa1820219853e8ba28699e5b2f02688e8621d30af96e9ba73141adebdf067",
+    "agents/openai.yaml": "4471f7174f301af8313cc4368ff89faa9219a74de5be8e2496a5cef8c131d91f",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

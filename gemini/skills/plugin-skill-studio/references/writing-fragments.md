@@ -1,6 +1,6 @@
 # Skill: writing-fragments
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/writing-fragments/SKILL.md`
 
 > Capture and refine raw ideas, quotes, and observations before committing to an article outline. Use when collecting source material, studio-plan discover mode essay fragments, or exploring angles without structure pressure — even if the user says "help me brainstorm notes". Do NOT use for final draft formatting.

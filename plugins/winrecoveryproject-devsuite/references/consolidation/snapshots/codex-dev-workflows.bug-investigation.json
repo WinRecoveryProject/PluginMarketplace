@@ -1,0 +1,8 @@
+{
+  "id": "codex-dev-workflows.bug-investigation",
+  "root": "skills/bug-investigation",
+  "source": "PluginMarketplace@5087886",
+  "files": {
+    "SKILL.md": "837e68069e423319d30ea1ac99587f31388c07aa2b9099072a4e459baa4f7b68"
+  }
+}

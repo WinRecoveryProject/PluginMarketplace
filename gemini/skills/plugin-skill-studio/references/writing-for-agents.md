@@ -1,6 +1,6 @@
 # Skill: writing-for-agents
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/writing-for-agents/SKILL.md`
 
 > Author and refine agent-facing instructions, skills, AGENTS.md files, and context pointers. Use when creating new agent skills, optimizing prompt guidelines, writing steerable docs, or organizing progressive disclosure — even if the user says "write a skill for this". Do NOT use for human-facing marketing copy.

@@ -38,7 +38,7 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
 [ Discovery & Plan ]   [ Code & Architecture ]   [ AI, ML & Automation ]
 - `studio-plan` (interview mode)    - `studio-execute` (implement mode)             - `ai-engineering`
 - `studio-plan` (spec mode)            - `studio-review` (code mode)           - `ai-data-remediation`
-- `studio-plan` (tickets mode)         - `diagnosing-bugs`       - `ml-best-practices`
+- `studio-plan` (tickets mode)         - `studio-debug` (loop mode) - `ml-best-practices`
 - `studio-plan` (map mode)          - `domain-modeling`       - `j-space`
 - `prototype`          - `setup-ts-deep-modules` - `studio-plan` (goal mode)
                            │
@@ -59,7 +59,7 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
 | Lifecycle Scenario | Canonical Route Pipeline |
 |---|---|
 | **Fuzzy Greenfield Feature** | `studio-plan` (interview mode) $\rightarrow$ `studio-plan` (spec mode) $\rightarrow$ `studio-plan` (tickets mode) $\rightarrow$ `studio-execute` (implement mode) |
-| **Hard Bug or Regression** | `diagnosing-bugs` $\rightarrow$ `tdd` |
+| **Hard Bug or Regression** | `studio-debug` (loop mode) $\rightarrow$ `tdd` |
 | **Pull Request Review** | `studio-review` (code mode) (Two-axis: Standards & Spec) |
 | **Deep Module Restructuring** | `improve-codebase-architecture` $\rightarrow$ `setup-ts-deep-modules` |
 | **Large Multi-Session Map** | `studio-plan` (map mode) $\rightarrow$ `studio-plan` (spec mode) $\rightarrow$ `studio-plan` (tickets mode) |

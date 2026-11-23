@@ -1,6 +1,6 @@
 # Skill: test-driven-development
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/test-driven-development/SKILL.md`
 
 > Runs a recorded red-green-refactor cycle. Use when implementing a feature, bug fix, or behavior change.

@@ -32,6 +32,14 @@ GIT_MODES = (
     ("worktree", r"isolation from current workspace|isolated workspace|git worktree"),
 )
 
+# Specific debugging intents shared with Plugin-Skill-Studio studio-debug; checked after git, before execution.
+DEBUG_MODES = (
+    ("triage", r"triage (?:these |the |incoming )*(?:issues|bug reports|requests)|incoming issues|external bug reports|"
+               r"out-of-scope requests|contributor tickets|tickets already produced by to-tickets"),
+    ("loop", r"tight feedback loop|runtime exceptions|flaky ci|debug this|routine test-driven feature development"),
+    ("diagnose", r"root causes? (?:through reproduction|of)|lacks a demonstrated cause"),
+)
+
 # Specific execution intents shared with Plugin-Skill-Studio studio-execute; checked before planning.
 EXECUTE_MODES = (
     ("durable", r"durable state file|interruption-prone|risks compaction|resume after interruption"),
@@ -108,6 +116,9 @@ def route(request: str) -> dict:
     review_mode = next((name for name, pattern in REVIEW_MODES if re.search(pattern, text)), None)
     # Planning boundaries ("Do NOT use for ...") still name planning intent, so match before negation stripping.
     git_mode = next((name for name, pattern in GIT_MODES if re.search(pattern, request.casefold())), None)
+    debug_mode = next((name for name, pattern in DEBUG_MODES if re.search(pattern, request.casefold())), None)
+    if debug_mode and re.search(r"security|vulnerab", text):
+        debug_mode = None  # security findings keep their own triage workflow
     execute_mode = next((name for name, pattern in EXECUTE_MODES if re.search(pattern, request.casefold())), None)
     plan_mode = next((name for name, pattern in PLAN_MODES if re.search(pattern, request.casefold())), None)
     mode = None
@@ -117,6 +128,8 @@ def route(request: str) -> dict:
         skill, mode = "devsuite-review", review_mode
     elif git_mode:
         skill, mode = "devsuite-git", git_mode
+    elif debug_mode:
+        skill, mode = "devsuite-debug", debug_mode
     elif execute_mode:
         skill, mode = "devsuite-implement", execute_mode
     elif plan_mode:
@@ -139,7 +152,7 @@ def route(request: str) -> dict:
         skill = "devsuite-review"
         mode = "release" if re.search(r"release.readiness|pre.release|patch.risk", text) else "code"
     elif re.search(r"\b(debug|diagnos\w*|reproduce|bug|defect)\b", text):
-        skill = "devsuite-debug"
+        skill, mode = "devsuite-debug", "investigate"
     elif re.search(r"\b(test|tests|testing|qa|verify|validation)\b", text) and not re.search(r"\b(implement|build|refactor)\b", text):
         skill = "devsuite-test"
     elif re.search(r"\b(plan|planning|planlæg\w*|projektplan\w*|coordinate|coordinator|architecture|new.project|agents\.md|board)\b", text) and not re.search(r"\b(implement|build)\b", text):
