@@ -1,6 +1,6 @@
 # Skill: google-sheets
 
-- Plugin: `cloudstorage-portal` (0.9.14)
+- Plugin: `cloudstorage-portal` (0.9.15)
 - Source: `plugins/cloudstorage-portal/skills/google-sheets/SKILL.md`
 
 > Analyze and edit connected Google Sheets with range precision. Use when the user wants to create Google Sheets, find a spreadsheet, inspect tabs or ranges, search rows, plan formulas, create or repair charts, clean or restructure tables, write concise summaries, or make explicit cell-range updates.

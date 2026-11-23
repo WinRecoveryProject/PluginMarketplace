@@ -1,6 +1,6 @@
 # Skill: create-agent-instructions
 
-- Plugin: `codex-dev-workflows` (0.4.2)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.2)
 - Source: `plugins/codex-dev-workflows/skills/create-agent-instructions/SKILL.md`
 
 > Create or improve concise repository instructions that guide coding agents to authoritative project documentation and validation.

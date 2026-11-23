@@ -1,9 +1,9 @@
 # Skill: platform-guidance
 
-- Plugin: `codex-dev-workflows` (0.4.2)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.2)
 - Source: `plugins/codex-dev-workflows/skills/platform-guidance/SKILL.md`
 
-> Load focused development and QA guidance for Flutter, JavaScript/TypeScript, Python, or Laravel/PHP projects.
+> Load focused development and QA guidance for Flutter, JavaScript/TypeScript, Python, Laravel/PHP, PowerShell, Batch/CMD, or Lua (including World of Warcraft addons) projects.
 
 ## Instructions
 
@@ -17,6 +17,9 @@ Load exactly the relevant reference:
 - JavaScript or TypeScript: `../../shared/platforms/javascript-typescript.md`
 - Python: `../../shared/platforms/python.md`
 - Laravel/PHP: `../../shared/platforms/laravel-php.md`
+- PowerShell (Windows PowerShell 5.1 and PowerShell 7): `../../shared/platforms/powershell.md`
+- Batch/CMD scripts and launchers: `../../shared/platforms/batch-cmd.md`
+- Lua, including World of Warcraft addons: `../../shared/platforms/lua-wow.md`
 
 If the repository is mixed-stack, load only the components affected by the task. If it uses another platform, use repository configuration and docs as the source of truth rather than forcing one of these guides.
 

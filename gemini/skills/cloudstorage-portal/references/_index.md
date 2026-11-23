@@ -32,6 +32,10 @@ Every file and skill folder of `plugins/cloudstorage-portal` and where its conte
 | `skills/cloudstorage-connections/agents/openai.yaml` | `references/cloudstorage-connections.md#file-agentsopenaiyaml` |
 | `skills/cloudstorage-connections/assets/cloudstorage-portal.png` | `references/cloudstorage-connections.md#file-assetscloudstorage-portalpng` |
 | `skills/cloudstorage-connections/SKILL.md` | `references/cloudstorage-connections.md` |
+| `skills/cloudstorage-onedrive` | `references/cloudstorage-onedrive.md` |
+| `skills/cloudstorage-onedrive/agents/openai.yaml` | `references/cloudstorage-onedrive.md#file-agentsopenaiyaml` |
+| `skills/cloudstorage-onedrive/assets/onedrive.png` | `references/cloudstorage-onedrive.md#file-assetsonedrivepng` |
+| `skills/cloudstorage-onedrive/SKILL.md` | `references/cloudstorage-onedrive.md` |
 | `skills/cloudstorage-portal` | `references/cloudstorage-portal.md` |
 | `skills/cloudstorage-portal/agents/openai.yaml` | `references/cloudstorage-portal.md#file-agentsopenaiyaml` |
 | `skills/cloudstorage-portal/assets/cloudstorage-portal.png` | `references/cloudstorage-portal.md#file-assetscloudstorage-portalpng` |
@@ -140,10 +144,6 @@ Every file and skill folder of `plugins/cloudstorage-portal` and where its conte
 | `skills/inspect-dropbox-file/agents/openai.yaml` | `references/inspect-dropbox-file.md#file-agentsopenaiyaml` |
 | `skills/inspect-dropbox-file/assets/dropbox.png` | `references/inspect-dropbox-file.md#file-assetsdropboxpng` |
 | `skills/inspect-dropbox-file/SKILL.md` | `references/inspect-dropbox-file.md` |
-| `skills/onedrive` | `references/onedrive.md` |
-| `skills/onedrive/agents/openai.yaml` | `references/onedrive.md#file-agentsopenaiyaml` |
-| `skills/onedrive/assets/onedrive.png` | `references/onedrive.md#file-assetsonedrivepng` |
-| `skills/onedrive/SKILL.md` | `references/onedrive.md` |
 | `skills/organize-dropbox-folder` | `references/organize-dropbox-folder.md` |
 | `skills/organize-dropbox-folder/agents/openai.yaml` | `references/organize-dropbox-folder.md#file-agentsopenaiyaml` |
 | `skills/organize-dropbox-folder/assets/dropbox.png` | `references/organize-dropbox-folder.md#file-assetsdropboxpng` |

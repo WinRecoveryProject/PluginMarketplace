@@ -1,6 +1,6 @@
 # Skill: collect-files-with-request
 
-- Plugin: `cloudstorage-portal` (0.9.14)
+- Plugin: `cloudstorage-portal` (0.9.15)
 - Source: `plugins/cloudstorage-portal/skills/collect-files-with-request/SKILL.md`
 
 > Create, inspect, and manage Dropbox file requests for collecting uploads from other people. Use when the user asks to collect files, request uploads, create an upload portal, check a file request, or list existing file requests.

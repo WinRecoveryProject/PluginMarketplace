@@ -12,7 +12,7 @@
 
 ## CloudStorage Portal (`cloudstorage-portal`)
 
-- Version: `0.9.14`
+- Version: `0.9.15`
 - Installs from: `plugins/cloudstorage-portal` (this repository)
 - Exported from: `plugins/cloudstorage-portal`
 - Gemini skill folder: `gemini/skills/cloudstorage-portal/`
@@ -20,6 +20,7 @@
 
 - **clean-up-dropbox-content** — Clean up Dropbox content by identifying obsolete, duplicate, temporary, or unwanted files and deleting only after explicit review. Use when the user explicitly asks to delete, remove, or clean up Dropbox files or folders.
 - **cloudstorage-connections** — Configure or inspect unified connection management for Dropbox, Google Drive and OneDrive. Use for OAuth, login, account IDs, token lifecycle, scopes, linking accounts and three-provider readiness.
+- **cloudstorage-onedrive** — Use when the user wants to read or manage OneDrive files through the existing OneDrive App: search, folders, uploads, downloads, rename, move, copy, sharing, permissions, versions, restore and quota.
 - **cloudstorage-portal** — Use when the user wants to search, read, upload, organize, share, inspect file history or transfer files across Dropbox, Google Drive and OneDrive through their existing App or MCP connections.
 - **cloudstorage-setup-docs** — Explain and reproduce the documented zero-cost CloudStorage Portal setup, Microsoft Entra app roles, hosted OneDrive broker, callbacks, DCR and secret-field mapping; use for setup documentation, onboarding and login troubleshooting.
 - **collect-files-with-request** — Create, inspect, and manage Dropbox file requests for collecting uploads from other people. Use when the user asks to collect files, request uploads, create an upload portal, check a file request, or list existing file requests.
@@ -30,7 +31,6 @@
 - **google-sheets** — Analyze and edit connected Google Sheets with range precision. Use when the user wants to create Google Sheets, find a spreadsheet, inspect tabs or ranges, search rows, plan formulas, create or repair charts, clean or restructure tables, write concise summaries, or make explicit cell-range updates.
 - **google-slides** — Route Google Slides authoring requests and derive a design system from a native template or reference deck. Use this skill when the user provides an existing native Google Slides deck as a template, reference, or prior-period source, or asks to edit, update, repair, restyle, or clean up an existing native Google Slides deck. Use the Presentations skill instead for net-new presentation creation when no existing native Google Slides deck must be followed.
 - **inspect-dropbox-file** — Inspect a Dropbox file or folder by checking metadata, shared links, and file content when needed. Use when the user asks what a file is, whether it is shared, when it changed, what access links exist, or asks to read/analyze a Dropbox file.
-- **onedrive** — Use when the user wants to read or manage OneDrive files through the existing OneDrive App: search, folders, uploads, downloads, rename, move, copy, sharing, permissions, versions, restore and quota.
 - **organize-dropbox-folder** — Organize Dropbox files and folders by creating folders, copying content, or moving content into a cleaner structure. Use when the user asks to organize, archive, consolidate, restructure, copy, or move Dropbox content.
 - **share-dropbox-content** — Share Dropbox files or folders by creating shared links, inspecting existing shared links, or explaining current shared-link state. Use only when the user explicitly asks to create a shared link, check access, or inspect a Dropbox shared link.
 - **upload-to-dropbox** — Use when the user asks to save an attachment, generated file, or file-library selection from this conversation to Dropbox. Use the packaged file-request workflow for uploads from other people.
@@ -57,11 +57,11 @@
 
 ## Codex Dev Workflows (`codex-dev-workflows`)
 
-- Version: `0.4.2`
+- Version: `0.4.2-wrp.2`
 - Installs from: `plugins/codex-dev-workflows` (this repository)
 - Exported from: `plugins/codex-dev-workflows`
 - Gemini skill folder: `gemini/skills/codex-dev-workflows/`
-- Purpose: Reusable software-development workflows and platform guidance for Codex.
+- Purpose: Standalone software-development workflows and platform guidance. For WinRecoveryProject work, prefer winrecoveryproject-devsuite, which integrates these workflows with verification gates.
 
 - **bug-investigation** — Reproduce, isolate, fix, and verify a software defect with evidence and minimal scope.
 - **code-review** — Review a change set for correctness, regressions, security, maintainability, and missing tests without changing unrelated code.
@@ -71,7 +71,7 @@
 - **feature-testing** — Test a recently implemented feature for intended behavior, edge cases, regressions, and meaningful missing coverage.
 - **new-project** — Turn a new software idea into a scoped, buildable project plan before implementation begins.
 - **orchestrate-work** — Coordinate complex, divisible work by planning, delegating independent tasks in parallel, integrating the results, and verifying the complete outcome.
-- **platform-guidance** — Load focused development and QA guidance for Flutter, JavaScript/TypeScript, Python, or Laravel/PHP projects.
+- **platform-guidance** — Load focused development and QA guidance for Flutter, JavaScript/TypeScript, Python, Laravel/PHP, PowerShell, Batch/CMD, or Lua (including World of Warcraft addons) projects.
 - **pre-release-review** — Assess whether a software change is ready to release by checking scope, validation, risk, operations, and rollback readiness.
 - **resume-interrupted-task** — Safely resume interrupted software work by reconstructing the current state from repository evidence, preserving valid changes, and making the next step explicit.
 - **session-handoff** — Create a concise, evidence-based handoff that lets the next development session continue safely without re-discovering context.
@@ -107,7 +107,7 @@
 - Version: `0.1.33` from upstream; this export: snapshot `0.1.33`
 - Installs from: https://github.com/openai/plugins (plugins/codex-security)
 - Exported from: `plugins/codex-security`
-- Gemini skill folder: `gemini/skills/codex-security/`
+- Gemini skill folder: `gemini/skills/codex-security/` (code files in `gemini/skills/codex-security-source/`)
 - Purpose: Codex Security workflows for security scans, analysis, and investigation.
 
 - **assess-patch-risk** — Assess an immutable patch artifact's program impact, regression risk, and auto-merge eligibility. Use for generated patch files, provider pull-request diffs, or commit ranges when reviewers need evidence about affected runtime paths, contracts, tests, and recoverability. This skill is read-only and does not generate, edit, apply, push, or merge the patch.
@@ -158,7 +158,7 @@
 - Version: `0.9.0`
 - Installs from: `plugins/plugin-skill-studio` (this repository)
 - Exported from: `plugins/plugin-skill-studio`
-- Gemini skill folder: `gemini/skills/plugin-skill-studio/`
+- Gemini skill folder: `gemini/skills/plugin-skill-studio/` (code files in `gemini/skills/plugin-skill-studio-source/`)
 - Purpose: Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.
 
 - **ai-data-remediation** — Self-healing data pipeline layer using semantic anomaly clustering, AST-validated lambda transformations, and zero-loss mathematical reconciliation. Use when data quality checks fail, anomalous records break ETL/ELT pipelines, you need automated data cleansing with sandboxed Python transformations, or you want to group data errors into semantic clusters — even if they don't explicitly say "data remediation". Do NOT use for standard database schema migrations, routine CRUD queries, or basic pipeline scheduling.
@@ -219,7 +219,7 @@
 - Version: `0.9.0-beta.7`
 - Installs from: `plugins/powershell-workbench` (this repository)
 - Exported from: `plugins/powershell-workbench`
-- Gemini skill folder: `gemini/skills/powershell-workbench/`
+- Gemini skill folder: `gemini/skills/powershell-workbench/` (code files in `gemini/skills/powershell-workbench-source/`)
 - Purpose: Portable PowerShell and mixed-language scaffolding, refactoring, discovery, agent harnesses, game tooling, and opt-in quality workflows.
 
 - **bash-docs** — Use when researching bash syntax, runtime, parser and component-contract documentation with explicit version scope inside PowerShell Workbench.
@@ -258,7 +258,7 @@
 
 ## Vercel (`vercel`)
 
-- Version: `0.56.0-wrp.2`
+- Version: `0.56.0-wrp.3`
 - Installs from: `plugins/vercel` (this repository)
 - Exported from: `plugins/vercel`
 - Gemini skill folder: `gemini/skills/vercel/`

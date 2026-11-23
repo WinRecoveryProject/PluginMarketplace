@@ -823,11 +823,11 @@ These fields are optional for compatibility with existing v1 canonical artifacts
 
 #### Schemas
 
-New completed findings must match the [scan draft schema](_plugin-schemas.md#file-schemastoolsscan-draftschemajson). Finalization rejects legacy field aliases, malformed optional details, and invalid semantic slugs instead of repairing them. Historical sealed reports are validated through an in-memory compatibility adapter; their saved bytes remain unchanged. Stopped-scan recovery still salvages saved evidence.
+New completed findings must match the [scan draft schema](../../codex-security-source/references/_plugin-schemas.md#file-schemastoolsscan-draftschemajson). Finalization rejects legacy field aliases, malformed optional details, and invalid semantic slugs instead of repairing them. Historical sealed reports are validated through an in-memory compatibility adapter; their saved bytes remain unchanged. Stopped-scan recovery still salvages saved evidence.
 
-- [Scan manifest schema](_plugin-schemas.md#file-schemasscan-manifestschemajson)
-- [Findings schema](_plugin-schemas.md#file-schemasfindingsschemajson)
-- [Coverage schema](_plugin-schemas.md#file-schemascoverageschemajson) for legacy scans
+- [Scan manifest schema](../../codex-security-source/references/_plugin-schemas.md#file-schemasscan-manifestschemajson)
+- [Findings schema](../../codex-security-source/references/_plugin-schemas.md#file-schemasfindingsschemajson)
+- [Coverage schema](../../codex-security-source/references/_plugin-schemas.md#file-schemascoverageschemajson) for legacy scans
 
 V1 consumers ignore unknown properties for forward compatibility. Producers must still validate documented fields and should not emit undocumented properties casually.
 

@@ -1,6 +1,6 @@
 # Skill: upload-to-dropbox
 
-- Plugin: `cloudstorage-portal` (0.9.14)
+- Plugin: `cloudstorage-portal` (0.9.15)
 - Source: `plugins/cloudstorage-portal/skills/upload-to-dropbox/SKILL.md`
 
 > Use when the user asks to save an attachment, generated file, or file-library selection from this conversation to Dropbox. Use the packaged file-request workflow for uploads from other people.
