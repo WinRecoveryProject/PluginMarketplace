@@ -204,7 +204,7 @@ try {
     plugins: [
       standaloneEntry('winrecoveryproject-linter'),
       ...portablePackages.map(pluginEntry),
-      ...['winrecoveryproject-devsuite', 'zilvereyes-context-handoff', 'onedrive'].map(standaloneEntry),
+      ...['winrecoveryproject-devsuite', 'zilvereyes-context-handoff', 'onedrive', 'cloudstorage-portal'].map(standaloneEntry),
       ...publisherPackages.map(({ manifestName, licenseFile, ...entry }) => entry),
     ],
   };

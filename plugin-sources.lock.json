@@ -2759,6 +2759,36 @@
         "TERMS.md": "fe36b4aa3cf8d695517e4ce6b611fda537cd934bca32ea9f5a8d9739b348711d",
         "THIRD-PARTY-NOTICES.md": "fc780cc54e934f5e56c572d21086bb08cedd8eaa7e94ead44099fb43e50daba7"
       }
+    },
+    "cloudstorage-portal": {
+      "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal.git",
+      "commit": "c2e4a39e3175f0df76b39aadc736ed57c9cfc68e",
+      "sourceDirectory": "claude",
+      "buildCommand": "node scripts/build-claude-package.mjs --out <dir>",
+      "version": "0.9.15",
+      "files": {
+        ".claude-plugin/plugin.json": "d8fa636f1af680db28d0b695956741dea19a73347ba92ff246c268920f3e8a1f",
+        "LICENSE": "105280883c50dfa484fd0be76f8fa23e3dc5c8ae28bb30548c3a91fd6308c97b",
+        "README.md": "dc19dacd36c5f680b9bd6b959e41fbfa9494a8cdd95f3b7f2925540766e3921f",
+        "THIRD_PARTY_NOTICES.md": "c89bb419e5dcb87814b2b651f953a2a6667953ab0dd3fe4d060242998a89cb63",
+        "skills/clean-up-dropbox-content/SKILL.md": "0befed62b8dd03a7cd2a2ce56df16331b64355d3362f136bff289b8dd34a021b",
+        "skills/clean-up-dropbox-content/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273",
+        "skills/cloudstorage-connections/SKILL.md": "2a13c2b5a76c79ab985fd7c828758078b8ffc2f640159285ce7dc126ce94456f",
+        "skills/cloudstorage-onedrive/SKILL.md": "cfac62c8803ce5f109abee9be6cccd3142279c3f4c4f99d169b10a422feea967",
+        "skills/cloudstorage-portal/SKILL.md": "fa423cc12c8480dc3497b15edb1f308f1ab90ac3940d6d53aff6c680fd03e8a1",
+        "skills/collect-files-with-request/SKILL.md": "f9de5fd6848b363b189c860455702db097ebaeae51306d9d06183a362224687d",
+        "skills/collect-files-with-request/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273",
+        "skills/find-dropbox-content/SKILL.md": "6aff4ca5c0fed3961ac5cc92e51c2fbd2405b46673558291f2836bb1021fc271",
+        "skills/find-dropbox-content/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273",
+        "skills/google-workspace/SKILL.md": "6c5742c0eb8a32e66dea9c248a285e055da2e349cc8ad96c8e3944fc8788640e",
+        "skills/inspect-dropbox-file/SKILL.md": "de44c9809c8d498823ed5130f49494de9b161c85812bd741aaf709b0861dcf9f",
+        "skills/inspect-dropbox-file/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273",
+        "skills/organize-dropbox-folder/SKILL.md": "ac628ecb0fe11803011d4a2703cfc725d099546384fb023ce60b812dd3d362c8",
+        "skills/organize-dropbox-folder/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273",
+        "skills/share-dropbox-content/SKILL.md": "4b54a3d146d43e7a8f4bb909cf5f32f6bbc16b625b975f89bddae3856a8f18f7",
+        "skills/share-dropbox-content/assets/dropbox.png": "d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273",
+        "skills/upload-to-dropbox/SKILL.md": "e61864a60ea388761ce8282710ebd53bc16aea2798b3bc9b24722e4e8aa7bcba"
+      }
     }
   }
 }
