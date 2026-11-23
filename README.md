@@ -44,7 +44,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Security | `0.1.33` | `codex plugin add codex-security@winrecoveryproject-digital` |
 | Linear | `5.0.1` | `codex plugin add linear@winrecoveryproject-digital` |
 | Codex Coordinator | `0.4.0` | `codex plugin add codex-coordinator@winrecoveryproject-digital` |
-| Codex Dev Workflows | `0.4.2-wrp.1` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
+| Codex Dev Workflows | `0.4.2-wrp.2` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
 | Codex Process Jobs | `0.5.3-wrp.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.5+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |

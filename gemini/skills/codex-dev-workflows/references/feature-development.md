@@ -1,6 +1,6 @@
 # Skill: feature-development
 
-- Plugin: `codex-dev-workflows` (0.4.2-wrp.1)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.2)
 - Source: `plugins/codex-dev-workflows/skills/feature-development/SKILL.md`
 
 > Implement a focused software feature with scoped investigation, verification, and a clear completion report.

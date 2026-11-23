@@ -1,6 +1,6 @@
 # Skill: pre-release-review
 
-- Plugin: `codex-dev-workflows` (0.4.2-wrp.1)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.2)
 - Source: `plugins/codex-dev-workflows/skills/pre-release-review/SKILL.md`
 
 > Assess whether a software change is ready to release by checking scope, validation, risk, operations, and rollback readiness.

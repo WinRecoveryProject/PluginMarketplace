@@ -1,6 +1,6 @@
 # Skill: comprehensive-qa
 
-- Plugin: `codex-dev-workflows` (0.4.2-wrp.1)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.2)
 - Source: `plugins/codex-dev-workflows/skills/comprehensive-qa/SKILL.md`
 
 > Perform a broad, evidence-based QA pass across software behavior, user journeys, state, regressions, accessibility, and operational risk.

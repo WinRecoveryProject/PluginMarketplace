@@ -1,6 +1,6 @@
 # Skill: platform-guidance
 
-- Plugin: `codex-dev-workflows` (0.4.2-wrp.1)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.2)
 - Source: `plugins/codex-dev-workflows/skills/platform-guidance/SKILL.md`
 
 > Load focused development and QA guidance for Flutter, JavaScript/TypeScript, Python, Laravel/PHP, PowerShell, Batch/CMD, or Lua (including World of Warcraft addons) projects.
