@@ -79,6 +79,12 @@
       "source": "./claude-plugins/onedrive"
     },
     {
+      "name": "cloudstorage-portal",
+      "version": "0.9.15",
+      "description": "Coordinate Dropbox, Google Drive and OneDrive in Claude through the connectors you have already authorized, with one skill layer for search, reading, organizing, sharing and transfers.",
+      "source": "./claude-plugins/cloudstorage-portal"
+    },
+    {
       "name": "vercel-plugin",
       "version": "0.56.0",
       "description": "Build and deploy web apps and agents",
