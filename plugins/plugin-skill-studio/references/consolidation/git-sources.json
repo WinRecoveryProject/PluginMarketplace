@@ -1,0 +1,18 @@
+[
+  {
+    "id": "studio.using-git-worktrees",
+    "snapshot": "references/consolidation/snapshots/sources/studio.using-git-worktrees.json"
+  },
+  {
+    "id": "studio.finishing-a-development-branch",
+    "snapshot": "references/consolidation/snapshots/sources/studio.finishing-a-development-branch.json"
+  },
+  {
+    "id": "studio.resolving-merge-conflicts",
+    "snapshot": "references/consolidation/snapshots/sources/studio.resolving-merge-conflicts.json"
+  },
+  {
+    "id": "studio.git-safety-guardrails",
+    "snapshot": "references/consolidation/snapshots/sources/studio.git-safety-guardrails.json"
+  }
+]

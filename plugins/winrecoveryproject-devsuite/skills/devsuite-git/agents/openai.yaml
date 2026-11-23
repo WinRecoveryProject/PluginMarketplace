@@ -1,0 +1,7 @@
+interface:
+  display_name: "DevSuite · Git"
+  short_description: "Worktrees, afslutning af grene, konflikter og git-sikkerhed."
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
+  brand_color: "#00BDA5"
+  default_prompt: "Brug $devsuite-git til denne opgave, og bevar de eksisterende forbindelser og budgettet på 0 kr."

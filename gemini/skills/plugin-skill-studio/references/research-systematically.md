@@ -1,6 +1,6 @@
 # Skill: research-systematically
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/research-systematically/SKILL.md`
 
 > Runs source-bound research and version-matched documentation lookup. Use when comparisons, experiments, benchmarks, investigations, or external library, SDK, CLI, and API facts must be verified.

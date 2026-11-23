@@ -1,0 +1,11 @@
+{
+  "id": "studio.finishing-a-development-branch",
+  "root": "skills/finishing-a-development-branch",
+  "commit": "0ba9f82",
+  "files": {
+    "SKILL.md": "cacb3f82ce5e14425b25955bb61c837fc987df0f52a9fd082092837b006cdc6b",
+    "agents/openai.yaml": "5b93f4499c83114472909c7f8f5eee12afef9a368ecd7e4e7a31c3ee5c4e601a",
+    "assets/wrp-icon-128.png": "359822245c83c60f274bb9c7ee6b763e9e1cd0ef3fbaf0abf4cdced75414d31c",
+    "assets/wrp-icon-256.png": "2633be056d51373483ae7ba3621976cbfa8b2de4542071629a02dda5a9c3063f"
+  }
+}

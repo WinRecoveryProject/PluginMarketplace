@@ -1,6 +1,6 @@
 # Skill: engineering-workflow-guide
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/engineering-workflow-guide/SKILL.md`
 
 > Route engineering, AI/ML, cognitive, or productivity tasks to the narrowest effective specialist skill. Use when a task spans planning, implementation, debugging, review, architecture, research, setup, AI modeling, data remediation, or autonomous goals, when the user asks what to do next, or when unsure which workflow fits — even if they don't explicitly name a skill. Do NOT use when the specific specialist skill is already obvious and unambiguous.
@@ -206,7 +206,7 @@ Use one primary skill by default. Add another only for a distinct phase.
 - `tdd`: Use when implementing a feature or fixing a bug test-first with a red-green cycle, or when the task needs durable integration-style tests around public behavior.
 - `studio-review` (code mode): Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes - Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
 - `diagnosing-bugs`: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
-- `resolving-merge-conflicts`: Use when you need to resolve an in-progress git merge/rebase conflict.
+- `studio-git` (conflicts mode): Use when you need to resolve an in-progress git merge/rebase conflict.
 - `migrate-to-shoehorn`: Use when TypeScript tests rely on unsafe `as` or `as unknown as` assertions for fixtures and the user wants to migrate those test-only values to `@total-typescript/shoehorn` with explicit intent.
 
 ##### AI and Machine Learning
@@ -232,7 +232,7 @@ Use one primary skill by default. Add another only for a distinct phase.
 
 - `setup-engineering-workflows`: Use when repository workflows need explicit issue-tracker, triage-label, domain-document, or agent-instruction conventions before planning, triage, wayfinding, or ticket work can run reliably.
 - `setup-pre-commit`: Use when a JavaScript or TypeScript repository needs reliable pre-commit quality checks with Husky and lint-staged, while preserving the repository's package manager, formatter, existing hooks, and test/typecheck conventions.
-- `git-safety-guardrails`: Use when a repository needs explicit safeguards around destructive or irreversible Git operations, especially force pushes, hard resets, cleans, destructive restores, branch deletion, or history rewrites.
+- `studio-git` (safety mode): Use when a repository needs explicit safeguards around destructive or irreversible Git operations, especially force pushes, hard resets, cleans, destructive restores, branch deletion, or history rewrites.
 - `triage`: Use when repository issues or external contribution requests need classification, verification, missing-information follow-up, rejection handling, or a durable agent-ready implementation brief.
 - `wizard`: Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself.
 
@@ -345,8 +345,8 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Test-driven development", "Red-green-refactor", "Write tests" | `tdd` | `tdd` ➔ `studio-review` (code mode) | Throwaway exploratory spikes |
 | "Diagnose bug", "Fix failing test", "Flaky CI", "Crash" | `diagnosing-bugs` | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Trivial obvious syntax errors |
 | "Review PR", "Review branch diff", "Check standards" | `studio-review` (code mode) | `studio-review` (code mode) | Writing new code or diagnosing bugs |
-| "Merge conflict", "Rebase conflict", "Fix conflict markers" | `resolving-merge-conflicts` | `resolving-merge-conflicts` ➔ `studio-review` (code mode) | Routine safe git rebases without conflicts |
-| "Prevent force push", "Block dangerous git", "Hard reset guard" | `git-safety-guardrails` | `git-safety-guardrails` | Safe git status or log commands |
+| "Merge conflict", "Rebase conflict", "Fix conflict markers" | `studio-git` (conflicts mode) | `studio-git` (conflicts mode) ➔ `studio-review` (code mode) | Routine safe git rebases without conflicts |
+| "Prevent force push", "Block dangerous git", "Hard reset guard" | `studio-git` (safety mode) | `studio-git` (safety mode) | Safe git status or log commands |
 | "Setup issue tracker", "Configure triage labels", "Setup docs" | `setup-engineering-workflows` | `setup-engineering-workflows` | General npm package installation |
 | "Setup Husky", "lint-staged", "Prettier pre-commit hook" | `setup-pre-commit` | `setup-pre-commit` | Remote CI/CD pipeline automation |
 | "Triage incoming issues", "Author agent brief", "Out of scope" | `triage` | `triage` ➔ `studio-execute` (implement mode) | Internal tickets from studio-plan tickets mode |

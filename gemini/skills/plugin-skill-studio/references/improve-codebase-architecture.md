@@ -1,6 +1,6 @@
 # Skill: improve-codebase-architecture
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/improve-codebase-architecture/SKILL.md`
 
 > Survey codebases for shallow modules, weak seams, and deepening opportunities, producing a visual report. Use when conducting architectural reviews, identifying design debt, finding deepening opportunities, or preparing codebase refactors — even if the user says "analyze our architecture". Do NOT use for basic syntax linting or formatting.

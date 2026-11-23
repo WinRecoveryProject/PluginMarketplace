@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "plugin-skill-studio",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "sources": [
     {
       "id": "matt-skills-curated",
@@ -198,7 +198,7 @@
         {
           "sourceSkill": "git-safety-guardrails",
           "sourceFile": "skills/git-safety-guardrails/SKILL.md",
-          "implementation": "skills/git-safety-guardrails/SKILL.md",
+          "implementation": "skills/studio-git/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -296,7 +296,7 @@
         {
           "sourceSkill": "resolving-merge-conflicts",
           "sourceFile": "skills/resolving-merge-conflicts/SKILL.md",
-          "implementation": "skills/resolving-merge-conflicts/SKILL.md",
+          "implementation": "skills/studio-git/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -626,7 +626,7 @@
         {
           "sourceSkill": "finishing-a-development-branch",
           "sourceFile": "skills/finishing-a-development-branch/SKILL.md",
-          "implementation": "skills/finishing-a-development-branch/SKILL.md",
+          "implementation": "skills/studio-git/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -696,7 +696,7 @@
         {
           "sourceSkill": "using-git-worktrees",
           "sourceFile": "skills/using-git-worktrees/SKILL.md",
-          "implementation": "skills/using-git-worktrees/SKILL.md",
+          "implementation": "skills/studio-git/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -1860,20 +1860,19 @@
       "description": "Use when a set of candidate Skills or app capabilities is technically valid but still needs to become a clear, useful ChatGPT/Codex Plugin that people can understand, discover, and invoke for real work."
     },
     {
-      "id": "finishing-a-development-branch",
-      "entrypoint": "skills/finishing-a-development-branch/SKILL.md",
+      "id": "studio-git",
+      "entrypoint": "skills/studio-git/SKILL.md",
       "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Guides integration of a finished branch: verify tests, present merge/PR/keep/discard options to the user, and clean up worktrees. Use when implementation is complete, all tests pass, and the work needs to be integrated."
-    },
-    {
-      "id": "git-safety-guardrails",
-      "entrypoint": "skills/git-safety-guardrails/SKILL.md",
-      "sourceIds": [
+        "skillquiver",
         "matt-skills-curated"
       ],
-      "description": "Safeguard repositories against destructive, irreversible, or history-rewriting Git operations. Use when running force pushes, hard resets, branch deletions, cleans, destructive restores, or history re-writes — even if the user says \\\"clean up git history\\\". Do NOT use for routine safe git status, fetch, diff, or branch queries."
+      "modes": [
+        "worktree",
+        "finish",
+        "conflicts",
+        "safety"
+      ],
+      "description": "Isolated worktrees, branch finishing, conflict resolution and git safety guardrails; mode files are shared with DevSuite."
     },
     {
       "id": "handle-host-boundaries",
@@ -1988,14 +1987,6 @@
       "description": "Runs source-bound research and version-matched documentation lookup. Use when comparisons, experiments, benchmarks, investigations, or external library, SDK, CLI, and API facts must be verified."
     },
     {
-      "id": "resolving-merge-conflicts",
-      "entrypoint": "skills/resolving-merge-conflicts/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Resolve in-progress git merge or rebase conflicts by intent traced to primary sources. Use when hit with merge conflicts, CONFLICT markers in files, rebase pauses, or when git prompts to resolve conflicted hunks — even if the user just says \\\"fix this merge\\\". Do NOT use for creating new branches or routine rebasing without conflicts."
-    },
-    {
       "id": "retro",
       "entrypoint": "skills/retro/SKILL.md",
       "sourceIds": [
@@ -2082,14 +2073,6 @@
         "matt-skills-curated"
       ],
       "description": "Classify, verify, and prepare external bug reports and feature requests into agent-ready briefs. Use when processing incoming issues, validating bug reproductions, rejecting out-of-scope requests, or structuring contributor tickets — even if the user says \\\"triage these issues\\\". Do NOT use for internal tickets already produced by to-tickets."
-    },
-    {
-      "id": "using-git-worktrees",
-      "entrypoint": "skills/using-git-worktrees/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback"
     },
     {
       "id": "wait-what",

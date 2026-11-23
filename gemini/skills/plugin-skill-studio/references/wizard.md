@@ -1,6 +1,6 @@
 # Skill: wizard
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/wizard/SKILL.md`
 
 > Generate an interactive bash wizard to guide humans through manual setup, dashboard, or credential steps. Use when setting up API keys, third-party dashboards, CI secrets, or infrastructure where human authentication is required — even if the user says "create a setup wizard". Do NOT use for steps the AI agent can execute autonomously.

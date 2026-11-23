@@ -1,0 +1,8 @@
+interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
+  display_name: "Studio Git"
+  short_description: "Worktrees, branch finishing, conflicts, git safety"
+  default_prompt: "Use $studio-git for this task."
+policy:
+  allow_implicit_invocation: true

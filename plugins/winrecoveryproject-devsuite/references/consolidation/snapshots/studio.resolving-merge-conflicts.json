@@ -1,0 +1,11 @@
+{
+  "id": "studio.resolving-merge-conflicts",
+  "root": "skills/resolving-merge-conflicts",
+  "source": "Zilvereyes-Plugin-Studio@0ba9f82",
+  "files": {
+    "SKILL.md": "f331f418ac3bb31b3c8c1ba023ad3ef1354b072de0f5236f3c27ae8d61e01707",
+    "agents/openai.yaml": "859cc5199da52c5cc1d4ba6ff1b8cc6e05aa89b82d8ec008ac35cdf96c2581f6",
+    "assets/wrp-icon-128.png": "2accfc8ac8159a6e793af46cf6ab8ab31c3b2e6536cdd98a991203bfa7a3ade6",
+    "assets/wrp-icon-256.png": "855c1640fe5bff551dccf54f768222c8b98c0de7122a79167c32b30be7eea986"
+  }
+}

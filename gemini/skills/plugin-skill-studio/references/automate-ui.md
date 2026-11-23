@@ -1,6 +1,6 @@
 # Skill: automate-ui
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/automate-ui/SKILL.md`
 
 > Automates web and desktop UIs while capturing evidence that separates navigation from verified behavior. Use when a task requires site navigation, browser reproduction, or native app operation. For one existing framework-free HTML page, use design-ui instead.

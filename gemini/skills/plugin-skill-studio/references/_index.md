@@ -40,6 +40,8 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `README.md` | `references/_plugin.md#file-readmemd` |
 | `references/consolidation/execute-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationexecute-matrixjson` |
 | `references/consolidation/execute-sources.json` | `references/_plugin-references.md#file-referencesconsolidationexecute-sourcesjson` |
+| `references/consolidation/git-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationgit-matrixjson` |
+| `references/consolidation/git-sources.json` | `references/_plugin-references.md#file-referencesconsolidationgit-sourcesjson` |
 | `references/consolidation/lifecycle-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationlifecycle-matrixjson` |
 | `references/consolidation/lifecycle-sources.json` | `references/_plugin-references.md#file-referencesconsolidationlifecycle-sourcesjson` |
 | `references/consolidation/plan-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationplan-matrixjson` |
@@ -47,6 +49,7 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/consolidation/review-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationreview-matrixjson` |
 | `references/consolidation/review-sources.json` | `references/_plugin-references.md#file-referencesconsolidationreview-sourcesjson` |
 | `references/consolidation/shared-execute-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-execute-modesjson` |
+| `references/consolidation/shared-git-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-git-modesjson` |
 | `references/consolidation/shared-plan-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-plan-modesjson` |
 | `references/consolidation/shared-review-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-review-modesjson` |
 | `references/consolidation/snapshots/auto-research/SKILL.md` | `references/_plugin-references.md#file-referencesconsolidationsnapshotsauto-researchskillmd` |
@@ -62,6 +65,8 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/consolidation/snapshots/sources/studio.evidence-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioevidence-matrixjson` |
 | `references/consolidation/snapshots/sources/studio.execute-durably.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioexecute-durablyjson` |
 | `references/consolidation/snapshots/sources/studio.executing-plans.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioexecuting-plansjson` |
+| `references/consolidation/snapshots/sources/studio.finishing-a-development-branch.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiofinishing-a-development-branchjson` |
+| `references/consolidation/snapshots/sources/studio.git-safety-guardrails.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiogit-safety-guardrailsjson` |
 | `references/consolidation/snapshots/sources/studio.goal.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiogoaljson` |
 | `references/consolidation/snapshots/sources/studio.grill-me.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiogrill-mejson` |
 | `references/consolidation/snapshots/sources/studio.grill-with-docs.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiogrill-with-docsjson` |
@@ -80,6 +85,7 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/consolidation/snapshots/sources/studio.receiving-code-review.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioreceiving-code-reviewjson` |
 | `references/consolidation/snapshots/sources/studio.release-workflow.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiorelease-workflowjson` |
 | `references/consolidation/snapshots/sources/studio.requesting-code-review.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiorequesting-code-reviewjson` |
+| `references/consolidation/snapshots/sources/studio.resolving-merge-conflicts.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioresolving-merge-conflictsjson` |
 | `references/consolidation/snapshots/sources/studio.review-decision.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioreview-decisionjson` |
 | `references/consolidation/snapshots/sources/studio.risk-review.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiorisk-reviewjson` |
 | `references/consolidation/snapshots/sources/studio.skill-conductor.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioskill-conductorjson` |
@@ -92,6 +98,7 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/consolidation/snapshots/sources/studio.to-spec.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioto-specjson` |
 | `references/consolidation/snapshots/sources/studio.to-tickets.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioto-ticketsjson` |
 | `references/consolidation/snapshots/sources/studio.update-plugin.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioupdate-pluginjson` |
+| `references/consolidation/snapshots/sources/studio.using-git-worktrees.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiousing-git-worktreesjson` |
 | `references/consolidation/snapshots/sources/studio.verification-before-completion.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioverification-before-completionjson` |
 | `references/consolidation/snapshots/sources/studio.verify-work.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioverify-workjson` |
 | `references/consolidation/snapshots/sources/studio.wayfinder.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiowayfinderjson` |
@@ -206,18 +213,6 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/experience-architect/assets/wrp-icon-128.png` | `references/experience-architect.md#file-assetswrp-icon-128png` |
 | `skills/experience-architect/assets/wrp-icon-256.png` | `references/experience-architect.md#file-assetswrp-icon-256png` |
 | `skills/experience-architect/SKILL.md` | `references/experience-architect.md` |
-| `skills/finishing-a-development-branch` | `references/finishing-a-development-branch.md` |
-| `skills/finishing-a-development-branch/agents/openai.yaml` | `references/finishing-a-development-branch.md#file-agentsopenaiyaml` |
-| `skills/finishing-a-development-branch/assets/wrp-icon-128.png` | `references/finishing-a-development-branch.md#file-assetswrp-icon-128png` |
-| `skills/finishing-a-development-branch/assets/wrp-icon-256.png` | `references/finishing-a-development-branch.md#file-assetswrp-icon-256png` |
-| `skills/finishing-a-development-branch/SKILL.md` | `references/finishing-a-development-branch.md` |
-| `skills/git-safety-guardrails` | `references/git-safety-guardrails.md` |
-| `skills/git-safety-guardrails/agents/openai.yaml` | `references/git-safety-guardrails.md#file-agentsopenaiyaml` |
-| `skills/git-safety-guardrails/assets/wrp-icon-128.png` | `references/git-safety-guardrails.md#file-assetswrp-icon-128png` |
-| `skills/git-safety-guardrails/assets/wrp-icon-256.png` | `references/git-safety-guardrails.md#file-assetswrp-icon-256png` |
-| `skills/git-safety-guardrails/scripts/block-dangerous-git.sh` | `references/git-safety-guardrails.md#file-scriptsblock-dangerous-gitsh` |
-| `skills/git-safety-guardrails/scripts/classify_git_command.py` | `references/git-safety-guardrails.md#file-scriptsclassify_git_commandpy` |
-| `skills/git-safety-guardrails/SKILL.md` | `references/git-safety-guardrails.md` |
 | `skills/handle-host-boundaries` | `references/handle-host-boundaries.md` |
 | `skills/handle-host-boundaries/agents/openai.yaml` | `references/handle-host-boundaries.md#file-agentsopenaiyaml` |
 | `skills/handle-host-boundaries/assets/wrp-icon-128.png` | `references/handle-host-boundaries.md#file-assetswrp-icon-128png` |
@@ -296,11 +291,6 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/research/assets/wrp-icon-128.png` | `references/research.md#file-assetswrp-icon-128png` |
 | `skills/research/assets/wrp-icon-256.png` | `references/research.md#file-assetswrp-icon-256png` |
 | `skills/research/SKILL.md` | `references/research.md` |
-| `skills/resolving-merge-conflicts` | `references/resolving-merge-conflicts.md` |
-| `skills/resolving-merge-conflicts/agents/openai.yaml` | `references/resolving-merge-conflicts.md#file-agentsopenaiyaml` |
-| `skills/resolving-merge-conflicts/assets/wrp-icon-128.png` | `references/resolving-merge-conflicts.md#file-assetswrp-icon-128png` |
-| `skills/resolving-merge-conflicts/assets/wrp-icon-256.png` | `references/resolving-merge-conflicts.md#file-assetswrp-icon-256png` |
-| `skills/resolving-merge-conflicts/SKILL.md` | `references/resolving-merge-conflicts.md` |
 | `skills/retro` | `references/retro.md` |
 | `skills/retro/agents/openai.yaml` | `references/retro.md#file-agentsopenaiyaml` |
 | `skills/retro/assets/wrp-icon-128.png` | `references/retro.md#file-assetswrp-icon-128png` |
@@ -397,6 +387,23 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/studio-execute/modes/subagent/scripts/task-brief` | `references/studio-execute.md#file-modessubagentscriptstask-brief` |
 | `skills/studio-execute/modes/subagent/task-reviewer-prompt.md` | `references/studio-execute.md#file-modessubagenttask-reviewer-promptmd` |
 | `skills/studio-execute/SKILL.md` | `references/studio-execute.md` |
+| `skills/studio-git` | `references/studio-git.md` |
+| `skills/studio-git/agents/openai.yaml` | `references/studio-git.md#file-agentsopenaiyaml` |
+| `skills/studio-git/assets/finishing-a-development-branch-wrp-icon-128.png` | `references/studio-git.md#file-assetsfinishing-a-development-branch-wrp-icon-128png` |
+| `skills/studio-git/assets/finishing-a-development-branch-wrp-icon-256.png` | `references/studio-git.md#file-assetsfinishing-a-development-branch-wrp-icon-256png` |
+| `skills/studio-git/assets/git-safety-guardrails-wrp-icon-128.png` | `references/studio-git.md#file-assetsgit-safety-guardrails-wrp-icon-128png` |
+| `skills/studio-git/assets/git-safety-guardrails-wrp-icon-256.png` | `references/studio-git.md#file-assetsgit-safety-guardrails-wrp-icon-256png` |
+| `skills/studio-git/assets/resolving-merge-conflicts-wrp-icon-128.png` | `references/studio-git.md#file-assetsresolving-merge-conflicts-wrp-icon-128png` |
+| `skills/studio-git/assets/resolving-merge-conflicts-wrp-icon-256.png` | `references/studio-git.md#file-assetsresolving-merge-conflicts-wrp-icon-256png` |
+| `skills/studio-git/assets/wrp-icon-128.png` | `references/studio-git.md#file-assetswrp-icon-128png` |
+| `skills/studio-git/assets/wrp-icon-256.png` | `references/studio-git.md#file-assetswrp-icon-256png` |
+| `skills/studio-git/modes/conflicts.md` | `references/studio-git.md#file-modesconflictsmd` |
+| `skills/studio-git/modes/finish.md` | `references/studio-git.md#file-modesfinishmd` |
+| `skills/studio-git/modes/safety.md` | `references/studio-git.md#file-modessafetymd` |
+| `skills/studio-git/modes/safety/scripts/block-dangerous-git.sh` | `references/studio-git.md#file-modessafetyscriptsblock-dangerous-gitsh` |
+| `skills/studio-git/modes/safety/scripts/classify_git_command.py` | `references/studio-git.md#file-modessafetyscriptsclassify_git_commandpy` |
+| `skills/studio-git/modes/worktree.md` | `references/studio-git.md#file-modesworktreemd` |
+| `skills/studio-git/SKILL.md` | `references/studio-git.md` |
 | `skills/studio-plan` | `references/studio-plan.md` |
 | `skills/studio-plan/agents/openai.yaml` | `references/studio-plan.md#file-agentsopenaiyaml` |
 | `skills/studio-plan/assets/wayfinder-wrp-icon-128.png` | `references/studio-plan.md#file-assetswayfinder-wrp-icon-128png` |
@@ -483,11 +490,6 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/triage/assets/wrp-icon-256.png` | `references/triage.md#file-assetswrp-icon-256png` |
 | `skills/triage/OUT-OF-SCOPE.md` | `references/triage.md#file-out-of-scopemd` |
 | `skills/triage/SKILL.md` | `references/triage.md` |
-| `skills/using-git-worktrees` | `references/using-git-worktrees.md` |
-| `skills/using-git-worktrees/agents/openai.yaml` | `references/using-git-worktrees.md#file-agentsopenaiyaml` |
-| `skills/using-git-worktrees/assets/wrp-icon-128.png` | `references/using-git-worktrees.md#file-assetswrp-icon-128png` |
-| `skills/using-git-worktrees/assets/wrp-icon-256.png` | `references/using-git-worktrees.md#file-assetswrp-icon-256png` |
-| `skills/using-git-worktrees/SKILL.md` | `references/using-git-worktrees.md` |
 | `skills/wait-what` | `references/wait-what.md` |
 | `skills/wait-what/agents/openai.yaml` | `references/wait-what.md#file-agentsopenaiyaml` |
 | `skills/wait-what/assets/wrp-icon-128.png` | `references/wait-what.md#file-assetswrp-icon-128png` |
@@ -599,6 +601,7 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `tests/eval.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsevaltestmjs` |
 | `tests/evaluation-limits.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsevaluation-limitstestmjs` |
 | `tests/execute-consolidation.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsexecute-consolidationtestmjs` |
+| `tests/git-consolidation.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsgit-consolidationtestmjs` |
 | `tests/install-review.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstall-reviewtestmjs` |
 | `tests/installed-inventory.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstalled-inventorytestmjs` |
 | `tests/installed-release.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstalled-releasetestmjs` |

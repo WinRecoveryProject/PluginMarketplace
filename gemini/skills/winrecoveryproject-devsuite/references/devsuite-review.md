@@ -1,6 +1,6 @@
 # Skill: devsuite-review
 
-- Plugin: `winrecoveryproject-devsuite` (0.5.0)
+- Plugin: `winrecoveryproject-devsuite` (0.6.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-review/SKILL.md`
 
 > Use for independent code review of a branch, diff or pull request against standards and spec intent (even if the user just says "review this"); immutable patch risk assessment and release readiness; specification and quality verdicts; dispatching a bounded read-only reviewer before merge; receiving review feedback and pushing back with evidence; deciding which reviewed parts need human attention; gating any claim that work is complete, fixed or passing on fresh verification output, or independently auditing a finished delivery; and one shared quality gate: tests, lint/type/build gates and existing Linter or MegaLinter integration. Do NOT use for authoring new code or diagnosing failing runtime bugs.

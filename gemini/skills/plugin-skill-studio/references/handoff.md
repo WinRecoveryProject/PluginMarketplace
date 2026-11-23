@@ -1,6 +1,6 @@
 # Skill: handoff
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/handoff/SKILL.md`
 
 > Compact current conversation context, decisions, evidence, and next actions into a portable markdown handoff for a fresh agent session. Use when ending a session, transferring work to another agent, switching workspaces, or preparing a resume point — even if the user just says "save progress". Do NOT use for committing code to git or creating branch PRs.

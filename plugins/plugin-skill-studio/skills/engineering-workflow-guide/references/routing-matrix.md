@@ -24,8 +24,8 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Test-driven development", "Red-green-refactor", "Write tests" | `tdd` | `tdd` ➔ `studio-review` (code mode) | Throwaway exploratory spikes |
 | "Diagnose bug", "Fix failing test", "Flaky CI", "Crash" | `diagnosing-bugs` | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Trivial obvious syntax errors |
 | "Review PR", "Review branch diff", "Check standards" | `studio-review` (code mode) | `studio-review` (code mode) | Writing new code or diagnosing bugs |
-| "Merge conflict", "Rebase conflict", "Fix conflict markers" | `resolving-merge-conflicts` | `resolving-merge-conflicts` ➔ `studio-review` (code mode) | Routine safe git rebases without conflicts |
-| "Prevent force push", "Block dangerous git", "Hard reset guard" | `git-safety-guardrails` | `git-safety-guardrails` | Safe git status or log commands |
+| "Merge conflict", "Rebase conflict", "Fix conflict markers" | `studio-git` (conflicts mode) | `studio-git` (conflicts mode) ➔ `studio-review` (code mode) | Routine safe git rebases without conflicts |
+| "Prevent force push", "Block dangerous git", "Hard reset guard" | `studio-git` (safety mode) | `studio-git` (safety mode) | Safe git status or log commands |
 | "Setup issue tracker", "Configure triage labels", "Setup docs" | `setup-engineering-workflows` | `setup-engineering-workflows` | General npm package installation |
 | "Setup Husky", "lint-staged", "Prettier pre-commit hook" | `setup-pre-commit` | `setup-pre-commit` | Remote CI/CD pipeline automation |
 | "Triage incoming issues", "Author agent brief", "Out of scope" | `triage` | `triage` ➔ `studio-execute` (implement mode) | Internal tickets from studio-plan tickets mode |

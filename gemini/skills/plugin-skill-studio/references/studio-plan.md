@@ -1,6 +1,6 @@
 # Skill: studio-plan
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/studio-plan/SKILL.md`
 
 > Use when discovering intent and design before a new feature or behavior change, interviewing or grilling the user to stress-test an idea, plan or decision (even if they just say "grill me" or "poke holes in my plan"), recording domain terms and ADRs while grilling a feature, writing a buildable technical spec, writing an implementation plan, breaking a spec into dependency-linked tickets, turning stakeholder unknowns into a questionnaire, crafting a /goal prompt for unattended autonomous runs, or mapping a massive multi-session project through decision tickets. Do NOT use for executing an existing plan, writing code, or trivial single-file changes the user already specified.

@@ -1,6 +1,6 @@
 # Skill: studio-build
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/studio-build/SKILL.md`
 
 > Use when creating, updating, importing, installing, packaging, releasing or managing plugins and skills with the self-contained Studio: new plugin or skill candidates, safe plugin updates, folder or GPT imports, previewed skill installs, repo-to-plugin autopilot conversion, submission and release checkpoints, portfolio worklists, catalog discovery, and the full skill authoring lifecycle from scratch. Do NOT use for evaluating, reviewing, benchmarking or improving an existing skill (use studio-quality), for general software coding tasks, or for using pre-existing skills.

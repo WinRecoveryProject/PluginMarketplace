@@ -1,6 +1,6 @@
 # Skill: design-ui
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/design-ui/SKILL.md`
 
 > Builds accessible interfaces and verifies renders. Use when creating or redesigning a page, dashboard, or static HTML file.

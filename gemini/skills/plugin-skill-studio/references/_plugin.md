@@ -14,6 +14,19 @@ Run `node --test tests/*.test.mjs`, `node scripts/studio.mjs self-check` and the
 
 ### Changelog
 
+#### 0.8.0 — 2026-11-22
+
+Breaking: four git skills are consolidated into `studio-git`. Every capability is mapped in `references/consolidation/git-matrix.json` (208 capabilities, none dropped).
+
+| Removed skill | New skill | Mode |
+|---|---|---|
+| `using-git-worktrees` | `studio-git` | `worktree` |
+| `finishing-a-development-branch` | `studio-git` | `finish` |
+| `resolving-merge-conflicts` | `studio-git` | `conflicts` |
+| `git-safety-guardrails` | `studio-git` | `safety` (scripts in `modes/safety/scripts/`) |
+
+The mode files and everything under `modes/safety/` are shared byte-for-byte with WinRecoveryProject DevSuite `devsuite-git`; `references/consolidation/shared-git-modes.json` pins their hashes in both packages. The preserved upstream tools in `tools/matt/` are unchanged; their test still points at the upstream layout and was already failing before this release.
+
 #### 0.7.0 — 2026-11-22
 
 Breaking: six execution skills are consolidated into `studio-execute`. Every capability is mapped in `references/consolidation/execute-matrix.json` (315 capabilities, none dropped).
@@ -149,15 +162,15 @@ Benchmarks retain the exact temporary workspaces reported by the runner for revi
 
 ### Plugin-Skill-Studio
 
-Version **0.7.0**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
+Version **0.8.0**. Independent Zilvereyes plugin with local creation, discovery, conversion, engineering workflows, Skill Eval, plugin evaluation, risk review, evidence worksheets, optional local Windows desktop control and deterministic packaging.
 
 All required skills, scripts, policies and references are bundled. Node 20+ and Python 3.10+ are host runtimes, not companion plugins. Optional Windows desktop commands use the already installed Windows PowerShell 5.1 and .NET components. No npm/pip install, npx, external plugin, App binding or MCP server is required. Model benchmarks use the user's existing Codex CLI and login; host terminal/browser capabilities are required for corresponding operations. Direct public lookups are explicit and bounded. No telemetry is added.
 
 Windows desktop capture, inspection and guarded mouse operations are integrated in the existing `automate-ui` workflow. Read [the local Desktop guide](_plugin-references.md#file-referenceswindows-desktopmd). This is an alternative local backend; OpenAI's native Computer Use binary and existing App/OAuth connections are unchanged.
 
-#### Skills in 0.7.0
+#### Skills in 0.8.0
 
-Five skills cover the whole lifecycle. `studio-execute` executes plans inline or by subagents with review gates, builds from approved specs and tickets, runs whole specifications into one PR, dispatches parallel agents and keeps long work durable; its mode files are shared byte-for-byte with DevSuite. `studio-plan` discovers intent, interviews, writes specs and plans, breaks work into tickets and questionnaires, synthesizes /goal prompts and maps multi-session efforts; its mode files are shared byte-for-byte with DevSuite. `studio-review` reviews code, requests and receives reviews, decides where humans must look and verifies completion claims; its mode files are shared byte-for-byte with DevSuite. `studio-build` creates, updates, imports, installs, converts, releases and manages plugins and skills. `studio-quality` evaluates, reviews, explains, benchmarks and improves them, and runs deterministic risk scans, and doctors host conflicts on explicit request. Each skill reads only the mode file it needs. [CHANGELOG.md](_plugin.md#file-changelogmd) maps every removed skill name to its new skill and mode.
+Six skills cover the whole lifecycle. `studio-git` sets up isolated worktrees, finishes branches, resolves merge and rebase conflicts and guards against destructive git operations; its mode files are shared byte-for-byte with DevSuite. `studio-execute` executes plans inline or by subagents with review gates, builds from approved specs and tickets, runs whole specifications into one PR, dispatches parallel agents and keeps long work durable; its mode files are shared byte-for-byte with DevSuite. `studio-plan` discovers intent, interviews, writes specs and plans, breaks work into tickets and questionnaires, synthesizes /goal prompts and maps multi-session efforts; its mode files are shared byte-for-byte with DevSuite. `studio-review` reviews code, requests and receives reviews, decides where humans must look and verifies completion claims; its mode files are shared byte-for-byte with DevSuite. `studio-build` creates, updates, imports, installs, converts, releases and manages plugins and skills. `studio-quality` evaluates, reviews, explains, benchmarks and improves them, and runs deterministic risk scans, and doctors host conflicts on explicit request. Each skill reads only the mode file it needs. [CHANGELOG.md](_plugin.md#file-changelogmd) maps every removed skill name to its new skill and mode.
 
 #### Start
 
@@ -282,7 +295,7 @@ Studio baseline is MIT; its original LICENSE remains included. Full file-hash pr
 ```json
 {
   "name": "plugin-skill-studio",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -301,7 +314,7 @@ Studio baseline is MIT; its original LICENSE remains included. Full file-hash pr
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "plugin-skill-studio",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.",
   "author": {
     "name": "Zilvereyes"

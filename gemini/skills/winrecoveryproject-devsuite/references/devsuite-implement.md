@@ -1,6 +1,6 @@
 # Skill: devsuite-implement
 
-- Plugin: `winrecoveryproject-devsuite` (0.5.0)
+- Plugin: `winrecoveryproject-devsuite` (0.6.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-implement/SKILL.md`
 
 > Use when authorized to implement, refactor, migrate or maintain software with bounded changes and fresh evidence; executing a written implementation plan inline task by task, or by dispatching one subagent per task with review gates; building scoped code changes from an approved spec, plan or tickets (even if the user doesn't say "implement"); executing a full specification across ticket branches into one unified PR ("build the whole spec"); dispatching one subagent per independent problem that can run concurrently; or running long, interruption-prone work from a durable state file with falsifiable criteria. Do NOT use for initial architecture exploration, vague requirements, or planning work that has no plan yet (use devsuite-planning).
@@ -24,7 +24,7 @@ Pick one mode and read only its file. Bounded implementation, refactoring, migra
 | <a id="mode-durable"></a>durable | Run long or interruption-prone work from a durable state file with evidence | [modes/durable.md](devsuite-implement.md#file-modesdurablemd) |
 | <a id="mode-build"></a>build | Authorized bounded implementation, refactor, migration or maintenance with fresh evidence | this file, below |
 
-In this package, the review skill is [devsuite-review](devsuite-review.md) (code and verify modes), the debugging workflow is [devsuite-debug](devsuite-debug.md), and handoff is [devsuite-handoff](devsuite-handoff.md). DevSuite has no dedicated worktree, branch-finishing, refactoring, research or UI-automation workflow and no Windows process-execution reference: use the host's git and worktree tools and the platform guidance instead, and report those layers as unavailable when a mode asks for them.
+In this package, the review skill is [devsuite-review](devsuite-review.md) (code and verify modes), the debugging workflow is [devsuite-debug](devsuite-debug.md), handoff is [devsuite-handoff](devsuite-handoff.md), and the worktree and branch-finishing workflows are [devsuite-git](devsuite-git.md) (worktree and finish modes). DevSuite has no dedicated refactoring, research or UI-automation workflow and no Windows process-execution reference: use the platform guidance instead, and report those layers as unavailable when a mode asks for them.
 
 The mode files and everything under `modes/subagent/` are shared byte-for-byte with Plugin-Skill-Studio `studio-execute`. Change them only together with Studio, and update `references/consolidation/shared-execute-modes.json` in both packages. The subagent scripts need bash and git.
 

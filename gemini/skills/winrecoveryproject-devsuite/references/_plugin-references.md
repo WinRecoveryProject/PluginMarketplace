@@ -4,11 +4,15 @@ Source: `plugins/winrecoveryproject-devsuite`. Files outside the `skills/*` fold
 
 ## File: `references/capability-matrix.json`
 
-_187 KB, too large to embed. Read it in the repository._
+_190 KB, too large to embed. Read it in the repository._
 
 ## File: `references/consolidation/execute-matrix.json`
 
 _138 KB, too large to embed. Read it in the repository._
+
+## File: `references/consolidation/git-matrix.json`
+
+_92 KB, too large to embed. Read it in the repository._
 
 ## File: `references/consolidation/plan-matrix.json`
 
@@ -40,6 +44,23 @@ _117 KB, too large to embed. Read it in the repository._
     "subagent/scripts/sdd-workspace": "c90d82032fe3e42b679f9fcb9acf1df71a186ad1944642b251daad13216f1920",
     "subagent/scripts/task-brief": "544146b5850e88a228ff849770f68487cdb5ebc85a410086ad12e709e3701c8b",
     "subagent/task-reviewer-prompt.md": "f6f6dd5c47dea5c408b0242ed42b2d2b98ede177c58b43b8925af80f6eb1b0e3"
+  }
+}
+```
+
+## File: `references/consolidation/shared-git-modes.json`
+
+```json
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-git/modes and DevSuite skills/devsuite-git/modes (including safety/); hashed with LF line endings.",
+  "files": {
+    "conflicts.md": "0567600df6afd070ecfc442acb680f20a4212a9a157288e80e496245aa0a1c40",
+    "finish.md": "33bd4f5a835588b73a24846c96f3dd58ec35a034ddf324b1fcd33e289127651d",
+    "safety.md": "c2a96bb373a3a27359b875d9347ce188cd3d3c6597f2aed200fd4755a043b29f",
+    "safety/scripts/block-dangerous-git.sh": "234922b83c0a1737ee7300806c21ac0f389b07aaeb65c2d71ccedafbc5e1ea4b",
+    "safety/scripts/classify_git_command.py": "8cc648fd81b454ab0660866362cf3aba35bbd0b3ecdaef0d2b3da414f06eb367",
+    "worktree.md": "dadef7e1056a988fb771c39df6ca26d6f9ae7a8fd2ed341115fb2321b121dd2e"
   }
 }
 ```
@@ -235,6 +256,40 @@ _117 KB, too large to embed. Read it in the repository._
 }
 ```
 
+## File: `references/consolidation/snapshots/studio.finishing-a-development-branch.json`
+
+```json
+{
+  "id": "studio.finishing-a-development-branch",
+  "root": "skills/finishing-a-development-branch",
+  "source": "Zilvereyes-Plugin-Studio@0ba9f82",
+  "files": {
+    "SKILL.md": "38c0fec68ca4a3e1389f1c3d812f5824790db6d1af317ff8f1a676fdada0973f",
+    "agents/openai.yaml": "8878bf3885a1d5ccbdc55ffa4f18448d9d7308b01481be9bbe4850899cea2b17",
+    "assets/wrp-icon-128.png": "359822245c83c60f274bb9c7ee6b763e9e1cd0ef3fbaf0abf4cdced75414d31c",
+    "assets/wrp-icon-256.png": "2633be056d51373483ae7ba3621976cbfa8b2de4542071629a02dda5a9c3063f"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.git-safety-guardrails.json`
+
+```json
+{
+  "id": "studio.git-safety-guardrails",
+  "root": "skills/git-safety-guardrails",
+  "source": "Zilvereyes-Plugin-Studio@0ba9f82",
+  "files": {
+    "SKILL.md": "1bb2554d15ddef373beddc7c4932c09eea0e1e079af725cc2983143073cc3f38",
+    "agents/openai.yaml": "01c39ae7663d619f9e38b1e1446d6a930bc0b98c05e135f6ceb0446782e3bc07",
+    "assets/wrp-icon-128.png": "adf724a5d85578e7ac4e1640bbd9ce4ae25dada578ccc1308391301fc8cb8998",
+    "assets/wrp-icon-256.png": "c2e53324c994a51d6e96239339e8662de4812c097dbc553daf5a372e86852dfe",
+    "scripts/block-dangerous-git.sh": "bb5dc3a96ae81924ff3b88b959979b4eb68b7810f6fa9bd395fb8f781e0d8c12",
+    "scripts/classify_git_command.py": "1d8bbb3ee06e7c77237859e08f9ff9a06ec104f9b932de8931c0744223ab65bd"
+  }
+}
+```
+
 ## File: `references/consolidation/snapshots/studio.goal.json`
 
 ```json
@@ -364,6 +419,22 @@ _117 KB, too large to embed. Read it in the repository._
 }
 ```
 
+## File: `references/consolidation/snapshots/studio.resolving-merge-conflicts.json`
+
+```json
+{
+  "id": "studio.resolving-merge-conflicts",
+  "root": "skills/resolving-merge-conflicts",
+  "source": "Zilvereyes-Plugin-Studio@0ba9f82",
+  "files": {
+    "SKILL.md": "f331f418ac3bb31b3c8c1ba023ad3ef1354b072de0f5236f3c27ae8d61e01707",
+    "agents/openai.yaml": "859cc5199da52c5cc1d4ba6ff1b8cc6e05aa89b82d8ec008ac35cdf96c2581f6",
+    "assets/wrp-icon-128.png": "2accfc8ac8159a6e793af46cf6ab8ab31c3b2e6536cdd98a991203bfa7a3ade6",
+    "assets/wrp-icon-256.png": "855c1640fe5bff551dccf54f768222c8b98c0de7122a79167c32b30be7eea986"
+  }
+}
+```
+
 ## File: `references/consolidation/snapshots/studio.review-decision.json`
 
 ```json
@@ -449,6 +520,22 @@ _117 KB, too large to embed. Read it in the repository._
     "agents/openai.yaml": "e2aea19d3cee7ba011927d8edaddd3c5def3fdb41c3383819b61a153ac1912c7",
     "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
     "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}
+```
+
+## File: `references/consolidation/snapshots/studio.using-git-worktrees.json`
+
+```json
+{
+  "id": "studio.using-git-worktrees",
+  "root": "skills/using-git-worktrees",
+  "source": "Zilvereyes-Plugin-Studio@0ba9f82",
+  "files": {
+    "SKILL.md": "1cf8cc006af27d9c9139d18d9718b2dbbe3d3d4c5a69ba3546af7850cda11d06",
+    "agents/openai.yaml": "d7461d4c1d872e4b5075d0214c9001861309a9fe71d58fa91878499cd61ea5a4",
+    "assets/wrp-icon-128.png": "faf5691223edca6e7032683534c0dfa7d0155e1998808af22aca48da172ab22d",
+    "assets/wrp-icon-256.png": "89ec8b1dd4bb8613ddabd6e6a4eb2cde20bd4c3040f41e417052fe500eb80cd9"
   }
 }
 ```

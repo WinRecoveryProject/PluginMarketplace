@@ -1,6 +1,6 @@
 # Skill: local-management
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/local-management/SKILL.md`
 
 > Use when inspecting local plugin identities, dependencies and installation evidence, or comparing installed releases with Git and other catalogs.

@@ -1,6 +1,6 @@
 # Skill: studio-execute
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/studio-execute/SKILL.md`
 
 > Use when executing a written implementation plan inline task by task, or by dispatching one subagent per task with review gates; building scoped code changes from an approved spec, plan or tickets (even if the user doesn't say "implement"); executing a full specification across ticket branches into one unified PR ("build the whole spec"); dispatching one subagent per independent problem that can run concurrently; or running long, interruption-prone work from a durable state file with falsifiable criteria. Do NOT use for initial architecture exploration, vague requirements, single isolated bug fixes without tickets, or planning work that has no plan yet (use studio-plan).
@@ -23,7 +23,7 @@ Pick one mode, read only that mode file, and follow it.
 | <a id="mode-parallel"></a>parallel | Dispatch one subagent per independent problem that can run concurrently | [modes/parallel.md](studio-execute.md#file-modesparallelmd) |
 | <a id="mode-durable"></a>durable | Run long or interruption-prone work from a durable state file with evidence | [modes/durable.md](studio-execute.md#file-modesdurablemd) |
 
-In this package, the review skill is `studio-review`, the worktree and branch-finishing workflows are `using-git-worktrees` and `finishing-a-development-branch`, the debugging workflow is `diagnose-systematically`, refactoring is `refactor-safely`, research is `research-systematically`, UI automation is `automate-ui`, and the Windows process-execution reference is [windows-process-execution.md](_plugin-references.md#file-referenceswindows-process-executionmd).
+In this package, the review skill is `studio-review`, the worktree and branch-finishing workflows are `studio-git` (worktree mode) and `studio-git` (finish mode), the debugging workflow is `diagnose-systematically`, refactoring is `refactor-safely`, research is `research-systematically`, UI automation is `automate-ui`, and the Windows process-execution reference is [windows-process-execution.md](_plugin-references.md#file-referenceswindows-process-executionmd).
 
 The mode files and everything under `modes/subagent/` are shared byte-for-byte with DevSuite's `devsuite-implement`. Change them only together with DevSuite, and update `references/consolidation/shared-execute-modes.json` in both packages.
 

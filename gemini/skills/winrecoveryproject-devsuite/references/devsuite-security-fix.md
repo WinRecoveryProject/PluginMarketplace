@@ -1,6 +1,6 @@
 # Skill: devsuite-security-fix
 
-- Plugin: `winrecoveryproject-devsuite` (0.5.0)
+- Plugin: `winrecoveryproject-devsuite` (0.6.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-security-fix/SKILL.md`
 
 > Use when fixing security findings, verifying remediation, proposing hardening, writing policy/disclosures or tracking validated findings.

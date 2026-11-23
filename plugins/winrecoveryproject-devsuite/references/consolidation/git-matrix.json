@@ -1,0 +1,1687 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "studio.using-git-worktrees",
+      "snapshot": "references/consolidation/snapshots/studio.using-git-worktrees.json"
+    },
+    {
+      "id": "studio.finishing-a-development-branch",
+      "snapshot": "references/consolidation/snapshots/studio.finishing-a-development-branch.json"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts",
+      "snapshot": "references/consolidation/snapshots/studio.resolving-merge-conflicts.json"
+    },
+    {
+      "id": "studio.git-safety-guardrails",
+      "snapshot": "references/consolidation/snapshots/studio.git-safety-guardrails.json"
+    }
+  ],
+  "entries": [
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.trigger.1",
+      "source": "studio.using-git-worktrees/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+      "target": "skills/devsuite-git/SKILL.md#mode-worktree",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L6",
+      "source": "studio.using-git-worktrees/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-git/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L13",
+      "source": "studio.using-git-worktrees/SKILL.md:13",
+      "kind": "instruction",
+      "text": "Ensure work happens in an isolated workspace. Prefer your platform's native worktree tools. Fall back to manual git worktrees only when no native tool is available.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L15",
+      "source": "studio.using-git-worktrees/SKILL.md:15",
+      "kind": "instruction",
+      "text": "On Windows run all snippets in a Bash-capable shell such as Git Bash; do not translate them to PowerShell.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L17",
+      "source": "studio.using-git-worktrees/SKILL.md:17",
+      "kind": "instruction",
+      "text": "**Core principle:** Detect existing isolation first. Then use native tools. Then fall back to git. Never fight the harness.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L19",
+      "source": "studio.using-git-worktrees/SKILL.md:19",
+      "kind": "instruction",
+      "text": "**Announce at start:** \"I'm using the using-git-worktrees skill to set up an isolated workspace.\"",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L23",
+      "source": "studio.using-git-worktrees/SKILL.md:23",
+      "kind": "instruction",
+      "text": "**Before creating anything, check if you are already in an isolated workspace.**",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L25",
+      "source": "studio.using-git-worktrees/SKILL.md:25",
+      "kind": "instruction",
+      "text": "```bash\nGIT_DIR=$(cd \"$(git rev-parse --git-dir)\" 2>/dev/null && pwd -P)\nGIT_COMMON=$(cd \"$(git rev-parse --git-common-dir)\" 2>/dev/null && pwd -P)\nBRANCH=$(git branch --show-current)\n```",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L31",
+      "source": "studio.using-git-worktrees/SKILL.md:31",
+      "kind": "instruction",
+      "text": "**Submodule guard:** As a belt-and-braces check before concluding \"already in a worktree,\" confirm you are not inside a git submodule:",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L33",
+      "source": "studio.using-git-worktrees/SKILL.md:33",
+      "kind": "instruction",
+      "text": "```bash\n# If this returns a path, you're in a submodule, not a worktree — treat as normal repo\ngit rev-parse --show-superproject-working-tree 2>/dev/null\n```",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L38",
+      "source": "studio.using-git-worktrees/SKILL.md:38",
+      "kind": "instruction",
+      "text": "**If `GIT_DIR != GIT_COMMON` (and not a submodule):** You are already in a linked worktree. Skip to Step 2 (Project Setup). Do NOT create another worktree.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L40",
+      "source": "studio.using-git-worktrees/SKILL.md:40",
+      "kind": "instruction",
+      "text": "Report with branch state:",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L41",
+      "source": "studio.using-git-worktrees/SKILL.md:41",
+      "kind": "instruction",
+      "text": "- On a branch: \"Already in isolated workspace at `<path>` on branch `<name>`.\"",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L42",
+      "source": "studio.using-git-worktrees/SKILL.md:42",
+      "kind": "instruction",
+      "text": "- Detached HEAD: \"Already in isolated workspace at `<path>` (detached HEAD, externally managed). Branch creation needed at finish time.\"",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L44",
+      "source": "studio.using-git-worktrees/SKILL.md:44",
+      "kind": "instruction",
+      "text": "**If `GIT_DIR == GIT_COMMON` (or in a submodule):** You are in a normal repo checkout.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L46",
+      "source": "studio.using-git-worktrees/SKILL.md:46",
+      "kind": "instruction",
+      "text": "Has the user already indicated their worktree preference in your instructions? If not, ask for consent before creating a worktree:",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L48",
+      "source": "studio.using-git-worktrees/SKILL.md:48",
+      "kind": "instruction",
+      "text": "> \"Would you like me to set up an isolated worktree? It protects your current branch from changes.\"",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L50",
+      "source": "studio.using-git-worktrees/SKILL.md:50",
+      "kind": "instruction",
+      "text": "Honor any existing declared preference without asking. If the user declines consent, work in place and skip to Step 2.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-0-detect-existing-isolation",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L54",
+      "source": "studio.using-git-worktrees/SKILL.md:54",
+      "kind": "instruction",
+      "text": "**You have two mechanisms. Try them in this order.**",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-1-create-isolated-workspace",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L58",
+      "source": "studio.using-git-worktrees/SKILL.md:58",
+      "kind": "instruction",
+      "text": "The user has asked for an isolated workspace (Step 0 consent). Do you already have a way to create a worktree? It might be a tool with a name like `EnterWorktree`, `WorktreeCreate`, a `/worktree` command, or a `--worktree` flag. If you do, use it and skip to Step 2.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-1a-native-worktree-tools-preferred",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L60",
+      "source": "studio.using-git-worktrees/SKILL.md:60",
+      "kind": "instruction",
+      "text": "Native tools handle directory placement, branch creation, and cleanup automatically. Using `git worktree add` when you have a native tool creates phantom state your harness can't see or manage.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-1a-native-worktree-tools-preferred",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L62",
+      "source": "studio.using-git-worktrees/SKILL.md:62",
+      "kind": "instruction",
+      "text": "Only proceed to Step 1b if you have no native worktree tool available.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-1a-native-worktree-tools-preferred",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L66",
+      "source": "studio.using-git-worktrees/SKILL.md:66",
+      "kind": "instruction",
+      "text": "**Only use this if Step 1a does not apply** — you have no native worktree tool available. Create a worktree manually using git.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-1b-git-worktree-fallback",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L70",
+      "source": "studio.using-git-worktrees/SKILL.md:70",
+      "kind": "instruction",
+      "text": "Follow this priority order. Explicit user preference always beats observed filesystem state.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-directory-selection",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L72",
+      "source": "studio.using-git-worktrees/SKILL.md:72",
+      "kind": "instruction",
+      "text": "1. **Check your instructions for a declared worktree directory preference.** If the user has already specified one, use it without asking.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-directory-selection",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L74",
+      "source": "studio.using-git-worktrees/SKILL.md:74",
+      "kind": "instruction",
+      "text": "2. **Check for an existing project-local worktree directory:**",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-directory-selection",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L75",
+      "source": "studio.using-git-worktrees/SKILL.md:75",
+      "kind": "instruction",
+      "text": "   ```bash\n   ls -d .worktrees 2>/dev/null     # Preferred (hidden)\n   ls -d worktrees 2>/dev/null      # Alternative\n   ```",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-directory-selection",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L79",
+      "source": "studio.using-git-worktrees/SKILL.md:79",
+      "kind": "instruction",
+      "text": "If found, use it. If both exist, `.worktrees` wins.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-directory-selection",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L81",
+      "source": "studio.using-git-worktrees/SKILL.md:81",
+      "kind": "instruction",
+      "text": "3. **If there is no other guidance available**, default to `.worktrees/` at the project root.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-directory-selection",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L85",
+      "source": "studio.using-git-worktrees/SKILL.md:85",
+      "kind": "instruction",
+      "text": "**MUST verify the chosen directory is ignored before creating worktree** — test a child path so the check works before the directory exists and with both `dir` and `dir/` gitignore styles:",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-safety-verification-project-local-directories-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L87",
+      "source": "studio.using-git-worktrees/SKILL.md:87",
+      "kind": "instruction",
+      "text": "```bash\n# $LOCATION is the worktree parent chosen in Directory Selection\ngit check-ignore -q \"$LOCATION/x\"\n```",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-safety-verification-project-local-directories-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L92",
+      "source": "studio.using-git-worktrees/SKILL.md:92",
+      "kind": "instruction",
+      "text": "**If NOT ignored:** Add to .gitignore, stage the change, and ask the user whether to commit it before proceeding.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-safety-verification-project-local-directories-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L94",
+      "source": "studio.using-git-worktrees/SKILL.md:94",
+      "kind": "instruction",
+      "text": "**Why critical:** Prevents accidentally committing worktree contents to repository.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-safety-verification-project-local-directories-only",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L98",
+      "source": "studio.using-git-worktrees/SKILL.md:98",
+      "kind": "instruction",
+      "text": "```bash\n# Determine path based on chosen location\npath=\"$LOCATION/$BRANCH_NAME\"\n\ngit worktree add \"$path\" -b \"$BRANCH_NAME\"\ncd \"$path\"\n```",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-create-the-worktree",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L106",
+      "source": "studio.using-git-worktrees/SKILL.md:106",
+      "kind": "instruction",
+      "text": "**Sandbox fallback:** If `git worktree add` fails with a permission error (sandbox denial), tell the user the sandbox blocked worktree creation and you're working in the current directory instead. Then run setup and baseline tests in place.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-create-the-worktree",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L110",
+      "source": "studio.using-git-worktrees/SKILL.md:110",
+      "kind": "instruction",
+      "text": "Auto-detect and run appropriate setup:",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-2-project-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L112",
+      "source": "studio.using-git-worktrees/SKILL.md:112",
+      "kind": "instruction",
+      "text": "```bash\n# Node.js\nif [ -f package.json ]; then npm install; fi\n\n# Rust\nif [ -f Cargo.toml ]; then cargo build; fi\n\n# Python\nif [ -f requirements.txt ]; then pip install -r requirements.txt; fi\nif [ -f pyproject.toml ] && grep -q '\\[tool\\.poetry\\]' pyproject.toml; then poetry install\nelif [ -f pyproject.toml ] && [ ! -f requirements.txt ]; then pip install -e .; fi\n\n# Go\nif [ -f go.mod ]; then go mod download; fi\n```",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-2-project-setup",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L130",
+      "source": "studio.using-git-worktrees/SKILL.md:130",
+      "kind": "instruction",
+      "text": "Run tests to ensure workspace starts clean:",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-3-verify-clean-baseline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L132",
+      "source": "studio.using-git-worktrees/SKILL.md:132",
+      "kind": "instruction",
+      "text": "```bash\n# Use project-appropriate command\nnpm test / cargo test / pytest / go test ./...\n```",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-3-verify-clean-baseline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L137",
+      "source": "studio.using-git-worktrees/SKILL.md:137",
+      "kind": "instruction",
+      "text": "**If tests fail:** Report failures, ask whether to proceed or investigate.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-3-verify-clean-baseline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L139",
+      "source": "studio.using-git-worktrees/SKILL.md:139",
+      "kind": "instruction",
+      "text": "**If tests pass:** Report ready.",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-step-3-verify-clean-baseline",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L143",
+      "source": "studio.using-git-worktrees/SKILL.md:143",
+      "kind": "instruction",
+      "text": "```\nWorktree ready at <full-path>\nTests passing (<N> tests, 0 failures)\nReady to implement <feature-name>\n```",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-report",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L151",
+      "source": "studio.using-git-worktrees/SKILL.md:151",
+      "kind": "instruction",
+      "text": "| Situation | Action |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L153",
+      "source": "studio.using-git-worktrees/SKILL.md:153",
+      "kind": "instruction",
+      "text": "| Already in linked worktree | Skip creation (Step 0) |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L154",
+      "source": "studio.using-git-worktrees/SKILL.md:154",
+      "kind": "instruction",
+      "text": "| In a submodule | Treat as normal repo (Step 0 guard) |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L155",
+      "source": "studio.using-git-worktrees/SKILL.md:155",
+      "kind": "instruction",
+      "text": "| Native worktree tool available | Use it (Step 1a) |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L156",
+      "source": "studio.using-git-worktrees/SKILL.md:156",
+      "kind": "instruction",
+      "text": "| No native tool | Git worktree fallback (Step 1b) |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L157",
+      "source": "studio.using-git-worktrees/SKILL.md:157",
+      "kind": "instruction",
+      "text": "| `.worktrees/` exists | Use it (verify ignored) |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L158",
+      "source": "studio.using-git-worktrees/SKILL.md:158",
+      "kind": "instruction",
+      "text": "| `worktrees/` exists | Use it (verify ignored) |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L159",
+      "source": "studio.using-git-worktrees/SKILL.md:159",
+      "kind": "instruction",
+      "text": "| Both exist | Use `.worktrees/` |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L160",
+      "source": "studio.using-git-worktrees/SKILL.md:160",
+      "kind": "instruction",
+      "text": "| Neither exists | Check instruction file, then default `.worktrees/` |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L161",
+      "source": "studio.using-git-worktrees/SKILL.md:161",
+      "kind": "instruction",
+      "text": "| Directory not ignored | Add to .gitignore, stage, ask before commit |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L162",
+      "source": "studio.using-git-worktrees/SKILL.md:162",
+      "kind": "instruction",
+      "text": "| Permission error on create | Sandbox fallback, work in place |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L163",
+      "source": "studio.using-git-worktrees/SKILL.md:163",
+      "kind": "instruction",
+      "text": "| Tests fail during baseline | Report failures + ask |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L164",
+      "source": "studio.using-git-worktrees/SKILL.md:164",
+      "kind": "instruction",
+      "text": "| No recognized manifest (package.json/Cargo.toml/requirements.txt/pyproject.toml/go.mod) | Skip dependency install |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L168",
+      "source": "studio.using-git-worktrees/SKILL.md:168",
+      "kind": "instruction",
+      "text": "| Excuse | Reality |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L170",
+      "source": "studio.using-git-worktrees/SKILL.md:170",
+      "kind": "instruction",
+      "text": "| \"I'm obviously not in a worktree — no need to check\" | Run Step 0. Harness-created isolation fools eyeballing; the detection commands settle it. |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L171",
+      "source": "studio.using-git-worktrees/SKILL.md:171",
+      "kind": "instruction",
+      "text": "| \"`git worktree add` is quicker than hunting for a native tool\" | A native tool (e.g. `EnterWorktree`) owns placement, branching, and cleanup. Bypassing it is the #1 mistake — it creates phantom state your harness can't see or manage. |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L172",
+      "source": "studio.using-git-worktrees/SKILL.md:172",
+      "kind": "instruction",
+      "text": "| \"The worktree directory is surely ignored already\" | Run `git check-ignore`. An unignored worktree directory commits the whole tree into the repo. |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L173",
+      "source": "studio.using-git-worktrees/SKILL.md:173",
+      "kind": "instruction",
+      "text": "| \"Any directory name works\" | Explicit instructions beat an existing project-local directory, which beats the `.worktrees/` default. |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.L174",
+      "source": "studio.using-git-worktrees/SKILL.md:174",
+      "kind": "instruction",
+      "text": "| \"The workspace is fresh — baseline tests can wait\" | A dirty baseline makes every later failure ambiguous. Run the tests now; proceeding past failures is the user's call. |",
+      "target": "skills/devsuite-git/modes/worktree.md#src-using-git-worktrees-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.policy.interface",
+      "source": "studio.using-git-worktrees/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-git/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.using-git-worktrees.policy.policy",
+      "source": "studio.using-git-worktrees/agents/openai.yaml",
+      "kind": "policy",
+      "text": "policy",
+      "target": "skills/devsuite-git/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.file:assets/wrp-icon-128.png",
+      "source": "studio.using-git-worktrees/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-git/assets/using-git-worktrees-wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.using-git-worktrees.file:assets/wrp-icon-256.png",
+      "source": "studio.using-git-worktrees/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-git/assets/using-git-worktrees-wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.trigger.1",
+      "source": "studio.finishing-a-development-branch/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Guides integration of a finished branch: verify tests, present merge/PR/keep/discard options to the user, and clean up worktrees.",
+      "target": "skills/devsuite-git/SKILL.md#mode-finish",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.trigger.2",
+      "source": "studio.finishing-a-development-branch/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when implementation is complete, all tests pass, and the work needs to be integrated.",
+      "target": "skills/devsuite-git/SKILL.md#mode-finish",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L6",
+      "source": "studio.finishing-a-development-branch/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-git/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L13",
+      "source": "studio.finishing-a-development-branch/SKILL.md:13",
+      "kind": "instruction",
+      "text": "**Core principle:** Verify tests → Detect environment → Present options → Execute choice → Clean up.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L15",
+      "source": "studio.finishing-a-development-branch/SKILL.md:15",
+      "kind": "instruction",
+      "text": "Shell commands below use Bash syntax — run them in a Bash-capable shell such as Git Bash on Windows.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L17",
+      "source": "studio.finishing-a-development-branch/SKILL.md:17",
+      "kind": "instruction",
+      "text": "**Announce at start:** \"I'm using the finishing-a-development-branch skill to complete this work.\"",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-overview",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L21",
+      "source": "studio.finishing-a-development-branch/SKILL.md:21",
+      "kind": "instruction",
+      "text": "Run the project's full test suite (`npm test` / `cargo test` / `pytest` / `go test ./...`). If the project has no test suite, verification is whatever check the project does have (build, lint, smoke run); if there is none, ask the user what should gate completion.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-1-verify-tests",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L23",
+      "source": "studio.finishing-a-development-branch/SKILL.md:23",
+      "kind": "instruction",
+      "text": "**If tests fail**, report the failures and stop — the menu comes after a green suite:",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-1-verify-tests",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L25",
+      "source": "studio.finishing-a-development-branch/SKILL.md:25",
+      "kind": "instruction",
+      "text": "```\nTests failing (<N> failures). Must fix before completing:\n\n[Show failures]\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-1-verify-tests",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L31",
+      "source": "studio.finishing-a-development-branch/SKILL.md:31",
+      "kind": "instruction",
+      "text": "**If tests pass:** continue to Step 2.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-1-verify-tests",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L35",
+      "source": "studio.finishing-a-development-branch/SKILL.md:35",
+      "kind": "instruction",
+      "text": "```bash\nGIT_DIR=$(cd \"$(git rev-parse --git-dir)\" 2>/dev/null && pwd -P)\nGIT_COMMON=$(cd \"$(git rev-parse --git-common-dir)\" 2>/dev/null && pwd -P)\n# Capture now, while still inside the workspace — Step 5 changes directory\n# before cleanup (Step 6) needs this value\nWORKTREE_PATH=$(git rev-parse --show-toplevel)\nBRANCH=$(git branch --show-current)\necho \"GIT_DIR=$GIT_DIR\"\necho \"GIT_COMMON=$GIT_COMMON\"\necho \"WORKTREE_PATH=$WORKTREE_PATH\"\necho \"BRANCH=${BRANCH:-<detached>}\"\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-2-detect-environment",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L48",
+      "source": "studio.finishing-a-development-branch/SKILL.md:48",
+      "kind": "instruction",
+      "text": "Note the printed values — shell variables do not persist between tool calls, and Step 6 needs them.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-2-detect-environment",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L50",
+      "source": "studio.finishing-a-development-branch/SKILL.md:50",
+      "kind": "instruction",
+      "text": "This determines which menu to show and how cleanup works:",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-2-detect-environment",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L52",
+      "source": "studio.finishing-a-development-branch/SKILL.md:52",
+      "kind": "instruction",
+      "text": "| State | Menu | Cleanup |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-2-detect-environment",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L54",
+      "source": "studio.finishing-a-development-branch/SKILL.md:54",
+      "kind": "instruction",
+      "text": "| `GIT_DIR == GIT_COMMON` (normal repo) | Standard 3 options | No worktree to clean up |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-2-detect-environment",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L55",
+      "source": "studio.finishing-a-development-branch/SKILL.md:55",
+      "kind": "instruction",
+      "text": "| `GIT_DIR != GIT_COMMON`, named branch | Standard 3 options | Provenance-based (see Step 6) |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-2-detect-environment",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L56",
+      "source": "studio.finishing-a-development-branch/SKILL.md:56",
+      "kind": "instruction",
+      "text": "| `GIT_DIR != GIT_COMMON`, detached HEAD | Reduced 2 options (no merge) | Externally managed — leave in place |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-2-detect-environment",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L60",
+      "source": "studio.finishing-a-development-branch/SKILL.md:60",
+      "kind": "instruction",
+      "text": "The base branch is whatever this work forked from — usually named in the plan, the conversation, or the branch's upstream. If it is not already known, ask: \"This branch split from <your best guess> - is that correct?\" Confirm before merging: merging into the wrong base is expensive to undo.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-3-determine-base-branch",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L67",
+      "source": "studio.finishing-a-development-branch/SKILL.md:67",
+      "kind": "instruction",
+      "text": "**Review checkpoint:** studio-review request mode makes review mandatory before merge (\"When to Request Review\"). If this work has not been reviewed yet, dispatch a review per that mode before offering the merge option.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-4-present-options",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L69",
+      "source": "studio.finishing-a-development-branch/SKILL.md:69",
+      "kind": "instruction",
+      "text": "**Normal repo and named-branch worktree — present exactly these 3 options:**",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-4-present-options",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L71",
+      "source": "studio.finishing-a-development-branch/SKILL.md:71",
+      "kind": "instruction",
+      "text": "```\nImplementation complete. What would you like to do?\n\n1. Merge back to <base-branch> locally\n2. Push and create a Pull Request\n3. Keep the branch as-is (I'll handle it later)\n\nWhich option?\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-4-present-options",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L81",
+      "source": "studio.finishing-a-development-branch/SKILL.md:81",
+      "kind": "instruction",
+      "text": "**Detached HEAD — present exactly these 2 options:**",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-4-present-options",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L83",
+      "source": "studio.finishing-a-development-branch/SKILL.md:83",
+      "kind": "instruction",
+      "text": "```\nImplementation complete. You're on a detached HEAD (externally managed workspace).\n\n1. Push as new branch and create a Pull Request\n2. Keep as-is (I'll handle it later)\n\nWhich option?\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-4-present-options",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L92",
+      "source": "studio.finishing-a-development-branch/SKILL.md:92",
+      "kind": "instruction",
+      "text": "Present the menu exactly as written — concise, with every option coming from the list above. Discarding the work happens only in response to the user explicitly asking for it (see \"If the user asks to discard the work\" below). Wait for their answer; the integration decision is theirs.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-4-present-options",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L101",
+      "source": "studio.finishing-a-development-branch/SKILL.md:101",
+      "kind": "instruction",
+      "text": "```bash\n# Get main repo root for CWD safety\nMAIN_ROOT=$(git -C \"$(git rev-parse --git-common-dir)/..\" rev-parse --show-toplevel)\ncd \"$MAIN_ROOT\"\n\n# Merge first — verify success before removing anything\ngit checkout <base-branch>\ngit pull\ngit merge <feature-branch>\n\n# Verify tests on merged result\n<test command>\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-option-1-merge-locally",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L115",
+      "source": "studio.finishing-a-development-branch/SKILL.md:115",
+      "kind": "instruction",
+      "text": "If tests fail on the merged result: stop, leave the worktree and branch in place, and investigate — nothing has been pushed, so the merge is local and recoverable.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-option-1-merge-locally",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L119",
+      "source": "studio.finishing-a-development-branch/SKILL.md:119",
+      "kind": "instruction",
+      "text": "Once the merged result is green: clean up the worktree (Step 6), then delete the branch:",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-option-1-merge-locally",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L122",
+      "source": "studio.finishing-a-development-branch/SKILL.md:122",
+      "kind": "instruction",
+      "text": "```bash\ngit branch -d <feature-branch>\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-option-1-merge-locally",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L128",
+      "source": "studio.finishing-a-development-branch/SKILL.md:128",
+      "kind": "instruction",
+      "text": "```bash\ngit push -u origin <feature-branch>\n# From a detached HEAD, name the new branch on the remote:\n# git push origin HEAD:refs/heads/<new-branch>\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-option-2-push-and-create-pr",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L134",
+      "source": "studio.finishing-a-development-branch/SKILL.md:134",
+      "kind": "instruction",
+      "text": "Then create the pull/merge request against <base-branch> with the forge's tooling — its CLI if one is available, or the creation URL most forges print when you push — following the repo's PR template and conventions if present, and report the URL to the user.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-option-2-push-and-create-pr",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L139",
+      "source": "studio.finishing-a-development-branch/SKILL.md:139",
+      "kind": "instruction",
+      "text": "Keep the worktree — the user iterates on PR feedback there.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-option-2-push-and-create-pr",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L143",
+      "source": "studio.finishing-a-development-branch/SKILL.md:143",
+      "kind": "instruction",
+      "text": "Report: \"Keeping branch <name>. Worktree preserved at <path>.\"",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-option-3-keep-as-is",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L147",
+      "source": "studio.finishing-a-development-branch/SKILL.md:147",
+      "kind": "instruction",
+      "text": "This path exists only as a response to an explicit request to throw the work away. Confirm first:",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-if-the-user-asks-to-discard-the-work",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L150",
+      "source": "studio.finishing-a-development-branch/SKILL.md:150",
+      "kind": "instruction",
+      "text": "```\nThis will permanently delete:\n- Branch <name>\n- All commits: <commit-list>\n- Worktree at <path>\n\nType 'discard' to confirm.\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-if-the-user-asks-to-discard-the-work",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L159",
+      "source": "studio.finishing-a-development-branch/SKILL.md:159",
+      "kind": "instruction",
+      "text": "Wait for that exact confirmation. When it arrives:",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-if-the-user-asks-to-discard-the-work",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L161",
+      "source": "studio.finishing-a-development-branch/SKILL.md:161",
+      "kind": "instruction",
+      "text": "```bash\nMAIN_ROOT=$(git -C \"$(git rev-parse --git-common-dir)/..\" rev-parse --show-toplevel)\ncd \"$MAIN_ROOT\"\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-if-the-user-asks-to-discard-the-work",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L166",
+      "source": "studio.finishing-a-development-branch/SKILL.md:166",
+      "kind": "instruction",
+      "text": "Then clean up the worktree (Step 6) and force-delete the branch:",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-if-the-user-asks-to-discard-the-work",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L168",
+      "source": "studio.finishing-a-development-branch/SKILL.md:168",
+      "kind": "instruction",
+      "text": "```bash\ngit branch -D <feature-branch>\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-if-the-user-asks-to-discard-the-work",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L172",
+      "source": "studio.finishing-a-development-branch/SKILL.md:172",
+      "kind": "instruction",
+      "text": "If Step 6 left the worktree in place (externally managed), git refuses to delete a branch still checked out there. Detach it first — `git -C \"$WORKTREE_PATH\" checkout --detach` or the platform's workspace-exit tool — then re-run the branch delete.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-if-the-user-asks-to-discard-the-work",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L179",
+      "source": "studio.finishing-a-development-branch/SKILL.md:179",
+      "kind": "instruction",
+      "text": "**Runs for Option 1 and confirmed discards.** Options 2 and 3 always preserve the worktree. Both callers have already changed directory to the main repo root — worktree removal must run from outside the worktree — and use the `GIT_DIR`/`GIT_COMMON`/`WORKTREE_PATH` values captured in Step 2, from before that directory change.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-6-cleanup-workspace",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L185",
+      "source": "studio.finishing-a-development-branch/SKILL.md:185",
+      "kind": "instruction",
+      "text": "**If `GIT_DIR == GIT_COMMON`:** Normal repo, no worktree to clean up. Done.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-6-cleanup-workspace",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L187",
+      "source": "studio.finishing-a-development-branch/SKILL.md:187",
+      "kind": "instruction",
+      "text": "**If `WORKTREE_PATH` is under `.worktrees/` or `worktrees/`** (the ownership convention from the using-git-worktrees skill): This workflow created this worktree — we own cleanup:",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-6-cleanup-workspace",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L191",
+      "source": "studio.finishing-a-development-branch/SKILL.md:191",
+      "kind": "instruction",
+      "text": "```bash\ngit worktree remove \"$WORKTREE_PATH\"\ngit worktree prune  # Self-healing: clean up any stale registrations\n```",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-6-cleanup-workspace",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L196",
+      "source": "studio.finishing-a-development-branch/SKILL.md:196",
+      "kind": "instruction",
+      "text": "**Otherwise:** The host environment owns this workspace — leave it in place. If your platform provides a workspace-exit tool, use it.",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-step-6-cleanup-workspace",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L201",
+      "source": "studio.finishing-a-development-branch/SKILL.md:201",
+      "kind": "instruction",
+      "text": "| Option | Merge | Push | Keep Worktree | Cleanup Branch |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L203",
+      "source": "studio.finishing-a-development-branch/SKILL.md:203",
+      "kind": "instruction",
+      "text": "| 1. Merge locally | yes | - | - | yes |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L204",
+      "source": "studio.finishing-a-development-branch/SKILL.md:204",
+      "kind": "instruction",
+      "text": "| 2. Create PR | - | yes | yes | - |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L205",
+      "source": "studio.finishing-a-development-branch/SKILL.md:205",
+      "kind": "instruction",
+      "text": "| 3. Keep as-is | - | - | yes | - |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L206",
+      "source": "studio.finishing-a-development-branch/SKILL.md:206",
+      "kind": "instruction",
+      "text": "| Discard (explicit request only) | - | - | - | yes (force) |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-quick-reference",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L210",
+      "source": "studio.finishing-a-development-branch/SKILL.md:210",
+      "kind": "instruction",
+      "text": "| Excuse | Reality |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L212",
+      "source": "studio.finishing-a-development-branch/SKILL.md:212",
+      "kind": "instruction",
+      "text": "| \"Tests passed earlier this session\" | Run the suite on the tree you are about to integrate. A green run only proves the tree it ran on. |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L213",
+      "source": "studio.finishing-a-development-branch/SKILL.md:213",
+      "kind": "instruction",
+      "text": "| \"They obviously want it merged\" | Integration is the user's decision. Present the menu and wait. |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L214",
+      "source": "studio.finishing-a-development-branch/SKILL.md:214",
+      "kind": "instruction",
+      "text": "| \"They seem done with this feature — I'll offer to discard it\" | The menu is complete as written. Discard happens only when the user asks for it in so many words. |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L215",
+      "source": "studio.finishing-a-development-branch/SKILL.md:215",
+      "kind": "instruction",
+      "text": "| \"'Yeah, get rid of it' counts as confirmation\" | Only the typed word `discard` authorizes deletion. |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L216",
+      "source": "studio.finishing-a-development-branch/SKILL.md:216",
+      "kind": "instruction",
+      "text": "| \"The PR is up, so the worktree is clutter now\" | PR feedback gets fixed in that worktree. It stays until the work lands. |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L217",
+      "source": "studio.finishing-a-development-branch/SKILL.md:217",
+      "kind": "instruction",
+      "text": "| \"This other worktree looks stale — I'll clean it too\" | Clean up only worktrees under `.worktrees/` or `worktrees/`. Everything else belongs to the host. |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L218",
+      "source": "studio.finishing-a-development-branch/SKILL.md:218",
+      "kind": "instruction",
+      "text": "| \"The merged-result failure is probably flaky\" | A failing merged result stops everything. Branch and worktree stay put while you investigate. |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L219",
+      "source": "studio.finishing-a-development-branch/SKILL.md:219",
+      "kind": "instruction",
+      "text": "| \"The base branch is obviously main\" | Confirm the fork point or ask. Merging into the wrong base is expensive to undo. |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.L220",
+      "source": "studio.finishing-a-development-branch/SKILL.md:220",
+      "kind": "instruction",
+      "text": "| \"The push was rejected — force-push will fix it\" | A rejected push means the remote moved. Investigate; force-push only on the user's explicit request. |",
+      "target": "skills/devsuite-git/modes/finish.md#src-finishing-a-development-branch-common-rationalizations",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.policy.interface",
+      "source": "studio.finishing-a-development-branch/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-git/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.finishing-a-development-branch.policy.policy",
+      "source": "studio.finishing-a-development-branch/agents/openai.yaml",
+      "kind": "policy",
+      "text": "policy",
+      "target": "skills/devsuite-git/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.file:assets/wrp-icon-128.png",
+      "source": "studio.finishing-a-development-branch/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-git/assets/finishing-a-development-branch-wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.finishing-a-development-branch.file:assets/wrp-icon-256.png",
+      "source": "studio.finishing-a-development-branch/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-git/assets/finishing-a-development-branch-wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.trigger.1",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Resolve in-progress git merge or rebase conflicts by intent traced to primary sources.",
+      "target": "skills/devsuite-git/SKILL.md#mode-conflicts",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.trigger.2",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when hit with merge conflicts, CONFLICT markers in files, rebase pauses, or when git prompts to resolve conflicted hunks — even if the user just says \"fix this merge\".",
+      "target": "skills/devsuite-git/SKILL.md#mode-conflicts",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.trigger.3",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use for creating new branches or routine rebasing without conflicts.",
+      "target": "skills/devsuite-git/SKILL.md#mode-conflicts",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L6",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-git/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L11",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Systematically resolve in-progress Git merge and rebase conflicts by identifying the semantic intent of both branches and verifying integration integrity with automated test gates.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-resolving-merge-conflicts",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L17",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **3-Way Intent Reconstruction**: Understand the common merge-base ancestor, the incoming changes (`THEIRS`), and the target branch changes (`OURS`) before altering conflicted code.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L18",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **Never Blindly Choose Ours or Theirs**: Inspect every conflict hunk individually; synthesize solutions that preserve the functional requirements of both branches.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L19",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **Zero Orphaned Conflict Markers**: Verify that all `<<<<<<<`, `=======`, and `>>>>>>>` markers are completely eliminated before staging.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L20",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Non-Destructive Resolution**: Preserve adjacent unchanged code, comments, and docstrings; avoid accidental line deletions outside conflict hunks.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L21",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **Mandatory Post-Resolution Test Pass**: Execute the full build, typecheck, and test suite before concluding the merge (`git commit`) or rebase (`git rebase --continue`).",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L27",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ Merge/Rebase Conflict Detected ] ──► [ Identify 3-Way Merge Base & Commits ] ──► [ Hunk-by-Hunk Semantic Synthesis ] ──► [ Build & Test Gate ]\n```",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L31",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:31",
+      "kind": "instruction",
+      "text": "| Phase | Responsibility | Verification Command |",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L33",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:33",
+      "kind": "instruction",
+      "text": "| **Conflict Discovery** | Identify all unmerged files | `git status --porcelain | grep \"^UU\\|^AA\\|^DU\\|^UD\"` |",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L34",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:34",
+      "kind": "instruction",
+      "text": "| **Ancestor Inspection** | View base version of conflicted file | `git show :1:<file>` (Base), `:2:<file>` (Ours), `:3:<file>` (Theirs) |",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L35",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:35",
+      "kind": "instruction",
+      "text": "| **Integration Gate** | Run compiler, linter, and unit tests | Project build / test command |",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L42",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:42",
+      "kind": "instruction",
+      "text": "- **Action**: Run `git status` to enumerate all conflicted files and inspect recent commit logs on both branches:",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-1-identify-conflicted-files-and-merge-context",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L43",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:43",
+      "kind": "instruction",
+      "text": "  ```bash\n  git log --oneline -n 5 HEAD\n  git log --oneline -n 5 MERGE_HEAD # or REBASE_HEAD\n  ```",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-1-identify-conflicted-files-and-merge-context",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L47",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:47",
+      "kind": "instruction",
+      "text": "- **Key Point**: Determine what feature or bug fix each branch was attempting to deliver.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-1-identify-conflicted-files-and-merge-context",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L48",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- **Why**: Understanding developer intent prevents resolving conflicts with syntax-valid but semantically broken hybrids.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-1-identify-conflicted-files-and-merge-context",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L51",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:51",
+      "kind": "instruction",
+      "text": "- **Action**: Open each conflicted file, analyze the diff hunks between `HEAD` (Ours) and incoming (Theirs), and rewrite the block to satisfy both requirements.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-2-resolve-conflicting-hunks-semantically",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L52",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:52",
+      "kind": "instruction",
+      "text": "- **Key Point**: If both branches added new imports, dependencies, or routes, combine them cleanly without duplicates.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-2-resolve-conflicting-hunks-semantically",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L53",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:53",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-2-resolve-conflicting-hunks-semantically",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L54",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:54",
+      "kind": "instruction",
+      "text": "- [ ] All conflict markers (`<<<`, `===`, `>>>`) removed",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-2-resolve-conflicting-hunks-semantically",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L55",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:55",
+      "kind": "instruction",
+      "text": "- [ ] Duplicate imports and exports deduplicated",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-2-resolve-conflicting-hunks-semantically",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L56",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:56",
+      "kind": "instruction",
+      "text": "- [ ] New functionality from both branches retained",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-2-resolve-conflicting-hunks-semantically",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L59",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:59",
+      "kind": "instruction",
+      "text": "- **Action**: Run the repository's typechecker, linter, and test suite across the resolved working tree.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-3-verify-with-build--test-suite",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L60",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:60",
+      "kind": "instruction",
+      "text": "- **Key Point**: If tests fail, investigate whether resolving the conflict broke subtle runtime assumptions.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-3-verify-with-build--test-suite",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L61",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:61",
+      "kind": "instruction",
+      "text": "- **Why**: Many merge conflicts compile cleanly but introduce logical regressions that only tests catch.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-3-verify-with-build--test-suite",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L64",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:64",
+      "kind": "instruction",
+      "text": "- **Action**: Stage the resolved files (`git add <files>`) and complete the operation:",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-4-stage-and-conclude-mergerebase",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L65",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:65",
+      "kind": "instruction",
+      "text": "- For merge: `git commit` (preserving standard merge commit message).",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-4-stage-and-conclude-mergerebase",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L66",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- For rebase: `git rebase --continue`.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-4-stage-and-conclude-mergerebase",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L67",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:67",
+      "kind": "instruction",
+      "text": "- **Key Point**: Check `git status` to ensure the working tree is clean.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-4-stage-and-conclude-mergerebase",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L68",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:68",
+      "kind": "instruction",
+      "text": "- **Why**: Clean conclusion ensures upstream CI pipelines can build the merged branch without human intervention.",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-step-4-stage-and-conclude-mergerebase",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L74",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:74",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L76",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:76",
+      "kind": "instruction",
+      "text": "| *\"Accept 'ours' or 'theirs' completely with `git checkout --ours` to be fast.\"* | **Forbidden on semantic conflicts.** | Blanket checkouts overwrite valid work and revert critical bug fixes from one branch. |",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L77",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:77",
+      "kind": "instruction",
+      "text": "| *\"Delete the failing test to get the merge commit through.\"* | **Fix the code to make tests pass.** | Deleting tests lowers coverage and introduces regressions into production. |",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.L78",
+      "source": "studio.resolving-merge-conflicts/SKILL.md:78",
+      "kind": "instruction",
+      "text": "| *\"Assume the code is fine without running the full test suite.\"* | **Mandatory test pass before committing merge.** | Resolving conflicts manually frequently introduces syntax errors and broken imports. |",
+      "target": "skills/devsuite-git/modes/conflicts.md#src-resolving-merge-conflicts-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.resolving-merge-conflicts.policy.interface",
+      "source": "studio.resolving-merge-conflicts/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-git/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.file:assets/wrp-icon-128.png",
+      "source": "studio.resolving-merge-conflicts/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-git/assets/resolving-merge-conflicts-wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.resolving-merge-conflicts.file:assets/wrp-icon-256.png",
+      "source": "studio.resolving-merge-conflicts/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-git/assets/resolving-merge-conflicts-wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.trigger.1",
+      "source": "studio.git-safety-guardrails/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Safeguard repositories against destructive, irreversible, or history-rewriting Git operations.",
+      "target": "skills/devsuite-git/SKILL.md#mode-safety",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.trigger.2",
+      "source": "studio.git-safety-guardrails/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Use when running force pushes, hard resets, branch deletions, cleans, destructive restores, or history re-writes — even if the user says \"clean up git history\".",
+      "target": "skills/devsuite-git/SKILL.md#mode-safety",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.trigger.3",
+      "source": "studio.git-safety-guardrails/SKILL.md:3",
+      "kind": "trigger",
+      "text": "Do NOT use for routine safe git status, fetch, diff, or branch queries.",
+      "target": "skills/devsuite-git/SKILL.md#mode-safety",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L6",
+      "source": "studio.git-safety-guardrails/SKILL.md:6",
+      "kind": "instruction",
+      "text": "Read [Studio policy](../../references/studio-policy.md) before this adapted workflow. User and host instructions override inherited defaults. All workflow dependencies must resolve locally using [the registry](../../references/integration-registry.json); never load companion plugins.",
+      "target": "skills/devsuite-git/SKILL.md#policy",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L11",
+      "source": "studio.git-safety-guardrails/SKILL.md:11",
+      "kind": "instruction",
+      "text": "Install and maintain deterministic pre-execution guardrails that intercept and block dangerous, destructive, or history-rewriting Git commands before autonomous agents can execute them.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-git-safety-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L17",
+      "source": "studio.git-safety-guardrails/SKILL.md:17",
+      "kind": "instruction",
+      "text": "1. **Deterministic Interception**: Automatically block destructive Git commands (`git push --force`, `git reset --hard`, `git clean -f/-fd`, `git branch -D`, `git checkout .`, `git restore .`) before execution.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L18",
+      "source": "studio.git-safety-guardrails/SKILL.md:18",
+      "kind": "instruction",
+      "text": "2. **Explicit Authority Gate**: Intercepted commands return an explicit non-zero exit code notifying the agent that it lacks authority to execute destructive operations.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L19",
+      "source": "studio.git-safety-guardrails/SKILL.md:19",
+      "kind": "instruction",
+      "text": "3. **Scope Clarification**: Always ask the user whether to apply guardrails locally to the project (`.claude/settings.json`) or globally (`~/.claude/settings.json`).",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L20",
+      "source": "studio.git-safety-guardrails/SKILL.md:20",
+      "kind": "instruction",
+      "text": "4. **Settings Merge Safety**: Seamlessly merge guardrail hooks into existing `PreToolUse` configurations without overwriting other tools or settings.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L21",
+      "source": "studio.git-safety-guardrails/SKILL.md:21",
+      "kind": "instruction",
+      "text": "5. **Mandatory Interception Test**: Verify that the safety hook triggers correctly on simulated forbidden commands before concluding setup.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-core-invariants",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L27",
+      "source": "studio.git-safety-guardrails/SKILL.md:27",
+      "kind": "instruction",
+      "text": "```\n[ Agent Tool Call (Bash/Git) ] ──► [ PreToolUse Hook: `block-dangerous-git.sh` ]\n                                                  │\n                        ┌─────────────────────────┴─────────────────────────┐\n                        ▼                                                   ▼\n            [ Safe Git Operation ]                              [ Destructive Command ]\n            - `git status`, `git diff`                          - `git push --force`, `reset --hard`\n            - ALLOWED to execute                                - BLOCKED (Exit Code 2)\n```",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L37",
+      "source": "studio.git-safety-guardrails/SKILL.md:37",
+      "kind": "instruction",
+      "text": "| Component | Responsibility | Location |",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L39",
+      "source": "studio.git-safety-guardrails/SKILL.md:39",
+      "kind": "instruction",
+      "text": "| **Classifier Hook Script** | Inspect and block forbidden git patterns | `scripts/block-dangerous-git.sh` |",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L40",
+      "source": "studio.git-safety-guardrails/SKILL.md:40",
+      "kind": "instruction",
+      "text": "| **Python Command Parser** | Parse complex shell command chains | `scripts/classify_git_command.py` |",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L41",
+      "source": "studio.git-safety-guardrails/SKILL.md:41",
+      "kind": "instruction",
+      "text": "| **Settings Integration** | Hook registration in agent environment | `.claude/settings.json` or `~/.claude/settings.json` |",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-architecture--map-of-content-moc",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L48",
+      "source": "studio.git-safety-guardrails/SKILL.md:48",
+      "kind": "instruction",
+      "text": "- **Action**: Ask the user whether to configure guardrails for this project only or globally.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-1-confirm-guardrail-scope",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L49",
+      "source": "studio.git-safety-guardrails/SKILL.md:49",
+      "kind": "instruction",
+      "text": "- **Key Point**: Default to project-level `.claude/settings.json` unless the user specifies global.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-1-confirm-guardrail-scope",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L50",
+      "source": "studio.git-safety-guardrails/SKILL.md:50",
+      "kind": "instruction",
+      "text": "- **Why**: Scoped installation avoids unexpected side-effects across external personal repositories.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-1-confirm-guardrail-scope",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L53",
+      "source": "studio.git-safety-guardrails/SKILL.md:53",
+      "kind": "instruction",
+      "text": "- **Action**: Copy `scripts/block-dangerous-git.sh` to `.claude/hooks/block-dangerous-git.sh` and run `chmod +x`.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-2-copy-hook-script--make-executable",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L54",
+      "source": "studio.git-safety-guardrails/SKILL.md:54",
+      "kind": "instruction",
+      "text": "- **Key Point**: Ensure parent directories exist before copying.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-2-copy-hook-script--make-executable",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L55",
+      "source": "studio.git-safety-guardrails/SKILL.md:55",
+      "kind": "instruction",
+      "text": "- **Inline Checklist**:",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-2-copy-hook-script--make-executable",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L56",
+      "source": "studio.git-safety-guardrails/SKILL.md:56",
+      "kind": "instruction",
+      "text": "- [ ] Target directory created",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-2-copy-hook-script--make-executable",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L57",
+      "source": "studio.git-safety-guardrails/SKILL.md:57",
+      "kind": "instruction",
+      "text": "- [ ] Script copied and executable permissions set (`chmod +x`)",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-2-copy-hook-script--make-executable",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L58",
+      "source": "studio.git-safety-guardrails/SKILL.md:58",
+      "kind": "instruction",
+      "text": "- [ ] Python classifier script colocated if needed",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-2-copy-hook-script--make-executable",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L61",
+      "source": "studio.git-safety-guardrails/SKILL.md:61",
+      "kind": "instruction",
+      "text": "- **Action**: Add the PreToolUse hook entry to `.claude/settings.json`, merging into existing arrays if present.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-3-register-hook-in-settings-configuration",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L62",
+      "source": "studio.git-safety-guardrails/SKILL.md:62",
+      "kind": "instruction",
+      "text": "- **Key Point**: Use `\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-dangerous-git.sh` path expansion.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-3-register-hook-in-settings-configuration",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L63",
+      "source": "studio.git-safety-guardrails/SKILL.md:63",
+      "kind": "instruction",
+      "text": "- **Why**: Relative path expansions ensure the hook functions across different working directory contexts.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-3-register-hook-in-settings-configuration",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L66",
+      "source": "studio.git-safety-guardrails/SKILL.md:66",
+      "kind": "instruction",
+      "text": "- **Action**: Test the hook with a simulated blocked command:",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-4-verify-guardrail-interception-test-gate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L67",
+      "source": "studio.git-safety-guardrails/SKILL.md:67",
+      "kind": "instruction",
+      "text": "  ```bash\n  echo '{\"tool_input\":{\"command\":\"git push origin main --force\"}}' | .claude/hooks/block-dangerous-git.sh\n  ```",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-4-verify-guardrail-interception-test-gate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L70",
+      "source": "studio.git-safety-guardrails/SKILL.md:70",
+      "kind": "instruction",
+      "text": "- **Key Point**: Verify that the command exits with code 2 and outputs a descriptive blocked message.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-4-verify-guardrail-interception-test-gate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L71",
+      "source": "studio.git-safety-guardrails/SKILL.md:71",
+      "kind": "instruction",
+      "text": "- **Why**: Proving the hook intercepts dangerous commands guarantees that unverified agents cannot accidentally wipe Git history.",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-step-4-verify-guardrail-interception-test-gate",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L77",
+      "source": "studio.git-safety-guardrails/SKILL.md:77",
+      "kind": "instruction",
+      "text": "| Tempting Rationalization | Binding Rule | Engineering Rationale |",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L79",
+      "source": "studio.git-safety-guardrails/SKILL.md:79",
+      "kind": "instruction",
+      "text": "| *\"Allow `git reset --hard` if the working tree has uncommitted bugs.\"* | **Block all hard resets; require explicit stashes or reverts.** | Hard resets permanently delete uncommitted code and worktree context. |",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L80",
+      "source": "studio.git-safety-guardrails/SKILL.md:80",
+      "kind": "instruction",
+      "text": "| *\"Allow force pushes on feature branches.\"* | **Block all force pushes by default.** | Force pushing can overwrite teammate commits and destroy branch history. |",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.L81",
+      "source": "studio.git-safety-guardrails/SKILL.md:81",
+      "kind": "instruction",
+      "text": "| *\"Skip verifying the hook script with simulated input.\"* | **Mandatory simulated test pass.** | Syntax errors in hook scripts cause them to fail open, leaving the repo unprotected. |",
+      "target": "skills/devsuite-git/modes/safety.md#src-git-safety-guardrails-anti-rationalization-guardrails",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.git-safety-guardrails.policy.interface",
+      "source": "studio.git-safety-guardrails/agents/openai.yaml",
+      "kind": "policy",
+      "text": "interface",
+      "target": "skills/devsuite-git/agents/openai.yaml",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.file:assets/wrp-icon-128.png",
+      "source": "studio.git-safety-guardrails/assets/wrp-icon-128.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-128.png",
+      "target": "skills/devsuite-git/assets/git-safety-guardrails-wrp-icon-128.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.file:assets/wrp-icon-256.png",
+      "source": "studio.git-safety-guardrails/assets/wrp-icon-256.png",
+      "kind": "file",
+      "text": "assets/wrp-icon-256.png",
+      "target": "skills/devsuite-git/assets/git-safety-guardrails-wrp-icon-256.png",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.file:scripts/block-dangerous-git.sh",
+      "source": "studio.git-safety-guardrails/scripts/block-dangerous-git.sh",
+      "kind": "file",
+      "text": "scripts/block-dangerous-git.sh",
+      "target": "skills/devsuite-git/modes/safety/scripts/block-dangerous-git.sh",
+      "status": "covered"
+    },
+    {
+      "id": "studio.git-safety-guardrails.file:scripts/classify_git_command.py",
+      "source": "studio.git-safety-guardrails/scripts/classify_git_command.py",
+      "kind": "file",
+      "text": "scripts/classify_git_command.py",
+      "target": "skills/devsuite-git/modes/safety/scripts/classify_git_command.py",
+      "status": "covered"
+    }
+  ]
+}

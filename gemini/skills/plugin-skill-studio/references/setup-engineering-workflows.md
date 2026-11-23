@@ -1,6 +1,6 @@
 # Skill: setup-engineering-workflows
 
-- Plugin: `plugin-skill-studio` (0.7.0)
+- Plugin: `plugin-skill-studio` (0.8.0)
 - Source: `plugins/plugin-skill-studio/skills/setup-engineering-workflows/SKILL.md`
 
 > Configure repository issue-tracking, triage-label, domain-doc, and agent-instruction conventions. Use when initializing engineering workflows in a repo, configuring GitHub/GitLab issue labels, or establishing CONTEXT.md conventions — even if the user says "setup our workflows". Do NOT use for general project package installs.
