@@ -1,6 +1,8 @@
 # CloudStorage-Portal
 Cloud Storage Portal for Google Drive, Dropbox &amp; OneDrive
 
+Version 0.9.15 renames the OneDrive skill to `cloudstorage-onedrive`, so it no longer shares the name `onedrive` with the standalone OneDrive plugin. The App binding and workflow are unchanged.
+
 Version 0.9.14 requires Google Drive profile discovery in the provider tool catalog so the default-account workflow can verify the active identity.
 
 Version 0.9.13 can resolve an exact OneDrive item in its known parent folder after a successful empty search. The workflow reports incomplete listings and refuses ambiguous matches.

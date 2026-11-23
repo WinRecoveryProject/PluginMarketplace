@@ -41,8 +41,8 @@
     },
     {
       "name": "codex-dev-workflows",
-      "version": "0.4.2",
-      "description": "Reusable software-development workflows and platform guidance for coding agents.",
+      "version": "0.4.2-wrp.2",
+      "description": "Standalone software-development workflows and platform guidance for coding agents. For WinRecoveryProject work, prefer winrecoveryproject-devsuite.",
       "source": "./plugins/codex-dev-workflows",
       "strict": false
     },
@@ -77,6 +77,12 @@
       "version": "1.2.3",
       "description": "Connect Claude Code on a local desktop to the existing WinRecoveryProject OneDrive MCP server.",
       "source": "./claude-plugins/onedrive"
+    },
+    {
+      "name": "cloudstorage-portal",
+      "version": "0.9.15",
+      "description": "Coordinate Dropbox, Google Drive and OneDrive in Claude through the connectors you have already authorized, with one skill layer for search, reading, organizing, sharing and transfers.",
+      "source": "./claude-plugins/cloudstorage-portal"
     },
     {
       "name": "vercel-plugin",

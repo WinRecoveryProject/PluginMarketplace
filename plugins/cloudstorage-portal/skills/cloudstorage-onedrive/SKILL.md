@@ -1,13 +1,8 @@
-# Skill: onedrive
-
-- Plugin: `cloudstorage-portal` (0.9.14)
-- Source: `plugins/cloudstorage-portal/skills/onedrive/SKILL.md`
-
-> Use when the user wants to read or manage OneDrive files through the existing OneDrive App: search, folders, uploads, downloads, rename, move, copy, sharing, permissions, versions, restore and quota.
-
-## Instructions
-
-### OneDrive
+---
+name: cloudstorage-onedrive
+description: "Use when the user wants to read or manage OneDrive files through the existing OneDrive App: search, folders, uploads, downloads, rename, move, copy, sharing, permissions, versions, restore and quota."
+---
+# OneDrive
 
 Use the dedicated OneDrive App referenced by .app.json. CloudStorage Portal uses
 this same App. Never substitute OneDrive Broker Staging, SharePoint or a local
@@ -32,7 +27,7 @@ route is unavailable and point to the existing Workspace OneDrive entry in
 the Business catalogue. Preserve the current account and connections. Do not
 switch accounts, reconnect, or create an App as a fallback.
 
-#### Workflows
+## Workflows
 
 All tools have prefix onedrive_:
 - account, get_drive: account identity and storage quota.
@@ -65,7 +60,7 @@ Sharing requires explicit audience/recipient and role. Never send an invitation
 or publish a link just to demonstrate capability. Delete only requested items or
 explicitly disposable test items. No permanent-delete tool is provided.
 
-#### Resolve a known file or folder after an empty search
+## Resolve a known file or folder after an empty search
 
 When a successful `onedrive_search` yields no match and the exact child name,
 expected kind and its direct parent ID are already verified in this account:
@@ -98,7 +93,7 @@ from the App, include only each request's `parentId` and the response's
 `parentId`). Exclude credentials and cursors. Use the result before the same
 exact-item metadata recheck in step 3. The helper only checks supplied results.
 
-#### Transfers and limits
+## Transfers and limits
 
 Simple uploads and binary download/export return at most 2 MiB per file.
 read_text supports selected UTF-8 types up to 64 KiB. Larger new uploads use
@@ -114,21 +109,3 @@ between providers. Report unsupported file sizes/formats explicitly.
 Runtime 0.3.0 implements 28 tools. Local tests, discovery and App bindings do not
 prove live writes for the current account. Report each actual operation and its
 readback independently; never present staging evidence as OneDrive success.
-
-## Bundled files
-
-### File: `agents/openai.yaml`
-
-```yaml
-interface:
-  display_name: "OneDrive"
-  short_description: "Route verified Microsoft OneDrive work"
-  icon_small: "./assets/onedrive.png"
-  icon_large: "./assets/onedrive.png"
-  brand_color: "#0078D4"
-  default_prompt: "Use $onedrive to route this OneDrive request through the verified Microsoft App or the explicitly selected Portal connection."
-```
-
-### File: `assets/onedrive.png`
-
-_Binary asset, not embedded._

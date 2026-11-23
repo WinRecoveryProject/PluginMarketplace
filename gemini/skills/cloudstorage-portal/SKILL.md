@@ -1,11 +1,11 @@
 ---
 name: cloudstorage-portal
-description: "CloudStorage Portal: Coordinate Dropbox, Google Drive and OneDrive through existing authorized App or MCP connections and a unified skill layer. Use when the user asks for clean-up-dropbox-content, cloudstorage-connections, cloudstorage-portal, cloudstorage-setup-docs, collect-files-with-request, find-dropbox-content, google-docs, google-drive, google-drive-comments, google-sheets, google-slides, inspect-dropbox-file work, or names the cloudstorage-portal plugin."
+description: "CloudStorage Portal: Coordinate Dropbox, Google Drive and OneDrive through existing authorized App or MCP connections and a unified skill layer. Use when the user asks for clean-up-dropbox-content, cloudstorage-connections, cloudstorage-onedrive, cloudstorage-portal, cloudstorage-setup-docs, collect-files-with-request, find-dropbox-content, google-docs, google-drive, google-drive-comments, google-sheets, google-slides work, or names the cloudstorage-portal plugin."
 ---
 
 # CloudStorage Portal
 
-Gemini export of the `cloudstorage-portal` plugin from WinRecoveryProject/PluginMarketplace, version `0.9.14`. Source: `plugins/cloudstorage-portal`.
+Gemini export of the `cloudstorage-portal` plugin from WinRecoveryProject/PluginMarketplace, version `0.9.15`. Source: `plugins/cloudstorage-portal`.
 
 Dropbox, Google Drive and OneDrive workflows through existing authorized connections. Discover each available App or MCP route without duplicate login.
 
@@ -24,6 +24,7 @@ Dropbox, Google Drive and OneDrive workflows through existing authorized connect
 | --- | --- | --- |
 | `clean-up-dropbox-content` | Clean up Dropbox content by identifying obsolete, duplicate, temporary, or unwanted files and deleting only after explicit review. Use when the user explicitly asks to delete, remove, or clean up Dropbox files or folders. | `references/clean-up-dropbox-content.md` |
 | `cloudstorage-connections` | Configure or inspect unified connection management for Dropbox, Google Drive and OneDrive. Use for OAuth, login, account IDs, token lifecycle, scopes, linking accounts and three-provider readiness. | `references/cloudstorage-connections.md` |
+| `cloudstorage-onedrive` | Use when the user wants to read or manage OneDrive files through the existing OneDrive App: search, folders, uploads, downloads, rename, move, copy, sharing, permissions, versions, restore and quota. | `references/cloudstorage-onedrive.md` |
 | `cloudstorage-portal` | Use when the user wants to search, read, upload, organize, share, inspect file history or transfer files across Dropbox, Google Drive and OneDrive through their existing App or MCP connections. | `references/cloudstorage-portal.md` |
 | `cloudstorage-setup-docs` | Explain and reproduce the documented zero-cost CloudStorage Portal setup, Microsoft Entra app roles, hosted OneDrive broker, callbacks, DCR and secret-field mapping; use for setup documentation, onboarding and login troubleshooting. | `references/cloudstorage-setup-docs.md` |
 | `collect-files-with-request` | Create, inspect, and manage Dropbox file requests for collecting uploads from other people. Use when the user asks to collect files, request uploads, create an upload portal, check a file request, or list existing file requests. | `references/collect-files-with-request.md` |
@@ -34,7 +35,6 @@ Dropbox, Google Drive and OneDrive workflows through existing authorized connect
 | `google-sheets` | Analyze and edit connected Google Sheets with range precision. Use when the user wants to create Google Sheets, find a spreadsheet, inspect tabs or ranges, search rows, plan formulas, create or repair charts, clean or restructure tables, write concise summaries, or make explicit cell-range updates. | `references/google-sheets.md` |
 | `google-slides` | Route Google Slides authoring requests and derive a design system from a native template or reference deck. Use this skill when the user provides an existing native Google Slides deck as a template, reference, or prior-period source, or asks to edit, update, repair, restyle, or clean up an existing native Google Slides deck. Use the Presentations skill instead for net-new presentation creation when no existing native Google Slides deck must be followed. | `references/google-slides.md` |
 | `inspect-dropbox-file` | Inspect a Dropbox file or folder by checking metadata, shared links, and file content when needed. Use when the user asks what a file is, whether it is shared, when it changed, what access links exist, or asks to read/analyze a Dropbox file. | `references/inspect-dropbox-file.md` |
-| `onedrive` | Use when the user wants to read or manage OneDrive files through the existing OneDrive App: search, folders, uploads, downloads, rename, move, copy, sharing, permissions, versions, restore and quota. | `references/onedrive.md` |
 | `organize-dropbox-folder` | Organize Dropbox files and folders by creating folders, copying content, or moving content into a cleaner structure. Use when the user asks to organize, archive, consolidate, restructure, copy, or move Dropbox content. | `references/organize-dropbox-folder.md` |
 | `share-dropbox-content` | Share Dropbox files or folders by creating shared links, inspecting existing shared links, or explaining current shared-link state. Use only when the user explicitly asks to create a shared link, check access, or inspect a Dropbox shared link. | `references/share-dropbox-content.md` |
 | `upload-to-dropbox` | Use when the user asks to save an attachment, generated file, or file-library selection from this conversation to Dropbox. Use the packaged file-request workflow for uploads from other people. | `references/upload-to-dropbox.md` |

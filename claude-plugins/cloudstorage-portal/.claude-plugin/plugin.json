@@ -1,0 +1,11 @@
+{
+  "name": "cloudstorage-portal",
+  "version": "0.9.15",
+  "description": "Coordinate Dropbox, Google Drive and OneDrive in Claude through the connectors you have already authorized, with one skill layer for search, reading, organizing, sharing and transfers.",
+  "author": {
+    "name": "Zilvereyes"
+  },
+  "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
+  "license": "MIT",
+  "keywords": ["dropbox", "google-drive", "onedrive", "cloud-storage", "files"]
+}

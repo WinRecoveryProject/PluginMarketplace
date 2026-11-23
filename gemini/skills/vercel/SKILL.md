@@ -5,7 +5,7 @@ description: "Vercel: Build and deploy web apps and agents Use when the user ask
 
 # Vercel
 
-Gemini export of the `vercel` plugin from WinRecoveryProject/PluginMarketplace, version `0.56.0-wrp.2`. Source: `plugins/vercel`.
+Gemini export of the `vercel` plugin from WinRecoveryProject/PluginMarketplace, version `0.56.0-wrp.3`. Source: `plugins/vercel`.
 
 Use the connected Vercel app and Vercel ecosystem guidance in Codex. This WinRecoveryProject package adapts Vercel 0.56.0 skills and retains existing Marketplace skill entry points.
 

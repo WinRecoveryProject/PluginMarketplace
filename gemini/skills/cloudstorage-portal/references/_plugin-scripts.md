@@ -401,10 +401,10 @@ for (const [name, requiredTools] of Object.entries(googleRequirements)) {
   workflowResults.push({ name, provider: 'google-drive', requiredTools, missingTools, available: missingTools.length === 0 });
 }
 
-readSkill('onedrive');
+readSkill('cloudstorage-onedrive');
 const missingOneDriveTools = oneDriveRequirements.filter(tool => !providerTools.oneDrive.has(tool));
 const oneDriveWorkflow = {
-  name: 'onedrive',
+  name: 'cloudstorage-onedrive',
   provider: 'onedrive',
   requiredTools: oneDriveRequirements,
   missingTools: missingOneDriveTools,

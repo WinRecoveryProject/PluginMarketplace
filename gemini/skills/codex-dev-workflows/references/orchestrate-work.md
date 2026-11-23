@@ -1,6 +1,6 @@
 # Skill: orchestrate-work
 
-- Plugin: `codex-dev-workflows` (0.4.2)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.2)
 - Source: `plugins/codex-dev-workflows/skills/orchestrate-work/SKILL.md`
 
 > Coordinate complex, divisible work by planning, delegating independent tasks in parallel, integrating the results, and verifying the complete outcome.

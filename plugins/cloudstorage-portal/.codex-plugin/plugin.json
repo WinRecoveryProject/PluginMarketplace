@@ -17,7 +17,7 @@
     "shortDescription": "Cloudfiler på tværs af konti"
   },
   "name": "cloudstorage-portal",
-  "version": "0.9.14",
+  "version": "0.9.15",
   "description": "Coordinate Dropbox, Google Drive and OneDrive through existing authorized App or MCP connections and a unified skill layer.",
   "author": {
     "name": "Zilvereyes",

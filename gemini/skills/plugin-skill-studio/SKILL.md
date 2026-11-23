@@ -17,6 +17,7 @@ Self-contained local plugin and skill creation, discovery, evidence, evaluation,
 4. Treat the original instructions as authoritative. Where they mention Codex- or Claude-only tools, use the closest Gemini capability or tell the user what to run.
 5. When you propose a change to this plugin, name the original repository path (shown in each reference) so it can be applied in PluginMarketplace.
 6. Instructions sometimes name another file by its original path (for example `../../shared/x.md` or `references/y.md`). Those paths do not exist in this upload: resolve them against the `Source:`/`File:` path of the text you are reading and look them up in `references/_index.md`, which says which reference file and section holds the content.
+7. This plugin is large, so its code-only plugin files (scripts, assets, tests) are in the companion skill `plugin-skill-studio-source`. When the index or a link points there and that skill is not available, ask the user to upload `gemini/skills/plugin-skill-studio-source/` or to paste the file.
 
 ## Sub-skills
 
@@ -88,14 +89,17 @@ Self-contained local plugin and skill creation, discovery, evidence, evaluation,
 Manifests, hooks, top-level scripts, tests and docs (outside `skills/`):
 
 - `references/_plugin.md`
-- `references/_plugin-assets.md`
 - `references/_plugin-codex-plugin.md`
 - `references/_plugin-fixtures.md`
 - `references/_plugin-references.md`
+- `references/_plugin-src-part02.md`
+- `references/_index.md`
+
+## In the companion skill `plugin-skill-studio-source`
+
+- `references/_plugin-assets.md`
 - `references/_plugin-schemas.md`
 - `references/_plugin-scripts.md`
 - `references/_plugin-src-part01.md`
-- `references/_plugin-src-part02.md`
 - `references/_plugin-tests.md`
 - `references/_plugin-tools.md`
-- `references/_index.md`

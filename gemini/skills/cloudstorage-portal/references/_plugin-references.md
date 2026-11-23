@@ -46,6 +46,6 @@ To build a separate portable distribution, copy `portable-plugin.json` to `plugi
   },
   "name": "cloudstorage-portal",
   "repository": "https://github.com/WinRecoveryProject/CloudStorage-Portal",
-  "version": "0.9.14"
+  "version": "0.9.15"
 }
 ```
