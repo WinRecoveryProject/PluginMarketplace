@@ -36,7 +36,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
 | OneDrive | `1.2.2` | `codex plugin add onedrive@winrecoveryproject-digital` |
-| CloudStorage Portal | `0.9.14` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
+| CloudStorage Portal | `0.9.15` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.3` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Plugin-Skill-Studio | `0.6.0` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.7` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |

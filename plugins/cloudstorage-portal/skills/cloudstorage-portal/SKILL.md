@@ -28,7 +28,7 @@ Use the full provider workflows included in this package; do not limit the porta
 | Google Slides | [google-slides](../google-slides/SKILL.md) |
 | Google Drive comments | [google-drive-comments](../google-drive-comments/SKILL.md) |
 | Three-provider OAuth and connection setup | [cloudstorage-connections](../cloudstorage-connections/SKILL.md) |
-| OneDrive operations and adapter readiness | [onedrive](../onedrive/SKILL.md) |
+| OneDrive operations and adapter readiness | [cloudstorage-onedrive](../cloudstorage-onedrive/SKILL.md) |
 
 Skills contain workflows; executable tools, granted scopes and resource permissions determine actual access. Never report a copied skill as a newly granted permission. Provider tools remain provider-specific. Google Docs, Sheets and Slides operations have no automatic OneDrive or Dropbox equivalent.
 

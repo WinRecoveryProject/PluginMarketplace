@@ -1,6 +1,6 @@
 # Skill: google-docs
 
-- Plugin: `cloudstorage-portal` (0.9.14)
+- Plugin: `cloudstorage-portal` (0.9.15)
 - Source: `plugins/cloudstorage-portal/skills/google-docs/SKILL.md`
 
 > Use when the user wants to create, read or edit a native Google Docs document through a connected Google Drive account.
