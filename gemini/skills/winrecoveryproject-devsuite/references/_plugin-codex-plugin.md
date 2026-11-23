@@ -7,7 +7,7 @@ Source: `plugins/winrecoveryproject-devsuite`. Files outside the `skills/*` fold
 ```json
 {
   "name": "winrecoveryproject-devsuite",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "One development toolkit for planning, coding, security, testing, local processes and registered Codex tasks.",
   "author": {
     "name": "Zilvereyes"

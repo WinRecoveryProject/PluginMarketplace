@@ -1,0 +1,8 @@
+interface:
+  icon_small: "./assets/wrp-icon-128.png"
+  icon_large: "./assets/wrp-icon-256.png"
+  display_name: "Studio Execute"
+  short_description: "Execute plans inline, by subagents, or durably"
+  default_prompt: "Use $studio-execute for this task."
+policy:
+  allow_implicit_invocation: true

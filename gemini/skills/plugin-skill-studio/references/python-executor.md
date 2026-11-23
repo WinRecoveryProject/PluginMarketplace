@@ -1,6 +1,6 @@
 # Skill: python-executor
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/python-executor/SKILL.md`
 
 > Use when a ChatGPT/Codex Plugin workflow needs deterministic computation, file processing, repository checks, package inspection, or other work that should be actually executed with host-native Python instead of answered from unverified reasoning.

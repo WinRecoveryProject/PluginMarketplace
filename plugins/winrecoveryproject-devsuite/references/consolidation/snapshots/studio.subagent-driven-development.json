@@ -1,0 +1,20 @@
+{
+  "id": "studio.subagent-driven-development",
+  "root": "skills/subagent-driven-development",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "94352218d5dff24abf2bf3502b004873a25a84c8c477405931abe1a78847f41a",
+    "agents/openai.yaml": "03a2c86d98750eb39d74f435395968b7ae19e7a0196d14e613831e24462ba21c",
+    "assets/wrp-icon-128.png": "9040ba476c15ed153e68ab474f12bb56d3702a01105dd8edb5ad6cf848e0bf82",
+    "assets/wrp-icon-256.png": "8c41a2e7b225c7c85acf8a644e00e3f4a60890796931621e791c8a1a9d2ba9bd",
+    "implementer-prompt.md": "450bb0c637359691d8dd475049b1c5a9ef40be19af41d8b80d18ff18ffc02319",
+    "re-review-prompt.md": "a1cf6efaaa70b3eefff9986f19e74f19561861d00c00cbc327562ce4e52c05d0",
+    "references/dispatch-and-model-selection.md": "eef9eff4544cef457e2c3e2e3c31c46b358cbdde0b01ea4b6f46608d151318e0",
+    "references/review-and-fix-loop.md": "b6acf2ef23f99673ca9e8d0a1d3b5baec85bf82af1a47c88d6f49c15b0c8db15",
+    "references/workflow-example.md": "6ab560dad8440f722a33327b7c8140050eedee9729b89fe5a764cb4d62ba9480",
+    "scripts/review-package": "a5754bea4aa136cffcecf8446169c9f24de585de5d55949f3c95ab50c15e7a47",
+    "scripts/sdd-workspace": "f2be39e7a6c9d55f97e43c67eefb120ce58b572ce197a33655729fd3e98c9493",
+    "scripts/task-brief": "de266489f2c7ebd268cd2dfc7768daa0edcc4f433b0a5168baf6bfc29c5c67e1",
+    "task-reviewer-prompt.md": "a1243a2728d16e0dab196c8b6b562e5f785d1f26f6806f33dd4a5902e3740dcd"
+  }
+}

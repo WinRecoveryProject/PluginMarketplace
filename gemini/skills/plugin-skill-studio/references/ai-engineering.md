@@ -1,6 +1,6 @@
 # Skill: ai-engineering
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/ai-engineering/SKILL.md`
 
 > Design, train, optimize, deploy, and evaluate production machine learning and LLM systems. Use when building ML models, training classifiers, fine-tuning LLMs with LoRA/PEFT, deploying low-latency inference endpoints, architecting vector RAG pipelines, or evaluating model bias and data leakage — even if they don't explicitly say "AI engineering". Do NOT use for standard backend CRUD development, basic SQL queries without ML, or simple UI styling.

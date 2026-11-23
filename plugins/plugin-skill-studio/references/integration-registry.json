@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "package": "plugin-skill-studio",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "sources": [
     {
       "id": "matt-skills-curated",
@@ -240,14 +240,14 @@
         {
           "sourceSkill": "implement",
           "sourceFile": "skills/implement/SKILL.md",
-          "implementation": "skills/implement/SKILL.md",
+          "implementation": "skills/studio-execute/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "implement-spec",
           "sourceFile": "skills/implement-spec/SKILL.md",
-          "implementation": "skills/implement-spec/SKILL.md",
+          "implementation": "skills/studio-execute/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -598,7 +598,7 @@
         {
           "sourceSkill": "dispatching-parallel-agents",
           "sourceFile": "skills/dispatching-parallel-agents/SKILL.md",
-          "implementation": "skills/dispatching-parallel-agents/SKILL.md",
+          "implementation": "skills/studio-execute/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -612,14 +612,14 @@
         {
           "sourceSkill": "execute-durably",
           "sourceFile": "skills/execute-durably/SKILL.md",
-          "implementation": "skills/execute-durably/SKILL.md",
+          "implementation": "skills/studio-execute/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
         {
           "sourceSkill": "executing-plans",
           "sourceFile": "skills/executing-plans/SKILL.md",
-          "implementation": "skills/executing-plans/SKILL.md",
+          "implementation": "skills/studio-execute/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -682,7 +682,7 @@
         {
           "sourceSkill": "subagent-driven-development",
           "sourceFile": "skills/subagent-driven-development/SKILL.md",
-          "implementation": "skills/subagent-driven-development/SKILL.md",
+          "implementation": "skills/studio-execute/SKILL.md",
           "mode": "adapted-local",
           "acceptanceTest": "tests/integration.test.mjs"
         },
@@ -1792,12 +1792,21 @@
       "description": "Diagnose hard bugs, intermittent flakes, and performance regressions using a tight feedback loop. Use when the user reports broken behavior, runtime exceptions, failing tests, flaky CI, or says \\\"debug this\\\" / \\\"diagnose this\\\" — even if no error message is provided. Do NOT use for routine test-driven feature development."
     },
     {
-      "id": "dispatching-parallel-agents",
-      "entrypoint": "skills/dispatching-parallel-agents/SKILL.md",
+      "id": "studio-execute",
+      "entrypoint": "skills/studio-execute/SKILL.md",
       "sourceIds": [
-        "skillquiver"
+        "skillquiver",
+        "matt-skills-curated"
       ],
-      "description": "Dispatches one subagent per independent problem. Use when two or more investigations or fixes can proceed concurrently without shared state or sequential dependencies."
+      "modes": [
+        "execute",
+        "subagent",
+        "implement",
+        "spec-run",
+        "parallel",
+        "durable"
+      ],
+      "description": "Execute plans inline, by subagents with review gates, across spec tickets, in parallel or durably; mode files are shared with DevSuite."
     },
     {
       "id": "domain-modeling",
@@ -1843,22 +1852,6 @@
       "description": "Evaluate, review, explain, benchmark and improve skills and plugins; doctor host skill conflicts on explicit request."
     },
     {
-      "id": "execute-durably",
-      "entrypoint": "skills/execute-durably/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Runs long or interruption-prone work from a durable state file with falsifiable criteria and evidence. Use when work spans turns, risks compaction, or must resume after interruption."
-    },
-    {
-      "id": "executing-plans",
-      "entrypoint": "skills/executing-plans/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Executes a written implementation plan inline, task by task, stopping only on blockers. Use when a plan exists and subagent dispatch is unavailable, or the user wants the plan executed in a separate session."
-    },
-    {
       "id": "experience-architect",
       "entrypoint": "skills/experience-architect/SKILL.md",
       "sourceIds": [
@@ -1897,22 +1890,6 @@
         "matt-skills-curated"
       ],
       "description": "Compact current conversation context, decisions, evidence, and next actions into a portable markdown handoff for a fresh agent session. Use when ending a session, transferring work to another agent, switching workspaces, or preparing a resume point — even if the user just says \\\"save progress\\\". Do NOT use for committing code to git or creating branch PRs."
-    },
-    {
-      "id": "implement",
-      "entrypoint": "skills/implement/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Build scoped code changes and run verification from an approved specification or plan. Use when a concrete spec, approved plan, or set of tickets is ready to implement, when the user asks to build or code a planned feature, or when executing tasks — even if they don't explicitly say \\\"implement\\\". Do NOT use for initial architecture exploration or vague requirements."
-    },
-    {
-      "id": "implement-spec",
-      "entrypoint": "skills/implement-spec/SKILL.md",
-      "sourceIds": [
-        "matt-skills-curated"
-      ],
-      "description": "Execute a full specification across task tickets using isolated subagent branches into a unified PR. Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated worktrees, and the goal is a complete pull request on a single branch — even if the user says \\\"build the whole spec\\\". Do NOT use for single isolated bug fixes or exploratory coding without tickets."
     },
     {
       "id": "improve-codebase-architecture",
@@ -2065,14 +2042,6 @@
         "skillquiver"
       ],
       "description": "Routes multi-module work with progressive discovery, matched effort, and context economy. Use when boundaries are unclear, context must stay small, or a durable project map is needed."
-    },
-    {
-      "id": "subagent-driven-development",
-      "entrypoint": "skills/subagent-driven-development/SKILL.md",
-      "sourceIds": [
-        "skillquiver"
-      ],
-      "description": "Executes an implementation plan by dispatching one subagent per task with per-task review gates, keeping the orchestrator's context small. Use when executing plans with independent tasks in the current session."
     },
     {
       "id": "submission-builder",

@@ -1,6 +1,6 @@
 # Skill: diagnosing-bugs
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/diagnosing-bugs/SKILL.md`
 
 > Diagnose hard bugs, intermittent flakes, and performance regressions using a tight feedback loop. Use when the user reports broken behavior, runtime exceptions, failing tests, flaky CI, or says "debug this" / "diagnose this" — even if no error message is provided. Do NOT use for routine test-driven feature development.

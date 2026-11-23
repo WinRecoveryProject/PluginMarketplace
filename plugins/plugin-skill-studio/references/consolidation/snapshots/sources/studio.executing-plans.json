@@ -1,0 +1,11 @@
+{
+  "id": "studio.executing-plans",
+  "root": "skills/executing-plans",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "72adec8fbef023a749b1ba499f038daf0b6876de71539b2bd727be2f63af3772",
+    "agents/openai.yaml": "7ecc9281713867bafe574de77403ade4a99b49b05112064c47fb5e517cf8afa7",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

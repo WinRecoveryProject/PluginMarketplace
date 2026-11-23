@@ -38,12 +38,15 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `plugin.json` | `references/_plugin.md#file-pluginjson` |
 | `PRIVACY.md` | `references/_plugin.md#file-privacymd` |
 | `README.md` | `references/_plugin.md#file-readmemd` |
+| `references/consolidation/execute-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationexecute-matrixjson` |
+| `references/consolidation/execute-sources.json` | `references/_plugin-references.md#file-referencesconsolidationexecute-sourcesjson` |
 | `references/consolidation/lifecycle-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationlifecycle-matrixjson` |
 | `references/consolidation/lifecycle-sources.json` | `references/_plugin-references.md#file-referencesconsolidationlifecycle-sourcesjson` |
 | `references/consolidation/plan-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationplan-matrixjson` |
 | `references/consolidation/plan-sources.json` | `references/_plugin-references.md#file-referencesconsolidationplan-sourcesjson` |
 | `references/consolidation/review-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationreview-matrixjson` |
 | `references/consolidation/review-sources.json` | `references/_plugin-references.md#file-referencesconsolidationreview-sourcesjson` |
+| `references/consolidation/shared-execute-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-execute-modesjson` |
 | `references/consolidation/shared-plan-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-plan-modesjson` |
 | `references/consolidation/shared-review-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-review-modesjson` |
 | `references/consolidation/snapshots/auto-research/SKILL.md` | `references/_plugin-references.md#file-referencesconsolidationsnapshotsauto-researchskillmd` |
@@ -55,11 +58,16 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/consolidation/snapshots/sources/studio.code-review.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiocode-reviewjson` |
 | `references/consolidation/snapshots/sources/studio.create-plugin.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiocreate-pluginjson` |
 | `references/consolidation/snapshots/sources/studio.create-skill.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiocreate-skilljson` |
+| `references/consolidation/snapshots/sources/studio.dispatching-parallel-agents.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiodispatching-parallel-agentsjson` |
 | `references/consolidation/snapshots/sources/studio.evidence-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioevidence-matrixjson` |
+| `references/consolidation/snapshots/sources/studio.execute-durably.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioexecute-durablyjson` |
+| `references/consolidation/snapshots/sources/studio.executing-plans.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioexecuting-plansjson` |
 | `references/consolidation/snapshots/sources/studio.goal.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiogoaljson` |
 | `references/consolidation/snapshots/sources/studio.grill-me.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiogrill-mejson` |
 | `references/consolidation/snapshots/sources/studio.grill-with-docs.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiogrill-with-docsjson` |
 | `references/consolidation/snapshots/sources/studio.grilling.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiogrillingjson` |
+| `references/consolidation/snapshots/sources/studio.implement-spec.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioimplement-specjson` |
+| `references/consolidation/snapshots/sources/studio.implement.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioimplementjson` |
 | `references/consolidation/snapshots/sources/studio.import-gpt.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioimport-gptjson` |
 | `references/consolidation/snapshots/sources/studio.import-plugins.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioimport-pluginsjson` |
 | `references/consolidation/snapshots/sources/studio.improve-skill.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioimprove-skilljson` |
@@ -79,6 +87,7 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/consolidation/snapshots/sources/studio.skill-review.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioskill-reviewjson` |
 | `references/consolidation/snapshots/sources/studio.skill-walkthrough.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioskill-walkthroughjson` |
 | `references/consolidation/snapshots/sources/studio.skillquiver-doctor.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioskillquiver-doctorjson` |
+| `references/consolidation/snapshots/sources/studio.subagent-driven-development.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiosubagent-driven-developmentjson` |
 | `references/consolidation/snapshots/sources/studio.to-questionnaire.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioto-questionnairejson` |
 | `references/consolidation/snapshots/sources/studio.to-spec.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioto-specjson` |
 | `references/consolidation/snapshots/sources/studio.to-tickets.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioto-ticketsjson` |
@@ -171,11 +180,6 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/diagnosing-bugs/assets/wrp-icon-256.png` | `references/diagnosing-bugs.md#file-assetswrp-icon-256png` |
 | `skills/diagnosing-bugs/scripts/hitl-loop.template.sh` | `references/diagnosing-bugs.md#file-scriptshitl-looptemplatesh` |
 | `skills/diagnosing-bugs/SKILL.md` | `references/diagnosing-bugs.md` |
-| `skills/dispatching-parallel-agents` | `references/dispatching-parallel-agents.md` |
-| `skills/dispatching-parallel-agents/agents/openai.yaml` | `references/dispatching-parallel-agents.md#file-agentsopenaiyaml` |
-| `skills/dispatching-parallel-agents/assets/wrp-icon-128.png` | `references/dispatching-parallel-agents.md#file-assetswrp-icon-128png` |
-| `skills/dispatching-parallel-agents/assets/wrp-icon-256.png` | `references/dispatching-parallel-agents.md#file-assetswrp-icon-256png` |
-| `skills/dispatching-parallel-agents/SKILL.md` | `references/dispatching-parallel-agents.md` |
 | `skills/domain-modeling` | `references/domain-modeling.md` |
 | `skills/domain-modeling/ADR-FORMAT.md` | `references/domain-modeling.md#file-adr-formatmd` |
 | `skills/domain-modeling/agents/openai.yaml` | `references/domain-modeling.md#file-agentsopenaiyaml` |
@@ -197,16 +201,6 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/engineering-workflow-guide/references/chatgpt-routing-contract.md` | `references/engineering-workflow-guide.md#file-referenceschatgpt-routing-contractmd` |
 | `skills/engineering-workflow-guide/references/routing-matrix.md` | `references/engineering-workflow-guide.md#file-referencesrouting-matrixmd` |
 | `skills/engineering-workflow-guide/SKILL.md` | `references/engineering-workflow-guide.md` |
-| `skills/execute-durably` | `references/execute-durably.md` |
-| `skills/execute-durably/agents/openai.yaml` | `references/execute-durably.md#file-agentsopenaiyaml` |
-| `skills/execute-durably/assets/wrp-icon-128.png` | `references/execute-durably.md#file-assetswrp-icon-128png` |
-| `skills/execute-durably/assets/wrp-icon-256.png` | `references/execute-durably.md#file-assetswrp-icon-256png` |
-| `skills/execute-durably/SKILL.md` | `references/execute-durably.md` |
-| `skills/executing-plans` | `references/executing-plans.md` |
-| `skills/executing-plans/agents/openai.yaml` | `references/executing-plans.md#file-agentsopenaiyaml` |
-| `skills/executing-plans/assets/wrp-icon-128.png` | `references/executing-plans.md#file-assetswrp-icon-128png` |
-| `skills/executing-plans/assets/wrp-icon-256.png` | `references/executing-plans.md#file-assetswrp-icon-256png` |
-| `skills/executing-plans/SKILL.md` | `references/executing-plans.md` |
 | `skills/experience-architect` | `references/experience-architect.md` |
 | `skills/experience-architect/agents/openai.yaml` | `references/experience-architect.md#file-agentsopenaiyaml` |
 | `skills/experience-architect/assets/wrp-icon-128.png` | `references/experience-architect.md#file-assetswrp-icon-128png` |
@@ -234,16 +228,6 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/handoff/assets/wrp-icon-128.png` | `references/handoff.md#file-assetswrp-icon-128png` |
 | `skills/handoff/assets/wrp-icon-256.png` | `references/handoff.md#file-assetswrp-icon-256png` |
 | `skills/handoff/SKILL.md` | `references/handoff.md` |
-| `skills/implement` | `references/implement.md` |
-| `skills/implement-spec` | `references/implement-spec.md` |
-| `skills/implement-spec/agents/openai.yaml` | `references/implement-spec.md#file-agentsopenaiyaml` |
-| `skills/implement-spec/assets/wrp-icon-128.png` | `references/implement-spec.md#file-assetswrp-icon-128png` |
-| `skills/implement-spec/assets/wrp-icon-256.png` | `references/implement-spec.md#file-assetswrp-icon-256png` |
-| `skills/implement-spec/SKILL.md` | `references/implement-spec.md` |
-| `skills/implement/agents/openai.yaml` | `references/implement.md#file-agentsopenaiyaml` |
-| `skills/implement/assets/wrp-icon-128.png` | `references/implement.md#file-assetswrp-icon-128png` |
-| `skills/implement/assets/wrp-icon-256.png` | `references/implement.md#file-assetswrp-icon-256png` |
-| `skills/implement/SKILL.md` | `references/implement.md` |
 | `skills/improve-codebase-architecture` | `references/improve-codebase-architecture.md` |
 | `skills/improve-codebase-architecture/agents/openai.yaml` | `references/improve-codebase-architecture.md#file-agentsopenaiyaml` |
 | `skills/improve-codebase-architecture/assets/wrp-icon-128.png` | `references/improve-codebase-architecture.md#file-assetswrp-icon-128png` |
@@ -385,6 +369,34 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/studio-build/scripts/validate_plugin.py` | `references/studio-build.md#file-scriptsvalidate_pluginpy` |
 | `skills/studio-build/scripts/windows_directory.py` | `references/studio-build.md#file-scriptswindows_directorypy` |
 | `skills/studio-build/SKILL.md` | `references/studio-build.md` |
+| `skills/studio-execute` | `references/studio-execute.md` |
+| `skills/studio-execute/agents/openai.yaml` | `references/studio-execute.md#file-agentsopenaiyaml` |
+| `skills/studio-execute/assets/dispatching-parallel-agents-wrp-icon-128.png` | `references/studio-execute.md#file-assetsdispatching-parallel-agents-wrp-icon-128png` |
+| `skills/studio-execute/assets/dispatching-parallel-agents-wrp-icon-256.png` | `references/studio-execute.md#file-assetsdispatching-parallel-agents-wrp-icon-256png` |
+| `skills/studio-execute/assets/execute-durably-wrp-icon-128.png` | `references/studio-execute.md#file-assetsexecute-durably-wrp-icon-128png` |
+| `skills/studio-execute/assets/execute-durably-wrp-icon-256.png` | `references/studio-execute.md#file-assetsexecute-durably-wrp-icon-256png` |
+| `skills/studio-execute/assets/executing-plans-wrp-icon-128.png` | `references/studio-execute.md#file-assetsexecuting-plans-wrp-icon-128png` |
+| `skills/studio-execute/assets/executing-plans-wrp-icon-256.png` | `references/studio-execute.md#file-assetsexecuting-plans-wrp-icon-256png` |
+| `skills/studio-execute/assets/subagent-driven-development-wrp-icon-128.png` | `references/studio-execute.md#file-assetssubagent-driven-development-wrp-icon-128png` |
+| `skills/studio-execute/assets/subagent-driven-development-wrp-icon-256.png` | `references/studio-execute.md#file-assetssubagent-driven-development-wrp-icon-256png` |
+| `skills/studio-execute/assets/wrp-icon-128.png` | `references/studio-execute.md#file-assetswrp-icon-128png` |
+| `skills/studio-execute/assets/wrp-icon-256.png` | `references/studio-execute.md#file-assetswrp-icon-256png` |
+| `skills/studio-execute/modes/durable.md` | `references/studio-execute.md#file-modesdurablemd` |
+| `skills/studio-execute/modes/execute.md` | `references/studio-execute.md#file-modesexecutemd` |
+| `skills/studio-execute/modes/implement.md` | `references/studio-execute.md#file-modesimplementmd` |
+| `skills/studio-execute/modes/parallel.md` | `references/studio-execute.md#file-modesparallelmd` |
+| `skills/studio-execute/modes/spec-run.md` | `references/studio-execute.md#file-modesspec-runmd` |
+| `skills/studio-execute/modes/subagent.md` | `references/studio-execute.md#file-modessubagentmd` |
+| `skills/studio-execute/modes/subagent/implementer-prompt.md` | `references/studio-execute.md#file-modessubagentimplementer-promptmd` |
+| `skills/studio-execute/modes/subagent/re-review-prompt.md` | `references/studio-execute.md#file-modessubagentre-review-promptmd` |
+| `skills/studio-execute/modes/subagent/references/dispatch-and-model-selection.md` | `references/studio-execute.md#file-modessubagentreferencesdispatch-and-model-selectionmd` |
+| `skills/studio-execute/modes/subagent/references/review-and-fix-loop.md` | `references/studio-execute.md#file-modessubagentreferencesreview-and-fix-loopmd` |
+| `skills/studio-execute/modes/subagent/references/workflow-example.md` | `references/studio-execute.md#file-modessubagentreferencesworkflow-examplemd` |
+| `skills/studio-execute/modes/subagent/scripts/review-package` | `references/studio-execute.md#file-modessubagentscriptsreview-package` |
+| `skills/studio-execute/modes/subagent/scripts/sdd-workspace` | `references/studio-execute.md#file-modessubagentscriptssdd-workspace` |
+| `skills/studio-execute/modes/subagent/scripts/task-brief` | `references/studio-execute.md#file-modessubagentscriptstask-brief` |
+| `skills/studio-execute/modes/subagent/task-reviewer-prompt.md` | `references/studio-execute.md#file-modessubagenttask-reviewer-promptmd` |
+| `skills/studio-execute/SKILL.md` | `references/studio-execute.md` |
 | `skills/studio-plan` | `references/studio-plan.md` |
 | `skills/studio-plan/agents/openai.yaml` | `references/studio-plan.md#file-agentsopenaiyaml` |
 | `skills/studio-plan/assets/wayfinder-wrp-icon-128.png` | `references/studio-plan.md#file-assetswayfinder-wrp-icon-128png` |
@@ -437,20 +449,6 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/studio-review/modes/request.md` | `references/studio-review.md#file-modesrequestmd` |
 | `skills/studio-review/modes/verify.md` | `references/studio-review.md#file-modesverifymd` |
 | `skills/studio-review/SKILL.md` | `references/studio-review.md` |
-| `skills/subagent-driven-development` | `references/subagent-driven-development.md` |
-| `skills/subagent-driven-development/agents/openai.yaml` | `references/subagent-driven-development.md#file-agentsopenaiyaml` |
-| `skills/subagent-driven-development/assets/wrp-icon-128.png` | `references/subagent-driven-development.md#file-assetswrp-icon-128png` |
-| `skills/subagent-driven-development/assets/wrp-icon-256.png` | `references/subagent-driven-development.md#file-assetswrp-icon-256png` |
-| `skills/subagent-driven-development/implementer-prompt.md` | `references/subagent-driven-development.md#file-implementer-promptmd` |
-| `skills/subagent-driven-development/re-review-prompt.md` | `references/subagent-driven-development.md#file-re-review-promptmd` |
-| `skills/subagent-driven-development/references/dispatch-and-model-selection.md` | `references/subagent-driven-development.md#file-referencesdispatch-and-model-selectionmd` |
-| `skills/subagent-driven-development/references/review-and-fix-loop.md` | `references/subagent-driven-development.md#file-referencesreview-and-fix-loopmd` |
-| `skills/subagent-driven-development/references/workflow-example.md` | `references/subagent-driven-development.md#file-referencesworkflow-examplemd` |
-| `skills/subagent-driven-development/scripts/review-package` | `references/subagent-driven-development.md#file-scriptsreview-package` |
-| `skills/subagent-driven-development/scripts/sdd-workspace` | `references/subagent-driven-development.md#file-scriptssdd-workspace` |
-| `skills/subagent-driven-development/scripts/task-brief` | `references/subagent-driven-development.md#file-scriptstask-brief` |
-| `skills/subagent-driven-development/SKILL.md` | `references/subagent-driven-development.md` |
-| `skills/subagent-driven-development/task-reviewer-prompt.md` | `references/subagent-driven-development.md#file-task-reviewer-promptmd` |
 | `skills/submission-builder` | `references/submission-builder.md` |
 | `skills/submission-builder/agents/openai.yaml` | `references/submission-builder.md#file-agentsopenaiyaml` |
 | `skills/submission-builder/assets/wrp-icon-128.png` | `references/submission-builder.md#file-assetswrp-icon-128png` |
@@ -600,6 +598,7 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `tests/eval-context.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testseval-contexttestmjs` |
 | `tests/eval.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsevaltestmjs` |
 | `tests/evaluation-limits.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsevaluation-limitstestmjs` |
+| `tests/execute-consolidation.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsexecute-consolidationtestmjs` |
 | `tests/install-review.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstall-reviewtestmjs` |
 | `tests/installed-inventory.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstalled-inventorytestmjs` |
 | `tests/installed-release.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstalled-releasetestmjs` |

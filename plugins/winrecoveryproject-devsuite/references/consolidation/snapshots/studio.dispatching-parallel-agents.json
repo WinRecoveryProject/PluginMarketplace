@@ -1,0 +1,11 @@
+{
+  "id": "studio.dispatching-parallel-agents",
+  "root": "skills/dispatching-parallel-agents",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "a6012f9ab8eebf1bf47bb509c64ce544df5343262bf72b81a6f61f91e5d41b09",
+    "agents/openai.yaml": "e23cea318fe03d77b545a8d8a36d866635190a910cc2524dc48d8fa217264d2a",
+    "assets/wrp-icon-128.png": "9040ba476c15ed153e68ab474f12bb56d3702a01105dd8edb5ad6cf848e0bf82",
+    "assets/wrp-icon-256.png": "8c41a2e7b225c7c85acf8a644e00e3f4a60890796931621e791c8a1a9d2ba9bd"
+  }
+}

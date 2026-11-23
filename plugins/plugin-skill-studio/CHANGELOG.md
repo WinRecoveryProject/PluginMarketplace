@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.7.0 — 2026-11-22
+
+Breaking: six execution skills are consolidated into `studio-execute`. Every capability is mapped in `references/consolidation/execute-matrix.json` (315 capabilities, none dropped).
+
+| Removed skill | New skill | Mode |
+|---|---|---|
+| `executing-plans` | `studio-execute` | `execute` |
+| `subagent-driven-development` | `studio-execute` | `subagent` (prompts, references and scripts in `modes/subagent/`) |
+| `implement` | `studio-execute` | `implement` |
+| `implement-spec` | `studio-execute` | `spec-run` |
+| `dispatching-parallel-agents` | `studio-execute` | `parallel` |
+| `execute-durably` | `studio-execute` | `durable` |
+
+The mode files and everything under `modes/subagent/` are shared byte-for-byte with WinRecoveryProject DevSuite `devsuite-implement`; `references/consolidation/shared-execute-modes.json` pins their hashes in both packages. The subagent scripts now live at `skills/studio-execute/modes/subagent/scripts/`.
+
 ## 0.6.0 — 2026-11-21
 
 Breaking: ten planning skills are consolidated into `studio-plan`. Every capability is mapped in `references/consolidation/plan-matrix.json` (429 capabilities, none dropped).

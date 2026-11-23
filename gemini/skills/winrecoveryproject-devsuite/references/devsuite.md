@@ -1,6 +1,6 @@
 # Skill: devsuite
 
-- Plugin: `winrecoveryproject-devsuite` (0.4.0)
+- Plugin: `winrecoveryproject-devsuite` (0.5.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite/SKILL.md`
 
 > Use when development spans planning, implementation, security, verification, coordination, cloud work or conversion and needs one integrated workflow.

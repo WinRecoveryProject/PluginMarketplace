@@ -1,6 +1,6 @@
 # Skill: teach
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/teach/SKILL.md`
 
 > Teach a technical concept interactively using the workspace as an active learning lab with durable learning records. Use when the user asks to understand a codebase concept, learn a language feature, explore design patterns, or practice coding skills — even if they say "explain how this works to me". Do NOT use for silent autonomous code generation.

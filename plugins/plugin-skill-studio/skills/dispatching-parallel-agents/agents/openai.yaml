@@ -1,9 +1,0 @@
-interface:
-  icon_small: "./assets/wrp-icon-128.png"
-  icon_large: "./assets/wrp-icon-256.png"
-  display_name: "Dispatch Parallel Agents"
-  short_description: "Coordinate independent work across subagents"
-  default_prompt: "Divide these independent tasks across parallel workers."
-
-policy:
-  allow_implicit_invocation: true

@@ -1,0 +1,11 @@
+{
+  "id": "studio.execute-durably",
+  "root": "skills/execute-durably",
+  "source": "Zilvereyes-Plugin-Studio@7122f61",
+  "files": {
+    "SKILL.md": "98173e1d8e5ce7c676dd522fce8c8a6fd2dc22f59bf1fb244fc6c556e9958d05",
+    "agents/openai.yaml": "3804d16b766b99bf81a3cb8d40a00bcd0a9f8e592e7c706361314154a786f4f0",
+    "assets/wrp-icon-128.png": "b1797b29a388cfd7f9d0cea6dd35e16caaff1d5e6bb7855bd51428b7051f5524",
+    "assets/wrp-icon-256.png": "33058027bc6a7960ca979384139e8b69d8777ef59097b48316a9e9515c221814"
+  }
+}

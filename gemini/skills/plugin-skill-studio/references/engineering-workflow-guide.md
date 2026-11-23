@@ -1,6 +1,6 @@
 # Skill: engineering-workflow-guide
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/engineering-workflow-guide/SKILL.md`
 
 > Route engineering, AI/ML, cognitive, or productivity tasks to the narrowest effective specialist skill. Use when a task spans planning, implementation, debugging, review, architecture, research, setup, AI modeling, data remediation, or autonomous goals, when the user asks what to do next, or when unsure which workflow fits — even if they don't explicitly name a skill. Do NOT use when the specific specialist skill is already obvious and unambiguous.
@@ -39,7 +39,7 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
     ┌──────────────────────┼──────────────────────┐
     ▼                      ▼                      ▼
 [ Discovery & Plan ]   [ Code & Architecture ]   [ AI, ML & Automation ]
-- `studio-plan` (interview mode)    - `implement`             - `ai-engineering`
+- `studio-plan` (interview mode)    - `studio-execute` (implement mode)             - `ai-engineering`
 - `studio-plan` (spec mode)            - `studio-review` (code mode)           - `ai-data-remediation`
 - `studio-plan` (tickets mode)         - `diagnosing-bugs`       - `ml-best-practices`
 - `studio-plan` (map mode)          - `domain-modeling`       - `j-space`
@@ -61,7 +61,7 @@ Centrally analyze tasks, classify developer intent, and route engineering workfl
 
 | Lifecycle Scenario | Canonical Route Pipeline |
 |---|---|
-| **Fuzzy Greenfield Feature** | `studio-plan` (interview mode) $\rightarrow$ `studio-plan` (spec mode) $\rightarrow$ `studio-plan` (tickets mode) $\rightarrow$ `implement` |
+| **Fuzzy Greenfield Feature** | `studio-plan` (interview mode) $\rightarrow$ `studio-plan` (spec mode) $\rightarrow$ `studio-plan` (tickets mode) $\rightarrow$ `studio-execute` (implement mode) |
 | **Hard Bug or Regression** | `diagnosing-bugs` $\rightarrow$ `tdd` |
 | **Pull Request Review** | `studio-review` (code mode) (Two-axis: Standards & Spec) |
 | **Deep Module Restructuring** | `improve-codebase-architecture` $\rightarrow$ `setup-ts-deep-modules` |
@@ -201,8 +201,8 @@ Use one primary skill by default. Add another only for a distinct phase.
 
 ##### Implementation and quality
 
-- `implement`: Use when a concrete spec, approved plan, or set of tickets is ready to implement and the task requires scoped code changes plus verification.
-- `implement-spec`: Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated branches, and the goal is a complete pull request on a single branch.
+- `studio-execute` (implement mode): Use when a concrete spec, approved plan, or set of tickets is ready to implement and the task requires scoped code changes plus verification.
+- `studio-execute` (spec-run mode): Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated branches, and the goal is a complete pull request on a single branch.
 - `tdd`: Use when implementing a feature or fixing a bug test-first with a red-green cycle, or when the task needs durable integration-style tests around public behavior.
 - `studio-review` (code mode): Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes - Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
 - `diagnosing-bugs`: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
@@ -301,11 +301,11 @@ When a user interacts with ChatGPT / Codex, follow this strict 4-step execution 
 
 | Scenario | Canonical Multi-Phase Pipeline | Phase Transition Trigger |
 |---|---|---|
-| **Greenfield Feature** | `studio-plan` (interview mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `implement` ➔ `studio-review` (code mode) | User approves spec & ticket graph |
+| **Greenfield Feature** | `studio-plan` (interview mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `studio-execute` (implement mode) ➔ `studio-review` (code mode) | User approves spec & ticket graph |
 | **Bug / Regression** | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Red failure reproduced & minimal repro isolated |
 | **Wide Refactoring** | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` ➔ `studio-review` (code mode) | Visual architecture report approved |
 | **AI / ML Initiative** | `ai-engineering` ➔ `ml-best-practices` ➔ `studio-review` (code mode) | Naive baseline beaten & 95% CIs verified |
-| **Massive Initiative** | `studio-plan` (map mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `implement-spec` | Fog cleared & frontier tickets claimed |
+| **Massive Initiative** | `studio-plan` (map mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `studio-execute` (spec-run mode) | Fog cleared & frontier tickets claimed |
 | **Long-Form Essay** | `writing-fragments` ➔ `writing-shape` ➔ `writing-beats` | Raw pile assembled & candidate openings chosen |
 
 ---
@@ -330,18 +330,18 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Explore ideas", "Interview me", "Poke holes in my plan" | `studio-plan` (interview mode) | `studio-plan` (interview mode) ➔ `studio-plan` (spec mode) | Requirements already formal & clear |
 | "Capture decisions into ADR", "Define domain terms" | `studio-plan` (interview mode) | `studio-plan` (interview mode) ➔ `studio-plan` (spec mode) | Writing production application code |
 | "Write a technical spec", "Formalize requirements" | `studio-plan` (spec mode) | `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) | Spec already written & approved |
-| "Break down into tickets", "Create task graph", "Tracer bullets" | `studio-plan` (tickets mode) | `studio-plan` (tickets mode) ➔ `implement` | Requirements ambiguous or unapproved |
+| "Break down into tickets", "Create task graph", "Tracer bullets" | `studio-plan` (tickets mode) | `studio-plan` (tickets mode) ➔ `studio-execute` (implement mode) | Requirements ambiguous or unapproved |
 | "Ask stakeholder questions", "Async requirements survey" | `studio-plan` (questions mode) | `studio-plan` (questions mode) ➔ `studio-plan` (spec mode) | Information already in repository |
 | "Quick prototype", "UI spike", "Throwaway exploration" | `prototype` | `prototype` ➔ `studio-plan` (interview mode) | Building permanent production features |
 | "Design operational process", "Write SOP", "Review loop" | `workflow-designer` | `workflow-designer` ➔ `studio-plan` (spec mode) | One-off manual script execution |
 | "Research third-party API", "Investigate documentation" | `research` | `research` ➔ `studio-plan` (spec mode) | Reading local project code files |
 | "Define entity models", "Ubiquitous language", "CONTEXT.md" | `domain-modeling` | `domain-modeling` ➔ `codebase-design` | Generic database table migrations |
-| "Design deep modules", "Module interface seams", "Ousterhout" | `codebase-design` | `codebase-design` ➔ `implement` | Trivial one-line helper functions |
+| "Design deep modules", "Module interface seams", "Ousterhout" | `codebase-design` | `codebase-design` ➔ `studio-execute` (implement mode) | Trivial one-line helper functions |
 | "Audit codebase architecture", "Git churn hotspot analysis" | `improve-codebase-architecture` | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` | Routine single-file bug fixing |
 | "TypeScript boundaries", "dependency-cruiser rules" | `setup-ts-deep-modules` | `setup-ts-deep-modules` ➔ `studio-review` (code mode) | Non-TypeScript codebases |
 | "Unsafe test typecasts", "Migrate to shoehorn" | `migrate-to-shoehorn` | `migrate-to-shoehorn` ➔ `studio-review` (code mode) | Production application types |
-| "Implement approved spec", "Code feature", "Build ticket" | `implement` | `implement` ➔ `studio-review` (code mode) | Requirements fuzzy or unapproved |
-| "Parallel subagents", "Isolated worktrees", "Multi-agent PR" | `implement-spec` | `implement-spec` ➔ `studio-review` (code mode) | Single developer / single-file edit |
+| "Implement approved spec", "Code feature", "Build ticket" | `studio-execute` (implement mode) | `studio-execute` (implement mode) ➔ `studio-review` (code mode) | Requirements fuzzy or unapproved |
+| "Parallel subagents", "Isolated worktrees", "Multi-agent PR" | `studio-execute` (spec-run mode) | `studio-execute` (spec-run mode) ➔ `studio-review` (code mode) | Single developer / single-file edit |
 | "Test-driven development", "Red-green-refactor", "Write tests" | `tdd` | `tdd` ➔ `studio-review` (code mode) | Throwaway exploratory spikes |
 | "Diagnose bug", "Fix failing test", "Flaky CI", "Crash" | `diagnosing-bugs` | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Trivial obvious syntax errors |
 | "Review PR", "Review branch diff", "Check standards" | `studio-review` (code mode) | `studio-review` (code mode) | Writing new code or diagnosing bugs |
@@ -349,14 +349,14 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Prevent force push", "Block dangerous git", "Hard reset guard" | `git-safety-guardrails` | `git-safety-guardrails` | Safe git status or log commands |
 | "Setup issue tracker", "Configure triage labels", "Setup docs" | `setup-engineering-workflows` | `setup-engineering-workflows` | General npm package installation |
 | "Setup Husky", "lint-staged", "Prettier pre-commit hook" | `setup-pre-commit` | `setup-pre-commit` | Remote CI/CD pipeline automation |
-| "Triage incoming issues", "Author agent brief", "Out of scope" | `triage` | `triage` ➔ `implement` | Internal tickets from studio-plan tickets mode |
+| "Triage incoming issues", "Author agent brief", "Out of scope" | `triage` | `triage` ➔ `studio-execute` (implement mode) | Internal tickets from studio-plan tickets mode |
 | "Map huge project", "Multi-session effort", "Fog of war" | `studio-plan` (map mode) | `studio-plan` (map mode) ➔ `studio-plan` (spec mode) | Small, single-session feature work |
 | "Interactive bash wizard", "Dashboard credentials setup" | `wizard` | `wizard` | Tasks the AI can execute directly |
 | "Train ML model", "LoRA fine-tuning", "vLLM serving" | `ai-engineering` | `ai-engineering` ➔ `ml-best-practices` | Standard CRUD backend development |
 | "Self-healing data pipeline", "AST-validated data fixes" | `ai-data-remediation` | `ai-data-remediation` ➔ `studio-review` (code mode) | Routine database schema migrations |
 | "Statistical ML", "95% bootstrap CIs", "EDA", "Data leakage" | `ml-best-practices` | `ml-best-practices` ➔ `ai-engineering` | Basic spreadsheet formatting |
-| "Inner cognitive workspace", "Three registers", "Deep thinking" | `j-space` | `j-space` ➔ `implement` | Trivial single-step lookups |
-| "Synthesize /goal prompt", "Overnight autonomous run" | `studio-plan` (goal mode) | `studio-plan` (goal mode) ➔ `implement-spec` | Immediate single-turn execution |
+| "Inner cognitive workspace", "Three registers", "Deep thinking" | `j-space` | `j-space` ➔ `studio-execute` (implement mode) | Trivial single-step lookups |
+| "Synthesize /goal prompt", "Overnight autonomous run" | `studio-plan` (goal mode) | `studio-plan` (goal mode) ➔ `studio-execute` (spec-run mode) | Immediate single-turn execution |
 | "Author new skill", "Skill evals", "10 Canonical Principles" | `skill-conductor` | `skill-conductor` ➔ `writing-for-agents` | General application coding |
 | "Compact session", "Transfer context", "Save handoff" | `handoff` | `handoff` | Committing code to git |
 | "Session retrospective", "Audit agent mistakes" | `retro` | `retro` ➔ `writing-for-agents` | Active mid-task implementation |

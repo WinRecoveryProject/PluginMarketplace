@@ -1,6 +1,6 @@
 # Skill: devsuite-tasks
 
-- Plugin: `winrecoveryproject-devsuite` (0.4.0)
+- Plugin: `winrecoveryproject-devsuite` (0.5.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-tasks/SKILL.md`
 
 > Use to discover registered Codex environments or inspect and, when explicitly requested, create or continue a durable remote Codex task.

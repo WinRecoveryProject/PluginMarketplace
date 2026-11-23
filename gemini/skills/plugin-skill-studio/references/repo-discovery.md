@@ -1,6 +1,6 @@
 # Skill: repo-discovery
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/repo-discovery/SKILL.md`
 
 > Use when an existing repository contains agents, prompts, workflows, playbooks, commands, or Skills and you need to identify which capabilities are worth converting into a ChatGPT/Codex Plugin.

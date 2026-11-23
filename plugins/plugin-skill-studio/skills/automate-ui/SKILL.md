@@ -71,7 +71,7 @@ Self-verification never closes a criterion. For any claim that matters, have a f
 
 - This skill proves what a UI does. Judging how it looks is design-ui.
 - Root-causing an application defect found through the UI is diagnose-systematically.
-- Durable multi-turn state and criterion lifecycle live in execute-durably; final delivery audit in studio-review verify mode.
+- Durable multi-turn state and criterion lifecycle live in studio-execute durable mode; final delivery audit in studio-review verify mode.
 
 ## Pause points
 

@@ -1,6 +1,6 @@
 # Skill: workflow-compiler
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/workflow-compiler/SKILL.md`
 
 > Use when a repository has a valuable agentic workflow, prompt chain, playbook, command, or runbook that should become a portable ChatGPT/Codex Skill without losing its real decision logic.

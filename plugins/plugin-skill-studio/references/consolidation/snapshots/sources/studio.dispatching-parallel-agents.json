@@ -1,0 +1,11 @@
+{
+  "id": "studio.dispatching-parallel-agents",
+  "root": "skills/dispatching-parallel-agents",
+  "commit": "11a6f77",
+  "files": {
+    "SKILL.md": "9787d10f6f5d0f0bfb92f1c0d3f845c0018ec31f6b6d1874fd9dd3cdf8cda05d",
+    "agents/openai.yaml": "9c1fb784edaf0fc68b06b17202b425dcd485b5270037cd97e33e0846fb3af0ff",
+    "assets/wrp-icon-128.png": "9040ba476c15ed153e68ab474f12bb56d3702a01105dd8edb5ad6cf848e0bf82",
+    "assets/wrp-icon-256.png": "8c41a2e7b225c7c85acf8a644e00e3f4a60890796931621e791c8a1a9d2ba9bd"
+  }
+}

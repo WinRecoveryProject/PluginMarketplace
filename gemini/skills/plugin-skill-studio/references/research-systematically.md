@@ -1,6 +1,6 @@
 # Skill: research-systematically
 
-- Plugin: `plugin-skill-studio` (0.6.0)
+- Plugin: `plugin-skill-studio` (0.7.0)
 - Source: `plugins/plugin-skill-studio/skills/research-systematically/SKILL.md`
 
 > Runs source-bound research and version-matched documentation lookup. Use when comparisons, experiments, benchmarks, investigations, or external library, SDK, CLI, and API facts must be verified.
@@ -104,7 +104,7 @@ DO-CONFIRM: work from judgment, then stop at each point and confirm every item. 
 
 - This skill investigates questions and external contracts; it does not debug failing code — that is diagnose-systematically.
 - Documentation retrieval alone never proves an implementation works; prove behavior with a test, build, or runtime observation. Auditing a completion claim is studio-review verify mode.
-- Research spanning many turns with resumable state belongs under execute-durably; presenting findings concisely is communicate-clearly; gathering web evidence by driving a browser is automate-ui.
+- Research spanning many turns with resumable state belongs under studio-execute durable mode; presenting findings concisely is communicate-clearly; gathering web evidence by driving a browser is automate-ui.
 
 ## Bundled files
 
