@@ -1,6 +1,6 @@
 # Skill: bug-investigation
 
-- Plugin: `codex-dev-workflows` (0.4.2)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.2)
 - Source: `plugins/codex-dev-workflows/skills/bug-investigation/SKILL.md`
 
 > Reproduce, isolate, fix, and verify a software defect with evidence and minimal scope.

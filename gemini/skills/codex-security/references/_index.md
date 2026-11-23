@@ -7,7 +7,7 @@ Every file and skill folder of `plugins/codex-security` and where its content li
 | `.app.json` | `references/_plugin.md#file-appjson` |
 | `.codex-plugin/plugin.json` | `references/_plugin-codex-plugin.md#file-codex-pluginpluginjson` |
 | `.mcp.json` | `references/_plugin.md#file-mcpjson` |
-| `assets/logo.png` | `references/_plugin-assets.md#file-assetslogopng` |
+| `assets/logo.png` | companion `codex-security-source`: `references/_plugin-assets.md#file-assetslogopng` |
 | `examples/completed-scan/findings.json` | `references/_plugin-examples.md#file-examplescompleted-scanfindingsjson` |
 | `examples/completed-scan/report.md` | `references/_plugin-examples.md#file-examplescompleted-scanreportmd` |
 | `examples/completed-scan/scan-manifest.json` | `references/_plugin-examples.md#file-examplescompleted-scanscan-manifestjson` |
@@ -15,28 +15,28 @@ Every file and skill folder of `plugins/codex-security` and where its content li
 | `examples/legacy-completed-scan/findings.json` | `references/_plugin-examples.md#file-exampleslegacy-completed-scanfindingsjson` |
 | `examples/legacy-completed-scan/report.md` | `references/_plugin-examples.md#file-exampleslegacy-completed-scanreportmd` |
 | `examples/legacy-completed-scan/scan-manifest.json` | `references/_plugin-examples.md#file-exampleslegacy-completed-scanscan-manifestjson` |
-| `mcp/fzstd-LICENSE.txt` | `references/_plugin-mcp.md#file-mcpfzstd-licensetxt` |
-| `mcp/helpers.mjs` | `references/_plugin-mcp.md#file-mcphelpersmjs` |
-| `mcp/helpers.mjs.br` | `references/_plugin-mcp.md#file-mcphelpersmjsbr` |
-| `mcp/native/COPYRIGHT-library.html` | `references/_plugin-mcp.md#file-mcpnativecopyright-libraryhtml` |
-| `mcp/native/darwin-arm64/unix.node` | `references/_plugin-mcp.md#file-mcpnativedarwin-arm64unixnode` |
-| `mcp/native/darwin-x64/unix.node` | `references/_plugin-mcp.md#file-mcpnativedarwin-x64unixnode` |
-| `mcp/native/licenses/Apache-2.0.txt` | `references/_plugin-mcp.md#file-mcpnativelicensesapache-20txt` |
-| `mcp/native/licenses/BSD-2-Clause.txt` | `references/_plugin-mcp.md#file-mcpnativelicensesbsd-2-clausetxt` |
-| `mcp/native/licenses/MIT.txt` | `references/_plugin-mcp.md#file-mcpnativelicensesmittxt` |
-| `mcp/native/licenses/Unicode-3.0.txt` | `references/_plugin-mcp.md#file-mcpnativelicensesunicode-30txt` |
-| `mcp/native/linux-arm64-gnu/unix.node` | `references/_plugin-mcp.md#file-mcpnativelinux-arm64-gnuunixnode` |
-| `mcp/native/linux-arm64-musl/unix.node` | `references/_plugin-mcp.md#file-mcpnativelinux-arm64-muslunixnode` |
-| `mcp/native/linux-x64-gnu/unix.node` | `references/_plugin-mcp.md#file-mcpnativelinux-x64-gnuunixnode` |
-| `mcp/native/linux-x64-musl/unix.node` | `references/_plugin-mcp.md#file-mcpnativelinux-x64-muslunixnode` |
-| `mcp/native/THIRD_PARTY_NOTICES.txt` | `references/_plugin-mcp.md#file-mcpnativethird_party_noticestxt` |
-| `mcp/native/win32-arm64/windows.node` | `references/_plugin-mcp.md#file-mcpnativewin32-arm64windowsnode` |
-| `mcp/native/win32-x64/windows.node` | `references/_plugin-mcp.md#file-mcpnativewin32-x64windowsnode` |
-| `mcp/package.json` | `references/_plugin-mcp.md#file-mcppackagejson` |
-| `mcp/permission-profile-preflight.mjs` | `references/_plugin-mcp.md#file-mcppermission-profile-preflightmjs` |
-| `mcp/server.mjs` | `references/_plugin-mcp.md#file-mcpservermjs` |
-| `mcp/server.mjs.br` | `references/_plugin-mcp.md#file-mcpservermjsbr` |
-| `mcp/session-decompression.mjs` | `references/_plugin-mcp.md#file-mcpsession-decompressionmjs` |
+| `mcp/fzstd-LICENSE.txt` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpfzstd-licensetxt` |
+| `mcp/helpers.mjs` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcphelpersmjs` |
+| `mcp/helpers.mjs.br` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcphelpersmjsbr` |
+| `mcp/native/COPYRIGHT-library.html` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativecopyright-libraryhtml` |
+| `mcp/native/darwin-arm64/unix.node` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativedarwin-arm64unixnode` |
+| `mcp/native/darwin-x64/unix.node` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativedarwin-x64unixnode` |
+| `mcp/native/licenses/Apache-2.0.txt` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativelicensesapache-20txt` |
+| `mcp/native/licenses/BSD-2-Clause.txt` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativelicensesbsd-2-clausetxt` |
+| `mcp/native/licenses/MIT.txt` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativelicensesmittxt` |
+| `mcp/native/licenses/Unicode-3.0.txt` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativelicensesunicode-30txt` |
+| `mcp/native/linux-arm64-gnu/unix.node` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativelinux-arm64-gnuunixnode` |
+| `mcp/native/linux-arm64-musl/unix.node` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativelinux-arm64-muslunixnode` |
+| `mcp/native/linux-x64-gnu/unix.node` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativelinux-x64-gnuunixnode` |
+| `mcp/native/linux-x64-musl/unix.node` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativelinux-x64-muslunixnode` |
+| `mcp/native/THIRD_PARTY_NOTICES.txt` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativethird_party_noticestxt` |
+| `mcp/native/win32-arm64/windows.node` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativewin32-arm64windowsnode` |
+| `mcp/native/win32-x64/windows.node` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpnativewin32-x64windowsnode` |
+| `mcp/package.json` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcppackagejson` |
+| `mcp/permission-profile-preflight.mjs` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcppermission-profile-preflightmjs` |
+| `mcp/server.mjs` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpservermjs` |
+| `mcp/server.mjs.br` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpservermjsbr` |
+| `mcp/session-decompression.mjs` | companion `codex-security-source`: `references/_plugin-mcp.md#file-mcpsession-decompressionmjs` |
 | `OWNERS` | `references/_plugin.md#file-owners` |
 | `references/access-advisory.md` | `references/_plugin-references.md#file-referencesaccess-advisorymd` |
 | `references/artifact-storage.md` | `references/_plugin-references.md#file-referencesartifact-storagemd` |
@@ -57,73 +57,73 @@ Every file and skill folder of `plugins/codex-security` and where its content li
 | `references/static-finding-assessment.md` | `references/_plugin-references.md#file-referencesstatic-finding-assessmentmd` |
 | `references/threat-model.md` | `references/_plugin-references.md#file-referencesthreat-modelmd` |
 | `references/validate-scan-findings.md` | `references/_plugin-references.md#file-referencesvalidate-scan-findingsmd` |
-| `schemas/coverage.schema.json` | `references/_plugin-schemas.md#file-schemascoverageschemajson` |
-| `schemas/definitions/artifact-common.schema.json` | `references/_plugin-schemas.md#file-schemasdefinitionsartifact-commonschemajson` |
-| `schemas/definitions/discovery-candidate.schema.json` | `references/_plugin-schemas.md#file-schemasdefinitionsdiscovery-candidateschemajson` |
-| `schemas/findings.schema.json` | `references/_plugin-schemas.md#file-schemasfindingsschemajson` |
-| `schemas/patch-risk-assessment.schema.json` | `references/_plugin-schemas.md#file-schemaspatch-risk-assessmentschemajson` |
-| `schemas/scan-manifest.schema.json` | `references/_plugin-schemas.md#file-schemasscan-manifestschemajson` |
-| `schemas/tools/candidate-attack-paths.schema.json` | `references/_plugin-schemas.md#file-schemastoolscandidate-attack-pathsschemajson` |
-| `schemas/tools/candidate-validations.schema.json` | `references/_plugin-schemas.md#file-schemastoolscandidate-validationsschemajson` |
-| `schemas/tools/discovery-candidates.schema.json` | `references/_plugin-schemas.md#file-schemastoolsdiscovery-candidatesschemajson` |
-| `schemas/tools/review-items.schema.json` | `references/_plugin-schemas.md#file-schemastoolsreview-itemsschemajson` |
-| `schemas/tools/scan-draft.schema.json` | `references/_plugin-schemas.md#file-schemastoolsscan-draftschemajson` |
-| `scripts/check_deep_scan_target.py` | `references/_plugin-scripts-part01.md#file-scriptscheck_deep_scan_targetpy` |
-| `scripts/codex_profile.mjs` | `references/_plugin-scripts-part01.md#file-scriptscodex_profilemjs` |
-| `scripts/codex_session.mjs` | `references/_plugin-scripts-part01.md#file-scriptscodex_sessionmjs` |
-| `scripts/deep_scan_config.py` | `references/_plugin-scripts-part01.md#file-scriptsdeep_scan_configpy` |
-| `scripts/deep_scan_defaults.json` | `references/_plugin-scripts-part01.md#file-scriptsdeep_scan_defaultsjson` |
-| `scripts/deep_scan_workbench.py` | `references/_plugin-scripts-part01.md#file-scriptsdeep_scan_workbenchpy` |
-| `scripts/dispatch_inventory_tool` | `references/_plugin-scripts-part01.md#file-scriptsdispatch_inventory_tool` |
-| `scripts/filesystem_identity.py` | `references/_plugin-scripts-part01.md#file-scriptsfilesystem_identitypy` |
-| `scripts/finalize_scan_contract.py` | `references/_plugin-scripts-part01.md#file-scriptsfinalize_scan_contractpy` |
-| `scripts/finding_preview.py` | `references/_plugin-scripts-part01.md#file-scriptsfinding_previewpy` |
-| `scripts/launch_codex_security_mcp` | `references/_plugin-scripts-part01.md#file-scriptslaunch_codex_security_mcp` |
-| `scripts/launch_codex_security_mcp.cmd` | `references/_plugin-scripts-part01.md#file-scriptslaunch_codex_security_mcpcmd` |
-| `scripts/legacy_findings.py` | `references/_plugin-scripts-part01.md#file-scriptslegacy_findingspy` |
-| `scripts/posix_scan_local_files.py` | `references/_plugin-scripts-part01.md#file-scriptsposix_scan_local_filespy` |
-| `scripts/read_codex_session.mjs` | `references/_plugin-scripts-part01.md#file-scriptsread_codex_sessionmjs` |
-| `scripts/report_projection.py` | `references/_plugin-scripts-part01.md#file-scriptsreport_projectionpy` |
-| `scripts/reserved_artifact_paths.json` | `references/_plugin-scripts-part01.md#file-scriptsreserved_artifact_pathsjson` |
-| `scripts/review_state.py` | `references/_plugin-scripts-part01.md#file-scriptsreview_statepy` |
-| `scripts/servicenow_avit.py` | `references/_plugin-scripts-part01.md#file-scriptsservicenow_avitpy` |
-| `scripts/snapshot_sqlite.py` | `references/_plugin-scripts-part01.md#file-scriptssnapshot_sqlitepy` |
-| `scripts/threat_model_projection.py` | `references/_plugin-scripts-part01.md#file-scriptsthreat_model_projectionpy` |
-| `scripts/validate_scan_contract.py` | `references/_plugin-scripts-part01.md#file-scriptsvalidate_scan_contractpy` |
-| `scripts/windows_scan_local_files.py` | `references/_plugin-scripts-part01.md#file-scriptswindows_scan_local_filespy` |
-| `scripts/workbench_cli.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_clipy` |
-| `scripts/workbench_constants.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_constantspy` |
-| `scripts/workbench_coverage_receipts.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_coverage_receiptspy` |
-| `scripts/workbench_db.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_dbpy` |
-| `scripts/workbench_feedback.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_feedbackpy` |
-| `scripts/workbench_finding_index.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_finding_indexpy` |
-| `scripts/workbench_finding_workflows.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_finding_workflowspy` |
-| `scripts/workbench_native_indexes.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_native_indexespy` |
-| `scripts/workbench_progress.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_progresspy` |
-| `scripts/workbench_publication.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_publicationpy` |
-| `scripts/workbench_remediation.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_remediationpy` |
-| `scripts/workbench_saved_results.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_saved_resultspy` |
-| `scripts/workbench_scan_history.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbench_scan_historypy` |
-| `scripts/workbench_scan_start.py` | `references/_plugin-scripts-part03.md#file-scriptsworkbench_scan_startpy` |
-| `scripts/workbench_scan_usage.py` | `references/_plugin-scripts-part03.md#file-scriptsworkbench_scan_usagepy` |
-| `scripts/workbench_schema.py` | `references/_plugin-scripts-part03.md#file-scriptsworkbench_schemapy` |
-| `scripts/workbench_setup.py` | `references/_plugin-scripts-part03.md#file-scriptsworkbench_setuppy` |
-| `scripts/workbench_source_excerpt.py` | `references/_plugin-scripts-part03.md#file-scriptsworkbench_source_excerptpy` |
-| `scripts/workbench_source_scopes.py` | `references/_plugin-scripts-part03.md#file-scriptsworkbench_source_scopespy` |
-| `scripts/workbench_target_state.py` | `references/_plugin-scripts-part03.md#file-scriptsworkbench_target_statepy` |
-| `scripts/workbench_target.py` | `references/_plugin-scripts-part03.md#file-scriptsworkbench_targetpy` |
-| `scripts/workbench_validation.py` | `references/_plugin-scripts-part03.md#file-scriptsworkbench_validationpy` |
-| `scripts/workbench/__init__.py` | `references/_plugin-scripts-part01.md#file-scriptsworkbench__init__py` |
-| `scripts/workbench/handoff.py` | `references/_plugin-scripts-part01.md#file-scriptsworkbenchhandoffpy` |
-| `scripts/workbench/retained_coverage.py` | `references/_plugin-scripts-part01.md#file-scriptsworkbenchretained_coveragepy` |
-| `scripts/workbench/retained_records.py` | `references/_plugin-scripts-part01.md#file-scriptsworkbenchretained_recordspy` |
-| `scripts/workbench/runtime_toml.py` | `references/_plugin-scripts-part01.md#file-scriptsworkbenchruntime_tomlpy` |
-| `scripts/workbench/saved_coverage.py` | `references/_plugin-scripts-part01.md#file-scriptsworkbenchsaved_coveragepy` |
-| `scripts/workbench/saved_outputs.py` | `references/_plugin-scripts-part01.md#file-scriptsworkbenchsaved_outputspy` |
-| `scripts/workbench/saved_sources.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbenchsaved_sourcespy` |
-| `scripts/workbench/storage.py` | `references/_plugin-scripts-part02.md#file-scriptsworkbenchstoragepy` |
-| `shared/workbench-history-repairs.json` | `references/_plugin-shared.md#file-sharedworkbench-history-repairsjson` |
-| `shared/workbench-migrations.json` | `references/_plugin-shared.md#file-sharedworkbench-migrationsjson` |
+| `schemas/coverage.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemascoverageschemajson` |
+| `schemas/definitions/artifact-common.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemasdefinitionsartifact-commonschemajson` |
+| `schemas/definitions/discovery-candidate.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemasdefinitionsdiscovery-candidateschemajson` |
+| `schemas/findings.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemasfindingsschemajson` |
+| `schemas/patch-risk-assessment.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemaspatch-risk-assessmentschemajson` |
+| `schemas/scan-manifest.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemasscan-manifestschemajson` |
+| `schemas/tools/candidate-attack-paths.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemastoolscandidate-attack-pathsschemajson` |
+| `schemas/tools/candidate-validations.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemastoolscandidate-validationsschemajson` |
+| `schemas/tools/discovery-candidates.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemastoolsdiscovery-candidatesschemajson` |
+| `schemas/tools/review-items.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemastoolsreview-itemsschemajson` |
+| `schemas/tools/scan-draft.schema.json` | companion `codex-security-source`: `references/_plugin-schemas.md#file-schemastoolsscan-draftschemajson` |
+| `scripts/check_deep_scan_target.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptscheck_deep_scan_targetpy` |
+| `scripts/codex_profile.mjs` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptscodex_profilemjs` |
+| `scripts/codex_session.mjs` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptscodex_sessionmjs` |
+| `scripts/deep_scan_config.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsdeep_scan_configpy` |
+| `scripts/deep_scan_defaults.json` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsdeep_scan_defaultsjson` |
+| `scripts/deep_scan_workbench.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsdeep_scan_workbenchpy` |
+| `scripts/dispatch_inventory_tool` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsdispatch_inventory_tool` |
+| `scripts/filesystem_identity.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsfilesystem_identitypy` |
+| `scripts/finalize_scan_contract.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsfinalize_scan_contractpy` |
+| `scripts/finding_preview.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsfinding_previewpy` |
+| `scripts/launch_codex_security_mcp` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptslaunch_codex_security_mcp` |
+| `scripts/launch_codex_security_mcp.cmd` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptslaunch_codex_security_mcpcmd` |
+| `scripts/legacy_findings.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptslegacy_findingspy` |
+| `scripts/posix_scan_local_files.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsposix_scan_local_filespy` |
+| `scripts/read_codex_session.mjs` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsread_codex_sessionmjs` |
+| `scripts/report_projection.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsreport_projectionpy` |
+| `scripts/reserved_artifact_paths.json` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsreserved_artifact_pathsjson` |
+| `scripts/review_state.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsreview_statepy` |
+| `scripts/servicenow_avit.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsservicenow_avitpy` |
+| `scripts/snapshot_sqlite.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptssnapshot_sqlitepy` |
+| `scripts/threat_model_projection.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsthreat_model_projectionpy` |
+| `scripts/validate_scan_contract.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsvalidate_scan_contractpy` |
+| `scripts/windows_scan_local_files.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptswindows_scan_local_filespy` |
+| `scripts/workbench_cli.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_clipy` |
+| `scripts/workbench_constants.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_constantspy` |
+| `scripts/workbench_coverage_receipts.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_coverage_receiptspy` |
+| `scripts/workbench_db.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_dbpy` |
+| `scripts/workbench_feedback.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_feedbackpy` |
+| `scripts/workbench_finding_index.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_finding_indexpy` |
+| `scripts/workbench_finding_workflows.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_finding_workflowspy` |
+| `scripts/workbench_native_indexes.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_native_indexespy` |
+| `scripts/workbench_progress.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_progresspy` |
+| `scripts/workbench_publication.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_publicationpy` |
+| `scripts/workbench_remediation.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_remediationpy` |
+| `scripts/workbench_saved_results.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_saved_resultspy` |
+| `scripts/workbench_scan_history.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbench_scan_historypy` |
+| `scripts/workbench_scan_start.py` | companion `codex-security-source`: `references/_plugin-scripts-part03.md#file-scriptsworkbench_scan_startpy` |
+| `scripts/workbench_scan_usage.py` | companion `codex-security-source`: `references/_plugin-scripts-part03.md#file-scriptsworkbench_scan_usagepy` |
+| `scripts/workbench_schema.py` | companion `codex-security-source`: `references/_plugin-scripts-part03.md#file-scriptsworkbench_schemapy` |
+| `scripts/workbench_setup.py` | companion `codex-security-source`: `references/_plugin-scripts-part03.md#file-scriptsworkbench_setuppy` |
+| `scripts/workbench_source_excerpt.py` | companion `codex-security-source`: `references/_plugin-scripts-part03.md#file-scriptsworkbench_source_excerptpy` |
+| `scripts/workbench_source_scopes.py` | companion `codex-security-source`: `references/_plugin-scripts-part03.md#file-scriptsworkbench_source_scopespy` |
+| `scripts/workbench_target_state.py` | companion `codex-security-source`: `references/_plugin-scripts-part03.md#file-scriptsworkbench_target_statepy` |
+| `scripts/workbench_target.py` | companion `codex-security-source`: `references/_plugin-scripts-part03.md#file-scriptsworkbench_targetpy` |
+| `scripts/workbench_validation.py` | companion `codex-security-source`: `references/_plugin-scripts-part03.md#file-scriptsworkbench_validationpy` |
+| `scripts/workbench/__init__.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsworkbench__init__py` |
+| `scripts/workbench/handoff.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsworkbenchhandoffpy` |
+| `scripts/workbench/retained_coverage.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsworkbenchretained_coveragepy` |
+| `scripts/workbench/retained_records.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsworkbenchretained_recordspy` |
+| `scripts/workbench/runtime_toml.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsworkbenchruntime_tomlpy` |
+| `scripts/workbench/saved_coverage.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsworkbenchsaved_coveragepy` |
+| `scripts/workbench/saved_outputs.py` | companion `codex-security-source`: `references/_plugin-scripts-part01.md#file-scriptsworkbenchsaved_outputspy` |
+| `scripts/workbench/saved_sources.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbenchsaved_sourcespy` |
+| `scripts/workbench/storage.py` | companion `codex-security-source`: `references/_plugin-scripts-part02.md#file-scriptsworkbenchstoragepy` |
+| `shared/workbench-history-repairs.json` | companion `codex-security-source`: `references/_plugin-shared.md#file-sharedworkbench-history-repairsjson` |
+| `shared/workbench-migrations.json` | companion `codex-security-source`: `references/_plugin-shared.md#file-sharedworkbench-migrationsjson` |
 | `skills/assess-patch-risk` | `references/assess-patch-risk.md` |
 | `skills/assess-patch-risk/agents/openai.yaml` | `references/assess-patch-risk.md#file-agentsopenaiyaml` |
 | `skills/assess-patch-risk/references/risk-rubric.md` | `references/assess-patch-risk.md#file-referencesrisk-rubricmd` |

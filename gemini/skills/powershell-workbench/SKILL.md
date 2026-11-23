@@ -17,6 +17,7 @@ Generate reusable PowerShell artifacts, discover and refactor single or multi-pr
 4. Treat the original instructions as authoritative. Where they mention Codex- or Claude-only tools, use the closest Gemini capability or tell the user what to run.
 5. When you propose a change to this plugin, name the original repository path (shown in each reference) so it can be applied in PluginMarketplace.
 6. Instructions sometimes name another file by its original path (for example `../../shared/x.md` or `references/y.md`). Those paths do not exist in this upload: resolve them against the `Source:`/`File:` path of the text you are reading and look them up in `references/_index.md`, which says which reference file and section holds the content.
+7. This plugin is large, so its code-only plugin files (scripts, assets, tests) are in the companion skill `powershell-workbench-source`. When the index or a link points there and that skill is not available, ask the user to upload `gemini/skills/powershell-workbench-source/` or to paste the file.
 
 ## Sub-skills
 
@@ -67,6 +68,11 @@ Generate reusable PowerShell artifacts, discover and refactor single or multi-pr
 Manifests, hooks, top-level scripts, tests and docs (outside `skills/`):
 
 - `references/_plugin.md`
+- `references/_plugin-codex-plugin.md`
+- `references/_index.md`
+
+## In the companion skill `powershell-workbench-source`
+
 - `references/_plugin-assets-part01.md`
 - `references/_plugin-assets-part02.md`
 - `references/_plugin-assets-part03.md`
@@ -79,8 +85,6 @@ Manifests, hooks, top-level scripts, tests and docs (outside `skills/`):
 - `references/_plugin-assets-part10.md`
 - `references/_plugin-assets-part11.md`
 - `references/_plugin-assets-part12.md`
-- `references/_plugin-codex-plugin.md`
 - `references/_plugin-scripts-part01.md`
 - `references/_plugin-scripts-part02.md`
 - `references/_plugin-tests.md`
-- `references/_index.md`

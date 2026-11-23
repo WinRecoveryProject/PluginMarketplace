@@ -1,6 +1,6 @@
 # Skill: new-project
 
-- Plugin: `codex-dev-workflows` (0.4.2)
+- Plugin: `codex-dev-workflows` (0.4.2-wrp.2)
 - Source: `plugins/codex-dev-workflows/skills/new-project/SKILL.md`
 
 > Turn a new software idea into a scoped, buildable project plan before implementation begins.

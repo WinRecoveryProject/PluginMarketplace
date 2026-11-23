@@ -28,7 +28,7 @@ git pull
 
 Scriptet lægger mapperne i `Skrivebord\gemini-skills\`. Upload derefter én mappe ad gangen i Gemini. Brug `-All` for at tage alle med, `-Zip` for at få zip-filer, og `-SkipBuild` hvis Node.js ikke er installeret. I så fald bruges de mapper, der allerede er committet.
 
-**Anbefalet rækkefølge:** Start med `plugin-marketplace`, så Gemini kender hele kataloget. Tilføj derefter de plugins, du bruger mest. Store pakker som `powershell-workbench`, `vercel`, `plugin-skill-studio` og `codex-security` fylder 1–3 MB. Upload dem kun, hvis du har brug for dem.
+**Anbefalet rækkefølge:** Start med `plugin-marketplace`, så Gemini kender hele kataloget. Tilføj derefter de plugins, du bruger mest. Store plugins er delt i to: hovedfærdigheden med vejledning, sub-skills og stiindeks, og en `<plugin>-source`-færdighed med de filer, der kun er kode (scripts, assets og tests). Det gælder i dag `powershell-workbench`, `plugin-skill-studio` og `codex-security`. Upload hovedfærdigheden først, og `-source` kun hvis du vil have Gemini til at læse selve koden. `vercel` fylder stadig cirka 2 MB, fordi den består af 66 skills med vejledning.
 
 ## Når et plugin ændres
 

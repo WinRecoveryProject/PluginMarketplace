@@ -55,7 +55,7 @@ The label is advisory. It never grants permission to merge or overrides reposito
 
 #### Output
 
-Return both a concise Markdown report and a JSON object conforming to [`../../schemas/patch-risk-assessment.schema.json`](_plugin-schemas.md#file-schemaspatch-risk-assessmentschemajson). Include:
+Return both a concise Markdown report and a JSON object conforming to [`../../schemas/patch-risk-assessment.schema.json`](../../codex-security-source/references/_plugin-schemas.md#file-schemaspatch-risk-assessmentschemajson). Include:
 
 1. exact patch identity and analyzed base;
 2. recommendation and workflow label;

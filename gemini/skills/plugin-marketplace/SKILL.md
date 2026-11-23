@@ -27,10 +27,10 @@ codex plugin add <plugin>@winrecoveryproject-digital
 | Plugin | Version | Skills | Purpose |
 | --- | --- | --- | --- |
 | `agentmemory-asus` | `1.0.0` | 1 | Use the existing AgentMemory-ASUS App for scoped memory lookup, diagnostics and user-authorized memory changes. |
-| `cloudstorage-portal` | `0.9.14` | 16 | Coordinate Dropbox, Google Drive and OneDrive through existing authorized App or MCP connections and a unified skill layer. |
+| `cloudstorage-portal` | `0.9.15` | 16 | Coordinate Dropbox, Google Drive and OneDrive through existing authorized App or MCP connections and a unified skill layer. |
 | `coderabbit` | `1.1.7-wrp.1` | 1 | AI-powered code review in Codex, powered by CodeRabbit. |
 | `codex-coordinator` | `0.4.0` | 1 | Coordinate parallel Codex tasks in one shared checkout with a small active-only boundary board. |
-| `codex-dev-workflows` | `0.4.2` | 12 | Reusable software-development workflows and platform guidance for Codex. |
+| `codex-dev-workflows` | `0.4.2-wrp.2` | 12 | Standalone software-development workflows and platform guidance. For WinRecoveryProject work, prefer winrecoveryproject-devsuite, which integrates these workflows with verification gates. |
 | `codex-engineering-guardrails` | `1.1.1` | 2 | Skills-only bundle for scoped software implementation and independent code verification in Codex. |
 | `codex-process-jobs` | `0.5.3-wrp.2` | 6 | Launch and manage durable, detached local process jobs from Codex. |
 | `codex-security` | `0.1.33` from upstream; this export: snapshot `0.1.33` | 20 | Codex Security workflows for security scans, analysis, and investigation. |
@@ -38,7 +38,7 @@ codex plugin add <plugin>@winrecoveryproject-digital
 | `onedrive` | `1.2.2` | 2 | OneDrive files through the existing registered App and its hosted CloudStorage Portal MCP connection. |
 | `plugin-skill-studio` | `0.7.0` | 57 | Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate. |
 | `powershell-workbench` | `0.9.0-beta.7` | 33 | Portable PowerShell and mixed-language scaffolding, refactoring, discovery, agent harnesses, game tooling, and opt-in quality workflows. |
-| `vercel` | `0.56.0-wrp.2` | 66 | Build and deploy web apps and agents |
+| `vercel` | `0.56.0-wrp.3` | 66 | Build and deploy web apps and agents |
 | `windows-dism-update-docs` | `0.1.4` | 1 | Local Windows servicing knowledge assistant for DISM, .NET, Defender, ESU and Home/Pro integration evidence. |
 | `winrecoveryproject-devsuite` | `0.5.0` | 13 | One development toolkit for planning, coding, security, testing, local processes and registered Codex tasks. |
 | `winrecoveryproject-linter` | `0.1.6` | 2 | Local read-only linting for selected source types with visible coverage, pinned tools and no paid services. |

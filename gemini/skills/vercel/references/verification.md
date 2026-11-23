@@ -1,6 +1,6 @@
 # Skill: verification
 
-- Plugin: `vercel` (0.56.0-wrp.2)
+- Plugin: `vercel` (0.56.0-wrp.3)
 - Source: `plugins/vercel/skills/verification/SKILL.md`
 
 > Use when verifying a Vercel application end to end across the browser, API, data and response, or when diagnosing a failing user flow.

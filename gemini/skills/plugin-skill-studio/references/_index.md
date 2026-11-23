@@ -6,12 +6,12 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | --- | --- |
 | `.codex-plugin/plugin.json` | `references/_plugin-codex-plugin.md#file-codex-pluginpluginjson` |
 | `AGENTS.md` | `references/_plugin.md#file-agentsmd` |
-| `assets/composer-128.png` | `references/_plugin-assets.md#file-assetscomposer-128png` |
-| `assets/favicon.ico` | `references/_plugin-assets.md#file-assetsfaviconico` |
-| `assets/icon-small-64.png` | `references/_plugin-assets.md#file-assetsicon-small-64png` |
-| `assets/logo-512.png` | `references/_plugin-assets.md#file-assetslogo-512png` |
-| `assets/plugin-skill-studio.svg` | `references/_plugin-assets.md#file-assetsplugin-skill-studiosvg` |
-| `assets/plugin-studio.svg` | `references/_plugin-assets.md#file-assetsplugin-studiosvg` |
+| `assets/composer-128.png` | companion `plugin-skill-studio-source`: `references/_plugin-assets.md#file-assetscomposer-128png` |
+| `assets/favicon.ico` | companion `plugin-skill-studio-source`: `references/_plugin-assets.md#file-assetsfaviconico` |
+| `assets/icon-small-64.png` | companion `plugin-skill-studio-source`: `references/_plugin-assets.md#file-assetsicon-small-64png` |
+| `assets/logo-512.png` | companion `plugin-skill-studio-source`: `references/_plugin-assets.md#file-assetslogo-512png` |
+| `assets/plugin-skill-studio.svg` | companion `plugin-skill-studio-source`: `references/_plugin-assets.md#file-assetsplugin-skill-studiosvg` |
+| `assets/plugin-studio.svg` | companion `plugin-skill-studio-source`: `references/_plugin-assets.md#file-assetsplugin-studiosvg` |
 | `CHANGELOG.md` | `references/_plugin.md#file-changelogmd` |
 | `fixtures/eval/fake-codex.mjs` | `references/_plugin-fixtures.md#file-fixturesevalfake-codexmjs` |
 | `fixtures/plugin-eval/coverage-samples/coverage-final.json` | `references/_plugin-fixtures.md#file-fixturesplugin-evalcoverage-samplescoverage-finaljson` |
@@ -118,12 +118,12 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/windows-desktop.md` | `references/_plugin-references.md#file-referenceswindows-desktopmd` |
 | `references/windows-process-execution.md` | `references/_plugin-references.md#file-referenceswindows-process-executionmd` |
 | `references/zilvereyes-plugin-autopilot-LICENSE.txt` | `references/_plugin-references.md#file-referenceszilvereyes-plugin-autopilot-licensetxt` |
-| `schemas/services-risk.schema.json` | `references/_plugin-schemas.md#file-schemasservices-riskschemajson` |
-| `scripts/plugin-eval.js` | `references/_plugin-scripts.md#file-scriptsplugin-evaljs` |
-| `scripts/plugin-studio.mjs` | `references/_plugin-scripts.md#file-scriptsplugin-studiomjs` |
-| `scripts/skill-studio.mjs` | `references/_plugin-scripts.md#file-scriptsskill-studiomjs` |
-| `scripts/studio.mjs` | `references/_plugin-scripts.md#file-scriptsstudiomjs` |
-| `scripts/windows-desktop.ps1` | `references/_plugin-scripts.md#file-scriptswindows-desktopps1` |
+| `schemas/services-risk.schema.json` | companion `plugin-skill-studio-source`: `references/_plugin-schemas.md#file-schemasservices-riskschemajson` |
+| `scripts/plugin-eval.js` | companion `plugin-skill-studio-source`: `references/_plugin-scripts.md#file-scriptsplugin-evaljs` |
+| `scripts/plugin-studio.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-scripts.md#file-scriptsplugin-studiomjs` |
+| `scripts/skill-studio.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-scripts.md#file-scriptsskill-studiomjs` |
+| `scripts/studio.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-scripts.md#file-scriptsstudiomjs` |
+| `scripts/windows-desktop.ps1` | companion `plugin-skill-studio-source`: `references/_plugin-scripts.md#file-scriptswindows-desktopps1` |
 | `skills/ai-data-remediation` | `references/ai-data-remediation.md` |
 | `skills/ai-data-remediation/agents/openai.yaml` | `references/ai-data-remediation.md#file-agentsopenaiyaml` |
 | `skills/ai-data-remediation/assets/wrp-icon-128.png` | `references/ai-data-remediation.md#file-assetswrp-icon-128png` |
@@ -535,40 +535,40 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/writing-shape/assets/wrp-icon-128.png` | `references/writing-shape.md#file-assetswrp-icon-128png` |
 | `skills/writing-shape/assets/wrp-icon-256.png` | `references/writing-shape.md#file-assetswrp-icon-256png` |
 | `skills/writing-shape/SKILL.md` | `references/writing-shape.md` |
-| `src/consolidation/check.mjs` | `references/_plugin-src-part01.md#file-srcconsolidationcheckmjs` |
-| `src/conversion/index.mjs` | `references/_plugin-src-part01.md#file-srcconversionindexmjs` |
-| `src/desktop/index.mjs` | `references/_plugin-src-part01.md#file-srcdesktopindexmjs` |
-| `src/eval/autoresearch.mjs` | `references/_plugin-src-part01.md#file-srcevalautoresearchmjs` |
-| `src/eval/benchmark.mjs` | `references/_plugin-src-part01.md#file-srcevalbenchmarkmjs` |
-| `src/eval/claude.mjs` | `references/_plugin-src-part01.md#file-srcevalclaudemjs` |
-| `src/eval/index.mjs` | `references/_plugin-src-part01.md#file-srcevalindexmjs` |
-| `src/eval/plugin-eval/cli.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalclijs` |
-| `src/eval/plugin-eval/core/analyze.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreanalyzejs` |
-| `src/eval/plugin-eval/core/baseline.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebaselinejs` |
-| `src/eval/plugin-eval/core/benchmark-events.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebenchmark-eventsjs` |
-| `src/eval/plugin-eval/core/benchmark-workspace.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebenchmark-workspacejs` |
-| `src/eval/plugin-eval/core/benchmark.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebenchmarkjs` |
-| `src/eval/plugin-eval/core/budget.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebudgetjs` |
-| `src/eval/plugin-eval/core/compare.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcorecomparejs` |
-| `src/eval/plugin-eval/core/improvement-brief.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreimprovement-briefjs` |
-| `src/eval/plugin-eval/core/measurement-plan.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcoremeasurement-planjs` |
-| `src/eval/plugin-eval/core/metric-packs.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcoremetric-packsjs` |
-| `src/eval/plugin-eval/core/observed-usage.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreobserved-usagejs` |
-| `src/eval/plugin-eval/core/presentation.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcorepresentationjs` |
-| `src/eval/plugin-eval/core/schema.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreschemajs` |
-| `src/eval/plugin-eval/core/scoring.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcorescoringjs` |
-| `src/eval/plugin-eval/core/target.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcoretargetjs` |
-| `src/eval/plugin-eval/core/workflow-guide.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreworkflow-guidejs` |
-| `src/eval/plugin-eval/evaluators/code.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorscodejs` |
-| `src/eval/plugin-eval/evaluators/coverage.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorscoveragejs` |
-| `src/eval/plugin-eval/evaluators/plugin.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorspluginjs` |
-| `src/eval/plugin-eval/evaluators/python.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorspythonjs` |
-| `src/eval/plugin-eval/evaluators/skill.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorsskilljs` |
-| `src/eval/plugin-eval/evaluators/typescript.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorstypescriptjs` |
-| `src/eval/plugin-eval/index.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evalindexjs` |
-| `src/eval/plugin-eval/lib/files.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evallibfilesjs` |
-| `src/eval/plugin-eval/lib/frontmatter.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evallibfrontmatterjs` |
-| `src/eval/plugin-eval/lib/tokens.js` | `references/_plugin-src-part01.md#file-srcevalplugin-evallibtokensjs` |
+| `src/consolidation/check.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcconsolidationcheckmjs` |
+| `src/conversion/index.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcconversionindexmjs` |
+| `src/desktop/index.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcdesktopindexmjs` |
+| `src/eval/autoresearch.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalautoresearchmjs` |
+| `src/eval/benchmark.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalbenchmarkmjs` |
+| `src/eval/claude.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalclaudemjs` |
+| `src/eval/index.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalindexmjs` |
+| `src/eval/plugin-eval/cli.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalclijs` |
+| `src/eval/plugin-eval/core/analyze.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreanalyzejs` |
+| `src/eval/plugin-eval/core/baseline.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebaselinejs` |
+| `src/eval/plugin-eval/core/benchmark-events.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebenchmark-eventsjs` |
+| `src/eval/plugin-eval/core/benchmark-workspace.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebenchmark-workspacejs` |
+| `src/eval/plugin-eval/core/benchmark.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebenchmarkjs` |
+| `src/eval/plugin-eval/core/budget.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcorebudgetjs` |
+| `src/eval/plugin-eval/core/compare.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcorecomparejs` |
+| `src/eval/plugin-eval/core/improvement-brief.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreimprovement-briefjs` |
+| `src/eval/plugin-eval/core/measurement-plan.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcoremeasurement-planjs` |
+| `src/eval/plugin-eval/core/metric-packs.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcoremetric-packsjs` |
+| `src/eval/plugin-eval/core/observed-usage.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreobserved-usagejs` |
+| `src/eval/plugin-eval/core/presentation.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcorepresentationjs` |
+| `src/eval/plugin-eval/core/schema.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreschemajs` |
+| `src/eval/plugin-eval/core/scoring.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcorescoringjs` |
+| `src/eval/plugin-eval/core/target.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcoretargetjs` |
+| `src/eval/plugin-eval/core/workflow-guide.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalcoreworkflow-guidejs` |
+| `src/eval/plugin-eval/evaluators/code.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorscodejs` |
+| `src/eval/plugin-eval/evaluators/coverage.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorscoveragejs` |
+| `src/eval/plugin-eval/evaluators/plugin.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorspluginjs` |
+| `src/eval/plugin-eval/evaluators/python.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorspythonjs` |
+| `src/eval/plugin-eval/evaluators/skill.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorsskilljs` |
+| `src/eval/plugin-eval/evaluators/typescript.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalevaluatorstypescriptjs` |
+| `src/eval/plugin-eval/index.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evalindexjs` |
+| `src/eval/plugin-eval/lib/files.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evallibfilesjs` |
+| `src/eval/plugin-eval/lib/frontmatter.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evallibfrontmatterjs` |
+| `src/eval/plugin-eval/lib/tokens.js` | companion `plugin-skill-studio-source`: `references/_plugin-src-part01.md#file-srcevalplugin-evallibtokensjs` |
 | `src/eval/plugin-eval/renderers/html.js` | `references/_plugin-src-part02.md#file-srcevalplugin-evalrenderershtmljs` |
 | `src/eval/plugin-eval/renderers/index.js` | `references/_plugin-src-part02.md#file-srcevalplugin-evalrenderersindexjs` |
 | `src/eval/plugin-eval/renderers/markdown.js` | `references/_plugin-src-part02.md#file-srcevalplugin-evalrenderersmarkdownjs` |
@@ -586,42 +586,42 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `src/services/risk.mjs` | `references/_plugin-src-part02.md#file-srcservicesriskmjs` |
 | `SUPPORT.md` | `references/_plugin.md#file-supportmd` |
 | `TERMS.md` | `references/_plugin.md#file-termsmd` |
-| `tests/autoresearch.test.mjs` | `references/_plugin-tests.md#file-testsautoresearchtestmjs` |
-| `tests/boundary-language.test.mjs` | `references/_plugin-tests.md#file-testsboundary-languagetestmjs` |
-| `tests/build-text-members.test.mjs` | `references/_plugin-tests.md#file-testsbuild-text-memberstestmjs` |
-| `tests/claude-eval.test.mjs` | `references/_plugin-tests.md#file-testsclaude-evaltestmjs` |
-| `tests/consolidation-triggers.test.mjs` | `references/_plugin-tests.md#file-testsconsolidation-triggerstestmjs` |
-| `tests/consolidation.test.mjs` | `references/_plugin-tests.md#file-testsconsolidationtestmjs` |
-| `tests/conversion.test.mjs` | `references/_plugin-tests.md#file-testsconversiontestmjs` |
-| `tests/desktop-routing.test.mjs` | `references/_plugin-tests.md#file-testsdesktop-routingtestmjs` |
-| `tests/desktop.test.mjs` | `references/_plugin-tests.md#file-testsdesktoptestmjs` |
-| `tests/eval-context.test.mjs` | `references/_plugin-tests.md#file-testseval-contexttestmjs` |
-| `tests/eval.test.mjs` | `references/_plugin-tests.md#file-testsevaltestmjs` |
-| `tests/evaluation-limits.test.mjs` | `references/_plugin-tests.md#file-testsevaluation-limitstestmjs` |
-| `tests/execute-consolidation.test.mjs` | `references/_plugin-tests.md#file-testsexecute-consolidationtestmjs` |
-| `tests/install-review.test.mjs` | `references/_plugin-tests.md#file-testsinstall-reviewtestmjs` |
-| `tests/installed-inventory.test.mjs` | `references/_plugin-tests.md#file-testsinstalled-inventorytestmjs` |
-| `tests/installed-release.test.mjs` | `references/_plugin-tests.md#file-testsinstalled-releasetestmjs` |
-| `tests/installed-resolver.test.mjs` | `references/_plugin-tests.md#file-testsinstalled-resolvertestmjs` |
-| `tests/integration.test.mjs` | `references/_plugin-tests.md#file-testsintegrationtestmjs` |
-| `tests/inventory-versions.test.mjs` | `references/_plugin-tests.md#file-testsinventory-versionstestmjs` |
-| `tests/plan-consolidation.test.mjs` | `references/_plugin-tests.md#file-testsplan-consolidationtestmjs` |
-| `tests/plugin-eval.test.mjs` | `references/_plugin-tests.md#file-testsplugin-evaltestmjs` |
-| `tests/plugin-studio.test.mjs` | `references/_plugin-tests.md#file-testsplugin-studiotestmjs` |
-| `tests/powershell-download-review.test.mjs` | `references/_plugin-tests.md#file-testspowershell-download-reviewtestmjs` |
-| `tests/registry-line-endings.test.mjs` | `references/_plugin-tests.md#file-testsregistry-line-endingstestmjs` |
-| `tests/review-consolidation.test.mjs` | `references/_plugin-tests.md#file-testsreview-consolidationtestmjs` |
-| `tests/services.test.mjs` | `references/_plugin-tests.md#file-testsservicestestmjs` |
-| `tests/test_capture_inventory_versions.py` | `references/_plugin-tests.md#file-teststest_capture_inventory_versionspy` |
-| `tests/test_native_component_inventory.py` | `references/_plugin-tests.md#file-teststest_native_component_inventorypy` |
-| `tests/test_native_vendor_evidence.py` | `references/_plugin-tests.md#file-teststest_native_vendor_evidencepy` |
+| `tests/autoresearch.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsautoresearchtestmjs` |
+| `tests/boundary-language.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsboundary-languagetestmjs` |
+| `tests/build-text-members.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsbuild-text-memberstestmjs` |
+| `tests/claude-eval.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsclaude-evaltestmjs` |
+| `tests/consolidation-triggers.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsconsolidation-triggerstestmjs` |
+| `tests/consolidation.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsconsolidationtestmjs` |
+| `tests/conversion.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsconversiontestmjs` |
+| `tests/desktop-routing.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsdesktop-routingtestmjs` |
+| `tests/desktop.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsdesktoptestmjs` |
+| `tests/eval-context.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testseval-contexttestmjs` |
+| `tests/eval.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsevaltestmjs` |
+| `tests/evaluation-limits.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsevaluation-limitstestmjs` |
+| `tests/execute-consolidation.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsexecute-consolidationtestmjs` |
+| `tests/install-review.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstall-reviewtestmjs` |
+| `tests/installed-inventory.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstalled-inventorytestmjs` |
+| `tests/installed-release.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstalled-releasetestmjs` |
+| `tests/installed-resolver.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinstalled-resolvertestmjs` |
+| `tests/integration.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsintegrationtestmjs` |
+| `tests/inventory-versions.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsinventory-versionstestmjs` |
+| `tests/plan-consolidation.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsplan-consolidationtestmjs` |
+| `tests/plugin-eval.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsplugin-evaltestmjs` |
+| `tests/plugin-studio.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsplugin-studiotestmjs` |
+| `tests/powershell-download-review.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testspowershell-download-reviewtestmjs` |
+| `tests/registry-line-endings.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsregistry-line-endingstestmjs` |
+| `tests/review-consolidation.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsreview-consolidationtestmjs` |
+| `tests/services.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsservicestestmjs` |
+| `tests/test_capture_inventory_versions.py` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-teststest_capture_inventory_versionspy` |
+| `tests/test_native_component_inventory.py` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-teststest_native_component_inventorypy` |
+| `tests/test_native_vendor_evidence.py` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-teststest_native_vendor_evidencepy` |
 | `THIRD_PARTY_NOTICES.md` | `references/_plugin.md#file-third_party_noticesmd` |
-| `tools/capture-inventory-versions.py` | `references/_plugin-tools.md#file-toolscapture-inventory-versionspy` |
-| `tools/matt/package_plugin.py` | `references/_plugin-tools.md#file-toolsmattpackage_pluginpy` |
-| `tools/matt/route_skill.py` | `references/_plugin-tools.md#file-toolsmattroute_skillpy` |
-| `tools/matt/test_git_safety_guardrails.py` | `references/_plugin-tools.md#file-toolsmatttest_git_safety_guardrailspy` |
-| `tools/matt/test_wizard_template.py` | `references/_plugin-tools.md#file-toolsmatttest_wizard_templatepy` |
-| `tools/matt/validate_plugin.py` | `references/_plugin-tools.md#file-toolsmattvalidate_pluginpy` |
-| `tools/native_component_inventory.py` | `references/_plugin-tools.md#file-toolsnative_component_inventorypy` |
-| `tools/native_vendor_evidence.py` | `references/_plugin-tools.md#file-toolsnative_vendor_evidencepy` |
-| `tools/package.py` | `references/_plugin-tools.md#file-toolspackagepy` |
+| `tools/capture-inventory-versions.py` | companion `plugin-skill-studio-source`: `references/_plugin-tools.md#file-toolscapture-inventory-versionspy` |
+| `tools/matt/package_plugin.py` | companion `plugin-skill-studio-source`: `references/_plugin-tools.md#file-toolsmattpackage_pluginpy` |
+| `tools/matt/route_skill.py` | companion `plugin-skill-studio-source`: `references/_plugin-tools.md#file-toolsmattroute_skillpy` |
+| `tools/matt/test_git_safety_guardrails.py` | companion `plugin-skill-studio-source`: `references/_plugin-tools.md#file-toolsmatttest_git_safety_guardrailspy` |
+| `tools/matt/test_wizard_template.py` | companion `plugin-skill-studio-source`: `references/_plugin-tools.md#file-toolsmatttest_wizard_templatepy` |
+| `tools/matt/validate_plugin.py` | companion `plugin-skill-studio-source`: `references/_plugin-tools.md#file-toolsmattvalidate_pluginpy` |
+| `tools/native_component_inventory.py` | companion `plugin-skill-studio-source`: `references/_plugin-tools.md#file-toolsnative_component_inventorypy` |
+| `tools/native_vendor_evidence.py` | companion `plugin-skill-studio-source`: `references/_plugin-tools.md#file-toolsnative_vendor_evidencepy` |
+| `tools/package.py` | companion `plugin-skill-studio-source`: `references/_plugin-tools.md#file-toolspackagepy` |

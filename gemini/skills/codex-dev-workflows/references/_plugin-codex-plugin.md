@@ -17,7 +17,7 @@ _Binary asset, not embedded._
   "author": {
     "name": "Codex Dev Workflows contributors"
   },
-  "description": "Reusable software-development workflows and platform guidance for Codex.",
+  "description": "Standalone software-development workflows and platform guidance. For WinRecoveryProject work, prefer winrecoveryproject-devsuite, which integrates these workflows with verification gates.",
   "homepage": "https://github.com/srajpal/codex-dev-workflows",
   "interface": {
     "brandColor": "#0B1220",
@@ -33,7 +33,7 @@ _Binary asset, not embedded._
     "developerName": "SUNNY RAJPAL",
     "displayName": "Codex Dev Workflows",
     "logo": "./.codex-plugin/assets/logo.png",
-    "longDescription": "A skills-only library for planning, orchestration, feature work, testing, comprehensive QA, debugging, review, release readiness, and handoffs.",
+    "longDescription": "A skills-only library for planning, orchestration, feature work, testing, comprehensive QA, debugging, review, release readiness, and handoffs. WinRecoveryProject DevSuite builds on these workflows and adds integrated planning, review and verification; use DevSuite when it is installed and these skills for a lightweight, standalone pass.",
     "privacyPolicyURL": "https://github.com/srajpal/codex-dev-workflows/blob/master/PRIVACY.md",
     "shortDescription": "Reusable developer workflows",
     "supportURL": "https://github.com/srajpal/codex-dev-workflows/blob/master/SUPPORT.md",
@@ -52,6 +52,6 @@ _Binary asset, not embedded._
   "name": "codex-dev-workflows",
   "repository": "https://github.com/srajpal/codex-dev-workflows",
   "skills": "./skills/",
-  "version": "0.4.2"
+  "version": "0.4.2-wrp.2"
 }
 ```

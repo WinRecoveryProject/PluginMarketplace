@@ -36,7 +36,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Plugin | Git-pakkens version ved kontrol | Installation |
 | --- | --- | --- |
 | OneDrive | `1.2.2` | `codex plugin add onedrive@winrecoveryproject-digital` |
-| CloudStorage Portal | `0.9.14` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
+| CloudStorage Portal | `0.9.15` | `codex plugin add cloudstorage-portal@winrecoveryproject-digital` |
 | Component Forge | `0.1.3` | `codex plugin add component-forge@winrecoveryproject-digital` |
 | Plugin-Skill-Studio | `0.7.0` | `codex plugin add plugin-skill-studio@winrecoveryproject-digital` |
 | PowerShell Workbench | `0.9.0-beta.7` | `codex plugin add powershell-workbench@winrecoveryproject-digital` |
@@ -44,7 +44,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | Codex Security | `0.1.33` | `codex plugin add codex-security@winrecoveryproject-digital` |
 | Linear | `5.0.1` | `codex plugin add linear@winrecoveryproject-digital` |
 | Codex Coordinator | `0.4.0` | `codex plugin add codex-coordinator@winrecoveryproject-digital` |
-| Codex Dev Workflows | `0.4.2` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
+| Codex Dev Workflows | `0.4.2-wrp.2` | `codex plugin add codex-dev-workflows@winrecoveryproject-digital` |
 | Codex Engineering Guardrails | `1.1.1` | `codex plugin add codex-engineering-guardrails@winrecoveryproject-digital` |
 | Codex Process Jobs | `0.5.3-wrp.2` | `codex plugin add codex-process-jobs@winrecoveryproject-digital` |
 | Zilvereyes Context Handoff | `0.3.5+zilvereyes.1` | `codex plugin add zilvereyes-context-handoff@winrecoveryproject-digital` |
@@ -52,7 +52,7 @@ codex plugin marketplace add WinRecoveryProject/PluginMarketplace
 | WinRecoveryProject DevSuite | `0.5.0` | `codex plugin add winrecoveryproject-devsuite@winrecoveryproject-digital` |
 | CodeRabbit | `1.1.7-wrp.1` | `codex plugin add coderabbit@winrecoveryproject-digital` |
 | SharePoint | `0.1.7` | `codex plugin add sharepoint@winrecoveryproject-digital` |
-| Vercel | `0.56.0-wrp.2` | `codex plugin add vercel@winrecoveryproject-digital` |
+| Vercel | `0.56.0-wrp.3` | `codex plugin add vercel@winrecoveryproject-digital` |
 | GitHub | `0.1.12` | `codex plugin add github@winrecoveryproject-digital` |
 | Google Drive | `0.1.15` | `codex plugin add google-drive@winrecoveryproject-digital` |
 | OpenAI Developers | `1.2.3` | `codex plugin add openai-developers@winrecoveryproject-digital` |
@@ -91,7 +91,7 @@ De 16 pakker, der ligger i dette repository, indlæses via relative stier i det 
 
 Claude Desktop og Claude Code kan bruge samme GitHub-repository. Claude-kataloget viser de lokale plugins, der kan indlæses uden Codex’ App-forbindelser. Brug `WinRecoveryProject/PluginMarketplace` i Claude Desktop eller kør `claude plugin marketplace add WinRecoveryProject/PluginMarketplace` i Claude Code.
 
-Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. Codex Process Jobs er bevidst kun i Codex-kataloget: den bygger på Codex' kørsel og afsluttende meddelelser. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
+Kataloget omfatter også Codex Dev Workflows, Codex Engineering Guardrails og CodeRabbit. CloudStorage Portal har sin egen Claude-pakke i `claude-plugins/cloudstorage-portal`, bygget fra CloudStorage-Portal-repoets `claude/` med `scripts/build-claude-package.mjs`. Den bruger de Dropbox- og Google-connectors, der allerede er godkendt i Claude, og OneDrive-pluginnets skrivebeskyttede MCP. Codex Process Jobs er bevidst kun i Codex-kataloget: den bygger på Codex' kørsel og afsluttende meddelelser. CodeRabbit kræver sin egen fungerende CLI og forbindelse. Git-kilder med Codex-specifikke Apps, hooks eller værktøjer kræver en Claude-integration, før de kan levere de funktioner dér.
 
 WinRecoveryProject DevSuite 0.5.0 tilbyder seks lokale arbejdsgange og en startguide i Claude; `devsuite-review` samler kodegennemgang, verifikation og kvalitetskontrol, `devsuite-planning` samler opdagelse, interview, spec, plan, tickets, spørgeskemaer, mål og kortlægning, og `devsuite-implement` samler planudførelse, subagenter, implementering, parallelle agenter og varigt arbejde. Installér via `claude plugin install winrecoveryproject-devsuite@winrecoveryproject-digital`. Codex-forbundne arbejdsgange bruger fortsat deres eksisterende plugin og App-forbindelser. [Kilde og testvejledning](https://github.com/WinRecoveryProject/WinRecoveryProject-DevSuite/tree/main/editors/claude)
 
