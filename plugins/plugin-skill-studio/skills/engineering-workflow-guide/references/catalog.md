@@ -21,7 +21,7 @@ Use one primary skill by default. Add another only for a distinct phase.
 - `studio-execute` (spec-run mode): Use when a specification with associated task-graph tickets is ready to implement across multiple subagents or isolated branches, and the goal is a complete pull request on a single branch.
 - `tdd`: Use when implementing a feature or fixing a bug test-first with a red-green cycle, or when the task needs durable integration-style tests around public behavior.
 - `studio-review` (code mode): Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes - Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
-- `diagnosing-bugs`: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
+- `studio-debug` (loop mode): Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
 - `studio-git` (conflicts mode): Use when you need to resolve an in-progress git merge/rebase conflict.
 - `migrate-to-shoehorn`: Use when TypeScript tests rely on unsafe `as` or `as unknown as` assertions for fixtures and the user wants to migrate those test-only values to `@total-typescript/shoehorn` with explicit intent.
 
@@ -49,7 +49,7 @@ Use one primary skill by default. Add another only for a distinct phase.
 - `setup-engineering-workflows`: Use when repository workflows need explicit issue-tracker, triage-label, domain-document, or agent-instruction conventions before planning, triage, wayfinding, or ticket work can run reliably.
 - `setup-pre-commit`: Use when a JavaScript or TypeScript repository needs reliable pre-commit quality checks with Husky and lint-staged, while preserving the repository's package manager, formatter, existing hooks, and test/typecheck conventions.
 - `studio-git` (safety mode): Use when a repository needs explicit safeguards around destructive or irreversible Git operations, especially force pushes, hard resets, cleans, destructive restores, branch deletion, or history rewrites.
-- `triage`: Use when repository issues or external contribution requests need classification, verification, missing-information follow-up, rejection handling, or a durable agent-ready implementation brief.
+- `studio-debug` (triage mode): Use when repository issues or external contribution requests need classification, verification, missing-information follow-up, rejection handling, or a durable agent-ready implementation brief.
 - `wizard`: Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself.
 
 ## Continuity and communication

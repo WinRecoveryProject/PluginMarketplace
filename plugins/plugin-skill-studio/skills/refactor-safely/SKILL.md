@@ -8,7 +8,7 @@ Read [Studio policy](../../references/studio-policy.md) before this adapted work
 
 # Refactor Safely
 
-Change how code reads without changing what it does, and land changes in untested code without breaking callers nobody can enumerate. solve-efficiently decides what to build; this skill governs how existing code is reshaped. Bug hunting belongs to diagnose-systematically.
+Change how code reads without changing what it does, and land changes in untested code without breaking callers nobody can enumerate. solve-efficiently decides what to build; this skill governs how existing code is reshaped. Bug hunting belongs to `studio-debug` (diagnose mode).
 
 ## The non-negotiable rule
 

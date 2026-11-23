@@ -22,13 +22,13 @@ This matrix maps common user prompts and engineering intents to the exact primar
 | "Implement approved spec", "Code feature", "Build ticket" | `studio-execute` (implement mode) | `studio-execute` (implement mode) ➔ `studio-review` (code mode) | Requirements fuzzy or unapproved |
 | "Parallel subagents", "Isolated worktrees", "Multi-agent PR" | `studio-execute` (spec-run mode) | `studio-execute` (spec-run mode) ➔ `studio-review` (code mode) | Single developer / single-file edit |
 | "Test-driven development", "Red-green-refactor", "Write tests" | `tdd` | `tdd` ➔ `studio-review` (code mode) | Throwaway exploratory spikes |
-| "Diagnose bug", "Fix failing test", "Flaky CI", "Crash" | `diagnosing-bugs` | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Trivial obvious syntax errors |
+| "Diagnose bug", "Fix failing test", "Flaky CI", "Crash" | `studio-debug` (loop mode) | `studio-debug` (loop mode) ➔ `tdd` ➔ `studio-review` (code mode) | Trivial obvious syntax errors |
 | "Review PR", "Review branch diff", "Check standards" | `studio-review` (code mode) | `studio-review` (code mode) | Writing new code or diagnosing bugs |
 | "Merge conflict", "Rebase conflict", "Fix conflict markers" | `studio-git` (conflicts mode) | `studio-git` (conflicts mode) ➔ `studio-review` (code mode) | Routine safe git rebases without conflicts |
 | "Prevent force push", "Block dangerous git", "Hard reset guard" | `studio-git` (safety mode) | `studio-git` (safety mode) | Safe git status or log commands |
 | "Setup issue tracker", "Configure triage labels", "Setup docs" | `setup-engineering-workflows` | `setup-engineering-workflows` | General npm package installation |
 | "Setup Husky", "lint-staged", "Prettier pre-commit hook" | `setup-pre-commit` | `setup-pre-commit` | Remote CI/CD pipeline automation |
-| "Triage incoming issues", "Author agent brief", "Out of scope" | `triage` | `triage` ➔ `studio-execute` (implement mode) | Internal tickets from studio-plan tickets mode |
+| "Triage incoming issues", "Author agent brief", "Out of scope" | `studio-debug` (triage mode) | `studio-debug` (triage mode) ➔ `studio-execute` (implement mode) | Internal tickets from studio-plan tickets mode |
 | "Map huge project", "Multi-session effort", "Fog of war" | `studio-plan` (map mode) | `studio-plan` (map mode) ➔ `studio-plan` (spec mode) | Small, single-session feature work |
 | "Interactive bash wizard", "Dashboard credentials setup" | `wizard` | `wizard` | Tasks the AI can execute directly |
 | "Train ML model", "LoRA fine-tuning", "vLLM serving" | `ai-engineering` | `ai-engineering` ➔ `ml-best-practices` | Standard CRUD backend development |

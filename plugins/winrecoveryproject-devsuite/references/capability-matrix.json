@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "0.6.0",
+  "version": "0.7.0",
   "coverageStatement": "39 source skills map to 214 function-level rows. Jobs/Tasks add independent integration workflows and local planning/selection tests. Provider execution remains separate.",
   "capabilities": [
     {
@@ -4839,6 +4839,66 @@
       ],
       "tests": [
         "tests/test_git_consolidation.py::test_git_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/diagnose-systematically/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "diagnose-systematically",
+      "function": "evidence-first root-cause diagnosis with falsifiable experiments",
+      "owner": "devsuite-debug",
+      "mode": "diagnose",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-debug)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-debug/modes/diagnose.md",
+        "references/consolidation/debug-matrix.json"
+      ],
+      "tests": [
+        "tests/test_debug_consolidation.py::test_debug_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/diagnosing-bugs/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "diagnosing-bugs",
+      "function": "tight automated red feedback loop, minimization, ranked hypotheses and tagged probes",
+      "owner": "devsuite-debug",
+      "mode": "loop",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-debug)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-debug/modes/loop.md",
+        "references/consolidation/debug-matrix.json"
+      ],
+      "tests": [
+        "tests/test_debug_consolidation.py::test_debug_matrix_union"
+      ],
+      "evidenceType": "static workflow contract and capability matrix",
+      "availability": "local",
+      "externalProvider": ""
+    },
+    {
+      "id": "plugin-skill-studio/triage/1",
+      "source": "plugin-skill-studio",
+      "originalSkill": "triage",
+      "function": "issue and external-PR triage into agent briefs or out-of-scope records",
+      "owner": "devsuite-debug",
+      "mode": "triage",
+      "implementation": "owned workflow (shared mode file, byte-identical with Plugin-Skill-Studio studio-debug)",
+      "runtime": [],
+      "references": [
+        "skills/devsuite-debug/modes/triage.md",
+        "references/consolidation/debug-matrix.json"
+      ],
+      "tests": [
+        "tests/test_debug_consolidation.py::test_debug_matrix_union"
       ],
       "evidenceType": "static workflow contract and capability matrix",
       "availability": "local",

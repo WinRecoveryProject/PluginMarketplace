@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "note": "Byte-identical in Plugin-Skill-Studio skills/studio-debug/modes and DevSuite skills/devsuite-debug/modes (including the diagnose/, loop/ and triage/ resource folders); hashed with LF line endings.",
+  "files": {
+    "diagnose.md": "b193d0ade8c70dfe8f8918c95a20654015995091838a166b74f59941ea39dcf4",
+    "diagnose/condition-based-waiting.md": "aceaade1baa9272e41651a68a5d7e9146509128c9cf580fa000329123f9e31be",
+    "diagnose/defense-in-depth.md": "667a2e741b3bb687bc6beafc51d93e5e2a8d962fbea8044350af5783139ba107",
+    "diagnose/root-cause-tracing.md": "41db81eb790c198f4c704c6697178197328a5f97a6f99d7f713b24efdde078a3",
+    "diagnose/scripts/find-polluter.sh": "99a8878678dbd7bba64bd961ab79a8e442ed6ef6b2f246878bc1cf62fd803204",
+    "loop.md": "30f574deea9c272421fad0d592c3458679dac0c38df7fde5a4882ceecd48a330",
+    "loop/scripts/hitl-loop.template.sh": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503",
+    "triage.md": "2f2caa4e71e4b796fa9e177c159106f394f70a2829a738eaff3a8604e015c1c0",
+    "triage/AGENT-BRIEF.md": "7f5f87fed3033df1b06e083c480f3e847b1fbb0647746b8a4c6a50f9f26ef44f",
+    "triage/OUT-OF-SCOPE.md": "1fbf9b432130c6380aa65813b55553cfda150309b27c595e183f8e335b8a190d"
+  }
+}

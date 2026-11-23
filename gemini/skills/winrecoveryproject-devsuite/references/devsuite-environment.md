@@ -1,6 +1,6 @@
 # Skill: devsuite-environment
 
-- Plugin: `winrecoveryproject-devsuite` (0.6.0)
+- Plugin: `winrecoveryproject-devsuite` (0.7.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-environment/SKILL.md`
 
 > Use for local/cloud development, repositories, packages, Docker, networking/VPN, desktop testing and environment repair.

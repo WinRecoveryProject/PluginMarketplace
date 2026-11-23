@@ -7,7 +7,7 @@ Source: `plugins/plugin-skill-studio`. Files outside the `skills/*` folders, emb
 ```json
 {
   "name": "plugin-skill-studio",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Self-contained local plugin and skill creation, discovery, evidence, evaluation, risk review, conversion and deterministic packaging. Host execution capabilities and explicit public lookups remain separate.",
   "author": {
     "name": "Zilvereyes"

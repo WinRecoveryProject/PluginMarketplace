@@ -47,7 +47,7 @@ When a user interacts with ChatGPT / Codex, follow this strict 4-step execution 
 | Scenario | Canonical Multi-Phase Pipeline | Phase Transition Trigger |
 |---|---|---|
 | **Greenfield Feature** | `studio-plan` (interview mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `studio-execute` (implement mode) ➔ `studio-review` (code mode) | User approves spec & ticket graph |
-| **Bug / Regression** | `diagnosing-bugs` ➔ `tdd` ➔ `studio-review` (code mode) | Red failure reproduced & minimal repro isolated |
+| **Bug / Regression** | `studio-debug` (loop mode) ➔ `tdd` ➔ `studio-review` (code mode) | Red failure reproduced & minimal repro isolated |
 | **Wide Refactoring** | `improve-codebase-architecture` ➔ `setup-ts-deep-modules` ➔ `studio-review` (code mode) | Visual architecture report approved |
 | **AI / ML Initiative** | `ai-engineering` ➔ `ml-best-practices` ➔ `studio-review` (code mode) | Naive baseline beaten & 95% CIs verified |
 | **Massive Initiative** | `studio-plan` (map mode) ➔ `studio-plan` (spec mode) ➔ `studio-plan` (tickets mode) ➔ `studio-execute` (spec-run mode) | Fog cleared & frontier tickets claimed |

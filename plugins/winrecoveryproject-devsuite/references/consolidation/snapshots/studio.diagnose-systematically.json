@@ -1,0 +1,15 @@
+{
+  "id": "studio.diagnose-systematically",
+  "root": "skills/diagnose-systematically",
+  "source": "Zilvereyes-Plugin-Studio@83da417",
+  "files": {
+    "SKILL.md": "0722181aa3bca35074b3c1542d5c4e85afa6f598969e612314a07a17e992328c",
+    "agents/openai.yaml": "50f70db23f086a2968fffbdfa69ccf25120505caaf2e3669a8f4dd12be201c53",
+    "assets/wrp-icon-128.png": "2accfc8ac8159a6e793af46cf6ab8ab31c3b2e6536cdd98a991203bfa7a3ade6",
+    "assets/wrp-icon-256.png": "855c1640fe5bff551dccf54f768222c8b98c0de7122a79167c32b30be7eea986",
+    "condition-based-waiting.md": "aceaade1baa9272e41651a68a5d7e9146509128c9cf580fa000329123f9e31be",
+    "defense-in-depth.md": "667a2e741b3bb687bc6beafc51d93e5e2a8d962fbea8044350af5783139ba107",
+    "find-polluter.sh": "99a8878678dbd7bba64bd961ab79a8e442ed6ef6b2f246878bc1cf62fd803204",
+    "root-cause-tracing.md": "2377724ee62c797153390da5c4b794e4ab54cbdb0f96311f5bc28a6c0e5b28b9"
+  }
+}

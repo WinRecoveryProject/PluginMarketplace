@@ -1,6 +1,6 @@
 # Skill: solve-efficiently
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/solve-efficiently/SKILL.md`
 
 > Routes multi-module work with progressive discovery, matched effort, and context economy. Use when boundaries are unclear, context must stay small, or a durable project map is needed.
@@ -18,7 +18,7 @@ Optimize for a correct, verified outcome per unit of context. Never reduce token
 Before acting, name four things in one compact checkpoint: required outcome; request mode (answer, diagnose, change, or monitor); constraints and state that must be preserved; evidence that would prove completion. Mode rules:
 
 - **Answer**: inspect enough evidence to respond; mutate nothing.
-- **Diagnose**: isolate the cause; invoke diagnose-systematically when reproduction or causality is non-trivial. Do not implement unless asked — diagnosis stays investigation-only at every intensity.
+- **Diagnose**: isolate the cause; invoke `studio-debug` (diagnose mode) when reproduction or causality is non-trivial. Do not implement unless asked — diagnosis stays investigation-only at every intensity.
 - **Change**: implement, verify, hand off.
 - **Monitor**: observe until the terminal condition or a real blocker.
 - Mixed modes keep their order: diagnose before changing, then verify.
@@ -66,7 +66,7 @@ When the request names a bounded behavior, the module is easy to locate, and nea
 - For defects, read root `REPRODUCTION*`, `ISSUE*`, `BUG*` files first; then read only referenced or identifier-matched files while reproducing. Prefer a direct language-level reproduction over dynamically quoted shell scripts; a shell-quoting mistake is not architectural ambiguity — retry the narrow command.
 - Do not repeat unchanged searches, re-read unchanged files, rerun green commands for reassurance, run unrelated test frameworks because the repo is small, or clean caches unless a failing check makes it material.
 
-Route by domain: UI creation, redesign, or design-quality claims → design-ui before implementing; browser behavior evidence → automate-ui; non-trivial defect or performance regression with undemonstrated cause → diagnose-systematically first. When any specialized installed skill directly matches the task, use it rather than reproducing its domain guidance here.
+Route by domain: UI creation, redesign, or design-quality claims → design-ui before implementing; browser behavior evidence → automate-ui; non-trivial defect or performance regression with undemonstrated cause → `studio-debug` (diagnose mode) first. When any specialized installed skill directly matches the task, use it rather than reproducing its domain guidance here.
 
 ##### Delegation
 

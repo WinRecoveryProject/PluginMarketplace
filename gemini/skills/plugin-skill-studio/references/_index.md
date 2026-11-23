@@ -38,6 +38,8 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `plugin.json` | `references/_plugin.md#file-pluginjson` |
 | `PRIVACY.md` | `references/_plugin.md#file-privacymd` |
 | `README.md` | `references/_plugin.md#file-readmemd` |
+| `references/consolidation/debug-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationdebug-matrixjson` |
+| `references/consolidation/debug-sources.json` | `references/_plugin-references.md#file-referencesconsolidationdebug-sourcesjson` |
 | `references/consolidation/execute-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationexecute-matrixjson` |
 | `references/consolidation/execute-sources.json` | `references/_plugin-references.md#file-referencesconsolidationexecute-sourcesjson` |
 | `references/consolidation/git-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationgit-matrixjson` |
@@ -48,6 +50,7 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/consolidation/plan-sources.json` | `references/_plugin-references.md#file-referencesconsolidationplan-sourcesjson` |
 | `references/consolidation/review-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationreview-matrixjson` |
 | `references/consolidation/review-sources.json` | `references/_plugin-references.md#file-referencesconsolidationreview-sourcesjson` |
+| `references/consolidation/shared-debug-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-debug-modesjson` |
 | `references/consolidation/shared-execute-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-execute-modesjson` |
 | `references/consolidation/shared-git-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-git-modesjson` |
 | `references/consolidation/shared-plan-modes.json` | `references/_plugin-references.md#file-referencesconsolidationshared-plan-modesjson` |
@@ -61,6 +64,8 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/consolidation/snapshots/sources/studio.code-review.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiocode-reviewjson` |
 | `references/consolidation/snapshots/sources/studio.create-plugin.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiocreate-pluginjson` |
 | `references/consolidation/snapshots/sources/studio.create-skill.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiocreate-skilljson` |
+| `references/consolidation/snapshots/sources/studio.diagnose-systematically.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiodiagnose-systematicallyjson` |
+| `references/consolidation/snapshots/sources/studio.diagnosing-bugs.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiodiagnosing-bugsjson` |
 | `references/consolidation/snapshots/sources/studio.dispatching-parallel-agents.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiodispatching-parallel-agentsjson` |
 | `references/consolidation/snapshots/sources/studio.evidence-matrix.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioevidence-matrixjson` |
 | `references/consolidation/snapshots/sources/studio.execute-durably.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioexecute-durablyjson` |
@@ -97,6 +102,7 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `references/consolidation/snapshots/sources/studio.to-questionnaire.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioto-questionnairejson` |
 | `references/consolidation/snapshots/sources/studio.to-spec.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioto-specjson` |
 | `references/consolidation/snapshots/sources/studio.to-tickets.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioto-ticketsjson` |
+| `references/consolidation/snapshots/sources/studio.triage.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiotriagejson` |
 | `references/consolidation/snapshots/sources/studio.update-plugin.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioupdate-pluginjson` |
 | `references/consolidation/snapshots/sources/studio.using-git-worktrees.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudiousing-git-worktreesjson` |
 | `references/consolidation/snapshots/sources/studio.verification-before-completion.json` | `references/_plugin-references.md#file-referencesconsolidationsnapshotssourcesstudioverification-before-completionjson` |
@@ -172,21 +178,6 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/design-ui/references/ui-copy.md` | `references/design-ui.md#file-referencesui-copymd` |
 | `skills/design-ui/scripts/capture-static-page.cjs` | `references/design-ui.md#file-scriptscapture-static-pagecjs` |
 | `skills/design-ui/SKILL.md` | `references/design-ui.md` |
-| `skills/diagnose-systematically` | `references/diagnose-systematically.md` |
-| `skills/diagnose-systematically/agents/openai.yaml` | `references/diagnose-systematically.md#file-agentsopenaiyaml` |
-| `skills/diagnose-systematically/assets/wrp-icon-128.png` | `references/diagnose-systematically.md#file-assetswrp-icon-128png` |
-| `skills/diagnose-systematically/assets/wrp-icon-256.png` | `references/diagnose-systematically.md#file-assetswrp-icon-256png` |
-| `skills/diagnose-systematically/condition-based-waiting.md` | `references/diagnose-systematically.md#file-condition-based-waitingmd` |
-| `skills/diagnose-systematically/defense-in-depth.md` | `references/diagnose-systematically.md#file-defense-in-depthmd` |
-| `skills/diagnose-systematically/find-polluter.sh` | `references/diagnose-systematically.md#file-find-pollutersh` |
-| `skills/diagnose-systematically/root-cause-tracing.md` | `references/diagnose-systematically.md#file-root-cause-tracingmd` |
-| `skills/diagnose-systematically/SKILL.md` | `references/diagnose-systematically.md` |
-| `skills/diagnosing-bugs` | `references/diagnosing-bugs.md` |
-| `skills/diagnosing-bugs/agents/openai.yaml` | `references/diagnosing-bugs.md#file-agentsopenaiyaml` |
-| `skills/diagnosing-bugs/assets/wrp-icon-128.png` | `references/diagnosing-bugs.md#file-assetswrp-icon-128png` |
-| `skills/diagnosing-bugs/assets/wrp-icon-256.png` | `references/diagnosing-bugs.md#file-assetswrp-icon-256png` |
-| `skills/diagnosing-bugs/scripts/hitl-loop.template.sh` | `references/diagnosing-bugs.md#file-scriptshitl-looptemplatesh` |
-| `skills/diagnosing-bugs/SKILL.md` | `references/diagnosing-bugs.md` |
 | `skills/domain-modeling` | `references/domain-modeling.md` |
 | `skills/domain-modeling/ADR-FORMAT.md` | `references/domain-modeling.md#file-adr-formatmd` |
 | `skills/domain-modeling/agents/openai.yaml` | `references/domain-modeling.md#file-agentsopenaiyaml` |
@@ -359,6 +350,23 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/studio-build/scripts/validate_plugin.py` | `references/studio-build.md#file-scriptsvalidate_pluginpy` |
 | `skills/studio-build/scripts/windows_directory.py` | `references/studio-build.md#file-scriptswindows_directorypy` |
 | `skills/studio-build/SKILL.md` | `references/studio-build.md` |
+| `skills/studio-debug` | `references/studio-debug.md` |
+| `skills/studio-debug/agents/openai.yaml` | `references/studio-debug.md#file-agentsopenaiyaml` |
+| `skills/studio-debug/assets/triage-wrp-icon-128.png` | `references/studio-debug.md#file-assetstriage-wrp-icon-128png` |
+| `skills/studio-debug/assets/triage-wrp-icon-256.png` | `references/studio-debug.md#file-assetstriage-wrp-icon-256png` |
+| `skills/studio-debug/assets/wrp-icon-128.png` | `references/studio-debug.md#file-assetswrp-icon-128png` |
+| `skills/studio-debug/assets/wrp-icon-256.png` | `references/studio-debug.md#file-assetswrp-icon-256png` |
+| `skills/studio-debug/modes/diagnose.md` | `references/studio-debug.md#file-modesdiagnosemd` |
+| `skills/studio-debug/modes/diagnose/condition-based-waiting.md` | `references/studio-debug.md#file-modesdiagnosecondition-based-waitingmd` |
+| `skills/studio-debug/modes/diagnose/defense-in-depth.md` | `references/studio-debug.md#file-modesdiagnosedefense-in-depthmd` |
+| `skills/studio-debug/modes/diagnose/root-cause-tracing.md` | `references/studio-debug.md#file-modesdiagnoseroot-cause-tracingmd` |
+| `skills/studio-debug/modes/diagnose/scripts/find-polluter.sh` | `references/studio-debug.md#file-modesdiagnosescriptsfind-pollutersh` |
+| `skills/studio-debug/modes/loop.md` | `references/studio-debug.md#file-modesloopmd` |
+| `skills/studio-debug/modes/loop/scripts/hitl-loop.template.sh` | `references/studio-debug.md#file-modesloopscriptshitl-looptemplatesh` |
+| `skills/studio-debug/modes/triage.md` | `references/studio-debug.md#file-modestriagemd` |
+| `skills/studio-debug/modes/triage/AGENT-BRIEF.md` | `references/studio-debug.md#file-modestriageagent-briefmd` |
+| `skills/studio-debug/modes/triage/OUT-OF-SCOPE.md` | `references/studio-debug.md#file-modestriageout-of-scopemd` |
+| `skills/studio-debug/SKILL.md` | `references/studio-debug.md` |
 | `skills/studio-execute` | `references/studio-execute.md` |
 | `skills/studio-execute/agents/openai.yaml` | `references/studio-execute.md#file-agentsopenaiyaml` |
 | `skills/studio-execute/assets/dispatching-parallel-agents-wrp-icon-128.png` | `references/studio-execute.md#file-assetsdispatching-parallel-agents-wrp-icon-128png` |
@@ -483,13 +491,6 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `skills/test-driven-development/assets/wrp-icon-256.png` | `references/test-driven-development.md#file-assetswrp-icon-256png` |
 | `skills/test-driven-development/SKILL.md` | `references/test-driven-development.md` |
 | `skills/test-driven-development/writing-good-tests.md` | `references/test-driven-development.md#file-writing-good-testsmd` |
-| `skills/triage` | `references/triage.md` |
-| `skills/triage/AGENT-BRIEF.md` | `references/triage.md#file-agent-briefmd` |
-| `skills/triage/agents/openai.yaml` | `references/triage.md#file-agentsopenaiyaml` |
-| `skills/triage/assets/wrp-icon-128.png` | `references/triage.md#file-assetswrp-icon-128png` |
-| `skills/triage/assets/wrp-icon-256.png` | `references/triage.md#file-assetswrp-icon-256png` |
-| `skills/triage/OUT-OF-SCOPE.md` | `references/triage.md#file-out-of-scopemd` |
-| `skills/triage/SKILL.md` | `references/triage.md` |
 | `skills/wait-what` | `references/wait-what.md` |
 | `skills/wait-what/agents/openai.yaml` | `references/wait-what.md#file-agentsopenaiyaml` |
 | `skills/wait-what/assets/wrp-icon-128.png` | `references/wait-what.md#file-assetswrp-icon-128png` |
@@ -595,6 +596,7 @@ Every file and skill folder of `plugins/plugin-skill-studio` and where its conte
 | `tests/consolidation-triggers.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsconsolidation-triggerstestmjs` |
 | `tests/consolidation.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsconsolidationtestmjs` |
 | `tests/conversion.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsconversiontestmjs` |
+| `tests/debug-consolidation.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsdebug-consolidationtestmjs` |
 | `tests/desktop-routing.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsdesktop-routingtestmjs` |
 | `tests/desktop.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testsdesktoptestmjs` |
 | `tests/eval-context.test.mjs` | companion `plugin-skill-studio-source`: `references/_plugin-tests.md#file-testseval-contexttestmjs` |

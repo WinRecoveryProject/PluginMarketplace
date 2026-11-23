@@ -1,0 +1,12 @@
+{
+  "id": "devsuite.devsuite-debug",
+  "root": "skills/devsuite-debug",
+  "source": "WinRecoveryProject-DevSuite@f2c5bc3",
+  "files": {
+    "SKILL.md": "6d6509e5d29f53d731197eef0c374fcd69b0d07bc4fa40ae3f1926c42c113291",
+    "agents/openai.yaml": "c9f3f5c65506061d0edfc615eb7e326dd4ad04ecb05eebe218f9a57a8809df3d",
+    "assets/icon.png": "d77bb05d6c8f8175f7bcb13d9427510a09361562842a7ea2be24ddc239ec19b6",
+    "assets/wrp-icon-128.png": "2accfc8ac8159a6e793af46cf6ab8ab31c3b2e6536cdd98a991203bfa7a3ade6",
+    "assets/wrp-icon-256.png": "855c1640fe5bff551dccf54f768222c8b98c0de7122a79167c32b30be7eea986"
+  }
+}

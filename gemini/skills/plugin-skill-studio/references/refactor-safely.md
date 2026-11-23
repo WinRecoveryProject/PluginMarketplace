@@ -1,6 +1,6 @@
 # Skill: refactor-safely
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/refactor-safely/SKILL.md`
 
 > Refactors working or legacy code without changing observable behavior, using characterization tests when needed. Use when code is messy, nested, duplicated, or uncovered.
@@ -11,7 +11,7 @@ Read [Studio policy](_plugin-references.md#file-referencesstudio-policymd) befor
 
 ### Refactor Safely
 
-Change how code reads without changing what it does, and land changes in untested code without breaking callers nobody can enumerate. solve-efficiently decides what to build; this skill governs how existing code is reshaped. Bug hunting belongs to diagnose-systematically.
+Change how code reads without changing what it does, and land changes in untested code without breaking callers nobody can enumerate. solve-efficiently decides what to build; this skill governs how existing code is reshaped. Bug hunting belongs to `studio-debug` (diagnose mode).
 
 #### The non-negotiable rule
 

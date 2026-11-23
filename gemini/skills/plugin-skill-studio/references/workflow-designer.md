@@ -1,6 +1,6 @@
 # Skill: workflow-designer
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/workflow-designer/SKILL.md`
 
 > Specify recurring operational, review, or content workflows with explicit triggers, inputs, actions, and ownership. Use when designing repeatable team routines, approval loops, release checklists, or automated processes — even if the user says "design a workflow for this". Do NOT use for one-off coding tasks.

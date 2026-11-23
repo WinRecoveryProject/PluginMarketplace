@@ -1,6 +1,6 @@
 # Skill: devsuite-handoff
 
-- Plugin: `winrecoveryproject-devsuite` (0.6.0)
+- Plugin: `winrecoveryproject-devsuite` (0.7.0)
 - Source: `plugins/winrecoveryproject-devsuite/skills/devsuite-handoff/SKILL.md`
 
 > Use when development was interrupted and must resume, or when the user requests an evidence-based session handoff and precise next step.

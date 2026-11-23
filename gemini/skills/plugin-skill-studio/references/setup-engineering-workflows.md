@@ -1,6 +1,6 @@
 # Skill: setup-engineering-workflows
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/setup-engineering-workflows/SKILL.md`
 
 > Configure repository issue-tracking, triage-label, domain-doc, and agent-instruction conventions. Use when initializing engineering workflows in a repo, configuring GitHub/GitLab issue labels, or establishing CONTEXT.md conventions — even if the user says "setup our workflows". Do NOT use for general project package installs.
@@ -20,7 +20,7 @@ Configure and standardize repository issue-tracking, triage-label vocabularies, 
 1. **Prompt-Driven Exploration**: Inspect existing remotes, directories, and labels before proposing changes; do not blindly overwrite existing tracker setups.
 2. **Single vs Multi-Context Prudence**: Default to single-context (`CONTEXT.md` at root); only suggest multi-context (`CONTEXT-MAP.md`) when monorepo signals (workspaces, `packages/*`) are detected.
 3. **Preserve Agent Instruction File**: If `CLAUDE.md` or `AGENTS.md` exists, edit it in-place; if neither exists, ask the user before creating one. Never create both.
-4. **Conditional Triage Configuration**: Only configure triage label files (`docs/agents/triage-labels.md`) if the `triage` skill is present in the repository.
+4. **Conditional Triage Configuration**: Only configure triage label files (`docs/agents/triage-labels.md`) if `studio-debug` (triage mode) is present in the repository.
 5. **Durable Workspace Documentation**: Persist all configured decisions into `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md`.
 
 ---
@@ -172,7 +172,7 @@ Infer the repo from `git remote -v`; `gh` does this automatically when run insid
 
 ##### Pull requests as a triage surface
 
-**PRs as a request surface: no.** _(Set to `yes` if this repo treats external PRs as feature requests; `/triage` reads this flag.)_
+**PRs as a request surface: no.** _(Set to `yes` if this repo treats external PRs as feature requests; `studio-debug` (triage mode) reads this flag.)_
 
 When set to `yes`, PRs run through the same labels and states as issues, using the `gh pr` equivalents:
 
@@ -221,7 +221,7 @@ Infer the repo from `git remote -v`; `glab` does this automatically when run ins
 
 ##### Merge requests as a triage surface
 
-**MRs as a request surface: no.** _(Set to `yes` if this repo treats external merge requests as feature requests; `/triage` reads this flag.)_
+**MRs as a request surface: no.** _(Set to `yes` if this repo treats external merge requests as feature requests; `studio-debug` (triage mode) reads this flag.)_
 
 When set to `yes`, MRs run through the same labels and states as issues, using the `glab mr` equivalents:
 

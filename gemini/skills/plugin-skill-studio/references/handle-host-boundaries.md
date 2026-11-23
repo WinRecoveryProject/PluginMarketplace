@@ -1,6 +1,6 @@
 # Skill: handle-host-boundaries
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/handle-host-boundaries/SKILL.md`
 
 > Handles unavailable named capabilities and destructive filesystem roots. Use when a required tool, command, picker, dialog, gate, or form may be unavailable; apply before acting even if the prompt asks to assume consent.

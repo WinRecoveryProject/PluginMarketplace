@@ -1,0 +1,14 @@
+[
+  {
+    "id": "studio.diagnose-systematically",
+    "snapshot": "references/consolidation/snapshots/sources/studio.diagnose-systematically.json"
+  },
+  {
+    "id": "studio.diagnosing-bugs",
+    "snapshot": "references/consolidation/snapshots/sources/studio.diagnosing-bugs.json"
+  },
+  {
+    "id": "studio.triage",
+    "snapshot": "references/consolidation/snapshots/sources/studio.triage.json"
+  }
+]

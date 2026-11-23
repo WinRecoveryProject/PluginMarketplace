@@ -1,6 +1,6 @@
 # Skill: studio-review
 
-- Plugin: `plugin-skill-studio` (0.8.0)
+- Plugin: `plugin-skill-studio` (0.9.0)
 - Source: `plugins/plugin-skill-studio/skills/studio-review/SKILL.md`
 
 > Use when reviewing changed code, a branch, diff or pull request against standards and spec intent (even if the user just says "review this"); dispatching a bounded read-only reviewer before merge; receiving review feedback and pushing back with evidence; deciding which parts of a reviewed skill or plugin need human attention; gating any claim that work is complete, fixed or passing on fresh verification output; or independently auditing a finished delivery, completion claim or release readiness. Do NOT use for authoring new code, diagnosing failing runtime bugs, or evaluating skills and plugins (use studio-quality).

@@ -1,0 +1,12 @@
+{
+  "id": "studio.diagnosing-bugs",
+  "root": "skills/diagnosing-bugs",
+  "source": "Zilvereyes-Plugin-Studio@83da417",
+  "files": {
+    "SKILL.md": "a1d0e3241330fb767b839203d6884f7117ce3c5b8e6cc2665fa4b406d30889ca",
+    "agents/openai.yaml": "efb9b3aea40a50161a5497dc6b9fa716d2ce2764ff4ceeadf416b31548d4cca3",
+    "assets/wrp-icon-128.png": "2accfc8ac8159a6e793af46cf6ab8ab31c3b2e6536cdd98a991203bfa7a3ade6",
+    "assets/wrp-icon-256.png": "855c1640fe5bff551dccf54f768222c8b98c0de7122a79167c32b30be7eea986",
+    "scripts/hitl-loop.template.sh": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503"
+  }
+}

@@ -1,4 +1,4 @@
-# WinRecoveryProject DevSuite 0.6.0
+# WinRecoveryProject DevSuite 0.7.0
 
 One owned development workflow combines planning/coordination, implementation,
 debugging, testing, independent review, quality gates, security assessment/remediation,
@@ -72,6 +72,8 @@ Version 0.2.1 preserves explicit remote-task and background-job intent when the
 workload contains test/fix/implement verbs. Code-maintenance requests keep their
 normal development route; negated lifecycle clauses do not start an execution
 workflow. Route suggestions never authorize execution.
+
+Version 0.7.0 extends `devsuite-debug` with diagnose, loop and triage modes, including their resources under `modes/diagnose/`, `modes/loop/` and `modes/triage/`, byte-identical with Plugin-Skill-Studio `studio-debug`. The existing investigation stays as the `investigate` mode. `references/consolidation/debug-matrix.json` maps every absorbed capability with none dropped, including `codex-dev-workflows:bug-investigation`, which stays unchanged in its own package. The workflow count stays at 14.
 
 Version 0.6.0 adds `devsuite-git` (14 workflows): worktree, finish, conflicts and safety modes, including the git guardrail scripts under `modes/safety/`, byte-identical with Plugin-Skill-Studio `studio-git`; `references/consolidation/git-matrix.json` maps every absorbed capability with none dropped, and `devsuite-implement` now points to it for worktrees and branch finishing. Version 0.5.0 consolidates execution: `devsuite-implement` gains execute, subagent, implement, spec-run, parallel and durable modes whose files, including the subagent prompts, references and bash scripts under `modes/subagent/`, are byte-identical with Plugin-Skill-Studio `studio-execute`; its own implementation text becomes the `build` mode, and `references/consolidation/execute-matrix.json` maps every absorbed capability with none dropped. Version 0.4.0 consolidates planning: `devsuite-planning` gains discover, interview, spec, plan, tickets, questions, goal and map modes whose files are byte-identical with Plugin-Skill-Studio `studio-plan`, while its own planning and coordination text becomes the `project` mode; `references/consolidation/plan-matrix.json` maps every absorbed capability, and only Studio's Node browser companion is an approved drop. Version 0.3.0 consolidates review: `devsuite-review` absorbs `devsuite-quality` (now its `gate` mode) and adds `request`, `receive`, `decide` and `verify` modes whose files are byte-identical with Plugin-Skill-Studio `studio-review`; `references/consolidation/review-matrix.json` maps every absorbed capability. Version 0.2.7 lists available and unavailable saved environment configurations through the existing Codex Tasks connection. An unnamed selection requires one runnable candidate. The attached Cloud Environment desktop uses its own existing runtime access.
 
